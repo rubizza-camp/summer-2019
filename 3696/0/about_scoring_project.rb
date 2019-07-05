@@ -28,30 +28,34 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+def pop(dice)
+  count = 0
+  top = dice.first
+  while dice.first == top
+    count += 1
+    dice.shift
+  end
+  [dice, count]
+end
 
 def score(dice)
-  # You need to write this method
   dice = dice.sort
   sum = 0
   while dice.length.positive?
-    count = 0
-    top = dice.first
-    while dice.first == top
-      count += 1
-      dice.shift
-    end
-    if count >= 3
-      count = [0, count - 3].max
-      sum += if top == 1
-               1000
-             else
-               100 * top
-             end
-    end
-    sum += count * 100 if top == 1
-    sum += count * 50 if top == 5
-
+    dice, count = pop dice
+    sum += aggregate(dice.first, count)
   end
+  sum
+end
+
+def aggregate(top, count)
+  sum = 0
+  if count >= 3
+    count = [0, count - 3].max
+    sum += (top == 1 ? 1000 : 100 * top)
+  end
+  sum += count * 100 if top == 1
+  sum += count * 50 if top == 5
   sum
 end
 class AboutScoringProject < Neo::Koan

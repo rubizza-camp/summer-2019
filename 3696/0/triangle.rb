@@ -13,20 +13,26 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
+def triangle(a_side, b_side, c_side)
   # WRITE THIS CODE
-  sum = a + b + c
-  minimum = [a, b, c].min
-  maximum = [a, b, c].max
+  sum = a_side + b_side + c_side
+  minimum = [a_side, b_side, c_side].min
+  maximum = [a_side, b_side, c_side].max
   raise TriangleError unless minimum.positive? && (maximum < sum - maximum)
 
-  if (a == b) && (b == c)
-    return :equilateral
-  elsif (a == b) || (b == c) || (a == c)
-    return :isosceles
-  else
-    return :scalene
-  end
+  return :equilateral if equilateral?
+
+  return :isosceles if isosceles?
+
+  :scalene
+end
+
+def isosceles?(a_side, b_side, c_side)
+  (a_side == b_side) || (b_side == c_side) || (a_side == c_side)
+end
+
+def equilateral?(a_side, b_side, c_side)
+  (a_side == b_side) && (b_side == c_side)
 end
 
 # Error class used in part 2.  No need to change this code.
