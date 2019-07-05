@@ -20,38 +20,6 @@ Some, however, require you to supply your own answer.  If you see the method +__
 double underscore) listed, it is a hint to you to supply your own code in order to
 make it work correctly.
 
-== Installing Ruby
-
-If you do not have Ruby setup, please visit http://ruby-lang.org/en/downloads/ for
-operating specific instructions.  In order to run the koans you need +ruby+ and
-+rake+ installed. To check your installations simply type:
-
-*nix platforms from any terminal window:
-
-   [~] $ ruby --version
-   [~] $ rake --version
-
-Windows from the command prompt (+cmd.exe+)
-
-   c:\ruby --version
-   c:\rake --version
-
-If you don't have +rake+ installed, just run <code>gem install rake</code>
-
-Any response for Ruby with a version number greater than 1.8 is fine (should be
-around 1.8.6 or more). Any version of +rake+ will do.
-
-== Generating the Koans
-
-A fresh checkout will not include the koans, you will need to generate
-them.
-
-    [ruby_koans] $ rake gen                       # generates the koans directory
-
-If you need to regenerate the koans, thus wiping your current `koans`,
-
-    [ruby_koans] $ rake regen                     # regenerates the koans directory, wiping the original
-
 == The Path To Enlightenment
 
 You can run the tests through +rake+ or by calling the file itself (+rake+ is the
@@ -61,11 +29,6 @@ recommended way to run them as we might build more functionality into this task)
 
     [ruby_koans] $ rake                           # runs the default target :walk_the_path
     [ruby_koans] $ ruby path_to_enlightenment.rb  # simply call the file directly
-
-Windows is the same thing
-
-    c:\ruby_koans\rake                             # runs the default target :walk_the_path
-    c:\ruby_koans\ruby path_to_enlightenment.rb    # simply call the file directly
 
 === Red, Green, Refactor
 
@@ -142,14 +105,14 @@ If you prefer, you can keep the koans running in the background so that after yo
 make a change in your editor, the koans will immediately run again. This will
 hopefully keep your focus on learning Ruby instead of on the command line.
 
-Install the Ruby gem (library) called +watchr+ and then ask it to
+Install the Ruby gem (library) called +observr+ and then ask it to
 "watch" the koans for changes:
 
     cd ruby_koans
     rake
     # decide to run rake automatically from now on as you edit
-    gem install watchr
-    watchr ./koans/koans.watchr
+    gem install observr
+    observr koans.watchr
 
 == Inspiration
 
