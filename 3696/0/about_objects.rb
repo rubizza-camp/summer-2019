@@ -4,7 +4,7 @@ class AboutObjects < Neo::Koan
   def test_everything_is_an_object
     assert_equal true, 1.is_a?(Object)
     assert_equal true, 1.5.is_a?(Object)
-    assert_equal true, "string".is_a?(Object)
+    assert_equal true, 'string'.is_a?(Object)
     assert_equal true, nil.is_a?(Object)
     assert_equal true, Object.is_a?(Object)
   end
@@ -38,7 +38,7 @@ class AboutObjects < Neo::Koan
 
     # THINK ABOUT IT:
     # What pattern do the object IDs for small integers follow?
-    #2*int+1
+    # 2*int+1
   end
 
   def test_clone_creates_a_different_object

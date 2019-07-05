@@ -14,16 +14,15 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-
   # WRITE THIS CODE
   sum = a + b + c
   minimum = [a, b, c].min
   maximum = [a, b, c].max
-  raise TriangleError unless minimum.positive? and maximum < sum - maximum
+  raise TriangleError unless minimum.positive? && (maximum < sum - maximum)
 
-  if a == b and b == c
+  if (a == b) && (b == c)
     return :equilateral
-  elsif a == b or b == c or a == c
+  elsif (a == b) || (b == c) || (a == c)
     return :isosceles
   else
     return :scalene
