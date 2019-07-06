@@ -43,11 +43,11 @@ class AboutScope < Neo::Koan
   end
 
   def test_nested_string_is_not_the_same_as_the_system_string
-    assert_equal __, String == "HI".class
+    assert_equal __, String == 'HI'.class
   end
 
   def test_use_the_prefix_scope_operator_to_force_the_global_scope
-    assert_equal __, ::String == "HI".class
+    assert_equal __, ::String == 'HI'.class
   end
 
   # ------------------------------------------------------------------
@@ -64,12 +64,12 @@ class AboutScope < Neo::Koan
 
   def test_class_names_are_just_constants
     assert_equal __, MyString == ::String
-    assert_equal __, MyString == "HI".class
+    assert_equal __, MyString == 'HI'.class
   end
 
   def test_constants_can_be_looked_up_explicitly
-    assert_equal __, PI == AboutScope.const_get("PI")
-    assert_equal __, MyString == AboutScope.const_get("MyString")
+    assert_equal __, PI == AboutScope.const_get('PI')
+    assert_equal __, MyString == AboutScope.const_get('MyString')
   end
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module

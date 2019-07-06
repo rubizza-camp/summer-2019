@@ -1,3 +1,5 @@
+# rubocop:disable all
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Greed is a dice game where you roll up to five dice to accumulate
@@ -31,11 +33,27 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   score = 0
+  hh = Hash.new(0)
 
   dice.each do |step|
-    score += step * 10 if step == 5
-    score += step * 100 if step == 1
+    hh[step] += 1
   end
+
+  hh.each do |key, value|
+    if key == 1 && value >= 3
+      score += 1000
+      value -= 3
+    end
+
+    if key != 1 && value >= 3
+      score += key * 100
+      value -= 3
+    end
+
+    score += value * 100 if key == 1 && value <= 2
+    score += value * 50 if key == 5 && value <= 2
+  end
+
   score
 end
 

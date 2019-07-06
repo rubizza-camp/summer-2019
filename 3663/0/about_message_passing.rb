@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutMessagePassing < Neo::Koan
-
   class MessageCatcher
     def caught?
       true
@@ -23,9 +22,9 @@ class AboutMessagePassing < Neo::Koan
   def test_methods_can_be_invoked_more_dynamically
     mc = MessageCatcher.new
 
-    assert mc.send("caught?")
-    assert mc.send("caught" + __ )    # What do you need to add to the first string?
-    assert mc.send("CAUGHT?".____ )      # What would you need to do to the string?
+    assert mc.send('caught?')
+    assert mc.send('caught' + __) # What do you need to add to the first string?
+    assert mc.send('CAUGHT?'.____) # What would you need to do to the string?
   end
 
   def test_send_with_underscores_will_also_send_messages
@@ -113,8 +112,8 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
-    def method_missing(method_name, *args, &block)
-      "Someone called #{method_name} with <#{args.join(", ")}>"
+    def method_missing(method_name, *args)
+      "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
 
@@ -123,7 +122,7 @@ class AboutMessagePassing < Neo::Koan
 
     assert_equal __, catcher.foobar
     assert_equal __, catcher.foobaz(1)
-    assert_equal __, catcher.sum(1,2,3,4,5,6)
+    assert_equal __, catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
   def test_catching_messages_makes_respond_to_lie
@@ -139,8 +138,8 @@ class AboutMessagePassing < Neo::Koan
 
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
-      if method_name.to_s[0,3] == "foo"
-        "Foo to you too"
+      if method_name.to_s[0, 3] == 'foo'
+        'Foo to you too'
       else
         super(method_name, *args, &block)
       end
@@ -167,7 +166,7 @@ class AboutMessagePassing < Neo::Koan
   # (note: just reopening class from above)
   class WellBehavedFooCatcher
     def respond_to?(method_name)
-      if method_name.to_s[0,3] == "foo"
+      if method_name.to_s[0, 3] == 'foo'
         true
       else
         super(method_name)
@@ -181,5 +180,4 @@ class AboutMessagePassing < Neo::Koan
     assert_equal __, catcher.respond_to?(:foo_bar)
     assert_equal __, catcher.respond_to?(:something_else)
   end
-
 end
