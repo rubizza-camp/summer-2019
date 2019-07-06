@@ -70,12 +70,13 @@ class AboutConstants < Neo::Koan
 
   # In the scope
 
-  class MyAnimals::Oyster < Animal
-    def legs_in_oyster
-      LEGS
+  class MyAnimals
+    class Oyster < Animal
+      def legs_in_oyster
+        LEGS
+      end
     end
   end
-
   def test_who_wins_with_explicit_scoping_on_class_definition
     assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
   end

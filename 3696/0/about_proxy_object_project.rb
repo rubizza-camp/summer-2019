@@ -23,6 +23,11 @@ class Proxy
   def method_missing(method_name, *args, &block)
     @messages.append(method_name)
     @object.__send__(method_name, *args, &block)
+    super
+  end
+
+  def respond_to_missing?(method_name, *args)
+    @object.respond_to?(method_name, *args) || super
   end
 
   def called?(sym)

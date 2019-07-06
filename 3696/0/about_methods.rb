@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a, b)
-  a + b
+def my_global_method(first, second)
+  first + second
 end
 
 class AboutMethods < Neo::Koan
@@ -17,7 +17,7 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
+    eval('assert_equal(5, my_global_method(2, 3))', binding, __FILE__, __LINE__) # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -45,8 +45,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b = :default_value)
-    [a, b]
+  def method_with_defaults(first, second = :default_value)
+    [first, second]
   end
 
   def test_calling_with_default_values
@@ -92,8 +92,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(first, second)
+    first * second
   end
 
   def test_calling_methods_in_same_class
@@ -119,7 +119,7 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       my_private_method
     end
-    assert_match /private method/, exception.message
+    assert_match(/private method/, exception.message)
   end
 
   # ------------------------------------------------------------------

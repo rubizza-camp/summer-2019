@@ -115,6 +115,10 @@ class AboutMessagePassing < Neo::Koan
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
+
+    def respond_to_missing?(_method_name, _include_private = false)
+      true
+    end
   end
 
   def test_all_messages_are_caught
@@ -143,6 +147,10 @@ class AboutMessagePassing < Neo::Koan
       else
         super(method_name, *args, &block)
       end
+    end
+
+    def respond_to_missing?(_method_name, _include_private = false)
+      true
     end
   end
 
