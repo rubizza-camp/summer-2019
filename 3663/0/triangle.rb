@@ -13,7 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
+def triangle(a_side, b_side, c_side)
   # WRITE THIS CODE
 end
 
