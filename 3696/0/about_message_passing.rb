@@ -135,7 +135,7 @@ class AboutMessagePassing < Neo::Koan
     assert_nothing_raised do
       catcher.any_method
     end
-    assert_equal false, catcher.respond_to?(:any_method)
+    assert_equal true, catcher.respond_to?(:any_method)
   end
 
   # ------------------------------------------------------------------
@@ -186,6 +186,6 @@ class AboutMessagePassing < Neo::Koan
     catcher = WellBehavedFooCatcher.new
 
     assert_equal true, catcher.respond_to?(:foo_bar)
-    assert_equal false, catcher.respond_to?(:something_else)
+    assert_equal true, catcher.respond_to?(:something_else)
   end
 end

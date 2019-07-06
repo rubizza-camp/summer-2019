@@ -28,6 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+
 def pop(dice)
   count = 0
   top = dice.first
@@ -35,15 +36,15 @@ def pop(dice)
     count += 1
     dice.shift
   end
-  [dice, count]
+  [dice, count, top]
 end
 
 def score(dice)
   dice = dice.sort
   sum = 0
   while dice.length.positive?
-    dice, count = pop dice
-    sum += aggregate(dice.first, count)
+    dice, count, top = pop dice
+    sum += aggregate(top, count)
   end
   sum
 end

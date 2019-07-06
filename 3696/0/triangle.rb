@@ -20,9 +20,9 @@ def triangle(a_side, b_side, c_side)
   maximum = [a_side, b_side, c_side].max
   raise TriangleError unless minimum.positive? && (maximum < sum - maximum)
 
-  return :equilateral if equilateral?
+  return :equilateral if equilateral?(a_side, b_side, c_side)
 
-  return :isosceles if isosceles?
+  return :isosceles if isosceles?(a_side, b_side, c_side)
 
   :scalene
 end

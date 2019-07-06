@@ -50,9 +50,8 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name', binding, __FILE__, __LINE__) # string version
-    style_pleaser = proc { @name }
-    assert_equal 'Fido', fido.instance_eval(style_pleaser) # block version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal 'Fido', fido.instance_eval{ @name } # block version
   end
 
   # ------------------------------------------------------------------
