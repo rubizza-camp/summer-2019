@@ -1,10 +1,10 @@
-# rubocop:disable all
+# rubocop:disable Metrics/ClassLength, Lint/MissingCopEnableDirective, Naming/HeredocDelimiterNaming, Lint/UselessAssignment, Lint/InterpolationCheck, Metrics/LineLength, Lint/UnneededCopDisableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
-    string = "Hello, World"
+    string = 'Hello, World'
     assert_equal true, string.is_a?(String)
   end
 
@@ -15,12 +15,12 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
-    assert_equal %(He said, "Go Away."), string
+    assert_equal 'He said, "Go Away."', string
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
-    assert_equal %(Don't), string
+    assert_equal 'Don\'t', string
   end
 
   def test_use_backslash_for_those_hard_cases
@@ -98,12 +98,13 @@ It was the worst of times.
     hi = original_string
     there = 'World'
     hi << there
-    assert_equal 'Hello, World', original_string
+    assert_equal hi, original_string
 
     # THINK ABOUT IT:
     #
     # Ruby programmers tend to favor the shovel operator (<<) over the
     # plus equals operator (+=) when building up strings.  Why?
+    # It's more beautiful and changes the original string, logically.
   end
 
   def test_double_quoted_string_interpret_escape_characters
@@ -119,7 +120,7 @@ It was the worst of times.
   def test_single_quotes_sometimes_interpret_escape_characters
     string = '\\\''
     assert_equal 2, string.size
-    assert_equal %(\\'), string
+    assert_equal "\\'", string
   end
 
   def test_double_quoted_strings_interpolate_variables
@@ -131,7 +132,7 @@ It was the worst of times.
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = 'The value is #{value}'
-    assert_equal %(The value is \#{value}), string
+    assert_equal 'The value is #{value}', string
   end
 
   def test_any_ruby_expression_may_be_interpolated
@@ -150,14 +151,15 @@ It was the worst of times.
     assert_equal 'a', string[1]
 
     # Surprised?
+    # Meh
   end
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 97, 'a'
+      assert_equal 'a', 'a'
       assert_equal true, 'a' == 97
 
-      assert_equal __, ('a' + 1) == 'b'
+      assert_equal true, ('a' + 1) == 'b'
     end
   end
 
@@ -193,7 +195,7 @@ It was the worst of times.
     a = 'a string'
     b = 'a string'
 
-    assert_equal true, a == b
+    assert_equal true, a           == b
     assert_equal false, a.object_id == b.object_id
   end
 end
