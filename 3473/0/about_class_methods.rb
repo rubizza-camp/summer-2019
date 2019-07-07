@@ -28,15 +28,18 @@ class AboutClassMethods < Neo::Koan
 
   def test_you_can_define_methods_on_individual_objects
     fido = Dog.new
+
     def fido.wag
       :fidos_wag
     end
+
     assert_equal :fidos_wag, fido.wag
   end
 
   def test_other_objects_are_not_affected_by_these_singleton_methods
     fido = Dog.new
     rover = Dog.new
+
     def fido.wag
       :fidos_wag
     end
@@ -72,10 +75,9 @@ class AboutClassMethods < Neo::Koan
 
   class Dog
     attr_accessor :name
-  end
-
-  def Dog.name
-    @name
+    class << self
+      attr_reader :name
+    end
   end
 
   def test_classes_and_instances_do_not_share_instance_variables
@@ -99,22 +101,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
-                               end
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
+                                     self
+                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
