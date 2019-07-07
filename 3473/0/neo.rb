@@ -1,4 +1,4 @@
-# rubocop:disable all
+# rubocop:disable Lint/Syntax
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
