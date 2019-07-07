@@ -54,7 +54,7 @@ def count_1(dice)
               (1000 + (dice.count(1) - 3) * 100)
             else
               dice.count(1) * 100
-  end
+            end
 end
 
 def count_5(dice)
@@ -62,7 +62,7 @@ def count_5(dice)
               (500 + (dice.count(5) - 3) * 50)
             else
               dice.count(5) * 50
-  end
+            end
 end
 
 class AboutScoringProject < Neo::Koan

@@ -47,7 +47,7 @@ It was the worst of times.
     assert_equal "\n", long_string[0, 1]
   end
 
-  #rubocop:disable Naming/HeredocDelimiterNaming:
+  # rubocop:disable Naming/HeredocDelimiterNaming:
   def test_here_documents_can_also_handle_multiple_lines
     long_string = <<~EOS
       It was the best of times,
@@ -129,6 +129,7 @@ It was the worst of times.
     assert_equal 'The value is 123', string
   end
 
+  # rubocop:disable Lint/InterpolationCheck
   def test_single_quoted_strings_do_not_interpolate
     @value = 123
     string = 'The value is #{@value}'

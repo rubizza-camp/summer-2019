@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+# rubocop:disable Security/Open
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/ClassLength
 
 # -*- ruby -*-
 
