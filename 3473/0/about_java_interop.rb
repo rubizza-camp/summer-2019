@@ -1,4 +1,5 @@
-# rubocop:disable all
+# rubocop:disable Lint/MissingCopEnableDirective, Style/MixinUsage
+# rubocop:disable Metrics/AbcSize, Style/ClassAndModuleChildren
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
