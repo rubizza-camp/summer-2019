@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutModules < Neo::Koan

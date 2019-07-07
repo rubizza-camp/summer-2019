@@ -11,18 +11,24 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  raise TriangleError if [a,b,c].min <= 0
+def triangle(a_val, b_val, c_val)
+  raise TriangleError if [a_val, b_val, c_val].min <= 0
 
-  x, y, z = [a,b,c].sort
-  raise TriangleError if x + y <= z
+  x_val, y_val, z_val = [a_val, b_val, c_val].sort
 
-  %i[equilateral isosceles scalene].fetch([a,b,c].uniq.size - 1)
-  if a.eql?(b) && b.eql?(c) && c.eql?(a)
+  raise TriangleError if x_val + y_val <= z_val
+
+  %i[equilateral isosceles scalene].fetch([a_val, b_val, c_val].uniq.size - 1)
+
+  define_type(a_val, b_val, c_val)
+end
+
+def define_type(a_val, b_val, c_val)
+  if a_val.eql?(b_val) && b_val.eql?(c_val) && c_val.eql?(a_val)
     :equilateral
-  elsif a.eql?(b) || b.eql?(c) || c.eql?(a)
+  elsif a_val.eql?(b_val) || b_val.eql?(c_val) || c_val.eql?(a_val)
     :isosceles
-  elsif a != b && b != c && c != a
+  elsif a_val != b_val && b_val != c_val && c_val != a_val
     :scalene
   end
 end

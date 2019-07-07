@@ -1,3 +1,6 @@
+# rubocop:disable Lint/MissingCopEnableDirective
+# rubocop:disable, Performance/RedundantMatch
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
@@ -64,11 +67,7 @@ class AboutSandwichCode < Neo::Koan
 
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
-      count = 0
-      while file.gets
-        count += 1
-      end
-      count
+      file.readlines.count
     end
   end
 
@@ -93,17 +92,12 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
-    open(file_name) do |file|
-      count = 0
-      while file.gets
-        count += 1
-      end
-      count
+    file_sandwich(file_name) do |file|
+      file.readlines.count
     end
   end
 
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')
   end
-
 end
