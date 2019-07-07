@@ -706,7 +706,7 @@ Naming/UncommunicativeBlockParamName:
 
 Naming/UncommunicativeMethodArgName:
   # Argrument names may be equal to or greater than this value
-  MinNameLength: 1
+  MinNameLength: 3
   AllowNamesEndingInNumbers: true
   # Whitelisted names that will not register an offense
   AllowedNames: []
