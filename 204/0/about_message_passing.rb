@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+<<<<<<< HEAD
+=======
+# rubocop:disable Style/MethodMissing
+>>>>>>> squash ruby koans + reek
 # rubocop:disable Lint/UnneededCopDisableDirective, Style/MissingRespondToMissing
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -159,7 +163,10 @@ class AboutMessagePassing < Neo::Koan
     end
   end
   # rubocop: enable Style/MethodMissing
+<<<<<<< HEAD
 
+=======
+>>>>>>> squash ruby koans + reek
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
@@ -194,4 +201,8 @@ class AboutMessagePassing < Neo::Koan
   end
 end
 
+<<<<<<< HEAD
+=======
+# rubocop:enable Style/MethodMissing
+>>>>>>> squash ruby koans + reek
 # rubocop:enable Lint/UnneededCopDisableDirective, Style/MissingRespondToMissing

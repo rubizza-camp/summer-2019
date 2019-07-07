@@ -17,6 +17,10 @@
 # def triangle(side_a, side_b, side_c)
 
 # :reek:UtilityFunction
+<<<<<<< HEAD
+=======
+
+>>>>>>> squash ruby koans + reek
 def triangle_sides(side_a, side_b, side_c)
   if side_a.eql?(side_b) && side_b.eql?(side_c) && side_c.eql?(side_a)
     :equilateral

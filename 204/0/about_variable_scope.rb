@@ -23,11 +23,18 @@ class Mouse
   end
 end
 
+<<<<<<< HEAD
 # :reek:UncommunicativeMethodName
 # :reek:UncommunicativeVariableName
 # :reek:InstanceVariableAssumption
 class AboutVariableScope < Neo::Koan
   # :reek:InstanceVariableAssumption
+=======
+# :reek:InstanceVariableAssumption
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeVariableName
+class AboutVariableScope < Neo::Koan
+>>>>>>> squash ruby koans + reek
   def bark
     @noise = 'RUFF'
   end
@@ -72,7 +79,10 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Oscar', oscar.name
   end
 
+<<<<<<< HEAD
   # :reek:UncommunicativeVariableName
+=======
+>>>>>>> squash ruby koans + reek
   def test_class_variable
     (1..9).each { |i| Mouse.new(i.to_s) }
     # Things may appear easier than they actually are.
@@ -102,7 +112,10 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
+<<<<<<< HEAD
   # :reek:UncommunicativeVariableName
+=======
+>>>>>>> squash ruby koans + reek
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     $anywhere = 'Hey'
