@@ -42,4 +42,5 @@ class AboutOpenClasses < Neo::Koan
 
   # NOTE: To understand why we need the :: before Integer, you need to
   # become enlightened about scope.
+  # to force the global scope
 end
