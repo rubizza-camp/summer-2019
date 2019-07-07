@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -12,15 +14,24 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
+# rubocop:disable Metrics/LineLength
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable CyclomaticComplexity
+# rubocop:disable PerceivedComplexity
 #
-def triangle(a, b, c)
-  raise TriangleError, "Sides must be greater than zero" if (a <= 0) || (b <= 0) || (c <= 0)
-  raise TriangleError, "No two sides can be less than other side" if (a+b <= c) || (a+c <= b) || (b+c <= a)
-  return :equilateral if (a == b && b == c)
-  return :isosceles if ( a == b || b == c || a == c )
-  return :scalene
+def triangle(side_a, side_b, side_c)
+  raise TriangleError, 'Sides must be greater than zero' if (side_a <= 0) || (side_b <= 0) || (side_c <= 0)
+  raise TriangleError, 'No two sides can be less than other side' if (side_a + side_b <= side_c) || (side_a + side_c <= side_b) || (side_b + side_c <= side_a)
+  return :equilateral if side_a == side_b && side_b == side_c
+  return :isosceles if side_a == side_b || side_b == side_c || side_a == side_c
+
+  :scalene
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable CyclomaticComplexity
+# rubocop:enable PerceivedComplexity

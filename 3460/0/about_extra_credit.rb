@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# frozen_string_literal: true
 # EXTRA CREDIT:
 #
 # Create a program that will play the Greed Game.

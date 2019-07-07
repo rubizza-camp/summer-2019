@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# class AboutClassMethods
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -48,6 +51,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class Dog2
   class Dog2
     def wag
       :instance_level_wag
@@ -58,6 +62,7 @@ class AboutClassMethods < Neo::Koan
     :class_level_wag
   end
 
+  # rubocop:disable Metrics/LineLength
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
     assert_equal :class_level_wag, Dog2.wag
   end
@@ -68,27 +73,29 @@ class AboutClassMethods < Neo::Koan
     assert_equal :class_level_wag, Dog2.wag
   end
 
+  # rubocop:enable Metrics/LineLength
   # ------------------------------------------------------------------
-
+  # class Dog
   class Dog
     attr_accessor :name
   end
-
+  # rubocop:disable Style/TrivialAccessors
   def Dog.name
     @name
   end
 
+  # rubocop:enable Style/TrivialAccessors
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
-    fido.name = "Fido"
-    assert_equal "Fido", fido.name
+    fido.name = 'Fido'
+    assert_equal 'Fido', fido.name
     assert_equal nil, Dog.name
   end
 
   # ------------------------------------------------------------------
-
+  # class Dog
   class Dog
-    def Dog.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end
@@ -96,29 +103,28 @@ class AboutClassMethods < Neo::Koan
   def test_you_can_define_class_methods_inside_the_class
     assert_equal :dogs_class_method, Dog.a_class_method
   end
-
+  # rubocop:disable Style/Documentation
   # ------------------------------------------------------------------
-
-  LastExpressionInClassStatement = class Dog
+  LASTEXPRESSIONINCLASSSTATEMENT = class Dog
                                      21
                                    end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LASTEXPRESSIONINCLASSSTATEMENT
   end
 
   # ------------------------------------------------------------------
-
-  SelfInsideOfClassStatement = class Dog
+  # SELFINSIDEOFCLASSSTATEMENT
+  SELFINSIDEOFCLASSSTATEMENT = class Dog
                                  self
                                end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELFINSIDEOFCLASSSTATEMENT
   end
-
+  # rubocop:enable Style/Documentation
   # ------------------------------------------------------------------
-
+  # class Dog
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
@@ -130,7 +136,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # class Dog
   class Dog
     class << self
       def another_class_method
@@ -165,5 +171,4 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
   end
-
 end
