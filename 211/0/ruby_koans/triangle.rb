@@ -14,6 +14,10 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
+  raise TriangleError if [a, b, c].any? {|side| side.negative?}
+  raise TriangleError if [a, b, c].any? {|side| side == 0}
+  raise TriangleError unless (a + b) > c && (b + c) > a && (a + c) > b
+
   if a == b && b == c
   	:equilateral
   elsif 
