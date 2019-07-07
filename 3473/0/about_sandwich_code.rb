@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Security/Open, Lint/AssignmentInCondition
+# rubocop:disable Lint/Syntax
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

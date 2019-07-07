@@ -1,5 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength, Lint/InterpolationCheck
-# rubocop:disable LStyle/StringLiterals, Naming/HeredocDelimiterNaming, Lint/UselessAssignment
+# rubocop:disable Lint/Syntax
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
