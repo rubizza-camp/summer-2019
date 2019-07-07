@@ -14,7 +14,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
 
   Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_592_000 }
 
-  I18n.load_path << Dir[File.expand_path("config/locales") + "/*.yml"]
+  I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
 end
 
 bot = Telegram::Bot::Client.new(ENV['TOKEN'])
