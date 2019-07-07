@@ -1,4 +1,4 @@
-# rubocop:disable Lint/ScriptPermission, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective, Metrics/LineLength
+# rubocop:disable Lint/ScriptPermission, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective, Metrics/LineLength, Layout/LeadingCommentSpace
 #!/usr/bin/env ruby
 # -*- ruby -*-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
