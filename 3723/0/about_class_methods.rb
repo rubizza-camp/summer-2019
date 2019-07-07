@@ -1,3 +1,5 @@
+# rubocop:disable Layout/EndAlignment
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClassMethods < Neo::Koan
@@ -19,11 +21,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 0
+    assert !fido.methods.empty?
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 0
+    assert !Dog.methods.empty?
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -74,21 +76,17 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
-  def Dog.name
-    @name
-  end
-
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
-    fido.name = "Fido"
-    assert_equal "Fido", fido.name
-    assert_equal nil, Dog.name
+    fido.name = 'Fido'
+    assert_equal 'Fido', fido.name
+    assert_equal 'AboutClassMethods::Dog', Dog.name
   end
 
   # ------------------------------------------------------------------
 
   class Dog
-    def Dog.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end
@@ -99,22 +97,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-                                     21
+  LEIC = class Dog
+           21
                                    end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LEIC
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
+  SIOC = class Dog
+           self
                                end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SIOC
   end
 
   # ------------------------------------------------------------------
@@ -165,5 +163,5 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
   end
-
 end
+# rubocop:enable Layout/EndAlignment
