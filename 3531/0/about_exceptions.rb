@@ -1,3 +1,6 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Lint/HandleExceptions
+# rubocop:disable Metrics/MethodLength, Metrics/LineLength
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutExceptions < Neo::Koan

@@ -1,3 +1,6 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
+# rubocop:disable Lint/AmbiguousBlockAssociation)
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClasses < Neo::Koan

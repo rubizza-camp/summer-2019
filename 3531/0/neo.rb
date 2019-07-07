@@ -467,17 +467,21 @@ ENDTEXT
 
       def command_line(args)
         args.each do |arg|
-          case arg
-          when /^-n\/(.*)\/$/
-            @test_pattern = Regexp.new($1)
-          when /^-n(.*)$/
-            @test_pattern = Regexp.new(Regexp.quote($1))
+          check(args)
+        end
+      end
+
+      def check(args)
+        case arg
+        when %r{^-n\/(.*)\/$}
+          @test_pattern = Regexp.new(Regexp.last_match(1))
+        when %r{^-n(.*)$}
+          @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
+        else
+          if File.exist?(arg)
+            load(arg)
           else
-            if File.exist?(arg)
-              load(arg)
-            else
-              fail "Unknown command line argument '#{arg}'"
-            end
+            fail "Unknown command line argument '#{arg}'"
           end
         end
       end
@@ -487,21 +491,21 @@ ENDTEXT
         @subclasses ||= []
       end
 
-       # Lazy initialize list of test methods.
+      # Lazy initialize list of test methods.
       def testmethods
-        @test_methods ||= []
+        @testmethods ||= []
       end
 
       def tests_disabled?
-        @tests_disabled ||= false
+        @testsdisabled ||= false
       end
 
       def test_pattern
-        @test_pattern ||= /^test_/
+        @testpattern ||= /^test_/
       end
 
       def total_tests
-        self.subclasses.inject(0){|total, k| total + k.testmethods.size }
+        subclasses.inject(0){ |total, k| total + k.testmethods.size }
       end
     end
   end
@@ -516,20 +520,21 @@ ENDTEXT
     end
 
     def each_step
-      catch(:neo_exit) {
+      catch(:neo_exit) do
         step_count = 0
+
         Neo::Koan.subclasses.each_with_index do |koan,koan_index|
           koan.testmethods.each do |method_name|
-            step = koan.new(method_name, koan.to_s, koan_index+1, step_count+=1)
+            step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
             yield step
           end
         end
-      }
+      end
     end
   end
 end
 
-END {
+at_exit {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
