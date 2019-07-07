@@ -1,5 +1,5 @@
-# rubocop:disable Layout/EndOfLine, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective
-# rubocop:disable Lint/AmbiguousBlockAssociation, Performance/RedundantBlockCall, Metrics/LineLength
+# rubocop:disable Layout/EndOfLine, Metrics/LineLength, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective, Performance/RedundantBlockCall
+# rubocop:disable Lint/AmbiguousBlockAssociation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
