@@ -55,7 +55,7 @@ class AboutSymbols < Neo::Koan
 
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
-    symbol = :"cats #{value} dogs'\"
+    symbol = :"cats #{value} dogs'"
 
     assert_equal symbol.to_sym, symbol
   end
