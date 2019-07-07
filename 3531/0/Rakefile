@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby
+# rubocop:disable Layout/EndOfLine, Lint/MissingCopEnableDirective
+# !/usr/bin/env ruby
 # -*- ruby -*-
 
 require 'rake/clean'

@@ -1,4 +1,5 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength
+# rubocop:disable Layout/EndOfLine, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective
+# rubocop:disable Metrics/ClassLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
