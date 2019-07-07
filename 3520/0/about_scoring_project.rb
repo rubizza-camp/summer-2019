@@ -31,6 +31,21 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+    @greed_scores ||=
+    (Hash.new do |hash, key|
+      hash[key] = { singles: 0, triples: key * 100 }
+    end).merge!(
+      1 => { singles: 100, triples: 1000 },
+      5 => { singles: 50, triples: 500 }
+    )
+  score = 0
+  dice.uniq.each do |val|
+    triples, singles = dice.count(val).divmod(3)
+    score +=
+      (@greed_scores[val][:singles] * singles) +
+      + (@greed_scores[val][:triples] * triples)
+  end
+  score
 end
 
 class AboutScoringProject < Neo::Koan
