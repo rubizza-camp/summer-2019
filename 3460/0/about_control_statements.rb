@@ -6,7 +6,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/LiteralAsCondition
 # rubocop:disable Metrics/ClassLength
 # rubocop:disable Metrics/MethodLength:
-# rubocop:disable Metrics/LineLength
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -145,4 +144,3 @@ end
 # rubocop:enable Metrics/ClassLength
 # rubocop:enable Lint/LiteralAsCondition
 # rubocop:enable Metrics/MethodLength:
-# rubocop:enable Metrics/LineLength
