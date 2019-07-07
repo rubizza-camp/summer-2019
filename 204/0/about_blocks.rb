@@ -84,10 +84,9 @@ class AboutBlocks < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_explicit_block(&block)
+  def method_with_explicit_block
     yield(10)
   end
-
   # rubocop:disable Lint/AmbiguousBlockAssociation
   def test_methods_can_take_an_explicit_block_argument
     assert_equal 20, method_with_explicit_block { |n| n * 2 }
