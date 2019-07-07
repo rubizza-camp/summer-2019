@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
   def bark
-    noise = 'RUFF'
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -35,7 +34,6 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
     end
     assert_equal __, defined? x
   end
