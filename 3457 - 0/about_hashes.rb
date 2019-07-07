@@ -36,7 +36,6 @@ class AboutHashes < Neo::Koan
     hash = { one: 'uno', two: 'dos' }
     hash[:one] = 'eins'
 
-    expected = { one: 'eins', two: 'dos' }
     assert_equal hash = { one: 'eins', two: 'dos' }, hash
 
     # Bonus Question: Why was "expected" broken out into a variable

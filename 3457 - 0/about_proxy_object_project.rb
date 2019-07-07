@@ -20,19 +20,20 @@ class Proxy
     @methods_called = Hash.new(0)
     @messages = []
 
-    methods_to_forward = @object.methods - %i[__send__ object_id instance_of? method_missing]
+    methods_to_forward = @object.methods - %i[__send__ object_id
+    instance_of? method_missing]
     methods_to_forward.each do |method|
-      eval ''" def #{method}(*args, &block)
+      binding.eval ''" def #{method}(*args, &block)
                   @methods_called[:#{method}] += 1
                   @messages.push :#{method}
                   @object.send(:#{method}, *args, &block)
                end
           "''
     end
-     end
+  end
 
   def called?(method)
-    number_of_times_called(method) > 0
+    number_of_times_called(method).positive?
   end
 
   def number_of_times_called(method)
