@@ -25,8 +25,7 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1           == symbol2
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
-
-  # rubocop:disable Metrics/LineLength
+  
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
@@ -46,7 +45,6 @@ class AboutSymbols < Neo::Koan
     end
   end
 
-  # rubocop:enable Metrics/LineLength
   def test_symbols_can_be_made_from_strings
     string = 'catsAndDogs'
     assert_equal :catsAndDogs, string.to_sym
