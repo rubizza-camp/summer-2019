@@ -105,3 +105,6 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+
+# rubocop:enable Security/Open
+# rubocop:enable Lint/AssignmentInCondition

@@ -537,3 +537,8 @@ at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 end
+# rubocop:enable Security/Open
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength

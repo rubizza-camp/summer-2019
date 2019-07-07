@@ -148,3 +148,10 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+
+# rubocop:enable UncommunicativeMethodParamName
+# rubocop:enable Style/EvalWithLocation
+# rubocop:enable Lint/Void
+# rubocop:enable Lint/UnreachableCode
+# rubocop:enable Style/RedundantSelf
+# rubocop:enable Lint/AmbiguousRegexpLiteral

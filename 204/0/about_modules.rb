@@ -64,3 +64,5 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
+
+# rubocop:enable Naming/AccessorMethodName

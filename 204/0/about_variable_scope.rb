@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Lint/Syntax
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -33,7 +34,7 @@ class AboutVariableScope < Neo::Koan
 
     assert_equal 'Hey', test
   end
-
+  
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
       0
@@ -42,7 +43,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   # ------------------------------------------------------
-
+  
   class Mouse
     @total = 0
     # Class variables are prefixed with two '@' characters.
