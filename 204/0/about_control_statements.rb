@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:enable Lint/LiteralAsCondition
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -135,3 +136,5 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+
+# rubocop:disable Lint/LiteralAsCondition
