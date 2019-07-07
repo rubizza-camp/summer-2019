@@ -145,7 +145,7 @@ EOS
 
   def test_you_can_get_a_single_character_from_a_string
     string = "Bacon, lettuce and tomato"
-    assert_equal "a", string[1]
+    assert_equal 'a', string[1]
 
     # Surprised?
   end
@@ -161,7 +161,7 @@ EOS
 
   in_ruby_version("1.9", "2") do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal "a", ?a
+      assert_equal 'a', ?a
       assert_equal false, ?a == 97
     end
   end
@@ -188,8 +188,8 @@ EOS
   end
 
   def test_strings_are_unique_objects
-    a = "a string"
-    b = "a string"
+    a = 'a string'
+    b = 'a string'
 
     assert_equal true, a           == b
     assert_equal false, a.object_id == b.object_id
