@@ -31,6 +31,27 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  result = 0
+  h = Hash[dice.group_by { |x| x }.map { |k, v| [k, v.count] }] 
+
+  case h[1] 
+  when 0..2
+    result += h[1] * 100
+  when 3..5
+    result += 1000
+    h[1] = h[1] - 3
+    result += h[1] * 100
+  end
+  
+  set = h.select{|k,v| v >= 3}
+  
+  if v = set.keys[0]
+    result += v*100
+    h[v] = h[v] - 3
+  end
+  result += h[5] * 50 if h[5]
+  result
+  
 end
 
 class AboutScoringProject < Neo::Koan
