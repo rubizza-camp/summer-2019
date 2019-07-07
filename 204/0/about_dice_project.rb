@@ -25,7 +25,7 @@ class DiceSet
       dice.values.each do |value|
         assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
       end
-  end
+    end
 
     def test_dice_values_do_not_change_unless_explicitly_rolled
       dice = DiceSet.new
@@ -57,5 +57,5 @@ class DiceSet
       dice.roll(1)
       assert_equal 1, dice.values.size
     end
-end
+  end
 end

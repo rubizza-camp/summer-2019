@@ -2,6 +2,13 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable UncommunicativeMethodParamName
+# rubocop:disable Style/EvalWithLocation
+# rubocop:disable Lint/Void
+# rubocop:disable Lint/UnreachableCode
+# rubocop:disable Style/RedundantSelf
+# rubocop:disable Lint/AmbiguousRegexpLiteral
+
 def my_global_method(a, b)
   a + b
 end

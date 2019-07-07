@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+# rubocop:disable Style/MethodMissing
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# rubocop:disable Metrics/ClassLength
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -163,6 +166,8 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
+  # rubocop:disable Style/MethodMissing
   class WellBehavedFooCatcher
     def respond_to?(method_name)
       if method_name.to_s[0, 3] == 'foo'

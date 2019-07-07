@@ -4,6 +4,7 @@
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength
 
 # -*- ruby -*-
 
