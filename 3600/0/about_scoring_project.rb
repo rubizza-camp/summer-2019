@@ -20,10 +20,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Examples:
 #
-# score([1,1,1,5,1]) => 1150 points
-# score([2,3,4,6,2]) => 0 points
-# score([3,4,5,3,3]) => 350 points
-# score([1,5,1,2,4]) => 250 points
+# score([1, 1, 1, 5, 1]) => 1150 points
+# score([2, 3, 4, 6, 2]) => 0 points
+# score([3, 4, 5, 3, 3]) => 350 points
+# score([1, 5, 1, 2, 4]) => 250 points
 #
 # More scoring examples are given in the tests below:
 #
