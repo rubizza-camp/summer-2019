@@ -1,5 +1,3 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/TrivialAccessors
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClassMethods < Neo::Koan
