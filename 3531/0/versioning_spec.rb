@@ -1,6 +1,5 @@
-
 def version_ints(version)
-  version.split('.').map { |v| v.to_i }
+  version.split('.').map(&:to_i)
 end
 
 def at_least_ruby_version(version)
@@ -8,7 +7,6 @@ def at_least_ruby_version(version)
   ruby_vints = version_ints(RUBY_VERSION)
   vints.zip(ruby_vints).all? { |v, rv| v.nil? || rv.nil? || v >= rv }
 end
-
 
 require 'rspec/given'
 
