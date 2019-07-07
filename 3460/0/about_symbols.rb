@@ -22,7 +22,7 @@ class AboutSymbols < Neo::Koan
     symbol1 = :a_symbol
     symbol2 = :a_symbol
 
-    assert_equal true, symbol1           == symbol2
+    assert_equal true, symbol1 == symbol2
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
   
