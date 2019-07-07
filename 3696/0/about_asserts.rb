@@ -1,6 +1,6 @@
+# rubocop:disable Lint/ScriptPermission, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective, Metrics/LineLength
 #!/usr/bin/env ruby
 # -*- ruby -*-
-# rubocop:disable Lint/ScriptPermission, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective, Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutAsserts < Neo::Koan
