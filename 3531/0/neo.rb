@@ -353,56 +353,57 @@ ENDTEXT
 
     def guide_through_error
       puts
-      puts "The answers you seek..."
+      puts 'The answers you seek...'
       puts Color.red(indent(failure.message).join)
       puts
-      puts "Please meditate on the following code:"
+      puts 'Please meditate on the following code:'
       puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace)))
       puts
     end
 
     def embolden_first_line_only(text)
       first_line = true
-      text.collect { |t|
+      text.collect do |t|
         if first_line
           first_line = false
           Color.red(t)
         else
           Color.cyan(t)
         end
-      }
+      end
     end
 
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
-      text.collect{|t| "  #{t}"}
+      text.collect{ |t| "  #{t}" }
     end
 
     def find_interesting_lines(backtrace)
-      backtrace.reject { |line|
+      backtrace.reject do |line|
         line =~ /neo\.rb/
-      }
+      end
     end
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
     def a_zenlike_statement
+
       if !failed?
-        zen_statement =  "Mountains are again merely mountains"
+        zen_statement = 'Mountains are again merely mountains'
       else
         zen_statement = case (@pass_count % 10)
         when 0
-          "mountains are merely mountains"
+          'mountains are merely mountains'
         when 1, 2
-          "learn the rules so you know how to break them properly"
+          'learn the rules so you know how to break them properly'
         when 3, 4
-          "remember that silence is sometimes the best answer"
+          'remember that silence is sometimes the best answer'
         when 5, 6
-          "sleep is the best meditation"
+          'sleep is the best meditation'
         when 7, 8
           "when you lose, don't lose the lesson"
         else
-          "things are not what they appear to be: nor are they otherwise"
+          'things are not what they appear to be: nor are they otherwise'
         end
       end
       puts Color.green(zen_statement)
@@ -414,7 +415,7 @@ ENDTEXT
 
     attr_reader :name, :failure, :koan_count, :step_count, :koan_file
 
-    def initialize(name, koan_file=nil, koan_count=0, step_count=0)
+    def initialize(name, koan_file = nil, koan_count = 0, step_count = 0)
       @name = name
       @failure = nil
       @koan_count = koan_count
@@ -430,11 +431,9 @@ ENDTEXT
       @failure = failure
     end
 
-    def setup
-    end
+    def setup; end
 
-    def teardown
-    end
+    def teardown; end
 
     def meditate
       setup
@@ -443,13 +442,17 @@ ENDTEXT
       rescue StandardError, Neo::Sensei::FailedAssertionError => ex
         failed(ex)
       ensure
-        begin
-          teardown
-        rescue StandardError, Neo::Sensei::FailedAssertionError => ex
-          failed(ex) if passed?
-        end
+        ensure_actions_for_meditate
       end
       self
+    end
+
+    def ensure_actions_for_meditate
+      begin
+        teardown
+      rescue StandardError, Neo::Sensei::FailedAssertionError => ex
+        failed(ex) if passed?
+      end
     end
 
     # Class methods for the Neo test suite.
@@ -474,16 +477,13 @@ ENDTEXT
 
       def check(args)
         case arg
-        when %r{^-n\/(.*)\/$}
+        when /^-n\/(.*)\/$/
           @test_pattern = Regexp.new(Regexp.last_match(1))
-        when %r{^-n(.*)$}
+        when /^-n(.*)$/
           @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
         else
-          if File.exist?(arg)
-            load(arg)
-          else
-            fail "Unknown command line argument '#{arg}'"
-          end
+          raise "Unknown command line argument '#{arg}'" unless File.exist?(arg)
+          load(arg)
         end
       end
 
@@ -498,11 +498,11 @@ ENDTEXT
       end
 
       def tests_disabled?
-        @testsdisabled ||= false
+        @tests_disabled ||= false
       end
 
       def test_pattern
-        @testpattern ||= /^test_/
+        @test_pattern ||= /^test_/
       end
 
       def total_tests
@@ -535,7 +535,7 @@ ENDTEXT
   end
 end
 
-at_exit {
+at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
-}
+end
