@@ -79,7 +79,7 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
   
-  $anywhere = "Anywhere"
+  $anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
@@ -88,7 +88,7 @@ class AboutVariableScope < Neo::Koan
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
-    $anywhere = "Here"
+    $anywhere = 'Here'
     assert_equal __, $anywhere
   end
 
@@ -100,15 +100,13 @@ class AboutVariableScope < Neo::Koan
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     (1..2).each do
-      $anywhere = "Hey"
+      $anywhere = 'Hey'
     end
 
     assert_equal __, $anywhere
   end
-
 end
 
 # THINK ABOUT IT:
-# 
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
