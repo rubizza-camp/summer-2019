@@ -293,8 +293,8 @@ module Neo
     end
 
     def artistic_end_screen
-      'JRuby 1.9.x Koans'
-      ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
+      ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby
+      #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
       completed = <<~ENDTEXT
                                           ,,   ,  ,,
@@ -342,7 +342,7 @@ module Neo
         puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
       elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
         puts Color.cyan('  Do not lose hope.')
-      elsif progress.last.to_i > 0
+      elsif progress.last.to_i.positive?
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
     end
