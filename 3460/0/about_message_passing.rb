@@ -113,7 +113,7 @@ class AboutMessagePassing < Neo::Koan
     # Koans.
   end
   # ------------------------------------------------------------------
-  # rubocop:disable Style/MethodMissingSuper
+  # rubocop:disable Style/SingleLineMethods
   # class AllMessageCatcher
   class AllMessageCatcher
     def method_missing(method_name, *args) # rubocop:disable Style/MethodMissing
@@ -166,7 +166,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/SingleLineMethods
   # (note: just reopening class from above)
   class WellBehavedFooCatcher
     def respond_to?(method_name)
