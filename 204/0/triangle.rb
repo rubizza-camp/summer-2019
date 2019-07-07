@@ -30,5 +30,6 @@ def error(a, b, c)
   raise TriangleError if [a, b, c].include?(0) || a + b <= c || b + c <= a || c + a <= b
 end
 # Error class used in part 2.  No need to change this code.
+
 class TriangleError < StandardError
 end

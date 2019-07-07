@@ -47,6 +47,7 @@ It was the worst of times.
     assert_equal "\n", long_string[0, 1]
   end
 
+  #rubocop:disable Naming/HeredocDelimiterNaming:
   def test_here_documents_can_also_handle_multiple_lines
     long_string = <<~EOS
       It was the best of times,
@@ -65,7 +66,7 @@ It was the worst of times.
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    hi + there
+    @string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end

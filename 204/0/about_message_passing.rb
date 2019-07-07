@@ -2,6 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#rubocop:disable Metrics/ClassLength
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -122,9 +123,9 @@ class AboutMessagePassing < Neo::Koan
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
-    assert_equal "Someone called foobar with <>" , catcher.foobar
-    assert_equal "Someone called foobaz with <1>" , catcher.foobaz(1)
-    assert_equal "Someone called sum with <1, 2, 3, 4, 5, 6>", catcher.sum(1, 2, 3, 4, 5, 6)
+    assert_equal 'Someone called foobar with <>', catcher.foobar
+    assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
+    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
   def test_catching_messages_makes_respond_to_lie
@@ -165,7 +166,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # (note: just reopening class from above)
+  #rubocop:disable Style/MethodMissing
   class WellBehavedFooCatcher
     def respond_to?(method_name)
       if method_name.to_s[0, 3] == 'foo'
