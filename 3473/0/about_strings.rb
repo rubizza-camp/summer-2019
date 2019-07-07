@@ -1,4 +1,4 @@
-# rubocop:disable all
+# rubocop: Lint/Syntax
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
