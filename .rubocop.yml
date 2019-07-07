@@ -6,6 +6,6 @@ Style/Documentation:
 
 Metrics/LineLength:
   Max: 100
-  
+
 Layout/EndOfLine:
-    EnforcedStyle: lf
+  EnforcedStyle: lf
