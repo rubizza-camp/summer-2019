@@ -19,7 +19,7 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal 5, my_global_method(2, 3)'
+    eval 'assert_equal 5, my_global_method(2, 3)' 
   end
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
@@ -57,7 +57,7 @@ class AboutMethods < Neo::Koan
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
-    assert_equal %i[one two], method_with_var_args(:one, :two)
+    assert_equal [:one, :two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
@@ -110,9 +110,9 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      my_private_method
+      self.my_private_method
     end
-    assert_match /private method/, exception.message
+    assert_match  /private method/, exception.message
   end
 
   # ------------------------------------------------------------------
