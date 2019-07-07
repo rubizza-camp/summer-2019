@@ -75,9 +75,9 @@ class AboutIteration < Neo::Koan
   end
 
   def test_find_locates_the_first_element_matching_a_criteria
-    array = ["Jim", "Bill", "Clarence", "Doug", "Eli"]
+    array = %W(Jim Bill Clarence Doug Eli)
 
-    assert_equal "Clarence", array.find { |item| item.size > 4 }
+    assert_equal 'Clarence', array.find { |item| item.size > 4 }
   end
 
   def test_inject_will_blow_your_mind
@@ -97,9 +97,9 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], result
 
     # Files act like a collection of lines
-    File.open("example_file.txt") do |file|
+    File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
-      assert_equal ["THIS", "IS", "A", "TEST"], upcase_lines
+      assert_equal %W(THIS IS A TEST), upcase_lines
     end
 
     # NOTE: You can create your own collections that work with each,
@@ -116,7 +116,6 @@ class AboutIteration < Neo::Koan
   #
   #   file = File.open(filename)
   #   # code to read 'file'
-  #
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 
 end
