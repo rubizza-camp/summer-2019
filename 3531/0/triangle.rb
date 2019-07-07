@@ -1,3 +1,5 @@
+# rubocop:disable Layout/EndOfLine, Lint/MissingCopEnableDirective
+
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle

@@ -1,4 +1,5 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Style/ClassVars
+# rubocop:disable Layout/EndOfLine, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective
+# rubocop:disable Lint/UselessAssignment, Style/ClassVars
 # rubocop:disable Style/GlobalVars
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')

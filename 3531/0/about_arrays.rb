@@ -1,3 +1,5 @@
+# rubocop:disable Layout/EndOfLine, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrays < Neo::Koan

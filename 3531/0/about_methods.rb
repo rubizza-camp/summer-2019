@@ -1,4 +1,5 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/Void, Lint/UnreachableCode
+# rubocop:disable Layout/EndOfLine, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective
+# rubocop:disable Lint/Void, Lint/UnreachableCode
 # rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
 # rubocop:disable Style/AccessModifierDeclarations
 
