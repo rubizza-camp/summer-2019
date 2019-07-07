@@ -9,11 +9,11 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-def triangle(a, b, c)
-  array = [a, b, c].sort
+def triangle(a_side, b_side, c_side)
+  array = [a_side, b_side, c_side].sort
   raise TriangleError if array.min <= 0 || array[0] + array[1] <= array[2]
-  return :equilateral if (a == b) & (a == c)
-  return :isosceles elsif (a == b) | (a == c) | (b == c)
+  return :equilateral if (a_side == b_side) & (a_side == c_side)
+  return :isosceles elsif (a_side == b_side) | (a_side == c_side) | (b_side == c_side)
   return :scalene 
 end
 # Error class used in part 2.  No need to change this code.
