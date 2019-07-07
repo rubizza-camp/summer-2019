@@ -35,7 +35,6 @@ class AboutHashes < Neo::Koan
     # Why might you want to use #fetch instead of #[] when accessing hash keys?
   end
 
-  # rubocop:disable Metrics/LineLength
   def test_changing_hashes
     hash = { one: 'uno', two: 'dos' }
     hash[:one] = 'eins'
@@ -47,7 +46,6 @@ class AboutHashes < Neo::Koan
     # rather than used as a literal?
   end
 
-  # rubocop:enable Metrics/LineLength
   def test_hash_is_unordered
     hash1 = { one: 'uno', two: 'dos' }
     hash2 = { two: 'dos', one: 'uno' }
