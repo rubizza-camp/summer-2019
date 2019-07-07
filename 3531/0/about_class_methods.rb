@@ -21,11 +21,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 0
+    assert fido.methods.size > 1
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 0
+    assert Dog.methods.size > 1
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -82,15 +82,15 @@ class AboutClassMethods < Neo::Koan
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
-    fido.name = "Fido"
-    assert_equal "Fido", fido.name
+    fido.name = 'Fido'
+    assert_equal 'Fido', fido.name
     assert_equal nil, Dog.name
   end
 
   # ------------------------------------------------------------------
 
   class Dog
-    def Dog.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end
@@ -101,22 +101,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
-                               end
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
+                                     self
+                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
@@ -167,5 +167,4 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
   end
-
 end

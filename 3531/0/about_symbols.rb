@@ -19,9 +19,11 @@ class AboutSymbols < Neo::Koan
     symbol1 = :a_symbol
     symbol2 = :a_symbol
 
-    assert_equal true, symbol1           == symbol2
+    assert_equal true, symbol1 == symbol2
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
+
+  # Interesting
 
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
@@ -34,11 +36,11 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    Ruby_Constant = 'What is the sound of one hand clapping?'
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal false, all_symbols_as_strings.include?('What is the sound of one hand clapping?')
+      assert_equal true, all_symbols_as_strings.include?('RUBY_CONSTANT')
     end
   end
 
@@ -48,16 +50,18 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_with_spaces_can_be_built
-    symbol = :'cats and dogs'
+    symbol = :"cats and dogs"
 
-    assert_equal symbol.to_sym, symbol
+    assert_equal 'cats and dogs'.to_sym, symbol
   end
+
+  # LOOOL
 
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
-    symbol = :"cats #{value} dogs'"
+    symbol = :"cats #{value} dogs"
 
-    assert_equal symbol.to_sym, symbol
+    assert_equal 'cats and dogs'.to_sym, symbol
   end
 
   def test_to_s_is_called_on_interpolated_symbols

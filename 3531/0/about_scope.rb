@@ -74,6 +74,6 @@ class AboutScope < Neo::Koan
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
     assert_equal [:Dog], Jims.constants
-    assert Object.constants.size.positive?
+    assert Object.constants.size > 1
   end
 end

@@ -1,4 +1,5 @@
 # rubocop:disable all
+# !/usr/bin/env ruby
 # -*- ruby -*-
 
 begin
@@ -352,57 +353,56 @@ ENDTEXT
 
     def guide_through_error
       puts
-      puts 'The answers you seek...'
+      puts "The answers you seek..."
       puts Color.red(indent(failure.message).join)
       puts
-      puts 'Please meditate on the following code:'
+      puts "Please meditate on the following code:"
       puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace)))
       puts
     end
 
     def embolden_first_line_only(text)
       first_line = true
-      text.collect do |t|
+      text.collect { |t|
         if first_line
           first_line = false
           Color.red(t)
         else
           Color.cyan(t)
         end
-      end
+      }
     end
 
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
-      text.collect{ |t| "  #{t}" }
+      text.collect{|t| "  #{t}"}
     end
 
     def find_interesting_lines(backtrace)
-      backtrace.reject do |line|
+      backtrace.reject { |line|
         line =~ /neo\.rb/
-      end
+      }
     end
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
     def a_zenlike_statement
-
       if !failed?
-        zen_statement = 'Mountains are again merely mountains'
+        zen_statement =  "Mountains are again merely mountains"
       else
         zen_statement = case (@pass_count % 10)
         when 0
-          'mountains are merely mountains'
+          "mountains are merely mountains"
         when 1, 2
-          'learn the rules so you know how to break them properly'
+          "learn the rules so you know how to break them properly"
         when 3, 4
-          'remember that silence is sometimes the best answer'
+          "remember that silence is sometimes the best answer"
         when 5, 6
-          'sleep is the best meditation'
+          "sleep is the best meditation"
         when 7, 8
           "when you lose, don't lose the lesson"
         else
-          'things are not what they appear to be: nor are they otherwise'
+          "things are not what they appear to be: nor are they otherwise"
         end
       end
       puts Color.green(zen_statement)
@@ -414,7 +414,7 @@ ENDTEXT
 
     attr_reader :name, :failure, :koan_count, :step_count, :koan_file
 
-    def initialize(name, koan_file = nil, koan_count = 0, step_count = 0)
+    def initialize(name, koan_file=nil, koan_count=0, step_count=0)
       @name = name
       @failure = nil
       @koan_count = koan_count
@@ -430,9 +430,11 @@ ENDTEXT
       @failure = failure
     end
 
-    def setup; end
+    def setup
+    end
 
-    def teardown; end
+    def teardown
+    end
 
     def meditate
       setup
@@ -441,17 +443,13 @@ ENDTEXT
       rescue StandardError, Neo::Sensei::FailedAssertionError => ex
         failed(ex)
       ensure
-        ensure_actions_for_meditate
+        begin
+          teardown
+        rescue StandardError, Neo::Sensei::FailedAssertionError => ex
+          failed(ex) if passed?
+        end
       end
       self
-    end
-
-    def ensure_actions_for_meditate
-      begin
-        teardown
-      rescue StandardError, Neo::Sensei::FailedAssertionError => ex
-        failed(ex) if passed?
-      end
     end
 
     # Class methods for the Neo test suite.
@@ -470,19 +468,18 @@ ENDTEXT
 
       def command_line(args)
         args.each do |arg|
-          check(args)
-        end
-      end
-
-      def check(args)
-        case arg
-        when /^-n\/(.*)\/$/
-          @test_pattern = Regexp.new(Regexp.last_match(1))
-        when /^-n(.*)$/
-          @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
-        else
-          raise "Unknown command line argument '#{arg}'" unless File.exist?(arg)
-          load(arg)
+          case arg
+          when /^-n\/(.*)\/$/
+            @test_pattern = Regexp.new($1)
+          when /^-n(.*)$/
+            @test_pattern = Regexp.new(Regexp.quote($1))
+          else
+            if File.exist?(arg)
+              load(arg)
+            else
+              fail "Unknown command line argument '#{arg}'"
+            end
+          end
         end
       end
 
@@ -491,9 +488,9 @@ ENDTEXT
         @subclasses ||= []
       end
 
-      # Lazy initialize list of test methods.
+       # Lazy initialize list of test methods.
       def testmethods
-        @testmethods ||= []
+        @test_methods ||= []
       end
 
       def tests_disabled?
@@ -505,7 +502,7 @@ ENDTEXT
       end
 
       def total_tests
-        subclasses.inject(0){ |total, k| total + k.testmethods.size }
+        self.subclasses.inject(0){|total, k| total + k.testmethods.size }
       end
     end
   end
@@ -520,21 +517,20 @@ ENDTEXT
     end
 
     def each_step
-      catch(:neo_exit) do
+      catch(:neo_exit) {
         step_count = 0
-
         Neo::Koan.subclasses.each_with_index do |koan,koan_index|
           koan.testmethods.each do |method_name|
-            step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
+            step = koan.new(method_name, koan.to_s, koan_index+1, step_count+=1)
             yield step
           end
         end
-      end
+      }
     end
   end
 end
 
-at_exit do
+END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
-end
+}
