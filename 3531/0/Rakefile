@@ -9,4 +9,3 @@ task :default => :test
 task :test do
   ruby 'path_to_enlightenment.rb'
 end
-
