@@ -1,3 +1,4 @@
+# rubocop:disable Naming/AccessorMethodName, Lint/MissingCopEnableDirective, Style/EvalWithLocation, Lint/AmbiguousBlockAssociation, Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClasses < Neo::Koan
@@ -51,7 +52,7 @@ class AboutClasses < Neo::Koan
     fido.set_name('Fido')
 
     assert_equal 'Fido', fido.instance_eval('@name') # string version
-    assert_equal 'Fido', fido.instance_eval{ @name } # block version
+    assert_equal 'Fido', fido.instance_eval { @name } # block version
   end
 
   # ------------------------------------------------------------------

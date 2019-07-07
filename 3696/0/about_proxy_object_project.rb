@@ -1,3 +1,4 @@
+# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing, Metrics/LineLength, Lint/MissingCopEnableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -24,8 +25,6 @@ class Proxy
     @messages.append(method_name)
     @object.__send__(method_name, *args, &block)
   end
-
-
 
   def called?(sym)
     @messages.include? sym

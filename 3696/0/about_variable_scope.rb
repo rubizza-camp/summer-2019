@@ -1,3 +1,4 @@
+# rubocop:disable Lint/UselessAssignment, Style/ClassVars, Metrics/LineLength, Lint/MissingCopEnableDirective, Style/GlobalVars
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
@@ -45,8 +46,8 @@ class AboutVariableScope < Neo::Koan
     @@total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(name)
+      @name = name
       # Instance variables are prefixed with one '@' character.
       @@total += 1
     end

@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength, Lint/MissingCopEnableDirective, Naming/HeredocDelimiterNaming, Lint/UselessAssignment, Lint/InterpolationCheck, Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan

@@ -1,3 +1,4 @@
+# rubocop:disable Naming/ConstantName, Lint/MissingCopEnableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSymbols < Neo::Koan
