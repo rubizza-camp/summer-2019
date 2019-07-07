@@ -34,7 +34,7 @@ class Proxy
     @messages.count(message)
   end
 
-  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissingSuper
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
