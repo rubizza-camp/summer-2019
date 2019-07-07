@@ -22,7 +22,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_accessing_array_elements
-    array = [:peanut, :butter, :and, :jelly]
+    array = %i[peanut butter and jelly]
 
     assert_equal :peanut, array[0]
     assert_equal :peanut, array.first
@@ -60,7 +60,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_pushing_and_popping_arrays
-    array = [1,2]
+    array = [1, 2]
     array.push(:last)
 
     assert_equal [1, 2, :last], array
@@ -71,7 +71,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_shifting_arrays
-    array = [1,2]
+    array = [1, 2]
     array.unshift(:first)
 
     assert_equal [:first, 1, 2], array
