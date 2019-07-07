@@ -142,7 +142,6 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'Summer', 'Summer Gray'[grays, 1]
     assert_equal nil, 'Jim Gray'[grays, 1]
   end
-  # rubocop:disable Metrics/LineLength
   # THINK ABOUT IT:
   #
   # Explain the difference between a character class ([...]) and alternation (|).
@@ -161,4 +160,3 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 end
-# rubocop:enable Metrics/LineLength
