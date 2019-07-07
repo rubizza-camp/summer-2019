@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Lint/ShadowedArgument, Lint/LiteralAsCondition
+# rubocop:disable Lint/ShadowedArgument, Lint/LiteralAsCondition, Metrics/ClassLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -61,7 +61,6 @@ class AboutControlStatements < Neo::Koan
   def test_if_statement_modifiers
     result = :default_value
     result = :true_value if true
-
     assert_equal :true_value, result
   end
 
@@ -146,4 +145,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 
-# rubocop:enable Lint/ShadowedArgument, Lint/LiteralAsCondition
+# rubocop:enable Lint/ShadowedArgument, Lint/LiteralAsCondition, Metrics/ClassLength
