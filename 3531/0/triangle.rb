@@ -1,5 +1,3 @@
-# Triangle Project Code.
-
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -15,10 +13,11 @@
 #
 def triangle(a, b, c)
   raise TriangleError if [a,b,c].min <= 0
+
   x, y, z = [a,b,c].sort
   raise TriangleError if x + y <= z
-  [:equilateral, :isosceles, :scalene].fetch([a,b,c].uniq.size - 1)
 
+  %i[equilateral isosceles scalene].fetch([a,b,c].uniq.size - 1)
   if a.eql?(b) && b.eql?(c) && c.eql?(a)
     :equilateral
   elsif a.eql?(b) || b.eql?(c) || c.eql?(a)
