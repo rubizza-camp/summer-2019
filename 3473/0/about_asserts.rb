@@ -1,4 +1,4 @@
-# rubocop:disable Lint/ScriptPermission
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective, Lint/ScriptPermission
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
