@@ -187,4 +187,4 @@ end
 
 # rubocop:enable Style/MethodMissing
 # rubocop:enable Metrics/ClassLength
-# rubocop:enable Style/MethodMissing
+

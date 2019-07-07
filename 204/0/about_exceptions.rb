@@ -14,7 +14,6 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_rescue_clause
-    result = nil
     begin
       raise 'Oops'
     rescue StandardError => e
