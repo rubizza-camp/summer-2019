@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutRegularExpressions < Neo::Koan

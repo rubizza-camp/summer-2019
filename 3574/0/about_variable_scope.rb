@@ -1,3 +1,6 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Style/ClassVars
+# rubocop:disable Style/GlobalVars
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
