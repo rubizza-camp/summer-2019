@@ -6,7 +6,7 @@ class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
 
-  def test_exceptions_inherit_from_Exception
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
@@ -20,16 +20,20 @@ class AboutExceptions < Neo::Koan
     rescue StandardError => e
       result = :exception_handled
     end
-
-    assert_equal :exception_handled, result
-
-    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
-
+    assert_equal_exception(result)
+    assert_equal_is_a?(e)
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
-
     assert_equal 'Oops', e.message
+  end
+
+  def assert_equal_is_a?(e)
+    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
+  end
+
+  def assert_equal_exception(result)
+    assert_equal :exception_handled, result
   end
 
   def test_raising_a_particular_error
@@ -46,16 +50,16 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
-    result = nil
+    @result = nil
     begin
       raise 'Oops'
-    rescue StandardError
-      # no code here
+    rescue 
+      StandardError
     ensure
-      result = :always_run
+      @result = :always_run
     end
 
-    assert_equal :always_run, result
+    assert_equal :always_run, @result
   end
 
   # Sometimes, we must know about the unknown

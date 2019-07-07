@@ -3,27 +3,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class DiceSet
-  def initialize
-    @values = []
-  end
-
+  
   attr_reader :values
 
   def roll(value)
-    case value
-    when 1
-      values.clear.push(1)
-    when 2
-      values.clear.push(1, 2)
-    when 3
-      values.clear.push(1, 2, 3)
-    when 4
-      values.clear.push(1, 2, 3, 4)
-    when 5
-      values.clear.push(1, 2, 3, 4, 5)
-    when 6
-      values.clear.push(1, 2, 3, 4, 5, 6)
-    end
+    array = (1..value).to_a
+    @values = array
   end
 
   class AboutDiceProject < Neo::Koan

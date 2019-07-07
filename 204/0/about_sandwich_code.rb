@@ -1,4 +1,9 @@
 # frozen_string_literal: true
+#rubocop:disable Security/Open
+#rubocop:disable Lint/AssignmentInCondition
+#rubocop:disable Performance/RedundantMatch
+#rubocop:disable Lint/ParenthesesAsGroupedExpression
+
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
