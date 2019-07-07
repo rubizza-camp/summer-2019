@@ -1,3 +1,3 @@
-watch( '.*\.rb' ) do
+watch('.*\.rb') do
   system 'rake'
 end

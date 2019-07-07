@@ -1,15 +1,13 @@
 # rubocop:disable Lint/MissingCopEnableDirective
-# rubocop:disable Performance/RedundantMatch
+# rubocop:disable, Performance/RedundantMatch
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     count = 0
-    while file.gets
-      count += 1
-    end
+    count += 1 while file.gets
     count
   ensure
     file&.close
@@ -20,10 +18,9 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   def find_line(file_name)
-    file = open(file_name)
-    while line = file.gets
+    file = File.open(file_name)
+    while (line = file.gets)
       return line if line =~ /e/
     end
   ensure
@@ -57,17 +54,19 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     yield(file)
   ensure
-    file&.close 
+    file&.close
   end
 
   # Now we write:
 
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
-      file.readlines.count
+      count = 0
+      count += 1 while file.gets
+      count
     end
   end
 
@@ -78,22 +77,20 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line2(file_name)
-    file_sandwich(file_name) do |file|
-      while line = file.gets
-        return line if line =~ /e/
-      end
-    end
+    # Rewrite find_line using the file_sandwich library function.
   end
 
   def test_finding_lines2
-    assert_equal "test\r\n", find_line2('example_file.txt')
+    assert_equal nil, find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
-    file_sandwich(file_name) do |file|
-      file.readlines.count
+    File.open(file_name) do |file|
+      count = 0
+      count += 1 while file.gets
+      count
     end
   end
 
