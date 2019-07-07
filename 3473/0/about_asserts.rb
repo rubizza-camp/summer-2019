@@ -1,3 +1,4 @@
+# rubocop:disable Lint/ScriptPermission
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
