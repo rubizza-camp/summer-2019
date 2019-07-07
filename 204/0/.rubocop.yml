@@ -8,3 +8,4 @@ Style/Documentation:
 
 Metrics/LineLength:
   Max: 100
+  

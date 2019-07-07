@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Lint/AmbiguousBlockAssociation
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
@@ -87,7 +89,7 @@ class AboutBlocks < Neo::Koan
   def method_with_explicit_block
     yield(10)
   end
-  # rubocop:disable Lint/AmbiguousBlockAssociation
+  
   def test_methods_can_take_an_explicit_block_argument
     assert_equal 20, method_with_explicit_block { |n| n * 2 }
     add_one = ->(n) { n + 1 }
