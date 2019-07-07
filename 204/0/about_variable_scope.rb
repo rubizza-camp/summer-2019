@@ -4,23 +4,23 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
   def bark
-    noise = 'RUFF'
+    @noise = 'RUFF'
   end
 
   def test_noise_is_not_available_in_the_current_scope
     assert_raise(NameError) do
-      noise
+      @noise
     end
   end
 
   def test_we_can_get_noise_by_calling_method
-    assert_equal "RUFF", bark
+    assert_equal 'RUFF', bark
   end
 
-  inaccessible = 'Outside our universe'
+  @inaccessible = 'Outside our universe'
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
-    assert_equal nil, defined? inaccesible
+    assert_equal nil, defined? @inaccesible
   end
 
   # ------------------------------------------------------
@@ -31,32 +31,32 @@ class AboutVariableScope < Neo::Koan
       test = 'Hey'
     end
 
-    assert_equal "Hey" , test
+    assert_equal 'Hey', test
   end
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
+      variable_x = 0
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? variable_x
   end
 
   # ------------------------------------------------------
 
   class Mouse
-    @@total = 0
+    @total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(name)
+      @name = name
       # Instance variables are prefixed with one '@' character.
-      @@total += 1
+      @total += 1
     end
 
     attr_reader :name
 
     def self.count
-      @@total
+      @total
     end
   end
 

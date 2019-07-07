@@ -271,7 +271,7 @@ module Neo
       scale = bar_width.to_f / total_tests
       print Color.green('your path thus far [')
       happy_steps = (pass_count * scale).to_i
-      happy_steps = 1 if happy_steps == 0 && pass_count > 0
+      happy_steps = 1 if happy_steps.zero? && pass_count.positive?
       print Color.green('.' * happy_steps)
       if failed?
         print Color.red('X')
@@ -296,7 +296,9 @@ module Neo
 
     def artistic_end_screen
       'JRuby 1.9.x Koans'
-      ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
+      ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? 
+                                                                            JRUBY_VERSION : 
+                                                                            RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
       completed = <<~ENDTEXT
                                           ,,   ,  ,,
@@ -340,23 +342,24 @@ module Neo
       puts
       puts 'The Master says:'
       puts Color.cyan('  You have not yet reached enlightenment.')
+      
+    end
+
+    def puts_message
       if (recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1
         puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
       elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
         puts Color.cyan('  Do not lose hope.')
-      elsif progress.last.to_i > 0
+      elsif progress.last.to_i.positive? 
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
     end
 
     def guide_through_error
-      puts
       puts 'The answers you seek...'
       puts Color.red(indent(failure.message).join)
-      puts
       puts 'Please meditate on the following code:'
       puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace)))
-      puts
     end
 
     def embolden_first_line_only(text)
@@ -401,7 +404,7 @@ module Neo
                           "when you lose, don't lose the lesson"
                         else
                           'things are not what they appear to be: nor are they otherwise'
-        end
+                        end
       end
       puts Color.green(zen_statement)
     end
@@ -439,13 +442,17 @@ module Neo
       rescue StandardError, Neo::Sensei::FailedAssertionError => e
         failed(e)
       ensure
-        begin
-          teardown
-        rescue StandardError, Neo::Sensei::FailedAssertionError => e
-          failed(e) if passed?
-        end
+        
       end
       self
+    end
+
+    def meditate_ensure
+      begin
+        teardown
+      rescue StandardError, Neo::Sensei::FailedAssertionError => e
+        failed(e) if passed?
+      end
     end
 
     # Class methods for the Neo test suite.
@@ -470,15 +477,15 @@ module Neo
           when /^-n(.*)$/
             @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
           else
-            if File.exist?(arg)
-              load(arg)
-            else
-              raise "Unknown command line argument '#{arg}'"
-            end
+            
           end
         end
       end
 
+      def file_exists?
+        load(arg) if File.exist?(arg)
+        raise "Unknown command line argument '#{arg}'" if File.exist?(arg) == false
+      end
       # Lazy initialize list of subclasses
       def subclasses
         @subclasses ||= []
@@ -486,7 +493,7 @@ module Neo
 
       # Lazy initialize list of test methods.
       def testmethods
-        @test_methods ||= []
+        @testmethods ||= []
       end
 
       def tests_disabled?
@@ -526,7 +533,7 @@ module Neo
   end
 end
 
-END {
+at_exit {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
