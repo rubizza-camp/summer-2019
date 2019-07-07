@@ -14,7 +14,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
-# rubocop:disable Style/MethodMissingSuper
+# rubocop:disable Style/SingleLineMethods
 # class Proxy
 class Proxy
   attr_reader :messages
@@ -36,7 +36,7 @@ class Proxy
     @object.send(method_name, *args, &block)
   end
 end
-# rubocop:enable Style/MethodMissingSuper
+# rubocop:enable Style/SingleLineMethods
 
 # The proxy object should pass the following Koan:
 #
