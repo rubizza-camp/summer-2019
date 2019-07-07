@@ -1,5 +1,4 @@
 # rubocop:disable all
-
 #!/usr/bin/env ruby
 # -*- ruby -*-
 

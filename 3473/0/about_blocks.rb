@@ -1,5 +1,4 @@
 # rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
-# rubocop:disable Performance/RedundantBlockCall
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

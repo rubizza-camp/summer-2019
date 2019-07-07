@@ -1,5 +1,3 @@
-# rubocop:disable Style/ClassAndModuleChildren, Lint/MissingCopEnableDirective
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'.freeze
