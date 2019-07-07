@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
-
   def count_lines(file_name)
     file = open(file_name)
     count = 0
@@ -10,7 +9,7 @@ class AboutSandwichCode < Neo::Koan
     end
     count
   ensure
-    file.close if file
+    file&.close
   end
 
   def test_counting_lines
@@ -25,7 +24,7 @@ class AboutSandwichCode < Neo::Koan
       return line if line =~ /e/
     end
   ensure
-    file.close if file
+    file&.close
   end
 
   def test_finding_lines
@@ -58,7 +57,7 @@ class AboutSandwichCode < Neo::Koan
     file = open(file_name)
     yield(file)
   ensure
-    file.close if file
+    file&.close 
   end
 
   # Now we write:
