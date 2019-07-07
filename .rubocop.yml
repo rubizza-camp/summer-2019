@@ -55,7 +55,7 @@ AllCops:
     - '**/Thorfile'
     - '**/Vagabondfile'
     - '**/Vagrantfile'
-  Exclude:
+  AllowedVariables:
     - 'node_modules/**/*'
     - 'vendor/**/*'
     - 'db/schema.rb'
