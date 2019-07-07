@@ -26,7 +26,6 @@ def triangle(a, b, c)
   end 
 end
 
-
 def error(a, b, c)
   raise TriangleError if [a, b, c].include?(0) || a + b <= c || b + c <= a || c + a <= b
 end
