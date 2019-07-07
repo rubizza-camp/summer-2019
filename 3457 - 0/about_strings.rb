@@ -76,9 +76,6 @@ It was the worst of times.
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
-    hi = original_string
-    there = 'World'
-    hi += there
     assert_equal 'Hello, ', original_string
   end
 

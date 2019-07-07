@@ -232,7 +232,8 @@ module Neo
       if step.passed?
         @pass_count += 1
         if @pass_count > progress.last.to_i
-          @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness.")
+          @observations << Color.green("#{step.koan_file}##{step.name}
+          has expanded your awareness.")
         end
       else
         @failed_test = step
@@ -269,7 +270,7 @@ module Neo
       scale = bar_width.to_f / total_tests
       print Color.green('your path thus far [')
       happy_steps = (pass_count * scale).to_i
-      happy_steps = 1 if happy_steps == 0 && pass_count > 0
+      happy_steps = 1 if happy_steps.zero? && pass_count.positive?
       print Color.green('.' * happy_steps)
       if failed?
         print Color.red('X')
@@ -277,7 +278,6 @@ module Neo
       end
       print Color.green(']')
       print " #{pass_count}/#{total_tests}"
-      puts
     end
 
     def end_screen
@@ -335,7 +335,6 @@ module Neo
     end
 
     def encourage
-      puts
       puts 'The Master says:'
       puts Color.cyan('  You have not yet reached enlightenment.')
       if (recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1
@@ -348,13 +347,10 @@ module Neo
     end
 
     def guide_through_error
-      puts
       puts 'The answers you seek...'
       puts Color.red(indent(failure.message).join)
-      puts
       puts 'Please meditate on the following code:'
       puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace)))
-      puts
     end
 
     def embolden_first_line_only(text)
@@ -399,7 +395,7 @@ module Neo
                           "when you lose, don't lose the lesson"
                         else
                           'things are not what they appear to be: nor are they otherwise'
-        end
+                        end
       end
       puts Color.green(zen_statement)
     end
@@ -523,7 +519,7 @@ module Neo
     end
   end
 end
-END {
+at_exit {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
