@@ -387,7 +387,7 @@ ENDTEXT
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
     def a_zenlike_statement
       if !failed?
-        zen_statement =  "Mountains are again merely mountains"
+        zen_statement = 'Mountains are again merely mountains'
       else
         zen_statement = case (@pass_count % 10)
         when 0
