@@ -16,17 +16,20 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  raise TriangleError if [a,b,c].include?(0) || a + b <= c || b + c <= a || c + a <= b
-  case 
-  when a == b && b == c && c == a
+  error(a, b, c)
+  if a.eql?(b) && b.eql?(c) && c.eql?(a)
     :equilateral
-  when a.eql?(b) | b.eql?(c) | c.eql?(a)
+  elsif a.eql?(b) | b.eql?(c) | c.eql?(a)
     :isosceles
-  when a != b && b != c && c != a
+  else
     :scalene
   end 
 end
 
+
+def error(a, b, c)
+  raise TriangleError if [a, b, c].include?(0) || a + b <= c || b + c <= a || c + a <= b
+end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
