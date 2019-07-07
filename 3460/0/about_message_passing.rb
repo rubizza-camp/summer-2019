@@ -127,13 +127,11 @@ class AboutMessagePassing < Neo::Koan
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
-    # rubocop:disable Metrics/LineLength
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
-  # rubocop:enable Metrics/LineLength
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
 
