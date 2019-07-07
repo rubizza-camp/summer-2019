@@ -1,5 +1,5 @@
 # Triangle Project Code.
-
+#
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -12,9 +12,20 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
+
 def triangle(a, b, c)
   # WRITE THIS CODE
+  tria = [a, b, c].sort
+  raise TriangleError if tria.any? { |x| x <= 0}
+  raise TriangleError unless  (tria[0] + tria[1] > tria[2])
+
+  if a == b && a == c
+    :equilateral
+  elsif a != b && a != c && b != c
+    :scalene
+  else
+    :isosceles
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
