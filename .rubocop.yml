@@ -7,5 +7,5 @@ Style/Documentation:
 Metrics/LineLength:
   Max: 100
 
-Style/EndOfLine:
-  EnforcedStyle: lf
+Layout/EndOfLine:
+  EnforcedStyle: crlf
