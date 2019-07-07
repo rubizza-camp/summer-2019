@@ -36,11 +36,11 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RubyConstant = 'What is the sound of one hand clapping?'
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal false, all_symbols_as_strings.include?(RubyConstant)
+      assert_equal false, all_symbols_as_strings.include?(RUBY_CONSTANT)
     end
   end
 
@@ -50,9 +50,9 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_with_spaces_can_be_built
-    symbol = :"cats and dogs"
+    symbol = :'cats and dogs'
 
-    assert_equal "cats and dogs".to_sym, symbol
+    assert_equal 'cats and dogs'.to_sym, symbol
   end
 
   def test_symbols_with_interpolation_can_be_built

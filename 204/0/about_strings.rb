@@ -54,18 +54,18 @@ It was the worst of times.
     EOS
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal "I", long_string[0, 1]
+    assert_equal 'I', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
-    string = 'Hello, ' + 'World'
-    assert_equal 'Hello, World', string
+    @string = 'Hello, ' + 'World'
+    assert_equal 'Hello, World', @string
   end
 
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    string = hi + there
+    hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -74,20 +74,20 @@ It was the worst of times.
     hi = 'Hello, '
     there = 'World'
     hi += there
-    assert_equal "Hello, World", hi
+    assert_equal 'Hello, World', hi
   end
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
-    hi = original_string
+    @hi = original_string
     there = 'World'
-    hi += there
+    @hi += there
     assert_equal 'Hello, ', original_string
   end
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
-    hi = "Hello, "
-    there = "World"
+    hi = 'Hello, '
+    there = 'World'
     hi << there
     assert_equal 'Hello, World', hi
     assert_equal 'World', there
@@ -125,18 +125,18 @@ It was the worst of times.
   def test_double_quoted_strings_interpolate_variables
     value = 123
     string = "The value is #{value}"
-    assert_equal "The value is 123", string
+    assert_equal 'The value is 123', string
   end
 
   def test_single_quoted_strings_do_not_interpolate
-    value = 123
-    string = 'The value is #{value}'
-    assert_equal "The value is \#{value}", string
+    @value = 123
+    string = 'The value is #{@value}'
+    assert_equal "The value is \#{@value}", string
   end
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
-    assert_equal "The square root of 5 is 2.23606797749979", string
+    assert_equal 'The square root of 5 is 2.23606797749979', string
   end
 
   def test_you_can_get_a_substring_from_a_string
@@ -162,7 +162,7 @@ It was the worst of times.
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal "a", 'a'
+      assert_equal 'a', 'a'
       assert_equal false, 'a' == 97
     end
   end
