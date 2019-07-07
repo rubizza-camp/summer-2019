@@ -296,8 +296,8 @@ module Neo
 
     def artistic_end_screen
       'JRuby 1.9.x Koans'
-      ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? 
-                                                                            JRUBY_VERSION : 
+      ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ?
+                                                                            JRUBY_VERSION :
                                                                             RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
       completed = <<~ENDTEXT
@@ -342,7 +342,6 @@ module Neo
       puts
       puts 'The Master says:'
       puts Color.cyan('  You have not yet reached enlightenment.')
-      
     end
 
     def puts_message
@@ -350,7 +349,7 @@ module Neo
         puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
       elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
         puts Color.cyan('  Do not lose hope.')
-      elsif progress.last.to_i.positive? 
+      elsif progress.last.to_i.positive?
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
     end
@@ -442,17 +441,14 @@ module Neo
       rescue StandardError, Neo::Sensei::FailedAssertionError => e
         failed(e)
       ensure
-        
       end
       self
     end
 
     def meditate_ensure
-      begin
-        teardown
-      rescue StandardError, Neo::Sensei::FailedAssertionError => e
-        failed(e) if passed?
-      end
+      teardown
+    rescue StandardError, Neo::Sensei::FailedAssertionError => e
+      failed(e) if passed?
     end
 
     # Class methods for the Neo test suite.
@@ -476,8 +472,6 @@ module Neo
             @test_pattern = Regexp.new(Regexp.last_match(1))
           when /^-n(.*)$/
             @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
-          else
-            
           end
         end
       end
@@ -486,6 +480,7 @@ module Neo
         load(arg) if File.exist?(arg)
         raise "Unknown command line argument '#{arg}'" if File.exist?(arg) == false
       end
+
       # Lazy initialize list of subclasses
       def subclasses
         @subclasses ||= []
@@ -533,7 +528,7 @@ module Neo
   end
 end
 
-at_exit {
+at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
-}
+end

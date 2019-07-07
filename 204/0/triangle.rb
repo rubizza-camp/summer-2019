@@ -23,7 +23,7 @@ def triangle(a, b, c)
     :isosceles
   else
     :scalene
-  end 
+  end
 end
 
 def error(a, b, c)

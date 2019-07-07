@@ -53,7 +53,7 @@ class AboutInheritance < Neo::Koan
     assert_equal 'yip', chico.bark
 
     fido = Dog.new('Fido')
-    assert_equal "WOOF", fido.bark
+    assert_equal 'WOOF', fido.bark
   end
 
   # ------------------------------------------------------------------
@@ -66,7 +66,7 @@ class AboutInheritance < Neo::Koan
 
   def test_subclasses_can_invoke_parent_behavior_via_super
     ralph = BullDog.new('Ralph')
-    assert_equal "WOOF, GROWL", ralph.bark
+    assert_equal 'WOOF, GROWL', ralph.bark
   end
 
   # ------------------------------------------------------------------

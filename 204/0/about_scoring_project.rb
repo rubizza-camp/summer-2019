@@ -41,9 +41,9 @@ end
 
 def solo_count(dice)
   [2, 3, 4, 6].each do |x|
-    if dice.count(x) >= 3 
+    if dice.count(x) >= 3
       @total += x * 100
-    else 
+    else
       0
     end
   end
@@ -51,17 +51,17 @@ end
 
 def count_1(dice)
   @total += if dice.count(1) >= 3
-    (1000 + (dice.count(1) - 3) * 100)
-  else
-    dice.count(1) * 100
+              (1000 + (dice.count(1) - 3) * 100)
+            else
+              dice.count(1) * 100
   end
 end
 
 def count_5(dice)
-  @total += if dice.count(5) >= 3 
-    (500 + (dice.count(5) - 3) * 50)
-  else 
-    dice.count(5) * 50
+  @total += if dice.count(5) >= 3
+              (500 + (dice.count(5) - 3) * 50)
+            else
+              dice.count(5) * 50
   end
 end
 
