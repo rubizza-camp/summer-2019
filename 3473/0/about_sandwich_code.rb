@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Security/Open, Lint/AssignmentInCondition
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan

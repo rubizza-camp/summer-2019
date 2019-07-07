@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/ParenthesesAsGroupedExpression
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutKeywordArguments < Neo::Koan

@@ -1,3 +1,6 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Style/MethodMissingSuper
+# rubocop:disable Style/MissingRespondToMissing
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutMessagePassing < Neo::Koan

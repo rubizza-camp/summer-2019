@@ -1,3 +1,6 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength
+# rubocop:disable Lint/LiteralAsCondition, Metrics/MethodLength
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutControlStatements < Neo::Koan
@@ -99,7 +102,7 @@ class AboutControlStatements < Neo::Koan
                break i if i.even?
 
                i += 1
-    end
+             end
 
     assert_equal 2, result
   end

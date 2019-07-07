@@ -1,3 +1,6 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Metrics/AbcSize
+# rubocop:disable Lint/ShadowingOuterLocalVariable
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutHashes < Neo::Koan

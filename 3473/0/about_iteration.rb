@@ -1,3 +1,5 @@
+# rubocop:disable Lint/AmbiguousBlockAssociation, Lint/MissingCopEnableDirective
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutIteration < Neo::Koan
