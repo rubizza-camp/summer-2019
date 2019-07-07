@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Style/MethodMissing
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class

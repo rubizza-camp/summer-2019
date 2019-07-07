@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/LiteralAsCondition, Style/For
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutControlStatements < Neo::Koan
@@ -87,25 +89,25 @@ class AboutControlStatements < Neo::Koan
       result = result * i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 362_880_0, result
   end
 
   def test_break_statement
     i = 1
     result = 1
-    while true
+    loop do
       break unless i <= 10
-      result = result * i
+      result *= i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 362_880_0, result
   end
 
   def test_break_statement_returns_values
     i = 1
-    result = while i <= 10
-      break i if i % 2 == 0
-      i += 1
+    result = while i <= 10 do
+              break i if i.even?
+              i += 1
     end
 
     assert_equal 2, result
@@ -116,19 +118,20 @@ class AboutControlStatements < Neo::Koan
     result = []
     while i < 10
       i += 1
-      next if (i % 2) == 0
+      next if i.even?
       result << i
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
 
   def test_for_statement
-    array = ["fish", "and", "chips"]
+    array = %w[fish and chips]
     result = []
-    for item in array
+    array.each do |item|
       result << item.upcase
     end
-    assert_equal ["FISH", "AND", "CHIPS"], result
+
+    assert_equal %W[FISH AND CHIPS], result
   end
 
   def test_times_statement
@@ -138,5 +141,4 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal 10, sum
   end
-
 end
