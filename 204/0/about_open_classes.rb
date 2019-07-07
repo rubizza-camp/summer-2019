@@ -30,8 +30,6 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  # rubocop:disable Style/EvenOdd
   # rubocop:disable Style/ClassAndModuleChildren
   class ::Integer
     def even?
