@@ -706,7 +706,7 @@ Naming/UncommunicativeBlockParamName:
 
 Naming/UncommunicativeMethodArgName:
   # Argrument names may be equal to or greater than this value
-  MinNameLength: 3
+  MinNameLength: 1
   AllowNamesEndingInNumbers: true
   # Whitelisted names that will not register an offense
   AllowedNames: []
@@ -1437,7 +1437,7 @@ Style/YodaCondition:
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be an Integer or
   # a Float.
-  Max: 15
+  Max: 100
 
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
