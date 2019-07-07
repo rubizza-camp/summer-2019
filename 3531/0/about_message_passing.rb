@@ -1,4 +1,5 @@
 # rubocop:disable Lint/MissingCopEnableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective:
 # rubocop:disable Style/MissingRespondToMissing
 # rubocop:disable Style/MethodMissingSuper
 
@@ -136,9 +137,8 @@ class AboutMessagePassing < Neo::Koan
     end
     assert_equal false, catcher.respond_to?(:any_method)
   end
-
   # ------------------------------------------------------------------
-  
+
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
