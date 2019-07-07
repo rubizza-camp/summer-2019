@@ -55,11 +55,11 @@ class AboutClassMethods < Neo::Koan
       :instance_level_wag
     end
   end
-
+  # rubocop:disable Lint/AmbiguousBlockAssociation
   def Dog2.wag
     :class_level_wag
   end
-
+  # rubocop:enable Lint/AmbiguousBlockAssociation
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
     assert_equal :class_level_wag, Dog2.wag
   end
@@ -71,10 +71,11 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Lint/AmbiguousBlockAssociation
   class Dog
     attr_accessor :name
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def Dog.name
     @name
@@ -101,22 +102,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
+  LAST_EXPRESSION = class Dog
                                      21
                                    end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                  self
                                end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT 
   end
 
   # ------------------------------------------------------------------

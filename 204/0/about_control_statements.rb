@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Lint/LiteralAsCondition, Lint/ShadowedArgument
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -28,7 +28,8 @@ class AboutControlStatements < Neo::Koan
   end
 
   def value_true(value)
-    value = if true
+    value = 
+    if true
       :true_value
     else
       :false_value
@@ -37,15 +38,14 @@ class AboutControlStatements < Neo::Koan
   end
 
   def value_false(value)
-    value = if false
+    value = 
+    if false
       :true_value
     else
       :false_value
     end
     assert_equal :false_value, value
   end
-
-
 
   def test_if_statements_with_no_else_with_false_condition_return_value
     value = (:true_value if false)
@@ -108,10 +108,9 @@ class AboutControlStatements < Neo::Koan
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
-               break i if i.even?
-
+             break i if i.even?
                i += 1
-            end
+             end
     assert_equal 2, result
   end
 
@@ -145,4 +144,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 
-# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Lint/LiteralAsCondition, Lint/ShadowedArgument
