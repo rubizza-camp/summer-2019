@@ -63,11 +63,11 @@ class AboutArrays < Neo::Koan
     array = [1,2]
     array.push(:last)
 
-    assert_equal __, array
+    assert_equal [1, 2, :last], array
 
     popped_value = array.pop
-    assert_equal __, popped_value
-    assert_equal __, array
+    assert_equal :last, popped_value
+    assert_equal [1,2], array
   end
 
   def test_shifting_arrays
