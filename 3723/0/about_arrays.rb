@@ -2,13 +2,13 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrays < Neo::Koan
   def test_creating_arrays
-    empty_array = Array.new
+    empty_array = []
     assert_equal Array, empty_array.class
     assert_equal 0, empty_array.size
   end
 
   def test_array_literals
-    array = Array.new
+    array = []
     assert_equal [], array
 
     array[0] = 1
@@ -22,7 +22,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_accessing_array_elements
-    array = [:peanut, :butter, :and, :jelly]
+    array = %i[peanut butter and jelly]
 
     assert_equal :peanut, array[0]
     assert_equal :peanut, array.first
@@ -33,15 +33,15 @@ class AboutArrays < Neo::Koan
   end
 
   def test_slicing_arrays
-    array = [:peanut, :butter, :and, :jelly]
+    array = %i[peanut butter and jelly]
 
-    assert_equal [:peanut], array[0,1]
-    assert_equal [:peanut, :butter], array[0,2]
-    assert_equal [:and, :jelly], array[2,2]
-    assert_equal [:and, :jelly], array[2,20]
-    assert_equal [], array[4,0]
-    assert_equal [], array[4,100]
-    assert_equal nil, array[5,0]
+    assert_equal [:peanut], array[0, 1]
+    assert_equal %i[peanut butter], array[0, 2]
+    assert_equal %i[and jelly], array[2, 2]
+    assert_equal %i[and jelly], array[2, 20]
+    assert_equal [], array[4, 0]
+    assert_equal [], array[4, 100]
+    assert_equal nil, array[5, 0]
   end
 
   def test_arrays_and_ranges
@@ -52,15 +52,15 @@ class AboutArrays < Neo::Koan
   end
 
   def test_slicing_with_ranges
-    array = [:peanut, :butter, :and, :jelly]
+    array = %i[peanut butter and jelly]
 
-    assert_equal [:peanut, :butter, :and], array[0..2]
-    assert_equal [:peanut, :butter], array[0...2]
-    assert_equal [:and, :jelly], array[2..-1]
+    assert_equal %i[peanut butter and], array[0..2]
+    assert_equal %i[peanut butter], array[0...2]
+    assert_equal %i[and jelly], array[2..-1]
   end
 
   def test_pushing_and_popping_arrays
-    array = [1,2]
+    array = [1, 2]
     array.push(:last)
 
     assert_equal [1, 2, :last], array
@@ -71,7 +71,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_shifting_arrays
-    array = [1,2]
+    array = [1, 2]
     array.unshift(:first)
 
     assert_equal [:first, 1, 2], array
@@ -80,5 +80,4 @@ class AboutArrays < Neo::Koan
     assert_equal :first, shifted_value
     assert_equal [1, 2], array
   end
-
 end
