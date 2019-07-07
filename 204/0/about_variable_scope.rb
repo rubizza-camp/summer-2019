@@ -14,7 +14,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_we_can_get_noise_by_calling_method
-    assert_equal "RUFF", bark
+    assert_equal 'RUFF', bark
   end
 
   inaccessible = 'Outside our universe'
@@ -31,7 +31,7 @@ class AboutVariableScope < Neo::Koan
       test = 'Hey'
     end
 
-    assert_equal "Hey" , test
+    assert_equal 'Hey', test
   end
 
   def test_block_variables_cannot_be_accessed_outside_scope

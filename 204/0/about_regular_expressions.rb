@@ -8,7 +8,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_a_regexp_can_search_a_string_for_matching_content
-    assert_equal "match", 'some matching content'[/match/]
+    assert_equal 'match', 'some matching content'[/match/]
   end
 
   def test_a_failed_match_returns_nil
@@ -29,7 +29,7 @@ class AboutRegularExpressions < Neo::Koan
   def test_asterisk_means_zero_or_more
     assert_equal 'abb', 'abbcccddddeeeee'[/ab*/]
     assert_equal 'a', 'abbcccddddeeeee'[/az*/]
-    assert_equal "", 'abbcccddddeeeee'[/z*/]
+    assert_equal '', 'abbcccddddeeeee'[/z*/]
 
     # THINK ABOUT IT:
     #
@@ -56,12 +56,12 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
-    assert_equal "42", 'the number is 42'[/[0123456789]+/]
-    assert_equal "42", 'the number is 42'[/\d+/]
+    assert_equal '42', 'the number is 42'[/[0123456789]+/]
+    assert_equal '42', 'the number is 42'[/\d+/]
   end
 
   def test_character_classes_can_include_ranges
-    assert_equal "42", 'the number is 42'[/[0-9]+/]
+    assert_equal '42', 'the number is 42'[/[0-9]+/]
   end
 
   def test_slash_s_is_a_shortcut_for_a_whitespace_character_class
@@ -79,26 +79,26 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_a_character_class_can_be_negated
-    assert_equal "the number is ", 'the number is 42'[/[^0-9]+/]
+    assert_equal 'the number is ', 'the number is 42'[/[^0-9]+/]
   end
 
   def test_shortcut_character_classes_are_negated_with_capitals
-    assert_equal "the number is ", 'the number is 42'[/\D+/]
-    assert_equal "space:", "space: \t\n"[/\S+/]
+    assert_equal 'the number is ', 'the number is 42'[/\D+/]
+    assert_equal 'space:', "space: \t\n"[/\S+/]
     # ... a programmer would most likely do
-    assert_equal " = " , 'variable_1 = 42'[/[^a-zA-Z0-9_]+/]
-    assert_equal " = " , 'variable_1 = 42'[/\W+/]
+    assert_equal ' = ', 'variable_1 = 42'[/[^a-zA-Z0-9_]+/]
+    assert_equal ' = ', 'variable_1 = 42'[/\W+/]
   end
 
   # ------------------------------------------------------------------
 
   def test_slash_a_anchors_to_the_start_of_the_string
-    assert_equal "start", 'start end'[/\Astart/]
+    assert_equal 'start', 'start end'[/\Astart/]
     assert_equal nil, 'start end'[/\Aend/]
   end
 
   def test_slash_z_anchors_to_the_end_of_the_string
-    assert_equal "end", 'start end'[/end\z/]
+    assert_equal 'end', 'start end'[/end\z/]
     assert_equal nil, 'start end'[/start\z/]
   end
 
@@ -123,14 +123,14 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_parentheses_also_capture_matched_content_by_number
-    assert_equal "Gray", 'Gray, James'[/(\w+), (\w+)/, 1]
-    assert_equal "James", 'Gray, James'[/(\w+), (\w+)/, 2]
+    assert_equal 'Gray', 'Gray, James'[/(\w+), (\w+)/, 1]
+    assert_equal 'James', 'Gray, James'[/(\w+), (\w+)/, 2]
   end
 
   def test_variables_can_also_be_used_to_access_captures
-    assert_equal "Gray, James", 'Name:  Gray, James'[/(\w+), (\w+)/]
-    assert_equal "Gray", Regexp.last_match(1)
-    assert_equal "James", Regexp.last_match(2)
+    assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
+    assert_equal 'Gray', Regexp.last_match(1)
+    assert_equal 'James', Regexp.last_match(2)
   end
 
   # ------------------------------------------------------------------
@@ -149,14 +149,14 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_scan_is_like_find_all
-    assert_equal ["one", "two", "three"], 'one two-three'.scan(/\w+/)
+    assert_equal %w[one two three], 'one two-three'.scan(/\w+/)
   end
 
   def test_sub_is_like_find_and_replace
-    assert_equal "one t-three", 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
+    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 
   def test_gsub_is_like_find_and_replace_all
-    assert_equal "one t-t", 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
+    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 end
