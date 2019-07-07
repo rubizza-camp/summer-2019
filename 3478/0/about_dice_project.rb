@@ -9,7 +9,7 @@ class DiceSet
 
   def roll(rolls)
     @values = []
-    rolls.times {@values << rand(6) + 1}  
+    rolls.times { @values << rand(1..6) }
   end
 end
 
@@ -23,7 +23,7 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
 
     dice.roll(5)
-    assert dice.values.is_a?(Array), "should be an array"
+    assert dice.values.is_a?(Array), 'should be an array'
     assert_equal 5, dice.values.size
     dice.values.each do |value|
       assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
@@ -48,7 +48,7 @@ class AboutDiceProject < Neo::Koan
     second_time = dice.values
 
     assert_not_equal first_time, second_time,
-      "Two rolls should not be equal"
+                     'Two rolls should not be equal'
 
     # THINK ABOUT IT:
     #
@@ -66,5 +66,4 @@ class AboutDiceProject < Neo::Koan
     dice.roll(1)
     assert_equal 1, dice.values.size
   end
-
 end
