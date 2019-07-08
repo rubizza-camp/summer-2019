@@ -1,7 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-include Java
-
 # Concepts
 # * Pull in a java class
 # * calling a method, Camel vs snake
@@ -12,6 +10,8 @@ include Java
 # * Calling Ruby from java???
 
 class AboutJavaInterop < Neo::Koan
+  include Java
+
   def test_using_a_java_library_class
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.class
@@ -23,7 +23,7 @@ class AboutJavaInterop < Neo::Koan
 
   def test_include_class_includes_class_in_module_scope
     assert_nil defined?(TreeSet)
-    include_class "java.util.TreeSet"
+    include_class 'java.util.TreeSet'
     assert_equal __, defined?(TreeSet)
   end
 
@@ -31,7 +31,7 @@ class AboutJavaInterop < Neo::Koan
   #
   # What if we use:
   #
-  #   include_class "java.lang.String"
+  #   include_class 'java.lang.String'
   #
   # What would be the value of the String constant after this
   # include_class is run?  Would it be useful to provide a way of
@@ -39,26 +39,26 @@ class AboutJavaInterop < Neo::Koan
 
   JString = java.lang.String
   def test_also_java_class_can_be_given_ruby_aliases
-    java_string = JString.new("A Java String")
+    java_string = JString.new('A Java String')
     assert_equal __, java_string.class
     assert_equal __, JString
   end
 
   def test_can_directly_call_java_methods_on_java_objects
-    java_string = JString.new("A Java String")
+    java_string = JString.new('A Java String')
     assert_equal __, java_string.toLowerCase
   end
 
   def test_jruby_provides_snake_case_versions_of_java_methods
-    java_string = JString.new("A Java String")
+    java_string = JString.new('A Java String')
     assert_equal __, java_string.to_lower_case
   end
 
   def test_jruby_provides_question_mark_versions_of_boolean_methods
-    java_string = JString.new("A Java String")
-    assert_equal __, java_string.endsWith("String")
-    assert_equal __, java_string.ends_with("String")
-    assert_equal __, java_string.ends_with?("String")
+    java_string = JString.new('A Java String')
+    assert_equal __, java_string.endsWith('String')
+    assert_equal __, java_string.ends_with('String')
+    assert_equal __, java_string.ends_with?('String')
   end
 
   def test_java_string_are_not_ruby_strings
