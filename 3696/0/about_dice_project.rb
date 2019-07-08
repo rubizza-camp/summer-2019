@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective
+# rubocop:disable Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
@@ -5,6 +7,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class DiceSet
 #   code ...
 # end
+# :reek:Attribute and :reek:InstanceVariableAssumption
 class DiceSet
   attr_accessor :values
 
@@ -16,6 +19,8 @@ class DiceSet
     @values
   end
 end
+#
+# :reek:Attribute and :reek:FeatureEnvy and :reek:TooManyStatements  and :reek:UncommunicativeMethodName
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new

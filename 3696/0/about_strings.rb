@@ -1,6 +1,6 @@
 # rubocop:disable Metrics/ClassLength, Lint/MissingCopEnableDirective, Naming/HeredocDelimiterNaming, Lint/UselessAssignment, Lint/InterpolationCheck, Metrics/LineLength, Lint/UnneededCopDisableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UncommunicativeVariableName and :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'

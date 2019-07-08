@@ -1,7 +1,7 @@
 # rubocop:disable Lint/UselessAssignment, Style/ClassVars, Metrics/LineLength, Lint/MissingCopEnableDirective, Style/GlobalVars
-# :reek:UncommunicativeMethodName and :reek:UncommunicativeVariableName and :reek:ClassVariable
-require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UncommunicativeMethodName and :reek:UncommunicativeVariableName and :reek:ClassVariable
 class AboutVariableScope < Neo::Koan
   def bark
     noise = 'RUFF'
