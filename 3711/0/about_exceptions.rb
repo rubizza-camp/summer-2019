@@ -43,6 +43,7 @@ class AboutExceptions < Neo::Koan
       raise 'Oops'
     rescue StandardError
       # no code here
+      puts 'handled'
     ensure
       result = :always_run
     end
