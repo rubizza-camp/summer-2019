@@ -45,7 +45,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(aaa, bbb=:default_value)
+  def method_with_defaults(aaa, bbb = :default_value)
     [aaa, bbb]
   end
 
@@ -70,7 +70,7 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    return :return_value
+    :return_value
   end
 
   def test_method_with_explicit_return
@@ -116,7 +116,7 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /private method/, exception.message
+    assert_match /private method /, exception.message
   end
 
   # ------------------------------------------------------------------
