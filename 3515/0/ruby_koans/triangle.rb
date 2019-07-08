@@ -13,15 +13,40 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  # WRITE THIS CODE
 
-  raise TriangleError if (a<=0 or b<=0 or c<=0)
-  raise TriangleError if (a+b<=c or a+c<=b or b+c<=a)
-  return :equilateral if (a==b and b==c)
-  return  :isosceles if (a==b or a==c or b==c)
-  :scalene
+def triangle1(first, second, third)
+  raise TriangleError if (first <= 0) || (second <= 0) || (third <= 0)
 end
+
+def triangle2(first, second, third)
+  raise TriangleError if (first + second <= third) ||
+                         (first + third <= second) || (second + third <= first)
+end
+
+def triangle3(first, second, third)
+  return :equilateral if (first == second) && (second == third)
+end
+
+def triangle4(first, second, third)
+  return :isosceles if (first == second) || (first == third) || (second == third)
+end
+
+def triangle5(first, second, third)
+  :scalene if first != second && second != third && third != first
+end
+
+# rubocop:disable Lint/UselessAssignment
+
+def triangle(first, second, third)
+  # WRITE THIS CODE
+  result = triangle1(first, second, third) ||
+           triangle2(first, second, third) ||
+           triangle3(first, second, third) ||
+           triangle4(first, second, third) ||
+           triangle5(first, second, third)
+end
+
+# rubocop:enable Lint/UselessAssignment
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
