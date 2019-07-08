@@ -14,7 +14,6 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-
   if a + b <= c || a + c <= b || b + c <= a || a <= 0 || b <= 0 || c <= 0
     raise TriangleError
   end
@@ -28,9 +27,7 @@ def triangle(a, b, c)
   else
     :scalene
   end
-
 end
-
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
