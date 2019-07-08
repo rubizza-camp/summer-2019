@@ -25,7 +25,7 @@ class Proxy
       @messages << method_name
       @object.send method_name, *args, &block
     else
-      super method_name, *args, &block
+      super
     end
   end
 
