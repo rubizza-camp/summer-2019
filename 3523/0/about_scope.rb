@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+# rubocop:disable TooManyStatements
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutScope < Neo::Koan
@@ -79,3 +79,4 @@ class AboutScope < Neo::Koan
     assert Object.constants.size > 1
   end
 end
+# rubocop:enable TooManyStatements
