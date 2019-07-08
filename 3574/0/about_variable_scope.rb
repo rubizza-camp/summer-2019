@@ -47,8 +47,8 @@ class AboutVariableScope < Neo::Koan
     @@total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(num)
+      @name = num
       # Instance variables are prefixed with one '@' character.
       @@total += 1
     end
