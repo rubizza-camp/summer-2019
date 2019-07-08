@@ -1,17 +1,20 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Layout/IndentationConsistency
+# rubocop:disable Layout/IndentationWidth
+# rubocop:disable Naming/UncommunicativeMethodParamName
+# rubocop:disable Style/RandomWithOffset
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Implement a DiceSet Class here:
-
- class DiceSet
+class DiceSet
   attr_reader :values
-	def roll(i)
-		@values = []
-		i.times do
-			@values << rand(5)+1
-		end
-	end
+  def roll(i)
+    @values = []
+    i.times do
+      @values << rand(5) + 1
+    end
+  end
 end
-
 
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
@@ -23,7 +26,7 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
 
     dice.roll(5)
-    assert dice.values.is_a?(Array), "should be an array"
+    assert dice.values.is_a?(Array), 'should be an array'
     assert_equal 5, dice.values.size
     dice.values.each do |value|
       assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
@@ -47,9 +50,7 @@ class AboutDiceProject < Neo::Koan
     dice.roll(5)
     second_time = dice.values
 
-    assert_not_equal first_time, second_time,
-      "Two rolls should not be equal"
-
+    assert_not_equal first_time, second_time, 'Two rolls should not be equal'
     # THINK ABOUT IT:
     #
     # If the rolls are random, then it is possible (although not
@@ -66,5 +67,9 @@ class AboutDiceProject < Neo::Koan
     dice.roll(1)
     assert_equal 1, dice.values.size
   end
-
 end
+# rubocop:enable Layout/IndentationConsistency
+# rubocop:enable Layout/IndentationWidth
+# rubocop:enable Naming/UncommunicativeMethodParamName
+# rubocop:enable Style/RandomWithOffset
+# rubocop:enable Lint/UnneededCopDisableDirective

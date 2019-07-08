@@ -1,3 +1,11 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Naming/UncommunicativeMethodParamName
+# rubocop:disable Style/RedundantReturn
+# rubocop:disable Layout/MultilineOperationIndentation
+
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -13,14 +21,15 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  if a <= 0 or b <= 0 or c <= 0 or (a + b <= c) or (a + c <= b) or (c + b <= a)
-    raise TriangleError, "the triangle does not exist"
-  elsif a == b and b == c and a == c
+def triangle(side_a, side_b, side_c)
+  if side_a <= 0 || side_b <= 0 || side_c <= 0 || (side_a + side_b <= side_c) ||
+    (side_a + side_c <= side_b) || (side_c + side_b <= side_a)
+    raise TriangleError, 'the triangle does not exist'
+  elsif side_a == side_b && side_b == side_c && side_a == side_c
     return :equilateral
-  elsif a == b or b == c or a == c
+  elsif side_a == side_b || side_b == side_c || side_a == side_c
     return :isosceles
-  elsif a != b and b != c and a != c 
+  elsif side_a != side_b && side_b != side_c && side_a != side_c
     return :scalene
   end
 end
@@ -28,3 +37,10 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Naming/UncommunicativeMethodParamName
+# rubocop:enable Style/RedundantReturn
+# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Layout/MultilineOperationIndentation

@@ -1,9 +1,10 @@
+# rubocop:disable Lint/UnneededCopDisableDirective, Layout/TrailingBlankLines, Layout/EmptyLinesAroundMethodBody, Metrics/LineLength, Layout/TrailingWhitespace, Layout/EmptyLinesAroundClassBody, Lint/UselessAssignment, Style/EachForSimpleLoop, Style/ClassVars, Naming/UncommunicativeMethodParamName, Style/TrivialAccessors, Style/ClassMethods, Lint/UnusedBlockArgument, Lint/InterpolationCheck, Style/GlobalVars, Layout/LeadingCommentSpace 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
 
   def bark
-    noise = "RUFF"
+    noise = 'RUFF'
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -18,7 +19,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal __, bark
   end
 
-  inaccessible = "Outside our universe"
+  inaccessible = 'Outside our universe'
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
     assert_equal __, defined? inaccesible
@@ -27,9 +28,9 @@ class AboutVariableScope < Neo::Koan
   # ------------------------------------------------------
 
   def test_blocks_can_access_variables_outside_scope 
-    test = "Hi"
+    test = 'Hi'
     (1..2).each do
-      test = "Hey"
+      test = 'Hey'
     end
 
     assert_equal __, test    
@@ -64,12 +65,12 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_instance_variable 
-    oscar = Mouse.new("Oscar")
+    oscar = Mouse.new('Oscar')
     assert_equal __, oscar.name 
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new("#{i}") }
+    (1..9).each { |i| Mouse.new('#{i}') }
     # Things may appear easier than they actually are.  
     assert_equal __, Mouse.count
   end
@@ -79,16 +80,15 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
   
-  $anywhere = "Anywhere"
+  $anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
-
   def test_global_variables_can_be_accessed_from_any_scope
     assert_equal __, $anywhere    
   end
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
-    $anywhere = "Here"
+    $anywhere = 'Here'
     assert_equal __, $anywhere
   end
 
@@ -100,15 +100,13 @@ class AboutVariableScope < Neo::Koan
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     (1..2).each do
-      $anywhere = "Hey"
+      $anywhere = 'Hey'
     end
 
     assert_equal __, $anywhere
   end
-
 end
-
 # THINK ABOUT IT:
-# 
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
+# rubocop:enable Lint/UnneededCopDisableDirective, Layout/TrailingBlankLines, Layout/EmptyLinesAroundMethodBody, Metrics/LineLength, Layout/TrailingWhitespace, Layout/EmptyLinesAroundClassBody, Lint/UselessAssignment, Style/EachForSimpleLoop, Style/ClassVars, Naming/UncommunicativeMethodParamName, Style/TrivialAccessors, Style/ClassMethods, Lint/UnusedBlockArgument, Lint/InterpolationCheck, Style/GlobalVars, Layout/LeadingCommentSpace 

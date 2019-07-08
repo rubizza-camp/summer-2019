@@ -1,3 +1,7 @@
+# rubocop:disable Style/BlockDelimiters
+# rubocop:disable Lint/AmbiguousBlockAssociation
+# rubocop:disable Style/Lambda
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
@@ -19,12 +23,12 @@ class AboutBlocks < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_block_arguments
-    yield("Jim")
+    yield('Jim')
   end
 
   def test_blocks_can_take_arguments
     method_with_block_arguments do |argument|
-      assert_equal "Jim", argument
+      assert_equal 'Jim', argument
     end
   end
 
@@ -40,7 +44,7 @@ class AboutBlocks < Neo::Koan
   def test_methods_can_call_yield_many_times
     result = []
     many_yields { |item| result << item }
-    assert_equal [:peanut, :butter, :and, :jelly], result
+    assert_equal %i(peanut butter and jelly), result
   end
 
   # ------------------------------------------------------------------
@@ -77,13 +81,13 @@ class AboutBlocks < Neo::Koan
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
     make_upper = lambda { |n| n.upcase }
     result = method_with_block_arguments(&make_upper)
-    assert_equal "JIM", result
+    assert_equal 'JIM', result
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_explicit_block(&block)
-    block.call(10)
+  def method_with_explicit_block(&_block)
+    yield(10)
   end
 
   def test_methods_can_take_an_explicit_block_argument
@@ -92,5 +96,7 @@ class AboutBlocks < Neo::Koan
     add_one = lambda { |n| n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
-
 end
+# rubocop:enable Style/BlockDelimiters
+# rubocop:enable Lint/AmbiguousBlockAssociation
+# rubocop:enable Style/Lambda

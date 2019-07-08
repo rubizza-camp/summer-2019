@@ -1,7 +1,11 @@
+# rubocop:disable Security/Open
+# rubocop:disable Style/WhileUntilModifier
+# rubocop:disable Lint/AssignmentInCondition
+# rubocop:disable Performance/RedundantMatch
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
-
   def count_lines(file_name)
     file = open(file_name)
     count = 0
@@ -14,7 +18,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def test_counting_lines
-    assert_equal 4, count_lines("example_file.txt")
+    assert_equal 4, count_lines('example_file.txt')
   end
 
   # ------------------------------------------------------------------
@@ -29,7 +33,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def test_finding_lines
-    assert_equal "test\n", find_line("example_file.txt")
+    assert_equal "test\n", find_line('example_file.txt')
   end
 
   # ------------------------------------------------------------------
@@ -74,7 +78,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def test_counting_lines2
-    assert_equal 4, count_lines2("example_file.txt")
+    assert_equal 4, count_lines2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
@@ -84,7 +88,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def test_finding_lines2
-    assert_equal nil, find_line2("example_file.txt")
+    assert_equal nil, find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
@@ -100,7 +104,10 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def test_open_handles_the_file_sandwich_when_given_a_block
-    assert_equal 4, count_lines3("example_file.txt")
+    assert_equal 4, count_lines3('example_file.txt')
   end
-
 end
+# rubocop:enable Security/Open
+# rubocop:enable Style/WhileUntilModifier
+# rubocop:enable Lint/AssignmentInCondition
+# rubocop:enable Performance/RedundantMatch
