@@ -96,7 +96,6 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  
   # :reek:UtilityFunction
   def my_method_in_the_same_class(arg, brg)
     arg * brg
