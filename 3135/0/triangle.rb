@@ -13,9 +13,9 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
+def triangle(a_length, b_length, c_length)
   # WRITE THIS CODE
-  a, b, c = [a, b, c].sort
+  a, b, c = [a_length, b_length, c_length].sort
   raise TriangleError if a <= 0 || a + b <= c
 
   %i[equilateral isosceles scalene].fetch([a, b, c].uniq.size - 1)

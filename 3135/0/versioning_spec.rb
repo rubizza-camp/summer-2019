@@ -17,7 +17,7 @@ describe '#version_ints' do
   Then { version_ints('2.1.20') == [2, 1, 20] }
 end
 
-describe "at_least_ruby_version" do
+describe 'at_least_ruby_version' do
   Then { at_least_ruby_version('2') }
   Then { at_least_ruby_version('2.0') }
   Then { at_least_ruby_version('2.0.1') }
@@ -27,3 +27,4 @@ describe "at_least_ruby_version" do
   Then { !at_least_ruby_version('1.9') }
   Then { !at_least_ruby_version('1.9.9.9.9') }
 end
+# rubocop:enable all
