@@ -1,8 +1,10 @@
+# rubocop:disable ClassLength
 # frozen_string_literal: false
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class
 class AboutStrings < Neo::Koan
+  # rubocop:enable ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
