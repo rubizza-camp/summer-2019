@@ -33,58 +33,47 @@ def score(dice)
   dice.sort!
   sum = 0
   combos = [0, 0, 0, 0, 0, 0]
-  if dice.size == 0
+  return sum  if dice.empty?
+  if dice.size == 1
+    return sum + 100 if dice[0] == 1
+    return sum + 50  if dice[0] == 5
     return sum
-  elsif dice.size == 1
-    if dice[0] == 1
-      return sum + 100
-    elsif dice[0] == 5
-      return sum + 50
-    else
-      return sum
-    end
   elsif dice.size >= 2
     i = 0
-    while (i != dice.size)
-      if combos.all?{|x| x != 3}
-      combos[dice[i] - 1] += 1
+    while i != dice.size
+      if combos.all? { |x| x != 3 }
+        combos[dice[i] - 1] += 1
         if combos[dice[i] - 1] == 3
           if dice[i] == 1
             sum += 1000
             3.times do
               dice.shift
             end
-            i = 0
           else
-            sum += dice[i]*100
+            sum += dice[i] * 100
             j = dice.index(dice[i])
             3.times do
               dice.delete_at(j)
             end
-            i = 0
           end
-          if dice.size == 0
+          i = 0
+          if dice.empty?
             return sum
           end
         end
       end
       if i == dice.size - 1
         dice.each do |x|
-          if x == 1
-            sum += 100
-          end
+          sum += 100 if x == 
         end
         dice.each do |x|
-          if x == 5
-            sum += 50
-          end
+          sum += 50 if x == 5
         end
       end
       i += 1
     end
     return sum
   end
-  # You need to write this method
 end
 
 class AboutScoringProject < Neo::Koan
@@ -127,5 +116,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1200, score([1,1,1,1,1])
     assert_equal 1150, score([1,1,1,5,1])
   end
-
 end
