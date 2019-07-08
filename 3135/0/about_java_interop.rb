@@ -1,3 +1,6 @@
+# rubocop:disable all
+# File is not from the path set 
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 include Java

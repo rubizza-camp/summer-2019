@@ -1,4 +1,5 @@
-# rubocop:disable Style/RedundantSelf
+# rubocop:disable Style/RedundantSelf, Style/AccessModifierDeclarations
+# rubocop:disable Lint/UnreachableCode, Lint/Void
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

@@ -33,25 +33,17 @@ def score(dice)
   score = 0
   roll_hash = Hash.new(0)
   dice.each { |num| roll_hash[num] += 1 }
-
-  roll_hash.each do |key, value|
-  if key == 1
-    if value >= 3
-      score += 1000
-      value -= 3
-    end
-      score += 100 * value
-  end
-  if key != 1
-    if value >= 3
-      score += 100 * key
-      value -= 3
-    end
-  end
-  if key == 5
-    score += 50 * value
-  end
+  roll_hash.each { |key, value| score = outcome_count(key, value, score) }
+  score
 end
+
+def outcome_count(key, value, score)
+  if value >= 3
+    score += key == 1 ? 1000 : 100 * key
+    value -= 3
+  end
+  score += 100 * value if key == 1
+  score += 50 * value if key == 5
   score
 end
 

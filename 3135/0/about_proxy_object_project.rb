@@ -1,3 +1,5 @@
+# rubocop:disable Lint/UnreachableCode
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -23,7 +25,12 @@ class Proxy
 
   def method_missing(method_name, *args, &block)
     @messages << method_name
-    @object.send(method_name, *args, &block)
+    return @object.send(method_name, *args, &block)
+    super
+  end
+
+  def respond_to_missing?
+    true
   end
 
   def called?(method_name)
@@ -117,11 +124,11 @@ class Television
   attr_accessor :channel
 
   def power
-    if @power == :on
-      @power = :off
-    else
-      @power = :on
-    end
+    @power = if @power == :on
+               :off
+             else
+               :on
+             end
   end
 
   def on?

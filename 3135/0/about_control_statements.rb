@@ -96,7 +96,7 @@ class AboutControlStatements < Neo::Koan
   def test_break_statement
     i = 1
     result = 1
-    while true
+    loop do
       break unless i <= 10
 
       result *= i
