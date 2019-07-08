@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength, Layout/IndentHeredoc
-# rubocop:disable Style/PercentLiteralDelimiters, Lint/UselessAssignment
+# rubocop:disable Lint/UselessAssignment
 # rubocop:disable Lint/InterpolationCheck
 # :reek:TooManyMethods
 class AboutStrings < Neo::Koan
@@ -32,8 +32,8 @@ class AboutStrings < Neo::Koan
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
     value_a = %(flexible quotes can handle both ' and " characters)
-    value_b = %!flexible quotes can handle both ' and " characters!
-    value_c = %{flexible quotes can handle both ' and " characters}
+    value_b = %(flexible quotes can handle both ' and " characters)
+    value_c = %(flexible quotes can handle both ' and " characters)
     assert_equal true, value_a == value_b
     assert_equal true, value_a == value_c
   end
@@ -199,5 +199,5 @@ SQL
   end
 end
 # rubocop:enable Metrics/ClassLength, Layout/IndentHeredoc
-# rubocop:enable Style/PercentLiteralDelimiters, Lint/UselessAssignment
+# rubocop:enable Lint/UselessAssignment
 # rubocop:enable Lint/InterpolationCheck
