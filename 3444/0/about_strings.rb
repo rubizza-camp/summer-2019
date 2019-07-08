@@ -1,6 +1,4 @@
-# rubocop:disable Style/StringLiterals, Lint/InterpolationCheck Lint/Syntax
-# rubocop:disable Metrics/ClassLength
-
+# rubocop:disable Style/StringLiterals, Metrics/ClassLength, Lint/InterpolationCheck
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
@@ -49,10 +47,10 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~KOAN
+    long_string = %(
       It was the best of times,
       It was the worst of times.
-    KOAN
+      )
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -193,5 +191,4 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable Style/StringLiterals, Lint/InterpolationCheck Lint/Syntax
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Style/StringLiterals, Metrics/ClassLength, Lint/InterpolationCheck

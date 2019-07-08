@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
-# rubocop:disable Style/StringLiterals
+# rubocop:disable Style/StringLiterals, Lint/UnusedMethodArgument
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -88,7 +88,7 @@ class AboutBlocks < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_block(&block)
-    block.call(10)
+    yield(10)
   end
 
   def test_methods_can_take_an_explicit_block_argument
