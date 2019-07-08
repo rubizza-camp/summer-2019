@@ -90,3 +90,18 @@ Style/RedundantSelf:
 
 Style/TrivialAccessors:
   Enabled: false
+
+Lint/ScriptPermission:
+  Enabled: false
+
+Performance/RedundantBlockCall:
+  Enabled: false
+
+Performance/RedundantMatch:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Style/MethodMissing:
+  Enabled: false
