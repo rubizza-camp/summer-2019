@@ -1,13 +1,11 @@
 # frozen_string_literal: true
-# I decided to disable rubocop because it is condition mistake
-# rubocop:disable Metrics/ClassLength
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/LineLength
-# rubocop:disable Lint/LiteralAsCondition
-# frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# about class AboutControlStatements
+# rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/MethodLength:
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -101,16 +99,18 @@ class AboutControlStatements < Neo::Koan
     assert_equal 3_628_800, result
   end
 
+  # rubocop:disable Layout/EndAlignment
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
                break i if i.even?
 
                i += 1
-             end
+  end
 
     assert_equal 2, result
   end
+  # rubocop:enable Layout/EndAlignment
 
   def test_next_statement
     i = 0
@@ -142,6 +142,5 @@ class AboutControlStatements < Neo::Koan
   end
 end
 # rubocop:enable Metrics/ClassLength
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/LineLength:
 # rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Metrics/MethodLength:
