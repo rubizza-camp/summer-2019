@@ -73,7 +73,7 @@ def score(dice)
     1150
   else
     0
-   end
+  end
 end
 
 class AboutScoringProject < Neo::Koan

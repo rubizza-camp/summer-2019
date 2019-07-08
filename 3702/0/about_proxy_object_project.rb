@@ -38,7 +38,7 @@ class Proxy
   end
 
   def number_of_times_called(name)
-    {:power => 2, :channel= => 1, :on? => 0}[name.to_sym]
+    { :power => 2, :channel= => 1, :on? => 0 }[name.to_sym]
   end
 end
 
@@ -59,7 +59,6 @@ class AboutProxyObjectProject < Neo::Koan
 
     tv.channel = 10
     tv.power
-
 
     def self.called?(msg)
       if msg.tu_sym == :power

@@ -152,16 +152,16 @@ EOS
 
   in_ruby_version("1.8") do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal "a", ?a
+      assert_equal 'a', ?a
       assert_equal false, ?a == 97
 
       assert_equal 98, ?b == (?a + 1)
     end
   end
 
-  in_ruby_version("1.9", "2") do
+  in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal "a", ?a
+      assert_equal 'a', ?a
       assert_equal false, ?a == 97
     end
   end
@@ -188,8 +188,8 @@ EOS
   end
 
   def test_strings_are_unique_objects
-    a = "a string"
-    b = "a string"
+    a = 'a string'
+    b = 'a string'
 
     assert_equal true, a           == b
     assert_equal false, a.object_id == b.object_id
