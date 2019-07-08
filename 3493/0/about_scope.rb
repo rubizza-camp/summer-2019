@@ -22,7 +22,8 @@ class AboutScope < Neo::Koan
       Dog.new
     end
   end
-  #:reek:TooManyStatements: 
+  # :reek:TooManyStatements:
+
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
     rover = Joes::Dog.new

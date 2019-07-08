@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-  # :reek:FeatureEnvy:reek:TooManyStatements:
+# :reek:FeatureEnvy:reek:TooManyStatements:
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -90,6 +90,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash_second[:two]
   end
   # rubocop:disable Metrics/AbcSize
+
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
