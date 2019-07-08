@@ -1,9 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+# rubocop:disable Lint/UnneededDisable
+# This method smells of :reek:ManualDispatch
+# This method smells of :reek:UncommunicativeModuleName
+# This method smells of :reek:UncommunicativeVariableName
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
-
     assert_equal true, symbol.is_a?(Symbol)
   end
 
@@ -26,9 +28,7 @@ class AboutSymbols < Neo::Koan
 
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
-    # rubocop:disable Metrics/LineLength
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
-    # rubocop:enable Metrics/LineLength
   end
 
   # THINK ABOUT IT:
