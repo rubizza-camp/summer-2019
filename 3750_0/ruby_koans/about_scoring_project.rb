@@ -41,20 +41,20 @@ def score(dice)
   elsif dice.size >= 2
     i = 0
     while i != dice.size
-      if combos.all? { |x| x != 3 }
-        combos[dice[i] - 1] += 1
-        if combos[dice[i] - 1] == 3
-          sum += dice[i] * 100
-          sum *= 10 if sum == 100
-          j = dice.index(dice[i]) 
-          3.times { dice.delete_at(j) }
-          i = 0
-          return sum if dice.empty?
-        end
+      combos[dice[i] - 1] += 1
+      if combos.any? { |x| x != 3 }
+        sum += dice[i] * 100
+        sum *= 10 if sum == 100
+        combos.clear
+        j = dice.index(dice[i]) 
+        3.times { dice.delete_at(j) }
+        i = 0
+        eturn sum if dice.empty?
       end  
-      if i == dice.size - 1
+      if (i == (dice.size - 1)) | combos.empty?
         dice.each { |x| sum += 100 if x == 1 }
         dice.each { |x| sum += 50 if x == 5 }
+        return sum
       end
       i += 1
     end
