@@ -150,5 +150,5 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
-# rubocop:enable Metrics/ClassLength, Metrics/MethodLength,
+# rubocop:enable Metrics/ClassLength, Metrics/MethodLength
 # rubocop:enable Lint/LiteralAsCondition, Style/IfUnlessModifier,
