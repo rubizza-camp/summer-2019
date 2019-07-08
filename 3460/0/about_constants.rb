@@ -74,14 +74,12 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable ClassAndModuleChildren
   # Class myanimals
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
     end
   end
-  # rubocop:enable ClassAndModuleChildren
   def test_who_wins_with_explicit_scoping_on_class_definition
     assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
   end
