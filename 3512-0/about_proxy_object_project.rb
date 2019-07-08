@@ -19,19 +19,19 @@ class Proxy
   attr_reader :messages
 
   def initialize(target_object)
-    @object = target_object
-    @messages = []
+    @object = []
+    @messages = target_object
   end
 
-  def called?(message)
-    @messages.include?(message)
+  def called?(method_name)
+    @messages.include? method_name
   end
 
-  def number_of_times_called(message)
-    @messages.count(message)
+  def number_of_times_called(method_name)
+    @messages.count method_name
   end
 
-  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissingng
+  def method_missing(method_name, *args, &block)
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
