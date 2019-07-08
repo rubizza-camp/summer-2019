@@ -34,21 +34,12 @@ def score(dice)
   result = 0
   h = Hash[dice.group_by { |x| x }.map { |k, v| [k, v.count] }]
 
-  case h[1]
-  when 0..2
-    result += h[1] * 100
-  when 3..5
-    result += 1000
-    h[1] = h[1] - 3
-    result += h[1] * 100
+  n = h.select { |_k, v| v >= 3 }.keys[0]
+  if n
+    n == 1 ? result += 1000 : result += n * 100
+    h[n] = h[n] - 3
   end
-
-  set = h.select { |_k, v| v >= 3 }
-  v = set.keys[0]
-  if v
-    result += v * 100
-    h[v] = h[v] - 3
-  end
+  result += h[1] * 100 if h[1]
   result += h[5] * 50 if h[5]
   result
 end
