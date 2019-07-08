@@ -44,11 +44,10 @@ def score(dice)
       if combos.all? { |x| x != 3 }
         combos[dice[i] - 1] += 1
         if combos[dice[i] - 1] == 3
-          sum += 1000 if dice[i] == 1
-          3.times do dice.shift end if dice[i] == 1
-          sum += dice[i] * 100 unless dice[i] == 1
+          sum += dice[i] * 100
+          sum *= 10 if sum == 100
           j = dice.index(dice[i]) 
-          3.times do dice.delete_at(j) end unless dice[i] == 1
+          3.times { dice.delete_at(j) }
           i = 0
           return sum if dice.empty?
         end
