@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Lint/ShadowingOuterLocalVariable, Metrics/AbcSize
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutHashes < Neo::Koan
@@ -100,15 +98,17 @@ class AboutHashes < Neo::Koan
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
-    assert_equal %w[uno dos], hash[:one]
-    assert_equal %w[uno dos], hash[:two]
-    assert_equal %w[uno dos], hash[:three]
-
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
 
+  def assert_hashes(hash)
+    assert_equal %w[uno dos], hash[:one]
+    assert_equal %w[uno dos], hash[:two]
+    assert_equal %w[uno dos], hash[:three]
+  end
+
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |h, key| h[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
@@ -118,5 +118,3 @@ class AboutHashes < Neo::Koan
     assert_equal [], hash[:three]
   end
 end
-
-# rubocop:enable Lint/ShadowingOuterLocalVariable, Metrics/AbcSize

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/ClassAndModuleChildren, Metrics/AbcSize
+# rubocop:disable Style/ClassAndModuleChildren
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -95,12 +95,19 @@ class AboutJavaInterop < Neo::Koan
   def test_however_most_methods_returning_strings_return_ruby_strings
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.toString
+    assert_java(java.array)
+  end
+
+  def assert_java
     assert_equal __, java_array.toString.is_a?(String)
     assert_equal __, java_array.toString.is_a?(java.lang.String)
   end
 
   def test_some_ruby_objects_can_be_coerced_to_java
     assert_equal __, 'ruby string'.to_java.class
+  end
+
+  def assert_java_objects
     assert_equal __, 1.to_java.class
     assert_equal __, 9.32.to_java.class
     assert_equal __, false.to_java.class
@@ -139,4 +146,4 @@ class AboutJavaInterop < Neo::Koan
   end
 end
 
-# rubocop:enable Style/ClassAndModuleChildren, Metrics/AbcSize
+# rubocop:enable Style/ClassAndModuleChildren

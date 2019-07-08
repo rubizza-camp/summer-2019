@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Lint/ParenthesesAsGroupedExpression
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutKeywordArguments < Neo::Koan
@@ -21,7 +19,7 @@ class AboutKeywordArguments < Neo::Koan
   end
 
   def test_keyword_arguments_with_wrong_number_of_arguments
-    exception = assert_raise (ArgumentError) do
+    exception = assert_raise(ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
     end
     assert_match(/["wrong number of arguments (0 for 2)"]/, exception.message)
@@ -31,5 +29,3 @@ class AboutKeywordArguments < Neo::Koan
   #
   # Keyword arguments always have a default value, making them optional to the caller
 end
-
-# rubocop:enable Lint/ParenthesesAsGroupedExpression

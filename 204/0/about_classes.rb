@@ -54,7 +54,7 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.give_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
     assert_equal 'Fido', fido.instance_eval { @name } # block version
   end
 

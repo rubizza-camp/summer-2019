@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/UncommunicativeMethodParamName, Style/RescueStandardError
-# rubocop:disable Layout/TrailingWhitespace
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutExceptions < Neo::Koan
@@ -22,16 +19,21 @@ class AboutExceptions < Neo::Koan
     rescue StandardError => e
       result = :exception_handled
     end
-    assert_equal_exception(result)
-    assert_equal_is_a?(e)
+    error = e
+    asserts(result, error)
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
-    assert_equal 'Oops', e.message
+    assert_equal 'Oops', error.message
   end
 
-  def assert_equal_is_a?(e)
-    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
+  def asserts(result, error)
+    assert_equal_exception(result)
+    assert_equal_is_a?(error)
+  end
+
+  def assert_equal_is_a?(error)
+    assert_equal true, error.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, error.is_a?(RuntimeError),  'Should be a Runtime Error'
   end
 
   def assert_equal_exception(result)
@@ -55,8 +57,8 @@ class AboutExceptions < Neo::Koan
     @result = nil
     begin
       raise 'Oops'
-    rescue 
-      StandardError
+    rescue StandardError
+      p 'StandardError'
     ensure
       @result = :always_run
     end
@@ -72,6 +74,3 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
-
-# rubocop:enable Naming/UncommunicativeMethodParamName, Style/RescueStandardError
-# rubocop:enable Layout/TrailingWhitespace

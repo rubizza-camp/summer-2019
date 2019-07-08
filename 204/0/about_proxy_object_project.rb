@@ -166,10 +166,8 @@ class TelevisionTest < Neo::Koan
 
   def test_can_set_the_channel
     tv = Television.new
-
     tv.channel = 11
     assert_equal 11, tv.channel
   end
 end
-
 # rubocop:enable Style/MethodMissing, Lint/UnneededCopDisableDirective

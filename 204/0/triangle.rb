@@ -14,7 +14,9 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-def triangle(side_a, side_b, side_c)
+# def triangle(side_a, side_b, side_c)
+
+def triangle_sides(side_a, side_b, side_c)
   if side_a.eql?(side_b) && side_b.eql?(side_c) && side_c.eql?(side_a)
     :equilateral
   elsif side_a.eql?(side_b) | side_b.eql?(side_c) | side_c.eql?(side_a)
@@ -24,12 +26,14 @@ def triangle(side_a, side_b, side_c)
   end
 end
 
-def error(side_a, side_b, side_c)
+def triangle(side_a, side_b, side_c)
   raise TriangleError if
   [side_a, side_b, side_c].include?(0) ||
   side_a + side_b <= side_c ||
   side_b + side_c <= side_a ||
   side_c + side_a <= side_b
+
+  triangle_sides(side_a, side_b, side_c)
 end
 # Error class used in part 2.  No need to change this code.
 
