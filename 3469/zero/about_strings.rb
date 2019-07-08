@@ -1,6 +1,7 @@
+# rubocop:disable Layout/IndentHeredoc, Naming/HeredocDelimiterNaming
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutStrings < Neo::Koan
+class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -63,7 +64,7 @@ EOS
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    string = hi + there
+    string = hi + there # rubocop:disable Lint/UselessAssignment
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -79,7 +80,7 @@ EOS
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
-    hi += there
+    hi += there # rubocop:disable Lint/UselessAssignment
     assert_equal 'Hello, ', original_string
   end
 
@@ -127,9 +128,9 @@ EOS
   end
 
   def test_single_quoted_strings_do_not_interpolate
-    value = 123
-    string = 'The value is #{value}'
-    assert_equal 'The value is #{value}', string
+    value = 123 # rubocop:disable Lint/UselessAssignment
+    string = 'The value is #{value}' # rubocop:disable Lint/InterpolationCheck
+    assert_equal 'The value is #{value}', string # rubocop:disable Lint/InterpolationCheck
   end
 
   def test_any_ruby_expression_may_be_interpolated

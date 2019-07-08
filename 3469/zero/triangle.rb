@@ -1,7 +1,7 @@
 # Triangle Project Code.
 
-# Triangle analyzes the lengths of the sides of a triangle
-# (represented by a, b and c) and returns the type of triangle.
+# Triangle analyzes the lengths of the sides of triangle_a triangle
+# (represented by triangle_a, triangle_b and triangle_c) and returns the type of triangle.
 #
 # It returns:
 #   :equilateral  if all sides are equal
@@ -13,26 +13,24 @@
 # and
 #   about_triangle_project_2.rb
 #
-def check_the_right_variable(a, b, c)
-  a * b * c <= 0 || a + b <= c || a + c <= b || c + b <= a ? false : true
+def check_variable(tr_a, tr_b, tr_c)
+  return false if tr_a * tr_b * tr_c <= 0 || tr_a + tr_b <= tr_c || tr_a + tr_c <= tr_b || tr_c + tr_b <= tr_a
+  true
 end
 
-def triangle_analyzes(a, b, c)
-  if a == b && b == c
+def triangle_analyzes(tr_a, tr_b, tr_c)
+  if tr_a == tr_b && tr_b == tr_c
     :equilateral
-  elsif a != b && b != c && a != c
+  elsif tr_a != tr_b && tr_b != tr_c && tr_a != tr_c
     :scalene
   else
     :isosceles
   end
 end
 
-def triangle(a, b, c)
-  if check_the_right_variable(a, b, c)
-    triangle_analyzes(a, b, c)
-  else
-    raise TriangleError, 'Wrong parameters'
-  end
+def triangle(tr_a, tr_b, tr_c)
+  return raise TriangleError, 'Wrong parameters' unless check_variable(tr_a, tr_b, tr_c)
+  triangle_analyzes(tr_a, tr_b, tr_c)
 end
 
 # Error class used in part 2.  No need to change this code.
