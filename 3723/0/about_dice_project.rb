@@ -1,18 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class DiceSet
-  attr_accessor :round, :values
-
-  def initialize
-    @values = []
-    @round = round
-  end
+  attr_accessor :values
 
   def roll(num)
-    @values = []
-    num.times do
-      @values << rand(1..6)
-    end
+    @values = Array.new(num) { rand(1..6) }
   end
 end
 
