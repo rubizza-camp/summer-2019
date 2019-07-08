@@ -213,16 +213,16 @@ module Neo
     def add_progress(prog)
       @_contents = nil
       exists = File.exists?(PROGRESS_FILE_NAME)
-      File.open(PROGRESS_FILE_NAME,'a+') do |f|
+      File.open(PROGRESS_FILE_NAME, 'a+') do |f|
         f.print "#{',' if exists}#{prog}"
       end
     end
 
     def progress
       if @_contents.nil?
-        if File.exists?(PROGRESS_FILE_NAME)
-          File.open(PROGRESS_FILE_NAME,'r') do |f|
-            @_contents = f.read.to_s.gsub(/\s/,'').split(',')
+        if File.exist?(PROGRESS_FILE_NAME)
+          File.open(PROGRESS_FILE_NAME, 'r') do |f|
+            @_contents = f.read.to_s.gsub(/\s/, '').split(',')
           end
         else
           @_contents = []
@@ -271,12 +271,12 @@ module Neo
       total_tests = Neo::Koan.total_tests
       scale = bar_width.to_f/total_tests
       print Color.green("your path thus far [")
-      happy_steps = (pass_count*scale).to_i
+      happy_steps = (pass_count * scale).to_i
       happy_steps = 1 if happy_steps == 0 && pass_count > 0
-      print Color.green('.'*happy_steps)
+      print Color.green('.' * happy_steps)
       if failed?
         print Color.red('X')
-        print Color.cyan('_'*(bar_width-1-happy_steps))
+        print Color.cyan('_' * (bar_width-1-happy_steps))
       end
       print Color.green(']')
       print " #{pass_count}/#{total_tests}"
@@ -296,7 +296,7 @@ module Neo
     end
 
     def artistic_end_screen
-      "JRuby 1.9.x Koans"
+      'JRuby 1.9.x Koans'
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
         completed = <<-ENDTEXT
@@ -339,7 +339,7 @@ ENDTEXT
 
     def encourage
       puts
-      puts "The Master says:"
+      puts 'The Master says:'
       puts Color.cyan("  You have not yet reached enlightenment.")
       if ((recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1)
         puts Color.cyan("  I sense frustration. Do not be afraid to ask for help.")
@@ -391,17 +391,17 @@ ENDTEXT
       else
         zen_statement = case (@pass_count % 10)
         when 0
-          "mountains are merely mountains"
+          'mountains are merely mountains'
         when 1, 2
-          "learn the rules so you know how to break them properly"
+          'learn the rules so you know how to break them properly'
         when 3, 4
-          "remember that silence is sometimes the best answer"
+          'remember that silence is sometimes the best answer'
         when 5, 6
-          "sleep is the best meditation"
+          'sleep is the best meditation'
         when 7, 8
-          "when you lose, don't lose the lesson"
+          'when you lose, don't lose the lesson'
         else
-          "things are not what they appear to be: nor are they otherwise"
+          'things are not what they appear to be: nor are they otherwise'
         end
       end
       puts Color.green(zen_statement)
