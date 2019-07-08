@@ -20,7 +20,7 @@ class Proxy
   end
 
   # rubocop:disable Style/MethodMissingSuper, Lint/UnneededCopDisableDirective
-  def method_missing(method_name, *args, &block) # rubocop:disable Style/MissingRespondToMissing
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MissingRespondToMissing, Style/MethodMissing
     if @object.respond_to?(method_name)
       @times_called[method_name] += 1
       unless @messages.include?(method_name) # rubocop:disable Style/IfUnlessModifier
