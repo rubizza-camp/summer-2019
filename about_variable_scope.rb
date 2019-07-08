@@ -6,7 +6,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class AboutVariableScope < Neo::Koan
 class AboutVariableScope < Neo::Koan
   def bark
-    noise = 'RUFF'
+    no# rubocop:disable Style/MethodMissingise = 'RUFF'
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -58,7 +58,7 @@ class AboutVariableScope < Neo::Koan
     attr_reader :name
 
     def self.count
-      @@total
+      @total
     end
   end
 

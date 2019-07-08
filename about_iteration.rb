@@ -120,6 +120,7 @@ class AboutIteration < Neo::Koan
   #   # code to read 'file'
   #
   # you can use file = open(filename)
-  # but this construction does not return the contents of the file, it creates a file object
+  # but this construction does not return the contents of the file,
+  # it creates a file object
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 end

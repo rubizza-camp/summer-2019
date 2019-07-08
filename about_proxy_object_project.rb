@@ -1,6 +1,5 @@
-# rubocop:disable Style/FrozenStringLiteralComment
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:enable Style/FrozenStringLiteralComment
+
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -31,14 +30,10 @@ class Proxy
   end
 
   # WRITE CODE HERE
-  # rubocop:disable Style/MethodMissingSuper
-  # rubocop:disable Style/MissingRespondToMissing
-  def method_missing(method_name, *args, &block)
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
-  # rubocop:enable Style/MissingRespondToMissing
-  # rubocop:enable Style/MethodMissingSuper
 end
 
 # The proxy object should pass the following Koan:

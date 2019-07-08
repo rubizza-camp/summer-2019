@@ -84,7 +84,7 @@ class AboutBlocks < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_explicit_block(&block)
+  def method_with_explicit_block(*)
     yield(10)
   end
 
