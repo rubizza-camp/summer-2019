@@ -13,12 +13,32 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
+  attr_accessor :messages
   def initialize(target_object)
     @object = target_object
-    # ADD MORE CODE HERE
+    @messages = Hash.new(0)
   end
 
-  # WRITE CODE HERE
+  def method_missing(method_name, *args, &block)
+    @messages[method_name] += 1
+    @object.send(method_name, *args, &block)
+  end
+
+  def called?(method_name)
+    @messages.key?(method_name)
+  end
+
+  def number_of_times_called(method_name)
+    @messages[method_name]
+  end
+
+  def messages
+    @messages.keys
+  end
+
+  def respond_to_missing?
+    true
+  end
 end
 
 # The proxy object should pass the following Koan:
@@ -49,7 +69,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
     tv.channel = 10
 
-    assert_equal [:power, :channel=], tv.messages
+    assert_equal %i[power channel=], tv.messages
   end
 
   def test_proxy_handles_invalid_messages
@@ -83,13 +103,13 @@ class AboutProxyObjectProject < Neo::Koan
   end
 
   def test_proxy_can_record_more_than_just_tv_objects
-    proxy = Proxy.new("Code Mash 2009")
+    proxy = Proxy.new('Code Mash 2009')
 
     proxy.upcase!
     result = proxy.split
 
-    assert_equal ["CODE", "MASH", "2009"], result
-    assert_equal [:upcase!, :split], proxy.messages
+    assert_equal ['CODE', 'MASH', '2009'], result
+    assert_equal %i[upcase! split], proxy.messages
   end
 end
 
@@ -103,11 +123,11 @@ class Television
   attr_accessor :channel
 
   def power
-    if @power == :on
-      @power = :off
-    else
-      @power = :on
-    end
+    @power = if @power == :on
+                :off
+              else
+                :on
+              end
   end
 
   def on?
