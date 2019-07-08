@@ -1,8 +1,7 @@
 # frozen_string_literal: false
 
-# rubocop:disable Lint/MissingCopEnableDirective,
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Style/MissingRespondToMissing, Lint/UnneededCopDisableDirective, Style/StringLiterals
+# rubocop:disable Lint/UnneededCopDisableDirective, Style/MethodMissingSuper
+# rubocop:disable Style/MissingRespondToMissing, Lint/UnneededCopDisableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -45,7 +44,7 @@ class Proxy
 
   class Television
     attr_accessor :channel, :power
-
+    # rubocop:disable Lint/DuplicateMethods
     def on?
       @power
     end
@@ -53,13 +52,14 @@ class Proxy
     def power
       if @power == 1
         @power = 0
-      elsif @power == 0
+      elsif @power.zero?
         @power = 1
       else
         raise
       end
     end
   end
+  # rubocop:enable Lint/DuplicateMethods
 end
 
 # The proxy object should pass the following Koan:
@@ -124,7 +124,7 @@ class AboutProxyObjectProject < Neo::Koan
   end
 
   def test_proxy_can_record_more_than_just_tv_objects
-    proxy = Proxy.new("Code Mash 2009")
+    proxy = Proxy.new('Code Mash 2009')
 
     proxy.upcase!
     result = proxy.split
@@ -194,3 +194,5 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Lint/UnneededCopDisableDirective, Style/MethodMissingSuper
+# rubocop:enable Style/MissingRespondToMissing, Lint/UnneededCopDisableDirective
