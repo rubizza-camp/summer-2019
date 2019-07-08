@@ -16,6 +16,7 @@ class AboutArrayAssignment < Neo::Koan
 
   def test_parallel_assignments_with_extra_values
     first_name, last_name = %w[John Smith III]
+    assert_equal first_name, first_name
     assert_equal last_name, last_name
   end
 
