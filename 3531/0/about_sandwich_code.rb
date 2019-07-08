@@ -1,4 +1,4 @@
-# rubocop:disable Layout/EndOfLine, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective
+# rubocop:disable Layout/EndOfLine, Metrics/LineLength, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective, Lint/AssignmentInCondition
 # rubocop:disable, Performance/RedundantMatch
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -19,13 +19,9 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
   def find_line(file_name)
-<<<<<<< HEAD
     file = File.open(file_name)
-    while (line = file.gets)
-=======
-    file = open(file_name)
+
     while line = file.gets
->>>>>>> ec8fa87... human fix
       return line if line =~ /e/
     end
   ensure
