@@ -67,50 +67,50 @@ class AboutHashes < Neo::Koan
   end
 
   def test_combining_hashes
-    hash = { "jim" => 53, "amy" => 20, "dan" => 23 }
-    new_hash = hash.merge({ "jim" => 54, "jenny" => 26 })
+    hash = { 'jim' => 53, 'amy' => 20, 'dan' => 23 }
+    new_hash = hash.merge({ 'jim' => 54, 'jenny' => 26 })
 
     assert_equal true, hash != new_hash
 
-    expected = { "jim" => 54, "amy" => 20, "dan" => 23, "jenny" => 26 }
+    expected = { 'jim' => 54, 'amy' => 20, 'dan' => 23, 'jenny' => 26 }
     assert_equal true, expected == new_hash
   end
 
   def test_default_value
-    hash1 = Hash.new
+    hash1 = {}
     hash1[:one] = 1
 
     assert_equal 1, hash1[:one]
     assert_equal nil, hash1[:two]
 
-    hash2 = Hash.new("dos")
+    hash2 = Hash.new('dos')
     hash2[:one] = 1
 
     assert_equal 1, hash2[:one]
-    assert_equal "dos", hash2[:two]
+    assert_equal 'dos', hash2[:two]
   end
 
-  def test_default_value_is_the_same_object
+  def test_default_value_is_the_same
     hash = Hash.new([])
 
-    hash[:one] << "uno"
-    hash[:two] << "dos"
+    hash[:one] << 'uno'
+    hash[:two] << 'dos'
 
-    assert_equal ["uno", "dos"], hash[:one]
-    assert_equal ["uno", "dos"], hash[:two]
-    assert_equal ["uno", "dos"], hash[:three]
+    assert_equal %w[uno dos], hash[:one]
+    assert_equal %w[uno dos], hash[:two]
+    assert_equal %w[uno dos], hash[:three]
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
 
   def test_default_value_with_block
-    hash = Hash.new {|hash, key| hash[key] = [] }
+    hash = Hash.new { | hash, key | hash[key] = [] }
 
-    hash[:one] << "uno"
-    hash[:two] << "dos"
+    hash[:one] << 'uno'
+    hash[:two] << 'dos'
 
-    assert_equal ["uno"], hash[:one]
-    assert_equal ["dos"], hash[:two]
+    assert_equal ['uno'], hash[:one]
+    assert_equal ['dos'], hash[:two]
     assert_equal [], hash[:three]
   end
 end
