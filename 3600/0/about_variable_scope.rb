@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutVariableScope < Neo::Koan
 
   def bark
-    noise = "RUFF"
+    noise = 'RUFF'
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -27,23 +27,20 @@ class AboutVariableScope < Neo::Koan
   # ------------------------------------------------------
 
   def test_blocks_can_access_variables_outside_scope 
-    test = "Hi"
-    (1..2).each do
-      test = "Hey"
+    test = 'i'
+    2.times.each do
+      test = 'Hey'
     end
-
     assert_equal __, test    
   end
 
   def test_block_variables_cannot_be_accessed_outside_scope
-    (1..2).each do
+    2.times.each do
       x = 0 
     end
     assert_equal __, defined? x
   end
-
   # ------------------------------------------------------
-
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
@@ -58,18 +55,18 @@ class AboutVariableScope < Neo::Koan
       @name
     end
 
-    def Mouse.count
+    def self.count
       @@total
     end
   end
 
   def test_instance_variable 
-    oscar = Mouse.new("Oscar")
+    oscar = Mouse.new('Oscar')
     assert_equal __, oscar.name 
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new("#{i}") }
+    9.times.each { |i| Mouse.new("#{i}") }
     # Things may appear easier than they actually are.  
     assert_equal __, Mouse.count
   end
