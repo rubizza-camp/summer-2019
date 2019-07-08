@@ -1,9 +1,11 @@
 # rubocop:disable all
 
+# :reek:UncommunicativeVariableName and :reek:UtilityFunction
 def version_ints(version)
   version.split(".").map { |v| v.to_i }
 end
 
+# :reek:UncommunicativeVariableName and :reek:NilCheck
 def at_least_ruby_version(version)
   vints = version_ints(version)
   ruby_vints = version_ints(RUBY_VERSION)
@@ -13,6 +15,7 @@ end
 
 require 'rspec/given'
 
+# :reek:UncommunicativeVariableName and :reek:NilCheck
 describe "#version_ints" do
   Then { version_ints("1.2") == [1, 2] }
   Then { version_ints("2.1.20") == [2, 1, 20] }

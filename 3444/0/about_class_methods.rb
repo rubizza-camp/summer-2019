@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 # rubocop:disable Lint/MissingCopEnableDirective, Style/TrivialAccessors, Style/StringLiterals
+# rubocop:disable Metrics/LineLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:Attribute and :reek:TooManyMethods and :reek:UncommunicativeMethodName and :reek:UncommunicativeModuleName
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -170,3 +172,4 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
+# rubocop:enable Metrics/LineLength

@@ -2,13 +2,16 @@
 
 # rubocop:disable Lint/MissingCopEnableDirective, Lint/Void, Naming/UncommunicativeMethodParamName
 # rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral, Lint/UnreachableCode
-# rubocop:disable Style/StringLiterals
+# rubocop:disable Style/StringLiterals, Metrics/LineLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# :reek:UtilityFunction and :reek:UncommunicativeParameterName
 def my_global_method(a, b)
   a + b
 end
 
+# :reek:TooManyMethods and :reek:TooManyStatements and :reek:UncommunicativeParameterName and :reek:UtilityFunction
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -154,3 +157,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable Metrics/LineLength

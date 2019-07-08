@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-# rubocop:disable Style/MethodMissing
+# rubocop:disable Style/MethodMissing, Metrics/LineLength
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Lint/UnneededCopDisableDirective
 
@@ -18,6 +18,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
+# :reek:Attribute and :reek:FeatureEnvy and :reek:InstanceVariableAssumption and :reek:ManualDispatch
 class Proxy
   def initialize(target_object)
     @object = target_object
@@ -43,6 +44,7 @@ class Proxy
     @messages.include? method_name
   end
 
+  # :reek:Attribute and :reek:FeatureEnvy and :reek:InstanceVariableAssumption
   class Television
     attr_accessor :channel, :power
     # rubocop:disable Lint/DuplicateMethods
@@ -65,6 +67,7 @@ end
 
 # The proxy object should pass the following Koan:
 #
+# :reek:FeatureEnvy and :reek:Attribute and :reek:InstanceVariableAssumption and :reek:TooManyStatements
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
@@ -140,6 +143,7 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# :reek:FeatureEnvy and :reek:Attribute and :reek:InstanceVariableAssumption and :reek:TooManyStatements
 class Television
   attr_accessor :channel
 
@@ -157,6 +161,7 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+# :reek:FeatureEnvy and :reek:Attribute and :reek:InstanceVariableAssumption and :reek:TooManyStatements
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new
@@ -195,5 +200,5 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength
 # rubocop:enable Lint/UnneededCopDisableDirective, Style/MethodMissing
