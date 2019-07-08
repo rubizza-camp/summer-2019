@@ -13,6 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:TooManyStatements
 def triangle(a_side, b_side, c_side)
   # WRITE THIS CODE
   sum = a_side + b_side + c_side
@@ -26,11 +27,11 @@ def triangle(a_side, b_side, c_side)
 
   :scalene
 end
-
+# :reek:ControlParameter and :reek:UtilityFunction
 def isosceles?(a_side, b_side, c_side)
   (a_side == b_side) || (b_side == c_side) || (a_side == c_side)
 end
-
+# :reek:ControlParameter and :reek:UtilityFunction
 def equilateral?(a_side, b_side, c_side)
   (a_side == b_side) && (b_side == c_side)
 end
