@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -13,17 +17,27 @@
 # and
 #   about_triangle_project_2.rb
 #
-# This method smells of :reek:UncommunicativeVariableName
-def triangle(first_side, second_side, third_side)
-  # WRITE THIS CODE
-  raise TriangleError if [first_side, second_side, third_side].min <= 0
 
-  x, y, z = [first_side, second_side, third_side].sort
-  raise TriangleError if x + y <= z
+# :reek:UtilityFunction and :reek:FeatureEnvy
+def first_ex(a_side, b_side, c_side)
+  (a_side + b_side) <= c_side || (b_side + c_side) <= a_side || (c_side + a_side) <= b_side
+end
 
-  %i[equilateral isosceles scalene].fetch([first_side, second_side, third_side].uniq.size - 1)
+# :reek:UtilityFunction and :reek:FeatureEnvy
+def triangle(a_side, b_side, c_side)
+  raise TriangleError if a_side <= 0 || b_side <= 0 || c_side <= 0
+  raise TriangleError if first_ex a_side, b_side, c_side
+
+  if a_side == b_side && a_side == c_side
+    :equilateral
+  elsif a_side == b_side || a_side == c_side || b_side == c_side
+    :isosceles
+  else
+    :scalene
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
