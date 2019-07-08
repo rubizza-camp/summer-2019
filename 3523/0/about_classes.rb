@@ -1,12 +1,8 @@
-# rubocop:disable Naming/AccessorMethodName
-# rubocop:disable Style/EvalWithLocation:
 # frozen_string_literal: true
-
-# I decided to disable rubocop in some places
-# because it was Naming/AccessorMethodName:
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# class AboutClasses
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -18,8 +14,9 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class Dog2
   class Dog2
-    def set_name(a_name)
+    def setname(a_name)
       @name = a_name
     end
   end
@@ -28,40 +25,46 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     assert_equal [], fido.instance_variables
 
-    fido.set_name('Fido')
+    fido.setname('Fido')
     assert_equal [:@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
-    fido.set_name('Fido')
+    fido.setname('Fido')
 
     assert_raise(NoMethodError) do
       fido.name
     end
+
     assert_raise(SyntaxError) do
-      eval 'fido.@name'
+      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+             fido.@name
+      RUBY
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
-    fido.set_name('Fido')
+    fido.setname('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
-    fido.set_name('Fido')
-
+    fido.setname('Fido')
+    # rubocop:disable Style/EvalWithLocation
     assert_equal 'Fido', fido.instance_eval('@name') # string version
+    # rubocop:enable Style/EvalWithLocation
     assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
+
   # ------------------------------------------------------------------
+  # class Dog3
   class Dog3
-    def set_name(a_name)
+    def setname(a_name)
       @name = a_name
     end
 
@@ -70,29 +73,32 @@ class AboutClasses < Neo::Koan
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.set_name('Fido')
+    fido.setname('Fido')
 
     assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
+
+  # class Dog4
   class Dog4
     attr_reader :name
 
-    def set_name(a_name)
+    def setname(a_name)
       @name = a_name
     end
   end
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.set_name('Fido')
+    fido.setname('Fido')
 
     assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
 
+  # class Dog5
   class Dog5
     attr_accessor :name
   end
@@ -106,6 +112,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class Dog6
   class Dog6
     attr_reader :name
     def initialize(initial_name)
@@ -135,6 +142,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # class Dog7
   class Dog7
     attr_reader :name
 
@@ -142,7 +150,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def get_self
+    def getself
       self
     end
 
@@ -157,9 +165,9 @@ class AboutClasses < Neo::Koan
 
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new('Fido')
-    # I do not how to realize it, because every time gav SyntaxError
-    fidos_self = fido.get_self
-    assert_equal fido.get_self, fidos_self
+
+    fidos_self = fido.getself
+    assert_equal fido, fidos_self
   end
 
   def test_to_s_provides_a_string_version_of_the_object
@@ -187,5 +195,3 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
-# rubocop:enable Naming/AccessorMethodName
-# rubocop:enable Style/EvalWithLocation:
