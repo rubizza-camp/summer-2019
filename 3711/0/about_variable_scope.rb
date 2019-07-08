@@ -42,13 +42,13 @@ class AboutVariableScope < Neo::Koan
   # ------------------------------------------------------
 
   class Mouse
-    @@total = 0
+    @total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(name)
+      @name = name
       # Instance variables are prefixed with one '@' character.
-      @@total += 1
+      @total += 1
     end
 
     attr_reader :name
