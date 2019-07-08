@@ -1,5 +1,4 @@
-# rubocop:disable Lint/ScriptPermission
-#!/usr/bin/env ruby
+# !/usr/bin/env ruby
 # -*- ruby -*-
 
 require 'rake/clean'
@@ -10,4 +9,3 @@ task default: :test
 task :test do
   ruby 'path_to_enlightenment.rb'
 end
-# rubocop:enable Lint/ScriptPermission
