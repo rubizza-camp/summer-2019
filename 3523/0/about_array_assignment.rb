@@ -1,9 +1,8 @@
 # frozen_string_literal: true
-# :nodoc:
-# rubocop:disable all
-# :reek:IrresponsibleModule
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# class AboutArrayAssignment
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
     names = %w[John Smith]
@@ -55,4 +54,3 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal 'Roy', last_name
   end
 end
-# rubocop:enable all
