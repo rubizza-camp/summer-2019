@@ -1,5 +1,5 @@
-#!/usr/bin/env ruby
 # rubocop:disable all
+#!/usr/bin/env ruby
 # -*- ruby -*-
 
 begin
