@@ -120,10 +120,9 @@ class AboutMessagePassing < Neo::Koan
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
-
-    assert_equal "Someone called foobar with <>", catcher.foobar
-    assert_equal "Someone called foobaz with <1>", catcher.foobaz(1)
-    assert_equal "Someone called sum with <1, 2, 3, 4, 5, 6>", catcher.sum(1,2,3,4,5,6)
+    assert_equal 'Someone called foobar with <>', catcher.foobar
+    assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
+    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
   def test_catching_messages_makes_respond_to_lie
@@ -139,10 +138,10 @@ class AboutMessagePassing < Neo::Koan
 
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
-      if method_name.to_s[0,3] == "foo"
-        "Foo to you too"
+      if method_name.to_s[0, 3] == 'foo'
+        'Foo to you too'
       else
-        super(method_name, *args, &block)
+        super
       end
     end
   end
@@ -150,8 +149,8 @@ class AboutMessagePassing < Neo::Koan
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
-    assert_equal "Foo to you too", catcher.foo_bar
-    assert_equal "Foo to you too", catcher.foo_baz
+    assert_equal 'Foo to you too', catcher.foo_bar
+    assert_equal 'Foo to you too', catcher.foo_baz
   end
 
   def test_non_foo_messages_are_treated_normally
@@ -167,7 +166,7 @@ class AboutMessagePassing < Neo::Koan
   # (note: just reopening class from above)
   class WellBehavedFooCatcher
     def respond_to?(method_name)
-      if method_name.to_s[0,3] == "foo"
+      if method_name.to_s[0, 3] == 'foo'
         true
       else
         super(method_name)
