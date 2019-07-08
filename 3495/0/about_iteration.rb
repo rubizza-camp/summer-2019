@@ -1,5 +1,3 @@
-# rubocop:disable Lint/AmbiguousBlockAssociation
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutIteration < Neo::Koan
@@ -78,7 +76,7 @@ class AboutIteration < Neo::Koan
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w(Jim Bill Clarence Doug Eli)
 
-    assert_equal 'Clarence', array.find { |item| item.size > 4 }
+    assert_equal('Clarence', array.find { |item| item.size > 4 })
   end
 
   def test_inject_will_blow_your_mind
@@ -120,4 +118,3 @@ class AboutIteration < Neo::Koan
   #
   # When you get to the 'AboutSandwichCode' koan, recheck your answer.
 end
-# rubocop:enable Lint/AmbiguousBlockAssociation
