@@ -56,7 +56,7 @@ class Game
   def loop
     puts 'Input a number between 1 and 5'
     result = gets
-    if result =~ /^-?[0-9]+$/
+    if result.match?(/^-?[0-9]+$/)
       result = result.to_i
       info_print result
     else
