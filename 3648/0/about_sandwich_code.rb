@@ -1,4 +1,4 @@
-# rubocop:disable Security/Open, Lint/AssignmentInCondition
+# rubocop:disable Security/Open, Lint/AssignmentInCondition, Performance/RedundantMatch
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
@@ -102,4 +102,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
-# rubocop:enable Security/Open, Lint/AssignmentInCondition
+# rubocop:enable Security/Open, Lint/AssignmentInCondition, Performance/RedundantMatch
