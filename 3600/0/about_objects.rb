@@ -10,18 +10,18 @@ class AboutObjects < Neo::Koan
   end
 
   def test_objects_can_be_converted_to_strings
-    assert_equal "123", 123.to_s
-    assert_equal "", nil.to_s
+    assert_equal '123', 123.to_s
+    assert_equal '', nil.to_s
   end
 
   def test_objects_can_be_inspected
-    assert_equal "123", 123.inspect
-    assert_equal "nil", nil.inspect
+    assert_equal '123', 123.inspect
+    assert_equal 'nil', nil.inspect
   end
 
   def test_every_object_has_an_id
     obj = Object.new
-    assert_equal Fixnum, obj.object_id.class
+    assert_equal Integer, obj.object_id.class
   end
 
   def test_every_object_has_different_id
