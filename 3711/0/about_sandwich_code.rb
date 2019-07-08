@@ -1,13 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
-
   def count_lines(file_name)
     file = open(file_name)
     count = 0
-    while file.gets
-      count += 1
-    end
+    count += 1 while file.gets
     count
   ensure
     file.close if file
@@ -22,7 +19,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line(file_name)
     file = open(file_name)
     while line = file.gets
-      return line if line.match(/e/)
+      return line if line =~ /e/
     end
   ensure
     file.close if file
@@ -81,7 +78,7 @@ class AboutSandwichCode < Neo::Koan
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
       while line = file.gets
-        return line if line.match(/e/)
+        return line if line =~ /e/
       end
     end
   end
@@ -95,9 +92,7 @@ class AboutSandwichCode < Neo::Koan
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
-      while file.gets
-        count += 1
-      end
+      count += 1 while file.gets
       count
     end
   end

@@ -9,7 +9,7 @@ class AboutInheritance < Neo::Koan
     end
 
     def bark
-      "WOOF"
+      'WOOF'
     end
   end
 
@@ -19,7 +19,7 @@ class AboutInheritance < Neo::Koan
     end
 
     def bark
-      "yip"
+      'yip'
     end
   end
 
@@ -32,54 +32,53 @@ class AboutInheritance < Neo::Koan
   end
 
   def test_subclasses_inherit_behavior_from_parent_class
-    chico = Chihuahua.new("Chico")
-    assert_equal "Chico", chico.name
+    chico = Chihuahua.new('Chico')
+    assert_equal 'Chico', chico.name
   end
 
   def test_subclasses_add_new_behavior
-    chico = Chihuahua.new("Chico")
+    chico = Chihuahua.new('Chico')
     assert_equal :happy, chico.wag
 
     assert_raise(NoMethodError) do
-      fido = Dog.new("Fido")
+      fido = Dog.new('Fido')
       fido.wag
     end
   end
 
   def test_subclasses_can_modify_existing_behavior
-    chico = Chihuahua.new("Chico")
-    assert_equal "yip", chico.bark
+    chico = Chihuahua.new('Chico')
+    assert_equal 'yip', chico.bark
 
-    fido = Dog.new("Fido")
-    assert_equal "WOOF", fido.bark
+    fido = Dog.new('Fido')
+    assert_equal 'WOOF', fido.bark
   end
 
   # ------------------------------------------------------------------
 
   class BullDog < Dog
     def bark
-      super + ", GROWL"
+      super + ', GROWL'
     end
   end
 
   def test_subclasses_can_invoke_parent_behavior_via_super
-    ralph = BullDog.new("Ralph")
-    assert_equal "WOOF, GROWL", ralph.bark
+    ralph = BullDog.new('Ralph')
+    assert_equal 'WOOF, GROWL', ralph.bark
   end
 
   # ------------------------------------------------------------------
 
   class GreatDane < Dog
     def growl
-      super.bark + ", GROWL"
+      super.bark + ', GROWL'
     end
   end
 
   def test_super_does_not_work_cross_method
-    george = GreatDane.new("George")
+    george = GreatDane.new('George')
     assert_raise(NoMethodError) do
       george.growl
     end
   end
-
 end
