@@ -51,14 +51,10 @@ def score(dice)
           i = 0
           return sum if dice.empty?
         end
-      end
+      end  
       if i == dice.size - 1
-        dice.each do |x|
-          sum += 100 if x == 1
-        end
-        dice.each do |x|
-          sum += 50 if x == 5
-        end
+        dice.each { |x| sum += 100 if x == 1 }
+        dice.each { |x| sum += 50 if x == 5 }
       end
       i += 1
     end
