@@ -40,6 +40,9 @@ end
 
 # The proxy object should pass the following Koan:
 #
+
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
@@ -115,6 +118,9 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+
+# :reek:Attribute
+# :reek:InstanceVariableAssumption
 class Television
   attr_accessor :channel
 
@@ -132,6 +138,9 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new

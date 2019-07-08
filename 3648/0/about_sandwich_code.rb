@@ -1,6 +1,8 @@
 # rubocop:disable Security/Open, Lint/AssignmentInCondition, Performance/RedundantMatch
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:NilCheck
+# :reek:UncommunicativeMethodName
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)

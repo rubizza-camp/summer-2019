@@ -1,6 +1,8 @@
 # rubocop:disable Style/MethodMissing
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:ManualDispatch
+# :reek:UtilityFunction
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
