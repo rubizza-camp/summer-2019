@@ -31,6 +31,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
 def score(dice)
   return 0 if dice.empty?
 
@@ -48,6 +51,7 @@ def score(dice)
   score
 end
 
+# :reek:UncommunicativeMethodName
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])

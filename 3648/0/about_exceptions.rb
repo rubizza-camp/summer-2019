@@ -1,6 +1,8 @@
 # rubocop:disable Metrics/MethodLength, Lint/HandleExceptions
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeVariableName
+# :reek:TooManyStatements
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end

@@ -2,10 +2,13 @@
 # rubocop:disable Style/RedundantSelf, Style/AccessModifierDeclarations
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UtilityFunction
 def my_global_method(arg, brg)
   arg + brg
 end
 
+# :reek:TooManyMethods
+# :reek:TooManyStatements
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -93,7 +96,8 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  
+  # :reek:UtilityFunction
   def my_method_in_the_same_class(arg, brg)
     arg * brg
   end
