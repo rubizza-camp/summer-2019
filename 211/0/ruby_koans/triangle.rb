@@ -13,17 +13,16 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  raise TriangleError unless [a, b, c].all? {|side| side.positive?}
-  raise TriangleError unless (a + b) > c && (b + c) > a && (a + c) > b
+def triangle(a_side, b_side, c_side)
+  raise TriangleError unless [a_side, b_side, c_side].all?(&:positive?)
+  raise TriangleError unless (a_side + b_side) > c_side && (b_side + c_side) > a_side && (a_side + c_side) > b_side
 
-  if a == b && b == c
-  	:equilateral
-  elsif 
-  	a == b || a == c || b == c
-  	:isosceles
+  if a_side == b_side && b_side == c_side
+    :equilateral
+  elsif a_side == b_side || a_side == c_side || b_side == c_side
+    :isosceles
   else
-  	:scalene
+    :scalene
   end
 end
 
