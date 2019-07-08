@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
 class AboutKeywordArguments < Neo::Koan
   def method_with_keyword_arguments(one: 1, two: 'two')
     [one, two]
@@ -12,9 +14,7 @@ class AboutKeywordArguments < Neo::Koan
     assert_equal [1, 2], method_with_keyword_arguments(two: 2)
   end
 
-  # rubocop:disable Metrics/LineLength
   def method_with_keyword_arguments_with_mandatory_argument(one, two: 2, three: 3)
-    # rubocop:enable Metrics/LineLength
     [one, two, three]
   end
 
@@ -22,11 +22,10 @@ class AboutKeywordArguments < Neo::Koan
     exception = assert_raise(ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
     end
-    assert_match(/#{Regexp.quote(exception.message)}/, exception.message)
+    assert_match(/expected/, exception.message)
   end
 
   # THINK ABOUT IT:
   #
-  # Keyword arguments always have a default value,
-  # making them optional to the caller
+  # Keyword arguments always have a default value, making them optional to the caller
 end
