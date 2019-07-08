@@ -9,22 +9,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:Attribute and :reek:FeatureEnvy and :reek:TooManyStatements  and :reek:FeatureEnvy
 class DiceSet
-  attr_accessor :values
+  attr_reader :values
 
-  def initialize
-    @values = []
-  end
-
-  def roll(rolling_item)
-    array_of_rolls = []
-    rolling_item.times do
-      array_of_rolls << rand(1..6)
-    end
-    self.values = array_of_rolls
+  def roll(size)
+    @values = Array.new(size) { rand(1..6) }
   end
 end
 
-# :reek:Attribute and :reek:FeatureEnvy and :reek:TooManyStatements  and :reek:UncommunicativeMethodName
+# :reek:Attribute and :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeMethodName
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
