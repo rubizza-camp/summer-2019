@@ -1,16 +1,21 @@
-# rubocop:disable Performance/HashEachMethods, Lint/MissingCopEnableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
 #
+# This method smells of :reek:InstanceVariableAssumption
 class DiceSet
   attr_reader :values
-
-  def roll(count)
-    @values = Array.new(count).collect! { |_item| Random.new.rand(1..6) }
+  def roll(num)
+    @values = []
+    (1..num).each { @values << rand(1..6) }
   end
+  @values
 end
-#:nodoc:
+
+# This method smells of :reek:UncommunicativeMethodName
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:FeatureEnvy
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
@@ -45,8 +50,7 @@ class AboutDiceProject < Neo::Koan
     dice.roll(5)
     second_time = dice.values
 
-    assert_not_equal first_time, second_time,
-                     'Two rolls should not be equal'
+    assert_not_equal first_time, second_time, 'Two rolls should not be equal'
 
     # THINK ABOUT IT:
     #
