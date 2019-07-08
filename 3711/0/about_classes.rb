@@ -50,8 +50,10 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    # rubocop:disable Lint/AmbiguousBlockAssociation
     assert_equal 'Fido', fido.instance_eval { @name } # block version
+    # rubocop:enable Lint/AmbiguousBlockAssociation
   end
 
   # ------------------------------------------------------------------

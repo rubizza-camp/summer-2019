@@ -95,7 +95,7 @@ class AboutControlStatements < Neo::Koan
     result = while i <= 10
                break i if i.even?
                i += 1
-    end
+             end
     assert_equal 2, result
   end
 
@@ -113,7 +113,7 @@ class AboutControlStatements < Neo::Koan
   def test_for_statement
     array = %w[fish and chips]
     result = []
-    for item in array
+    array.each do |item|
       result << item.upcase
     end
     assert_equal %w[FISH AND CHIPS], result

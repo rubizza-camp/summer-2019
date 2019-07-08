@@ -36,21 +36,13 @@ def score(dice)
   score = 0
   results = dice_result(dice)
   results.each do |num, count|
-    if count >= 3
-      score += if num == 1
-                 num * 1000 * (count / 3) + (count % 3) * 100
-               elsif num == 5
-                 num * 100 * (count / 3) + (count % 3) * 50
-               else
-                 num * 100 * (count / 3)
-               end
-    else
-      if num == 1
-        score += count * 100
-      elsif num == 5
-        score += count * 50
-      end
-    end
+    score += if num == 1
+               num * 1000 * (count / 3) + (count % 3) * 100
+             elsif num == 5
+               num * 100 * (count / 3) + (count % 3) * 50
+             else
+               num * 100 * (count / 3)
+             end
   end
   score
 end
