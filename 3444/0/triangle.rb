@@ -18,10 +18,12 @@
 #   about_triangle_project_2.rb
 #
 
+# :reek:UtilityFunction and :reek:FeatureEnvy
 def first_ex(a_side, b_side, c_side)
   (a_side + b_side) <= c_side || (b_side + c_side) <= a_side || (c_side + a_side) <= b_side
 end
 
+# :reek:UtilityFunction and :reek:FeatureEnvy
 def triangle(a_side, b_side, c_side)
   raise TriangleError if a_side <= 0 || b_side <= 0 || c_side <= 0
   raise TriangleError if first_ex a_side, b_side, c_side

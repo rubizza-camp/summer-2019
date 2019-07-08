@@ -5,6 +5,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeMethodName and :reek:UncommunicativeVariableName and :reek:ClassVariable
 class AboutVariableScope < Neo::Koan
   def bark
     noise = "RUFF"
@@ -68,6 +69,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal "Oscar", oscar.name
   end
 
+  # :reek:UncommunicativeVariableName
   def test_class_variable
     (1..9).each { |i| Mouse.new(i) }
     # Things may appear easier than they actually are.

@@ -4,6 +4,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyMethods and :reek:UncommunicativeVariableName
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class

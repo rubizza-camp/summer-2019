@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/LineLength
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
 #
+
+# :reek:Attribute and :reek:FeatureEnvy and :reek:TooManyStatements  and :reek:FeatureEnvy
 class DiceSet
   attr_accessor :values
 
@@ -20,6 +24,7 @@ class DiceSet
   end
 end
 
+# :reek:Attribute and :reek:FeatureEnvy and :reek:TooManyStatements  and :reek:UncommunicativeMethodName
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
@@ -72,3 +77,4 @@ class AboutDiceProject < Neo::Koan
     assert_equal 1, dice.values.size
   end
 end
+# rubocop:enable Metrics/LineLength

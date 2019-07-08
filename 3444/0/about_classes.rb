@@ -2,9 +2,11 @@
 
 # rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
 # rubocop:disable Lint/AmbiguousBlockAssociation, Style/StringLiterals, Style/TrivialAccessors
+# rubocop:disable Metrics/LineLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeModuleName and :reek:FeatureEnvy and :reek:InstanceVariableAssumption and :reek:TooManyMethods and :reek:TooManyStatements and :reek:Attribute
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -51,6 +53,7 @@ class AboutClasses < Neo::Koan
     assert_equal "Fido", fido.instance_variable_get("@name")
   end
 
+  # :reek:UncommunicativeModuleName
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.set_name("Fido")
@@ -61,6 +64,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UncommunicativeModuleName and :reek:TooManyMethods
   class Dog3
     def set_name(a_name)
       @name = a_name
@@ -71,6 +75,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:Attribute
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
     fido.set_name("Fido")
@@ -191,3 +196,4 @@ class AboutClasses < Neo::Koan
     assert_equal "\"STRING\"", "STRING".inspect
   end
 end
+# rubocop:enable Metrics/LineLength
