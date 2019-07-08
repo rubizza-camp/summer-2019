@@ -23,7 +23,7 @@ class AboutJavaInterop < Neo::Koan
 
   def test_include_class_includes_class_in_module_scope
     assert_nil defined?(TreeSet)
-    include_class "java.util.TreeSet"
+    include_class 'java.util.TreeSet'
     assert_equal __, defined?(TreeSet)
   end
 
@@ -31,7 +31,7 @@ class AboutJavaInterop < Neo::Koan
   #
   # What if we use:
   #
-  #   include_class "java.lang.String"
+  #   include_class 'java.lang.String'
   #
   # What would be the value of the String constant after this
   # include_class is run?  Would it be useful to provide a way of
@@ -39,7 +39,7 @@ class AboutJavaInterop < Neo::Koan
 
   JString = java.lang.String
   def test_also_java_class_can_be_given_ruby_aliases
-    java_string = JString.new("A Java String")
+    java_string = JString.new('A Java String')
     assert_equal __, java_string.class
     assert_equal __, JString
   end
@@ -55,14 +55,14 @@ class AboutJavaInterop < Neo::Koan
   end
 
   def test_jruby_provides_question_mark_versions_of_boolean_methods
-    java_string = JString.new("A Java String")
-    assert_equal __, java_string.endsWith("String")
-    assert_equal __, java_string.ends_with("String")
-    assert_equal __, java_string.ends_with?("String")
+    java_string = JString.new('A Java String')
+    assert_equal __, java_string.endsWith('String')
+    assert_equal __, java_string.ends_with('String')
+    assert_equal __, java_string.ends_with?('String')
   end
 
   def test_java_string_are_not_ruby_strings
-    ruby_string = "A Java String"
+    ruby_string = 'A Java String'
     java_string = java.lang.String.new(ruby_string)
     assert_equal __, java_string.is_a?(java.lang.String)
     assert_equal __, java_string.is_a?(String)
@@ -96,7 +96,7 @@ class AboutJavaInterop < Neo::Koan
   end
 
   def test_some_ruby_objects_can_be_coerced_to_java
-    assert_equal __, "ruby string".to_java.class
+    assert_equal __, 'ruby string'.to_java.class
     assert_equal __, 1.to_java.class
     assert_equal __, 9.32.to_java.class
     assert_equal __, false.to_java.class
