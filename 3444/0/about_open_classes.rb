@@ -34,9 +34,6 @@ class AboutOpenClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class ::Integer
-    def even?
-            (self % 2) == 0
-    end
   end
 
   def test_even_existing_built_in_classes_can_be_reopened

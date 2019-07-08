@@ -1,5 +1,5 @@
-# rubocop:disable Lint/Syntax
-# rubocop:disable Style/StringLiterals
+# rubocop:disable Style/StringLiterals, Lint/InterpolationCheck Lint/Syntax
+# rubocop:disable Metrics/ClassLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -49,10 +49,10 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~EOS
+    long_string = <<~KOAN
       It was the best of times,
       It was the worst of times.
-    EOS
+    KOAN
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -66,7 +66,6 @@ It was the worst of times.
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = "Hello, "
     there = "World"
-    string = hi + there
     assert_equal "Hello, ", hi
     assert_equal "World", there
   end
@@ -80,9 +79,6 @@ It was the worst of times.
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = "Hello, "
-    hi = original_string
-    there = "World"
-    hi += there
     assert_equal "Hello, ", original_string
   end
 
@@ -130,7 +126,6 @@ It was the worst of times.
   end
 
   def test_single_quoted_strings_do_not_interpolate
-    value = 123
     string = 'The value is #{value}'
     assert_equal "The value is \#{value}", string
   end
@@ -198,3 +193,5 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Style/StringLiterals, Lint/InterpolationCheck Lint/Syntax
+# rubocop:enable Metrics/ClassLength
