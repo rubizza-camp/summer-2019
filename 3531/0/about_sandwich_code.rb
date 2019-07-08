@@ -19,8 +19,13 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
   def find_line(file_name)
+<<<<<<< HEAD
     file = File.open(file_name)
     while (line = file.gets)
+=======
+    file = open(file_name)
+    while line = file.gets
+>>>>>>> ec8fa87... human fix
       return line if line =~ /e/
     end
   ensure
