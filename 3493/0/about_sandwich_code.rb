@@ -14,7 +14,8 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines('example_file.txt')
   end
 
-  # ------------------------------------------------------------------S
+  # ------------------------------------------------------------------
+  # rubocop: disable Performance/RedundantMatch
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
@@ -80,6 +81,7 @@ class AboutSandwichCode < Neo::Koan
       end
     end
   end
+  # rubocop: enable Performance/RedundantMatch
 
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
