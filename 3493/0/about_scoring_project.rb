@@ -58,7 +58,7 @@ end
 def check_everything(array)
   result = 0
   (0..5).each do |iteration|
-    if (array[iteration] < 3) && (array[iteration].positive?)
+    if (array[iteration] < 3) && array[iteration].positive?
       result += 50 * array[iteration] if iteration == 4
       result += 100 * array[iteration] if iteration.zero?
     end
