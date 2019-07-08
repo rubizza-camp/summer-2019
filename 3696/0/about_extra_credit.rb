@@ -10,6 +10,7 @@
 # is a free form assignment, so approach it however you desire.
 # require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Game methods
+# :reek:TooManyStatements and :reek:UtilityFunction
 class Game
   def pop(dice)
     count = 0

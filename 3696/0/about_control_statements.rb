@@ -1,6 +1,7 @@
 # rubocop:disable Metrics/ClassLength, Lint/MissingCopEnableDirective, Lint/LiteralAsCondition, Metrics/MethodLength, Metrics/LineLength
-require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:Attribute and :reek:FeatureEnvy and :reek:UncommunicativeMethodName and :reek:UncommunicativeVariableName and :reek:UncommunicativeModuleName and :reek:TooManyStatements and :reek:TooManyMethods and :reek:RepeatedConditional
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true

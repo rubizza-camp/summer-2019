@@ -1,6 +1,6 @@
 # rubocop:disable Naming/AccessorMethodName, Lint/MissingCopEnableDirective, Style/EvalWithLocation, Lint/AmbiguousBlockAssociation, Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:Attribute and :reek:FeatureEnvy and :reek:UncommunicativeMethodName and :reek:UncommunicativeVariableName and :reek:UncommunicativeModuleName and :reek:TooManyStatements and :reek:TooManyMethods and :reek:InstanceVariableAssumption
 class AboutClasses < Neo::Koan
   class Dog
   end

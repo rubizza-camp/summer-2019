@@ -1,6 +1,7 @@
 # rubocop:disable Lint/AmbiguousBlockAssociation, Lint/MissingCopEnableDirective, Performance/RedundantBlockCall, Lint/UnneededCopDisableDirective, Metrics/LineLength
-require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UncommunicativeVariableName and :reek:UtilityFunction
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield

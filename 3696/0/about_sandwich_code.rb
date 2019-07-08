@@ -1,7 +1,7 @@
 # rubocop:disable Metrics/LineLength, Performance/RedundantMatch, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective
-# :reek:NilCheck
-require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:NilCheck and :reek:UncommunicativeMethodName and :reek:UtilityFunction
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = File.open(file_name)

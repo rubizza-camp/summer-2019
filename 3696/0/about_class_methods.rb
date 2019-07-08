@@ -1,6 +1,6 @@
-# rubocop:disable Style/TrivialAccessors, Lint/MissingCopEnableDirective, Naming/ConstantName
+# rubocop:disable Style/TrivialAccessors, Lint/MissingCopEnableDirective, Naming/ConstantName, Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:Attribute and :reek:TooManyMethods and :reek:UncommunicativeMethodName and :reek:UncommunicativeModuleName
 class AboutClassMethods < Neo::Koan
   class Dog
   end

@@ -1,10 +1,10 @@
 # rubocop:disable Lint/Void, Lint/UnreachableCode, Style/AccessModifierDeclarations, Metrics/LineLength, Style/RedundantSelf, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UtilityFunction
 def my_global_method(first, second)
   first + second
 end
-
+# :reek:TooManyMethods and :reek:TooManyStatements and :reek:UtilityFunction
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)

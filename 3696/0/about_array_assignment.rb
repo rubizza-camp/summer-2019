@@ -1,6 +1,7 @@
 # rubocop:disable Lint/MissingCopEnableDirective, Style/ParallelAssignment, Lint/UnneededCopDisableDirective, Metrics/LineLength
-require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:TooManyStatements
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
     names = %w[John Smith]

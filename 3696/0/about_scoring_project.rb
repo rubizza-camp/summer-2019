@@ -48,7 +48,8 @@ def score(dice)
   end
   sum
 end
-# :reek:TooManyStatements
+
+# :reek:TooManyStatements and :reek:UtilityFunction
 def aggregate(top, count)
   sum = 0
   if count >= 3
@@ -59,6 +60,7 @@ def aggregate(top, count)
   sum += count * 50 if top == 5
   sum
 end
+# :reek:UncommunicativeMethodName
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
