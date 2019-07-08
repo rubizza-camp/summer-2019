@@ -14,7 +14,6 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-# rubocop:disable Metrics/LineLength
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable CyclomaticComplexity
 # rubocop:disable PerceivedComplexity
@@ -31,7 +30,6 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable CyclomaticComplexity
 # rubocop:enable PerceivedComplexity
