@@ -1,6 +1,6 @@
-# rubocop:disable all
+
 def version_ints(version)
-  version.split('.').map { |v| v.to_i }
+  version.split('.').map(&:to_i)
 end
 
 def at_least_ruby_version(version)
