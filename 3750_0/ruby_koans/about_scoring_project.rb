@@ -41,9 +41,9 @@ def score(dice)
   elsif dice.size >= 2
     i = 0
     while i != dice.size
-      combos[dice[i] - 1] += 1
+      combos[ dice[ i ] - 1] += 1
       if combos.any? { |x| x != 3 }
-        sum += dice[i] * 100
+        sum += dice[ i ] * 100
         sum *= 10 if sum == 100
         combos.clear
         j = dice.index(dice[i]) 
