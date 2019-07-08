@@ -1,0 +1,29 @@
+def triangle(a_side, b_side, c_side)
+  validate_size(a_side, b_side, c_side)
+  angle_model(a_side, b_side, c_side)
+end
+
+def validate_size(a_side, b_side, c_side)
+  if a_side.negative? || b_side.negative? || c_side.negative?
+    raise TriangleError, 'сторона не может быть меньше нуля bили равной нулю'
+  end
+
+  if a_side + b_side <= c_side || a_side + c_side <= b_side || b_side + c_side <= a_side
+    raise TriangleError, '2 стороны не могут быть меньше третей'
+  end
+end
+
+def angle_model(a_side, b_side, c_side)
+  if a_side == b_side && b_side == c_side && a_side == c_side
+    return :equilateral
+  elsif (a_side == b_side) || (a_side == c_side) || (c_side == b_side)
+    return :isosceles
+  else
+    :scalene
+  end
+end
+
+
+# Error class used in part 2.  No need to change this code.
+class TriangleError < StandardError
+end
