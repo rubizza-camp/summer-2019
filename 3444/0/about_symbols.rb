@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/StringLiterals
-# rubocop:disable Style/MutableConstant
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -105,4 +104,3 @@ class AboutSymbols < Neo::Koan
   # Why is it not a good idea to dynamically create a lot of symbols?
 end
 # rubocop:enable Style/StringLiterals
-# rubocop:enable Style/MutableConstant
