@@ -15,7 +15,7 @@ class AboutExceptions < Neo::Koan
     result = nil
     begin
       raise 'Oops'
-    rescue StandardError => e
+    rescue StandardError => ex
       result = :exception_handled
     end
 
@@ -35,7 +35,7 @@ class AboutExceptions < Neo::Koan
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
-    rescue MySpecialError => e
+    rescue MySpecialError => ex
       result = :exception_handled
     end
 
