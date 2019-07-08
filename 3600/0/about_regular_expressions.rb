@@ -1,5 +1,9 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyMethods
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -50,7 +54,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal(%w[cat bat rat], animals.select { |a| a[/[cbr]at/] })
+    assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -142,8 +146,7 @@ class AboutRegularExpressions < Neo::Koan
 
   # THINK ABOUT IT:
   #
-  # Explain the difference between a character
-  # class ([...]) and alternation (|).
+  # Explain the difference between a character class ([...]) and alternation (|).
 
   # ------------------------------------------------------------------
 
@@ -152,14 +155,10 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_sub_is_like_find_and_replace
-    # rubocop:disable Metrics/LineLength
     assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
-    # rubocop:enable Metrics/LineLength
   end
 
   def test_gsub_is_like_find_and_replace_all
-    # rubocop:disable Metrics/LineLength
     assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
-    # rubocop:enable Metrics/LineLength
   end
 end
