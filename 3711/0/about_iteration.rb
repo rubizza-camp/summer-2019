@@ -83,8 +83,8 @@ class AboutIteration < Neo::Koan
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
 
-    result2 = [2, 3, 4].inject(10) { |product, item| product * item }
-    assert_equal 240, result2
+    result = [2, 3, 4].inject(10) { |product, item| product * item }
+    assert_equal 240, result
 
     # Extra Credit:
     # Describe in your own words what inject does.
