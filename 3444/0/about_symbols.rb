@@ -28,7 +28,7 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_method_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_as_strings.include?("test_method_names_become_symbols")
   end
 
@@ -38,11 +38,11 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version("mri") do
-    RubyConstant = "What is the sound of one hand clapping?"
+    RUBY_CONSTANT = "What is the sound of one hand clapping?"
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal false, all_symbols_as_strings.include?(RubyConstant)
+      assert_equal false, all_symbols_as_strings.include?(RUBY_CONSTANT)
     end
   end
 
@@ -102,3 +102,4 @@ class AboutSymbols < Neo::Koan
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
 end
+# rubocop:enable Style/StringLiterals

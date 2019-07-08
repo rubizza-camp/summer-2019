@@ -30,6 +30,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+# rubocop:disable Metrics/MethodLength
 def score(dice)
   total_score = 0
   triple_value = [nil, 1000, 200, 300, 400, 500, 600]
@@ -48,6 +49,7 @@ def score(dice)
   end
   total_score
 end
+# rubocop:enable Metrics/MethodLength
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
