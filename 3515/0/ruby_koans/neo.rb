@@ -2,8 +2,6 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
-# rubocop:disable all
-
 begin
   require 'win32console'
 rescue LoadError
@@ -532,4 +530,3 @@ END {
   Neo::ThePath.new.walk
 }
 
-# rubocop:enable all

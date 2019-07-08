@@ -19,7 +19,9 @@ class AboutSandwichCode < Neo::Koan
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
+      # rubocop:disable Performance/RedundantMatch
       return line if line.match(/e/)
+      # rubocop:enable Performance/RedundantMatch
     end
   ensure
     file&.close
@@ -78,7 +80,9 @@ class AboutSandwichCode < Neo::Koan
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
       while (line = file.gets)
+        # rubocop:disable Performance/RedundantMatch
         return line if line.match(/e/)
+        # rubocop:enable Performance/RedundantMatch
       end
     end
   end
