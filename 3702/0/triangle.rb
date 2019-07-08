@@ -15,9 +15,9 @@ end
 
 def angle_model(a_side, b_side, c_side)
   if a_side == b_side && b_side == c_side && a_side == c_side
-    return :equilateral
+    :equilateral
   elsif (a_side == b_side) || (a_side == c_side) || (c_side == b_side)
-    return :isosceles
+    :isosceles
   else
     :scalene
   end
