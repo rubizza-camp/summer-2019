@@ -1,5 +1,9 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
+# rubocop:disable Performance/RedundantBlockCall, Lint/UnneededCopDisableDirective
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
+# This method smells of :reek:UncommunicativeVariableName
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield
@@ -54,7 +58,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_methods_can_see_if_they_have_been_called_with_a_block
-    assert_equal :with_block, (yield_tester { :with_block })
+    assert_equal :with_block, yield_tester { :with_block }
     assert_equal :no_block, yield_tester
   end
 
@@ -81,13 +85,13 @@ class AboutBlocks < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  def method_with_explicit_block
-    yield 10
+  # :reek:UtilityFunction
+  def method_with_explicit_block(&block)
+    block.call(10)
   end
 
   def test_methods_can_take_an_explicit_block_argument
-    assert_equal 20, (method_with_explicit_block { |n| n * 2 })
+    assert_equal 20, method_with_explicit_block { |n| n * 2 }
 
     add_one = ->(n) { n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
