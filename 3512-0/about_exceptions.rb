@@ -58,7 +58,7 @@ class AboutExceptions < Neo::Koan
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
-    assert_raise(MySpecialError) do
+    assert_raise(RuntimeError) do
       raise MySpecialError 'New instances can be raised directly.'
     end
   end

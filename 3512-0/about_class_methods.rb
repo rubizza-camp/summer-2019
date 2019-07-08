@@ -1,3 +1,4 @@
+# rubocop:disable Lint/MissingCopEnableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClassMethods < Neo::Koan
@@ -88,7 +89,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def Dogg.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end

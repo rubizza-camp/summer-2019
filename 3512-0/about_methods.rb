@@ -1,7 +1,9 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/Void, Lint/UnreachableCode
+# rubocop:disable Style/RedundantSelf
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(var_a, var_b)
-  var_a + var_b
+def my_global_method(first, second)
+  first + second
 end
 
 class AboutMethods < Neo::Koan
@@ -106,6 +108,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  private
 
   def my_private_method
     'a secret'
@@ -117,7 +120,7 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method # rubocop:disable Style/RedundantSelf
+      self.my_private_method
     end
     assert_match(/private method `my_private_method' called for/, exception.message)
   end
