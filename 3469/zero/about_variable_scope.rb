@@ -45,8 +45,8 @@ class AboutVariableScope < Neo::Koan
     @@total = 0 # rubocop:disable Style/ClassVars
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(name)
+      @name = name
       # Instance variables are prefixed with one '@' character.
       @@total += 1 # rubocop:disable Style/ClassVars
     end
