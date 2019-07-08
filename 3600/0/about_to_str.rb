@@ -1,16 +1,20 @@
+# frozen_string_literal: true
+
+# rubocop:disable Style/StringLiterals
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
+# :reek:FeatureEnvy and :reek:ManualDispatch amd :reek:UtilityFunction
 class AboutToStr < Neo::Koan
-  #:nodoc:
   class CanNotBeTreatedAsString
     def to_s
-      'non-string-like'
+      "non-string-like"
     end
   end
 
   def test_to_s_returns_a_string_representation
     not_like_a_string = CanNotBeTreatedAsString.new
-    assert_equal 'non-string-like', not_like_a_string.to_s
+    assert_equal "non-string-like", not_like_a_string.to_s
   end
 
   def test_normally_objects_cannot_be_used_where_strings_are_expected
@@ -20,10 +24,10 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class CanBeTreatedAsString
     def to_s
-      'string-like'
+      "string-like"
     end
 
     def to_str
@@ -33,7 +37,7 @@ class AboutToStr < Neo::Koan
 
   def test_to_str_also_returns_a_string_representation
     like_a_string = CanBeTreatedAsString.new
-    assert_equal 'string-like', like_a_string.to_str
+    assert_equal "string-like", like_a_string.to_str
   end
 
   def test_to_str_allows_objects_to_be_treated_as_strings
@@ -52,3 +56,4 @@ class AboutToStr < Neo::Koan
     assert_equal true,  acts_like_a_string?(CanBeTreatedAsString.new)
   end
 end
+# rubocop:enable Style/StringLiterals
