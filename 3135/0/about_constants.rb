@@ -70,14 +70,29 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Style/ClassAndModuleChildren
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
     end
   end
 
+  # NESTED DEFINITION
+
+  # class MyAnimals
+  #   class Oyster < Animal
+  #     def legs_in_oyster
+  #       LEGS
+  #     end
+  #   end
+  # end
+
+  # NESTED DEFINITION CHANGES THE NEXT ASSERT_EQUAL
+  # rubocop:enable Style/ClassAndModuleChildren
+
   def test_who_wins_with_explicit_scoping_on_class_definition
     assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
+    # Compact style 4, Nested style 2. To be resolved later!
   end
 
   # QUESTION: Now which has precedence: The constant in the lexical

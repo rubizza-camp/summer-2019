@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/AbcSize
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutHashes < Neo::Koan
@@ -114,3 +116,4 @@ class AboutHashes < Neo::Koan
     assert_equal [], hash[:three]
   end
 end
+# rubocop:enable Metrics/AbcSize

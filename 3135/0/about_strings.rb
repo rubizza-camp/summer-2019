@@ -1,9 +1,11 @@
-# rubocop:disable Metrics/ClassLength, Style/StringLiterals, Style/CharacterLiteral
-# rubocop:disable Lint/InterpolationCheck, Lint/UselessAssignment, Style/PercentLiteralDelimiters
+# rubocop:disable Style/StringLiterals, Style/CharacterLiteral, Style/PercentLiteralDelimiters
+# rubocop:disable Lint/InterpolationCheck, Lint/UselessAssignment
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutStrings < Neo::Koan
+# Class AboutStrings was split into AboutStrings1 and AboutStrings2
+# to avoid rubocop class length offense
+class AboutStrings1 < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = "Hello, World"
     assert_equal true, string.is_a?(String)
@@ -106,7 +108,9 @@ It was the worst of times.
     # Ruby programmers tend to favor the shovel operator (<<) over the
     # plus equals operator (+=) when building up strings.  Why?
   end
+end
 
+class AboutStrings2 < Neo::Koan
   def test_double_quoted_string_interpret_escape_characters
     string = "\n"
     assert_equal 1, string.size
@@ -198,3 +202,5 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Style/StringLiterals, Style/CharacterLiteral
+# rubocop:enable Lint/InterpolationCheck, Lint/UselessAssignment, Style/PercentLiteralDelimiters

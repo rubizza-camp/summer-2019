@@ -1,5 +1,3 @@
-# rubocop:disable Style/BlockDelimiters
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
@@ -13,10 +11,13 @@ class AboutBlocks < Neo::Koan
     assert_equal 3, yielded_result
   end
 
+  # rubocop:disable Style/BlockDelimiters
+  # {} are in the previous example
   def test_blocks_can_be_defined_with_do_end_too
     yielded_result = method_with_block do 1 + 2 end
     assert_equal 3, yielded_result
   end
+  # rubocop:enable Style/BlockDelimiters
 
   # ------------------------------------------------------------------
 
@@ -84,9 +85,12 @@ class AboutBlocks < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Performance/RedundantBlockCall
+  # explicit block
   def method_with_explicit_block(&block)
     block.call(10)
   end
+  # rubocop:enable Performance/RedundantBlockCall
 
   def test_methods_can_take_an_explicit_block_argument
     assert_equal 20, (method_with_explicit_block { |n| n * 2 })

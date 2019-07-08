@@ -110,3 +110,7 @@ end
 # THINK ABOUT IT:
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
+
+# rubocop:enable Style/GlobalVars, Style/ClassVars
+# rubocop:enable Style/TrivialAccessors, Style/ClassMethods
+# rubocop:enable Lint/UselessAssignment
