@@ -51,7 +51,7 @@ end
 def score(dice)
   return 0 if validation(dice)
   hash = check_the_number_of_items(dice)
-  answer = scoring(hash)
+  scoring(hash)
 end
 
 class AboutScoringProject < Neo::Koan

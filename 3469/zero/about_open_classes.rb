@@ -29,9 +29,9 @@ class AboutOpenClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class ::Integer
+  class ::Integer # rubocop:disable Style/ClassAndModuleChildren
     def even?
-      (self % 2) == 0
+      (self % 2) == 0 # rubocop:disable Style/EvenOdd, Style/NumericPredicate, Layout/TrailingWhitespace 
     end
   end
 

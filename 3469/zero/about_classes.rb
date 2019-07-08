@@ -12,7 +12,7 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog2
-    def set_name(a_name)
+    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
       @name = a_name
     end
   end
@@ -34,7 +34,7 @@ class AboutClasses < Neo::Koan
     end
 
     assert_raise(SyntaxError) do
-      eval 'fido.@name'
+      eval 'fido.@name' # rubocop:disable Style/EvalWithLocation
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
@@ -50,14 +50,14 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal 'Fido', fido.instance_eval('@name')  # rubocop:disable Style/EvalWithLocation
+    assert_equal 'Fido', fido.instance_eval { @name } # rubocop:disable Lint/AmbiguousBlockAssociation
   end
 
   # ------------------------------------------------------------------
 
   class Dog3
-    def set_name(a_name)
+    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
       @name = a_name
     end
 
@@ -76,7 +76,7 @@ class AboutClasses < Neo::Koan
   class Dog4
     attr_reader :name
 
-    def set_name(a_name)
+    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
       @name = a_name
     end
   end
@@ -139,7 +139,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def get_self
+    def get_self # rubocop:disable Naming/AccessorMethodName
       self
     end
 
