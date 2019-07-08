@@ -1,14 +1,15 @@
+# rubocop:disable Style/ParallelAssignment, Lint/MissingCopEnableDirective
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
     names = %w[John Smith]
-    assert_equal ['John'] + ['Smith'], names
+    assert_equal %w[John Smith], names
   end
 
   def test_parallel_assignments
-    first_name = 'John'
-    last_name = 'Smith'
+    first_name, last_name = %w[John Smith]
     assert_equal 'John', first_name
     assert_equal 'Smith', last_name
   end
@@ -32,10 +33,9 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments_with_subarrays
-    first_name = %w[Willie Rae]
-    last_name = 'Johnson'
-    assert_equal %w[Willie Rae], first_name
-    assert_equal 'Johnson', last_name
+    first_name, last_name = %w[[Willie Rae] Johnson]
+    assert_equal '[Willie', first_name
+    assert_equal 'Rae]', last_name
   end
 
   def test_parallel_assignment_with_one_variable
