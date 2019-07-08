@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
-    file = open(file_name)
+    file = open(file_name) # rubocop:disable all
     count = 0
     count += 1 while file.gets
     count
@@ -17,7 +17,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-    file = open(file_name)
+    file = open(file_name) # rubocop:disable all
     while line = file.gets # rubocop:disable Lint/AssignmentInCondition
       return line if line =~ /e/
     end
@@ -52,7 +52,7 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = open(file_name)
+    file = open(file_name) # rubocop:disable all
     yield(file)
   ensure
     file.close if file
@@ -90,7 +90,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
-    open(file_name) do |file|
+    open(file_name) do |file| # rubocop:disable all
       count = 0
       count += 1 while file.gets
       count
