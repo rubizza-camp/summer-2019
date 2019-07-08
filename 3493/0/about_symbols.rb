@@ -12,14 +12,14 @@ class AboutSymbols < Neo::Koan
     third_symbol = :something_else
 
     assert_equal true, first_symbol == second_symbol
-    assert_equal false, first_symbol == symbol3
+    assert_equal false, first_symbol == third_symbol
   end
 
   def test_identical_symbols_are_a_single_internal_object
     first_symbol = :a_symbol
     second_symbol = :a_symbol
 
-    assert_equal true, first_symbol           == second_symbol
+    assert_equal true, first_symbol == second_symbol
     assert_equal true, first_symbol.object_id == second_symbol.object_id
   end
   # rubocop: disable Style/SymbolProc
@@ -74,7 +74,8 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.is_a?(String)
     assert_equal false, symbol.eql?('ruby')
   end
-  #:reek:ManualDispatch:
+  # :reek:ManualDispatch:
+
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)

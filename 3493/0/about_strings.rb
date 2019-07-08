@@ -22,7 +22,7 @@ class AboutStrings < Neo::Koan
     string = "Don't"
     assert_equal 'Don\'t', string
   end
-  
+
   def test_use_backslash_for_those_hard_cases
     first_string = "He said, \"Don't\""
     second_string = 'He said, "Don\'t"'
@@ -195,7 +195,7 @@ SQL
     fist_string = 'a string'
     second_string = 'a string'
 
-    assert_equal true, fist_string           == b
+    assert_equal true, fist_string == b
     assert_equal false, first_string.object_id == second_string.object_id
   end
 end

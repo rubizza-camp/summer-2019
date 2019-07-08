@@ -28,6 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+# :reek:UtilityFunction:
 
 def check_set_of_three_ones(array)
   if array[0] >= 3
@@ -36,6 +37,7 @@ def check_set_of_three_ones(array)
   end
   0
 end
+# :reek:UtilityFunction:
 
 def check_set_of_three_fives(array)
   if array[4] >= 3
@@ -44,30 +46,32 @@ def check_set_of_three_fives(array)
   end
   0
 end
+# :reek:UtilityFunction:
 
 def check_set_of_three(array, iteration)
   return 100 * (iteration + 1) if array[iteration] == 3
 
   0
 end
-#:reek:FeatureEnvy:reek:TooManyStatements:
+# :reek:FeatureEnvy:reek:TooManyStatements:reek:UtilityFunction:
+
 def check_everything(array)
   result = 0
   (0..5).each do |iteration|
-    result += check_set_of_three(array, iteration)
-    iterationf (array[iteration] < 3) && array[iteration].positive?
+    if (array[iteration] < 3) && (array[iteration] > 0)
       result += 50 * array[iteration] if iteration == 4
       result += 100 * array[iteration] if iteration.zero?
     end
   end
   result
 end
-#:reek:NestedIterators:reek:TooManyStatements:
+# :reek:NestedIterators:reek:TooManyStatements:
+
 def score(dice)
   array = []
   result = 0
-  (1..6).each do |i|
-    array.append(dice.select { |item| item == i }.count)
+  (1..6).each do |iteration|
+    array.append(dice.select { |item| item == iteration }.count)
   end
   result += check_set_of_three_ones(array)
   result += check_set_of_three_fives(array)
