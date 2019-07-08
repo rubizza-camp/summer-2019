@@ -4,5 +4,5 @@ rubocop:
   config_file: .rubocop.yml
 
 reek:
-  enabled: true
+  enabled: false
   config_file: .reek.yml
