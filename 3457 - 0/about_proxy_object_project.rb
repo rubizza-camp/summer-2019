@@ -20,8 +20,7 @@ class Proxy
     @methods_called = Hash.new(0)
     @messages = []
 
-    methods_to_forward = @object.methods - %i[__send__ object_id
-    instance_of? method_missing]
+    methods_to_forward = @object.methods - %i[__send__ object_id instance_of? method_missing]
     methods_to_forward.each do |method|
       binding.eval ''" def #{method}(*args, &block)
                   @methods_called[:#{method}] += 1
