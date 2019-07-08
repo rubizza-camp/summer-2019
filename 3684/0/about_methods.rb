@@ -98,8 +98,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(abs, bbs)
-    abs * bbs
+  def my_method_in_the_same_class(first_arg, second_arg)
+    first_arg * second_arg
   end
 
   def test_calling_methods_in_same_class
