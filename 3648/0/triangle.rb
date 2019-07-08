@@ -13,8 +13,13 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  # WRITE THIS CODE
+def triangle(arg, brg, crg)
+  raise TriangleError if [arg, brg, crg].min <= 0
+
+  x, y, z = [arg, brg, crg].sort
+  raise TriangleError if x + y <= z
+
+  %i[equilateral isosceles scalene].fetch([arg, brg, crg].uniq.size - 1)
 end
 
 # Error class used in part 2.  No need to change this code.
