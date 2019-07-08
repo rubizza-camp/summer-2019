@@ -42,7 +42,7 @@ def score(dice)
     if item.eql?(1)
       score += 100
       num_of1 += 1
-     end
+    end
     num_of2 += 1 if item.eql?(2)
     num_of3 += 1 if item.eql?(3)
     num_of4 += 1 if item.eql?(4)

@@ -4,24 +4,5 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
-AllCops:
-  Exclude:
-    - '3529/0/about_blocks.rb'
-    - '3529/0/about_methods.rb'
-    - '3529/0/about_strings.rb'
-    - '3529/0/about_sandwich_code.rb'
-    - '3529/0/about_open_classes.rb'
-    - '3529/0/about_java_interop.rb'
-    - '3529/0/about_control_statements.rb'
-    - '3529/0/about_exceptions.rb'
-    - '3529/0/about_modules.rb'
-    - '3529/0/versioning_spec.rb'
-    - '3529/0/neo.rb'
-    - '3529/0/about_variable_scope.rb'
-    - '3529/0/about_message_passing.rb'
-    - '3529/0/about_classes.rb'
-
-
-
 Metrics/LineLength:
   Max: 100
