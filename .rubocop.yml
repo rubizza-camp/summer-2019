@@ -1,3 +1,7 @@
+AllCops:
+  Exclude:
+    - '3711/0/neo.rb'
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -26,13 +30,13 @@ Style/EvenOdd:
 Lint/UselessAssignment:
   Enabled: false
 
-Naming/AccessorMethodName:
-  Enabled: false
-
 Style/GlobalVars:
   Enabled: false
 
-Lint/RescueException:
+Naming/AccessorMethodName:
+  Enabled: false
+
+Lint/AssignmentInCondition:
   Enabled: false
 
 Metrics/LineLength:
