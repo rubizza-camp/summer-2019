@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 # rubocop:disable Lint/MissingCopEnableDirective, Style/ClassAndModuleChildren, Style/StringLiterals
+# rubocop:disable Style/MutableConstant
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-C = "top level".freeze
+C = "top level"
 
 class AboutConstants < Neo::Koan
-  C = "nested".freeze
+  C = "nested"
 
   def test_nested_constants_may_also_be_referenced_with_relative_paths
     assert_equal "nested", C
@@ -89,3 +90,4 @@ class AboutConstants < Neo::Koan
   # different than the previous answer?
 end
 # rubocop:enable Style/StringLiterals
+# rubocop:enable Style/MutableConstant
