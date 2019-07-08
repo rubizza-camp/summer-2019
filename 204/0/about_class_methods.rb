@@ -58,6 +58,7 @@ class AboutClassMethods < Neo::Koan
       :instance_level_wag
     end
   end
+
   def Dog2.wag
     :class_level_wag
   end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/EvalWithLocation, Lint/AmbiguousBlockAssociation
-# rubocop:disableNaming/AccessorMethodName, Lint/AmbiguousBlockAssociation
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
