@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UtilityFunction
 def my_global_method(a_val, b_val)
   a_val + b_val
 end
