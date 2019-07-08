@@ -38,19 +38,20 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     (1..2).each do
-      x = 0 
+      number = 0 
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? number 
   end
 
   # ------------------------------------------------------
-
+  # This class smells of :reek:ClassVariable:
+  # :reek:InstanceVariableAssumption
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(number)
+      @numberame = number
       # Instance variables are prefixed with one '@' character.
       @@total += 1 
     end
@@ -70,7 +71,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new("#{i}") }
+    (1..9).each { |iteration| Mouse.new("#{iteration}") }
     # Things may appear easier than they actually are.  
     assert_equal 10, Mouse.count
   end
@@ -98,7 +99,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
+  def test_global_variables_can_be_changed_from_any_scope_second
     # From within a block
     (1..2).each do
       $anywhere = 'Hey'

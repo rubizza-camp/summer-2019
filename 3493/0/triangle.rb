@@ -13,25 +13,25 @@
 # and
 #   about_triangle_project_2.rb
 #
-
+#:reek:ControlParameter:reek:UtilityFunction: 
 def scalene_return_check_triagle(first_value, second_value, third_value)
   return :scalene if (first_value != second_value) || (second_value != third_value) ||
                      (third_value != first_value)
 end
-
+#:reek:ControlParameter:reek:UtilityFunction: 
 def isosceles_return_check_triagle(first_value, second_value, third_value)
   return :isosceles if (first_value == second_value) || (second_value == third_value) ||
                        (third_value == first_value)
 end
-
+#:reek:ControlParameter:reek:UtilityFunction: 
 def equilateral_return_check_triagle(first_value, second_value, third_value)
   return :equilateral if (first_value == second_value) && (second_value == third_value)
 end
-
+#:reek:ControlParameter:
 def check_below_zero_triagle(first_value, second_value, third_value)
   raise TriangleError if (first_value <= 0) || (second_value <= 0) || (third_value <= 0)
 end
-
+#:reek:ControlParameter:
 def triangle(first_value, second_value, third_value)
   check_below_zero_triagle(first_value, second_value, third_value)
 
