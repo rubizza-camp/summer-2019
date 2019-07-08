@@ -15,20 +15,9 @@
 #
 def triangle(a_side, b_side, c_side)
   a_side, b_side, c_side = [a_side, b_side, c_side].sort
-  raise TriangleError unless triangle?(a_side, b_side, c_side)
-
-  triangle_type a_side, b_side, c_side
-end
-
-def triangle?(a_side, b_side, c_side)
-  a_side.positive? && (a_side + b_side > c_side)
-end
-
-def triangle_type(a_side, b_side, c_side)
-  # if exactly 2 sides are equal, check if all
-  if (a_side == b_side) || (b_side == c_side) || (a_side == c_side)
-    return (a_side == b_side) && (b_side == c_side) ? :equilateral : :isosceles
-  end
+  raise TriangleError unless side_a.positive? && side_a + side_b > side_c
+  return :isosceles if side_a == side_b || side_b == side_c || side_a == side_c
+  return :equilateral if side_a == side_b && side_b == side_c
 
   :scalene
 end
