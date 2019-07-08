@@ -1,3 +1,6 @@
+# rubocop:disable Lint/MissingCopEnableDirective,
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/MissingRespondToMissing, Lint/UnneededCopDisableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -13,31 +16,24 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
-  attr_accessor :messages
+  attr_reader :messages
+
   def initialize(target_object)
     @object = target_object
-    @messages = Hash.new(0)
+    @messages = []
   end
 
-  def methodd_missing(method_name, *args, &block)
-    @messages[method_name] += 1
+  def called?(message)
+    @messages.include?(message)
+  end
+
+  def number_of_times_called(message)
+    @messages.count(message)
+  end
+
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissingng
+    @messages << method_name
     @object.send(method_name, *args, &block)
-  end
-
-  def called?(method_name)
-    @messages.key?(method_name)
-  end
-
-  def number_of_times_called(method_name)
-    @messages[method_name]
-  end
-
-  def message
-    @messages.keys
-  end
-
-  def respond_to_missing?
-    true
   end
 end
 
@@ -85,7 +81,6 @@ class AboutProxyObjectProject < Neo::Koan
 
     tv.power
     tv.power
-
     assert tv.called?(:power)
     assert !tv.called?(:channel)
   end

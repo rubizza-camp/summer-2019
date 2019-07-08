@@ -1,17 +1,22 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Lint/HandleExceptions
+# rubocop:disable Metrics/MethodLength, Metrics/LineLength
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyStatements
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
 
-  def test_exceptions_inherit_from_Exception # rubocop:disable Naming/MethodName
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
-  def test_rescue_clause # rubocop:disable Metrics/MethodLength
+  def test_rescue_clause
     result = nil
     begin
       raise 'Oops'
@@ -22,10 +27,9 @@ class AboutExceptions < Neo::Koan
     assert_equal :exception_handled, result
 
     assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
+    assert_equal true, e.is_a?(RuntimeError), 'Should be a Runtime Error'
 
-    assert RuntimeError.ancestors.include?(StandardError),
-           'RuntimeError is a subclass of StandardError'
+    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
 
     assert_equal 'Oops', e.message
   end
@@ -44,9 +48,10 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
+    result = nil
     begin
       raise 'Oops'
-    rescue StandardError # rubocop:disable Lint/HandleExceptions
+    rescue StandardError
       # no code here
     ensure
       result = :always_run
@@ -58,8 +63,8 @@ class AboutExceptions < Neo::Koan
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
-    assert_raise(RuntimeError) do
-      raise MySpecialError 'New instances can be raised directly.'
+    assert_raise(MySpecialError) do
+      raise MySpecialError, 'message'
     end
   end
 end
