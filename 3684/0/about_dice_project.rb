@@ -6,10 +6,10 @@ class DiceSet
   attr_accessor :values
   def roll(value)
     @values = []
-    i = 0
-    while i < value
+    x = 0
+    while x < value
       @values << rand(1..6)
-      i += 1
+      x += 1
     end
   end
 end
