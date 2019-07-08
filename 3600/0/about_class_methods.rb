@@ -1,6 +1,11 @@
-# rubocop:disable Style/Documentation
+# rubocop:disable Lint/MissingCopEnableDirective, Style/TrivialAccessors
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
+# This method smells of :reek:UncommunicativeModuleName
+# This method smells of :reek:UncommunicativeMethodName
+# This method smells of :reek:TooManyMethods
+# This method smells of :reek:Attribute
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -20,11 +25,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 60
+    assert fido.methods.size > 1
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 60
+    assert Dog.methods.size > 1
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -48,7 +53,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog2
     def wag
       :instance_level_wag
@@ -59,9 +64,7 @@ class AboutClassMethods < Neo::Koan
     :class_level_wag
   end
 
-  # rubocop:disable Metrics/LineLength
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-    #  rubocop:enable Metrics/LineLength
     assert_equal :class_level_wag, Dog2.wag
   end
 
@@ -72,12 +75,12 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog
     attr_accessor :name
   end
 
-  def Dog.name # rubocop:disable Style/TrivialAccessors
+  def Dog.name
     @name
   end
 
@@ -89,7 +92,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog
     def self.a_class_method
       :dogs_class_method
@@ -111,6 +114,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
                                      self
                                    end
@@ -120,7 +124,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
@@ -132,7 +136,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog
     class << self
       def another_class_method
@@ -168,4 +172,3 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
-# rubocop:enable Style/Documentation
