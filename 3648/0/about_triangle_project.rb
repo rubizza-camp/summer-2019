@@ -3,21 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # You need to write the triangle method in the file 'triangle.rb'
 require './triangle'
 
-def triangle(a, b, c)
-  if a == b && b == c
-    return :equilateral
-  end
-  if((a == b && c != a) || (b == c && a != b) || (a == c && b != a))
-    return :isosceles
-  end
-  if (a != b) && (b != c) && (a != c)
-    return :scalene
-  end
-
-
-end
-
-
 class AboutTriangleProject < Neo::Koan
   def test_equilateral_triangles_have_equal_sides
     assert_equal :equilateral, triangle(2, 2, 2)
