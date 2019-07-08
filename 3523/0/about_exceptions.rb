@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/LineLength
-# rubocop:disable Lint/UselessAssignment
-# rubocop:disable Lint/HandleExceptions
-# I decided to disable rubocop because it is condition mistake
+# rubocop: disable Metrics/MethodLength
+# rubocop: disable Lint/UselessAssignment
+# rubocop: disable Lint/HandleExceptions
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# class AboutExceptions < Neo::Koan
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
@@ -28,12 +28,13 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :exception_handled, result
 
-    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, e.is_a?(RuntimeError), 'Should be a Runtime Error'
+    assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
 
-    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
+    assert RuntimeError.ancestors.include?(StandardError),
+           'RuntimeError is a subclass of StandardError'
 
-    assert_equal 'Oops', e.message
+    assert_equal 'Oops', ex.message
   end
 
   def test_raising_a_particular_error
@@ -46,7 +47,7 @@ class AboutExceptions < Neo::Koan
     end
 
     assert_equal :exception_handled, result
-    assert_equal 'My Message', e.message
+    assert_equal 'My Message', ex.message
   end
 
   def test_ensure_clause
@@ -66,11 +67,10 @@ class AboutExceptions < Neo::Koan
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
     assert_raise(MySpecialError) do
-      raise MySpecialError, 'message'
+      raise MySpecialError, 'New instances can be raised directly.'
     end
   end
 end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/LineLength
-# rubocop:enable Lint/UselessAssignment
-# rubocop:enable Lint/HandleExceptions
+# rubocop: enable Metrics/MethodLength
+# rubocop: enable Lint/UselessAssignment
+# rubocop: enable Lint/HandleExceptions
