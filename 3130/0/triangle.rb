@@ -19,7 +19,7 @@ def check_sides_sums(fst, snd, thrd)
 end
 
 def validate_sides(fst, snd, thrd)
-  fst > 0 && snd > 0 && thrd > 0
+  fst.positive? && snd.positive? && thrd.positive?
 end
 
 def isosceles?(fst, snd, thrd)

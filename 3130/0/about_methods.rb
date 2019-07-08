@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable UtilityFunction
 
 def my_global_method(first, second)
   first + second
@@ -157,3 +158,5 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable UtilityFunction
+
