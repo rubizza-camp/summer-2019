@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
   def bark
-    noise = 'RUFF'
+    noise = 'RUFF' # rubocop:disable Lint/UselessAssignment
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -15,7 +15,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal __, bark
   end
 
-  inaccessible = 'Outside our universe'
+  inaccessible = 'Outside our universe' # rubocop:disable Lint/UselessAssignment
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
     assert_equal __, defined? inaccesible
@@ -34,7 +34,7 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
+      x = 0 # rubocop:disable Lint/UselessAssignment
     end
     assert_equal __, defined? x
   end
@@ -42,13 +42,13 @@ class AboutVariableScope < Neo::Koan
   # ------------------------------------------------------
 
   class Mouse
-    @@total = 0
+    @@total = 0 # rubocop:disable Style/ClassVars
     # Class variables are prefixed with two '@' characters.
 
     def initialize(n)
       @name = n
       # Instance variables are prefixed with one '@' character.
-      @@total += 1
+      @@total += 1 # rubocop:disable Style/ClassVars
     end
 
     attr_reader :name
@@ -74,31 +74,31 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
 
-  $anywhere = 'Anywhere'
+  $anywhere = 'Anywhere' # rubocop:disable Style/GlobalVars
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
-    assert_equal __, $anywhere
+    assert_equal __, $anywhere # rubocop:disable Style/GlobalVars
   end
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
-    $anywhere = 'Here'
-    assert_equal __, $anywhere
+    $anywhere = 'Here' # rubocop:disable Style/GlobalVars
+    assert_equal __, $anywhere # rubocop:disable Style/GlobalVars
   end
 
   def test_global_variables_retain_value_from_last_change
     # What is $anywhere?
-    assert_equal __, $anywhere
+    assert_equal __, $anywhere # rubocop:disable Style/GlobalVars
   end
 
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do
-      $anywhere = 'Hey'
+      $anywhere = 'Hey' # rubocop:disable Style/GlobalVars
     end
 
-    assert_equal __, $anywhere
+    assert_equal __, $anywhere # rubocop:disable Style/GlobalVars
   end
 end
 
