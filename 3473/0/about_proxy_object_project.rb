@@ -20,8 +20,6 @@ class Proxy
   end
 
   # WRITE CODE HERE
-  attr_accessor :messages
-
   def method_missing(method_name, *args, &block)
     if @object.respond_to?(method_name)
       messages << method_name
