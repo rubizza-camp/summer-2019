@@ -1,6 +1,12 @@
 # rubocop:disable Style/EvalWithLocation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:InstanceVariableAssumption
+# :reek:TooManyMethods
+# :reek:UncommunicativeModuleName
+# :reek:TooManyStatements
 class AboutClasses < Neo::Koan
   class Dog
   end

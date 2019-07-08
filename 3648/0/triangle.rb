@@ -16,8 +16,8 @@
 def triangle(arg, brg, crg)
   raise TriangleError if [arg, brg, crg].min <= 0
 
-  x, y, z = [arg, brg, crg].sort
-  raise TriangleError if x + y <= z
+  xrb, yrb, zrb = [arg, brg, crg].sort
+  raise TriangleError if xrb + yrb <= zrb
 
   %i[equilateral isosceles scalene].fetch([arg, brg, crg].uniq.size - 1)
 end
