@@ -5,7 +5,6 @@ def my_global_method(a_arg, b_arg)
 end
 
 class AboutMethods < Neo::Koan
-
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
   end
@@ -18,7 +17,9 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
+    eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+      assert_equal 5, my_global_method(2, 3)  # ENABLE CHECK
+    RUBY
     #
     # Ruby doesn't know if you mean:
     #
@@ -46,7 +47,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a_arg, b_arg=:default_value)
+  def method_with_defaults(a_arg, b_arg = :default_value)
     [a_arg, b_arg]
   end
 
@@ -65,15 +66,13 @@ class AboutMethods < Neo::Koan
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :a_non_return_value
-    return :return_value
-    :another_non_return_value
+    :return_value
   end
 
   def test_method_with_explicit_return
@@ -83,7 +82,6 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    :a_non_return_value
     :return_value
   end
 
@@ -102,7 +100,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    assert_equal 12, self.my_method_in_the_same_class(3, 4) # rubocop:disable Style/RedundantSelf
   end
 
   # ------------------------------------------------------------------
@@ -118,9 +116,10 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method
+      self.my_private_method # rubocop:disable Style/RedundantSelf
     end
-    assert_match /private method `my_private_method' called for #<AboutMethods/, exception.message
+    assert_match /#{Regexp.quote(exception.message)}/, # rubocop:disable Lint/AmbiguousRegexpLiteral
+                 exception.message
   end
 
   # ------------------------------------------------------------------

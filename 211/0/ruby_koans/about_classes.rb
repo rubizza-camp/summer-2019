@@ -12,7 +12,7 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog2
-    def set_name(a_name)
+    def adjust_name(a_name)
       @name = a_name
     end
   end
@@ -21,53 +21,54 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     assert_equal [], fido.instance_variables
 
-    fido.set_name('Fido')
+    fido.adjust_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
-    fido.set_name('Fido')
+    fido.adjust_name('Fido')
 
     assert_raise(NoMethodError) do
       fido.name
     end
 
     assert_raise(SyntaxError) do
-      eval 'fido.@name'
+      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+      fido.@name
+      RUBY
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
-    fido.set_name('Fido')
+    fido.adjust_name('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
-    fido.set_name('Fido')
+    fido.adjust_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal 'Fido', fido.instance_eval('@name', __FILE__, __LINE__) # string version
+    assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
 
   # ------------------------------------------------------------------
 
   class Dog3
-    def set_name(a_name)
+    def adjust_name(a_name)
       @name = a_name
     end
-    def name
-      @name
-    end
+
+    attr_reader :name
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.set_name('Fido')
+    fido.adjust_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -77,15 +78,14 @@ class AboutClasses < Neo::Koan
   class Dog4
     attr_reader :name
 
-    def set_name(a_name)
+    def adjust_name(a_name)
       @name = a_name
     end
   end
 
-
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.set_name('Fido')
+    fido.adjust_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -95,7 +95,6 @@ class AboutClasses < Neo::Koan
   class Dog5
     attr_accessor :name
   end
-
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
@@ -142,7 +141,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def get_self
+    def adjust_self
       self
     end
 
@@ -158,7 +157,7 @@ class AboutClasses < Neo::Koan
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new('Fido')
 
-    fidos_self = fido.get_self
+    fidos_self = fido.adjust_self
     assert_equal fido, fidos_self
   end
 
@@ -184,7 +183,6 @@ class AboutClasses < Neo::Koan
     assert_equal '[1, 2, 3]', array.inspect
 
     assert_equal 'STRING', 'STRING'.to_s
-    assert_equal "\"STRING\"", 'STRING'.inspect
+    assert_equal %(\"STRING\"), 'STRING'.inspect
   end
-
 end
