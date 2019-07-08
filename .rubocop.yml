@@ -5,6 +5,36 @@ Style/Documentation:
   Enabled: false
 
 
+Style/MethodMissing:
+  Enabled: false
+
+Style/TrivialAccessors:
+  Enabled: false
+
+Lint/LiteralAsCondition:
+  Enabled: false
+
+Style/EvalWithLocation:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Style/EvenOdd:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
+
+Lint/RescueException:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 100
 
