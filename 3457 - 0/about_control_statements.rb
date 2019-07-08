@@ -66,7 +66,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement_modifier
     result = :default_value
-    result = :false_value unless false
+    result = :false_value
 
     assert_equal :false_value, result
   end
@@ -99,7 +99,7 @@ class AboutControlStatements < Neo::Koan
                break i if i.even?
 
                i += 1
-    end
+             end
 
     assert_equal 2, result
   end
