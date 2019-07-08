@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # About hashes
 class AboutHashes < Neo::Koan
@@ -52,6 +50,7 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash_one == hash_two
   end
 
+  # :reek:DuplicateMethodCall
   def test_hash_keys
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.keys.size
@@ -60,6 +59,7 @@ class AboutHashes < Neo::Koan
     assert_equal Array, hash.keys.class
   end
 
+  # :reek:DuplicateMethodCall
   def test_hash_values
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.values.size
@@ -88,6 +88,8 @@ class AboutHashes < Neo::Koan
     default_value
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def default_value
     hash_two = Hash.new('dos')
     hash_two[:one] = 1
@@ -96,6 +98,8 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash_two[:two]
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -114,6 +118,7 @@ class AboutHashes < Neo::Koan
     assert_equal true,  hashes_are_equal
   end
 
+  # :reek:FeatureEnvy
   def test_default_value_with_block
     hash = Hash.new { |hash_one, key| hash_one[key] = [] }
 
