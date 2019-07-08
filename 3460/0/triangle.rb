@@ -17,21 +17,6 @@
 # rubocop:disable CyclomaticComplexity
 # rubocop:disable PerceivedComplexity
 #
-def triangle(side_a, side_b, side_c)
-  raise TriangleError unless side_a.positive?
-  raise TriangleError unless side_a + side_b > side_c
-  return :equilateral if side_a == side_b && side_b == side_c
-  return :isosceles if side_a == side_b || side_b == side_c || side_a == side_c
-
-  :scalene
-end
-
-def triangle_kind(side_a, side_b, side_c)
-  return :equilateral if (side_a == side_b) && (side_b == side_c)
-  return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_c == side_a)
-
-  :scalene
-end
 
 def triangle(side_a, side_b, side_c)
   variable_one = side_a + side_b
