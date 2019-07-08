@@ -39,11 +39,9 @@ end
 def count(map)
   score = 0
   map.each do |key, value|
-    new_value = value / 3
-    score += new_value * (key == 1 ? 1000 : key * 100)
-    new_value = value % 3
-    score += 100 * new_value if key == 1
-    score += 50 * new_value if key == 5
+    score += (value / 3) * (key == 1 ? 1000 : key * 100)
+    score += 100 * (value % 3) if key == 1
+    score += 50 * (value % 3) if key == 5
   end
   score
 end
