@@ -17,7 +17,7 @@ def triangle(a, b, c)
   # WRITE THIS CODE
   # Check triangle sides length
   if a <= 0 || b <= 0 || c <= 0
-    raise TriangleError, "All sides have to be more than 0"
+    raise TriangleError, 'All sides have to be more than 0'
   elsif a + b <= c || a + c <= b || b + c <= a
     raise TriangleError, "One side of triangle can't be longer then thw other two"
   end
@@ -33,5 +33,4 @@ end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
-
 end
