@@ -12,7 +12,6 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_rescue_clause
-    result = nil
     begin
       raise 'Oops'
     rescue StandardError => e
@@ -24,13 +23,12 @@ class AboutExceptions < Neo::Koan
     assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
 
-    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
+    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError << StandardError'
 
     assert_equal 'Oops', e.message
   end
 
   def test_raising_a_particular_error
-    result = nil
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
@@ -43,11 +41,10 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
-    result = nil
     begin
       raise 'Oops'
     rescue StandardError
-      # no code here
+      StandardError
     ensure
       result = :always_run
     end
