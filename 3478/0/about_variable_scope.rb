@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
   def bark
-    noise = 'RUFF' # rubocop:disable all
+    noise = 'RUFF' # rubocop:disable Lint/UselessAssignment
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -45,8 +45,8 @@ class AboutVariableScope < Neo::Koan
     @@total = 0 # rubocop:disable Style/ClassVars
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(name)
+      @name = name
       # Instance variables are prefixed with one '@' character.
       @@total += 1 # rubocop:disable Style/ClassVars
     end
@@ -74,31 +74,31 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
 
-  $anywhere = 'Anywhere' # rubocop:disable all
+  $anywhere = 'Anywhere' # rubocop:disable Style/GlobalVars
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
-    assert_equal __, $anywhere # rubocop:disable all
+    assert_equal __, $anywhere # rubocop:disable Style/GlobalVars
   end
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
-    $anywhere = 'Here' # rubocop:disable all
-    assert_equal __, $anywhere # rubocop:disable all
+    $anywhere = 'Here' # rubocop:disable Style/GlobalVars
+    assert_equal __, $anywhere # rubocop:disable Style/GlobalVars
   end
 
   def test_global_variables_retain_value_from_last_change
     # What is $anywhere?
-    assert_equal __, $anywhere # rubocop:disable all
+    assert_equal __, $anywhere # rubocop:disable Style/GlobalVars
   end
 
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do
-      $anywhere = 'Hey' # rubocop:disable all
+      $anywhere = 'Hey' # rubocop:disable Style/GlobalVars
     end
 
-    assert_equal __, $anywhere # rubocop:disable all
+    assert_equal __, $anywhere # rubocop:disable Style/GlobalVars
   end
 end
 
