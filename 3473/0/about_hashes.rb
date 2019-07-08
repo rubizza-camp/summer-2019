@@ -91,7 +91,7 @@ class AboutHashes < Neo::Koan
   end
 
   # rubocop:disable Metrics/AbcSize
-  def test_default_value_is_the_object
+  def test_default_value_is_object
     hash = Hash.new([])
 
     hash[:one] << 'uno'
