@@ -1,10 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable all
 def my_global_method(a_val, b_val)
   a_val + b_val
 end
-# rubocop:enable all
 
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
