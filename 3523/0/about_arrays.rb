@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+# :reek:IrresponsibleModule
+# :reek:TooManyStatements
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
