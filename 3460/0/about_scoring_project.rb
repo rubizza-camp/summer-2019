@@ -30,7 +30,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# rubocop:disable Lint/UselessAssignment
 
 def score(dice)
   triple_scores = [1000, 200, 300, 400, 500, 600]
@@ -41,7 +40,6 @@ def score(dice)
     score += single_scores[number - 1] * (count % 3)
   end
 end
-# rubocop:enable Lint/UselessAssignment
 
 # class AboutScoringProject < Neo::Koan
 class AboutScoringProject < Neo::Koan
