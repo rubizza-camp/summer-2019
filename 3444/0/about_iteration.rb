@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-# rubocop:disable Lint/MissingCopEnableDirective
+# rubocop:disable Lint/MissingCopEnableDirective, Metrics/LineLength
 # rubocop:disable Lint/AmbiguousBlockAssociation, Style/StringLiterals, Style/SymbolProc
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyStatements and :reek:UncommunicativeVariableName and :reek:UtilityFunction and :reek:NestedIterators
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -123,3 +124,4 @@ class AboutIteration < Neo::Koan
   #
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 end
+# rubocop:enable Metrics/LineLength

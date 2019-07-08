@@ -5,6 +5,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:NilCheck and :reek:UncommunicativeMethodName and :reek:UtilityFunction and :reek:FeatureEnvy
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)
