@@ -1,4 +1,6 @@
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Lint/MissingCopEnableDirective, Metrics/AbcSize
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Layout/IndentationConsistency
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -30,46 +32,24 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-def set_points(dice_array, index, multipler)
-  counter = 0
-  dice_array.each do |item|
-    counter += 1 if item == index
-    if counter == 3
-      dice_array.slice!(dice_array.index(index)..dice_array.index(index) + counter - 1)
-      return index * multipler
-    end
-  end
-  0
-end
 
-def solo_points(dice_array, index, multipler)
-  dice_array.each do |item|
-    next unless item == index
-
-    count = dice_array.count(index)
-    dice_array.slice!(dice_array.index(index))
-    return multipler * count
-  end
-  0
-end
-
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UtilityFunction
 def score(dice)
-  dice.sort!
-  points = 0
-
-  # Finding set of three numbers and deleting them
-  points += set_points(dice, 1, 1000)
-  (2..6).each do |item|
-    points += set_points(dice, item, 100)
+  dice = dice.sort
+  sum = 0
+  (1..6).each do |round|
+    count = dice.count(round)
+    sum += (round == 1 ? 1000 : round * 100) if count >= 3
+    sum += (count % 3) * 100 if round == 1
+    sum += (count % 3) * 50 if round == 5
   end
-  # Finding solo one or five
-  points += solo_points(dice, 1, 100)
-  points += solo_points(dice, 5, 50)
-
-  points
+  sum
 end
 
-#:nodoc:
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:UncommunicativeMethodName
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
@@ -111,4 +91,3 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:enable Metrics/LineLength
