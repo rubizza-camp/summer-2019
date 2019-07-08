@@ -1,8 +1,8 @@
-# rubocop:disable Metrics/ClassLength, Metrics/MethodLength,
-# rubocop:disable Lint/LiteralAsCondition,
+# rubocop:disable Metrics/ClassLength, Metrics/MethodLength
+# rubocop:disable Lint/LiteralAsCondition
 #
 # Style/IfUnlessModifier offenses are being used in this koan as an example
-# rubocop:disable Style/IfUnlessModifier,
+# rubocop:disable Style/IfUnlessModifier
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
