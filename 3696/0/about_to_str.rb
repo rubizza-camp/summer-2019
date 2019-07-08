@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:FeatureEnvy
 class AboutToStr < Neo::Koan
   class CanNotBeTreatedAsString
     def to_s

@@ -28,7 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+# :reek:UtilityFunction
 def pop(dice)
   count = 0
   top = dice.first
@@ -48,7 +48,7 @@ def score(dice)
   end
   sum
 end
-
+# :reek:TooManyStatements
 def aggregate(top, count)
   sum = 0
   if count >= 3
