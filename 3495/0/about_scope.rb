@@ -1,6 +1,3 @@
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Style/ZeroLengthPredicate
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutScope < Neo::Koan
@@ -77,9 +74,6 @@ class AboutScope < Neo::Koan
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
     assert_equal [:Dog], Jims.constants
-    assert Object.constants.size > 0
+    assert_equal false, Object.constants.empty?
   end
 end
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Style/ZeroLengthPredicate
-# rubocop:enable Lint/UnneededCopDisableDirective
