@@ -1,5 +1,5 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
-# rubocop:disable Lint/AmbiguousBlockAssociation)
+# rubocop:disable Naming/AccessorMethodName, Lint/MissingCopEnableDirective, Style/EvalWithLocation, Lint/AmbiguousBlockAssociation, Metrics/LineLength
+
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

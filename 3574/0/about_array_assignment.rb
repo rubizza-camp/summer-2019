@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/ParallelAssignment
+# rubocop:disable Lint/MissingCopEnableDirective, Style/ParallelAssignment, Lint/UnneededCopDisableDirective, Metrics/LineLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

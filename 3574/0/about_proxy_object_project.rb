@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/MethodMissingSuper
+# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing, Metrics/LineLength, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -24,10 +24,10 @@ class Proxy
   # WRITE CODE HERE
   attr_accessor :messages
 
-  def method_missing(method_name, *args, &block)
+  def method_missing(method_name, *args)
     if @object.respond_to?(method_name)
       messages << method_name
-      @object.send(method_name, *args, &block)
+      @object.send(method_name, *args)
     else
       super
     end

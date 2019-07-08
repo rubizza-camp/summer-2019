@@ -1,5 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/Void, Lint/UnreachableCode
-# rubocop:disable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteralrequire File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Lint/Void, Lint/UnreachableCode, Style/AccessModifierDeclarations, Metrics/LineLength, Style/RedundantSelf, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective
 
 def my_global_method(a,b)
   a + b

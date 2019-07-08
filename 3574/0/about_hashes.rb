@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize, Lint/MissingCopEnableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
