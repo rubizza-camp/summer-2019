@@ -534,3 +534,5 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
+
+# rubocop:enable all

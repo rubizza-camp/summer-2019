@@ -40,3 +40,4 @@ in_ruby_version("jruby") do
   require 'about_java_interop'
 end
 require 'about_extra_credit'
+# rubocop:enable all
