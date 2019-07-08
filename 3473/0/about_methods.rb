@@ -98,11 +98,10 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable UtilityFunction
+  # :reek:UtilityFunction
   def my_method_in_the_same_class(a_param, b_param)
     a_param * b_param
   end
-  # rubocop:enable UtilityFunction
 
   def test_calling_methods_in_same_class
     assert_equal 12, my_method_in_the_same_class(3, 4)
