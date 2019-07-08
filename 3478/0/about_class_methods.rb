@@ -69,12 +69,11 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   class Dog
     attr_accessor :name
   end
 
-  def Dog.name
+  def Dog.name # rubocop:disable Style/TrivialAccessors
     @name
   end
 
@@ -98,18 +97,18 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable all
   LastExpressionInClassStatement = class Dog
                                      21
                                    end
-
+  # rubocop:enable all
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, LastExpressionInClassStatement
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
+  SelfInsideOfClassStatement = class Dog # rubocop:disable Naming/ConstantName
                                  self
                                end
 

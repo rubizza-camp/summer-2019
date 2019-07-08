@@ -35,7 +35,7 @@ def score(dice)
   (1..6).inject(0) do |summ, num|
     count = dice.count(num)
     summ += triple[num - 1] * (count / 3)
-    summ += single[num - 1] * (count % 3)
+    summ + single[num - 1] * (count % 3)
   end
 end
 

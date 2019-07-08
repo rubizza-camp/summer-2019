@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-include Java
+include Java # rubocop:disable Style/MixinUsage
 
 # Concepts
 # * Pull in a java class
@@ -88,21 +88,21 @@ class AboutJavaInterop < Neo::Koan
     # How would you do it?
   end
 
-  def test_however_most_methods_returning_strings_return_ruby_strings
+  def test_however_most_methods_returning_strings_return_ruby_strings # rubocop:disable Metrics/AbcSize
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.toString
     assert_equal __, java_array.toString.is_a?(String)
     assert_equal __, java_array.toString.is_a?(java.lang.String)
   end
 
-  def test_some_ruby_objects_can_be_coerced_to_java
+  def test_some_ruby_objects_can_be_coerced_to_java # rubocop:disable Metrics/AbcSize
     assert_equal __, 'ruby string'.to_java.class
     assert_equal __, 1.to_java.class
     assert_equal __, 9.32.to_java.class
     assert_equal __, false.to_java.class
   end
 
-  def test_some_ruby_objects_are_not_coerced_to_what_you_might_expect
+  def test_some_ruby_objects_are_not_coerced_to_what_you_might_expect # rubocop:disable Metrics/AbcSize
     assert_equal __, [].to_java.class == Java::JavaUtil::ArrayList
     assert_equal __, {}.to_java.class == Java::JavaUtil::HashMap
     assert_equal __, Object.new.to_java.class == Java::JavaLang::Object
@@ -117,7 +117,7 @@ class AboutJavaInterop < Neo::Koan
   # ------------------------------------------------------------------
 
   # Open the Java ArrayList class and add a new method.
-  class Java::JavaUtil::ArrayList
+  class Java::JavaUtil::ArrayList # rubocop:disable Style/ClassAndModuleChildren
     def multiply_all
       result = 1
       each do |item|

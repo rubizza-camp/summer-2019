@@ -70,7 +70,7 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class MyAnimals::Oyster < Animal
+  class MyAnimals::Oyster < Animal # rubocop:disable Style/ClassAndModuleChildren
     def legs_in_oyster
       LEGS
     end
