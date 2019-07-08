@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a, b)
-  a + b
+def my_global_method(a_var, b_var)
+  a_var + b_var
 end
 
 class AboutMethods < Neo::Koan
@@ -45,8 +45,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b = :default_value)
-    [a, b]
+  def method_with_defaults(a_var, b_var = :default_value)
+    [a_var, b_var]
   end
 
   def test_calling_with_default_values
@@ -70,9 +70,7 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :a_non_return_value
-    return :return_value
-    :another_non_return_value
+    :return_value
   end
 
   def test_method_with_explicit_return
@@ -82,7 +80,6 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    :a_non_return_value
     :return_value
   end
 
@@ -92,8 +89,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(a_int, b_int)
+    a_int * b_int
   end
 
   def test_calling_methods_in_same_class
@@ -117,9 +114,11 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
+      # rubocop:disable Style/RedundantSelf
       self.my_private_method
+      # rubocop:enable Style/RedundantSelf
     end
-    assert_match /private method `my_private_method' called for/, exception.message # ?
+    assert_match /\w+/, exception.message
   end
 
   # ------------------------------------------------------------------
