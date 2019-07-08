@@ -1,11 +1,5 @@
-#!/usr/bin/env ruby
-# rubocop:disable Lint/Syntax
-
-# frozen_string_literal: true
-
-# rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable all
-
+#!/usr/bin/env ruby
 # -*- ruby -*-
 
 begin
