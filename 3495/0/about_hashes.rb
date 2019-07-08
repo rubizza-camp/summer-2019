@@ -1,7 +1,3 @@
-# rubocop:disable Style/BracesAroundHashParameters
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Lint/ShadowingOuterLocalVariable
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutHashes < Neo::Koan
@@ -72,7 +68,7 @@ class AboutHashes < Neo::Koan
 
   def test_combining_hashes
     hash = { 'jim' => 53, 'amy' => 20, 'dan' => 23 }
-    new_hash = hash.merge({ 'jim' => 54, 'jenny' => 26 })
+    new_hash = hash.merge('jim' => 54, 'jenny' => 26)
 
     assert_equal true, hash != new_hash
 
@@ -94,8 +90,8 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  def test_default_value_is_the_same_object
-    hash = Hash.new([])
+  def test_default_value_is_the_same_object # rubocop:disable Metrics/AbcSize
+    hash = Hash.new([]) # rubocop:enadle Metrics/AbcSize
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
@@ -108,7 +104,7 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |_hash, key| hash[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
@@ -118,6 +114,3 @@ class AboutHashes < Neo::Koan
     assert_equal [], hash[:three]
   end
 end
-# rubocop:enable Style/BracesAroundHashParameters
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Lint/ShadowingOuterLocalVariable
