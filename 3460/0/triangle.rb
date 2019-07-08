@@ -26,6 +26,27 @@ def triangle(side_a, side_b, side_c)
   :scalene
 end
 
+def triangle_kind(side_a, side_b, side_c)
+  return :equilateral if (side_a == side_b) && (side_b == side_c)
+  return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_c == side_a)
+
+  :scalene
+end
+
+def triangle(side_a, side_b, side_c)
+  variable_one = side_a + side_b
+  variable_two = side_b + side_c
+  variable_tree = side_c + side_a
+  if variable_one <= side_c || variable_two <= side_a || variable_tree <= side_b
+    raise TriangleError, 'A triangle with such sides does not exist'
+  end
+
+  return :equilateral if side_a == side_b && side_b == side_c
+  return :isosceles if side_a == side_b || side_b == side_c || side_a == side_c
+
+  :scalene
+end
+
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
