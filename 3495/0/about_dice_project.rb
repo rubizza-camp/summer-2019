@@ -1,17 +1,11 @@
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Layout/IndentationConsistency
-# rubocop:disable Layout/IndentationWidth
-# rubocop:disable Naming/UncommunicativeMethodParamName
-# rubocop:disable Style/RandomWithOffset
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class DiceSet
   attr_reader :values
-  def roll(i)
+  def roll(val)
     @values = []
-    i.times do
-      @values << rand(5) + 1
+    val.times do
+      @values << rand(1..6)
     end
   end
 end
@@ -68,8 +62,3 @@ class AboutDiceProject < Neo::Koan
     assert_equal 1, dice.values.size
   end
 end
-# rubocop:enable Layout/IndentationConsistency
-# rubocop:enable Layout/IndentationWidth
-# rubocop:enable Naming/UncommunicativeMethodParamName
-# rubocop:enable Style/RandomWithOffset
-# rubocop:enable Lint/UnneededCopDisableDirective
