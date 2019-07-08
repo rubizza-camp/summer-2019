@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
+# rubocop:disable Style/MethodMissing
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
+# :reek:BooleanParameter and :reek:ManualDispatch and :reek:UtilityFunction
 class AboutMessagePassing < Neo::Koan
-  #:nodoc:
   class MessageCatcher
     def caught?
       true
@@ -24,14 +28,14 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' + '?')
-    assert mc.send('CAUGHT?'.downcase!)
+    assert mc.send('caught' + '?') # What do you need to add to the first string?
+    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
   end
 
   def test_send_with_underscores_will_also_send_messages
     mc = MessageCatcher.new
 
-    assert_equal true, mc.__send__(:caught?)
+    assert_equal true, mc.send(:caught?)
 
     # THINK ABOUT IT:
     #
@@ -46,7 +50,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -111,22 +115,19 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Style/MethodMissing
+
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
-  # rubocop:enable Style/MethodMissing
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    # rubocop:disable Metrics/LineLength
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
-    # rubocop:enable Metrics/LineLength
   end
 
   def test_catching_messages_makes_respond_to_lie
@@ -140,7 +141,6 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Style/MethodMissing
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
@@ -150,7 +150,6 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-  # rubocop:enable Style/MethodMissing
 
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
@@ -187,3 +186,4 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
+# rubocop:enable Style/MethodMissing
