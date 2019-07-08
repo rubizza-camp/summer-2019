@@ -1,13 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutControlStatements < Neo::Koan
-
   def test_if_then_else_statements
     if true
-      result = :true_value
+      return :true_value
     else
-      result = :false_value
+      return :false_value
     end
+
     assert_equal :true_value, result
   end
 
@@ -87,7 +87,7 @@ class AboutControlStatements < Neo::Koan
       result = result * i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 3_628_800, result
   end
 
   def test_break_statement
@@ -98,16 +98,15 @@ class AboutControlStatements < Neo::Koan
       result = result * i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
-      break i if i % 2 == 0
+    break i if (i % 2).zero?
       i += 1
     end
-
     assert_equal 2, result
   end
 
@@ -116,19 +115,18 @@ class AboutControlStatements < Neo::Koan
     result = []
     while i < 10
       i += 1
-      next if (i % 2) == 0
+      next if (i % 2).zero?
+
       result << i
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
 
   def test_for_statement
-    array = ["fish", "and", "chips"]
+    array = %w[fish and chips]
     result = []
-    for item in array
-      result << item.upcase
-    end
-    assert_equal ["FISH", "AND", "CHIPS"], result
+    array.each { |item| result << item.upcase }
+    assert_equal %w[FISH AND CHIPS], result
   end
 
   def test_times_statement
@@ -138,5 +136,4 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal 10, sum
   end
-
 end
