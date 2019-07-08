@@ -109,6 +109,7 @@ class AboutMessagePassing < Neo::Koan
     # Koans.
   end
 
+  # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
@@ -181,3 +182,4 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
+# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing

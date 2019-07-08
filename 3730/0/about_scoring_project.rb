@@ -29,9 +29,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# rubocop:disable Metrics/MethodLength
 def score(dice)
-  # You need to write this method
-
   total_score = 0
 
   (1..6).each do |number|
@@ -40,13 +39,13 @@ def score(dice)
       total_score += number == 1 ? 1000 : number * 100
       amount -= 3
     end
-
     total_score += 100 * amount if number == 1
     total_score += 50 * amount if number == 5
   end
 
   total_score
 end
+# rubocop:enable Metrics/MethodLength
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero

@@ -74,15 +74,11 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
-  def Dog.name
-    @name
-  end
-
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
     fido.name = 'Fido'
     assert_equal 'Fido', fido.name
-    assert_equal nil, Dog.name
+    assert_equal 'AboutClassMethods::Dog', Dog.name
   end
 
   # ------------------------------------------------------------------
@@ -99,22 +95,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
-                               end
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
+                                     self
+                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------

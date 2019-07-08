@@ -1,7 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a, b)
-  a + b
+# rubocop:disable Lint/Void, Style/RedundantSelf, Style/AccessModifierDeclarations
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/UnreachableCode
+def my_global_method(first, second)
+  first + second
 end
 
 class AboutMethods < Neo::Koan
@@ -45,8 +47,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b = :default_value)
-    [a, b]
+  def method_with_defaults(first, second = :default_value)
+    [first, second]
   end
 
   def test_calling_with_default_values
@@ -89,11 +91,12 @@ class AboutMethods < Neo::Koan
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
   end
+  # rubocop:enable Lint/Void
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(first, second)
+    first * second
   end
 
   def test_calling_methods_in_same_class
@@ -122,6 +125,8 @@ class AboutMethods < Neo::Koan
     assert_match /private method/, exception.message
   end
 
+  # rubocop:enable Style/RedundantSelf, Style/AccessModifierDeclarations
+  # rubocop:enable Lint/AmbiguousRegexpLiteral, Lint/UnreachableCode
   # ------------------------------------------------------------------
 
   class Dog

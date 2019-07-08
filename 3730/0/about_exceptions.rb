@@ -4,13 +4,14 @@ class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
 
-  def test_exceptions_inherit_from_Exception
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_rescue_clause
     result = nil
     begin
@@ -20,15 +21,14 @@ class AboutExceptions < Neo::Koan
     end
 
     assert_equal :exception_handled, result
-
     assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
-
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
     assert_equal 'Oops', e.message
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test_raising_a_particular_error
     result = nil
@@ -43,8 +43,8 @@ class AboutExceptions < Neo::Koan
     assert_equal 'My Message', e.message
   end
 
+  # rubocop:disable Lint/HandleExceptions
   def test_ensure_clause
-    result = nil
     begin
       raise 'Oops'
     rescue StandardError
@@ -55,6 +55,7 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :always_run, result
   end
+  # rubocop:enable Lint/HandleExceptions
 
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised

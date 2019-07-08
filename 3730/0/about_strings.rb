@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -46,13 +47,13 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~EOS
+    long_string = %(
       It was the best of times,
       It was the worst of times.
-    EOS
-    assert_equal 53, long_string.length
-    assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0, 1]
+    )
+    assert_equal 70, long_string.length
+    assert_equal 4, long_string.lines.count
+    assert_equal "\n", long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -63,7 +64,6 @@ It was the worst of times.
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -77,9 +77,6 @@ It was the worst of times.
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
-    hi = original_string
-    there = 'World'
-    hi += there
     assert_equal 'Hello, ', original_string
   end
 
@@ -128,8 +125,8 @@ It was the worst of times.
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = 'The value is #{value}'
-    assert_equal 'The value is #{value}', string
+    string = "The value is #{value}"
+    assert_equal "The value is #{value}", string
   end
 
   def test_any_ruby_expression_may_be_interpolated
@@ -195,3 +192,4 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength
