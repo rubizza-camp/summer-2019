@@ -16,7 +16,7 @@
 def triangle(a_s, b_s, c_s)
   # Check triangle sides length
   sides = [a_s, b_s, c_s]
-  raise TriangleError, 'All sides have to be more than 0' if sides.any? { |n| n <= 0 }
+  raise TriangleError, 'All sides have to be more than 0' if sides.any? { |side| side <= 0 }
   raise TriangleError, "One side of triangle can't be longer then the other two" if a_s + b_s <= c_s || a_s + c_s <= b_s || b_s + c_s <= a_s
 
   # Return triangle type
