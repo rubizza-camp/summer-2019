@@ -45,7 +45,7 @@ class AboutJavaInterop < Neo::Koan
   end
 
   def test_can_directly_call_java_methods_on_java_objects
-    java_string = JString.new("A Java String")
+    java_string = JString.new('A Java String')
     assert_equal __, java_string.toLowerCase
   end
 
@@ -69,7 +69,7 @@ class AboutJavaInterop < Neo::Koan
   end
 
   def test_java_strings_can_be_compared_to_ruby_strings_maybe
-    ruby_string = "A Java String"
+    ruby_string = 'A Java String'
     java_string = java.lang.String.new(ruby_string)
     assert_equal __, ruby_string == java_string
     assert_equal __, java_string == ruby_string
@@ -110,7 +110,7 @@ class AboutJavaInterop < Neo::Koan
 
   def test_java_collections_are_enumerable
     java_array = java.util.ArrayList.new
-    java_array << "one" << "two" << "three"
+    java_array << 'one' << 'two' << 'three'
     assert_equal __, java_array.map { |item| item.upcase }
   end
 
