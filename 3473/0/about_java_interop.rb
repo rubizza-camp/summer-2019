@@ -102,7 +102,6 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, 9.32.to_java.class
     assert_equal __, false.to_java.class
   end
-  # rubocop:enable Metrics/AbcSize
 
   def test_some_ruby_objects_are_not_coerced_to_what_you_might_expect
     assert_equal __, [].to_java.class == Java::JavaUtil::ArrayList
@@ -110,6 +109,7 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, Object.new.to_java.class == Java::JavaLang::Object
   end
 
+  # rubocop:enable Metrics/AbcSize
   def test_java_collections_are_enumerable
     java_array = java.util.ArrayList.new
     java_array << 'one' << 'two' << 'three'

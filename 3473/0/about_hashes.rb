@@ -104,6 +104,7 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
   # rubocop:enable Metrics/AbcSize
+
   def test_default_value_with_block
     hash = Hash.new { |hash_local, key| hash_local[key] = [] }
 
