@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/RedundantBegin
+# rubocop: disable Lint/RescueException, Lint/MissingCopEnableDirective, Style/RedundantBegin
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

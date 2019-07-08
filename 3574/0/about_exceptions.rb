@@ -1,4 +1,4 @@
-# rubocop:disable Naming/MethodName, Lint/MissingCopEnableDirective, Lint/HandleExceptions, Metrics/MethodLength, Lint/UselessAssignment, Metrics/LineLength
+# rubocop:disable Naming/RescuedExceptionsVariableName, Naming/MethodName, Lint/MissingCopEnableDirective, Lint/HandleExceptions, Metrics/MethodLength, Lint/UselessAssignment, Metrics/LineLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

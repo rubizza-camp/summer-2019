@@ -1,4 +1,4 @@
-# rubocop:disable Lint/Void, Lint/UnreachableCode, Style/AccessModifierDeclarations, Metrics/LineLength, Style/RedundantSelf, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective
+# rubocop:disable Naming/UncommunicativeMethodParamName,Style/EvalWithLocation, Lint/Void, Lint/UnreachableCode, Style/AccessModifierDeclarations, Metrics/LineLength, Style/RedundantSelf, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective, Lint/AmbiguousRegexpLiteral
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
