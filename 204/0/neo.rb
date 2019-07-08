@@ -4,13 +4,13 @@
 # rubocop:disable Lint/EmptyEnsure, Metrics/CyclomaticComplexity, Style/MultilineTernaryOperator
 # rubocop:disable Metrics/PerceivedComplexity, Lint/Void, Lint/UselessAssignment, Style/GuardClause
 # rubocop:disable Naming/HeredocDelimiterNaming, Metrics/LineLength, RescueException
-# rubocop:disable Style/EvalWithLocation, Lint/HandleExceptions, Lint/UnneededCopDisableDirective
-
+# rubocop:disable Style/EvalWithLocation
 # -*- ruby -*-
 
-begin
+def load_error
   require 'win32console'
 rescue LoadError
+  bar
 end
 
 # --------------------------------------------------------------------
@@ -542,4 +542,4 @@ end
 # rubocop:enable Lint/EmptyEnsure, Metrics/CyclomaticComplexity, Style/MultilineTernaryOperator
 # rubocop:enable Metrics/PerceivedComplexity, Lint/Void, Lint/UselessAssignment, Style/GuardClause
 # rubocop:enable Naming/HeredocDelimiterNaming, Metrics/LineLength, RescueException
-# rubocop:enable Style/EvalWithLocation, Lint/HandleExceptions, Lint/UnneededCopDisableDirective
+# rubocop:enable Style/EvalWithLocation

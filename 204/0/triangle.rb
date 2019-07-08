@@ -14,22 +14,22 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
-def triangle(hyp, side1, side2)
-  error(hyp, side1, side1)
-  if hyp.eql?(side1) && side1.eql?(side2) && side2.eql?(hyp)
+def triangle(side_a, side_b, side_c)
+  if side_a.eql?(side_b) && side_b.eql?(side_c) && side_c.eql?(side_a)
     :equilateral
-  elsif hyp.eql?(side1) | side1.eql?(side2) | side2.eql?(hyp)
+  elsif side_a.eql?(side_b) | side_b.eql?(side_c) | side_c.eql?(side_a)
     :isosceles
   else
     :scalene
   end
 end
 
-def error(hyp, side1, side2)
+def error(side_a, side_b, side_c)
   raise TriangleError if
-    [hyp, side1, side2].include?(0) ||
-    hyp + side1 <= side2 || side1 + side2 <= hyp || side2 + hyp <= side1
+  [side_a, side_b, side_c].include?(0) ||
+  side_a + side_b <= side_c ||
+  side_b + side_c <= side_a ||
+  side_c + side_a <= side_b
 end
 # Error class used in part 2.  No need to change this code.
 
