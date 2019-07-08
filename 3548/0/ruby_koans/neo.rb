@@ -1,7 +1,5 @@
 # rubocop:disable all
 #!/usr/bin/env ruby
-# frozen_string_literal: true
-
 # -*- ruby -*-
 
 begin
@@ -208,7 +206,7 @@ module Neo
       @observations = []
     end
 
-    PROGRESS_FILE_NAME = '.path_progress'
+    PROGRESS_FILE_NAME = '.path_progress'.freeze
 
     def add_progress(prog)
       @_contents = nil
@@ -402,7 +400,7 @@ module Neo
                           "when you lose, don't lose the lesson"
                         else
                           'things are not what they appear to be: nor are they otherwise'
-        end
+                        end
       end
       puts Color.green(zen_statement)
     end
@@ -531,4 +529,3 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
-# rubocop:enable all

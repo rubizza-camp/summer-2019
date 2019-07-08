@@ -111,10 +111,9 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_private_method
+  private def my_private_method
     'a secret'
   end
-  private :my_private_method # rubocop:disable Style/AccessModifierDeclarations
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
