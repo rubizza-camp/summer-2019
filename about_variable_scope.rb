@@ -2,7 +2,6 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/UselessAssignment
-# rubocop:disable Style/ClassVars
 # rubocop:disable Style/GlobalVars
 # class AboutVariableScope < Neo::Koan
 class AboutVariableScope < Neo::Koan
@@ -47,13 +46,13 @@ class AboutVariableScope < Neo::Koan
   # ------------------------------------------------------
   # class Mouse
   class Mouse
-    @@total = 0
+    @total = 0
     # Class variables are prefixed with two '@' characters.
 
     def initialize(number)
       @name = number
       # Instance variables are prefixed with one '@' character.
-      @@total += 1
+      @total += 1
     end
 
     attr_reader :name
@@ -112,5 +111,4 @@ end
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
 # rubocop:enable Style/GlobalVars
-# rubocop:enable Style/ClassVars
 # rubocop:enable Lint/UselessAssignment

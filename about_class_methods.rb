@@ -60,12 +60,12 @@ class AboutClassMethods < Neo::Koan
     :class_level_wag
   end
 
-  # rubocop:disable Metrics/LineLength
-  def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
+
+  def test_since_classes_are_objects
     assert_equal :class_level_wag, Dog2.wag
   end
 
-  # rubocop:enable Metrics/LineLength
+
   def test_class_methods_are_independent_of_instance_methods
     fido = Dog2.new
     assert_equal :instance_level_wag, fido.wag
@@ -103,7 +103,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Style/Documentation
+  # LASTEXPRESSIONINCLASSSTATEMENT
   LASTEXPRESSIONINCLASSSTATEMENT = class Dog
                                      21
                                    end
@@ -111,9 +111,9 @@ class AboutClassMethods < Neo::Koan
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, LASTEXPRESSIONINCLASSSTATEMENT
   end
-  # rubocop:enable Style/Documentation
+
   # ------------------------------------------------------------------
-  # rubocop:disable Style/Documentation
+  # SELFINSIDEOFCLASSSTATEMENT
   SELFINSIDEOFCLASSSTATEMENT = class Dog
                                  self
                                end
@@ -121,7 +121,7 @@ class AboutClassMethods < Neo::Koan
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SELFINSIDEOFCLASSSTATEMENT
   end
-  # rubocop:enable Style/Documentation
+
   # ------------------------------------------------------------------
   # class Dog
   class Dog

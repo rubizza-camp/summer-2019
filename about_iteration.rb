@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Metrics/LineLength
 # class AboutIteration < Neo::Koan
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
@@ -94,7 +93,7 @@ class AboutIteration < Neo::Koan
     # Describe in your own words what inject does.
   end
 
-  def test_all_iteration_methods_work_on_any_collection_not_just_arrays
+  def test_all_iteration_methods_work
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }
     assert_equal [11, 12, 13], result
@@ -124,4 +123,3 @@ class AboutIteration < Neo::Koan
   # but this construction does not return the contents of the file, it creates a file object
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 end
-# rubocop:enable Metrics/LineLength

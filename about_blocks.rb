@@ -85,7 +85,7 @@ class AboutBlocks < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_block(&block)
-    block.call(10)
+    yield(10)
   end
 
   def test_methods_can_take_an_explicit_block_argument
