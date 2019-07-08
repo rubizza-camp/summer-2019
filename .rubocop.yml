@@ -1437,7 +1437,7 @@ Style/YodaCondition:
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be an Integer or
   # a Float.
-  Max: 50
+  Max: 15
 
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
@@ -1446,7 +1446,7 @@ Metrics/BlockLength:
 
 Metrics/BlockNesting:
   CountBlocks: false
-  Max: 4
+  Max: 3
 
 Metrics/ClassLength:
   CountComments: false  # count full line comments?
@@ -1454,7 +1454,7 @@ Metrics/ClassLength:
 
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
-  Max: 15
+  Max: 6
 
 Metrics/LineLength:
   Max: 120
@@ -1475,7 +1475,7 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
-  Max: 60
+  Max: 10
 
 Metrics/ModuleLength:
   CountComments: false  # count full line comments?
@@ -1486,7 +1486,7 @@ Metrics/ParameterLists:
   CountKeywordArgs: true
 
 Metrics/PerceivedComplexity:
-  Max: 18
+  Max: 7
 
 #################### Lint ##################################
 
