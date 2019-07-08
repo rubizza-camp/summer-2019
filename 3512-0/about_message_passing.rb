@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective
+# rubocop:disable Style/MethodMissing, Style/MethodMissingSuper, Style/MissingRespondToMissing
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutMessagePassing < Neo::Koan
@@ -24,7 +26,7 @@ class AboutMessagePassing < Neo::Koan
 
     assert mc.send('caught?')
     assert mc.send('caught' + '?') # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase!) # What would you need to do to the string?
+    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
   end
 
   def test_send_with_underscores_will_also_send_messages
@@ -112,7 +114,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
-    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissingSuper
+    def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
@@ -135,9 +137,8 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissingSuper
+    def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
