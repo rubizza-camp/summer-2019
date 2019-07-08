@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 #!/usr/bin/env ruby
+=======
+>>>>>>> rubizza/master
 # -*- ruby -*-
 
 require 'rake/clean'

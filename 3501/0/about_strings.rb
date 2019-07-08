@@ -46,6 +46,7 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
+<<<<<<< HEAD
     long_string = <<~SQL
       It was the best of times,
       It was the worst of times.
@@ -53,6 +54,15 @@ It was the worst of times.
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
+=======
+    long_string = <<SQL
+      It was the best of times,
+      It was the worst of times.
+SQL
+    assert_equal 61, long_string.length
+    assert_equal 2, long_string.lines.count
+    assert_equal ' ', long_string[0, 1]
+>>>>>>> rubizza/master
   end
 
   def test_plus_will_concatenate_two_strings
@@ -124,8 +134,13 @@ class AboutStrings < Neo::Koan
   end
 
   def test_single_quoted_strings_do_not_interpolate
+<<<<<<< HEAD
     string = 'The value is #{value}' # rubocop:disable Lint/InterpolationCheck
     assert_equal "The value is \#{value}", string
+=======
+    string = "The value is #{value}"
+    assert_equal "The value is #{value}", string
+>>>>>>> rubizza/master
   end
 
   def test_any_ruby_expression_may_be_interpolated
