@@ -15,9 +15,9 @@
 #
 def triangle(a_side, b_side, c_side)
   a_side, b_side, c_side = [a_side, b_side, c_side].sort
-  raise TriangleError unless side_a.positive? && side_a + side_b > side_c
-  return :isosceles if side_a == side_b || side_b == side_c || side_a == side_c
-  return :equilateral if side_a == side_b && side_b == side_c
+  raise TriangleError unless a_side.positive? && a_side + b_side > c_side
+  return :isosceles if a_side == b_side || b_side == c_side || a_side == c_side
+  return :equilateral if a_side == b_side && b_side == c_side
 
   :scalene
 end
