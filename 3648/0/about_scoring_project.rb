@@ -28,7 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # score([1,5,1,2,4]) => 250 points
 #
 # More scoring examples are given in the tests below:
-#
+# Prikol
 # Your goal is to write the score method.
 
 # :reek:UtilityFunction
