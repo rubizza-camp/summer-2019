@@ -1,7 +1,7 @@
+# rubocop:disable all
 # frozen_string_literal: true
 
 # -*- ruby -*-
-# rubocop:disable all
 
 begin
   require 'win32console'
