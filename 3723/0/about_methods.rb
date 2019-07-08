@@ -1,6 +1,6 @@
 # rubocop:disable Style/EvalWithLocation, Lint/UnreachableCode, Lint/Void
 # rubocop:disable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
-
+# rubocop:disable Lint/UnneededCopDisableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def my_global_method(arg, brg)
@@ -153,3 +153,4 @@ class AboutMethods < Neo::Koan
 end
 # rubocop:enable Style/EvalWithLocation, Lint/UnreachableCode, Lint/Void
 # rubocop:enable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:enable Lint/UnneededCopDisableDirective

@@ -1,4 +1,5 @@
 # rubocop:disable Security/Open, Lint/AssignmentInCondition
+# rubocop:disable Performance/RedundantMatch, Lint/UnneededCopDisableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -112,3 +113,4 @@ class AboutSandwichCode < Neo::Koan
   end
 end
 # rubocop:enable Security/Open, Lint/AssignmentInCondition
+# rubocop:enable Performance/RedundantMatch, Lint/UnneededCopDisableDirective
