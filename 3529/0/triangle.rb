@@ -13,20 +13,26 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  raise TriangleError, 'TriangleError' if (a <= 0) || (b <= 0) || (c <= 0)
-  raise TriangleError, 'TriangleError' unless is_a_triangle(a, b, c)
-  return :equilateral if a.eql?(b) && b.eql?(c)
-  if a.eql?(b) || a.eql?(c) || b.eql?(c)
-    return :isosceles
-  else
-    return :scalene
-  end
+def triangle(a_side, b_side, c_side)
+  raise TriangleError, 'TriangleError' if negative?(a_side, b_side, c_side)
+  raise TriangleError, 'TriangleError' unless a_triangle?(a_side, b_side, c_side)
+  return :equilateral if a_side.eql?(b_side) && b_side.eql?(c_side)
+  return :isosceles if a_side.eql?(b_side) || a_side.eql?(c_side) || b_side.eql?(c_side)
+  
+  :scalene
   # WRITE THIS CODE
 end
 
-def is_a_triangle(a, b, c)
-  if (a + b <= c) || (a + c <= b) || (b + c <= a)
+def negative?(a_side, b_side, c_side)
+  if (a_side <= 0) || (b_side <= 0) || (c_side <= 0)
+    true
+  else
+    false
+  end
+end
+
+def a_triangle?(a_side, b_side, c_side)
+  if (a_side + b_side <= c_side) || (a_side + c_side <= b_side) || (b_side + c_side <= a_side)
     false
   else
     true

@@ -32,7 +32,7 @@ class AboutOpenClasses < Neo::Koan
   class ::Integer
     def even?
       def even?
-      (self % 2) == 0
+        self % 2 == 0
       end
     end
   end

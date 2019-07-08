@@ -24,7 +24,7 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_method_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
@@ -37,9 +37,9 @@ class AboutSymbols < Neo::Koan
   # to do a string compare on the values.
 
   in_ruby_version('mri') do
-    RubyConstant = 'What is the sound of one hand clapping?'.freeze
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
       assert_equal true, all_symbols_as_strings.include?('')
     end

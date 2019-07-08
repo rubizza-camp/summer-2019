@@ -30,9 +30,6 @@ class AboutControlStatements < Neo::Koan
               :false_value
             end
     assert_equal :false_value, value
-
-    # NOTE: Actually, EVERY statement in Ruby will return a value, not
-    # just if statements.
   end
 
   def test_if_statements_with_no_else_with_false_condition_return_value
@@ -99,7 +96,7 @@ class AboutControlStatements < Neo::Koan
                break i if i % 2 == 0
 
                i += 1
-    end
+            end
 
     assert_equal 2, result
   end
@@ -109,11 +106,11 @@ class AboutControlStatements < Neo::Koan
     result = []
     while i < 10
       i += 1
-      next if i % 2 == 0
+      next if i.even?
 
       result << i
     end
-    assert_equal [1, 3, 5, 7, 9], result
+    assert_equal [3, 5, 7, 9], result
   end
 
   def test_for_statement
