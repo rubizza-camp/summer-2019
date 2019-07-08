@@ -44,8 +44,6 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, mc.respond_to?(:does_not_exist)
   end
 
-  # ------------------------------------------------------------------
-
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -68,8 +66,6 @@ class AboutMessagePassing < Neo::Koan
   # the object. We use "send" when the name of the message can vary
   # dynamically (e.g. calculated at run time), but by far the most
   # common way of sending a message is just to say: obj.msg.
-
-  # ------------------------------------------------------------------
 
   class TypicalObject
   end
@@ -109,8 +105,6 @@ class AboutMessagePassing < Neo::Koan
     # Koans.
   end
 
-  # ------------------------------------------------------------------
-
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
@@ -134,8 +128,7 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:any_method)
   end
 
-  # ------------------------------------------------------------------
-
+  # rubocop:disable Style/MissingRespondToMissing
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
@@ -145,7 +138,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-
+  # rubocop:enable Style/MissingRespondToMissing
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
@@ -160,8 +153,6 @@ class AboutMessagePassing < Neo::Koan
       catcher.normal_undefined_method
     end
   end
-
-  # ------------------------------------------------------------------
 
   # (note: just reopening class from above)
   class WellBehavedFooCatcher
