@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # rubocop:disable Lint/MissingCopEnableDirective, Style/ClassAndModuleChildren, Style/StringLiterals
-# rubocop:disable Style/MutableConstant
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -90,4 +89,3 @@ class AboutConstants < Neo::Koan
   # different than the previous answer?
 end
 # rubocop:enable Style/StringLiterals
-# rubocop:enable Style/MutableConstant
