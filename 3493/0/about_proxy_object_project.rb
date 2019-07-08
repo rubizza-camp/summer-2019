@@ -40,60 +40,60 @@ end
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
-    tv = Proxy.new(Television.new)
+    television = Proxy.new(Television.new)
 
     # HINT: Proxy class is defined above, may need tweaking...
 
-    assert tv.instance_of?(Proxy)
+    assert television.instance_of?(Proxy)
   end
 
-  def test_tv_methods_still_perform_their_function
-    tv = Proxy.new(Television.new)
+  def test_television_methods_still_perform_their_function
+    television = Proxy.new(Television.new)
 
-    tv.channel = 10
-    tv.power
+    television.channel = 10
+    television.power
 
-    assert_equal 10, tv.channel
-    assert tv.on?
+    assert_equal 10, television.channel
+    assert television.on?
   end
 
-  def test_proxy_records_messages_sent_to_tv
-    tv = Proxy.new(Television.new)
+  def test_proxy_records_messages_sent_to_television
+    television = Proxy.new(Television.new)
 
-    tv.power
-    tv.channel = 10
+    television.power
+    television.channel = 10
 
-    assert_equal %i[power channel=], tv.messages
+    assert_equal %i[power channel=], television.messages
   end
 
   def test_proxy_handles_invalid_messages
-    tv = Proxy.new(Television.new)
+    television = Proxy.new(Television.new)
 
     assert_raise(NoMethodError) do
-      tv.no_such_method
+      television.no_such_method
     end
   end
 
   def test_proxy_reports_methods_have_been_called
-    tv = Proxy.new(Television.new)
+    television = Proxy.new(Television.new)
 
-    tv.power
-    tv.power
+    television.power
+    television.power
 
-    assert tv.called?(:power)
-    assert !tv.called?(:channel)
+    assert television.called?(:power)
+    assert !television.called?(:channel)
   end
 
   def test_proxy_counts_method_calls
-    tv = Proxy.new(Television.new)
+    television = Proxy.new(Television.new)
 
-    tv.power
-    tv.channel = 48
-    tv.power
+    television.power
+    television.channel = 48
+    television.power
 
-    assert_equal 2, tv.number_of_times_called(:power)
-    assert_equal 1, tv.number_of_times_called(:channel=)
-    assert_equal 0, tv.number_of_times_called(:on?)
+    assert_equal 2, television.number_of_times_called(:power)
+    assert_equal 1, television.number_of_times_called(:channel=)
+    assert_equal 0, television.number_of_times_called(:on?)
   end
 
   def test_proxy_can_record_more_than_just_tv_objects
@@ -131,39 +131,39 @@ end
 # Tests for the Television class.  All of theses tests should pass.
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
-    tv = Television.new
+    television = Television.new
 
-    tv.power
-    assert tv.on?
+    television.power
+    assert television.on?
   end
 
   def test_it_also_turns_off
-    tv = Television.new
+    television = Television.new
 
-    tv.power
-    tv.power
+    television.power
+    television.power
 
-    assert !tv.on?
+    assert !television.on?
   end
 
   def test_edge_case_on_off
-    tv = Television.new
+    television = Television.new
 
-    tv.power
-    tv.power
-    tv.power
+    television.power
+    television.power
+    television.power
 
-    assert tv.on?
+    assert television.on?
 
-    tv.power
+    television.power
 
-    assert !tv.on?
+    assert !television.on?
   end
 
   def test_can_set_the_channel
-    tv = Television.new
+    television = Television.new
 
-    tv.channel = 11
-    assert_equal 11, tv.channel
+    television.channel = 11
+    assert_equal 11, television.channel
   end
 end
