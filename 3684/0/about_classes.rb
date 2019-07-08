@@ -63,7 +63,7 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
 
-    attr_reader :name
+    attr_reader :attr_name
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
