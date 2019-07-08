@@ -18,7 +18,7 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line(file_name)
     file = open(file_name)
-    while line = file.gets
+    while line = file.gets # rubocop:disable Lint/AssignmentInCondition
       return line if line =~ /e/
     end
   ensure
@@ -62,8 +62,8 @@ class AboutSandwichCode < Neo::Koan
 
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
-      count = 0
-      while line = file.gets
+      count = 0 # rubocop:disable Lint/UselessAssignment
+      while line = file.gets # rubocop:disable Lint/AssignmentInCondition
         return line if line =~ /e/
       end
     end

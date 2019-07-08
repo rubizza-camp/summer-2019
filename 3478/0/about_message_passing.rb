@@ -112,7 +112,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissing
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
@@ -137,7 +137,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block)
+    def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
