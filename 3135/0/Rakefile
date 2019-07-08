@@ -12,3 +12,4 @@ task :test do
   ruby 'path_to_enlightenment.rb'
 end
 
+#rubocop:enable all

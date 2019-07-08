@@ -1,16 +1,18 @@
 # rubocop:disable Metrics/ClassLength, Metrics/MethodLength,
-# rubocop:disable Lint/LiteralAsCondition, Style/IfUnlessModifier,
-# rubocop:disable Style/For, Style/ConditionalAssignment
+# rubocop:disable Lint/LiteralAsCondition,
+#
+# Style/IfUnlessModifier offenses are being used in this koan as an example
+# rubocop:disable Style/IfUnlessModifier,
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
-    if true
-      result = :true_value
-    else
-      result = :false_value
-    end
+    result = if true
+               :true_value
+             else
+               :false_value
+             end
     assert_equal :true_value, result
   end
 
@@ -128,6 +130,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal [1, 3, 5, 7, 9], result
   end
 
+  # rubocop:disable Style/For
+  # we're doing for here
   def test_for_statement
     array = %w[fish and chips]
     result = []
@@ -136,6 +140,7 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal %w[FISH AND CHIPS], result
   end
+  # rubocop:enable Style/For
 
   def test_times_statement
     sum = 0
@@ -145,3 +150,5 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Metrics/ClassLength, Metrics/MethodLength,
+# rubocop:enable Lint/LiteralAsCondition, Style/IfUnlessModifier,

@@ -1,5 +1,3 @@
-# rubocop:disable Style/TrivialAccessors, Style/ClassMethods
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClassMethods < Neo::Koan
@@ -77,7 +75,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   def Dog.name
-    @name
+    attr_reader :name
   end
 
   def test_classes_and_instances_do_not_share_instance_variables
@@ -90,7 +88,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def Dog.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end

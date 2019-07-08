@@ -27,3 +27,4 @@ describe "at_least_ruby_version" do
   Then { !at_least_ruby_version('1.9') }
   Then { !at_least_ruby_version('1.9.9.9.9') }
 end
+# rubocop:enable all

@@ -1,5 +1,3 @@
-# rubocop:disable Style/TrivialAccessors
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClasses < Neo::Koan
@@ -65,9 +63,12 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
 
+    # rubocop:disable Style/TrivialAccessors
+    # attr_reader is in the next example
     def name
       @name
     end
+    # rubocop:enable Style/TrivialAccessors
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables

@@ -175,3 +175,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Lint/UnreachableCode

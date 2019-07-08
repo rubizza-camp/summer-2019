@@ -66,3 +66,4 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
+# rubocop:enable Metrics/MethodLength, Lint/HandleExceptions

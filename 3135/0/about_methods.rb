@@ -151,3 +151,5 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable Style/RedundantSelf, Style/AccessModifierDeclarations
+# rubocop:enable Lint/UnreachableCode, Lint/Void
