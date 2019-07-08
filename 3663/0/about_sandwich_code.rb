@@ -1,4 +1,5 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/AssignmentInCondition
+# rubocop:disable Lint/MissingCopEnableDirective
+# rubocop:disable, Performance/RedundantMatch
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -17,11 +18,10 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   def find_line(file_name)
     file = File.open(file_name)
-    while line = file.gets
-      return line if line.match(/e/)
+    while (line = file.gets)
+      return line if line.match =~ /e/
     end
   ensure
     file&.close

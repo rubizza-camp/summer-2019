@@ -1,5 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/MethodMissingSuper
-# rubocop:disable Style/MissingRespondToMissing
+# rubocop:disable Lint/MissingCopEnableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -113,7 +112,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/MethodMissing
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
@@ -138,7 +137,6 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'

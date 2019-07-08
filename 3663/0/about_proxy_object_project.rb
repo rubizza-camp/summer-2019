@@ -1,5 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/MethodMissingSuper
-# rubocop:disable Style/MissingRespondToMissing
+# rubocop:disable Lint/MissingCopEnableDirective, Style/MethodMissing
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -35,7 +34,7 @@ class Proxy
     @messages.count(message)
   end
 
-  def method_missing(method_name, *args, &block)
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
