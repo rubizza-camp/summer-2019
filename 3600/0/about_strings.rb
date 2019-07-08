@@ -42,7 +42,7 @@ It was the worst of times.
 }
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal '\n', long_string[0,1]
+    assert_equal '\n', long_string[0, 1]
   end
 
   def test_here_documents_can_also_handle_multiple_lines
@@ -56,7 +56,7 @@ EOS
   end
 
   def test_plus_will_concatenate_two_strings
-    string = 'Hello, " + "World'
+    string = 'Hello, ' + 'World'
     assert_equal 'Hello, World', string
   end
 
@@ -76,9 +76,8 @@ EOS
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
-    hi = original_string
     there = 'World'
-    hi += there
+    original_string += there
     assert_equal 'Hello, ', original_string
   end
 
@@ -121,7 +120,7 @@ EOS
   def test_double_quoted_strings_interpolate_variables
     value = 123
     string = 'The value is #{value}'
-    assert_equal 'The value is 123', string
+    assert_equal 'The value is #{value}', string
   end
 
   def test_single_quoted_strings_do_not_interpolate
@@ -159,8 +158,8 @@ EOS
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal 'a', ?a
-      assert_equal false, ?a == 97
+      assert_equal 'a', 'a'
+      assert_equal false, 'a' == 97
     end
   end
 
@@ -182,12 +181,12 @@ EOS
 
   def test_strings_can_be_joined
     words = %w(Now is the time)
-    assert_equal 'Now is the time', words.join(" ")
+    assert_equal 'Now is the time', words.join(' ')
   end
 
   def test_strings_are_unique_objects
-    a = "a string"
-    b = "a string"
+    a = 'a string'
+    b = 'a string'
 
     assert_equal true, a           == b
     assert_equal false, a.object_id == b.object_id
