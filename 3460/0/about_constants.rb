@@ -2,23 +2,23 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-Const = 'top level'
+CONST = 'top level'
 
 # class AboutConstants
 class AboutConstants < Neo::Koan
-  Const = 'nested'
+  CONST = 'nested'
 
   def test_nested_constants_may_also_be_referenced_with_relative_paths
-    assert_equal 'nested', Const
+    assert_equal 'nested', CONST
   end
 
   def test_top_level_constants_are_referenced_by_double_colons
-    assert_equal 'top level', ::Const
+    assert_equal 'top level', ::CONST
   end
 
   def test_nested_constants_are_referenced_by_their_complete_path
-    assert_equal 'nested', AboutConstants::Const
-    assert_equal 'nested', ::AboutConstants::Const
+    assert_equal 'nested', AboutConstants::CONST
+    assert_equal 'nested', ::AboutConstants::CONST
   end
 
   # ------------------------------------------------------------------
