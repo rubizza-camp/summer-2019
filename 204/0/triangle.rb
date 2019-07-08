@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/UncommunicativeMethodParamName
-
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -17,23 +15,23 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  error(a, b, c)
-  if a.eql?(b) && b.eql?(c) && c.eql?(a)
+def triangle(hyp, side1, side2)
+  error(hyp, side1, side1)
+  if hyp.eql?(side1) && side1.eql?(side2) && side2.eql?(hyp)
     :equilateral
-  elsif a.eql?(b) | b.eql?(c) | c.eql?(a)
+  elsif hyp.eql?(side1) | side1.eql?(side2) | side2.eql?(hyp)
     :isosceles
   else
     :scalene
   end
 end
 
-def error(a, b, c)
-  raise TriangleError if [a, b, c].include?(0) || a + b <= c || b + c <= a || c + a <= b
+def error(hyp, side1, side2)
+  raise TriangleError if
+    [hyp, side1, side2].include?(0) ||
+    hyp + side1 <= side2 || side1 + side2 <= hyp || side2 + hyp <= side1
 end
 # Error class used in part 2.  No need to change this code.
 
 class TriangleError < StandardError
 end
-
-# rubocop:enable Naming/UncommunicativeMethodParamName
