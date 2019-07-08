@@ -1,7 +1,6 @@
-
+# rubocop:disable all
 # frozen_string_literal: true
 
-# rubocop:disable Security/Open, Lint/AssignmentInCondition
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # class sandwich
@@ -99,4 +98,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
-# rubocop:enable Security/Open, Lint/AssignmentInCondition
+# rubocop:enable all
