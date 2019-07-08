@@ -1,5 +1,5 @@
 # rubocop:disable Lint/Void, Lint/UnreachableCode, Lint/AmbiguousRegexpLiteral
-# rubocop:disable Style/RedundantSelf, Style/AccessModifierDeclarations
+# rubocop:disable Style/RedundantSelf
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UtilityFunction
@@ -154,4 +154,4 @@ class AboutMethods < Neo::Koan
   end
 end
 # rubocop:enable Lint/Void, Lint/UnreachableCode, Lint/AmbiguousRegexpLiteral
-# rubocop:enable Style/RedundantSelf, Style/AccessModifierDeclarations
+# rubocop:enable Style/RedundantSelf
