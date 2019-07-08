@@ -20,8 +20,8 @@
 # rubocop:disable PerceivedComplexity
 #
 def triangle(side_a, side_b, side_c)
-  raise TriangleError, 'Sides must be greater than zero' if (side_a <= 0) || (side_b <= 0) || (side_c <= 0)
-  raise TriangleError, 'No two sides can be less than other side' if (side_a + side_b <= side_c) || (side_a + side_c <= side_b) || (side_b + side_c <= side_a)
+  raise TriangleError unless side_a.positive?
+  raise TriangleError unless side_a + side_b > side_c
   return :equilateral if side_a == side_b && side_b == side_c
   return :isosceles if side_a == side_b || side_b == side_c || side_a == side_c
 
