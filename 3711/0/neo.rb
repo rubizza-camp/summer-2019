@@ -4,6 +4,7 @@
 begin
   require 'win32console'
 rescue LoadError
+  # do nothing but comment
 end
 
 # --------------------------------------------------------------------
