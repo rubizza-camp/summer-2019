@@ -6,3 +6,9 @@ Style/Documentation:
 
 Metrics/LineLength:
   Max: 100
+
+Style/RedundantSelf:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
