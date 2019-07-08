@@ -1,7 +1,4 @@
 # rubocop:disable Style/TrivialAccessors
-# rubocop:disable Layout/IndentationWidth
-# rubocop:disable Layout/EndAlignment
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClassMethods < Neo::Koan
@@ -23,11 +20,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 58
+    assert_equal fido.methods.empty?, false
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 111
+    assert_equal Dog.methods.empty?, false
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -114,8 +111,8 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
-                                 self
-                               end
+                                     self
+                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
@@ -171,5 +168,3 @@ class AboutClassMethods < Neo::Koan
   end
 end
 # rubocop:enable Style/TrivialAccessors
-# rubocop:enable Layout/IndentationWidth
-# rubocop:enable Layout/EndAlignment
