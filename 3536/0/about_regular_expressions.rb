@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutRegularExpressions < Neo::Koan
@@ -74,7 +73,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_period_is_a_shortcut_for_any_non_newline_character
-    assert_equal "abc", "abc\n123"[/a.+/]
+    assert_equal 'abc', "abc\n123"[/a.+/]
   end
 
   def test_a_character_class_can_be_negated
@@ -88,7 +87,6 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal ' = ', 'variable_1 = 42'[/[^a-zA-Z0-9_]+/]
     assert_equal ' = ', 'variable_1 = 42'[/\W+/]
   end
-
 
   # ------------------------------------------------------------------
 
@@ -129,8 +127,8 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_variables_can_also_be_used_to_access_captures
     assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
-    assert_equal 'Gray', $1
-    assert_equal 'James', $2
+    assert_equal 'Gray', Regexp.last_match(1)
+    assert_equal 'James', Regexp.last_match(2)
   end
 
   # ------------------------------------------------------------------
@@ -149,14 +147,14 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_scan_is_like_find_all
-    assert_equal ['one', 'two', 'three'], 'one two-three'.scan(/\w+/)
+    assert_equal %w[one two three], 'one two-three'.scan(/\w+/)
   end
 
   def test_sub_is_like_find_and_replace
-    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { $1[0, 1] }
+    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 
   def test_gsub_is_like_find_and_replace_all
-    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { $1[0, 1] }
+    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 end
