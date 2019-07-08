@@ -1,5 +1,3 @@
- # frozen_string_literal: true
-
 # rubocop:disable Security/Open, Lint/AssignmentInCondition
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
