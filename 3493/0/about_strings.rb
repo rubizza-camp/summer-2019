@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
-
+#:reek:TooManyMethods
 class AboutStrings < Neo::Koan
   # rubocop:enable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
@@ -22,20 +22,20 @@ class AboutStrings < Neo::Koan
     string = "Don't"
     assert_equal 'Don\'t', string
   end
-
+  
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    first_string = "He said, \"Don't\""
+    second_string = 'He said, "Don\'t"'
+    assert_equal true, second_string == first_string
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
     # rubocop:disable Style/PercentLiteralDelimiters
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %!flexible quotes can handle both ' and " characters!
-    c = %{flexible quotes can handle both ' and " characters}
-    assert_equal true, a == b
-    assert_equal true, a == c
+    first_string = %(flexible quotes can handle both ' and " characters)
+    second_string = %!flexible quotes can handle both ' and " characters!
+    third_string = %{flexible quotes can handle both ' and " characters}
+    assert_equal true, first_string == second_string
+    assert_equal true, first_string == third_string
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -192,10 +192,10 @@ SQL
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    fist_string = 'a string'
+    second_string = 'a string'
 
-    assert_equal true, a           == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, fist_string           == b
+    assert_equal false, first_string.object_id == second_string.object_id
   end
 end

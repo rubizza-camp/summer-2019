@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop: disable Lint/LiteralAsCondition, Metrics/MethodLength, Metrics/ClassLength
-
+#:reek:FeatureEnvy:reek:TooManyStatements:reek:RepeatedConditional:
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -76,45 +76,45 @@ class AboutControlStatements < Neo::Koan
   # rubocop: enable Lint/LiteralAsCondition
 
   def test_while_statement
-    i = 1
+    iteration = 1
     result = 1
-    while i <= 10
-      result *= i
-      i += 1
+    while iteration <= 10
+      result *= iteration
+      iteration += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement
-    i = 1
+    iteration = 1
     result = 1
     loop do
-      break unless i <= 10
+      break unless iteration <= 10
 
-      result *= i
-      i += 1
+      result *= iteration
+      iteration += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
-    i = 1
-    result = while i <= 10
-               break i if i.even?
+    iteration = 1
+    result = while iteration <= 10
+               break iteration if iteration.even?
 
-               i += 1
+               iteration += 1
              end
     assert_equal 2, result
   end
 
   def test_next_statement
-    i = 0
+    iteration = 0
     result = []
-    while i < 10
-      i += 1
-      next if i.even?
+    while iteration < 10
+      iteration += 1
+      next if iteration.even?
 
-      result << i
+      result << iteration
     end
     assert_equal [1, 3, 5, 7, 9], result
   end

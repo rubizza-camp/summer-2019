@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+#:reek:TooManyStatements:reek:UtilityFunction:
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -88,13 +88,13 @@ class AboutIteration < Neo::Koan
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
 
-    result2 = [2, 3, 4].inject(1) { |product, item| product * item }
-    assert_equal 24, result2
+    second_result = [2, 3, 4].inject(1) { |product, item| product * item }
+    assert_equal 24, second_result
 
     # Extra Credit:
     # Describe in your own words what inject does.
   end
-
+  #:reek:NestedIterators:
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }

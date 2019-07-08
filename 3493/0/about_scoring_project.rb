@@ -50,19 +50,19 @@ def check_set_of_three(array, iteration)
 
   0
 end
-
+#:reek:FeatureEnvy:reek:TooManyStatements:
 def check_everything(array)
   result = 0
-  (0..5).each do |i|
-    result += check_set_of_three(array, i)
-    if (array[i] < 3) && array[i].positive?
-      result += 50 * array[i] if i == 4
-      result += 100 * array[i] if i.zero?
+  (0..5).each do |iteration|
+    result += check_set_of_three(array, iteration)
+    iterationf (array[iteration] < 3) && array[iteration].positive?
+      result += 50 * array[iteration] if iteration == 4
+      result += 100 * array[iteration] if iteration.zero?
     end
   end
   result
 end
-
+#:reek:NestedIterators:reek:TooManyStatements:
 def score(dice)
   array = []
   result = 0
@@ -80,11 +80,11 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([])
   end
 
-  def test_score_of_a_single_roll_of_5_is_50
+  def test_score_of_a_single_roll_of_5_is_fifth
     assert_equal 50, score([5])
   end
 
-  def test_score_of_a_single_roll_of_1_is_100
+  def test_score_of_a_single_roll_of_1_is_hungred
     assert_equal 100, score([1])
   end
 
@@ -96,7 +96,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
-  def test_score_of_a_triple_1_is_1000
+  def test_score_of_a_triple_1_is_thousend
     assert_equal 1000, score([1, 1, 1])
   end
 
