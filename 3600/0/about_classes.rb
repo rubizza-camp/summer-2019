@@ -1,5 +1,14 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
+# rubocop:disable Lint/AmbiguousBlockAssociation)
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
+# This method smells of :reek:TooManyMethods
+# This method smells of :reek:InstanceVariableAssumption
+# This method smells of :reek:FeatureEnvy
+# This method smells of :reek:Attribute
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UncommunicativeModuleName
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -10,10 +19,10 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog2
-    def name(a_name)
-      @attr_name = a_name
+    def set_name(name)
+      @name = name
     end
   end
 
@@ -21,100 +30,98 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     assert_equal [], fido.instance_variables
 
-    fido.name('Fido')
-    assert_equal [:@attr_name], fido.instance_variables
+    fido.set_name('Fido')
+    assert_equal [:@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
-    fido.name('Fido')
+    fido.set_name('Fido')
 
     assert_raise(NoMethodError) do
-      fido.attr_name
+      fido.name
     end
 
-    assert_raise(Exception) do
-      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-      fido.@name
-      RUBY
+    assert_raise(SyntaxError) do
+      eval 'fido.@name', binding, __FILE__, __LINE__
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
-    fido.name('Fido')
+    fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_variable_get('@attr_name')
+    assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
-    fido.name('Fido')
+    fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@attr_name', __FILE__, __LINE__)
-    assert_equal 'Fido', (fido.instance_eval { @attr_name }) # block version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal 'Fido', fido.instance_eval { @name } # block version
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog3
-    def name(a_name)
-      @attr_name = a_name
+    def set_name(name)
+      @name = name
     end
 
-    attr_reader :attr_name
+    attr_reader :name
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.name('Fido')
+    fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.attr_name
+    assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
-  class Dog4
-    attr_reader :attr_name
 
-    def name(a_name)
-      @attr_name = a_name
+  class Dog4
+    attr_reader :name
+
+    def set_name(name)
+      @name = name
     end
   end
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.name('Fido')
+    fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.attr_name
+    assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog5
-    attr_accessor :attr_name
+    attr_accessor :name
   end
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
 
-    fido.attr_name = 'Fido'
-    assert_equal 'Fido', fido.attr_name
+    fido.name = 'Fido'
+    assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog6
-    attr_reader :attr_name
+    attr_reader :name
     def initialize(initial_name)
-      @attr_name = initial_name
+      @name = initial_name
     end
   end
 
   def test_initialize_provides_initial_values_for_instance_variables
     fido = Dog6.new('Fido')
-    assert_equal 'Fido', fido.attr_name
+    assert_equal 'Fido', fido.name
   end
 
   def test_args_to_new_must_match_initialize
@@ -129,35 +136,35 @@ class AboutClasses < Neo::Koan
     fido = Dog6.new('Fido')
     rover = Dog6.new('Rover')
 
-    assert_equal true, rover.attr_name != fido.attr_name
+    assert_equal true, rover.name != fido.name
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
+
   class Dog7
-    attr_reader :attr_name
+    attr_reader :name
 
     def initialize(initial_name)
-      @attr_name = initial_name
+      @name = initial_name
     end
 
-    def self
+    def get_self
       self
     end
 
     def to_s
-      @attr_name
+      @name
     end
 
     def inspect
-      "<Dog named '#{attr_name}'>"
+      "<Dog named '#{name}'>"
     end
   end
 
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new('Fido')
 
-    fidos_self = fido.self
+    fidos_self = fido.get_self
     assert_equal fido, fidos_self
   end
 
@@ -183,6 +190,6 @@ class AboutClasses < Neo::Koan
     assert_equal '[1, 2, 3]', array.inspect
 
     assert_equal 'STRING', 'STRING'.to_s
-    assert_equal %(\"STRING\"), 'STRING'.inspect
+    assert_equal '"STRING"', 'STRING'.inspect
   end
 end
