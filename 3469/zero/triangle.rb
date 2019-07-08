@@ -16,21 +16,23 @@
 def check_the_right_variable(a, b, c)
   a * b * c <= 0 || a + b <= c || a + c <= b || c + b <= a ? false : true
 end
+
 def triangle_analyzes(a, b, c)
   if a == b && b == c
     :equilateral
   elsif a != b && b != c && a != c
     :scalene
-  else 
+  else
     :isosceles
   end
 end
+
 def triangle(a, b, c)
-   unless check_the_right_variable(a, b, c)
-     raise TriangleError, 'Wrong parameters'
-   else
-     triangle_analyzes(a, b, c)
-   end
+  if check_the_right_variable(a, b, c)
+    triangle_analyzes(a, b, c)
+  else
+    raise TriangleError, 'Wrong parameters'
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
