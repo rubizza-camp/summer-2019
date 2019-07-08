@@ -1,43 +1,39 @@
+# frozen_string_literal: true
+
+# rubocop:disable Style/ClassAndModuleChildren, Lint/MissingCopEnableDirective, Style/StringLiterals
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:nodoc:
+
 class AboutOpenClasses < Neo::Koan
-  #:nodoc:
   class Dog
     def bark
-      'WOOF'
+      "WOOF"
     end
   end
 
   def test_as_defined_dogs_do_bark
     fido = Dog.new
-    assert_equal 'WOOF', fido.bark
+    assert_equal "WOOF", fido.bark
   end
 
   # ------------------------------------------------------------------
 
   # Open the existing Dog class and add a new method.
-  #:nodoc:
   class Dog
     def wag
-      'HAPPY'
+      "HAPPY"
     end
   end
 
   def test_after_reopening_dogs_can_both_wag_and_bark
     fido = Dog.new
-    assert_equal 'HAPPY', fido.wag
-    assert_equal 'WOOF', fido.bark
+    assert_equal "HAPPY", fido.wag
+    assert_equal "WOOF", fido.bark
   end
 
   # ------------------------------------------------------------------
-  #:nodoc:
-  class Object
-    #:nodoc:
-    class Integer
-      def even?
-        super
-      end
-    end
+
+  class ::Integer
   end
 
   def test_even_existing_built_in_classes_can_be_reopened
