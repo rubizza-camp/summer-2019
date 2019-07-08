@@ -6,3 +6,6 @@ Style/Documentation:
 
 Metrics/LineLength:
   Max: 100
+
+Lint/MissingCopEnableDirective:
+  Enabled: false
