@@ -1,3 +1,5 @@
-watch('.*\.rb') do
+# rubocop:disable all
+
+watch( '.*\.rb' ) do
   system 'rake'
 end
