@@ -8,5 +8,3 @@
 # is a free form assignment, so approach it however you desire.
 # def first
 # puts 'Enter your line'
-
-

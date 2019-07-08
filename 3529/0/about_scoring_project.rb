@@ -31,56 +31,40 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
-  score =0;
-  num_of_1 = 0;
-  num_of_2 = 0;
-  num_of_3 = 0;
-  num_of_4 = 0;
-  num_of_5 = 0;
-  num_of_6 = 0;
-   dice.each do |item|
-      if item.eql?(1)
-        score+=100
-        num_of_1 += 1;
-      end
-      if item.eql?(2)
-        num_of_2 += 1;
-      end
-      if item.eql?(3)
-        num_of_3 += 1;
-      end
-      if item.eql?(4)
-        num_of_4 += 1;
-      end
-      if item.eql?(5)
-        score+=50
-        num_of_5 += 1;
-      end
-      if item.eql?(6)
-        num_of_6 += 1;
-      end
+  score = 0
+  num_of_1 = 0
+  num_of_2 = 0
+  num_of_3 = 0
+  num_of_4 = 0
+  num_of_5 = 0
+  num_of_6 = 0
+  dice.each do |item|
+    if item.eql?(1)
+      score += 100
+      num_of_1 += 1
+     end
+    num_of_2 += 1 if item.eql?(2)
+    num_of_3 += 1 if item.eql?(3)
+    num_of_4 += 1 if item.eql?(4)
+    if item.eql?(5)
+      score += 50
+      num_of_5 += 1
+    end
+    num_of_6 += 1 if item.eql?(6)
+  end
+  if num_of_1 > 2
+    score += 1000
+    score -= 300
    end
-   if num_of_1>2
-      score+=1000
-      score-=300
-    end
-    if num_of_2.eql?(3)
-      score+=200
-    end
-    if num_of_3.eql?(3)
-      score+=300
-    end
-    if num_of_4.eql?(3)
-      score+=400
-    end
-    if num_of_5>2
-      score+=500
-      score-=150
-    end
-    if num_of_6.eql?(3)
-      score+=600
-    end
-   score
+  score += 200 if num_of_2.eql?(3)
+  score += 300 if num_of_3.eql?(3)
+  score += 400 if num_of_4.eql?(3)
+  if num_of_5 > 2
+    score += 500
+    score -= 150
+  end
+  score += 600 if num_of_6.eql?(3)
+  score
 end
 
 class AboutScoringProject < Neo::Koan
