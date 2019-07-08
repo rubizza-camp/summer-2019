@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Style/MissingRespondToMissing
+# rubocop:disable Style/MethodMissingSuper
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -128,7 +129,6 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:any_method)
   end
 
-  # rubocop:disable Style/MissingRespondToMissing
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
@@ -172,3 +172,5 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
+
+# rubocop:enable Style/MethodMissingSuper
