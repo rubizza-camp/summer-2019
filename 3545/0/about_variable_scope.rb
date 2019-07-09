@@ -99,6 +99,7 @@ class AboutVariableScope < Neo::Koan
     # What is $anywhere?
     assert_equal __, $anywhere
   end
+  # :reek:UncommunicativeMethodName
 
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block

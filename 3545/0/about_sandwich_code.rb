@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
   # :reek:RepeatedConditionalClear
   # :reek:NilCheck
+  # rubocop:disable Security/Open
 
 class AboutSandwichCode < Neo::Koan
   # :reek:UtilityFunction
@@ -65,6 +66,7 @@ class AboutSandwichCode < Neo::Koan
     assert_equal "test\n", find_line2('example_file.txt')
   end
   # :reek:UtilityFunction
+
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
@@ -77,3 +79,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# rubocop:disable Security/Open
