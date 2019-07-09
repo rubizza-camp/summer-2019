@@ -14,8 +14,7 @@
 #   about_triangle_project_2.rb
 #
 def check_variable(tr_a, tr_b, tr_c)
-  return false if tr_a * tr_b * tr_c <= 0 || tr_a + tr_b <= tr_c || tr_a + tr_c <= tr_b || tr_c + tr_b <= tr_a
-  true
+   tr_a * tr_b * tr_c <= 0 || tr_a + tr_b <= tr_c || tr_a + tr_c <= tr_b || tr_c + tr_b <= tr_a
 end
 
 def triangle_analyzes(tr_a, tr_b, tr_c)
@@ -29,7 +28,7 @@ def triangle_analyzes(tr_a, tr_b, tr_c)
 end
 
 def triangle(tr_a, tr_b, tr_c)
-  return raise TriangleError, 'Wrong parameters' unless check_variable(tr_a, tr_b, tr_c)
+  return raise TriangleError, 'Wrong parameters' if check_variable(tr_a, tr_b, tr_c)
   triangle_analyzes(tr_a, tr_b, tr_c)
 end
 
