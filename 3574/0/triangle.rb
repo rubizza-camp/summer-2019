@@ -14,13 +14,23 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  raise TriangleError, 'Error' if (a <= 0) || (b <= 0) || (c <= 0)
-  raise TriangleError, 'Error' if (a + b <= c) || (a + c <= b) || (b + c <= a)
-  return :equilateral if a == b && b == c && c == a
-  return :isosceles if a == b || b == c || a == c
+# :reek:UtilityFunction
+def triangle_type(side_a, side_b, side_c)
+  arr_side = [side_a, side_b, side_c].uniq.size
+  if arr_side == 1
+    :equilateral
+  elsif arr_side == 2
+    :isosceles
+  else
+    :scalene
+  end
+end
 
-  :scalene
+def triangle(side_a, side_b, side_c)
+  side_a, side_b, side_c = [side_a, side_b, side_c].sort
+  raise TriangleError if side_c >= side_a + side_b
+
+  triangle_type(side_a, side_b, side_c)
 end
 
 # Error class used in part 2.  No need to change this code.
