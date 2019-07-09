@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# reek:all
+# :reek:all
 # rubocop:diasble all
 # rubocop:disable Lint/MissingCopEnableDirective, Style/ClassAndModuleChildren
 # rubocop:disable Style/MixinUsage, Metrics/AbcSize

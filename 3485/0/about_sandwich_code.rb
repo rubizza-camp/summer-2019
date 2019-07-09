@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# reek:all
+# :reek:all
 # rubocop:diasble all
 # rubocop:disable Security/Open, Lint/AssignmentInCondition
 require File.expand_path(File.dirname(__FILE__) + '/neo')

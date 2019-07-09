@@ -1,7 +1,7 @@
 # rubocop:disable ClassLength
 # frozen_string_literal: false
 
-# reek:all
+# :reek:all
 # rubocop:diasble all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class

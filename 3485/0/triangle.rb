@@ -17,7 +17,7 @@
 def triangle(a_side, b_side, c_side)
   # in wiki is written is it better sort_by
   a_side, b_side, c_side = [a_side, b_side, c_side].sort_by
-  raise TriangleError if a_side + b_side > c_side
+  raise TriangleError unless a_side + b_side > c_side
   raise TriangleError unless a_side.positive?
   return :equilateral if a_side == c_side
   return :isosceles if a_side == b_side || b_side == c_side

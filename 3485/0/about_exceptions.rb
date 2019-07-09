@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# reek:all
+# :reek:all
 # rubocop:diasble all
 # rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment
 # rubocop:disable Metrics/MethodLength, Lint/HandleExceptions
