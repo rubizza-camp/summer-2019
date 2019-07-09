@@ -7,9 +7,9 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments
-    first_name = 'John'
+    first_name = 'Johny'
     last_name = 'Smith'
-    assert_equal 'John', first_name
+    assert_equal 'Johny', first_name
     assert_equal 'Smith', last_name
   end
 
