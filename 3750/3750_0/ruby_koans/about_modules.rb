@@ -48,6 +48,7 @@ class AboutModules < Neo::Koan
       fido.set_name('Rover')
     end
   end
+  #---------------------------------------------------------------------
 
   # rubocop:disable all
   def test_module_methods_can_affect_instance_variables_in_the_object
