@@ -159,8 +159,8 @@ It was the worst of times.
     def test_in_older_ruby_single_characters_are_represented_by_integers
       assert_equal 'a', 'a'
       assert_equal false, 'a' == 97
-
       assert_equal false, ('a' + 1) == 'b'
+      assert_equal false, 'b' == ('a' + 1)
     end
   end
 
