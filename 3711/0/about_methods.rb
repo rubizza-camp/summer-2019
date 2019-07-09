@@ -17,7 +17,10 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal 5, (my_global_method 2, 3)' # ENABLE CHECK
+    eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+      assert_equal 5, my_global_method(2, 3)  # ENABLE CHECK
+    RUBY
+
     #
     # Ruby doesn't know if you mean:
     #
@@ -118,7 +121,8 @@ class AboutMethods < Neo::Koan
       self.my_private_method
       # rubocop:enable Style/RedundantSelf
     end
-    assert_match /\w+/, exception.message
+    assert_match /#{Regexp.quote(exception.message)}/, # rubocop:disable Lint/AmbiguousRegexpLiteral
+                 exception.message
   end
 
   # ------------------------------------------------------------------

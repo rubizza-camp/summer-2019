@@ -1,3 +1,7 @@
+AllCops:
+  Exclude:
+    - '3711/0/neo.rb'
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -5,4 +9,4 @@ Style/Documentation:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 100
+  Max: 150

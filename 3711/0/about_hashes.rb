@@ -90,7 +90,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  def test_default_value_is_the_same_object
+  def test_default_value_is_the_same
     hash = Hash.new([])
 
     hash[:one] << 'uno'
