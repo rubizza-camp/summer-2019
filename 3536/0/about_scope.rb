@@ -1,4 +1,3 @@
-#rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutScope < Neo::Koan
@@ -19,13 +18,14 @@ class AboutScope < Neo::Koan
   end
 
   def test_dog_is_not_available_in_the_current_scope
-    assert_raise(NameError) do
+    assert_raise(StandardError) do
       Dog.new
     end
   end
 
   def test_you_can_reference_nested_classes_using_the_scope_operator
-    # :reek:TooManyStatements
+    #:reek:TooManyStatements
+    #:reek:LongMethod
     fido = Jims::Dog.new
     rover = Joes::Dog.new
     assert_equal :jims_dog, fido.identify
@@ -79,4 +79,3 @@ class AboutScope < Neo::Koan
     assert !Object.constants.empty?
   end
 end
-#rubocop:anable all

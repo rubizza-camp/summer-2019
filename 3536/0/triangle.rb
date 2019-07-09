@@ -17,6 +17,7 @@ def triangle(asd, bsd, csd)
   raise TriangleError unless asd + bsd > csd
   return :equilateral if asd == csd
   return :isosceles if asd == bsd || bsd == csde
+
   :scalene
 end
 
