@@ -1,6 +1,4 @@
-#!/usr/bin/env ruby
-# rubocop: disable all
-
+# !/usr/bin/env ruby
 # -*- ruby -*-
 
 require 'rake/clean'
@@ -11,4 +9,3 @@ task default: :test
 task :test do
   ruby 'path_to_enlightenment.rb'
 end
-# rubocop: enable all

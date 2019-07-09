@@ -1,8 +1,10 @@
-# frozen_string_literal: true
+# rubocop: disable Style/TrivialAccessors
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#:nodoc:
 class AboutClassMethods < Neo::Koan
+  #:nodoc:
   class Dog
   end
 
@@ -49,7 +51,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #:nodoc:
   class Dog2
     def wag
       :instance_level_wag
@@ -71,7 +73,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # # ------------------------------------------------------------------
-
+  #:nodoc:
   class Dog
     attr_accessor :name
   end
@@ -168,3 +170,4 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
+# rubocop: enable Style/TrivialAccessors

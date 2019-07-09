@@ -94,7 +94,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_break_statement_returns_values
     i = 1
-    result = 
+    result =
       while i <= 10
         break i if i.even?
         i += 1
