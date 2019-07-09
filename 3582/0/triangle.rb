@@ -15,7 +15,7 @@
 # and
 #   about_triangle_project_2.rb
 #
-# rubocop:disable Metrics/LineLength, Naming/UncommunicativeMethodParamName, Style/GuardClause, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:disable Metrics/LineLength, Style/GuardClause, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 # :reek:FeatureEnvy
 def triangle(first, second, third)
   # WRITE THIS CODE
@@ -24,13 +24,13 @@ def triangle(first, second, third)
   end
   if (first == second) && (second == third)
     return :equilateral
-  elsif (frist == second) || (first == third) || (second == third)
+  elsif (first == second) || (first == third) || (second == third)
     return :isosceles
   else
     return :scalene
   end
 end
-# rubocop:enable Metrics/LineLength, Naming/UncommunicativeMethodParamName, Style/GuardClause, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:enable Metrics/LineLength, Style/GuardClause, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
