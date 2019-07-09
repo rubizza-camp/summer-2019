@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:TooManyMethods
+
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -19,11 +19,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert !fido.methods.empty?
+    assert fido.methods.size > 2
   end
 
   def test_classes_have_methods
-    assert !Dog.methods.empty?
+    assert Dog.methods.size > 20
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -48,37 +48,35 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class DogTwo
+  class Dog2
     def wag
       :instance_level_wag
     end
   end
 
-  def DogTwo.wag
+  def Dog2.wag
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-    assert_equal :class_level_wag, DogTwo.wag
+    assert_equal :class_level_wag, Dog2.wag
   end
 
   def test_class_methods_are_independent_of_instance_methods
-    fido = DogTwo.new
+    fido = Dog2.new
     assert_equal :instance_level_wag, fido.wag
-    assert_equal :class_level_wag, DogTwo.wag
+    assert_equal :class_level_wag, Dog2.wag
   end
 
   # ------------------------------------------------------------------
 
   class Dog
-    # :reek:Attribute
     attr_accessor :name
   end
-  # rubocop:disable Style/TrivialAccessors
-  def Dog.name
+
+  def Dog.name # rubocop:disable Style/TrivialAccessors
     @name
   end
-  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
@@ -101,34 +99,34 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end.freeze
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
-                               end.freeze
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
+                                     self
+                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
   class Dog
-    def self.class_method_two
+    def self.class_method2
       :another_way_to_write_class_methods
     end
   end
 
   def test_you_can_use_self_instead_of_an_explicit_reference_to_dog
-    assert_equal :another_way_to_write_class_methods, Dog.class_method_two
+    assert_equal :another_way_to_write_class_methods, Dog.class_method2
   end
 
   # ------------------------------------------------------------------
