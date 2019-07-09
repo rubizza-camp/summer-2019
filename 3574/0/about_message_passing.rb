@@ -1,4 +1,4 @@
-# rubocop:disable Style/MissingRespondToMissing, Style/MethodMissingSuper, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective, Metrics/LineLength, Lint/UnneededCopDisableDirective
+#rubocop: disable Style/MethodMissingSuper, Style/MissingRespondToMissing, Lint/MissingCopEnableDirective, Layout/LeadingCommentSpace, Metrics/LineLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

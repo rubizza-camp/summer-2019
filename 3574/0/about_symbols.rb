@@ -1,5 +1,3 @@
-# rubocop:disable Naming/ConstantName, Lint/MissingCopEnableDirective
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSymbols < Neo::Koan
@@ -36,7 +34,7 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RubyConstant = 'What is the sound of one hand clapping?'.freeze
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 

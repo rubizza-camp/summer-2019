@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/ClassAndModuleChildren
+# rubocop: disable Style/ClassAndModuleChildren
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -73,6 +73,7 @@ class AboutConstants < Neo::Koan
   # ------------------------------------------------------------------
 
   class MyAnimals::Oyster < Animal
+    # rubocop: enable Style/ClassAndModuleChildren
     def legs_in_oyster
       LEGS
     end
