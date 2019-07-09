@@ -1,3 +1,4 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
 # -*- ruby -*-
 
 begin
@@ -62,9 +63,11 @@ class Object
     send(method) if method
   end
 
+  # rubocop:disable AccessModifierDeclarations
   in_ruby_version('1.9', '2') do
     public :method_missing
   end
+  # rubocop:enable AccessModifierDeclarations
 end
 
 class String
@@ -97,10 +100,12 @@ module Neo
 
     module_function
 
+    # rubocop:disable Style/AccessModifierDeclarations
     COLORS.each do |color, value|
       module_eval("def #{color}(string); colorize(string, #{value}); end", __FILE__, __LINE__)
       module_function color
     end
+    # rubocop:enable Style/AccessModifierDeclarations
 
     def colorize(string, color_value)
       if use_colors?
@@ -189,6 +194,7 @@ module Neo
     end
   end
 
+  # rubocop:disable Metrics/ClassLength
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -264,6 +270,8 @@ module Neo
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def show_progress
       bar_width = 50
       total_tests = Neo::Koan.total_tests
@@ -280,6 +288,7 @@ module Neo
       print " #{pass_count}/#{total_tests}"
       puts
     end
+    # rubocop:enable Metrics/MethodLength
 
     def end_screen
       if Neo.simple_output
@@ -293,6 +302,7 @@ module Neo
       puts 'Mountains are again merely mountains'
     end
 
+    # rubocop:disable Metrics/MethodLength
     def artistic_end_screen
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}
 Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
@@ -334,6 +344,7 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       SQL
       puts completed
     end
+    # rubocop:enable Metrics/MethodLength
 
     def encourage
       master_says
@@ -436,6 +447,8 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       'things are not what they appear to be: nor are they otherwise'
     end
   end
+  # rubocop:enable Metrics/ClassLength
+  # rubocop:enable Metrics/AbcSize
 
   class Koan
     include Assertions
@@ -540,7 +553,7 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       end
       sensei.instruct
     end
-    
+
     # rubocop:disable TooManyStatements
     def each_step
       catch(:neo_exit) do
@@ -564,3 +577,4 @@ at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 end
+# rubocop:enable Lint/UnneededCopDisableDirective
