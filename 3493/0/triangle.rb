@@ -28,15 +28,18 @@ end
 def equilateral_return_check_triagle(*args)
   return :equilateral if args.uniq.count == 1
 end
-#:reek:ControlParameter:
+# :reek:ControlParameter:
 # :reek:FeatureEnvy:
+# rubocop:disable Style/SymbolProc
 
 def check_below_zero_triagle(*args)
-  raise TriangleError if if args.each {|argument| argument.negative?}
+  raise TriangleError if args.each { |argument| argument.negative? }
 end
 #:reek:ControlParameter:
-
 # :reek:FeatureEnvy:
+# rubocop:enable Style/SymbolProc
+# rubocop:disable Metrics/AbcSize:
+
 def triangle(*args)
   check_below_zero_triagle(*args)
 
@@ -50,9 +53,7 @@ def triangle(*args)
 
   result
 end
-
+# rubocop:enable Metrics/AbcSize:
 # Error class used in part 2.  No need to change this code.
-# rubocop:disable Lint/Syntax
 class TriangleError < StandardError
 end
-# rubocop:enable Lint/Syntax
