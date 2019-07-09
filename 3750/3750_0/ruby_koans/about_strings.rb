@@ -54,9 +54,9 @@ It was the worst of times.
 # rubocop:disable Naming/HeredocDelimiterNaming
 EOS
 # rubocop:enable Naming/HeredocDelimiterNaming
-    assert_equal 101, long_string.length
+    assert_equal 141, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal 'I', long_string[0, 1]
+    assert_equal ' ', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings

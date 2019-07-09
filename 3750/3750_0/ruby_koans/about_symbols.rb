@@ -34,7 +34,7 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RUBY_CONSTANT = 'What is the sound of one hand clapping?'
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
       assert_equal false, all_symbols_as_strings.include?('RubyConstant')
@@ -62,8 +62,9 @@ class AboutSymbols < Neo::Koan
   def test_to_s_is_called_on_interpolated_symbols
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
-
-    assert_equal "It is raining %s and dogs." % symbol, string
+# rubocop:disable all
+    assert_equal 'It is raining %s and dogs.' % symbol, string
+# rubocop:disable all  
   end
 
   def test_symbols_are_not_strings

@@ -42,7 +42,9 @@ class AboutToStr < Neo::Koan
   # ------------------------------------------------------------------
 
   def acts_like_a_string?(string)
+# rubocop:disable ManualDispatch
     string = string.to_str if string.respond_to?(:to_str)
+# rubocop:enable ManualDispatch    
     string.is_a?(String)
   end
 
