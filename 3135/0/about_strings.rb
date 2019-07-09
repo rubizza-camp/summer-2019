@@ -5,6 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class AboutStrings was split into AboutStrings1 and AboutStrings2
 # to avoid rubocop class length offense
+#:reek:TooManyMethods
 class AboutStrings1 < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = "Hello, World"

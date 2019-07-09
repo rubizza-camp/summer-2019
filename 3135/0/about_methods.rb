@@ -3,9 +3,11 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UtilityFunction:
 def my_global_method(par_a, par_b)
   par_a + par_b
 end
+# :reek:TooManyMethods:reek:TooManyStatements:reek:UtilityFunction:
 
 class AboutMethods < Neo::Koan
   def test_calling_global_methods

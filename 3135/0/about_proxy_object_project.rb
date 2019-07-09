@@ -13,7 +13,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
-
+# :reek:Attribute:
 class Proxy
   attr_reader :messages
 
@@ -104,6 +104,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 0, tv.number_of_times_called(:on?)
   end
 
+  # :reek:FeatureEnvy:
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
@@ -120,6 +121,7 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# :reek:Attribute:reek:InstanceVariableAssumption:
 class Television
   attr_accessor :channel
 
@@ -137,6 +139,7 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+#:reek:FeatureEnvy:reek:TooManyStatements:
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new

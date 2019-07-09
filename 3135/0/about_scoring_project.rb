@@ -46,6 +46,7 @@ def outcome_count(key, value, score)
   score += 50 * value if key == 5
   score
 end
+# :reek:UtilityFunction:
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero

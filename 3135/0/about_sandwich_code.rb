@@ -1,7 +1,7 @@
 # rubocop:disable Security/Open
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+#:reek:UtilityFunction:
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)

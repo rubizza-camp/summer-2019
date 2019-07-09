@@ -44,7 +44,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   # ------------------------------------------------------
-
+  # :reek:InstanceVariableAssumption
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.

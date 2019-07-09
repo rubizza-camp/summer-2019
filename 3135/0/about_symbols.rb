@@ -73,6 +73,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # :reek:ManualDispatch:
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)

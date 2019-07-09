@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
-#
+#:reek:FeatureEnvy:reek:Attribute:
 class DiceSet
   attr_reader :values
 
@@ -16,6 +16,7 @@ class AboutDiceProject < Neo::Koan
     assert_not_nil dice
   end
 
+  #:reek:FeatureEnvy:reek:TooManyStatements:
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
     dice = DiceSet.new
 
@@ -27,6 +28,7 @@ class AboutDiceProject < Neo::Koan
     end
   end
 
+  #:reek:FeatureEnvy:
   def test_dice_values_do_not_change_unless_explicitly_rolled
     dice = DiceSet.new
     dice.roll(5)
@@ -35,6 +37,7 @@ class AboutDiceProject < Neo::Koan
     assert_equal first_time, second_time
   end
 
+  #:reek:FeatureEnvy:reek:TooManyStatements
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
 
@@ -54,6 +57,7 @@ class AboutDiceProject < Neo::Koan
     # better way to test this?
   end
 
+  #:reek:FeatureEnvy:
   def test_you_can_roll_different_numbers_of_dice
     dice = DiceSet.new
 

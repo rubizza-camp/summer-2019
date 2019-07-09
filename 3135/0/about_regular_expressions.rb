@@ -1,6 +1,6 @@
 # rubocop:disable Style/PerlBackrefs
 # Style/PerlBackrefs like variables are used to access captives
-
+# :reek:TooManyMethods:
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutRegularExpressions < Neo::Koan
