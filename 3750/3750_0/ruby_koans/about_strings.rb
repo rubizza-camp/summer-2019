@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -13,7 +13,9 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
+# rubocop:disable Style/StringLiterals
     assert_equal "He said, \"Go Away.\"", string
+# rubocop:disable Style/StringLiterals
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
@@ -26,7 +28,7 @@ class AboutStrings < Neo::Koan
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
-
+# rubocop:disable Style/PercentLiteralDelimiters
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %!flexible quotes can handle both ' and " characters!
@@ -42,13 +44,13 @@ It was the worst of times.
 }
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0,1]
+    assert_equal "\n", long_string[0, 1]
   end
-
+# rubocop:enable Style/PercentLiteralDelimiters
   def test_here_documents_can_also_handle_multiple_lines
     long_string = <<~EOS
-It was the best of times,
-It was the worst of times.
+                    It was the best of times,
+                    It was the worst of times.
 # rubocop:disable Naming/HeredocDelimiterNaming
 EOS
 # rubocop:enable Naming/HeredocDelimiterNaming
@@ -201,3 +203,4 @@ EOS
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength
