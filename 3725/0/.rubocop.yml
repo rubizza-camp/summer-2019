@@ -1,0 +1,13 @@
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+AllCops:
+  Exclude:
+    - 'about_java_interop.rb'
+    - 'neo.rb'
