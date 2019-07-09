@@ -1,11 +1,8 @@
-# rubocop:disable all
-
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class AboutClasses
+#:nodoc:
 class AboutClasses < Neo::Koan
+  #:nodoc:
   class Dog
   end
 
@@ -16,89 +13,99 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # class Dog2
+  #:nodoc:
   class Dog2
-    def setname(a_name)
+    # rubocop: disable Naming/AccessorMethodName
+    def set_name(a_name)
       @name = a_name
     end
+    # rubocop: enable Naming/AccessorMethodName
   end
 
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
     assert_equal [], fido.instance_variables
 
-    fido.setname('Fido')
+    fido.set_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
 
     assert_raise(NoMethodError) do
       fido.name
     end
 
     assert_raise(SyntaxError) do
-      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-             fido.@name
-      RUBY
+      eval 'fido.@name', binding, __FILE__, __LINE__
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
+
+    # rubocop: disable Style/EvalWithLocation
     assert_equal 'Fido', fido.instance_eval('@name') # string version
-    assert_equal 'Fido', (fido.instance_eval { @name }) # block version
+    # rubocop: enable Style/EvalWithLocation
+    # rubocop: disable Lint/AmbiguousBlockAssociation
+    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    # rubocop: enable Lint/AmbiguousBlockAssociation
   end
 
   # ------------------------------------------------------------------
-  # class Dog3
+
+  #:nodoc:
   class Dog3
-    def setname(a_name)
+    # rubocop: disable Naming/AccessorMethodName
+    def set_name(a_name)
       @name = a_name
     end
+    # rubocop: enable Naming/AccessorMethodName
 
     attr_reader :name
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
 
-  # class Dog4
+  #:nodoc:
   class Dog4
     attr_reader :name
 
-    def setname(a_name)
+    # rubocop: disable Naming/AccessorMethodName
+    def set_name(a_name)
       @name = a_name
     end
+    # rubocop: enable Naming/AccessorMethodName
   end
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
 
-  # class Dog5
+  #:nodoc:
   class Dog5
     attr_accessor :name
   end
@@ -112,7 +119,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # class Dog6
+  #:nodoc:
   class Dog6
     attr_reader :name
     def initialize(initial_name)
@@ -142,7 +149,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # class Dog7
+  #:nodoc:
   class Dog7
     attr_reader :name
 
@@ -150,9 +157,11 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def getself
+    # rubocop: disable Naming/AccessorMethodName
+    def get_self
       self
     end
+    # rubocop: enable Naming/AccessorMethodName
 
     def to_s
       @name
@@ -166,7 +175,7 @@ class AboutClasses < Neo::Koan
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new('Fido')
 
-    fidos_self = fido.getself
+    fidos_self = fido.get_self
     assert_equal fido, fidos_self
   end
 
@@ -190,9 +199,7 @@ class AboutClasses < Neo::Koan
 
     assert_equal '[1, 2, 3]', array.to_s
     assert_equal '[1, 2, 3]', array.inspect
-
     assert_equal 'STRING', 'STRING'.to_s
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
-# rubocop:enable all
