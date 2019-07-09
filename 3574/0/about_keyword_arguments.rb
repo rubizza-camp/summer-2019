@@ -17,12 +17,14 @@ class AboutKeywordArguments < Neo::Koan
   end
 
   # :reek:Lint/ParenthesesAsGroupedExpression:
+  # rubocop: disable Lint/ParenthesesAsGroupedExpression
   def test_keyword_arguments_with_wrong_number_of_arguments
     exception = assert_raise (ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
     end
     assert_match(/1/, exception.message)
   end
+  # rubocop: enable Lint/ParenthesesAsGroupedExpression
 
   # THINK ABOUT IT:
   #
