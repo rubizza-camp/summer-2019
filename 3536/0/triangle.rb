@@ -11,8 +11,9 @@
 # and
 # about_triangle_project_2.rb
 # :reek:TooManyStatements
+# :reek:FeatureEnvy
 def triangle(asd, bsd, csd)
-  asd, bsd, csd = [asd, bsd, csd].sort # :reek:FeatureEnvy
+  asd, bsd, csd = [asd, bsd, csd].sort
   raise TriangleError unless asd.positive?
   raise TriangleError unless asd + bsd > csd
   return :equilateral if asd == csd
