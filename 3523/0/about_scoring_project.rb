@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+#rubocop:disable all
 # rubocop:disable Style/IdenticalConditionalBranches
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
@@ -131,3 +131,4 @@ end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/LineLength
+#rubocop:enable all
