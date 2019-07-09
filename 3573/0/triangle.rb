@@ -1,6 +1,3 @@
-# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-# rubocop:disable Naming/UncommunicativeMethodParamName
-
 # Triangle Project Code.
 #
 # Triangle analyzes the lengths of the sides of a triangle
@@ -16,27 +13,16 @@
 # and
 #   about_triangle_project_2.rb
 
-# :reek:FeatureEnvy
-# :reek:TooManyStatements
-# :reek:UncommunicativeParameterName
-# :reek:UncommunicativeVariableName
-def triangle(a, b, c)
+def triangle(side_a, side_b, side_c)
   # WRITE THIS CODE
-  tria = [a, b, c].sort
-  raise TriangleError if tria.any? { |x| x <= 0 }
-  raise TriangleError unless tria[0] + tria[1] > tria[2]
+  raise TriangleError if [side_a, side_b, side_c].min <= 0
 
-  if a == b && a == c
-    :equilateral
-  elsif a != b && a != c && b != c
-    :scalene
-  else
-    :isosceles
-  end
+  s_a, s_b, s_c = [side_a, side_b, side_c].sort
+  raise TriangleError if s_a + s_b <= s_c
+
+  %i[equilateral isosceles scalene].fetch([side_a, side_b, side_c].uniq.size - 1)
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-# rubocop:enable Naming/UncommunicativeMethodParamName

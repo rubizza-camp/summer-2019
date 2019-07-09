@@ -1,5 +1,4 @@
-# rubocop:disable Lint/LiteralAsCondition, Lint/UnneededCopDisableDirective
-# rubocop:disable Metrics/ClassLength, Metrics/MethodLength
+# rubocop:disable Lint/LiteralAsCondition, Metrics/ClassLength, Metrics/MethodLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -51,7 +50,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, (true ? :true_value : :false_value)
     assert_equal :false_value, (false ? :true_value : :false_value)
   end
-# rubocop:disable all
+
   def test_if_statement_modifiers
     result = :default_value
     result = :true_value if true
@@ -104,9 +103,8 @@ class AboutControlStatements < Neo::Koan
     i = 1
     result = while i <= 10
                break i if i.even?
-
                i += 1
-    end
+             end
 
     assert_equal 2, result
   end
@@ -140,5 +138,4 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
-# rubocop:enable Lint/LiteralAsCondition, Lint/UnneededCopDisableDirective
-# rubocop:enable Metrics/ClassLength, Metrics/MethodLength
+# rubocop:enable Lint/LiteralAsCondition, Metrics/ClassLength, Metrics/MethodLength

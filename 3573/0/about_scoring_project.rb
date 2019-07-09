@@ -1,6 +1,5 @@
-# rubocop:disable Metrics/AbcSize, Lint/UnneededCopDisableDirective
-# rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
-# rubocop:disable Style/IfInsideElse
+# rubocop:disable Metrics/AbcSize
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Greed is a dice game where you roll up to five dice to accumulate
@@ -31,31 +30,21 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 # Your goal is to write the score method.
 
-# :reek:TooManyStatements
-# :reek:UncommunicativeModuleName
 # :reek:UtilityFunction
+# :reek:TooManyStatements
 def score(dice)
   # You need to write this method
+  return 0 if dice.empty?
+  dice = dice.sort
   sum = 0
-  dice.uniq.each do |number|
-    if number == 1
-      if dice.count(1) >= 3
-        sum += 1000
-        sum += 100 * (dice.count(1) - 3)
-      else
-        sum += 100 * dice.count(1)
-      end
-    elsif number == 5
-      if dice.count(5) >= 3
-        sum += 5 * 100
-        sum += 50 * (dice.count(5) - 3)
-      else
-        sum += 50 * dice.count(5)
-      end
-    else
-      sum += number * 100 if dice.count(number) >= 3
-    end
+
+  (1..6).each do |num|
+    count = dice.count(num)
+    sum += (num == 1 ? 1000 : 100 * num) if count >= 3
+    sum += (count % 3) * 100 if num == 1
+    sum += (count % 3) * 50 if num == 5
   end
+
   sum
 end
 
@@ -101,6 +90,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:enable Metrics/AbcSize, Lint/UnneededCopDisableDirective,
-# rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
-# rubocop:enable Style/IfInsideElse
+# rubocop:enable Metrics/AbcSize
