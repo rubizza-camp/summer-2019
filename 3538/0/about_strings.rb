@@ -124,6 +124,7 @@ class AboutStrings < Neo::Koan
   end
 
   def test_single_quoted_strings_do_not_interpolate
+    value = 123
     string = "The value is #{value}"
     assert_equal "The value is #{value}", string
   end

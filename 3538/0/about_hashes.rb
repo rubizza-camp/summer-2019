@@ -91,7 +91,7 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_is_the_same_object
-    hash = Hash.new([])
+    hh = Hash.new([])
 
     hh[:one] << 'uno'
     hh[:two] << 'dos'
