@@ -7,20 +7,20 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_can_be_compared
-    symbol1 = :a_symbol
-    symbol2 = :a_symbol
-    symbol3 = :something_else
+    symbol_one = :a_symbol
+    symbol_two = :a_symbol
+    symbol_three = :something_else
 
-    assert_equal true, symbol1 == symbol2
-    assert_equal false, symbol1 == symbol3
+    assert_equal true, symbol_one == symbol_two
+    assert_equal false, symbol_one == symbol_three
   end
 
   def test_identical_symbols_are_a_single_internal_object
-    symbol1 = :a_symbol
-    symbol2 = :a_symbol
+    symbol_one = :a_symbol
+    symbol_two = :a_symbol
 
-    assert_equal true, symbol1           == symbol2
-    assert_equal true, symbol1.object_id == symbol2.object_id
+    assert_equal true, symbol_one           == symbol_two
+    assert_equal true, symbol_one.object_id == symbol_two.object_id
   end
 
   def test_method_names_become_symbols
@@ -34,7 +34,9 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RUBYCONSTANT = 'What is the sound of one hand clapping?'.freeze
+    # rubocop:disable Style/MutableConstant
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'
+    # rubocop:enable Style/MutableConstant
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
@@ -50,14 +52,14 @@ class AboutSymbols < Neo::Koan
   def test_symbols_with_spaces_can_be_built
     symbol = :"cats and dogs"
 
-    assert_equal :"cats and dogs".to_sym, symbol
+    assert_equal 'cats and dogs'.to_sym, symbol
   end
 
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
     symbol = :"cats #{value} dogs"
 
-    assert_equal :"cats and dogs".to_sym, symbol
+    assert_equal "cats #{value} dogs".to_sym, symbol
   end
 
   def test_to_s_is_called_on_interpolated_symbols
@@ -72,6 +74,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.is_a?(String)
     assert_equal false, symbol.eql?('ruby')
   end
+  # :reek:ManualDispatch
 
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
