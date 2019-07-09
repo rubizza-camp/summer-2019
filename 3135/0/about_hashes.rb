@@ -2,7 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# :reek:FeatureEnvy:reek:TooManyStatements:
+# :reek:FeatureEnvy:
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -106,6 +106,7 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
 
+  #:reek:UncommunicativeVariableName:
   def test_default_value_with_block
     hash = Hash.new { |h, k| h[k] = [] }
 
