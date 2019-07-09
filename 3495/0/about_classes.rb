@@ -4,7 +4,8 @@
 # rubocop:disable Style/StringLiterals
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:FeatureEnvy and :reek:InstanceVariableAssumption and :reek:Attribute and :reek:TooManyMethods and :reek:TooManyStatements
+# :reek:FeatureEnvy and :reek:InstanceVariableAssumption
+# :reek:Attribute and :reek:TooManyMethods and :reek:TooManyStatements
 class AboutClasses < Neo::Koan
   class Dog
   end

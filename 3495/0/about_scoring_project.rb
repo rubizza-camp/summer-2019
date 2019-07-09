@@ -32,10 +32,12 @@ def id_zero(value)
   (value / 3) * 1000 + (value % 3) * 100
 end
 # :reek:UtilityFunction
+
 def id_four(value, id)
   (value / 3) * (id + 1) * 100 + (value % 3) * 50
 end
 # :reek:UtilityFunction
+
 def val_three(value, id)
   (value / 3) * (id + 1) * 100
 end
@@ -73,10 +75,12 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([])
   end
   # :reek:UncommunicativeMethodName
+
   def test_score_of_a_single_roll_of_5_is_50
     assert_equal 50, score([5])
   end
   # :reek:UncommunicativeMethodName
+
   def test_score_of_a_single_roll_of_1_is_100
     assert_equal 100, score([1])
   end
@@ -89,10 +93,12 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
   # :reek:UncommunicativeMethodName
+
   def test_score_of_a_triple_1_is_1000
     assert_equal 1000, score([1, 1, 1])
   end
   # :reek:UncommunicativeMethodName
+
   def test_score_of_other_triples_is_100x
     assert_equal 200, score([2, 2, 2])
     assert_equal 300, score([3, 3, 3])

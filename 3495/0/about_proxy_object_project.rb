@@ -46,7 +46,7 @@ class AboutProxyObjectProject < Neo::Koan
 
     assert tv.instance_of?(Proxy)
   end
- 
+
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
 

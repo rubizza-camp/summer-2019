@@ -29,12 +29,14 @@ class AboutStrings < Neo::Koan
     assert_equal "Don\'t", string
   end
   # :reek:UncommunicativeVariableName
+
   def test_use_backslash_for_those_hard_cases
     a = "He said, \"Don't\""
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
   # :reek:UncommunicativeVariableName
+
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %(!flexible quotes can handle both ' and " characters!)
@@ -195,6 +197,7 @@ EOS
     assert_equal 'Now is the time', words.join(' ')
   end
   # :reek:UncommunicativeVariableName
+
   def test_strings_are_unique_objects
     a = 'a string'
     b = 'a string'
