@@ -1,8 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyStatements
-# :reek:UncommunicativeVariableName
-# rubocop:disable Lint/UselessAssignment, HandleExceptions
+# rubocop:disable HandleExceptions
 
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
@@ -16,6 +15,7 @@ class AboutExceptions < Neo::Koan
   end
 
   # rubocop:disable Metrics/MethodLength
+  # :reek:UncommunicativeVariableName
   def test_rescue_clause
     result = nil
     begin
@@ -32,9 +32,11 @@ class AboutExceptions < Neo::Koan
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
-    assert_equal 'Oops', e.message
+    assert_equal 'Oops', ex.message
   end
   # rubocop:enable Metrics/MethodLength
+  # :reek:UncommunicativeVariableName
+  # I have to use this because of conflict between rubocop and reek
 
   def test_raising_a_particular_error
     result = nil
@@ -50,7 +52,6 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
-    result = nil
     begin
       raise 'Oops'
     rescue StandardError
@@ -70,4 +71,4 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
-# rubocop:enable Lint/UselessAssignment, HandleExceptions
+# rubocop:enable HandleExceptions

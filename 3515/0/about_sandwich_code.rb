@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:NilCheck
 # This method smells of :reek:UtilityFunction
-# This method smells of :reek:UncommunicativeMethodName
 
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
@@ -66,7 +65,7 @@ class AboutSandwichCode < Neo::Koan
 
   # Now we write:
 
-  def count_lines2(file_name)
+  def count_lines_two(file_name)
     file_sandwich(file_name) do |file|
       count = 0
       count += 1 while file.gets
@@ -74,13 +73,13 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
-  def test_counting_lines2
-    assert_equal 4, count_lines2('example_file.txt')
+  def test_counting_lines_two
+    assert_equal 4, count_lines_two('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  def find_line2(file_name)
+  def find_line_two(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
       while (line = file.gets)
@@ -91,13 +90,13 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
-  def test_finding_lines2
-    assert_equal "test\n", find_line2('example_file.txt')
+  def test_finding_lines_two
+    assert_equal "test\n", find_line_two('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  def count_lines3(file_name)
+  def count_lines_three(file_name)
     File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
@@ -106,6 +105,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def test_open_handles_the_file_sandwich_when_given_a_block
-    assert_equal 4, count_lines3('example_file.txt')
+    assert_equal 4, count_lines_three('example_file.txt')
   end
 end

@@ -5,11 +5,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:FeatureEnvy
 class DiceSet
   attr_reader :values
+
   def roll(num)
-    @values = []
-    (1..num).each { @values << rand(1..6) }
+    @values = num.times.map { rand(1..6) }
   end
-  @values
 end
 
 class AboutDiceProject < Neo::Koan
@@ -18,10 +17,9 @@ class AboutDiceProject < Neo::Koan
     assert_not_nil dice
   end
 
-  # :reek:UncommunicativeMethodName
   # :reek:TooManyStatements
   # :reek:FeatureEnvy
-  def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+  def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_six
     dice = DiceSet.new
 
     dice.roll(5)

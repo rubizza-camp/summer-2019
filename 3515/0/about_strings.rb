@@ -2,7 +2,6 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# This method smells of :reek:UncommunicativeVariableName
 # This method smells of :reek:TooManyStatements
 # This method smells of :reek:TooManyMethods
 
@@ -28,17 +27,17 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    var_one = "He said, \"Don't\""
+    var_two = 'He said, "Don\'t"'
+    assert_equal true, var_one == var_two
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %!(flexible quotes can handle both ' and " characters)!
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal false, a == b
-    assert_equal true, a == c
+    var_one = %(flexible quotes can handle both ' and " characters)
+    var_two = %!(flexible quotes can handle both ' and " characters)!
+    var_three = %(flexible quotes can handle both ' and " characters)
+    assert_equal false, var_one == var_two
+    assert_equal true, var_one == var_three
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -196,10 +195,10 @@ It was the worst of times.
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    var_one = 'a string'
+    var_two = 'a string'
 
-    assert_equal true, a == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, var_one == var_two
+    assert_equal false, var_one.object_id == var_two.object_id
   end
 end

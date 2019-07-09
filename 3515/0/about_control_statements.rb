@@ -2,7 +2,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Metrics/ClassLength
-# This method smells of :reek:UncommunicativeVariableName
 # This method smells of :reek:TooManyStatements
 # This method smells of :reek:RepeatedConditional
 # This method smells of :reek:FeatureEnvy
@@ -81,46 +80,46 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_while_statement
-    i = 1
+    var = 1
     result = 1
-    while i <= 10
-      result *= i
-      i += 1
+    while var <= 10
+      result *= var
+      var += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement
-    i = 1
+    var = 1
     result = 1
     loop do
-      break unless i <= 10
+      break unless var <= 10
 
-      result *= i
-      i += 1
+      result *= var
+      var += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
-    i = 1
-    result = while i <= 10
-               break i if i.even?
+    var = 1
+    result = while var <= 10
+               break var if var.even?
 
-               i += 1
+               var += 1
              end
 
     assert_equal 2, result
   end
 
   def test_next_statement
-    i = 0
+    var = 0
     result = []
-    while i < 10
-      i += 1
-      next if i.even?
+    while var < 10
+      var += 1
+      next if var.even?
 
-      result << i
+      result << var
     end
     assert_equal [1, 3, 5, 7, 9], result
   end

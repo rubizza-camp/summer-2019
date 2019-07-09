@@ -1,13 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UtilityFunction
-# This method smells of :reek:UncommunicativeVariableName
+# rubocop:disable Lint/UselessAssignment
 
 class AboutBlocks < Neo::Koan
   def method_with_block
-    result = yield
-    result
+    result = yield # I have to use rubocop:disable here because of koan feature
   end
+
+  # rubocop:enable Lint/UselessAssignment
 
   def test_methods_can_take_blocks
     yielded_result = method_with_block { 1 + 2 }
@@ -70,7 +71,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
-    add_one = ->(n) { n + 1 }
+    add_one = ->(var) { var + 1 }
     assert_equal 11, add_one.call(10)
 
     # Alternative calling syntax
@@ -78,7 +79,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
-    make_upper = ->(n) { n.upcase }
+    make_upper = ->(var) { var.upcase }
     result = method_with_block_arguments(&make_upper)
     assert_equal 'JIM', result
   end
@@ -91,9 +92,9 @@ class AboutBlocks < Neo::Koan
   # rubocop:enable Performance/RedundantBlockCall
 
   def test_methods_can_take_an_explicit_block_argument
-    assert_equal true, method_with_explicit_block { |n| n * 2 } == 20
+    assert_equal true, method_with_explicit_block { |num| num * 2 } == 20
 
-    add_one = ->(n) { n + 1 }
+    add_one = ->(num) { num + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end

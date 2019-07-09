@@ -1,18 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:ClassVariable
-# :reek:UncommunicativeMethodName
-# :reek:UncommunicativeVariableName
-# rubocop:disable Style/GlobalVars, Lint/UselessAssignment, Style/ClassVars
+# rubocop:disable Style/GlobalVars,Style/ClassVars
 
 class AboutVariableScope < Neo::Koan
   def bark
-    noise = 'RUFF'
+    'RUFF'
   end
 
   def test_noise_is_not_available_in_the_current_scope
     assert_raise(NameError) do
-      noise
+      bark
     end
   end
 
@@ -20,7 +18,6 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'RUFF', bark
   end
 
-  inaccessible = 'Outside our universe'
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
     assert_equal nil, defined? inaccesible
@@ -39,9 +36,8 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? variable
   end
 
   # ------------------------------------------------------
@@ -69,7 +65,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |var_test| Mouse.new(var_test.to_s) }
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
@@ -93,12 +89,10 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_global_variables_retain_value_from_last_change
-    # What is $anywhere?
     assert_equal 'Here', $anywhere
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
-    # From within a block
+  def test_global_variables_can_be_changed_from_any_scope_opt
     2.times do
       $anywhere = 'Hey'
     end
@@ -111,4 +105,4 @@ end
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
-# rubocop:enable Style/GlobalVars, Lint/UselessAssignment, Style/ClassVars
+# rubocop:enable Style/GlobalVars,Style/ClassVars

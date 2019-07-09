@@ -44,18 +44,17 @@ end
 
 # rubocop:enable Metrics/AbcSize
 # This method smells of :reek:TooManyStatements
-# This method smells of :reek:UncommunicativeMethodName
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
 
-  def test_score_of_a_single_roll_of_5_is_50
+  def test_score_of_a_single_roll_of_5_is_50n
     assert_equal 50, score([5])
   end
 
-  def test_score_of_a_single_roll_of_1_is_100
+  def test_score_of_a_single_roll_of_1_is_100n
     assert_equal 100, score([1])
   end
 
@@ -67,7 +66,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
-  def test_score_of_a_triple_1_is_1000
+  def test_score_of_a_triple_1_is_1000n
     assert_equal 1000, score([1, 1, 1])
   end
 
