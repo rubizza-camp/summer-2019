@@ -1,4 +1,4 @@
-# :reek:Lint/ScriptPermission
+#:reek:Lint/ScriptPermission
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
