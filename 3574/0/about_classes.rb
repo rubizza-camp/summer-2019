@@ -1,5 +1,3 @@
-# rubocop: disable Naming/AccessorMethodName, Style/EvalWithLocation, Lint/AmbiguousBlockAssociation
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClasses < Neo::Koan
@@ -12,9 +10,8 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   class Dog2
-    def set_name(a_name)
+    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
       @name = a_name
     end
   end
@@ -36,7 +33,7 @@ class AboutClasses < Neo::Koan
     end
 
     assert_raise(SyntaxError) do
-      eval 'fido.@name'
+      eval 'fido.@name' # rubocop:disable Style/EvalWithLocation
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
@@ -52,15 +49,13 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
-    # rubocop: enable Style/EvalWithLocation, Lint/AmbiguousBlockAssociation
+    assert_equal 'Fido', fido.instance_eval('@name')  # rubocop:disable Style/EvalWithLocation
+    assert_equal 'Fido', fido.instance_eval { @name } # rubocop:disable Lint/AmbiguousBlockAssociation
   end
 
   # ------------------------------------------------------------------
-
   class Dog3
-    def set_name(a_name)
+    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
       @name = a_name
     end
 
@@ -78,8 +73,7 @@ class AboutClasses < Neo::Koan
 
   class Dog4
     attr_reader :name
-
-    def set_name(a_name)
+    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
       @name = a_name
     end
   end
@@ -142,8 +136,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def get_self
-      # rubocop: enable Naming/AccessorMethodName
+    def get_self # rubocop:disable Naming/AccessorMethodName
       self
     end
 
@@ -160,7 +153,7 @@ class AboutClasses < Neo::Koan
     fido = Dog7.new('Fido')
 
     fidos_self = fido.get_self
-    assert_equal fidos_self, fidos_self
+    assert_equal fido, fidos_self
   end
 
   def test_to_s_provides_a_string_version_of_the_object
