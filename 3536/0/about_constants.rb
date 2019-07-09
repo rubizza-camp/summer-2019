@@ -70,18 +70,15 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class MyAnimals
-    class Oyster < Animal
-      def legs_in_oyster
-        LEGS
-      end
+  class MyAnimals::Oyster < Animal
+    def legs_in_oyster
+      LEGS
     end
   end
 
   def test_who_wins_with_explicit_scoping_on_class_definition
-    assert_equal 2, MyAnimals::Oyster.new.legs_in_oyster
+    assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
   end
-
   # QUESTION: Now which has precedence: The constant in the lexical
   # scope, or the constant from the inheritance hierarchy?  Why is it
   # different than the previous answer?

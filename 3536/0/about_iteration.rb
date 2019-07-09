@@ -47,6 +47,7 @@ class AboutIteration < Neo::Koan
     sum = 0
     array.each do |item|
       break if item > 3
+
       sum += item
     end
     assert_equal 6, sum
@@ -76,7 +77,7 @@ class AboutIteration < Neo::Koan
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
 
-    assert_equal 'Clarence', (array.find { |item| item.size > 4 })
+    assert_equal 'Clarence', array.find { |item| item.size > 4 }
   end
 
   def test_inject_will_blow_your_mind
@@ -100,11 +101,9 @@ class AboutIteration < Neo::Koan
       upcase_lines = file.map { |line| line.strip.upcase }
       assert_equal %w[THIS IS A TEST], upcase_lines
     end
-
     # NOTE: You can create your own collections that work with each,
     # map, select, etc.
   end
-
   # Bonus Question:  In the previous koan, we saw the construct:
   #
   #   File.open(filename) do |file|

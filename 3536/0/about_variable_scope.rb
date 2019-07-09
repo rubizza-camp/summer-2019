@@ -1,10 +1,9 @@
-#rubocop:disable all
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-  class AboutVariableScope < Neo::Koan
-  def bark
-    noise = 'RUFF'
-  end
+class AboutVariableScope < Neo::Koan
+  def bark; end
 
   def test_noise_is_not_available_in_the_current_scope
     assert_raise(___) do
@@ -16,7 +15,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
     assert_equal __, bark
   end
 
-  inaccessible = 'Outside our universe'
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
     assert_equal __, defined? inaccesible
@@ -35,7 +33,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
     end
     assert_equal __, defined? x
   end
@@ -43,19 +40,19 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
   # ------------------------------------------------------
 
   class Mouse
-    @@total = 0
+    @total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(nnn)
+      @name = nnn
       # Instance variables are prefixed with one '@' character.
-      @@total += 1
+      @total += 1
     end
 
     attr_reader :name
 
     def self.count
-      @@total
+      @total
     end
   end
 
@@ -75,36 +72,34 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
   # ------------------------------------------------------
 
-  $anywhere = 'Anywhere'
+  @anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
-    assert_equal __, $anywhere
+    assert_equal __, @anywhere
   end
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
-    $anywhere = 'Here'
-    assert_equal __, $anywhere
+    @anywhere = 'Here'
+    assert_equal __, @anywhere
   end
 
   def test_global_variables_retain_value_from_last_change
     # What is $anywhere?
-    assert_equal __, $anywhere
+    assert_equal __, @anywhere
   end
 
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do
-      $anywhere = 'Hey'
+      @anywhere = 'Hey'
     end
 
-    assert_equal __, $anywhere
+    assert_equal __, @anywhere
   end
 end
-
 # THINK ABOUT IT:
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
-#rubocop:enable all

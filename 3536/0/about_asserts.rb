@@ -1,5 +1,4 @@
-# rubocop:disable Lint/UnneededCopDisableDirective, Lint/ScriptPermission
-# !/usr/bin/env ruby
+#!/usr/bin/env ruby
 # -*- ruby -*-
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -19,10 +18,10 @@ class AboutAsserts < Neo::Koan
   # To understand reality, we must compare our expectations against
   # reality.
   def test_assert_equality
-    expected_value = __
+    expected_value = 2
     actual_value = 1 + 1
 
-    assert expected_value != actual_value
+    assert expected_value == actual_value
   end
 
   # Some ways of asserting equality are better than others.
@@ -38,4 +37,3 @@ class AboutAsserts < Neo::Koan
     assert_equal 2, 1 + 1
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective, Lint/ScriptPermission

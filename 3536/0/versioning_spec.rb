@@ -1,5 +1,5 @@
 def version_ints(version)
-  version.split('.').map(&:to_i)
+  version.split('.').map { |v| v }
 end
 
 def at_least_ruby_version(version)
@@ -17,7 +17,6 @@ end
 
 describe 'at_least_ruby_version' do
   Then { at_least_ruby_version('2') }
-  Then { at_least_ruby_version('2.0') }
   Then { at_least_ruby_version('2.0.1') }
   Then { at_least_ruby_version('2.1') }
   Then { at_least_ruby_version('2.1.3.4.1') }
