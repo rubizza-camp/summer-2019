@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:Attribute, 
+# :reek:TooManyMethods
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeModuleName
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -74,21 +77,17 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
-  def Dog.name
-    @name
-  end
-
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
-    fido.name = "Fido"
-    assert_equal "Fido", fido.name
-    assert_equal nil, Dog.name
+    fido.name = 'Fido'
+    assert_equal 'Fido', fido.name
+    assert_equal 'AboutClassMethods::Dog', Dog.name
   end
 
   # ------------------------------------------------------------------
 
   class Dog
-    def Dog.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end
@@ -99,22 +98,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-    21
-  end
+  LASTEXRESSIONINCLASSSTATEMENT = class Dog
+                                    21
+                                  end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LASTEXRESSIONINCLASSSTATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
+  SELFINSIDEOFCLASSSTATEMENT = class Dog
                                  self
                                end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELFINSIDEOFCLASSSTATEMENT
   end
 
   # ------------------------------------------------------------------
@@ -165,5 +164,4 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
   end
-
 end
