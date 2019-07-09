@@ -10,20 +10,20 @@ class AboutVariableScope < Neo::Koan
 
   def test_noise_is_not_available_in_the_current_scope
 
-    assert_raise(___) do
+    assert_raise(NameError) do
       noise
     end
 
   end
 
   def test_we_can_get_noise_by_calling_method
-    assert_equal __, bark
+    assert_equal 'RUFF', bark
   end
 
   inaccessible = 'Outside our universe'
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
-    assert_equal __, defined? inaccesible
+    assert_equal nil, defined? inaccesible
   end
 
   # ------------------------------------------------------
@@ -34,14 +34,14 @@ class AboutVariableScope < Neo::Koan
       test = 'Hey'
     end
 
-    assert_equal __, test
+    assert_equal 'Hey', test
   end
 
   def test_block_variables_cannot_be_accessed_outside_scope
     (1..2).each do
       x = 0
     end
-    assert_equal __, defined? x
+    assert_equal nil, defined? x
   end
 
   # ------------------------------------------------------
@@ -67,13 +67,13 @@ class AboutVariableScope < Neo::Koan
 
   def test_instance_variable
     oscar = Mouse.new('Oscar')
-    assert_equal __, oscar.name
+    assert_equal 'Oscar', oscar.name
   end
 
   def test_class_variable
     (1..9).each { |i| Mouse.new('#{i}') }
     # Things may appear easier than they actually are.
-    assert_equal __, Mouse.count
+    assert_equal 10, Mouse.count
   end
 
   # Meditate on the following:
@@ -85,18 +85,18 @@ class AboutVariableScope < Neo::Koan
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
-    assert_equal __, $anywhere
+    assert_equal 'Anywhere', $anywhere
   end
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
     $anywhere = 'Here'
-    assert_equal __, $anywhere
+    assert_equal 'Here', $anywhere
   end
 
   def test_global_variables_retain_value_from_last_change
     # What is $anywhere?
-    assert_equal __, $anywhere
+    assert_equal 'Here', $anywhere
   end
 
   def test_global_variables_can_be_changed_from_any_scope_2
@@ -105,7 +105,7 @@ class AboutVariableScope < Neo::Koan
       $anywhere = 'Hey'
     end
 
-    assert_equal __, $anywhere
+    assert_equal 'Hey', $anywhere
   end
 end
 
