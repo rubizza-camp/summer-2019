@@ -20,18 +20,20 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_if_statements_return_values
-    value = if true
-              :true_value
-            else
-              :false_value
-            end
+    value =
+      if true
+        :true_value
+      else
+        :false_value
+      end
     assert_equal :true_value, value
 
-    value = if false
-              :true_value
-            else
-              :false_value
-            end
+    value =
+      if false
+        :true_value
+      else
+        :false_value
+      end
     assert_equal :false_value, value
 
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
@@ -84,7 +86,7 @@ class AboutControlStatements < Neo::Koan
     i = 1
     result = 1
     while i <= 10
-      result = result * i
+      result *= i
       i += 1
     end
     assert_equal 3_628_800, result
@@ -93,9 +95,9 @@ class AboutControlStatements < Neo::Koan
   def test_break_statement
     i = 1
     result = 1
-    while true
-      break unless i <= 10
-      result = result * i
+    while i <= 10
+
+      result *= i
       i += 1
     end
     assert_equal 3_628_800, result
@@ -103,10 +105,12 @@ class AboutControlStatements < Neo::Koan
 
   def test_break_statement_returns_values
     i = 1
-    result = while i <= 10
-    break i if (i % 2).zero?
-      i += 1
-    end
+    result =
+      while i <= 10
+        break i if (i % 2).zero?
+
+        i += 1
+      end
     assert_equal 2, result
   end
 

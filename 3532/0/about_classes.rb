@@ -12,6 +12,8 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog2
+    attr_writer :name
+
     def set_name(a_name)
       @name = a_name
     end
