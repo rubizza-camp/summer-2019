@@ -1,11 +1,10 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Style/ClassVars
-# rubocop:disable Style/GlobalVars
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
+  # rubocop:disable UselessAssignment
+
   def bark
     noise = 'RUFF'
-    noise
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -37,39 +36,41 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0 # rubocop:disable Lint/UselessAssignment
+      val_x = 0
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? val_x
   end
+  # rubocop:enable UselessAssignment
 
   # ------------------------------------------------------
+  # rubocop:disable Style/ClassVars
+  # :reek:ClassVariable
 
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(num)
-      @name = num
+    def initialize(val_n)
+      @name = val_n
       # Instance variables are prefixed with one '@' character.
       @@total += 1
     end
 
-    def nname
-      @name
-    end
+    attr_reader :name
 
     def self.count
       @@total
     end
   end
+  # rubocop:enable Style/ClassVars
 
   def test_instance_variable
     oscar = Mouse.new('Oscar')
-    assert_equal 'Oscar', oscar.nname
+    assert_equal 'Oscar', oscar.name
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |iteration| Mouse.new(iteration.to_s) }
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
@@ -78,6 +79,7 @@ class AboutVariableScope < Neo::Koan
   # What is the difference between a class variable and instance variable?
 
   # ------------------------------------------------------
+  # rubocop:disable Style/GlobalVars
 
   $anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
@@ -97,13 +99,14 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
+  def test_global_variables_can_be_changed_from_any_scope_two
     # From within a block
     2.times do
       $anywhere = 'Hey'
     end
 
     assert_equal 'Hey', $anywhere
+    # rubocop:enable Style/GlobalVars
   end
 end
 

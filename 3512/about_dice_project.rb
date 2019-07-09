@@ -1,16 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Implement a DiceSet Class here:
-#
-# class DiceSet
-#   code ...
-# end
-
 class DiceSet
-  attr_accessor :values
-
+  attr_reader :values
   def roll(number)
-    @values = (1..number).to_a.shuffle
+    @values = Array.new(number) { rand(1..6) }
   end
 end
 
@@ -19,8 +12,10 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
     assert_not_nil dice
   end
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
 
-  def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+  def test_rolling_the_dice_returns_a_set_of_integers_between_one_and_six
     dice = DiceSet.new
 
     dice.roll(5)
@@ -30,6 +25,7 @@ class AboutDiceProject < Neo::Koan
       assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
     end
   end
+  # :reek:FeatureEnvy
 
   def test_dice_values_do_not_change_unless_explicitly_rolled
     dice = DiceSet.new
@@ -38,6 +34,8 @@ class AboutDiceProject < Neo::Koan
     second_time = dice.values
     assert_equal first_time, second_time
   end
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
 
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
@@ -48,15 +46,14 @@ class AboutDiceProject < Neo::Koan
     dice.roll(5)
     second_time = dice.values
 
-    assert_not_equal first_time, second_time,
-                     'Two rolls should not be equal'
-
+    assert_not_equal first_time, second_time, 'Two rolls should not be equal'
     # THINK ABOUT IT:
     #
     # If the rolls are random, then it is possible (although not
     # likely) that two consecutive rolls are equal.  What would be a
     # better way to test this?
   end
+  # :reek:FeatureEnvy
 
   def test_you_can_roll_different_numbers_of_dice
     dice = DiceSet.new

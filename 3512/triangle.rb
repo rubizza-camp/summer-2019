@@ -13,15 +13,24 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(var_a, var_b, var_c)
-  side = [var_a, var_b, var_c].sort
+# :reek:FeatureEnvy
 
-  raise TriangleError, 'No negative' if side.any? { |s| s <= 0 }
-  raise TriangleError, 'Triangle fails' unless (side[0] + side[1]) > side[2]
+def test_error(val_a, val_b, val_c)
+  raise TriangleError if val_a <= 0 || val_b <= 0 || val_c <= 0
+  sum = (val_a + val_b + val_c) / 2.0
+  raise TriangleError if ((sum - val_a) * (sum - val_b) * (sum - val_c)) <= 0
+end
+# :reek:FeatureEnvy
 
-  uniqueside = side.uniq.length
-  types = [nil, :equilateral, :isosceles, :scalene]
-  types[uniqueside]
+def triangle(val_a, val_b, val_c)
+  test_error(val_a, val_b, val_c)
+  if val_a == val_b && val_a == val_c
+    :equilateral
+  elsif val_a == val_b || val_a == val_c || val_b == val_c
+    :isosceles
+  else
+    :scalene
+  end
 end
 
 # Error class used in part 2.  No need to change this code.

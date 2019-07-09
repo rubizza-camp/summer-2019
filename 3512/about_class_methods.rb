@@ -1,6 +1,5 @@
-# rubocop:disable Lint/MissingCopEnableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -20,11 +19,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 45
+    assert !fido.methods.empty?
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 86
+    assert !Dog.methods.empty?
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -49,35 +48,37 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Dog2
+  class DogTwo
     def wag
       :instance_level_wag
     end
   end
 
-  def Dog2.wag
+  def DogTwo.wag
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-    assert_equal :class_level_wag, Dog2.wag
+    assert_equal :class_level_wag, DogTwo.wag
   end
 
   def test_class_methods_are_independent_of_instance_methods
-    fido = Dog2.new
+    fido = DogTwo.new
     assert_equal :instance_level_wag, fido.wag
-    assert_equal :class_level_wag, Dog2.wag
+    assert_equal :class_level_wag, DogTwo.wag
   end
 
   # ------------------------------------------------------------------
 
   class Dog
+    # :reek:Attribute
     attr_accessor :name
   end
-
+  # rubocop:disable Style/TrivialAccessors
   def Dog.name
-    attr_accessor :name
+    @name
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
@@ -99,35 +100,35 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
-                                         21
-                                       end
-
+  # rubocop:disable Naming/ConstantName
+  LastExpressionInClassStatement = class Dog
+                                     21
+                                   end
+  # rubocop:enable Naming/ConstantName
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
+    assert_equal 21, LastExpressionInClassStatement
   end
 
   # ------------------------------------------------------------------
-
-  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
-                                     self
-                                   end
-
+  # rubocop:disable Naming/ConstantName
+  SelfInsideOfClassStatement = class Dog
+                                 self
+                               end
+  # rubocop:enable Naming/ConstantName
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
+    assert_equal true, Dog == SelfInsideOfClassStatement
   end
 
   # ------------------------------------------------------------------
 
   class Dog
-    def self.class_method2
+    def self.class_method_two
       :another_way_to_write_class_methods
     end
   end
 
   def test_you_can_use_self_instead_of_an_explicit_reference_to_dog
-    assert_equal :another_way_to_write_class_methods, Dog.class_method2
+    assert_equal :another_way_to_write_class_methods, Dog.class_method_two
   end
 
   # ------------------------------------------------------------------
@@ -161,6 +162,7 @@ class AboutClassMethods < Neo::Koan
   # Are there times you might prefer one over the other?
 
   # ------------------------------------------------------------------
+
   def test_heres_an_easy_way_to_call_class_methods_from_instance_methods
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
