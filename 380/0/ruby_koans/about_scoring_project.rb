@@ -29,7 +29,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength, Style/Next
 def score(dice)
   score = 0
   dice.each do |points|

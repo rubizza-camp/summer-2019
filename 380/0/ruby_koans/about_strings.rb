@@ -76,6 +76,7 @@ It was the worst of times.
     assert_equal 'Hello, World', hi
   end
 
+  # rubocop:disable Lint/UselessAssignment
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
     hi = original_string

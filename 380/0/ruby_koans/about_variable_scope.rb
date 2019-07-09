@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UselessAssignment
 class AboutVariableScope < Neo::Koan
   def bark
     noise = 'RUFF'
@@ -75,11 +76,6 @@ class AboutVariableScope < Neo::Koan
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
-
-  # Meditate on the following:
-  # What is the difference between a class variable and instance variable?
-
-  # ------------------------------------------------------
 
   # rubocop:disable Style/GlobalVars
   $anywhere = 'Anywhere'
