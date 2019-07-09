@@ -1,5 +1,5 @@
 # rubocop:disable Style/GuardClause
-# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 # Triangle Project Code.
 
@@ -32,4 +32,4 @@ end
 class TriangleError < StandardError
 end
 # rubocop:enable Style/GuardClause
-# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

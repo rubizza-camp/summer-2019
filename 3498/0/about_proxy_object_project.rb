@@ -1,5 +1,4 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -31,7 +30,7 @@ class Proxy
     @messages.count method_name
   end
 
-  def method_missing(method_name, *args, &block)
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
@@ -171,4 +170,3 @@ class TelevisionTest < Neo::Koan
 end
 
 # rubocop:enable Lint/UnneededCopDisableDirective
-# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
