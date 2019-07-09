@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 # rubocop:disable Metrics/ClassLength
+# :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -14,27 +14,29 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
-    assert_equal string, string
+    assert_equal 'He said, "Go Away."', string
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
-    assert_equal string, string
+    assert_equal "Don't", string
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    val_a = "He said, \"Don't\""
+    val_b = 'He said, "Don\'t"'
+    assert_equal true, val_a == val_b
   end
+  # rubocop:disable Style/PercentLiteralDelimiters
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    val_a = %(flexible quotes can handle both ' and " characters)
+    val_b = %!flexible quotes can handle both ' and " characters!
+    val_c = %{flexible quotes can handle both ' and " characters}
+    assert_equal true, val_a == val_b
+    assert_equal true, val_a == val_c
   end
+  # rubocop:enable Style/PercentLiteralDelimiters
 
   def test_flexible_quotes_can_handle_multiple_lines
     long_string = %(
@@ -45,26 +47,29 @@ It was the worst of times.
     assert_equal 3, long_string.lines.count
     assert_equal "\n", long_string[0, 1]
   end
+  # rubocop:disable Layout/IndentHeredoc
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = %(
+    long_string = <<SQL
 It was the best of times,
 It was the worst of times.
-)
-    assert_equal 54, long_string.length
-    assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0, 1]
+SQL
+    assert_equal 53, long_string.length
+    assert_equal 2, long_string.lines.count
+    assert_equal 'I', long_string[0, 1]
   end
+  # rubocop:enable Layout/IndentHeredoc
 
   def test_plus_will_concatenate_two_strings
-    string = 'Hello,' + 'World'
-    assert_equal 'Hello,World', string
+    string = 'Hello, ' + 'World'
+    assert_equal 'Hello, World', string
   end
+  # rubocop:disable Lint/UselessAssignment
 
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    # string = hi + there
+    string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -78,9 +83,12 @@ It was the worst of times.
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
-
+    hi = original_string
+    there = 'World'
+    hi += there
     assert_equal 'Hello, ', original_string
   end
+  # rubocop:enable Lint/UselessAssignment
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
@@ -124,12 +132,14 @@ It was the worst of times.
     string = "The value is #{value}"
     assert_equal 'The value is 123', string
   end
+  # rubocop:disable Lint/UselessAssignment
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = "The value is #{value}"
-    assert_equal 'The value is 123', string
+    string = "The value is \#{value}"
+    assert_equal "The value is \#{value}", string
   end
+  # rubocop:enable Lint/UselessAssignment
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
@@ -148,21 +158,26 @@ It was the worst of times.
 
     # Surprised?
   end
+  # rubocop:disable Style/CharacterLiteral)
+  # rubocop:disable Style/YodaCondition
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal false, a == 97
+      assert_equal 97, ?a
+      assert_equal true, ?a == 97
 
-      assert_equal false, b == (a + 1)
+      assert_equal true, ?b == (?a + 1)
     end
   end
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal 'a', 'a'
-      assert_equal false, 'a' == 97
+      assert_equal 'a', ?a
+      assert_equal false, ?a == 97
     end
   end
+  # rubocop:enable Style/YodaCondition
+  # rubocop:enable Style/CharacterLiteral)
 
   def test_strings_can_be_split
     string = 'Sausage Egg Cheese'
@@ -186,11 +201,11 @@ It was the worst of times.
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    val_a = 'a string'
+    val_b = 'a string'
 
-    assert_equal true, a == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, val_a           == val_b
+    assert_equal false, val_a.object_id == val_b.object_id
   end
 end
 # rubocop:enable Metrics/ClassLength

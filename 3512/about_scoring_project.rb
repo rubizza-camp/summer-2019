@@ -28,31 +28,30 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
-def validation(dice)
-  dice.empty?
-end
-
-def check_the_number_of_items(dice)
-  dice.each_with_object(Hash.new(0)) { |e, hash| hash[e] += 1; }
-end
-
-def scoring(hash)
-  answer = 0
-  default_value_three_element = { 1 => 1000 }
-  default_value_one_element = { 1 => 100, 5 => 50 }
-  hash.each do |key, value|
-    answer += value / 3 * default_value_three_element.fetch(key, key * 100)
-    answer += value % 3 * default_value_one_element.fetch(key, 0)
-  end
-  answer
-end
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
 
 def score(dice)
-  return 0 if validation(dice)
+  sum = 0
+  return 0 if dice.empty?
 
-  hash = check_the_number_of_items(dice)
-  scoring(hash)
+  sum += for_one(dice)
+  sum += dice.count(5) >= 3 ? 500 + (dice.count(5) - 3) * 50 : dice.count(5) * 50
+  sum += other(dice)
+  sum
+end
+# :reek:UtilityFunction
+
+def for_one(dice)
+  sum = dice.count(1) >= 3 ? 1000 + (dice.count(1) - 3) * 100 : dice.count(1) * 100
+  sum
+end
+# :reek:UtilityFunction
+
+def other(dice)
+  sum = 0
+  [2, 3, 4, 6].each { |iteration| dice.count(iteration) >= 3 ? sum += iteration * 100 : 0 }
+  sum
 end
 
 class AboutScoringProject < Neo::Koan
@@ -60,11 +59,11 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([])
   end
 
-  def test_score_of_a_single_roll_of_5_is_50
+  def test_score_of_a_single_roll_of_5_is_50t
     assert_equal 50, score([5])
   end
 
-  def test_score_of_a_single_roll_of_1_is_100
+  def test_score_of_a_single_roll_of_1_is_100t
     assert_equal 100, score([1])
   end
 
@@ -76,7 +75,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
-  def test_score_of_a_triple_1_is_1000
+  def test_score_of_a_triple_1_is_1000t
     assert_equal 1000, score([1, 1, 1])
   end
 
