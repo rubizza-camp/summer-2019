@@ -19,16 +19,16 @@
 # and
 #   about_triangle_project_2.rb
 #
-# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-def triangle(side_a, side_b, side_c)
-  raise TriangleError if (side_a <= 0) || (side_b <= 0) || (side_c <= 0)
-  raise TriangleError if (side_a + side_b <= side_c) || (side_b + side_c <= side_a) || (side_a + side_c <= side_b)
-  return :equilateral if (side_a == side_b) && (side_a == side_c) && (side_b == side_c)
-  return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_a == side_c)
+
+def triangle(a, b, c)
+  raise TriangleError if (a <= 0) || (b <= 0) || (c <= 0)
+  raise TriangleError if (a + b <= c) || (b + c <= a) || (a + c <= b)
+  return :equilateral if (a == b) && (a == c) && (b == c)
+  return :isosceles if (a == b) || (b == c) || (a == c)
 
   :scalene
 end
-# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
