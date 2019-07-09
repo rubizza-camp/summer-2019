@@ -40,9 +40,9 @@ def score(dice)
 end
 
 def process_points(points)
-  @points += @count[1] * 100
-  @points += @count[5] * 50
-  @points
+  points += @count[1] * 100
+  points += @count[5] * 50
+  points
 end
 
 def process_count_by_statement(key, value)
