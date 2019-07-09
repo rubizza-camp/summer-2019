@@ -14,11 +14,13 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
     assert_not_nil dice
   end
-
+  # rubocop:disable all
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+ # rubocop:enable all
     dice = DiceSet.new
-
+    # rubocop:disable all
     dice.roll(5)
+    # rubocop:enable all
     assert dice.values.is_a?(Array), "should be an array"
     assert_equal 5, dice.values.size
     dice.values.each do |value|
