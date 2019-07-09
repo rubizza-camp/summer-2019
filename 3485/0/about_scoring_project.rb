@@ -21,8 +21,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 #
 # Examples:
-# rubocop:disable Lint/MissingCopEnableDirective
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment
 # score([1,1,1,5,1]) => 1150 points
 # score([2,3,4,6,2]) => 0 points
 # score([3,4,5,3,3]) => 350 points
@@ -33,19 +32,15 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  score = 0
-
-  1.upto(6).inject do |key|
-    # found on wiki count seems like the best way
+  1.upto(6).inject(0) do |score, key|
     results = dice.count(key)
     if results >= 3
       score += key == 1 ? 1000 : key * 100
       results -= 3
     end
-    score += 100 * results if key == 1
-    score += 50 * results if key == 5
+    score = 100 * results if key == 1
+    score = 50 * results if key == 5
   end
-  score
 end
 
 # class
