@@ -39,6 +39,7 @@ class AboutObjects < Neo::Koan
     # THINK ABOUT IT:
     # What pattern do the object IDs for small integers follow?
   end
+  # :reek:FeatureEnvy
 
   def test_clone_creates_a_different_object
     obj = Object.new

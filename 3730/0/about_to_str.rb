@@ -40,6 +40,8 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
+  # :reek:ManualDispatch
 
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)

@@ -30,6 +30,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 # rubocop:disable Metrics/MethodLength
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
+
 def score(dice)
   total_score = 0
 

@@ -75,6 +75,7 @@ class AboutHashes < Neo::Koan
     expected = { 'jim' => 54, 'amy' => 20, 'dan' => 23, 'jenny' => 26 }
     assert_equal true, expected == new_hash
   end
+  # :reek:TooManyStatements
 
   def test_default_value
     hash1 = {}
@@ -91,6 +92,8 @@ class AboutHashes < Neo::Koan
   end
 
   # rubocop:disable Metrics/AbcSize
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
 
   def test_default_value_is_the_same_object
     hash = Hash.new([])
@@ -107,6 +110,8 @@ class AboutHashes < Neo::Koan
 
   # rubocop:enable Metrics/AbcSize
   # rubocop:disable Lint/ShadowingOuterLocalVariable
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
 
   def test_default_value_with_block
     hash = Hash.new { |hash, key| hash[key] = [] }

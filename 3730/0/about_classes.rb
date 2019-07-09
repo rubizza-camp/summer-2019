@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyMethods
+# :reek:InstanceVariableAssumption
 # rubocop:disable Style/EvalWithLocation
 class AboutClasses < Neo::Koan
   class Dog
@@ -17,6 +18,7 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
   end
+  # :reek:FeatureEnvy
 
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
@@ -25,6 +27,7 @@ class AboutClasses < Neo::Koan
     fido.give_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
+  # :reek:TooManyStatements
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
@@ -39,6 +42,7 @@ class AboutClasses < Neo::Koan
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
+  # :reek:FeatureEnvy
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
@@ -65,6 +69,7 @@ class AboutClasses < Neo::Koan
 
     attr_reader :name
   end
+  # :reek:FeatureEnvy
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
@@ -82,6 +87,7 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
   end
+  # :reek:FeatureEnvy
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
@@ -93,8 +99,10 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog5
+    # :reek:Attribute
     attr_accessor :name
   end
+  # :reek:FeatureEnvy
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new

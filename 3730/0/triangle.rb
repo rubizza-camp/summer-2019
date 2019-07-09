@@ -15,6 +15,8 @@
 #
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity, Style/GuardClause
+# :reek:FeatureEnvy
+
 def triangle(first, second, third)
   # WRITE THIS CODE
   first, second, third = [first, second, third].sort

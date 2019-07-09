@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:RepeatedConditionalClear
+# :reek:NilCheck
 
 class AboutSandwichCode < Neo::Koan
+  # :reek:UtilityFunction
   def count_lines(file_name)
     file = open(file_name)
     count = 0
@@ -15,6 +18,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
 
   def find_line(file_name)
     file = open(file_name)
@@ -50,6 +54,7 @@ class AboutSandwichCode < Neo::Koan
   #
   # Consider the following code:
   #
+  # :reek:UtilityFunction
 
   def file_sandwich(file_name)
     file = open(file_name)
@@ -88,6 +93,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
 
   def count_lines3(file_name)
     open(file_name) do |file|

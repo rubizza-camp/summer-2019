@@ -10,8 +10,9 @@ class AboutExceptions < Neo::Koan
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
-
+  # :reek:TooManyStatements
   # rubocop:disable Metrics/MethodLength
+
   def test_rescue_clause
     result = nil
     begin
@@ -29,6 +30,7 @@ class AboutExceptions < Neo::Koan
     assert_equal 'Oops', e.message
   end
   # rubocop:enable Metrics/MethodLength
+  # :reek:TooManyStatements
 
   def test_raising_a_particular_error
     result = nil
