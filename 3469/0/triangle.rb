@@ -14,7 +14,7 @@
 #   about_triangle_project_2.rb
 #
 def check_variable(tr_a, tr_b, tr_c)
-   tr_a * tr_b * tr_c <= 0 || tr_a + tr_b <= tr_c || tr_a + tr_c <= tr_b || tr_c + tr_b <= tr_a
+  tr_a * tr_b * tr_c <= 0 || tr_a + tr_b <= tr_c || tr_a + tr_c <= tr_b || tr_c + tr_b <= tr_a
 end
 
 def triangle_analyzes(tr_a, tr_b, tr_c)
