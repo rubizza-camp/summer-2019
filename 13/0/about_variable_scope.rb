@@ -101,7 +101,6 @@ class AboutVariableScope < Neo::Koan
     assert_equal __, $anywhere
   end
 end
-
 # THINK ABOUT IT:
 #
 # What will $anywhere be down here, outside of the scope of the
