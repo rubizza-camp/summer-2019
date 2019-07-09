@@ -124,12 +124,8 @@ class AboutStrings < Neo::Koan
   end
 
   def test_single_quoted_strings_do_not_interpolate
-<<<<<<< HEAD
-=======
-    value = 123
->>>>>>> 75f7bdd5d5b4ea92ecaa4f20d701082eaa417dc0
     string = "The value is #{value}"
-    assert_equal "The value is \#{value}", string
+    assert_equal "The value is #{value}", string
   end
 
   def test_any_ruby_expression_may_be_interpolated

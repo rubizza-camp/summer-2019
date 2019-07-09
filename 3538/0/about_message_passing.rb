@@ -146,6 +146,10 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
+  def respond_to_missing?(method_name)
+    super
+  end
+
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
