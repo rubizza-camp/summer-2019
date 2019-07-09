@@ -32,7 +32,7 @@ class AboutExceptions < Neo::Koan
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
-    assert_equal 'Oops', ex.message
+    assert_equal 'Oops', e.message
   end
   # rubocop:enable Metrics/MethodLength
   # :reek:UncommunicativeVariableName

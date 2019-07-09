@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Style/SymbolProc
 # :reek:ManualDispatch
 
 class AboutSymbols < Neo::Koan
@@ -27,19 +26,14 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_method_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map { |var| var.to_s }
+    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
-
-  # THINK ABOUT IT:
-  #
-  # Why do we convert the list of symbols to strings and then compare
-  # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
     RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map { |var| var.to_s }
+      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
       assert_equal true, all_symbols_as_strings.include?('RUBY_CONSTANT')
     end
@@ -97,7 +91,6 @@ class AboutSymbols < Neo::Koan
     assert_equal :catsdogs, ('cats' + 'dogs').to_sym
   end
 
-  # rubocop:enable Style/SymbolProc
   # THINK ABOUT IT:
   #
   # Why is it not a good idea to dynamically create a lot of symbols?

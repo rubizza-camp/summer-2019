@@ -32,14 +32,18 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/AbcSize
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:TooManyStatements
-def score(dice)
-  # You need to write this method
 
-  score = 0
-  score += dice.count(1) >= 3 ? (1000 + (dice.count(1) - 3) * 100) : dice.count(1) * 100
-  score += dice.count(5) >= 3 ? (500 + (dice.count(5) - 3) * 50) : dice.count(5) * 50
-  [2, 3, 4, 6].each { |x| dice.count(x) >= 3 ? score += x * 100 : 0 }
-  score
+def score(dice)
+  dice.uniq.map do |side|
+    count = dice.count(side)
+    if side == 1
+      side * 1000 * (count / 3) + (count % 3) * 100
+    elsif side == 5
+      side * 100 * (count / 3) + (count % 3) * 50
+    else
+      side * 100 * (count / 3)
+    end
+  end.sum
 end
 
 # rubocop:enable Metrics/AbcSize
