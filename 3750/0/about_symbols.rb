@@ -1,4 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UncommunicativeVariableName
+# :reek:TooManyStatements
+# :reek:ManualDispatch
 
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
@@ -19,7 +22,7 @@ class AboutSymbols < Neo::Koan
     symbol1 = :a_symbol
     symbol2 = :a_symbol
 
-    assert_equal true, symbol1           == symbol2
+    assert_equal true, symbol1 == symbol2
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
 
@@ -62,9 +65,7 @@ class AboutSymbols < Neo::Koan
   def test_to_s_is_called_on_interpolated_symbols
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
-# rubocop:disable all
     assert_equal 'It is raining %s and dogs.' % symbol, string
-# rubocop:disable all  
   end
 
   def test_symbols_are_not_strings
@@ -73,6 +74,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # :reek:ManualDispatch:
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)
