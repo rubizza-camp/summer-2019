@@ -17,17 +17,17 @@
 #   about_triangle_project_2.rb
 #
 
-def triangle(a, b, c)
+def triangle(a_s, b_s, c_s)
   res = 0
-  raise TriangleError unless [a, b, c].reject(&:positive?).empty?
+  raise TriangleError unless [a_s, b_s, c_s].reject(&:positive?).empty?
 
-  x, y, z = [a, b, c].sort
-  raise TriangleError if x + y <= z
+  x_s, y_s, z_s = [a_s, b_s, c_s].sort
+  raise TriangleError if x_s + y_s <= z_s
 
-  [a, b, c].each do |i|
-    if [a, b, c].select { |num| i == num }.length == 3
+  [a_s, b_s, c_s].each do |sym|
+    if [a_s, b_s, c_s].select { |num| sym == num }.length == 3
       res = :equilateral
-    elsif [a, b, c].select { |num| i == num }.length == 2
+    elsif [a_s, b_s, c_s].select { |num| sym == num }.length == 2
       res = :isosceles
     end
   end
