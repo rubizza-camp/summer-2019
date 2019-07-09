@@ -1,8 +1,9 @@
 # rubocop:disable all
+# This method smells of :reek:UtilityFunction and :reek:UncommunicativeVariableName
 def version_ints(version)
   version.split('.').map { |v| v.to_i }
 end
-
+# This method smells of :reek:UncommunicativeVariableName and :reek:NilCheck
 def at_least_ruby_version(version)
   vints = version_ints(version)
   ruby_vints = version_ints(RUBY_VERSION)

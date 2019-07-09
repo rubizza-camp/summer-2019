@@ -1,6 +1,7 @@
 # rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:UncommunicativeMethodName and :reek:ClassVariable
+# This class smells of :reek:UncommunicativeParameterName and :reek:UncommunicativeVariableName
 class AboutVariableScope < Neo::Koan
 
   def bark

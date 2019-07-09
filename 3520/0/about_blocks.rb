@@ -3,7 +3,7 @@
 # rubocop:disable Style/Lambda
 # rubocop:disable Performance/RedundantBlockCall
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:UncommunicativeVariableName and :reek:UtilityFunction
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield

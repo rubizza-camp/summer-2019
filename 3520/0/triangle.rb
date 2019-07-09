@@ -1,3 +1,4 @@
+
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -13,6 +14,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# This method smells of :reek:FeatureEnvy
 def triangle(side_a, side_b, side_c)
   # WRITE THIS CODE
   side_a, side_b, side_c = [side_a, side_b, side_c].sort

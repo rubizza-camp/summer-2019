@@ -2,11 +2,11 @@
 # rubocop:disable Lint/Void
 # rubocop:disable Style/RedundantSelf
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This method smells of :reek:UtilityFunction
 def my_global_method(val_a, val_b)
   val_a + val_b
 end
-
+# This class smells of :reek:UtilityFunction and :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -36,6 +36,7 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
+  # This method smells of :reek:TooManyStatements
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method

@@ -1,6 +1,6 @@
 # rubocop:disable Style/TrivialAccessors
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -48,7 +48,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This class smells of :reek:UncommunicativeModuleName
   class Dog2
     def wag
       :instance_level_wag
@@ -70,7 +70,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This class smells of :reek:Attribute
   class Dog
     attr_accessor :name
   end
@@ -121,6 +121,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
+    # This method smells of :reek:UncommunicativeMethodName
     def self.class_method2
       :another_way_to_write_class_methods
     end

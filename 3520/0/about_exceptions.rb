@@ -5,7 +5,7 @@
 # rubocop:disable Lint/UselessAssignment
 # rubocop:disable Style/RaiseArgs
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:TooManyStatements and :reek:UncommunicativeMethodName
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end

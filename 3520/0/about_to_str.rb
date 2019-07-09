@@ -40,7 +40,7 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # This method smells of :reek:ManualDispatch and :reek:UtilityFunction
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)
     string.is_a?(String)

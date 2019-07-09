@@ -40,6 +40,7 @@ class AboutMessagePassing < Neo::Koan
     # Cuz some classes define their own 'send' method which has nothing to do with Object#send.
   end
 
+  # This method smells of :reek:ManualDispatch
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
 
@@ -115,6 +116,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
+    # This method smells of :reek:UtilityFunction
     def method_missing(method_name, *args, &block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
@@ -128,6 +130,7 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
+  # This method smells of :reek:ManualDispatch
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
 
@@ -177,6 +180,7 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
+  # This method smells of :reek:ManualDispatch
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
 

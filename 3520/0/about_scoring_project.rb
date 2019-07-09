@@ -30,7 +30,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+# This method smells of :reek:TooManyStatements
 def score(dice)
   # You need to write this method
   @greed_scores ||=
@@ -47,7 +47,7 @@ def score(dice)
   end
   score
 end
-
+# This class smells of :reek:UncommunicativeMethodName
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])

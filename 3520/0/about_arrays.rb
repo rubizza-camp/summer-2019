@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:TooManyStatements
 class AboutArrays < Neo::Koan
   def test_creating_arrays
     empty_array = []

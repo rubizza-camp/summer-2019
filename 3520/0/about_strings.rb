@@ -3,7 +3,7 @@
 # rubocop:disable Style/PercentLiteralDelimiters
 # rubocop:disable Lint/InterpolationCheck
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:TooManyMethods and :reek:UncommunicativeVariableName
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'

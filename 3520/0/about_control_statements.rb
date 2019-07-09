@@ -6,6 +6,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Style/InfiniteLoop
 # rubocop:disable Style/ConditionalAssignment
 # rubocop:disable Metrics/MethodLength
+# This class smells of :reek:FeatureEnvy and :reek:RepeatedConditional
+# This class smells of :reek:TooManyStatements and :reek:UncommunicativeVariableName
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     if true

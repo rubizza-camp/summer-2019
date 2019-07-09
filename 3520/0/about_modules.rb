@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:FeatureEnvy
 class AboutModules < Neo::Koan
   module Nameable
     # rubocop:disable Naming/AccessorMethodName

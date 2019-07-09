@@ -11,15 +11,17 @@ end
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
 
+# :reek:ControlParameter and :reek:FeatureEnvy
 class FillMeInError < StandardError
 end
 
+# :reek:ControlParameter and :reek:UtilityFunction
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
     (version == 'mri' && ! defined?(JRUBY_VERSION))
 end
-
+# :reek:UncommunicativeVariableName
 def in_ruby_version(*versions)
   yield if versions.any? { |v| ruby_version?(v) }
 end
@@ -31,6 +33,7 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
+# :reek:UtilityFunction and :reek:UncommunicativeParameterName
 def __(value="FILL ME IN", value19=:mu)
   if RUBY_VERSION < "1.9"
     value
@@ -40,6 +43,7 @@ def __(value="FILL ME IN", value19=:mu)
 end
 
 # Numeric replacement value.
+# :reek:UtilityFunction and :reek:UncommunicativeParameterName
 def _n_(value=999999, value19=:mu)
   if RUBY_VERSION < "1.9"
     value
@@ -49,6 +53,7 @@ def _n_(value=999999, value19=:mu)
 end
 
 # Error object replacement value.
+# :reek:UtilityFunction and :reek:UncommunicativeParameterName
 def ___(value=FillMeInError, value19=:mu)
   if RUBY_VERSION < "1.9"
     value
@@ -117,6 +122,7 @@ module Neo
       "\e[#{color_value}m"
     end
 
+    # :reek:NilCheck
     def use_colors?
       return false if ENV['NO_COLOR']
       if ENV['ANSI_COLOR'].nil?
@@ -139,6 +145,9 @@ module Neo
     end
   end
 
+  # :reek:DataClump and :reek:ControlParameter
+  # :reek:NilCheck and :reek:FeatureEnvy
+  # :reek:TooManyStatements
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
@@ -197,6 +206,9 @@ module Neo
     end
   end
 
+  # :reek:UncommunicativeVariableName and :reek:TooManyMethods
+  # :reek:TooManyInstanceVariables and :reek:NilCheck
+  # :reek:InstanceVariableAssumption and :reek:TooManyStatements
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -361,6 +373,7 @@ ENDTEXT
       puts
     end
 
+    # :reek:UtilityFunction
     def embolden_first_line_only(text)
       first_line = true
       text.collect { |t|
@@ -373,11 +386,13 @@ ENDTEXT
       }
     end
 
+    # :reek:UtilityFunction
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
       text.collect{|t| "  #{t}"}
     end
 
+    # :reek:UtilityFunction
     def find_interesting_lines(backtrace)
       backtrace.reject { |line|
         line =~ /neo\.rb/
@@ -409,6 +424,8 @@ ENDTEXT
     end
   end
 
+  # :reek:NilCheck and :reek:TooManyInstanceVariables
+  # :reek:TooManyStatements and :reek:UncommunicativeVariableName
   class Koan
     include Assertions
 
@@ -507,6 +524,8 @@ ENDTEXT
     end
   end
 
+  # :reek:ControlParameter and :reek:FeatureEnvy
+  # :reek:NestedIterators and :reek:TooManyStatements
   class ThePath
     def walk
       sensei = Neo::Sensei.new

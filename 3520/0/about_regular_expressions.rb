@@ -1,6 +1,6 @@
 # rubocop:disable Lint/AmbiguousBlockAssociation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# This class smells of :reek:TooManyMethods
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -51,7 +51,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
+    assert_equal %w[cat bat rat], animals.select { |animal| animal[/[cbr]at/] }
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
