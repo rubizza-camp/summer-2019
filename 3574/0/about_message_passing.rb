@@ -1,5 +1,3 @@
-# rubocop: disable Style/MethodMissing
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:IrresponsibleModule:
@@ -114,15 +112,17 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
   # :reek:ManualDispatch
   # :reek:UtilityFunction
+  # rubocop:disable Style/MethodMissing
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
+  # rubocop:enable Style/MethodMissing
 
-  # :reek:UtilityFunction
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
@@ -131,6 +131,7 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
+  # :reek:ManualDispatch
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
 
@@ -142,16 +143,17 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Style/MethodMissing
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
-        super
+        super(method_name, *args, &block)
       end
     end
   end
-  # rubocop: enable Style/MethodMissing
+  # rubocop:enable Style/MethodMissing
 
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
