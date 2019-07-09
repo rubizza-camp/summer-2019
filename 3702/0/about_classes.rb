@@ -121,9 +121,7 @@ class AboutClasses < Neo::Koan
     assert_raise(ArgumentError) do
       Dog6.new
     end
-    # THINK ABOUT IT: в классе Dog6 инициализатор с обязательным аргументом
-    # Методу new аргумент не был пераедан
-    # Why is this so?
+    # THINK ABOUT IT:
   end
 
   def test_different_objects_have_different_instance_variables
