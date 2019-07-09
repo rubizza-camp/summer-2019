@@ -1,3 +1,4 @@
+# rubocop:disable all
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
@@ -533,3 +534,4 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
+# rubocop:enable all
