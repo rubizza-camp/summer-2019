@@ -195,7 +195,7 @@ module Neo
       flunk "Expected nothing to be raised, but exception #{exception.inspect} was raised"
     end
   end
-
+  #:reek:TooManyStatements and :reek:UtilityFunction and :reek:UncommunicativeVariableName
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
