@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction
+
 def my_global_method(a_var, b_var)
   a_var + b_var
 end
@@ -71,7 +72,8 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
@@ -83,7 +85,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:enable Lint/UnreachableCode
   def method_without_explicit_return
     :a_non_return_value
     :return_value
@@ -95,7 +97,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UtilityFunction
-  #
+  # rubocop:enable Lint/Void
   def my_method_in_the_same_class(a_var, b_var)
     a_var * b_var
   end
@@ -154,5 +156,3 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Lint/Void
-# rubocop:enable Lint/UnreachableCode

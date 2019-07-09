@@ -1,8 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 # :reek:InstanceVariableAssumption
-# rubocop:disable Naming/AccessorMethodName
-# rubocop:disable Style/TrivialAccessors
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -13,13 +11,14 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Naming/AccessorMethodName
   class Dog2
     def set_name(a_name)
       @name = a_name
     end
   end
   # :reek:FeatureEnvy
+  # rubocop:enable Naming/AccessorMethodName
 
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
@@ -37,15 +36,16 @@ class AboutClasses < Neo::Koan
     assert_raise(NoMethodError) do
       fido.name
     end
-    # rubocop:disable Style/EvalWithLocation)
+    # rubocop:disable Style/EvalWithLocation
 
     assert_raise(SyntaxError) do
       eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
-
     end
+    # rubocop:enable Style/EvalWithLocation
   end
   # :reek:FeatureEnvy
+
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
     fido.set_name('Fido')
@@ -56,13 +56,14 @@ class AboutClasses < Neo::Koan
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.set_name('Fido')
-
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    # rubocop:disable Style/EvalWithLocation
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal('Fido', fido.instance_eval { @name }) # block version
+    # rubocop:enable Style/EvalWithLocation
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Naming/AccessorMethodName
   class Dog3
     def set_name(a_name)
       @name = a_name
@@ -70,6 +71,7 @@ class AboutClasses < Neo::Koan
 
     attr_reader :name
   end
+  # rubocop:enable Naming/AccessorMethodName
   # :reek:FeatureEnvy
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
@@ -80,7 +82,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Naming/AccessorMethodName
   class Dog4
     attr_reader :name
 
@@ -88,6 +90,7 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
   end
+  # rubocop:enable Naming/AccessorMethodName
   # :reek:FeatureEnvy
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
@@ -148,10 +151,12 @@ class AboutClasses < Neo::Koan
     def initialize(initial_name)
       @name = initial_name
     end
+    # rubocop:disable Naming/AccessorMethodName
 
     def get_self
       self
     end
+    # rubocop:enable Naming/AccessorMethodName
 
     def to_s
       @name
@@ -194,7 +199,3 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
-# rubocop:enable Naming/AccessorMethodName
-# rubocop:enable Style/EvalWithLocation)
-# rubocop:enable Style/TrivialAccessors
-
