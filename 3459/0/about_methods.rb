@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable all
 
-def my_global_method(parameter_a, parameter_b)
-  parameter_a + parameter_b
+def my_global_method(arg, brg)
+  arg + brg
 end
 # class AboutMethods < Neo::Koan
 class AboutMethods < Neo::Koan
@@ -96,8 +96,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(parameter_a, parameter_b)
-    parameter_a * parameter_b
+  def my_method_in_the_same_class(arg, brg)
+    arg * brg
   end
 
   def test_calling_methods_in_same_class

@@ -107,7 +107,7 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_with_block
-    hash = Hash.new { |i, key| i[key] = [] }
+    hash = Hash.new { |hash, key| hash[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

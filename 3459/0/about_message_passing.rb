@@ -118,7 +118,9 @@ class AboutMessagePassing < Neo::Koan
 
   # class AllMessageCather
   class AllMessageCatcher
-    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissing
+    # rubocop:disable Style/MethodMissing
+    def method_missing(method_name, *args)
+      # rubocop:enable Style/MethodMissing
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
