@@ -38,4 +38,3 @@ class AboutNil < Neo::Koan
     # Why?
   end
 end
-# rubocop:enable  all
