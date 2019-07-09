@@ -43,3 +43,18 @@ detectors:
 
   ControlParameter:
     enabled: false
+
+  NestedIterators:
+    enabled: false
+
+  TooManyInstanceVariables:
+    enabled: false
+
+  UnusedParameters:
+    enabled: false
+
+  DataClump:
+    enabled: false
+
+  UncommunicativeParameterName:
+    enabled: false
