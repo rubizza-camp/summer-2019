@@ -28,23 +28,21 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# rubocop:disable Metrics/PerceivedComplexity
-# rubocop:disable Metrics/CyclomaticComplexity
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
 def score(dice)
-  score = 0
-  (1..6).each do |d|
-    count = dice.find_all { |a| a == d }
-    score = (d == 1 ? 1000 : 100) * d if count.size >= 3
-    score += (count.size - 3) * 50 if (count.size >= 4) && d == 5
-    score += (count.size - 3) * 100 if (count.size >= 4) && d == 1
-    score += count.size * 50 if (count.size < 3) && d == 5
-    score += count.size * 100 if (count.size < 3) && d == 1
-  end
-  score
-  # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/AbcSize
+  dice.uniq.map do |die|
+    count = dice.count die
+    if count > 2
+      count -= 3
+      die == 1 ? 1000 : 100 * die
+    else 0
+    end + case die
+          when 1 then count * 100
+          when 5 then count * 50
+          else 0
+          end
+  end.inject(:+) || 0
+  # rubocop:enable Metrics/MethodLength
 end
 
 class AboutScoringProject < Neo::Koan

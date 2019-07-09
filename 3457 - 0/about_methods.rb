@@ -104,10 +104,11 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Lint/UnneededCopDisableDirective
   def my_private_method
     'a secret'
   end
+  # rubocop:enable Lint/UnneededCopDisableDirective
   # rubocop:disable Style/AccessModifierDeclarations
   private :my_private_method
   # rubocop:enable Style/AccessModifierDeclarations

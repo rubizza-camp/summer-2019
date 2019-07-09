@@ -10,6 +10,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
+  # rubocop:disable Metrics/MethodLength
 
   def test_rescue_clause
     result = nil
@@ -28,6 +29,7 @@ class AboutExceptions < Neo::Koan
            'RuntimeError is a subclass of StandardError'
 
     assert_equal 'Oops', e.message
+    # rubocop:enable Metrics/MethodLength
   end
 
   def test_raising_a_particular_error

@@ -247,6 +247,7 @@ module Neo
       @_contents
     end
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
 
     def observe(step)
       if step.passed?
@@ -262,6 +263,7 @@ module Neo
         @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
         throw :neo_exit
       end
+      # rubocop:enable Metrics/MethodLength
       # rubocop:enable Metrics/AbcSize
     end
 
@@ -285,6 +287,7 @@ module Neo
       end
     end
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
 
     def show_progress
       bar_width = 50
@@ -300,6 +303,7 @@ module Neo
       end
       print Color.green(']')
       print " #{pass_count}/#{total_tests}"
+      # rubocop:enable Metrics/MethodLength
       # rubocop:enable Metrics/AbcSize
     end
 
@@ -314,6 +318,7 @@ module Neo
     def boring_end_screen
       puts 'Mountains are again merely mountains'
     end
+    # rubocop:disable Metrics/MethodLength
 
     def artistic_end_screen
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby
@@ -355,6 +360,7 @@ module Neo
                                                           ,,,
       ENDTEXT
       puts completed
+      # rubocop:enable Metrics/MethodLength
     end
     # rubocop:disable Metrics/PerceivedComplexity
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -408,6 +414,7 @@ module Neo
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
     # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
     def a_zenlike_statement
       if !failed?
         zen_statement = 'Mountains are again merely mountains'
@@ -429,6 +436,7 @@ module Neo
       end
       puts Color.green(zen_statement)
       # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/MethodLength
     end
     # rubocop:enable Metrics/ClassLength
   end
@@ -457,6 +465,7 @@ module Neo
     def setup; end
 
     def teardown; end
+    # rubocop:disable Metrics/MethodLength
 
     def meditate
       setup
@@ -472,6 +481,7 @@ module Neo
         end
       end
       self
+      # rubocop:enable Metrics/MethodLength
     end
 
     # Class methods for the Neo test suite.
@@ -487,6 +497,7 @@ module Neo
       def end_of_enlightenment
         @tests_disabled = true
       end
+      # rubocop:disable Metrics/MethodLength
 
       def command_line(args)
         args.each do |arg|
@@ -505,6 +516,7 @@ module Neo
             # rubocop:enable Style/GuardClause
           end
         end
+        # rubocop:enable Metrics/MethodLength
       end
 
       # Lazy initialize list of subclasses

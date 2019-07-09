@@ -6,6 +6,3 @@ Style/Documentation:
 
 Metrics/LineLength:
   Max: 100
-
-Metrics/MethodLength:
-  Max: 60

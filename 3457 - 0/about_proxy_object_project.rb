@@ -14,6 +14,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class Proxy
   attr_reader :messages
+  # rubocop:disable Metrics/MethodLength
 
   def initialize(target_object)
     @object = target_object
@@ -31,6 +32,7 @@ class Proxy
           "''
       # rubocop:enable Security/Eval
     end
+    # rubocop:enable Metrics/MethodLength
   end
 
   def called?(method)
