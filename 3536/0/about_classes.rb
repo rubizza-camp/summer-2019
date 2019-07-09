@@ -35,8 +35,10 @@ class AboutClasses < Neo::Koan
       fido.name
     end
 
-    assert_raise(SyntaxError) do
-      eval 'fido.@name'
+    assert_raise(Exception) do
+      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+      fido.@name
+      RUBY
       # NOTE: Using eval because the above line is a syntax error.
     end
   end

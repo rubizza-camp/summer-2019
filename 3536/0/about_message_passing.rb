@@ -1,5 +1,3 @@
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Style/MethodMissing
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutMessagePassing < Neo::Koan
@@ -26,7 +24,7 @@ class AboutMessagePassing < Neo::Koan
 
     assert mc.send('caught?')
     assert mc.send('caught' + '?') # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase!) # What would you need to do to the string?
+    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
   end
 
   def test_send_with_underscores_will_also_send_messages
@@ -82,7 +80,7 @@ class AboutMessagePassing < Neo::Koan
     exception = assert_raise(NoMethodError) do
       typical.foobar
     end
-    assert_match(/AboutMessagePassing/, exception.message)
+    assert_match(/foobar/, exception.message)
   end
 
   def test_calling_method_missing_causes_the_no_method_error
@@ -146,10 +144,10 @@ class AboutMessagePassing < Neo::Koan
         super(method_name, *args, &block)
       end
     end
-  end
 
-  def respond_to_missing?(method_name)
-    super
+    def respond_to_missing?(method_name, *args)
+      method_name.to_s[0, 3] == 'foo' ? false : super(method_name, *args)
+    end
   end
 
   def test_foo_method_are_caught
@@ -187,5 +185,3 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
-# rubocop:enable Style/MethodMissing

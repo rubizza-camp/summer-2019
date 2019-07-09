@@ -47,6 +47,7 @@ class AboutIteration < Neo::Koan
     sum = 0
     array.each do |item|
       break if item > 3
+
       sum += item
     end
     assert_equal 6, sum
