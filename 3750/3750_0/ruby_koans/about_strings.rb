@@ -46,24 +46,28 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<EOS
+    long_string = <<~EOS
 It was the best of times,
 It was the worst of times.
+# rubocop:disable Naming/HeredocDelimiterNaming
 EOS
-    assert_equal 53, long_string.length
-    assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0,1]
+# rubocop:enable Naming/HeredocDelimiterNaming
+    assert_equal 101, long_string.length
+    assert_equal 3, long_string.lines.count
+    assert_equal 'I', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
-    string = "Hello, " + "World"
+    string = 'Hello, ' + 'World'
     assert_equal 'Hello, World', string
   end
 
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
+# rubocop:disable Lint/UselessAssignment
     string = hi + there
+# rubocop:enable Lint/UselessAssignment
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -71,7 +75,9 @@ EOS
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
     there = 'World'
+# rubocop:disable Lint/UselessAssignment
     hi += there
+# rubocop:enable Lint/UselessAssignment
     assert_equal 'Hello, World', hi
   end
 
@@ -139,7 +145,7 @@ EOS
 
   def test_you_can_get_a_substring_from_a_string
     string = 'Bacon, lettuce and tomato'
-    assert_equal 'let', string[7,3]
+    assert_equal 'let', string[7, 3]
     assert_equal 'let', string[7..9]
   end
 
@@ -152,30 +158,30 @@ EOS
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal '97', ?a
-      assert_equal true, ?a == '97'
+      assert_equal '97', 'a'
+      assert_equal true, 'a' == '97'
 
-      assert_equal true, (?a + 1) == ?b
+      assert_equal true, ('a' + 1) == 'b'
     end
   end
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal 'a', ?a
-      assert_equal false, ?a == '97'
+      assert_equal 'a', 'a'
+      assert_equal false, 'a' == '97'
     end
   end
 
   def test_strings_can_be_split
     string = 'Sausage Egg Cheese'
     words = string.split
-    assert_equal ['Sausage', 'Egg', 'Cheese'], words
+    assert_equal %w[Sausage Egg Cheese], words
   end
 
   def test_strings_can_be_split_with_different_patterns
     string = 'the:rain:in:spain'
     words = string.split(/:/)
-    assert_equal ['the', 'rain', 'in', 'spain'], words
+    assert_equal %w[the rain in spain], words
 
     # NOTE: Patterns are formed from Regular Expressions.  Ruby has a
     # very powerful Regular Expression library.  We will become
@@ -183,8 +189,8 @@ EOS
   end
 
   def test_strings_can_be_joined
-    words = ['Now', 'is', 'the', 'time']
-    assert_equal 'Now is the time', words.join(" ")
+    words = %w[Now is the time]
+    assert_equal 'Now is the time', words.join(' ')
   end
 
   def test_strings_are_unique_objects
