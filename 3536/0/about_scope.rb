@@ -24,6 +24,7 @@ class AboutScope < Neo::Koan
   end
 
   def test_you_can_reference_nested_classes_using_the_scope_operator
+    # :reek:TooManyStatements
     fido = Jims::Dog.new
     rover = Joes::Dog.new
     assert_equal :jims_dog, fido.identify

@@ -6,7 +6,6 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -61,13 +60,13 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement
     result = :default_value
-    result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
+    result = :false_value unless false
     assert_equal :false_value, result
   end
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    result = :true_value unless true # same as saying 'if !true', which evaluates as 'if false'
+    result = :true_value unless true
     assert_equal :default_value, result
   end
 
@@ -112,6 +111,8 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_next_statement
+    # :reek:FeatureEnvy
+    # :reek:TooManyStatements
     i = 0
     result = []
     while i < 10

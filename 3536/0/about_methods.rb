@@ -10,6 +10,7 @@ def my_global_method(first, second)
 end
 
 class AboutMethods < Neo::Koan
+  # :reek:TooManyMethods
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
   end
@@ -37,6 +38,7 @@ class AboutMethods < Neo::Koan
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
   def test_calling_global_methods_with_wrong_number_of_arguments
+    # :reek:TooManyStatements
     exception = assert_raise(ArgumentError) do
       my_global_method
     end
