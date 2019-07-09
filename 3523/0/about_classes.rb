@@ -56,9 +56,7 @@ class AboutClasses < Neo::Koan
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.setname('Fido')
-    # rubocop:disable Style/EvalWithLocation
     assert_equal 'Fido', fido.instance_eval('@name') # string version
-    # rubocop:enable Style/EvalWithLocation
     assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
 
