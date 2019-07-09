@@ -31,6 +31,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 # rubocop:disable Metrics/MethodLength
+# rubocop:disable Style/Next
+
+# :reek:UncommunicativeVariableName and :reek:TooManyStatements and :reek:UtilityFunction
+class Array
+  def delete_first(item)
+    delete_at(index(item))
+  end
+end
 
 # :reek:UncommunicativeVariableName and :reek:TooManyStatements and :reek:UtilityFunction
 def score(dice)
@@ -39,16 +47,14 @@ def score(dice)
   single_value = [nil, 100, 0, 0, 0, 50, 0]
   if dice.length > 2
     (1..6).each do |number|
-      next unless dice.count(number) > 2
+      if dice.count(number) > 2
 
-      total_score += triple_value[number]
-      3.times { dice.delete_at(dice.index(number)) }
-      break
+        total_score += triple_value[number]
+        3.times { dice.delete_first number }
+      end
     end
   end
-  dice.each do |number|
-    total_score += single_value[number]
-  end
+  dice.sum { |number| total_score += single_value[number] }
   total_score
 end
 # rubocop:enable Metrics/MethodLength
@@ -95,3 +101,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
+# rubocop:enable Style/Next
