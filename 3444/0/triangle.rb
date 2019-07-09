@@ -26,7 +26,7 @@ end
 # :reek:UtilityFunction and :reek:FeatureEnvy
 def triangle(a_side, b_side, c_side)
   raise TriangleError unless [a_side, b_side, c_side].all?(&:positive?)
-  raise TriangleError if satisfies_triangle_inequality? a_side, b_side, c_side
+  raise TriangleError if satisfies_triangle_inequality?(a_side, b_side, c_side)
 
   if a_side == b_side && a_side == c_side
     :equilateral
