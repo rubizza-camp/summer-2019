@@ -1,3 +1,4 @@
+# rubocop:disable Naming/AccessorMethodName
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClasses < Neo::Koan
@@ -187,3 +188,4 @@ class AboutClasses < Neo::Koan
     assert_equal "\"STRING\"", 'STRING'.inspect
   end
 end
+# rubocop:enable Naming/AccessorMethodName
