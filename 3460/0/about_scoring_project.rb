@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
-# :reek:Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize
 def score(dice)
   dice = dice.sort
   sum = 0
@@ -57,3 +57,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
+# rubocop:enable Metrics/AbcSize
