@@ -15,8 +15,8 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
-  raise TriangleError if (a == 0) || (b == 0) || (c == 0)
-  raise TriangleError if (a < 0) || (b < 0) || (c < 0)
+  raise TriangleError if a.zero? || b.zero? || c.zero?
+  raise TriangleError if a.negative? || b.negative? || c.negative?
   raise TriangleError if ((a + b) < c) || ((a + c) < b) || ((b + c) < a)
   raise TriangleError if ((a + b) == c) || ((a + c) == b) || ((b + c) == a)
 
