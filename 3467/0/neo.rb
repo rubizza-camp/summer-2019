@@ -1,5 +1,3 @@
-# rubocop:disable all
-#!/usr/bin/env ruby
 # -*- ruby -*-
 
 begin
@@ -528,12 +526,13 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       end
 
       def total_tests
-        subclasses.inject(0) { |total, k| total + k.testmethods.size }
+        subclasses.inject(0) { |total, key| total + key.testmethods.size }
       end
     end
   end
 
   class ThePath
+    # rubocop:disable FeatureEnvy
     def walk
       sensei = Neo::Sensei.new
       each_step do |step|
@@ -541,18 +540,23 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       end
       sensei.instruct
     end
-
+    
+    # rubocop:disable TooManyStatements
     def each_step
       catch(:neo_exit) do
         step_count = 0
+        # rubocop:disable NestedIterators
         Neo::Koan.subclasses.each_with_index do |koan, koan_index|
           koan.testmethods.each do |method_name|
             step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
             yield step
           end
         end
+        # rubocop:enable NestedIterators
       end
     end
+    # rubocop:enable TooManyStatements
+    # rubocop:enable FeatureEnvy
   end
 end
 
@@ -560,4 +564,3 @@ at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 end
-# rubocop:enable all
