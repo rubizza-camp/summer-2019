@@ -13,9 +13,9 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
-# rubocop:disable Style/StringLiterals
+    # rubocop:disable all
     assert_equal "He said, \"Go Away.\"", string
-# rubocop:disable Style/StringLiterals
+    # rubocop:enable all
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
@@ -28,7 +28,8 @@ class AboutStrings < Neo::Koan
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
-# rubocop:disable Style/PercentLiteralDelimiters
+
+  # rubocop:disable Style/PercentLiteralDelimiters
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %!flexible quotes can handle both ' and " characters!
@@ -46,17 +47,18 @@ It was the worst of times.
     assert_equal 3, long_string.lines.count
     assert_equal "\n", long_string[0, 1]
   end
-# rubocop:enable Style/PercentLiteralDelimiters
+
+  # rubocop:enable Style/PercentLiteralDelimiters
   def test_here_documents_can_also_handle_multiple_lines
     long_string = <<~EOS
-                    It was the best of times,
-                    It was the worst of times.
-# rubocop:disable Naming/HeredocDelimiterNaming
-EOS
-# rubocop:enable Naming/HeredocDelimiterNaming
-    assert_equal 141, long_string.length
+      It was the best of times,
+      It was the worst of times.
+      # rubocop:disable Naming/HeredocDelimiterNaming
+    EOS
+    # rubocop:enable Naming/HeredocDelimiterNaming
+    assert_equal 101, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal ' ', long_string[0, 1]
+    assert_equal 'I', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -67,9 +69,9 @@ EOS
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-# rubocop:disable Lint/UselessAssignment
+    # rubocop:disable Lint/UselessAssignment
     string = hi + there
-# rubocop:enable Lint/UselessAssignment
+    # rubocop:enable Lint/UselessAssignment
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -77,9 +79,9 @@ EOS
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
     there = 'World'
-# rubocop:disable Lint/UselessAssignment
+    # rubocop:disable Lint/UselessAssignment
     hi += there
-# rubocop:enable Lint/UselessAssignment
+    # rubocop:enable Lint/UselessAssignment
     assert_equal 'Hello, World', hi
   end
 
