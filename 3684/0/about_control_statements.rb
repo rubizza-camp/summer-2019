@@ -142,5 +142,4 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
-
 # rubocop:enable Lint/LiteralAsCondition
