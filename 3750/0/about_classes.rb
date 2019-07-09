@@ -1,5 +1,15 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
+# rubocop:disable Lint/AmbiguousBlockAssociation)
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyMethods
+# :reek:TooManyStatements
+# :reek:UncommunicativeModuleName
+# :reek:InstanceVariableAssumption
+# :reek:TooManyMethods
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -82,34 +92,28 @@ class AboutClasses < Neo::Koan
     end
   end
 
-
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
     fido.set_name('Fido')
-
     assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable all
+
   class Dog5
-  # rubocop:enable all
     attr_accessor :name
   end
 
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
-    # rubocop:disable all
     fido.name = 'Fido'
-    # rubocop:enable all
     assert_equal 'Fido', fido.name
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable all
+
   class Dog6
-  # rubocop:enable all
     attr_reader :name
     def initialize(initial_name)
       @name = initial_name
@@ -137,9 +141,8 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable all
+
   class Dog7
-    # rubocop:enable all
     attr_reader :name
 
     def initialize(initial_name)
