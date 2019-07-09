@@ -1,6 +1,6 @@
-# frozen_string_literal: false
-
 # rubocop:disable all
+
+# frozen_string_literal: false
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
