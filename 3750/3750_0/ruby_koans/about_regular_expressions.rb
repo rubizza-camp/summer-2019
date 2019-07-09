@@ -156,8 +156,8 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_gsub_is_like_find_and_replace_all
-# rubocop:disable Style/PerlBackrefs
+# rubocop:disable all
     assert_equal "one t-t", "one two-three".gsub(/(t\w*)/) { $1[0, 1] }
-# rubocop:enable Style/PerlBackrefs  
+# rubocop:enable all  
   end
 end
