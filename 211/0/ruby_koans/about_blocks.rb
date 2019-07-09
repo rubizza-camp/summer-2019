@@ -12,7 +12,9 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_defined_with_do_end_too
-    yielded_result = method_with_block { 1 + 2 }
+    yielded_result = method_with_block do
+      1 + 2
+    end
     assert_equal 3, yielded_result
   end
 
