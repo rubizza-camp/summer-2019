@@ -15,7 +15,7 @@
 # and
 #   about_triangle_project_2.rb
 # rubocop:disable all
-# :reek:FeatureEnvy
+# reek:FeatureEnvy
 def triangle(side_a, side_b, side_c)
   variable_one = side_a + side_b
   variable_two = side_b + side_c
