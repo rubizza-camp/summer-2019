@@ -2,6 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Class about modules
+# :reek:FeatureEnvy
 class AboutModules < Neo::Koan
   # comment for nameable
   module Nameable
