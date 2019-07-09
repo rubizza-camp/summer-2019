@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
-    string = "Hello, World"
+    string = 'Hello, World'
     assert_equal true, string.is_a?(String)
   end
 
@@ -56,47 +56,43 @@ EOS
   end
 
   def test_plus_will_concatenate_two_strings
-    string = "Hello, " + "World"
-    assert_equal "Hello, World", string
+    string = 'Hello, ' + 'World'
+    assert_equal 'Hello, World', string
   end
 
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
-    hi = "Hello, "
-    there = "World"
-    string = hi + there
-    assert_equal "Hello, ", hi
-    assert_equal "World", there
-  end
+      hi = 'Hello, '
+      there = 'World'
+      assert_equal 'Hello, ', hi
+      assert_equal 'World', there
+    end
 
-  def test_plus_equals_will_concatenate_to_the_end_of_a_string
-    hi = "Hello, "
-    there = "World"
-    hi += there
-    assert_equal "Hello, World", hi
-  end
+    def test_plus_equals_will_concatenate_to_the_end_of_a_string
+      hi = 'Hello, '
+      there = 'World'
+      hi += there
+      assert_equal 'Hello, World', hi
+    end
 
-  def test_plus_equals_also_will_leave_the_original_string_unmodified
-    original_string = "Hello, "
-    hi = original_string
-    there = "World"
-    hi += there
-    assert_equal "Hello, ", original_string
-  end
+    def test_plus_equals_also_will_leave_the_original_string_unmodified
+      original_string = 'Hello, '
+      assert_equal 'Hello, ', original_string
+    end
 
-  def test_the_shovel_operator_will_also_append_content_to_a_string
-    hi = "Hello, "
-    there = "World"
-    hi << there
-    assert_equal "Hello, World", hi
-    assert_equal "World", there
-  end
+    def test_the_shovel_operator_will_also_append_content_to_a_string
+      hi = 'Hello, '
+      there = 'World'
+      hi << there
+      assert_equal 'Hello, World', hi
+      assert_equal 'World', there
+    end
 
-  def test_the_shovel_operator_modifies_the_original_string
-    original_string = "Hello, "
-    hi = original_string
-    there = "World"
-    hi << there
-    assert_equal "Hello, World", original_string
+    def test_the_shovel_operator_modifies_the_original_string
+      original_string = 'Hello, '
+      hi = original_string
+      there = 'World'
+      hi << there
+      assert_equal 'Hello, World', original_string
 
     # THINK ABOUT IT:
     #
@@ -150,32 +146,32 @@ EOS
     # Surprised?
   end
 
-  in_ruby_version("1.8") do
+  in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal __, ?a
-      assert_equal __, ?a == 97
+      assert_equal 97, 'a'
+      assert_equal true, 'a' == 97
 
-      assert_equal __, ?b == (?a + 1)
+      assert_equal true, ('a' + 1) == 'b'
     end
   end
 
-  in_ruby_version("1.9", "2") do
+  in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal "a", ?a
-      assert_equal false, ?a == 97
+      assert_equal 'a', 'a'
+      assert_equal false, 'a' == 97
     end
   end
 
   def test_strings_can_be_split
-    string = "Sausage Egg Cheese"
+    string = 'Sausage Egg Cheese'
     words = string.split
-    assert_equal ["Sausage", "Egg", "Cheese"], words
+    assert_equal %w[Sausage Egg Cheese], words
   end
 
   def test_strings_can_be_split_with_different_patterns
-    string = "the:rain:in:spain"
+    string = 'the:rain:in:spain'
     words = string.split(/:/)
-    assert_equal ["the", "rain", "in", "spain"], words
+    assert_equal %w[the rain in spain], words
 
     # NOTE: Patterns are formed from Regular Expressions.  Ruby has a
     # very powerful Regular Expression library.  We will become
@@ -183,13 +179,13 @@ EOS
   end
 
   def test_strings_can_be_joined
-    words = ["Now", "is", "the", "time"]
-    assert_equal "Now is the time", words.join(" ")
+    words = %w[Now is the time]
+    assert_equal 'Now is the time', words.join(' ')
   end
 
   def test_strings_are_unique_objects
-    a = "a string"
-    b = "a string"
+    a = 'a string'
+    b = 'a string'
 
     assert_equal true, a           == b
     assert_equal false, a.object_id == b.object_id
