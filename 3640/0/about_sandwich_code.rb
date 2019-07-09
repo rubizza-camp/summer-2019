@@ -10,7 +10,7 @@ class AboutSandwichCode < Neo::Koan
     count += 1 while file.gets
     count
   ensure
-    file.close if file
+    file&.close
   end
 
   def test_counting_lines
@@ -25,7 +25,7 @@ class AboutSandwichCode < Neo::Koan
       return line if line =~ /e/
     end
   ensure
-    file.close if file
+    file&.close
   end
 
   def test_finding_lines
@@ -58,7 +58,7 @@ class AboutSandwichCode < Neo::Koan
     file = File.open(file_name)
     yield(file)
   ensure
-    file.close if file
+    file&.close
   end
 
   # Now we write:
