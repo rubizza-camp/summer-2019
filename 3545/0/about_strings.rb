@@ -7,6 +7,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 # :reek:ManualDispatch
 # :reek:UncommunicativeMethodName
+# :reek:UncommunicativeVariableName
 # :reek:UncommunicativeModuleName
 # Class AboutStrings was split into AboutStrings1 and AboutStrings2
 # to avoid rubocop class length offense
