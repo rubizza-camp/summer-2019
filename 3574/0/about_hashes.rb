@@ -1,5 +1,3 @@
-# rubocop: disable Lint/ShadowingOuterLocalVariable, Metrics/AbcSize
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutHashes < Neo::Koan
@@ -25,7 +23,7 @@ class AboutHashes < Neo::Koan
   def test_accessing_hashes_with_fetch
     hash = { one: 'uno' }
     assert_equal 'uno', hash.fetch(:one)
-    assert_raise(Exception) do
+    assert_raise(KeyError) do
       hash.fetch(:doesnt_exist)
     end
 
@@ -41,15 +39,15 @@ class AboutHashes < Neo::Koan
     expected = { one: 'eins', two: 'dos' }
     assert_equal expected, hash
 
-    # Bonus Question: Why was "expected" broken out into a variable
+    # Bonus Question: Why was 'expected' broken out into a variable
     # rather than used as a literal?
   end
 
   def test_hash_is_unordered
-    hash_one = { one: 'uno', two: 'dos' }
-    hash_two = { two: 'dos', one: 'uno' }
+    hash1 = { one: 'uno', two: 'dos' }
+    hash2 = { two: 'dos', one: 'uno' }
 
-    assert_equal true, hash_one == hash_two
+    assert_equal true, hash1 == hash2
   end
 
   def test_hash_keys
@@ -78,28 +76,24 @@ class AboutHashes < Neo::Koan
     assert_equal true, expected == new_hash
   end
 
-  # :reek:TooManyStatements:
   def test_default_value
-    hash_one = {}
-    hash_one[:one] = 1
+    hash1 = {}
+    hash1[:one] = 1
 
-    assert_equal 1, hash_one[:one]
-    assert_equal nil, hash_one[:two]
+    assert_equal 1, hash1[:one]
+    assert_equal nil, hash1[:two]
 
-    hash_two = Hash.new('dos')
-    hash_two[:one] = 1
+    hash2 = Hash.new('dos')
+    hash2[:one] = 1
 
-    assert_equal 1, hash_two[:one]
-    assert_equal 'dos', hash_two[:two]
+    assert_equal 1, hash2[:one]
+    assert_equal 'dos', hash2[:two]
   end
 
-  # :reek:TooManyStatements:
+  # rubocop:disable Metrics/AbcSize
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
-    # rubocop: enable Metrics/AbcSize
-
-    # :reek:FeatureEnvy:
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
@@ -109,13 +103,9 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
-
-  # :reek:TooManyStatements:
+  # rubocop:enable Metrics/AbcSize
   def test_default_value_with_block
-    # :reek:FeatureEnvy:
-    hash = Hash.new { |hash, key| hash[key] = [] }
-
-    # rubocop: enable Lint/ShadowingOuterLocalVariable
+    hash = Hash.new { |haash, key| h[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
