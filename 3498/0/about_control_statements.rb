@@ -21,17 +21,6 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal :true_value, result
   end
 
-  def test_if_statements_return_values
-    value = if true # rubocop:disable Lint/LiteralAsCondition
-              :true_value
-            else
-              :false_value
-            end
-    assert_equal :true_value, value
-    # NOTE: Actually, EVERY statement in Ruby will return a value, not
-    # just if statements.
-  end
-
   # :reek:RepeatedConditional
   def if_statements_return_values
     value = if false # rubocop:disable Lint/LiteralAsCondition

@@ -1,4 +1,4 @@
-# rubocop:disable Lint/HandleExceptions, Metrics/MethodLength
+# rubocop:disable Lint/HandleExceptions, Metrics/MethodLength, Layout/TrailingWhitespace
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -6,7 +6,6 @@ class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
 
-  # rubocop:disabled Layout/TrailingWhitespace
   # :reek:UncommunicativeMethodName:
   def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
@@ -35,7 +34,7 @@ class AboutExceptions < Neo::Koan
     assert_equal 'Oops', err.message
   end
   
-  # rubocop:enabled Layout/TrailingWhitespace
+
   # :reek:TooManyStatements:
   def test_raising_a_particular_error
     result = nil
@@ -72,4 +71,4 @@ class AboutExceptions < Neo::Koan
   end
 end
 
-# rubocop:enable Lint/HandleExceptions, Metrics/MethodLength
+# rubocop:enable Lint/HandleExceptions, Metrics/MethodLength, Layout/TrailingWhitespace
