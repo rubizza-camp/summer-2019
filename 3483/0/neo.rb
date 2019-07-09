@@ -140,6 +140,7 @@ module Neo
     end
   end
   # This shiny device polishes bared foos
+  # :reek:NilCheck and :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeVariableName
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
@@ -195,7 +196,7 @@ module Neo
       flunk "Expected nothing to be raised, but exception #{exception.inspect} was raised"
     end
   end
-  #:reek:TooManyStatements and :reek:UtilityFunction and :reek:UncommunicativeVariableName
+  #:reek:TooManyStatements and :reek:UtilityFunction and :reek:UncommunicativeVariableName and :reek:NilCheck
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
