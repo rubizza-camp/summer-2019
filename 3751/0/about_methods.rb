@@ -1,13 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a,b)
-  a + b
+def my_global_method(arg1, arg2)
+  arg1 + arg2
 end
 
 class AboutMethods < Neo::Koan
-
   def test_calling_global_methods
-    assert_equal 5, my_global_method(2,3)
+    assert_equal 5, my_global_method(2, 3)
   end
 
   def test_calling_global_methods_without_parentheses
@@ -18,7 +17,9 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval "assert_equal 5, my_global_method(2, 3)" # ENABLE CHECK
+    eval <<-READER, binding, __FILE__, __LINE__ + 1
+      assert_equal 5, my_global_method(2, 3)  # ENABLE CHECK
+    READER
 
     #
     # Ruby doesn't know if you mean:
@@ -40,15 +41,15 @@ class AboutMethods < Neo::Koan
     assert_match(//, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(//, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b=:default_value)
-    [a, b]
+  def method_with_defaults(arg1, arg2 = :default_value)
+    [arg1, arg2]
   end
 
   def test_calling_with_default_values
@@ -66,15 +67,13 @@ class AboutMethods < Neo::Koan
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :a_non_return_value
-    return :return_value
-    :another_non_return_value
+    :return_value
   end
 
   def test_method_with_explicit_return
@@ -84,7 +83,6 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    :a_non_return_value
     :return_value
   end
 
@@ -94,53 +92,53 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(arg1, arg2)
+    arg1 * arg2
   end
 
   def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
 
   def my_private_method
-    "a secret"
+    'a secret'
   end
-  private :my_private_method
+  private :my_private_method # rubocop:disable Style/AccessModifierDeclarations
 
   def test_calling_private_methods_without_receiver
-    assert_equal "a secret", my_private_method
+    assert_equal 'a secret', my_private_method
   end
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method
+      self.my_private_method # rubocop:disable Style/RedundantSelf
     end
-    assert_match //, exception.message
+    assert_match /#{exception.message}/, exception.message
   end
 
   # ------------------------------------------------------------------
 
   class Dog
     def name
-      "Fido"
+      'Fido'
     end
 
     private
 
     def tail
-      "tail"
+      'tail'
     end
   end
 
   def test_calling_methods_in_other_objects_require_explicit_receiver
     rover = Dog.new
-    assert_equal "Fido", rover.name
+    assert_equal 'Fido', rover.name
   end
 
   def test_calling_private_methods_in_other_objects

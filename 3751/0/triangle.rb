@@ -13,25 +13,25 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  if a == b && a == c
-      return :equilateral
-    elsif a == b || a == c || b == c
-      return :isosceles
-    else
-      return :scalene
+def triangle(a_side, b_side, c_side)
+  if a_side == b_side && a_side == c_side
+    :equilateral
+  elsif a_side == b_side || a_side == c_side || b_side == c_side
+    :isosceles
+  else
+    :scalene
   end
 end
 
-def check_triangle(a, b, c)
-  zero_side = (a * b * c).zero?
-  negative_side = (a.negative? || b.negative? || c.negative?)
-  less_sides = (a + b <= c || a + c <= b || b + c <= a)
-  return zero_side || negative_side || less_sides
+def check_triangle(a_side, b_side, c_side)
+  zero_side = (a_side * b_side * c_side).zero?
+  negative_side = (a_side.negative? || b_side.negative? || c_side.negative?)
+  less_sides = (a_side + b_side <= c_side || a_side + c_side <= b_side || b_side + c_side <= a_side)
+  zero_side || negative_side || less_sides
 end
 
-def triangles(a, b, c)
-  triangle_is_right = false if check_triangle(a, b, c)
+def triangles(a_side, b_side, c_side)
+  triangle_is_right = false if check_triangle(a_side, b_side, c_side)
 
   raise TriangleError unless triangle_is_right
 end

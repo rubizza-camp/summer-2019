@@ -30,49 +30,15 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
-  dices = dice
-  one = []
-  two = []
-  three = []
-  four = []
-  five = []
-  six = []
+  dice = dice.sort
   sum = 0
-
-  dices.each do |n|
-    if n == 1
-      one << 100
-    elsif n == 2
-      two << 0
-      sum += 200 if two.size == 3
-    elsif n == 3
-      three << 0
-      sum += 300 if three.size == 3
-    elsif n == 4
-      four << 0
-      sum += 400 if four.size == 3
-    elsif n == 5
-      five << 50
-    elsif n == 6
-      six << 0
-      sum += 600 if six.size == 3
-    end        
+  (1..6).each do |round|
+    count = dice.count(round)
+    sum += (round == 1 ? 1000 : round * 100) if count >= 3
+    sum += (count % 3) * 100 if round == 1
+    sum += (count % 3) * 50 if round == 5
   end
-
-  if one.size >= 3
-    one = 1000 + (one.size-3)*100
-  else
-    one = one.size*100
-  end
-
-  if five.size >= 3
-    five = 500 + (five.size-3)*50
-  else
-    five = five.size*50
-  end
-
-  sum = sum + (one if one.class == Integer) + (five if five.class == Integer)
+  sum
 end
 
 class AboutScoringProject < Neo::Koan
@@ -89,31 +55,30 @@ class AboutScoringProject < Neo::Koan
   end
 
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
-    assert_equal 300, score([1,5,5,1])
+    assert_equal 300, score([1, 5, 5, 1])
   end
 
   def test_score_of_single_2s_3s_4s_and_6s_are_zero
-    assert_equal 0, score([2,3,4,6])
+    assert_equal 0, score([2, 3, 4, 6])
   end
 
   def test_score_of_a_triple_1_is_1000
-    assert_equal 1000, score([1,1,1])
+    assert_equal 1000, score([1, 1, 1])
   end
 
   def test_score_of_other_triples_is_100x
-    assert_equal 200, score([2,2,2])
-    assert_equal 300, score([3,3,3])
-    assert_equal 400, score([4,4,4])
-    assert_equal 500, score([5,5,5])
-    assert_equal 600, score([6,6,6])
+    assert_equal 200, score([2, 2, 2])
+    assert_equal 300, score([3, 3, 3])
+    assert_equal 400, score([4, 4, 4])
+    assert_equal 500, score([5, 5, 5])
+    assert_equal 600, score([6, 6, 6])
   end
 
   def test_score_of_mixed_is_sum
-    assert_equal 250, score([2,5,2,2,3])
-    assert_equal 550, score([5,5,5,5])
-    assert_equal 1100, score([1,1,1,1])
-    assert_equal 1200, score([1,1,1,1,1])
-    assert_equal 1150, score([1,1,1,5,1])
+    assert_equal 250, score([2, 5, 2, 2, 3])
+    assert_equal 550, score([5, 5, 5, 5])
+    assert_equal 1100, score([1, 1, 1, 1])
+    assert_equal 1200, score([1, 1, 1, 1, 1])
+    assert_equal 1150, score([1, 1, 1, 5, 1])
   end
-
 end
