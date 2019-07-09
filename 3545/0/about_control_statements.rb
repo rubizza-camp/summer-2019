@@ -1,4 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Metrics/ClassLength
+# :reek:RepeatedConditional
 
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
@@ -15,6 +18,8 @@ class AboutControlStatements < Neo::Koan
     result = :true_value if true
     assert_equal :true_value, result
   end
+  # rubocop:disable Metrics/MethodLength
+  # :reek:TooManyStatements
 
   def test_if_statements_return_values
     value = if true
@@ -70,6 +75,7 @@ class AboutControlStatements < Neo::Koan
 
     assert_equal :false_value, result
   end
+  # :reek:FeatureEnvy
 
   def test_while_statement
     i = 1
@@ -80,6 +86,7 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal 3_628_800, result
   end
+  # :reek:TooManyStatements
 
   def test_break_statement
     i = 1
@@ -92,6 +99,7 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal 3_628_800, result
   end
+  # :reek:FeatureEnvy
 
   def test_break_statement_returns_values
     i = 1
@@ -135,3 +143,6 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Metrics/MethodLength
