@@ -3,13 +3,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class DiceSet
 class DiceSet
-  attr_reader :values
-  def roll(num)
-    @values = []
-    (1..num).each { |_count| @values << rand(1..6) }
+  attr_accessor :values
+  def roll(number)
+    @values = Array.new(number) { Random.rand(1..6) }
   end
-  @values
 end
+
 # class AboutDiceProject < Neo::Koan
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
