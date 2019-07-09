@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
-# This class smells of :reek:RepeatedConditional
-# About control statements
+# :reek:RepeatedConditional
+
 class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
   # :reek:RepeatedConditional
   def test_if_then_else_statements
@@ -24,8 +24,11 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_if_statements_return_values
     value = if true # rubocop:disable Lint/LiteralAsCondition
               :true_value
+            else
+              :false_value
             end
     assert_equal :true_value, value
+    if_statements_return_values
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
     # just if statements.
   end
