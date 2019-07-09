@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
-#:reek:FeatureEnvy:reek:Attribute:
+# :reek:FeatureEnvy:reek:Attribute:
 class DiceSet
   attr_reader :values
 
@@ -10,6 +10,9 @@ class DiceSet
   end
 end
 
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new

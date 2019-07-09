@@ -1,11 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:NilCheck
+# :reek:UncommunicativeVariableName
+
 class AboutNil < Neo::Koan
   def test_nil_is_an_object
     assert_equal true, nil.is_a?(Object), 'Unlike NULL in other languages'
   end
 
-  #:reek:UncommunicativeVariableName:
   def test_you_dont_get_null_pointer_errors_when_calling_methods_on_nil
     # What happens when you call a method that doesn't exist.  The
     # following begin/rescue/end code block captures the exception and

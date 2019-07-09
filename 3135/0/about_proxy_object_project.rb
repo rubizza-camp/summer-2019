@@ -14,6 +14,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 # :reek:Attribute:
+
+# :reek:ManualDispatch
 class Proxy
   attr_reader :messages
 
@@ -42,6 +44,16 @@ class Proxy
   end
   # WRITE CODE HERE
 end
+
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
+# :reek:NilCheck
+# :reek:InstanceVariableAssumption
 
 # The proxy object should pass the following Koan:
 #
@@ -121,7 +133,17 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
-# :reek:Attribute:reek:InstanceVariableAssumption:
+
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
+# :reek:NilCheck
+# :reek:InstanceVariableAssumption
+
 class Television
   attr_accessor :channel
 
@@ -139,7 +161,17 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
-#:reek:FeatureEnvy:reek:TooManyStatements:
+
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
+# :reek:NilCheck
+# :reek:InstanceVariableAssumption
+
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new

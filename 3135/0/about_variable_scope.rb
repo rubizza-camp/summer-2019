@@ -4,6 +4,13 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:ClassVariable
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
+
 class AboutVariableScope < Neo::Koan
   def bark
     noise = 'RUFF'
