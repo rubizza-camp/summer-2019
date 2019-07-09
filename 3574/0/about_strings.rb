@@ -1,8 +1,10 @@
-# rubocop:disable Metrics/ClassLength, Lint/MissingCopEnableDirective, Naming/HeredocDelimiterNaming, Lint/UselessAssignment, Lint/InterpolationCheck, Metrics/LineLength, Lint/UnneededCopDisableDirective
+# rubocop: disable Lint/InterpolationCheck, Lint/UselessAssignment
+# rubocop: disable Naming/HeredocDelimiterNaming, Metrics/ClassLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
+  # rubocop: enable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -52,6 +54,7 @@ It was the worst of times.
       It was the best of times,
       It was the worst of times.
     EOS
+    # rubocop: enable Naming/HeredocDelimiterNaming
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -132,6 +135,7 @@ It was the worst of times.
     value = 123
     string = 'The value is #{value}'
     assert_equal 'The value is #{value}', string
+    # rubocop: enable Lint/InterpolationCheck, Lint/UselessAssignment
   end
 
   def test_any_ruby_expression_may_be_interpolated

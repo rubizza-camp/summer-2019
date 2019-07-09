@@ -1,5 +1,4 @@
-# rubocop:disable Lint/AmbiguousBlockAssociation, Lint/MissingCopEnableDirective, Performance/RedundantBlockCall, Lint/UnneededCopDisableDirective, Metrics/LineLength
-
+# rubocop: disable Lint/AmbiguousBlockAssociation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
@@ -90,7 +89,7 @@ class AboutBlocks < Neo::Koan
 
   def test_methods_can_take_an_explicit_block_argument
     assert_equal 20, method_with_explicit_block { |n| n * 2 }
-
+    # rubocop: enable Lint/AmbiguousBlockAssociation
     add_one = ->(n) { n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end

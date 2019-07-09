@@ -1,9 +1,10 @@
-# rubocop:disable Naming/UncommunicativeMethodParamName,Style/EvalWithLocation, Lint/Void, Lint/UnreachableCode, Style/AccessModifierDeclarations, Metrics/LineLength, Style/RedundantSelf, Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective, Lint/AmbiguousRegexpLiteral
+# rubocop: disable Lint/AmbiguousRegexpLiteral, Style/RedundantSelf, Style/EvalWithLocation
+# rubocop: disable Style/AccessModifierDeclarations, Lint/Void, Lint/UnreachableCode
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a, b)
-  a + b
+def my_global_method(global_a, globalb)
+  global_a + globalb
 end
 
 class AboutMethods < Neo::Koan
@@ -20,6 +21,7 @@ class AboutMethods < Neo::Koan
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
     eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
+    # rubocop: enable Style/EvalWithLocation
     #
     # Ruby doesn't know if you mean:
     #
@@ -47,8 +49,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b = :default_value)
-    [a, b]
+  def method_with_defaults(def_a, def_b = :default_value)
+    [def_a, def_b]
   end
 
   def test_calling_with_default_values
@@ -75,6 +77,7 @@ class AboutMethods < Neo::Koan
     :a_non_return_value
     return :return_value
     :another_non_return_value
+    # rubocop: enable Lint/UnreachableCode
   end
 
   def test_method_with_explicit_return
@@ -86,6 +89,7 @@ class AboutMethods < Neo::Koan
   def method_without_explicit_return
     :a_non_return_value
     :return_value
+    # rubocop: enable Lint/Void
   end
 
   def test_method_without_explicit_return
@@ -94,8 +98,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(same_a, same_b)
+    same_a * same_b
   end
 
   def test_calling_methods_in_same_class
@@ -103,7 +107,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -112,7 +116,7 @@ class AboutMethods < Neo::Koan
     'a secret'
   end
   private :my_private_method
-
+  # rubocop: enable Style/AccessModifierDeclarations
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
@@ -120,8 +124,10 @@ class AboutMethods < Neo::Koan
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
+      # rubocop: enable Style/RedundantSelf
     end
-    assert_match /private_method/, exception.message
+    assert_match /private method/, exception.message
+    # rubocop: enable Lint/AmbiguousRegexpLiteral
   end
 
   # ------------------------------------------------------------------

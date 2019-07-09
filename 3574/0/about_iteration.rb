@@ -1,4 +1,4 @@
-# rubocop:disable Lint/AmbiguousBlockAssociation, Lint/MissingCopEnableDirective
+# rubocop: disable Lint/AmbiguousBlockAssociation
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -81,6 +81,7 @@ class AboutIteration < Neo::Koan
 
     assert_equal 'Clarence', array.find { |item| item.size > 4 }
   end
+  # rubocop: enable Lint/AmbiguousBlockAssociation
 
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }

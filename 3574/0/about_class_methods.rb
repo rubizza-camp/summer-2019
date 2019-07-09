@@ -1,4 +1,4 @@
-# rubocop:disable Style/TrivialAccessors, Lint/MissingCopEnableDirective, Naming/ConstantName
+# rubocop: disable Style/TrivialAccessors
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -77,6 +77,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   def Dog.name
+    # rubocop: enable Style/TrivialAccessors
     @name
   end
 
@@ -101,22 +102,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
+  LASTEXPRESSIONINCLASSSTATEMENT = class Dog
                                      21
                                    end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LASTEXPRESSIONINCLASSSTATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
+  SELFINSIDEOFCLASSSTATEMENT = class Dog
                                  self
                                end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELFINSIDEOFCLASSSTATEMENT
   end
 
   # ------------------------------------------------------------------

@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/AbcSize, Lint/MissingCopEnableDirective, Lint/ShadowingOuterLocalVariable
+# rubocop: disable Lint/ShadowingOuterLocalVariable, Metrics/AbcSize
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -95,6 +95,8 @@ class AboutHashes < Neo::Koan
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
+    # rubocop: enable Metrics/AbcSize
+
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
@@ -107,6 +109,8 @@ class AboutHashes < Neo::Koan
 
   def test_default_value_with_block
     hash = Hash.new { |hash, key| hash[key] = [] }
+
+    # rubocop: enable Lint/ShadowingOuterLocalVariable
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

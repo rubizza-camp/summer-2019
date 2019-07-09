@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
+# rubocop: disable Lint/AmbiguousBlockAssociation
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -54,6 +54,7 @@ class AboutRegularExpressions < Neo::Koan
     animals = %w[cat bat rat zat]
     assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
   end
+  # rubocop: enable Lint/AmbiguousBlockAssociation
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
     assert_equal '42', 'the number is 42'[/[0123456789]+/]
