@@ -16,14 +16,15 @@
 #   about_triangle_project_2.rb
 #
 # rubocop:disable Metrics/LineLength, Naming/UncommunicativeMethodParamName, Style/GuardClause, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-def triangle(a, b, c)
+# :reek:FeatureEnvy
+def triangle(first, second, third)
   # WRITE THIS CODE
-  if a * b * c <= 0 || !(a + b > c && a + c > b && b + c > a)
+  if first * second * third <= 0 || !(first + second > third && first + third > second && second + third > first)
     raise TriangleError, "Triangle Doesn't Exist!!!!!!!!!!!"
   end
-  if (a == b) && (b == c)
+  if (first == second) && (second == third)
     return :equilateral
-  elsif (a == b) || (a == c) || (b == c)
+  elsif (frist == second) || (first == third) || (second == third)
     return :isosceles
   else
     return :scalene
