@@ -1,6 +1,4 @@
-#!/usr/bin/env ruby
-# -*- ruby -*-
-
+# rubocop:disable Lint/UnneededCopDisableDirective, Lint/ScriptPermission
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutAsserts < Neo::Koan
@@ -37,3 +35,4 @@ class AboutAsserts < Neo::Koan
     assert_equal 2, 1 + 1
   end
 end
+# rubocop:enable Lint/UnneededCopDisableDirective, Lint/ScriptPermission

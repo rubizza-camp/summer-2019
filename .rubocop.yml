@@ -4,6 +4,9 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
+AllCops:
+  Exclude:
+    - '3529/0/*'
     
 
 

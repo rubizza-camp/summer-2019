@@ -5,5 +5,9 @@ detectors:
   DuplicateMethodCall:
     enabled: false
 
+  
+
+
   UtilityFunction:
     public_methods_only: true
+    ### Excluding directories

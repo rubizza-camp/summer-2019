@@ -1,11 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Implement a DiceSet Class here:
-#
-# class DiceSet
-#   code ...
-# end
-
 class DiceSet
   attr_reader :values
 
@@ -13,7 +7,9 @@ class DiceSet
     @values = (1..number).to_a.shuffle
   end
 end
-
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new

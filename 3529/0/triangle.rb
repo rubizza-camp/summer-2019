@@ -13,7 +13,14 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
+
+
+# :reek:ClassVariable
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeVariableName
+
 def triangle(a_side, b_side, c_side)
   raise TriangleError, 'TriangleError' if negative?(a_side, b_side, c_side)
   raise TriangleError, 'TriangleError' unless a_triangle?(a_side, b_side, c_side)
@@ -23,7 +30,7 @@ def triangle(a_side, b_side, c_side)
   :scalene
   # WRITE THIS CODE
 end
-
+# :reek:UtilityFunction
 def negative?(a_side, b_side, c_side)
   if (a_side <= 0) || (b_side <= 0) || (c_side <= 0)
     true
@@ -31,7 +38,7 @@ def negative?(a_side, b_side, c_side)
     false
   end
 end
-
+# :reek:UtilityFunction
 def a_triangle?(a_side, b_side, c_side)
   if (a_side + b_side <= c_side) || (a_side + c_side <= b_side) || (b_side + c_side <= a_side)
     false
@@ -43,3 +50,4 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# rubocop:disable all

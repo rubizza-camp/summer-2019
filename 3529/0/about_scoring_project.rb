@@ -30,6 +30,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+
 def score(dice)
   # You need to write this method
   score = 0
@@ -67,6 +71,13 @@ def score(dice)
   score += 600 if num_of6.eql?(3)
   score
 end
+
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero

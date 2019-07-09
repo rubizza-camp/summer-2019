@@ -1,5 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeVariableName
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UtilityFunction
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeModuleName
+
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'

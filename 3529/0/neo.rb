@@ -14,21 +14,27 @@ end
 class FillMeInError < StandardError
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
     (version == 'mri' && !defined?(JRUBY_VERSION))
 end
 
+# :reek:UncommunicativeVariableName
 def in_ruby_version(*versions)
   yield if versions.any? { |v| ruby_version?(v) }
 end
 
 in_ruby_version('1.8') do
+  # :reek:IrresponsibleModule
   class KeyError < StandardError
   end
 end
 
+# :reek:UtilityFunction
+# :reek:UncommunicativeParameterName
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
 def __(value = 'FILL ME IN', value19 = :mu)
@@ -39,6 +45,8 @@ def __(value = 'FILL ME IN', value19 = :mu)
   end
 end
 
+# :reek:UtilityFunction
+# :reek:UncommunicativeParameterName
 # Numeric replacement value.
 def _n_(value = 999_999, value19 = :mu)
   if RUBY_VERSION < '1.9'
@@ -48,6 +56,8 @@ def _n_(value = 999_999, value19 = :mu)
   end
 end
 
+# :reek:UtilityFunction
+# :reek:UncommunicativeParameterName
 # Error object replacement value.
 def ___(value = FillMeInError, value19 = :mu)
   if RUBY_VERSION < '1.9'
@@ -68,10 +78,11 @@ class Object
   end
 end
 
+# Description class
 class String
   def side_padding(width)
     extra = width - size
-    if width < 0
+    if width.negative?
       self
     else
       left_padding = extra / 2
@@ -81,6 +92,19 @@ class String
   end
 end
 
+# :reek:UncommunicativeVariableName
+# :reek:InstanceVariableAssumption
+# :reek:TooManyInstanceVariables
+# :reek:IrresponsibleModule
+# :reek:DuplicateMethodCall
+# :reek:TooManyStatements
+# :reek:ControlParameter
+# :reek:NestedIterators
+# :reek:UtilityFunction
+# :reek:TooManyMethods
+# :reek:FeatureEnvy
+# :reek:DataClump
+# :reek:NilCheck
 module Neo
   class << self
     def simple_output
@@ -233,7 +257,7 @@ module Neo
       if step.passed?
         @pass_count += 1
         if @pass_count > progress.last.to_i
-          @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness.")
+          @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness")
         end
       else
         @failed_test = step
@@ -270,7 +294,7 @@ module Neo
       scale = bar_width.to_f / total_tests
       print Color.green('your path thus far [')
       happy_steps = (pass_count * scale).to_i
-      happy_steps = 1 if happy_steps == 0 && pass_count > 0
+      happy_steps = 1 if happy_steps.zero? && pass_count.positive?
       print Color.green('.' * happy_steps)
       if failed?
         print Color.red('X')
@@ -343,7 +367,7 @@ module Neo
         puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
       elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
         puts Color.cyan('  Do not lose hope.')
-      elsif progress.last.to_i > 0
+      elsif progress.last.to_i.positive?
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
     end
@@ -400,7 +424,7 @@ module Neo
                           "when you lose, don't lose the lesson"
                         else
                           'things are not what they appear to be: nor are they otherwise'
-        end
+                        end
       end
       puts Color.green(zen_statement)
     end
@@ -464,10 +488,10 @@ module Neo
       def command_line(args)
         args.each do |arg|
           case arg
-          when %r{^-n/(.*)/$}
-            @test_pattern = Regexp.new(Regexp.last_match(1))
+          when /^-n\/(.*)\/$/
+            @test_pattern = Regexp.new($1)
           when /^-n(.*)$/
-            @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
+            @test_pattern = Regexp.new(Regexp.quote($1))
           else
             if File.exist?(arg)
               load(arg)
@@ -529,3 +553,4 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
+# rubocop:enable all

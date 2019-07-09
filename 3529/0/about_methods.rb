@@ -1,9 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 def my_global_method(a, b)
   a + b
 end
 
+# :reek:TooManyMethods
+# :reek:TooManyStatements
+# :reek:UtilityFunction
+# :reek:UncommunicativeParameterName
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
