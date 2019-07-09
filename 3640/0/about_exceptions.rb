@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# :reek:UncommunicativeVariableName
 # Description class
 class AboutExceptions < Neo::Koan
   # Description class
@@ -21,19 +20,19 @@ class AboutExceptions < Neo::Koan
     result = nil
     begin
       raise 'Oops'
-    rescue StandardError => e
+    rescue StandardError => exept
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
 
-    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, e.is_a?(RuntimeError), 'Should be a Runtime Error'
+    assert_equal true, exept.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, exept.is_a?(RuntimeError), 'Should be a Runtime Error'
 
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
-    assert_equal 'Oops', e.message
+    assert_equal 'Oops', exept.message
   end
 
   # rubocop: enable Metrics/MethodLength
@@ -43,12 +42,12 @@ class AboutExceptions < Neo::Koan
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
-    rescue MySpecialError => e
+    rescue MySpecialError => exept
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
-    assert_equal 'My Message', e.message
+    assert_equal 'My Message', exept.message
   end
 
   # rubocop: disable Lint/HandleExceptions

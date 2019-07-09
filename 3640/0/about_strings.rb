@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Metrics/ClassLength
 # :reek:TooManyMethods
-# :reek:UncommunicativeVariableName
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -25,17 +24,17 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    alan = "He said, \"Don't\""
+    bob = 'He said, "Don\'t"'
+    assert_equal true, alan == bob
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    alan = %(flexible quotes can handle both ' and " characters)
+    bob = %(flexible quotes can handle both ' and " characters)
+    cici = %(flexible quotes can handle both ' and " characters)
+    assert_equal true, alan == bob
+    assert_equal true, alan == cici
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -182,11 +181,11 @@ It was the worst of times.
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    alan = 'a string'
+    bob = 'a string'
 
-    assert_equal true, a == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, alan == bob
+    assert_equal false, alan.object_id == bob.object_id
   end
 end
 # rubocop:enable Metrics/ClassLength

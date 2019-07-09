@@ -20,8 +20,7 @@ class AboutDiceProject < Neo::Koan
     assert_not_nil dice
   end
 
-  # :reek:UncommunicativeMethodName
-  def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+  def test_rolling_the_dice_returns_a_set_of_integers_between_one_and_six
     dice = DiceSet.new
 
     dice.roll(5)

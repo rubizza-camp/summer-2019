@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:FeatureEnvy
 # :reek:RepeatedConditional
 # :reek:TooManyStatements
-# :reek:UncommunicativeVariableName
 # Description class
 class AboutControlStatements < Neo::Koan
   # rubocop:disable Lint/LiteralAsCondition
@@ -72,46 +71,46 @@ class AboutControlStatements < Neo::Koan
   # rubocop:enable Lint/LiteralAsCondition
 
   def test_while_statement
-    i = 1
+    ind = 1
     result = 1
-    while i <= 10
-      result *= i
-      i += 1
+    while ind <= 10
+      result *= ind
+      ind += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement
-    i = 1
+    ind = 1
     result = 1
     loop do
-      break unless i <= 10
+      break unless ind <= 10
 
-      result *= i
-      i += 1
+      result *= ind
+      ind += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
-    i = 1
-    result = while i <= 10
-               break i if (i % 2).zero?
+    ind = 1
+    result = while ind <= 10
+               break ind if (ind % 2).zero?
 
-               i += 1
+               ind += 1
              end
 
     assert_equal 2, result
   end
 
   def test_next_statement
-    i = 0
+    ind = 0
     result = []
-    while i < 10
-      i += 1
-      next if (i % 2).zero?
+    while ind < 10
+      ind += 1
+      next if (ind % 2).zero?
 
-      result << i
+      result << ind
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
