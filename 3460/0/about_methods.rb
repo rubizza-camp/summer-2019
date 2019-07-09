@@ -1,14 +1,11 @@
-# rubocop:disable Lint/Void, Lint/UnreachableCode, Lint/AmbiguousRegexpLiteral
-# rubocop:disable Style/RedundantSelf
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# :reek:UtilityFunction
-def my_global_method(arg, brg)
-  arg + brg
+def my_global_method(ast, bst)
+  ast + bst
 end
 
-# :reek:TooManyMethods
-# :reek:TooManyStatements
+#:nodoc:
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -22,7 +19,7 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    assert_equal(5, my_global_method(2, 3)) # ENABLE CHECK
+    eval('assert_equal(5, my_global_method(2, 3))', binding, __FILE__, __LINE__) # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -50,8 +47,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(arg, brg = :default_value)
-    [arg, brg]
+  def method_with_defaults(ast, bst = :default_value)
+    [ast, bst]
   end
 
   def test_calling_with_default_values
@@ -75,9 +72,13 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
+    # rubocop: disable Lint/Void
     :a_non_return_value
+    # rubocop: enable Lint/Void
     return :return_value
+    # rubocop: disable Lint/UnreachableCode
     :another_non_return_value
+    # rubocop: enable Lint/UnreachableCode
   end
 
   def test_method_with_explicit_return
@@ -87,7 +88,9 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
+    # rubocop: disable Lint/Void
     :a_non_return_value
+    # rubocop: enable Lint/Void
     :return_value
   end
 
@@ -96,9 +99,9 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # :reek:UtilityFunction
-  def my_method_in_the_same_class(arg, brg)
-    arg * brg
+
+  def my_method_in_the_same_class(ast, bst)
+    ast * bst
   end
 
   def test_calling_methods_in_same_class
@@ -106,7 +109,9 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, my_method_in_the_same_class(3, 4)
+    # rubocop: disable Style/RedundantSelf
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    # rubocop: enable Style/RedundantSelf
   end
 
   # ------------------------------------------------------------------
@@ -114,6 +119,7 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
+
   private :my_private_method
 
   def test_calling_private_methods_without_receiver
@@ -122,13 +128,16 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
+      # rubocop: disable Style/RedundantSelf
       self.my_private_method
+      # rubocop: enable Style/RedundantSelf
     end
-    assert_match /private method/, exception.message
+    assert_match(/private method/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
+  #:nodoc:
   class Dog
     def name
       'Fido'
@@ -153,5 +162,3 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Lint/Void, Lint/UnreachableCode, Lint/AmbiguousRegexpLiteral
-# rubocop:enable Style/RedundantSelf
