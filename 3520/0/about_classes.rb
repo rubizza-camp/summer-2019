@@ -78,14 +78,14 @@ class AboutClasses < Neo::Koan
   class Dog4
     attr_reader :name
 
-    def name=(a_name)
+    def set_name(a_name)
       @name = a_name
     end
   end
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.name=('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -95,7 +95,6 @@ class AboutClasses < Neo::Koan
   class Dog5
     attr_accessor :name
   end
-
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
@@ -179,10 +178,10 @@ class AboutClasses < Neo::Koan
   end
 
   def test_all_objects_support_to_s_and_inspect
-    array = [1,2,3]
+    array = [1, 2, 3]
 
-    assert_equal "[1, 2, 3]", array.to_s
-    assert_equal "[1, 2, 3]", array.inspect
+    assert_equal '[1, 2, 3]', array.to_s
+    assert_equal '[1, 2, 3]', array.inspect
 
     assert_equal 'STRING', 'STRING'.to_s
     assert_equal "\"STRING\"", 'STRING'.inspect

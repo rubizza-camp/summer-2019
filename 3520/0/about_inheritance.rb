@@ -81,5 +81,4 @@ class AboutInheritance < Neo::Koan
       george.growl
     end
   end
-
 end

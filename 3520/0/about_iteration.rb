@@ -75,7 +75,7 @@ class AboutIteration < Neo::Koan
   end
 
   def test_find_locates_the_first_element_matching_a_criteria
-    array = ['Jim', 'Bill', 'Clarence', 'Doug', 'Eli']
+    array = %w[Jim Bill Clarence Doug Eli]
 
     assert_equal 'Clarence', array.find { |item| item.size > 4 }
   end

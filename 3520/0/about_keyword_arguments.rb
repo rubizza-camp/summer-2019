@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutKeywordArguments < Neo::Koan
-
   def method_with_keyword_arguments(one: 1, two: 'two')
     [one, two]
   end
@@ -27,5 +26,4 @@ class AboutKeywordArguments < Neo::Koan
   # THINK ABOUT IT:
   #
   # Keyword arguments always have a default value, making them optional to the caller
-
 end

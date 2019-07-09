@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
@@ -105,10 +106,10 @@ class AboutVariableScope < Neo::Koan
 
     assert_equal __, $anywhere
   end
-
 end
 
 # THINK ABOUT IT:
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
+# rubocop:enable all
