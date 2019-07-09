@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/UncommunicativeMethodParamName
-# rubocop:disable Style/NumericPredicate
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable all
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -42,7 +39,4 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Naming/UncommunicativeMethodParamName
-# rubocop:enable Style/NumericPredicate
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
+
