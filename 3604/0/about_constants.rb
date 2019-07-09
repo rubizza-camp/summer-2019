@@ -1,11 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Style/MutableConstant
-C = 'top level'
-# rubocop:enable Style/MutableConstant
+
+C = 'top level'.freeze
+
 class AboutConstants < Neo::Koan
-  # rubocop:disable Style/MutableConstant
-  C = 'nested'
-  # rubocop:enable Style/MutableConstant
+  C = 'nested'.freeze
+
   def test_nested_constants_may_also_be_referenced_with_relative_paths
     assert_equal 'nested', C
   end
