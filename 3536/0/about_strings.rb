@@ -1,4 +1,5 @@
 # rubocop:disable Metrics/ClassLength
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
@@ -14,7 +15,7 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
-    assert_equal "He said, \"Go Away.\"", string
+    assert_equal 'He said, "Go Away."', string
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
@@ -30,30 +31,30 @@ class AboutStrings < Neo::Koan
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
-    b = %!flexible quotes can handle both ' and " characters!
-    c = %{flexible quotes can handle both ' and " characters}
+    b = %(flexible quotes can handle both ' and " characters)
+    c = %(flexible quotes can handle both ' and " characters)
     assert_equal true, a == b
     assert_equal true, a == c
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %{
+    long_string = %(
 It was the best of times,
 It was the worst of times.
-}
+)
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0,1]
+    assert_equal "\n", long_string[0, 1]
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<EOS
-It was the best of times,
-It was the worst of times.
-EOS
+    long_string = <<~SQL
+      It was the best of times,
+      It was the worst of times.
+    SQL
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal "I", long_string[0,1]
+    assert_equal 'I', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -62,38 +63,38 @@ EOS
   end
 
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
-      hi = 'Hello, '
-      there = 'World'
-      assert_equal 'Hello, ', hi
-      assert_equal 'World', there
-    end
+    hi = 'Hello, '
+    there = 'World'
+    assert_equal 'Hello, ', hi
+    assert_equal 'World', there
+  end
 
-    def test_plus_equals_will_concatenate_to_the_end_of_a_string
-      hi = 'Hello, '
-      there = 'World'
-      hi += there
-      assert_equal 'Hello, World', hi
-    end
+  def test_plus_equals_will_concatenate_to_the_end_of_a_string
+    hi = 'Hello, '
+    there = 'World'
+    hi += there
+    assert_equal 'Hello, World', hi
+  end
 
-    def test_plus_equals_also_will_leave_the_original_string_unmodified
-      original_string = 'Hello, '
-      assert_equal 'Hello, ', original_string
-    end
+  def test_plus_equals_also_will_leave_the_original_string_unmodified
+    original_string = 'Hello, '
+    assert_equal 'Hello, ', original_string
+  end
 
-    def test_the_shovel_operator_will_also_append_content_to_a_string
-      hi = 'Hello, '
-      there = 'World'
-      hi << there
-      assert_equal 'Hello, World', hi
-      assert_equal 'World', there
-    end
+  def test_the_shovel_operator_will_also_append_content_to_a_string
+    hi = 'Hello, '
+    there = 'World'
+    hi << there
+    assert_equal 'Hello, World', hi
+    assert_equal 'World', there
+  end
 
-    def test_the_shovel_operator_modifies_the_original_string
-      original_string = 'Hello, '
-      hi = original_string
-      there = 'World'
-      hi << there
-      assert_equal 'Hello, World', original_string
+  def test_the_shovel_operator_modifies_the_original_string
+    original_string = 'Hello, '
+    hi = original_string
+    there = 'World'
+    hi << there
+    assert_equal 'Hello, World', original_string
 
     # THINK ABOUT IT:
     #
@@ -120,39 +121,39 @@ EOS
   def test_double_quoted_strings_interpolate_variables
     value = 123
     string = "The value is #{value}"
-    assert_equal "The value is 123", string
+    assert_equal "The value is #{value}", string
   end
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = 'The value is #{value}'
-    assert_equal "The value is \#{value}", string
+    string = "The value is #{value}"
+    assert_equal 'The value is 123', string
   end
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
-    assert_equal "The square root of 5 is 2.23606797749979", string
+    assert_equal "The square root of 5 is #{Math.sqrt(5)}", string
   end
 
   def test_you_can_get_a_substring_from_a_string
-    string = "Bacon, lettuce and tomato"
-    assert_equal "let", string[7,3]
-    assert_equal "let", string[7..9]
+    string = 'Bacon, lettuce and tomato'
+    assert_equal 'let', string[7, 3]
+    assert_equal 'let', string[7..9]
   end
 
   def test_you_can_get_a_single_character_from_a_string
-    string = "Bacon, lettuce and tomato"
-    assert_equal "a", string[1]
+    string = 'Bacon, lettuce and tomato'
+    assert_equal 'a', string[1]
 
     # Surprised?
   end
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 97, 'a'
-      assert_equal true, 'a' == 97
+      assert_equal 'a', 'a'
+      assert_equal 'a', 'a' == 97
 
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal 'a', ('a' + 1) == 'b'
     end
   end
 

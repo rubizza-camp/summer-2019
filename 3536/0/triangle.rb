@@ -14,7 +14,11 @@
 #   about_triangle_project_2.rb
 #
 def triangle(side_a, side_b, side_c)
-  if side_a + side_b <= side_c || side_a + side_c <= side_b || side_b + side_c <= side_a || side_a <= 0 || side_b <= 0 || side_c <= 0
+  if side_a + side_b <= side_c || side_a + side_c <= side_b || side_b + side_c <= side_a
+    raise TriangleError
+end
+
+  if side_a <= 0 || side_b <= 0 || side_c <= 0
     raise TriangleError
   end
 
