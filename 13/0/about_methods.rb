@@ -1,11 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a, b)
-  a + b
+def my_global_method(one, two)
+  one + two
 end
 
 class AboutMethods < Neo::Koan
-
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
   end
@@ -46,8 +45,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b=:default_value)
-    [a, b]
+  def method_with_defaults(one, two = :default_value)
+    [one, two]
   end
 
   def test_calling_with_default_values
@@ -93,8 +92,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(one, two)
+    one * two
   end
 
   def test_calling_methods_in_same_class
