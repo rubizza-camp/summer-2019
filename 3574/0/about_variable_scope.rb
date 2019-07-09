@@ -36,9 +36,9 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
+      two_times = 0
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? two_times
   end
 
   # ------------------------------------------------------
@@ -66,7 +66,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |iter| Mouse.new(iter.to_s) }
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
@@ -94,7 +94,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
+  def test_global_variables_can_be_changed_from_any_scope_two
     # From within a block
     2.times do
       $anywhere = 'Hey'
