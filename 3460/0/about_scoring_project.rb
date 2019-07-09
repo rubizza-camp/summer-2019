@@ -1,3 +1,4 @@
+# rubocop:disable all
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -56,3 +57,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
+# rubocop:enable all
