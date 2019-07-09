@@ -6,13 +6,13 @@ end
 
 def side_no_min_zero(a_side, b_side, c_side)
   if a_side.negative? || b_side.negative? || c_side.negative?
-    raise TriangleError, 'сторона не может быть меньше нуля или равной нулю'
+    raise TriangleError, 'the side cannot be less than zero or equal to zero'
   end
 end
 
 def two_side_more3(a_side, b_side, c_side)
   if a_side + b_side <= c_side || a_side + c_side <= b_side || b_side + c_side <= a_side
-    raise TriangleError, '2 стороны не могут быть меньше третей'
+    raise TriangleError, '2 parties can not be less than a third party'
   end
 end
 
