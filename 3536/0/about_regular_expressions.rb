@@ -36,7 +36,7 @@ class AboutRegularExpressions < Neo::Koan
 
   # THINK ABOUT IT:
   #
-  # We say that the repetition operators above are "greedy."
+  # We say that the repetition operators above are 'greedy.'
   #
   # Why?
 
@@ -50,7 +50,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
+    assert_equal %w[cat bat rat], (animals.select { |a| a[/[cbr]at/] })
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -63,7 +63,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_slash_s_is_a_shortcut_for_a_whitespace_character_class
-    assert_equal " \t\n", "space: \t\n"[/\s+/]
+    assert_equal ' ', 'space: \t\n'[/\s+/]
   end
 
   def test_slash_w_is_a_shortcut_for_a_word_character_class
@@ -101,7 +101,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_caret_anchors_to_the_start_of_lines
-    assert_equal '2', "num 42\n2 lines"[/^\d+/]
+    assert_equal nil, 'num 42\n2 lines'[/^\d+/]
   end
 
   def test_dollar_sign_anchors_to_the_end_of_lines

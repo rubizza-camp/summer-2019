@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Lint/LiteralAsCondition
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -17,18 +17,10 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_if_statements_return_values
-    value = if true
-              :true_value
-            else
-              :false_value
-            end
+    value = true ? :true_value : :false_value
     assert_equal :true_value, value
 
-    value = if false
-              :true_value
-            else
-              :false_value
-            end
+    value = false ? :true_value : :false_value
     assert_equal :false_value, value
 
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
@@ -66,7 +58,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement_modifier
     result = :default_value
-    result = :false_value
+    result = :false_value unless false
 
     assert_equal :false_value, result
   end
@@ -133,3 +125,5 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+
+# rubocop:enable Lint/LiteralAsCondition

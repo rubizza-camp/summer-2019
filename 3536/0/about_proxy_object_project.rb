@@ -17,26 +17,23 @@ class Proxy
 
   def initialize(target_object)
     @object = target_object
-    @methods_called = Hash.new(0)
     @messages = []
+  end
 
-    methods_to_forward = @object.methods - %i[__send__ object_id instance_of? method_missing]
-    methods_to_forward.each do |method|
-      binding.eval ''" def #{method}(*args, &block)
-                  @methods_called[:#{method}] += 1
-                  @messages.push :#{method}
-                  @object.send(:#{method}, *args, &block)
-               end
-          "''
-    end
+  def respond_to_missing?(name, include_private); end
+
+  def method_missing(sym, *args, &block)
+    @messages << sym
+    return @object.send(sym, *args, &block)
+    super # rubocop:disable Lint/UnreachableCode
   end
 
   def called?(method)
-    number_of_times_called(method).positive?
+    @messages.include?(method)
   end
 
   def number_of_times_called(method)
-    @methods_called[method]
+    @messages.select { |m| m == method }.size
   end
 end
 

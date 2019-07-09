@@ -1,7 +1,10 @@
+
+# rubocop:disable Style/EvalWithLocation
+# rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(aaa, bbb)
-  aaa + bbb
+def my_global_method(metod_arg1, metod_arg2)
+  metod_arg1 + metod_arg2
 end
 
 class AboutMethods < Neo::Koan
@@ -35,18 +38,18 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(ArgumentError) do
       my_global_method
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/(given 0, expected 2)/, exception.message)
 
     exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/(given 3, expected 2)/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(aaa, bbb = :default_value)
-    [aaa, bbb]
+  def method_with_defaults(metod_arg1, metod_arg2 = :default_value)
+    [metod_arg1, metod_arg2]
   end
 
   def test_calling_with_default_values
@@ -89,8 +92,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(aaa, bbb)
-    aaa * bbb
+  def my_method_in_the_same_class(metod_arg1, metod_arg2)
+    metod_arg1 * metod_arg2
   end
 
   def test_calling_methods_in_same_class
@@ -98,7 +101,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, my_method_in_the_same_class(3, 4)
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -116,7 +119,9 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /private method /, exception.message
+
+    assert_match /#{Regexp.quote(exception.message)}/,
+                 exception.message
   end
 
   # ------------------------------------------------------------------
@@ -145,3 +150,6 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+
+# rubocop:enable Style/EvalWithLocation
+# rubocop:enable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral

@@ -19,10 +19,6 @@ class AboutOpenClasses < Neo::Koan
     def wag
       'HAPPY'
     end
-
-    def bark
-      'WOOF'
-    end
   end
 
   def test_after_reopening_dogs_can_both_wag_and_bark
@@ -33,9 +29,9 @@ class AboutOpenClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class ::Integer
+  class Integer
     def even?
-      (self % 2).zero?
+      even?
     end
   end
 
@@ -43,6 +39,7 @@ class AboutOpenClasses < Neo::Koan
     assert_equal false, 1.even?
     assert_equal true, 2.even?
   end
+
   # NOTE: To understand why we need the :: before Integer, you need to
   # become enlightened about scope.
 end
