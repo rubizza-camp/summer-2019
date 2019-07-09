@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# reek:all
+# rubocop:diasble all
 # rubocop:disable Metrics/ClassLength ,Lint/MissingCopEnableDirective
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Lint/LiteralAsCondition

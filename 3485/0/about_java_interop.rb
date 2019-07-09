@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# reek:all
+# rubocop:diasble all
 # rubocop:disable Lint/MissingCopEnableDirective, Style/ClassAndModuleChildren
 # rubocop:disable Style/MixinUsage, Metrics/AbcSize
 require File.expand_path(File.dirname(__FILE__) + '/neo')

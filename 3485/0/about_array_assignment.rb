@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-
+# reek:all
+# rubocop:diasble all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class About array assigment

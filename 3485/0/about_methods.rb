@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# reek:all
+# rubocop:diasble all
 # rubocop:disable Lint/MissingCopEnableDirective
 # rubocop:disable Lint/AmbiguousRegexpLiteral, Style/RedundantSelf
 # rubocop:disable Style/RedundantReturn

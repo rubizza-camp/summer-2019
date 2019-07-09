@@ -1,5 +1,7 @@
 # frozen_string_literal: false
 
+# reek:all
+# rubocop:diasble all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class

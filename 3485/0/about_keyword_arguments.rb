@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# reek:all
+# rubocop:diasble all
 # rubocop:disable Lint/MissingCopEnableDirective
 # rubocop:disable Lint/ParenthesesAsGroupedExpression
 require File.expand_path(File.dirname(__FILE__) + '/neo')
