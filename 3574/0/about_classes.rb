@@ -42,6 +42,7 @@ class AboutClasses < Neo::Koan
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
+    # :reek:FeatureEnvy:
     fido.name_set('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
@@ -67,6 +68,7 @@ class AboutClasses < Neo::Koan
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
+    # :reek:FeatureEnvy:
     fido.name_set('Fido')
 
     assert_equal 'Fido', fido.name
@@ -84,6 +86,7 @@ class AboutClasses < Neo::Koan
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
+    # :reek:FeatureEnvy:
     fido.name_set('Fido')
 
     assert_equal 'Fido', fido.name
