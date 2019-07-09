@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Describes to_s method
 class AboutToStr < Neo::Koan
@@ -43,6 +41,8 @@ class AboutToStr < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:ManualDispatch
+  # :reek:UtilityFunction
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)
     string.is_a?(String)

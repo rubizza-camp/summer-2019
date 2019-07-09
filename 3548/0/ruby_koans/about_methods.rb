@@ -1,9 +1,9 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UtilityFunction
 def my_global_method(first, second)
   first + second
 end
+# :reek:TooManyMethods
 # About methods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
@@ -97,6 +97,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UtilityFunction
   def my_method_in_the_same_class(first, second)
     first * second
   end
@@ -111,9 +112,10 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  private def my_private_method
+  def my_private_method
     'a secret'
   end
+  private :my_private_method
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method

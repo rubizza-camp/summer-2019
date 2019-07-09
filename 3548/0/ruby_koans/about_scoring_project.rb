@@ -31,16 +31,19 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# :reek:UtilityFunction
+# :reek:TooManyStatements
 def score(dice) # rubocop:disable Metrics/AbcSize
   done = 1000 * (dice.count(1) / 3)
   done += 100 * (dice.count(1) % 3)
   done += 50 * (dice.count(5) % 3)
-  (2..6).each do |l|
-    done += (100 * l) * (dice.count(l) / 3)
+  (2..6).each do |arg|
+    done += (100 * arg) * (dice.count(arg) / 3)
   end
   done
 end
 
+# :reek:UncommunicativeMethodName
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
