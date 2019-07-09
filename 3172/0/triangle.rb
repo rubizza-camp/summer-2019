@@ -18,15 +18,15 @@ def triangle(a, b, c)
   raise TriangleError if a <= 0 || a + b <= c
 
   if a == b
-    if a==c
+    if a == c
       :equilateral
     else
-	  :isosceles
+      :isosceles
     end
   elsif a == c || b == c
-    :isosceles		
+    :isosceles
   else
-    :scalene 	
+    :scalene
   end
 end
 
