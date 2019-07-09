@@ -1,5 +1,3 @@
-# rubocop: disable Style/TrivialAccessors
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClassMethods < Neo::Koan
@@ -21,11 +19,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 1
+    assert fido.methods.size > 2
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 2
+    assert Dog.methods.size > 20
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -76,8 +74,7 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
-  def Dog.name
-    # rubocop: enable Style/TrivialAccessors
+  def Dog.name # rubocop:disable Style/TrivialAccessors
     @name
   end
 
@@ -102,22 +99,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LASTEXPRESSIONINCLASSSTATEMENT = class Dog
-                                     21
-                                   end
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LASTEXPRESSIONINCLASSSTATEMENT
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
 
-  SELFINSIDEOFCLASSSTATEMENT = class Dog
-                                 self
-                               end
+  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
+                                     self
+                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SELFINSIDEOFCLASSSTATEMENT
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
   end
 
   # ------------------------------------------------------------------
