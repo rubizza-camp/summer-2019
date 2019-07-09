@@ -30,6 +30,7 @@ class AboutObjects < Neo::Koan
     assert_equal true, obj.object_id != another_obj.object_id
   end
 
+  # rubocop:disabled Layout/TrailingWhitespace
   def test_small_integers_have_fixed_ids
     assert_equal 1, 0.object_id
     assert_equal 3, 1.object_id
@@ -39,7 +40,8 @@ class AboutObjects < Neo::Koan
     # THINK ABOUT IT:
     # What pattern do the object IDs for small integers follow?
   end
-  
+
+  # rubocop:enabled Layout/TrailingWhitespace
   # :reek:FeatureEnvy:
   def test_clone_creates_a_different_object
     obj = Object.new

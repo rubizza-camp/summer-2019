@@ -86,11 +86,10 @@ class AboutIteration < Neo::Koan
 
     result_two = [2, 3, 4].inject(1) { |product, item| product * item }
     assert_equal 24, result_two
-
     # Extra Credit:
     # Describe in your own words what inject does.
   end
-  
+
   #:reek:NestedIterators:
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
