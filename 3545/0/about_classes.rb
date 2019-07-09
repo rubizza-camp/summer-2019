@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyMethods
+# :reek:InstanceVariableAssumption
+# rubocop:disable Naming/AccessorMethodName
+# rubocop:disable Style/TrivialAccessors
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -16,6 +19,7 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
   end
+  # :reek:FeatureEnvy
 
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
@@ -24,6 +28,7 @@ class AboutClasses < Neo::Koan
     fido.set_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
+  # :reek:TooManyStatements
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
@@ -32,13 +37,15 @@ class AboutClasses < Neo::Koan
     assert_raise(NoMethodError) do
       fido.name
     end
+    # rubocop:disable Style/EvalWithLocation)
 
     assert_raise(SyntaxError) do
       eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
+
     end
   end
-
+  # :reek:FeatureEnvy
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
     fido.set_name('Fido')
@@ -63,6 +70,7 @@ class AboutClasses < Neo::Koan
 
     attr_reader :name
   end
+  # :reek:FeatureEnvy
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
@@ -80,7 +88,7 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
   end
-
+  # :reek:FeatureEnvy
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
     fido.set_name('Fido')
@@ -91,8 +99,10 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog5
+    # :reek:Attribute
     attr_accessor :name
   end
+  # :reek:FeatureEnvy
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
@@ -184,3 +194,7 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Naming/AccessorMethodName
+# rubocop:enable Style/EvalWithLocation)
+# rubocop:enable Style/TrivialAccessors
+
