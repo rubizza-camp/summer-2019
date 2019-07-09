@@ -32,7 +32,7 @@ class AboutScope < Neo::Koan
     assert_equal true, fido.class != rover.class
     assert_equal true, Jims::Dog != Joes::Dog
   end
-
+  # :reek:TooManyStatements
   # ------------------------------------------------------------------
 
   class String

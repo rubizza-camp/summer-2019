@@ -20,10 +20,11 @@ def triangle(side_a, side_b, side_c)
   raise TriangleError unless side_a + side_b > side_c
   return :equilateral if side_a == side_c
   return :isosceles if side_a == side_b || side_b == side_c
-  # :reek:TooManyStatements
-  # :reek:FeatureEnvy
+
   :scalene
 end
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
