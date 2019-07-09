@@ -12,17 +12,18 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
-  rescue Exception => e
+  rescue Exception => exp
     # rubocop: enable Lint/RescueException
     # What exception has been caught?
-    assert_equal NoMethodError, e.class
+    assert_equal NoMethodError, exp.class
 
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
-    assert_match(/some_method_nil_doesnt_know_about/, e.message)
+    assert_match(/some_method_nil_doesnt_know_about/, exp.message)
   end
 
   def test_nil_has_a_few_methods_defined_on_it
+    # :reek:NilCheck:
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s
     assert_equal 'nil', nil.inspect

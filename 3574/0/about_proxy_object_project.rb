@@ -154,6 +154,8 @@ class TelevisionTest < Neo::Koan
     assert !tv.on?
   end
 
+  # :reek:FeatureEnvy:
+  # :reek:TooManyStatements:
   def test_edge_case_on_off
     tv = Television.new
 
@@ -167,7 +169,7 @@ class TelevisionTest < Neo::Koan
 
     assert !tv.on?
   end
-
+  # :reek:FeatureEnvy:
   def test_can_set_the_channel
     tv = Television.new
 
