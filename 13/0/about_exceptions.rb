@@ -64,5 +64,4 @@ class AboutExceptions < Neo::Koan
       raise MySpecialError.new('New instances can be raised directly.')
     end
   end
-
 end
