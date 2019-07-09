@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#rubocop:disable all
+# rubocop:disable all
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -70,4 +70,4 @@ class AboutDiceProject < Neo::Koan
     assert_equal 1, dice.values.size
   end
 end
-#rubocop:enable all
+# rubocop:enable all
