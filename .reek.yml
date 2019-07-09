@@ -40,3 +40,6 @@ detectors:
 
   Attribute:
     enabled: false
+
+  ManualDispatch:
+    enabled: false
