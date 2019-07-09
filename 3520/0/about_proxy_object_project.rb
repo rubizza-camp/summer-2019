@@ -112,7 +112,6 @@ class AboutProxyObjectProject < Neo::Koan
   end
 end
 
-
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
 # changes should be necessary to anything below this comment.
