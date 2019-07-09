@@ -9,7 +9,7 @@ class Game
 
   def initialize(gamer)
     @gamer = gamer
-    @deposit = 1000000
+    @deposit = 1_000_000
   end
 
   def deposit_minus(win_user)
@@ -91,7 +91,7 @@ class Gamer
 
   def initialize(name)
     @name = name
-    @kesh = 500000
+    @kesh = 500_000
   end
 end
 
