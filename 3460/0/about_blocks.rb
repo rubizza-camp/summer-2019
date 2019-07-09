@@ -94,4 +94,3 @@ class AboutBlocks < Neo::Koan
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end
-
