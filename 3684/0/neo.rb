@@ -150,17 +150,17 @@ module Neo
       flunk(msg) unless condition
       true
     end
-
+    # :reek:FeatureEnvy
     def assert_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to equal #{actual.inspect}"
       assert(expected == actual, msg)
     end
-
+    # :reek:FeatureEnvy
     def assert_not_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to not equal #{actual.inspect}"
       assert(expected != actual, msg)
     end
-
+    # :reek:FeatureEnvy
     def assert_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to be nil"
       assert(actual.nil?, msg)
