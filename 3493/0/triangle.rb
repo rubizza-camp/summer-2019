@@ -18,17 +18,16 @@
 # :reek:FeatureEnvy:
 # rubocop:disable Style/SymbolProc, Metrics/AbcSize:
 
-def triangle_valud?(*args)
-  raise TriangleError if args.all? { |argument| argument.negative? }
-  raise TriangleError if (args[0] + args[1] <= args[2]) || (args[1] + args[2] <= args[0]) ||
-                         (args[2] + args[0] <= args[1])
+def triangle_validation?(*args)
+  return (args[0] + args[1] <= args[2]) || (args[1] + args[2] <= args[0]) ||
+         (args[2] + args[0] <= args[1]) || args.any? { |argument| argument.negative? }
 end
 #:reek:ControlParameter:
 # :reek:FeatureEnvy:
 # rubocop:enable Style/SymbolProc, Metrics/AbcSize:
 
 def triangle(*args)
-  triangle_valud?(*args)
+  raise TriangleError if triangle_validation?(*args)
   case args.uniq.count
   when 3
     :scalene
