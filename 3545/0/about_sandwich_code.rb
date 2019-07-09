@@ -1,26 +1,30 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+  # :reek:RepeatedConditionalClear
+  # :reek:NilCheck
 
 class AboutSandwichCode < Neo::Koan
+  # :reek:UtilityFunction
   def count_lines(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     count = 0
     count += 1 while file.gets
     count
   ensure
-    file&.close
+    file&.close if file
   end
 
   def test_counting_lines
     assert_equal 4, count_lines('example_file.txt')
   end
+  # :reek:UtilityFunction
 
   def find_line(file_name)
     file = open(file_name)
-    while line = file.gets
-      return line if line.match(/e/)
+    while (line = file.gets)
+      return line if line =~ /e/
     end
   ensure
-    file&.close
+    file&.close if file
   end
 
   def test_finding_lines
@@ -28,10 +32,10 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def file_sandwich(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     yield(file)
   ensure
-    file&.close
+    file&.close if file
   end
 
   # Now we write:
@@ -49,18 +53,18 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def find_line2(file_name)
-    file = open(file_name)
-    while line = file.gets
-      return line if line.match(/^is/)
+    # Rewrite find_line using the file_sandwich library function.
+    file_sandwich(file_name) do |file|
+      while (line = file.gets)
+        return line if line =~ /e/
+      end
     end
-  ensure
-    file&.close
   end
 
   def test_finding_lines2
-    assert_equal "is\n", find_line2('example_file.txt')
+    assert_equal "test\n", find_line2('example_file.txt')
   end
-
+  # :reek:UtilityFunction
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
