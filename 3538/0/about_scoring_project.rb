@@ -31,14 +31,13 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  dice = dice.sort
   sum = 0
-  (1..6).each do |round|
-    count = dice.count(round)
-    sum += (round == 1 ? 1000 : round * 100) if count >= 3
-    sum += (count % 3) * 100 if round == 1
-    sum += (count % 3) * 50 if round == 5
+  sum += dice.count(1) >= 3 ? 1000 + (dice.count(1) - 3) * 100 : dice.count(1) * 100
+  sum += dice.count(5) >= 3 ? 500 + (dice.count(5) - 3) * 50 : dice.count(5) * 50
+  [2, 3, 4, 6].each do |round|
+     dice.count(round) >= 3 ? sum += round * 100 : 0
   end
+
   sum
 end
 
