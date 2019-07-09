@@ -14,7 +14,7 @@ class AboutNil < Neo::Koan
     nil.some_method_nil_doesnt_know_about
   rescue StandardError => e
     # What exception has been caught?
-    assert_equal NoMethodError, e.class
+    assert_equal NoMethodError, exp.class
 
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
@@ -23,6 +23,7 @@ class AboutNil < Neo::Koan
 
   # :reek:NilCheck
   def test_nil_has_a_few_methods_defined_on_it
+    # :reek:NilCheck:
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s
     assert_equal 'nil', nil.inspect
