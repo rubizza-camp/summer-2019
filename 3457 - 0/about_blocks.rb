@@ -54,8 +54,10 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_methods_can_see_if_they_have_been_called_with_a_block
+    # rubocop:disable Lint/AmbiguousBlockAssociation
     assert_equal :with_block, yield_tester { :with_block }
     assert_equal :no_block, yield_tester
+    # rubocop:enable Lint/AmbiguousBlockAssociation
   end
 
   # ------------------------------------------------------------------
@@ -87,9 +89,11 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_methods_can_take_an_explicit_block_argument
+    # rubocop:disable Lint/AmbiguousBlockAssociation
     assert_equal 20, method_with_explicit_block { |n| n * 2 }
 
     add_one = ->(n) { n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
+    # rubocop:enable Lint/AmbiguousBlockAssociation
   end
 end

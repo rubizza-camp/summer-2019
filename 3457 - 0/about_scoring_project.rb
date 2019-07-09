@@ -28,7 +28,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/AbcSize
 def score(dice)
   score = 0
   (1..6).each do |d|
@@ -40,6 +42,9 @@ def score(dice)
     score += count.size * 100 if (count.size < 3) && d == 1
   end
   score
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
 end
 
 class AboutScoringProject < Neo::Koan

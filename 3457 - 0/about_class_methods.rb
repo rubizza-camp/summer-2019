@@ -73,10 +73,12 @@ class AboutClassMethods < Neo::Koan
   class Dog
     attr_accessor :name
   end
+  # rubocop:disable Style/TrivialAccessors
 
   def Dog.name
     @name
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
@@ -98,21 +100,21 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop: disable Naming/ConstantName
   LastExpressionInClassStatement = class Dog
                                      21
                                    end
-
+  # rubocop: enable Naming/ConstantName
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, LastExpressionInClassStatement
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop: disable Naming/ConstantName
   SelfInsideOfClassStatement = class Dog
                                  self
                                end
-
+  # rubocop: enable Naming/ConstantName
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SelfInsideOfClassStatement
   end

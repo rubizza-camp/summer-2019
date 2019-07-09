@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop: disable Style/MixinUsage
 include Java
-
+# rubocop: enable Style/MixinUsage
 # Concepts
 # * Pull in a java class
 # * calling a method, Camel vs snake
@@ -87,19 +87,23 @@ class AboutJavaInterop < Neo::Koan
     # Is there a way to make Ruby/Java string comparisons commutative?
     # How would you do it?
   end
+  # rubocop:disable Metrics/AbcSize
 
   def test_however_most_methods_returning_strings_return_ruby_strings
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.toString
     assert_equal __, java_array.toString.is_a?(String)
     assert_equal __, java_array.toString.is_a?(java.lang.String)
+    # rubocop:enable Metrics/AbcSize
   end
+  # rubocop:disable Metrics/AbcSize
 
   def test_some_ruby_objects_can_be_coerced_to_java
     assert_equal __, 'ruby string'.to_java.class
     assert_equal __, 1.to_java.class
     assert_equal __, 9.32.to_java.class
     assert_equal __, false.to_java.class
+    # rubocop:enable Metrics/AbcSize
   end
 
   def test_some_ruby_objects_are_not_coerced_to_what_you_might_expect
@@ -117,6 +121,7 @@ class AboutJavaInterop < Neo::Koan
   # ------------------------------------------------------------------
 
   # Open the Java ArrayList class and add a new method.
+  # rubocop:disable Style/ClassAndModuleChildren
   class Java::JavaUtil::ArrayList
     def multiply_all
       result = 1
@@ -133,4 +138,5 @@ class AboutJavaInterop < Neo::Koan
 
     assert_equal __, java_array.multiply_all
   end
+  # rubocop:enable Style/ClassAndModuleChildren
 end

@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Metrics/ClassLength
 
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
@@ -190,4 +191,5 @@ It was the worst of times.
     assert_equal true, a           == b
     assert_equal false, a.object_id == b.object_id
   end
+  # rubocop:enable Metrics/ClassLength
 end

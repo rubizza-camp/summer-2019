@@ -18,9 +18,11 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line(file_name)
     file = File.open(file_name)
+    # rubocop:disable Lint/AssignmentInCondition
     while line = file.gets
       return line if line.match(/e/)
     end
+    # rubocop:enable Lint/AssignmentInCondition
   ensure
     file&.close
   end
@@ -76,9 +78,11 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line2(file_name)
     file = File.open(file_name)
+    # rubocop:disable Lint/AssignmentInCondition
     while line = file.gets
       return line if line.match(/e/)
     end
+    # rubocop:enable Lint/AssignmentInCondition
   ensure
     file&.close
   end

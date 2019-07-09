@@ -3,7 +3,9 @@
 
 begin
   require 'win32console'
+  # rubocop:disable Lint/HandleExceptions
 rescue LoadError
+  # rubocop:enable Lint/HandleExceptions
 end
 
 # --------------------------------------------------------------------
@@ -63,13 +65,16 @@ class Object
   end
 
   in_ruby_version('1.9', '2') do
+    # rubocop:disable Style/AccessModifierDeclarations
     public :method_missing
+    # rubocop:enable Style/AccessModifierDeclarations
   end
 end
 
 class String
   def side_padding(width)
     extra = width - size
+    # rubocop:disable Style/NumericPredicate
     if width < 0
       self
     else
@@ -77,6 +82,7 @@ class String
       right_padding = (extra + 1) / 2
       (' ' * left_padding) + self + (' ' * right_padding)
     end
+    # rubocop:enable Style/NumericPredicate
   end
 end
 
@@ -98,8 +104,12 @@ module Neo
     module_function
 
     COLORS.each do |color, value|
+      # rubocop:disable Style/EvalWithLocation
       module_eval "def #{color}(string); colorize(string, #{value}); end"
+      # rubocop:disable Style/AccessModifierDeclarations
+      # rubocop:enable Style/EvalWithLocation
       module_function color
+      # rubocop:enable Style/AccessModifierDeclarations
     end
 
     def colorize(string, color_value)
@@ -118,11 +128,13 @@ module Neo
       return false if ENV['NO_COLOR']
 
       if ENV['ANSI_COLOR'].nil?
+        # rubocop:disable Style/GuardClause
         if using_windows?
           using_win32console
         else
           return true
         end
+        # rubocop:enable Style/GuardClause
       else
         ENV['ANSI_COLOR'] =~ /^(t|y)/i
       end
@@ -178,20 +190,27 @@ module Neo
     def assert_raise(exception)
       begin
         yield
+        # rubocop:disable Lint/RescueException
       rescue Exception => e
         expected = e.is_a?(exception)
         assert(expected, "Exception #{exception.inspect} expected, but #{e.inspect} was raised")
         return e
+        # rubocop:enable Lint/RescueException
       end
       flunk "Exception #{exception.inspect} expected, but nothing raised"
     end
 
     def assert_nothing_raised
       yield
+      # rubocop:disable Lint/RescueException
+      # rubocop:disable Lint/UselessAssignment
     rescue Exception => e
       flunk "Expected nothing to be raised, but exception #{exception.inspect} was raised"
+      # rubocop:enable Lint/UselessAssignment
+      # rubocop:enable Lint/RescueException
     end
   end
+  # rubocop:disable Metrics/ClassLength
 
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
@@ -227,6 +246,7 @@ module Neo
       end
       @_contents
     end
+    # rubocop:disable Metrics/AbcSize
 
     def observe(step)
       if step.passed?
@@ -242,6 +262,7 @@ module Neo
         @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
         throw :neo_exit
       end
+      # rubocop:enable Metrics/AbcSize
     end
 
     def failed?
@@ -263,6 +284,7 @@ module Neo
         end_screen
       end
     end
+    # rubocop:disable Metrics/AbcSize
 
     def show_progress
       bar_width = 50
@@ -278,6 +300,7 @@ module Neo
       end
       print Color.green(']')
       print " #{pass_count}/#{total_tests}"
+      # rubocop:enable Metrics/AbcSize
     end
 
     def end_screen
@@ -333,6 +356,9 @@ module Neo
       ENDTEXT
       puts completed
     end
+    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/AbcSize
 
     def encourage
       puts 'The Master says:'
@@ -344,6 +370,9 @@ module Neo
       elsif progress.last.to_i.positive?
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
+      # rubocop:enable Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/AbcSize
     end
 
     def guide_through_error
@@ -378,6 +407,7 @@ module Neo
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
+    # rubocop:disable Metrics/CyclomaticComplexity
     def a_zenlike_statement
       if !failed?
         zen_statement = 'Mountains are again merely mountains'
@@ -398,7 +428,9 @@ module Neo
                         end
       end
       puts Color.green(zen_statement)
+      # rubocop:enable Metrics/CyclomaticComplexity
     end
+    # rubocop:enable Metrics/ClassLength
   end
 
   class Koan
@@ -464,11 +496,13 @@ module Neo
           when /^-n(.*)$/
             @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
           else
+            # rubocop:disable Style/GuardClause
             if File.exist?(arg)
               load(arg)
             else
               raise "Unknown command line argument '#{arg}'"
             end
+            # rubocop:enable Style/GuardClause
           end
         end
       end
@@ -519,7 +553,9 @@ module Neo
     end
   end
 end
+# rubocop:disable Style/BlockDelimiters
 at_exit {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
+# rubocop:enable Style/BlockDelimiters

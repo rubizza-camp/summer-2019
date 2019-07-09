@@ -22,12 +22,14 @@ class Proxy
 
     methods_to_forward = @object.methods - %i[__send__ object_id instance_of? method_missing]
     methods_to_forward.each do |method|
+      # rubocop:disable Security/Eval
       binding.eval ''" def #{method}(*args, &block)
                   @methods_called[:#{method}] += 1
                   @messages.push :#{method}
                   @object.send(:#{method}, *args, &block)
                end
           "''
+      # rubocop:enable Security/Eval
     end
   end
 

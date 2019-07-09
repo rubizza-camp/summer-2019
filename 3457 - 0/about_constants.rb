@@ -69,7 +69,7 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/ClassAndModuleChildren
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
@@ -82,4 +82,5 @@ class AboutConstants < Neo::Koan
   # QUESTION: Now which has precedence: The constant in the lexical
   # scope, or the constant from the inheritance hierarchy?  Why is it
   # different than the previous answer?
+  # rubocop:enable Style/ClassAndModuleChildren
 end

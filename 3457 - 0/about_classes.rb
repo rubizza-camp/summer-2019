@@ -34,8 +34,10 @@ class AboutClasses < Neo::Koan
     end
 
     assert_raise(SyntaxError) do
+      # rubocop:disable Style/EvalWithLocation
       eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
+      # rubocop:enable Style/EvalWithLocation
     end
   end
 
@@ -49,9 +51,12 @@ class AboutClasses < Neo::Koan
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.setname('Fido')
-
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
+    # rubocop:disable Style/EvalWithLocation
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    # rubocop:disable Lint/AmbiguousBlockAssociation
     assert_equal 'Fido', fido.instance_eval { @name } # block version
+    # rubocop:enable Lint/AmbiguousBlockAssociation
+    # rubocop:enable Style/EvalWithLocation
   end
 
   # ------------------------------------------------------------------

@@ -19,10 +19,12 @@ class AboutOpenClasses < Neo::Koan
     def wag
       'HAPPY'
     end
+    # rubocop:disable Lint/DuplicateMethods
 
     def bark
       'WOOF'
     end
+    # rubocop:enable Lint/DuplicateMethods
   end
 
   def test_after_reopening_dogs_can_both_wag_and_bark
@@ -32,7 +34,7 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/ClassAndModuleChildren
   class ::Integer
     def even?
       (self % 2).zero?
@@ -45,4 +47,5 @@ class AboutOpenClasses < Neo::Koan
   end
   # NOTE: To understand why we need the :: before Integer, you need to
   # become enlightened about scope.
+  # rubocop:enable Style/ClassAndModuleChildren
 end

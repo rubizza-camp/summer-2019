@@ -44,11 +44,15 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
+    # rubocop:disable Lint/UselessAssignment
     result = nil
+    # rubocop:enable Lint/UselessAssignment
     begin
       raise 'Oops'
+      # rubocop:disable Lint/HandleExceptions
     rescue StandardError
       # no code here
+      # rubocop:enable Lint/HandleExceptions
     ensure
       result = :always_run
     end

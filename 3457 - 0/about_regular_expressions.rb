@@ -50,7 +50,9 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
+    # rubocop:disable Lint/AmbiguousBlockAssociation
     assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
+    # rubocop:enable Lint/AmbiguousBlockAssociation
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
