@@ -1,4 +1,6 @@
 # rubocop: disable Lint/AmbiguousBlockAssociation
+### hound pls
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
