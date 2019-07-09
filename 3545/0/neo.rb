@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
+#
+# rubocop:disable all
 
 begin
   require 'win32console'
