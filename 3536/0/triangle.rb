@@ -13,15 +13,15 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  if a + b <= c || a + c <= b || b + c <= a || a <= 0 || b <= 0 || c <= 0
+def triangle(side_a, side_b, side_c)
+  if side_a + side_b <= side_c || side_a + side_c <= side_b || side_b + side_c <= side_a || side_a <= 0 || side_b <= 0 || side_c <= 0
     raise TriangleError
   end
 
-  if a == b && b == c && a == c
+  if side_a == side_b && side_b == side_c && side_a == side_c
     :equilateral
 
-  elsif a == b || a == c || b == c
+  elsif side_a == side_b || side_a == side_c || side_b == side_c
     :isosceles
 
   else
