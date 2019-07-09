@@ -1,8 +1,5 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-# class AboutRegularExpressions < Neo::Koan
+# :reek:TooManyMethods
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -53,7 +50,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat], (animals.select { |a| a[/[cbr]at/] })
+    assert_equal %w[cat bat rat], (animals.select { |item| item[/[cbr]at/] })
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -85,7 +82,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_shortcut_character_classes_are_negated_with_capitals
     assert_equal 'the number is ', 'the number is 42'[/\D+/]
-    assert_equal 'space:', 'space: \t\n'[/\S+/]
+    assert_equal 'space:', "space: \t\n"[/\S+/]
     # ... a programmer would most likely do
     assert_equal ' = ', 'variable_1 = 42'[/[^a-zA-Z0-9_]+/]
     assert_equal ' = ', 'variable_1 = 42'[/\W+/]
@@ -142,6 +139,7 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'Summer', 'Summer Gray'[grays, 1]
     assert_equal nil, 'Jim Gray'[grays, 1]
   end
+
   # THINK ABOUT IT:
   #
   # Explain the difference between a character class ([...]) and alternation (|).
