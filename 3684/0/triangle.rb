@@ -16,6 +16,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+
 # :reek:FeatureEnvy
 def triangle(aside, bside, cside)
   array = [aside, bside, cside].sort

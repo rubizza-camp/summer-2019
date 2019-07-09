@@ -145,8 +145,6 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
-  # rubocop:enable Style/MethodMissingSuper
-  # rubocop:enable MissingRespondToMissing
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
