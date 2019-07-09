@@ -1,10 +1,16 @@
-# rubocop:disable all
-
-# frozen_string_literal: false
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UncommunicativeVariableName
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UtilityFunction
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeModuleName
+# rubocop:disable Metrics/ClassLength, Naming/HeredocDelimiterNaming
+# rubocop:disable Lint/UselessAssignment, Lint/InterpolationCheck
 
-# class AboutStrings < Neo::Koan
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -18,26 +24,26 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
-    assert_equal string, string
+    assert_equal 'He said, "Go Away."', string
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
-    string = 'Don\'t'
-    assert_equal string, string
+    string = "Don't"
+    assert_equal "Don't", string
   end
 
   def test_use_backslash_for_those_hard_cases
-    str_a = "He said, \"Don't\""
-    str_b = 'He said, "Don\'t"'
+    a = "He said, \"Don't\""
+    b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    str_a = %(flexible quotes can handle both ' and ' characters)
-    str_b = %(flexible quotes can handle both ' and ' characters)
-    str_c = %(flexible quotes can handle both ' and ' characters)
-    assert_equal true, str_a == str_b
-    assert_equal true, str_a == str_c
+    a = %(flexible quotes can handle both ' and " characters)
+    b = %(flexible quotes can handle both ' and " characters)
+    c = %(flexible quotes can handle both ' and " characters)
+    assert_equal true, a == b
+    assert_equal true, a == c
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -51,13 +57,13 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<MEANINGFUL
-                    It was the best of times,
-                    It was the worst of times.
-MEANINGFUL
-    assert_equal 93, long_string.length
+    long_string = <<~EOS
+      It was the best of times,
+      It was the worst of times.
+    EOS
+    assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal ' ', long_string[0, 1]
+    assert_equal 'I', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -107,6 +113,7 @@ MEANINGFUL
     #
     # Ruby programmers tend to favor the shovel operator (<<) over the
     # plus equals operator (+=) when building up strings.  Why?
+    # 'couse << alters the original string rather than creating a new one
   end
 
   def test_double_quoted_string_interpret_escape_characters
@@ -122,7 +129,7 @@ MEANINGFUL
   def test_single_quotes_sometimes_interpret_escape_characters
     string = '\\\''
     assert_equal 2, string.size
-    assert_equal "\\'", string
+    assert_equal %(\\'), string
   end
 
   def test_double_quoted_strings_interpolate_variables
@@ -133,9 +140,12 @@ MEANINGFUL
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = "The value is #{value}"
-    assert_equal "The value is #{value}", string
+    string = 'The value is #{value}'
+    assert_equal 'The value is #{value}', string
   end
+
+  # rubocop:enable Metrics/ClassLength, Naming/HeredocDelimiterNaming
+  # rubocop:enable Lint/UselessAssignment, Lint/InterpolationCheck
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
@@ -157,10 +167,10 @@ MEANINGFUL
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 97, 'a'
-      assert_equal true, 'a' == 97
+      assert_equal __, 'a'
+      assert_equal __, 'a' == 97
 
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal __, ('a' + 1) == 'b'
     end
   end
 
@@ -193,11 +203,10 @@ MEANINGFUL
   end
 
   def test_strings_are_unique_objects
-    str_a = 'a string'
-    str_b = 'a string'
+    a = 'a string'
+    b = 'a string'
 
-    assert_equal true, str_a == str_b
-    assert_equal false, str_a.object_id == str_b.object_id
+    assert_equal true, a           == b
+    assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable all
