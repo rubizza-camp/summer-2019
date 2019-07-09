@@ -11,13 +11,16 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
-  rescue Exception => e
+  rescue Exception => e # rubocop:disable Lint/RescueException
     # What exception has been caught?
-    assert_equal NoMethodError, e.class
 
+    assert_equal ::NoMethodError, e.class
+
+    part_of_the_error_mes = "undefined method `some_method_nil_doesnt_know_about' for nil:NilClass"
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
-    assert_match(/undefined method/, e.message)
+
+    assert_match(/#{part_of_the_error_mes}/, e.message)
   end
 
   def test_nil_has_a_few_methods_defined_on_it

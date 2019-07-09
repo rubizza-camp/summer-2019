@@ -13,21 +13,15 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  uniq_side_length = [a, b, c].uniq.length
 
-  raise TriangleError if [a, b, c].min <= 0
-
-  x, y, z = [a, b, c].sort
-  raise TriangleError if x + y <= z
-
-  if uniq_side_length == 1
-    :equilateral
-  elsif uniq_side_length == 2
-    :isosceles
-  else
-    :scalene
-  end
+def triangle(a_var, b_var, c_var)
+  uniq_side_length = [a_var, b_var, c_var].uniq.length
+  raise TriangleError if [a_var, b_var, c_var].min <= 0
+  x_var, y_var, z_var = [a_var, b_var, c_var].sort
+  raise TriangleError if x_var + y_var <= z_var
+  return :equilateral if uniq_side_length == 1
+  return :isosceles if uniq_side_length == 2
+  :scalene
 end
 
 # Error class used in part 2.  No need to change this code.
