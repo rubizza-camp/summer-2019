@@ -15,12 +15,7 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-# rubocop:disable CyclomaticComplexity
-# rubocop:disable PerceivedComplexity
 #
-def sum(number_1, number_2)
-  number_1 + number_2
-end
 
 def triangle_kind(side_a, side_b, side_c)
   return :equilateral if (side_a == side_b) && (side_b == side_c)
@@ -40,5 +35,3 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable CyclomaticComplexity
-# rubocop:enable PerceivedComplexity
