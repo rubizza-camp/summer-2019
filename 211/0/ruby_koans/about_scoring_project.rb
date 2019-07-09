@@ -30,7 +30,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  dice = dice.sort
   result = 0
   (1..6).each do |turn|
     count = dice.count(turn)
