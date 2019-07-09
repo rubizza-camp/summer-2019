@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-require 'pry'
 
 # Greed is a dice game where you roll up to five dice to accumulate
 # points.  The following 'score' function will be used to calculate the
@@ -18,7 +17,6 @@ require 'pry'
 #
 # * Everything else is worth 0 points.
 #
-#
 # Examples:
 #
 # score([1,1,1,5,1]) => 1150 points
@@ -29,16 +27,16 @@ require 'pry'
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+# :reek:UtilityFunction
 def id_zero(value)
   (value / 3) * 1000 + (value % 3) * 100
 end
-
-def id_4(value, id)
+# :reek:UtilityFunction
+def id_four(value, id)
   (value / 3) * (id + 1) * 100 + (value % 3) * 50
 end
-
-def val_3(value, id)
+# :reek:UtilityFunction
+def val_three(value, id)
   (value / 3) * (id + 1) * 100
 end
 
@@ -46,9 +44,9 @@ def which(value, id)
   if id.zero?
     id_zero(value)
   elsif id == 4
-    id_4(value, id)
+    id_four(value, id)
   elsif value >= 3
-    val_3(value, id)
+    val_three(value, id)
   else
     0
   end
@@ -74,11 +72,11 @@ class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
-
+  # :reek:UncommunicativeMethodName
   def test_score_of_a_single_roll_of_5_is_50
     assert_equal 50, score([5])
   end
-
+  # :reek:UncommunicativeMethodName
   def test_score_of_a_single_roll_of_1_is_100
     assert_equal 100, score([1])
   end
@@ -90,11 +88,11 @@ class AboutScoringProject < Neo::Koan
   def test_score_of_single_2s_3s_4s_and_6s_are_zero
     assert_equal 0, score([2, 3, 4, 6])
   end
-
+  # :reek:UncommunicativeMethodName
   def test_score_of_a_triple_1_is_1000
     assert_equal 1000, score([1, 1, 1])
   end
-
+  # :reek:UncommunicativeMethodName
   def test_score_of_other_triples_is_100x
     assert_equal 200, score([2, 2, 2])
     assert_equal 300, score([3, 3, 3])

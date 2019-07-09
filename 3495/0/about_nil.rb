@@ -21,7 +21,7 @@ class AboutNil < Neo::Koan
       assert_match(/undefined method/, ex.message)
     end
   end
-
+  # :reek:NilCheck
   def test_nil_has_a_few_methods_defined_on_it
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s

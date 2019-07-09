@@ -2,7 +2,7 @@
 # rubocop:disable Metrics/ClassLength
 # rubocop:disable Metrics/MethodLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:RepeatedConditional and :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeVariableName
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
