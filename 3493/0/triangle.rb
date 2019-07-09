@@ -20,7 +20,7 @@
 
 def triangle_validation?(*args)
   (args[0] + args[1] <= args[2]) || (args[1] + args[2] <= args[0]) ||
-  (args[2] + args[0] <= args[1]) || args.any? { |argument| argument.negative? }
+    (args[2] + args[0] <= args[1]) || args.any? { |argument| argument.negative? }
 end
 #:reek:ControlParameter:
 # :reek:FeatureEnvy:
