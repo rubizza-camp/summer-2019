@@ -34,7 +34,6 @@ class AboutExceptions < Neo::Koan
     assert_equal 'Oops', err.message
   end
   
-
   # :reek:TooManyStatements:
   def test_raising_a_particular_error
     result = nil

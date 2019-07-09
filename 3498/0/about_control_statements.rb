@@ -15,20 +15,10 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
 
   def test_if_then_statements
     result = :default_value
-    if true  # rubocop:disable Lint/LiteralAsCondition, Style/IfUnlessModifier
+    if true  # rubocop:disable Lint/LiteralAsCondition
       result = :true_value
     end
     assert_equal :true_value, result
-  end
-
-  # :reek:RepeatedConditional
-  def if_statements_return_values
-    value = if false # rubocop:disable Lint/LiteralAsCondition
-              :true_value
-            else
-              :false_value
-            end
-    assert_equal :false_value, value
   end
 
   def test_if_statements_with_no_else_with_false_condition_return_value
