@@ -23,6 +23,7 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
 
+  # rubocop:disable Style/EachForSimpleLoop
   def test_blocks_can_access_variables_outside_scope
     test = 'Hi'
     (1..2).each do
@@ -41,20 +42,23 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
 
+  # rubocop:disable Style/ClassVars
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(nam)
+      @name = nam
       # Instance variables are prefixed with one '@' character.
       @@total += 1
     end
 
+    # rubocop:disable Style/TrivialAccessors
     def name
       @name
     end
 
+    # rubocop:disable Style/ClassMethods
     def Mouse.count
       @@total
     end
@@ -65,6 +69,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Oscar', oscar.name
   end
 
+  # rubocop:disable Style/UnneededInterpolation
   def test_class_variable
     (1..9).each { |i| Mouse.new("#{i}") }
     # Things may appear easier than they actually are.
@@ -76,6 +81,7 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
 
+  # rubocop:disable Style/GlobalVars
   $anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
 

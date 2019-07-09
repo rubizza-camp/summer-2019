@@ -19,10 +19,14 @@ class AboutObjects < Neo::Koan
     assert_equal 'nil', nil.inspect
   end
 
+  # rubocop:disable Lint/UnifiedInteger
+
   def test_every_object_has_an_id
     obj = Object.new
     assert_equal Fixnum, obj.object_id.class
   end
+
+  # rubocop:enable Lint/UnifiedInteger
 
   def test_every_object_has_different_id
     obj = Object.new
