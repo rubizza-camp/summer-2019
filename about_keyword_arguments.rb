@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class
 class AboutKeywordArguments < Neo::Koan
@@ -26,7 +24,7 @@ class AboutKeywordArguments < Neo::Koan
     end
     # assert_match(/ wrong number of arguments (0 for 1) /, exception.message)
   end
-  # rubocop:enable Metrics/LineLength
+
   # THINK ABOUT IT:
   #
   # Keyword arguments always have a default value, making them optional
