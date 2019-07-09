@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
+# :reek:UncommunicativeVariableName
+# Description class
 class AboutVariableScope < Neo::Koan
   def bark
-    # rubocop: disable Lint/UselessAssignment
     noise = 'RUFF'
-    # rubocop: enable Lint/UselessAssignment
+    noise
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -18,9 +18,8 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'RUFF', bark
   end
 
-  # rubocop: disable Lint/UselessAssignment
+  # rubocop:disable Lint/UselessAssignment
   inaccessible = 'Outside our universe'
-  # rubocop: enable Lint/UselessAssignment
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
     assert_equal nil, defined? inaccesible
@@ -39,31 +38,24 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      # rubocop: disable Lint/UselessAssignment
       x = 0
-      # rubocop: enable Lint/UselessAssignment
     end
     assert_equal nil, defined? x
   end
 
   # ------------------------------------------------------
-
-  #:nodoc:
+  # rubocop:enable Lint/UselessAssignment
+  # rubocop:disable Style/ClassVars
+  # :reek:ClassVariable
   class Mouse
-    # rubocop: disable Style/ClassVars
     @@total = 0
-    # rubocop: enable Style/ClassVars
     # Class variables are prefixed with two '@' characters.
 
-    # rubocop: disable Naming/UncommunicativeMethodParamName
-    def initialize(n)
-      @name = n
+    def initialize(nam)
+      @name = nam
       # Instance variables are prefixed with one '@' character.
-      # rubocop: disable Style/ClassVars
       @@total += 1
-      # rubocop: enable Style/ClassVars
     end
-    # rubocop: enable Naming/UncommunicativeMethodParamName
 
     attr_reader :name
 
@@ -71,6 +63,7 @@ class AboutVariableScope < Neo::Koan
       @@total
     end
   end
+  # rubocop:enable Style/ClassVars
 
   def test_instance_variable
     oscar = Mouse.new('Oscar')
@@ -78,55 +71,47 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |i| Mouse.new(i) }
     # Things may appear easier than they actually are.
-    assert_equal 10, Mouse.count
+    assert_equal 9, Mouse.count
   end
 
   # Meditate on the following:
   # What is the difference between a class variable and instance variable?
 
   # ------------------------------------------------------
-  # rubocop: disable Style/GlobalVars
+  # rubocop:disable Style/GlobalVars
+
   $anywhere = 'Anywhere'
-  # rubocop: enable Style/GlobalVars
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
-    # rubocop: disable Style/GlobalVars
     assert_equal 'Anywhere', $anywhere
-    # rubocop: enable Style/GlobalVars
   end
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
-    # rubocop: disable Style/GlobalVars
     $anywhere = 'Here'
     assert_equal 'Here', $anywhere
-    # rubocop: enable Style/GlobalVars
   end
 
   def test_global_variables_retain_value_from_last_change
     # What is $anywhere?
-    # rubocop: disable Style/GlobalVars
     assert_equal 'Here', $anywhere
-    # rubocop: enable Style/GlobalVars
   end
 
+  # :reek:UncommunicativeMethodName
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do
-      # rubocop: disable Style/GlobalVars
       $anywhere = 'Hey'
-      # rubocop: enable Style/GlobalVars
     end
 
-    # rubocop: disable Style/GlobalVars
     assert_equal 'Hey', $anywhere
-    # rubocop: enable Style/GlobalVars
   end
 end
 
+# rubocop:enable Style/GlobalVars
 # THINK ABOUT IT:
 #
 # What will $anywhere be down here, outside of the scope of the
