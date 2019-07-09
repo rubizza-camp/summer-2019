@@ -48,3 +48,6 @@ Lint/LiteralAsCondition:
 
 Style/TrivialAccessors:
   Enabled: false
+
+Style/MethodMissing:
+  Enabled: false
