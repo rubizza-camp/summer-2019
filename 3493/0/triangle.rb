@@ -14,8 +14,21 @@
 #   about_triangle_project_2.rb
 #
 #:reek:ControlParameter:reek:UtilityFunction:
+# :reek:ControlParameter:
+# :reek:FeatureEnvy:
+# rubocop:disable Style/SymbolProc, Metrics/AbcSize:
 
-def triangle_analyzes(*args)
+def triangle_valud?(*args)
+  raise TriangleError if args.all? { |argument| argument.negative? }
+  raise TriangleError if (args[0] + args[1] <= args[2]) || (args[1] + args[2] <= args[0]) ||
+                         (args[2] + args[0] <= args[1])
+end
+#:reek:ControlParameter:
+# :reek:FeatureEnvy:
+# rubocop:enable Style/SymbolProc, Metrics/AbcSize:
+
+def triangle(*args)
+  triangle_valud?(*args)
   case args.uniq.count
   when 3
     :scalene
@@ -24,29 +37,6 @@ def triangle_analyzes(*args)
   when 1
     :equilateral
   end
-end
-# :reek:ControlParameter:
-# :reek:FeatureEnvy:
-# rubocop:disable Style/SymbolProc
-
-def check_below_zero_triagle(*args)
-  raise TriangleError if args.each { |argument| argument.negative? }
-end
-# rubocop:disable Metrics/AbcSize:
-# :reek:FeatureEnvy:
-
-def check_no_triangle(*args)
-  raise TriangleError if (args[0] + args[1] < args[2]) || (args[1] + args[2] < args[0]) ||
-                         (args[2] + args[0] <= args[1])
-end
-#:reek:ControlParameter:
-# :reek:FeatureEnvy:
-# rubocop:enable Style/SymbolProc, Metrics/AbcSize:
-
-def triangle(*args)
-  check_below_zero_triagle(*args)
-  check_no_triangle(*args)
-  triangle_analyzes(*args)
 end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
