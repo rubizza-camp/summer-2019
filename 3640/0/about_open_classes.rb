@@ -1,8 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about Open Classes
+# :reek:IrresponsibleModule
 class AboutOpenClasses < Neo::Koan
-  # Class about cool dog
   class Dog
     def bark
       'WOOF'
@@ -31,7 +30,6 @@ class AboutOpenClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about integer
   class Integer
     def even?
       (self % 2).zero?

@@ -1,7 +1,6 @@
-# rubocop:disable Lint/UnneededCopDisableDirective, Lint/ScriptPermission
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about asserts
+# Description class
 class AboutAsserts < Neo::Koan
   # We shall contemplate truth by testing reality, via asserts.
   def test_assert_truth
@@ -36,4 +35,3 @@ class AboutAsserts < Neo::Koan
     assert_equal 2, 1 + 1
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective, Lint/ScriptPermission

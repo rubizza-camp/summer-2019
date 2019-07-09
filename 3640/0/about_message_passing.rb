@@ -1,9 +1,7 @@
-# rubocop:disable Style/MethodMissing
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about Message Passing
+# :reek:IrresponsibleModule:
 class AboutMessagePassing < Neo::Koan
-  # Class about Message Catcher
   class MessageCatcher
     def caught?
       true
@@ -50,7 +48,6 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about Message Catcher
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -76,7 +73,6 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about Typical Object
   class TypicalObject
   end
 
@@ -117,13 +113,15 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about All Message Catcher
+  # :reek:ManualDispatch
+  # :reek:UtilityFunction
+  # rubocop:disable Style/MethodMissing
   class AllMessageCatcher
-    # :reek:UtilityFunction
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
+  # rubocop:enable Style/MethodMissing
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
@@ -145,7 +143,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about Well Behaved Foo Catcher
+  # rubocop:disable Style/MethodMissing
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
@@ -155,10 +153,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-
-  def respond_to_missing?(method_name)
-    super
-  end
+  # rubocop:enable Style/MethodMissing
 
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
@@ -196,4 +191,3 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-# rubocop:enable Style/MethodMissing

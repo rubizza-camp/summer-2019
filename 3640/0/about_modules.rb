@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about modules
+# Description class
 class AboutModules < Neo::Koan
-  # Module about nameable
+  # Description module
   module Nameable
-    def nemed(new_name)
+    def name_set(new_name)
       @name = new_name
     end
 
@@ -21,7 +21,7 @@ class AboutModules < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about dog
+  # Description class
   class Dog
     include Nameable
 
@@ -48,15 +48,16 @@ class AboutModules < Neo::Koan
   def test_module_methods_are_also_available_in_the_object
     fido = Dog.new
     assert_nothing_raised do
-      fido.nemed('Rover')
+      fido.name_set('Rover')
     end
   end
 
+  # :reek:DuplicateMethodCall
   # :reek:FeatureEnvy
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal 'Fido', fido.name
-    fido.nemed('Rover')
+    fido.name_set('Rover')
     assert_equal 'Rover', fido.name
   end
 

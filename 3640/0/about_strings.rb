@@ -1,8 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/ClassLength
 # :reek:TooManyMethods
-# Class about string
-class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
+# :reek:UncommunicativeVariableName
+class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -20,21 +21,21 @@ class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
-    assert_equal "Don't", string
+    assert_equal "Don\'t", string
   end
 
   def test_use_backslash_for_those_hard_cases
-    agon = "He said, \"Don't\""
-    barateon = 'He said, "Don\'t"'
-    assert_equal true, agon == barateon
+    a = "He said, \"Don't\""
+    b = 'He said, "Don\'t"'
+    assert_equal true, a == b
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    agon = %(flexible quotes can handle both ' and " characters)
-    barateon = %(flexible quotes can handle both ' and " characters)
-    cansa = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, agon == barateon
-    assert_equal true, agon == cansa
+    a = %(flexible quotes can handle both ' and " characters)
+    b = %(flexible quotes can handle both ' and " characters)
+    c = %(flexible quotes can handle both ' and " characters)
+    assert_equal true, a == b
+    assert_equal true, a == c
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -48,15 +49,13 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    # rubocop:disable Layout/IndentHeredoc
-    long_string =  <<SQL
+    long_string = %(
 It was the best of times,
 It was the worst of times.
-SQL
-    # rubocop:enable Layout/IndentHeredoc
-    assert_equal 53, long_string.length
-    assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0, 1]
+)
+    assert_equal 54, long_string.length
+    assert_equal 3, long_string.lines.count
+    assert_equal "\n", long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -67,7 +66,7 @@ SQL
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    string = hi + there # rubocop:disable Lint/UselessAssignment
+    # string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -81,9 +80,9 @@ SQL
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
-    hi = original_string
-    there = 'World'
-    hi += there # rubocop:disable Lint/UselessAssignment
+    # hi = original_string
+    # there = 'World'
+    # hi += there
     assert_equal 'Hello, ', original_string
   end
 
@@ -101,11 +100,6 @@ SQL
     there = 'World'
     hi << there
     assert_equal 'Hello, World', original_string
-
-    # THINK ABOUT IT:
-    #
-    # Ruby programmers tend to favor the shovel operator (<<) over the
-    # plus equals operator (+=) when building up strings.  Why?
   end
 
   def test_double_quoted_string_interpret_escape_characters
@@ -121,7 +115,7 @@ SQL
   def test_single_quotes_sometimes_interpret_escape_characters
     string = '\\\''
     assert_equal 2, string.size
-    assert_equal '\\\'', string
+    assert_equal "\\'", string
   end
 
   def test_double_quoted_strings_interpolate_variables
@@ -130,13 +124,11 @@ SQL
     assert_equal 'The value is 123', string
   end
 
-  # rubocop:disable Lint/UselessAssignment, Lint/UnneededCopDisableDirective
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = "The value is #{value}"
     assert_equal "The value is #{value}", string
   end
-  # rubocop:enable Lint/UselessAssignment, Lint/UnneededCopDisableDirective
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
@@ -158,10 +150,10 @@ SQL
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal __, 'a'
-      assert_equal __, 'a' == 97
+      assert_equal 97, a
+      assert_equal false, a == 97
 
-      assert_equal __, ('a' + 1) == 'b'
+      assert_equal false, b == (a + 1)
     end
   end
 
@@ -182,10 +174,6 @@ SQL
     string = 'the:rain:in:spain'
     words = string.split(/:/)
     assert_equal %w[the rain in spain], words
-
-    # NOTE: Patterns are formed from Regular Expressions.  Ruby has a
-    # very powerful Regular Expression library.  We will become
-    # enlightened about them soon.
   end
 
   def test_strings_can_be_joined
@@ -194,10 +182,11 @@ SQL
   end
 
   def test_strings_are_unique_objects
-    agon = 'a string'
-    barateon = 'a string'
+    a = 'a string'
+    b = 'a string'
 
-    assert_equal true, agon           == barateon
-    assert_equal false, agon.object_id == barateon.object_id
+    assert_equal true, a == b
+    assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength

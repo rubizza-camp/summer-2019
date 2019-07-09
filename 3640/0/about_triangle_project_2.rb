@@ -3,10 +3,12 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # You need to write the triangle method in the file 'triangle.rb'
 require './triangle.rb'
 
-# Class about Triangle Project2
-class AboutTriangleProjectTwo < Neo::Koan
+# :reek:UncommunicativeModuleName
+# Description class
+class AboutTriangleProject2 < Neo::Koan
   # The first assignment did not talk about how to handle errors.
   # Let's handle that part now.
+  # :reek:DuplicateMethodCall
   # :reek:TooManyStatements
   def test_illegal_triangles_throw_exceptions
     assert_raise(TriangleError) { triangle(0, 0, 0) }

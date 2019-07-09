@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about Keyword Arguments
+# Description class
 class AboutKeywordArguments < Neo::Koan
   def method_with_keyword_arguments(one: 1, two: 'two')
     [one, two]
@@ -21,7 +21,7 @@ class AboutKeywordArguments < Neo::Koan
     exception = assert_raise(ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/wrong number of arguments \(given 0, expected 1\)/, exception.message)
   end
 
   # THINK ABOUT IT:

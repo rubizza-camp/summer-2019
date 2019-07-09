@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about objects
+# Description class
 class AboutObjects < Neo::Koan
   def test_everything_is_an_object
     assert_equal true, 1.is_a?(Object)
@@ -46,7 +46,7 @@ class AboutObjects < Neo::Koan
     obj = Object.new
     copy = obj.clone
 
-    assert_equal true, obj           != copy
+    assert_equal true, obj != copy
     assert_equal true, obj.object_id != copy.object_id
   end
 end

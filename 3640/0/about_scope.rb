@@ -1,10 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about scope
+# :reek:IrresponsibleModule
 class AboutScope < Neo::Koan
-  # Module about jims
   module Jims
-    # Class about dog
     class Dog
       def identify
         :jims_dog
@@ -12,9 +10,7 @@ class AboutScope < Neo::Koan
     end
   end
 
-  # Module about joes
   module Joes
-    # Class about dog
     class Dog
       def identify
         :joes_dog
@@ -41,7 +37,6 @@ class AboutScope < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about string
   class String
   end
 
@@ -80,7 +75,7 @@ class AboutScope < Neo::Koan
   end
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
-    assert_equal [:Dog], Jims.constants
-    assert Object.constants.size > 1
+    assert_equal %i[Dog], Jims.constants
+    assert Object.constants.size > 136
   end
 end

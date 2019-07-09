@@ -1,37 +1,24 @@
-# rubocop:disable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# This class smells of :reek:UncommunicativeModuleName
-# This class smells of :reek:RepeatedConditional
-# Class about control statements
+
+# :reek:FeatureEnvy
+# :reek:RepeatedConditional
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
+# Description class
 class AboutControlStatements < Neo::Koan
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
+  # rubocop:disable Lint/LiteralAsCondition
   def test_if_then_else_statements
-    result = if true
-               :true_value
-             else
-               :false_value
-             end
+    result = :true_value if true
+    result = :false_value if false
     assert_equal :true_value, result
   end
 
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
   def test_if_then_statements
     result = :default_value
     result = :true_value if true
     assert_equal :true_value, result
   end
 
-  # This method smells of :reek:UncommunicativeMethodName
-  # This method smells of :reek:UncommunicativeVariableName
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
   def test_if_statements_return_values
     value = if true
               :true_value
@@ -40,11 +27,7 @@ class AboutControlStatements < Neo::Koan
             end
     assert_equal :true_value, value
 
-    value = if false
-              :true_value
-            else
-              :false_value
-            end
+    value = false ? :true_value : :false_value
     assert_equal :false_value, value
 
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
@@ -86,52 +69,49 @@ class AboutControlStatements < Neo::Koan
 
     assert_equal :false_value, result
   end
+  # rubocop:enable Lint/LiteralAsCondition
 
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
   def test_while_statement
-    counter = 1
+    i = 1
     result = 1
-    while counter <= 10
-      result *= counter
-      counter += 1
+    while i <= 10
+      result *= i
+      i += 1
     end
     assert_equal 3_628_800, result
   end
 
-  # This method smells of :reek:TooManyStatements
-  # This method smells of :reek:FeatureEnvy
   def test_break_statement
-    counter = 1
+    i = 1
     result = 1
     loop do
-      break unless counter <= 10
-      result *= counter
-      counter += 1
+      break unless i <= 10
+
+      result *= i
+      i += 1
     end
     assert_equal 3_628_800, result
   end
 
-  # This method smells of :reek:FeatureEnvy
   def test_break_statement_returns_values
-    counter = 1
-    result = while counter <= 10
-               break counter if counter.even?
-               counter += 1
+    i = 1
+    result = while i <= 10
+               break i if (i % 2).zero?
+
+               i += 1
              end
 
     assert_equal 2, result
   end
 
-  # :reek:TooManyStatements
-  # :reek:FeatureEnvy
   def test_next_statement
-    counter = 0
+    i = 0
     result = []
-    while counter < 10
-      counter += 1
-      next if counter.even?
-      result << counter
+    while i < 10
+      i += 1
+      next if (i % 2).zero?
+
+      result << i
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
@@ -139,9 +119,7 @@ class AboutControlStatements < Neo::Koan
   def test_for_statement
     array = %w[fish and chips]
     result = []
-    array.each do |item|
-      result << item.upcase
-    end
+    array.each { |item| result << item.upcase }
     assert_equal %w[FISH AND CHIPS], result
   end
 
@@ -153,4 +131,3 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
-# rubocop:enable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength

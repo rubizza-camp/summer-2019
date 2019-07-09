@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about ClassMethods
+# :reek:IrresponsibleModule
+# :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
-  # Class about dog
   class Dog
   end
 
@@ -50,37 +50,39 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about dog2
-  class DogTwo
+  # :reek:UncommunicativeModuleName
+  class Dog2
     def wag
       :instance_level_wag
     end
   end
 
-  def DogTwo.wag
+  def Dog2.wag
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-    assert_equal :class_level_wag, DogTwo.wag
+    assert_equal :class_level_wag, Dog2.wag
   end
 
   def test_class_methods_are_independent_of_instance_methods
-    fido = DogTwo.new
+    fido = Dog2.new
     assert_equal :instance_level_wag, fido.wag
-    assert_equal :class_level_wag, DogTwo.wag
+    assert_equal :class_level_wag, Dog2.wag
   end
 
   # ------------------------------------------------------------------
 
-  # Class about dog
+  # :reek:Attribute
   class Dog
     attr_accessor :name
   end
 
-  def Dog.name # rubocop:disable Style/TrivialAccessors
+  # rubocop:disable Style/TrivialAccessors
+  def Dog.name
     @name
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
@@ -91,7 +93,6 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about dog
   class Dog
     def self.a_class_method
       :dogs_class_method
@@ -124,20 +125,19 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about dog
+  # :reek:UncommunicativeMethodName
   class Dog
-    def self.class_method_two
+    def self.class_method2
       :another_way_to_write_class_methods
     end
   end
 
   def test_you_can_use_self_instead_of_an_explicit_reference_to_dog
-    assert_equal :another_way_to_write_class_methods, Dog.class_method_two
+    assert_equal :another_way_to_write_class_methods, Dog.class_method2
   end
 
   # ------------------------------------------------------------------
 
-  # Class about dog
   class Dog
     class << self
       def another_class_method

@@ -1,8 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Class about  inheritance
+# :reek:IrresponsibleModule
 class AboutInheritance < Neo::Koan
-  # Class about  dog
   class Dog
     attr_reader :name
 
@@ -15,7 +14,6 @@ class AboutInheritance < Neo::Koan
     end
   end
 
-  # Class about chihuahua
   class Chihuahua < Dog
     def wag
       :happy
@@ -42,7 +40,6 @@ class AboutInheritance < Neo::Koan
   def test_subclasses_add_new_behavior
     chico = Chihuahua.new('Chico')
     assert_equal :happy, chico.wag
-
     assert_raise(NoMethodError) do
       fido = Dog.new('Fido')
       fido.wag
@@ -52,14 +49,12 @@ class AboutInheritance < Neo::Koan
   def test_subclasses_can_modify_existing_behavior
     chico = Chihuahua.new('Chico')
     assert_equal 'yip', chico.bark
-
     fido = Dog.new('Fido')
     assert_equal 'WOOF', fido.bark
   end
 
   # ------------------------------------------------------------------
 
-  # Class about  bull dog
   class BullDog < Dog
     def bark
       super + ', GROWL'
@@ -73,7 +68,6 @@ class AboutInheritance < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # Class about  create dane
   class GreatDane < Dog
     def growl
       super.bark + ', GROWL'

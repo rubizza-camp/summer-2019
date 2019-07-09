@@ -29,38 +29,53 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-# rubocop:disable Metrics/MethodLength
-# :reek:TooManyStatements
-# :reek:FeatureEnvy
-# :reek:UtilityFunction
-def score(dice)
-  price = dice.sort
-  result = 0
-  (1..6).each do |number|
-    throw_count = price.count(number)
-    result += (number == 1 ? 1000 : number * 100) if throw_count >= 3
-    result += (throw_count % 3) * 100 if number == 1
-    result += (throw_count % 3) * 50 if number == 5
+class Rules
+  SET_SCORE = Hash.new do |_, key|
+    if key == 1
+      1000
+    else
+      key * 100
+    end
   end
-  result
+
+  SCORE_MULTIPLIER = Hash.new(0).merge!(1 => 100, 5 => 50)
 end
 
-# rubocop:enable Metrics/MethodLength
-# Class about Scoring Project
+# This method smells of :reek:DuplicateMethodCall
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UtilityFunction
+def score(dice)
+  score = 0
+  freq = dice.each_with_object(Hash.new(0)) { |key, hash| hash[key] += 1 }
+  freq.keys.each do |val|
+    if freq[val] >= 3
+      score += Rules::SET_SCORE[val]
+      freq[val] -= 3
+    end
+
+    score += freq[val] * Rules::SCORE_MULTIPLIER[val]
+  end
+  score
+end
+
+# :reek:UncommunicativeMethodName
+# :reek:DuplicateMethodCall
+# Description class
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
 
-  def test_score_of_a_single_roll_of_five_is_fifty
+  def test_score_of_a_single_roll_of_5_is_50
     assert_equal 50, score([5])
   end
 
-  def test_score_of_a_single_roll_of_1_is_one_hundred
+  def test_score_of_a_single_roll_of_1_is_100
     assert_equal 100, score([1])
   end
 
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
+    puts(score([1, 5, 5, 1]))
     assert_equal 300, score([1, 5, 5, 1])
   end
 
@@ -68,7 +83,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
-  def test_score_of_a_triple_1_is_thousand
+  def test_score_of_a_triple_1_is_1000
     assert_equal 1000, score([1, 1, 1])
   end
 
@@ -88,4 +103,3 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:enable Metrics/AbcSize, Lint/UnneededCopDisableDirective

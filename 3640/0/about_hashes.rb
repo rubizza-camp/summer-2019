@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeVariableName
+# :reek:DuplicateMethodCall
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
+# Description class
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -39,30 +44,30 @@ class AboutHashes < Neo::Koan
     expected = { one: 'eins', two: 'dos' }
     assert_equal expected, hash
 
-    # Bonus Question: Why was "expected" broken out into a variable
+    # Bonus Question: Why was 'expected' broken out into a variable
     # rather than used as a literal?
   end
 
   def test_hash_is_unordered
-    hash_one = { one: 'uno', two: 'dos' }
-    hash_two = { two: 'dos', one: 'uno' }
+    hash1 = { one: 'uno', two: 'dos' }
+    hash2 = { two: 'dos', one: 'uno' }
 
-    assert_equal true, hash_one == hash_two
+    assert_equal true, hash1 == hash2
   end
 
   def test_hash_keys
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.keys.size
-    assert_equal true, hash.keys.include?(:one)
-    assert_equal true, hash.keys.include?(:two)
+    assert_equal true, hash.key?(:one)
+    assert_equal true, hash.key?(:two)
     assert_equal Array, hash.keys.class
   end
 
   def test_hash_values
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.values.size
-    assert_equal true, hash.values.include?('uno')
-    assert_equal true, hash.values.include?('dos')
+    assert_equal true, hash.value?('uno')
+    assert_equal true, hash.value?('dos')
     assert_equal Array, hash.values.class
   end
 
@@ -75,26 +80,22 @@ class AboutHashes < Neo::Koan
     expected = { 'jim' => 54, 'amy' => 20, 'dan' => 23, 'jenny' => 26 }
     assert_equal true, expected == new_hash
   end
-  # :reek:TooManyStatements
 
   def test_default_value
-    hash_one = {}
-    hash_one[:one] = 1
+    hash1 = {}
+    hash1[:one] = 1
 
-    assert_equal 1, hash_one[:one]
-    assert_equal nil, hash_one[:two]
+    assert_equal 1, hash1[:one]
+    assert_equal nil, hash1[:two]
 
-    hash_two = Hash.new('dos')
-    hash_two[:one] = 1
+    hash2 = Hash.new('dos')
+    hash2[:one] = 1
 
-    assert_equal 1, hash_two[:one]
-    assert_equal 'dos', hash_two[:two]
+    assert_equal 1, hash2[:one]
+    assert_equal 'dos', hash2[:two]
   end
 
   # rubocop:disable Metrics/AbcSize
-  # :reek:TooManyStatements
-  # :reek:FeatureEnvy
-
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -107,21 +108,16 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
-
   # rubocop:enable Metrics/AbcSize
-  # rubocop:disable Lint/ShadowingOuterLocalVariable
-  # :reek:TooManyStatements
-  # :reek:FeatureEnvy
 
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |val, key| val[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
-    assert_equal ['uno'], hash[:one]
-    assert_equal ['dos'], hash[:two]
+    assert_equal %w[uno], hash[:one]
+    assert_equal %w[dos], hash[:two]
     assert_equal [], hash[:three]
   end
-  # rubocop:enable Lint/ShadowingOuterLocalVariable
 end
