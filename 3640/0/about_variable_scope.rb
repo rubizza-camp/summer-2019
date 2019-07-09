@@ -98,7 +98,6 @@ class AboutVariableScope < Neo::Koan
     # What is $anywhere?
     assert_equal 'Here', $anywhere
   end
-
   
   def test_global_variables_can_be_changed_from_any_scope_two
     # From within a block

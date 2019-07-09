@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Security/Open, Lint/AssignmentInCondition
+# rubocop:disable Performance/RedundantMatch, Lint/UnneededCopDisableDirective
 # :reek:UtilityFunction
 # :reek:NilCheck
 # Description class
@@ -103,3 +104,5 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines_tree('example_file.txt')
   end
 end
+# rubocop:enable Security/Open, Lint/AssignmentInCondition
+# rubocop:enable Performance/RedundantMatch, Lint/UnneededCopDisableDirective
