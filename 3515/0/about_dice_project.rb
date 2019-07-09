@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-# Implement a DiceSet Class here:
+# rubocop:disable Performance/TimesMap
 # :reek:InstanceVariableAssumption
 # :reek:FeatureEnvy
 class DiceSet
@@ -71,3 +70,4 @@ class AboutDiceProject < Neo::Koan
     assert_equal 1, dice.values.size
   end
 end
+# rubocop:enable Performance/TimesMap
