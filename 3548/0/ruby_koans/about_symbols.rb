@@ -1,6 +1,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Describes symbols
+# :reek:ManualDispatch
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
@@ -36,7 +37,7 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RUBY_CONSTANT = 'What is the sound of one hand clapping?' # rubocop:disable Style/MutableConstant
+    RUBY_CONSTANT = 'What is the sound one hand clapping?' # rubocop:disable Style/MutableConstant
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 

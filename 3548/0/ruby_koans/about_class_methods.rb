@@ -3,6 +3,8 @@
 # Some comment here
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class is responsible for
+# :reek:Attribute
+# :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   # class dog
   class Dog

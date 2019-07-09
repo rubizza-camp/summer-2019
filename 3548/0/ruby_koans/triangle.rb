@@ -12,17 +12,17 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-# rubocop:disable Naming/UncommunicativeMethodParamName
-def triangle(a, b, c)
-  a, b, c = [a, b, c].sort
-  raise TriangleError if (a <= 0) || (a + b <= c)
-  return :equilateral if a == c
-  return :isosceles if (a == b) || (b == c)
+
+# :reek:FeatureEnvy
+def triangle(arg_a, arg_b, agg_c)
+  arg_a, arg_b, agg_c = [arg_a, arg_b, agg_c].sort
+  raise TriangleError if (arg_a <= 0) || (arg_a + arg_b <= agg_c)
+  return :equilateral if arg_a == agg_c
+  return :isosceles if (arg_a == arg_b) || (arg_b == agg_c)
 
   :scalene
 end
 
-# rubocop:enable Naming/UncommunicativeMethodParamName
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end

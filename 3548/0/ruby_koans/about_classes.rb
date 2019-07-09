@@ -1,6 +1,6 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:InstanceVariableAssumption
+# :reek:TooManyMethods
 # About classes
 class AboutClasses < Neo::Koan
   # comment for dog
@@ -20,6 +20,8 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = DogTwo.new
     assert_equal [], fido.instance_variables
@@ -45,6 +47,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_you_can_politely_ask_for_instance_variable_values
     fido = DogTwo.new
     fido.setname('Fido')
@@ -70,6 +73,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = DogThree.new
     fido.setname('Fido')
@@ -87,6 +91,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_attr_reader_will_automatically_define_an_accessor
     fido = DogFour.new
     fido.setname('Fido')
@@ -95,11 +100,13 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:Attribute
   # About DogFive
   class DogFive
     attr_accessor :name
   end
 
+  # :reek:FeatureEnvy
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = DogFive.new
 
