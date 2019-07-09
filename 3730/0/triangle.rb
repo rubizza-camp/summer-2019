@@ -13,7 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
-# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity, Style/GuardClause
 def triangle(first, second, third)
   # WRITE THIS CODE
@@ -31,5 +31,5 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity, Style/GuardClause

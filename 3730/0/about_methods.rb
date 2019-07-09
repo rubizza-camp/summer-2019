@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Lint/Void, Style/RedundantSelf, Style/AccessModifierDeclarations
+# rubocop:disable Lint/Void, Style/RedundantSelf
 # rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/UnreachableCode
 def my_global_method(first, second)
   first + second
@@ -125,7 +125,7 @@ class AboutMethods < Neo::Koan
     assert_match /private method/, exception.message
   end
 
-  # rubocop:enable Style/RedundantSelf, Style/AccessModifierDeclarations
+  # rubocop:enable Style/RedundantSelf
   # rubocop:enable Lint/AmbiguousRegexpLiteral, Lint/UnreachableCode
   # ------------------------------------------------------------------
 
