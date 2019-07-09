@@ -22,9 +22,9 @@ class Proxy
   end
 
   # WRITE CODE HERE
-  def method_missing(method_name, *args, &block)
-    @messages << method_name
-    return @object.send(method_name, *args, &block)
+  def method_missing(sym, *args, &block)
+    @messages << sym
+    return @object.send(sym, *args, &block)
     super # rubocop:disable Lint/UnreachableCode
   end
 
