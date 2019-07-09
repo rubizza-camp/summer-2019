@@ -85,7 +85,7 @@ class AboutClasses < Neo::Koan
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.set_name('Fid')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -173,7 +173,7 @@ class AboutClasses < Neo::Koan
 
   def test_inspect_provides_a_more_complete_string_version
     fido = Dog7.new('Fido')
-    assert_equal '<Dog named 'Fido'>', fido.inspect
+    assert_equal "<Dog named 'Fido'>", fido.inspect
   end
 
   def test_all_objects_support_to_s_and_inspect

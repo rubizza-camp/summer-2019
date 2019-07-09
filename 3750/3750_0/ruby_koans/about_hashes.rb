@@ -104,8 +104,9 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_with_block
+    # rubocop:disable all
     hash = Hash.new {|hash, key| hash[key] = [] }
-
+    # rubocop:enable all
     hash[:one] << "uno"
     hash[:two] << "dos"
 

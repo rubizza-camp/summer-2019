@@ -40,12 +40,11 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable all
+
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)
     string.is_a?(String)
   end
-  # rubocop:enable all
 
   def test_user_defined_code_can_check_for_to_str
     assert_equal false, acts_like_a_string?(CanNotBeTreatedAsString.new)
