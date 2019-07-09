@@ -3,10 +3,12 @@
 # rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UtilityFunction:
 
 def my_global_method(mya, myb)
   mya + myb
 end
+# :reek:TooManyMethods:reek:TooManyStatements:reek:UtilityFunction:
 
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
