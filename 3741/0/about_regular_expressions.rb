@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyMethods, :reek:UncommunicativeVariableName
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -125,11 +125,13 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'James', 'Gray, James'[/(\w+), (\w+)/, 2]
   end
 
+  # rubocop:disable Style/PerlBackrefs
   def test_variables_can_also_be_used_to_access_captures
     assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
-    assert_equal 'Gray', Regexp.last_match(1)
-    assert_equal 'James', Regexp.last_match(2)
+    assert_equal 'Gray', $1
+    assert_equal 'James', $2
   end
+  # rubocop:enable Style/PerlBackrefs
 
   # ------------------------------------------------------------------
 

@@ -1,4 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:Attribute
+# :reek:TooManyMethods
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeModuleName
 
 class AboutClassMethods < Neo::Koan
   class Dog
@@ -74,11 +78,17 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
+  # rubocop:disable Style/TrivialAccessors
+  def Dog.name
+    @name
+  end
+  # rubocop:enable Style/TrivialAccessors
+
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
     fido.name = 'Fido'
     assert_equal 'Fido', fido.name
-    assert_equal 'AboutClassMethods::Dog', Dog.name
+    assert_equal nil, Dog.name
   end
 
   # ------------------------------------------------------------------
@@ -94,24 +104,27 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  LASTEXRESSIONINCLASSSTATEMENT = class Dog
-                                    21
-                                  end
+  # rubocop:disable ConstantName
+  LastExpressionInClassStatement = class Dog
+                                     21
+                                   end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LASTEXRESSIONINCLASSSTATEMENT
+    assert_equal 21, LastExpressionInClassStatement
   end
+  # rubocop:enable ConstantName
 
   # ------------------------------------------------------------------
 
-  SELFINSIDEOFCLASSSTATEMENT = class Dog
+  # rubocop:disable ConstantName
+  SelfInsideOfClassStatement = class Dog
                                  self
                                end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SELFINSIDEOFCLASSSTATEMENT
+    assert_equal true, Dog == SelfInsideOfClassStatement
   end
+  # rubocop:enable ConstantName
 
   # ------------------------------------------------------------------
 

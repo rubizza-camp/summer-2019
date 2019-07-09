@@ -13,37 +13,39 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
-  attr_reader :messages
-
   def initialize(target_object)
     @object = target_object
-    @messages = []
+    # ADD MORE CODE HERE
+    @messages = Hash.new(0)
   end
 
+  # rubocop:disable Style/MethodMissing
+  def method_missing(method_name, *args, &block)
+    @messages[method_name] += 1
+    @object.send(method_name, *args, &block)
+  end
+  # rubocop:enable Style/MethodMissing
+
   def called?(method_name)
-    @messages.include? method_name
+    @messages.key?(method_name)
   end
 
   def number_of_times_called(method_name)
-    @messages.count method_name
+    @messages[method_name]
   end
 
-  def method_missing(method_name, *args, &block)
-    if @object.respond_to? method_name
-      @messages.push method_name
-      @object.send method_name, *args
-    else
-      super
-    end
+  def messages
+    @messages.keys
   end
 
   def respond_to_missing?
-    super
+    true
   end
 end
 
 # The proxy object should pass the following Koan:
-#
+# :reek:FeatureEnvy
+# :reek:DuplicateMethodCall
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
@@ -91,6 +93,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert !tv.called?(:channel)
   end
 
+  # This method smells of :reek:TooManyStatements
   def test_proxy_counts_method_calls
     tv = Proxy.new(Television.new)
 
@@ -118,6 +121,8 @@ end
 # The following code is to support the testing of the Proxy class.  No
 # changes should be necessary to anything below this comment.
 
+# This class smells of :reek:InstanceVariableAssumption
+# This class smells of :reek:Attribute
 # Example class using in the proxy testing above.
 class Television
   attr_accessor :channel
@@ -135,6 +140,9 @@ class Television
   end
 end
 
+# :reek:FeatureEnvy
+# :reek:DuplicateMethodCall
+# :reek:TooManyStatements
 # Tests for the Television class.  All of theses tests should pass.
 class TelevisionTest < Neo::Koan
   def test_it_turns_on

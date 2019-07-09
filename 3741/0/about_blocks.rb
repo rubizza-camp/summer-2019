@@ -1,9 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UncommunicativeVariableName, :reek:UtilityFunction
 class AboutBlocks < Neo::Koan
   def method_with_block
-    result = yield
-    result
+    yield
   end
 
   def test_methods_can_take_blocks
@@ -66,8 +65,9 @@ class AboutBlocks < Neo::Koan
     assert_equal :modified_in_a_block, value
   end
 
+  # rubocop: disable Style/Lambda
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
-    add_one = ->(n) { n + 1 }
+    add_one = lambda { |n| n + 1 }
     assert_equal 11, add_one.call(10)
 
     # Alternative calling syntax
@@ -75,15 +75,15 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
-    make_upper = ->(n) { n.upcase }
+    make_upper = lambda { |n| n.upcase }
     result = method_with_block_arguments(&make_upper)
     assert_equal 'JIM', result
   end
+  # rubocop: enable Style/Lambda
 
   # ------------------------------------------------------------------
-
-  def method_with_explicit_block(&block)
-    block.call(10)
+  def method_with_explicit_block(*)
+    yield(10)
   end
 
   def test_methods_can_take_an_explicit_block_argument

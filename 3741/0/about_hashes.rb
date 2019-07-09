@@ -1,12 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyStatements, :reek:UncommunicativeVariableName, :reek:FeatureEnvy
 class AboutHashes < Neo::Koan
+  # rubocop:disable EmptyLiteral
   def test_creating_hashes
-    empty_hash = {}
+    empty_hash = Hash.new
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
   end
+  # rubocop:enable EmptyLiteral
 
   def test_hash_literals
     hash = { one: 'uno', two: 'dos' }
@@ -76,8 +78,9 @@ class AboutHashes < Neo::Koan
     assert_equal false, expected == new_hash
   end
 
+  # rubocop:disable EmptyLiteral
   def test_default_value
-    hash1 = {}
+    hash1 = Hash.new
     hash1[:one] = 1
 
     assert_equal 1, hash1[:one]
@@ -89,6 +92,7 @@ class AboutHashes < Neo::Koan
     assert_equal 1, hash2[:one]
     assert_equal 'dos', hash2[:two]
   end
+  # rubocop:enable EmptyLiteral
 
   def test_default_value_is_the_same_object # rubocop:disable Metrics/AbcSize
     hash = Hash.new([])

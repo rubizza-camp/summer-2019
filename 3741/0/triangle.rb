@@ -13,21 +13,23 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(fir, sec, thi)
-  invalid_traingle?(fir, sec, thi)
-  if fir == sec && sec == thi
+# :reek:FeatureEnvy
+def triangle(first, second, third)
+  invalid_traingle?(first, second, third)
+  if first == second && second == third
     :equilateral
-  elsif fir == sec || fir == thi || sec == thi
+  elsif first == second || first == third || second == third
     :isosceles
   else
     :scalene
   end
 end
 
-def invalid_traingle?(fir, sec, thi)
-  sum = (fir + sec + thi) / 2.0
-  sides = (sum - fir) * (sum - sec) * (sum - thi)
-  raise TriangleError if fir <= 0 || sec <= 0 || thi <= 0 || sides <= 0
+# :reek:FeatureEnvy
+def invalid_traingle?(first, second, third)
+  sum = (first + second + third) / 2.0
+  sides = (sum - first) * (sum - second) * (sum - third)
+  raise TriangleError if first <= 0 || second <= 0 || third <= 0 || sides <= 0
 end
 
 # Error class used in part 2.  No need to change this code.
