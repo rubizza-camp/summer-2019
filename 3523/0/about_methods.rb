@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def my_global_method(param1, param2)
@@ -160,3 +160,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable all
