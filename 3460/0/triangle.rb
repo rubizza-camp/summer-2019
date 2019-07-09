@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 # Triangle Project Code.
@@ -17,10 +16,9 @@
 #   about_triangle_project_2.rb
 #
 def triangle(side_a, side_b, side_c)
-  sum = side_a + side_b + side_c
   minimum = [side_a, side_b, side_c].min
   maximum = [side_a, side_b, side_c].max
-  raise TriangleError unless minimum.positive? && (maximum < sum - maximum)
+  raise TriangleError unless minimum.positive? && (maximum < [side_a, side_b, side_c].inject(:+) - maximum)
 
   return :equilateral if equilateral?(side_a, side_b, side_c)
 
@@ -40,3 +38,5 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+
+triangle(3,7,9)
