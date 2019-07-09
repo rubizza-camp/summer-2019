@@ -10,9 +10,9 @@ class AboutNil < Neo::Koan
     # following begin/rescue/end code block captures the exception and
     # makes some assertions about it.
     nil.some_method_nil_doesnt_know_about
-# ruboco:desable Lint/RescueException
+    # rubocop:desable Lint/RescueException
   rescue Exception => ex
-# rubocop:enable Lint/RescueException
+    # rubocop:enable Lint/RescueException
     # What exception has been caught?
     assert_equal NoMethodError, ex.class
 
@@ -20,6 +20,7 @@ class AboutNil < Neo::Koan
     # (HINT: replace __ with part of the error message.)
     assert_match(/undefined method/, ex.message)
   end
+
   # :reek:NilCheck
   def test_nil_has_a_few_methods_defined_on_it
     assert_equal true, nil.nil?
