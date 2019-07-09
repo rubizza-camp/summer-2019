@@ -349,6 +349,7 @@ module Neo
     end
 
     def guide_through_error
+      # :reek:TooManyStatements
       puts
       puts 'The answers you seek...'
       puts Color.red(indent(failure.message).join)
@@ -384,6 +385,7 @@ module Neo
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
     def a_zenlike_statement
+      # :reek:TooManyStatements
       if !failed?
         zen_statement = 'Mountains are again merely mountains'
       else
@@ -432,6 +434,7 @@ module Neo
     def teardown; end
 
     def meditate
+      # :reek:TooManyStatements
       setup
       begin
         send(name)
@@ -512,6 +515,7 @@ module Neo
     end
 
     def each_step
+      # :reek:TooManyStatements
       catch(:neo_exit) do
         step_count = 0
         Neo::Koan.subclasses.each_with_index do |koan, koan_index|
