@@ -463,9 +463,9 @@ ENDTEXT
       def command_line(args)
         args.each do |arg|
           case arg
-          when /^-n\/(.*)\/$/
+          when %r{^-n\/(.*)\/$}
             @test_pattern = Regexp.new(Regexp.last_match(1))
-          when /^-n(.*)$/
+          when %r{^-n(.*)$}
             @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
           else
             if File.exist?(arg)
