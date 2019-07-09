@@ -151,6 +151,5 @@ class AboutMethods < Neo::Koan
   end
 end
 
-# rubocop:enable Lint/UnneededCopDisableDirective
-# rubocop:enable Style/EvalWithLocation, Lint/UnreachableCode, Lint/Void
-# rubocop:enable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:enable Style/EvalWithLocation
+# rubocop:enable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
