@@ -44,10 +44,10 @@ class AboutHashes < Neo::Koan
   end
 
   def test_hash_is_unordered
-    hash_1 = { one: 'uno', two: 'dos' }
-    hash_2 = { two: 'dos', one: 'uno' }
+    hash1 = { one: 'uno', two: 'dos' }
+    hash2 = { two: 'dos', one: 'uno' }
 
-    assert_equal true, hash_1 == hash_2
+    assert_equal true, hash1 == hash2
   end
 
   def test_hash_keys
@@ -77,20 +77,20 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash_1 = {}
-    hash_1[:one] = 1
+    hash1 = {}
+    hash1[:one] = 1
 
-    assert_equal 1, hash_1[:one]
-    assert_equal nil, hash_1[:two]
+    assert_equal 1, hash1[:one]
+    assert_equal nil, hash1[:two]
 
-    hash_2 = Hash.new('dos')
-    hash_2[:one] = 1
+    hash2 = Hash.new('dos')
+    hash2[:one] = 1
 
-    assert_equal 1, hash_2[:one]
-    assert_equal 'dos', hash_2[:two]
+    assert_equal 1, hash2[:one]
+    assert_equal 'dos', hash2[:two]
   end
 
-  def test_default_value_is_the_same_object
+  def test_default_value_is_the_same_object # rubocop:disable Metrics/AbcSize
     hh = Hash.new([])
 
     hh[:one] << 'uno'

@@ -21,9 +21,12 @@ class Proxy
     @messages = []
   end
 
+  def respond_to_missing?(name, include_private); end
+
   def method_missing(method_name, *args, &block)
     @messages << method_name
-    @object.send method_name, *args, &block
+    return @object.send method_name, *args, &block
+    super # rubocop:disable Lint/UnreachableCode
   end
 
   def called?(method_name)
@@ -31,7 +34,7 @@ class Proxy
   end
 
   def number_of_times_called(method_name)
-    @messages.find_all { |m| m === method_name }.count
+    @messages.find_all { |m| m == method_name }.count
   end
   # WRITE CODE HERE
 end
