@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
+
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutControlStatements < Neo::Koan
@@ -133,3 +139,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+<<<<<<< HEAD
+=======
+# rubocop:enable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
+# rubocop:enable Lint/UnneededCopDisableDirective
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d

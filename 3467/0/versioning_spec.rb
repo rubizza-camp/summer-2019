@@ -5,7 +5,11 @@ end
 def at_least_ruby_version(version)
   vints = version_ints(version)
   ruby_vints = version_ints(RUBY_VERSION)
+<<<<<<< HEAD
   vints.zip(ruby_vints).all? { |v, rv| v.nil? || rv.nil? || v >= rv }
+=======
+  vints.zip(ruby_vints).all? { |ver, rv| ver.nil? || rv.nil? || ver >= rv }
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 end
 
 require 'rspec/given'

@@ -96,5 +96,9 @@ class AboutSymbols < Neo::Koan
 
   # THINK ABOUT IT:
   #
+<<<<<<< HEAD
+=======
+  #
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
   # Why is it not a good idea to dynamically create a lot of symbols?
 end

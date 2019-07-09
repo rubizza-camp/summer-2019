@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/usr/bin/env ruby
+=======
+# rubocop:disable Lint/UnneededCopDisableDirective
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 # -*- ruby -*-
 
 begin
@@ -21,7 +25,11 @@ def ruby_version?(version)
 end
 
 def in_ruby_version(*versions)
+<<<<<<< HEAD
   yield if versions.any? { |v| ruby_version?(v) }
+=======
+  yield if versions.any? { |ver| ruby_version?(ver) }
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 end
 
 in_ruby_version('1.8') do
@@ -63,9 +71,17 @@ class Object
     send(method) if method
   end
 
+<<<<<<< HEAD
   in_ruby_version('1.9', '2') do
     public :method_missing
   end
+=======
+  # rubocop:disable AccessModifierDeclarations
+  in_ruby_version('1.9', '2') do
+    public :method_missing
+  end
+  # rubocop:enable AccessModifierDeclarations
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 end
 
 class String
@@ -98,10 +114,18 @@ module Neo
 
     module_function
 
+<<<<<<< HEAD
+=======
+    # rubocop:disable Style/AccessModifierDeclarations
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
     COLORS.each do |color, value|
       module_eval("def #{color}(string); colorize(string, #{value}); end", __FILE__, __LINE__)
       module_function color
     end
+<<<<<<< HEAD
+=======
+    # rubocop:enable Style/AccessModifierDeclarations
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
     def colorize(string, color_value)
       if use_colors?
@@ -190,6 +214,10 @@ module Neo
     end
   end
 
+<<<<<<< HEAD
+=======
+  # rubocop:disable Metrics/ClassLength
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -265,6 +293,11 @@ module Neo
       end
     end
 
+<<<<<<< HEAD
+=======
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
     def show_progress
       bar_width = 50
       total_tests = Neo::Koan.total_tests
@@ -281,6 +314,10 @@ module Neo
       print " #{pass_count}/#{total_tests}"
       puts
     end
+<<<<<<< HEAD
+=======
+    # rubocop:enable Metrics/MethodLength
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
     def end_screen
       if Neo.simple_output
@@ -294,11 +331,19 @@ module Neo
       puts 'Mountains are again merely mountains'
     end
 
+<<<<<<< HEAD
+=======
+    # rubocop:disable Metrics/MethodLength
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
     def artistic_end_screen
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}
 Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
+<<<<<<< HEAD
       completed = <<~ENDTEXT
+=======
+      completed = <<-SQL
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
                                           ,,   ,  ,,
                                         :      ::::,    :::,
                            ,        ,,: :::::::::::::,,  ::::   :  ,
@@ -332,9 +377,16 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
                          ,::::::::::::::::              ::,, ,   ,:::,
                               ,::::                         , ,,
                                                           ,,,
+<<<<<<< HEAD
       ENDTEXT
       puts completed
     end
+=======
+      SQL
+      puts completed
+    end
+    # rubocop:enable Metrics/MethodLength
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
     def encourage
       master_says
@@ -437,6 +489,11 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       'things are not what they appear to be: nor are they otherwise'
     end
   end
+<<<<<<< HEAD
+=======
+  # rubocop:enable Metrics/ClassLength
+  # rubocop:enable Metrics/AbcSize
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
   class Koan
     include Assertions
@@ -527,12 +584,20 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       end
 
       def total_tests
+<<<<<<< HEAD
         subclasses.inject(0) { |total, k| total + k.testmethods.size }
+=======
+        subclasses.inject(0) { |total, key| total + key.testmethods.size }
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
       end
     end
   end
 
   class ThePath
+<<<<<<< HEAD
+=======
+    # rubocop:disable FeatureEnvy
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
     def walk
       sensei = Neo::Sensei.new
       each_step do |step|
@@ -541,17 +606,33 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       sensei.instruct
     end
 
+<<<<<<< HEAD
     def each_step
       catch(:neo_exit) do
         step_count = 0
+=======
+    # rubocop:disable TooManyStatements
+    def each_step
+      catch(:neo_exit) do
+        step_count = 0
+        # rubocop:disable NestedIterators
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
         Neo::Koan.subclasses.each_with_index do |koan, koan_index|
           koan.testmethods.each do |method_name|
             step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
             yield step
           end
         end
+<<<<<<< HEAD
       end
     end
+=======
+        # rubocop:enable NestedIterators
+      end
+    end
+    # rubocop:enable TooManyStatements
+    # rubocop:enable FeatureEnvy
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
   end
 end
 
@@ -559,3 +640,7 @@ at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 end
+<<<<<<< HEAD
+=======
+# rubocop:enable Lint/UnneededCopDisableDirective
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d

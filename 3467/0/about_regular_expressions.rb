@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+<<<<<<< HEAD
+=======
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable TooManyMethods
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -50,7 +55,11 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
+<<<<<<< HEAD
     assert_equal %w[cat bat rat], (animals.select { |a| a[/[cbr]at/] })
+=======
+    assert_equal %w[cat bat rat], (animals.select { |animal| animal[/[cbr]at/] })
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -158,3 +167,8 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 end
+<<<<<<< HEAD
+=======
+# rubocop:enable TooManyMethods
+# rubocop:enable Lint/UnneededCopDisableDirective
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d

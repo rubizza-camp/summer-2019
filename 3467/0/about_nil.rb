@@ -1,5 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+<<<<<<< HEAD
+=======
+# rubocop:disable Lint/UnneededCopDisableDirective
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 class AboutNil < Neo::Koan
   def test_nil_is_an_object
     assert_equal true, nil.is_a?(Object), 'Unlike NULL in other languages'
@@ -11,6 +15,7 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
+<<<<<<< HEAD
   rescue StandardError => e
     # What exception has been caught?
     assert_equal NoMethodError, e.class
@@ -20,6 +25,18 @@ class AboutNil < Neo::Koan
     assert_match(/undefined method/, e.message)
   end
 
+=======
+  rescue StandardError => err
+    # What exception has been caught?
+    assert_equal NoMethodError, err.class
+
+    # What message was attached to the exception?
+    # (HINT: replace __ with part of the error message.)
+    assert_match(/undefined method/, err.message)
+  end
+
+  # rubocop:disable NilCheck
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
   def test_nil_has_a_few_methods_defined_on_it
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s
@@ -33,4 +50,10 @@ class AboutNil < Neo::Koan
     #    obj == nil
     # Why?
   end
+<<<<<<< HEAD
 end
+=======
+  # rubocop:enable NilCheck
+end
+# rubocop:enable Lint/UnneededCopDisableDirective
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d

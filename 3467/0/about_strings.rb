@@ -1,5 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+<<<<<<< HEAD
 
+=======
+# rubocop:disable Metrics/ClassLength
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -190,3 +194,7 @@ SQL
     assert_equal false, a.object_id == b.object_id
   end
 end
+<<<<<<< HEAD
+=======
+# rubocop:enable Metrics/ClassLength
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d

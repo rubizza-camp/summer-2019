@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 #!/usr/bin/env ruby
+=======
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 # -*- ruby -*-
 
 require 'rake/clean'

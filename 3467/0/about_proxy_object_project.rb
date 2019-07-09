@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:disable Style/MethodMissing
+
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -20,12 +27,21 @@ class Proxy
     @messages = []
   end
 
+<<<<<<< HEAD
   def respond_to_missing?(name, include_private); end
+=======
+  def respond_to_missing?(method_name, *args); end
+  # rubocop:disable Style/MethodMissing
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
   def method_missing(method_name, *args, &block)
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
+<<<<<<< HEAD
+=======
+  # rubocop:enable Style/MethodMissing
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
   def called?(method_name)
     @messages.include?(method_name)
@@ -168,3 +184,9 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+<<<<<<< HEAD
+=======
+# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:enable Style/MethodMissing
+# rubocop:enable Lint/UnneededCopDisableDirective
+>>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
