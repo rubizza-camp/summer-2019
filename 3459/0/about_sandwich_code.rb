@@ -81,7 +81,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
-      while line = file.gets
+      while (line = file.gets)
         return line if line =~ /e/
       end
     end

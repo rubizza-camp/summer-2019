@@ -17,8 +17,11 @@
 # rubocop:disable all
 # :reek:FeatureEnvy
 def triangle(side_a, side_b, side_c)
+  variable_one = side_a + side_b
+  variable_two = side_b + side_c
+  variable_tree = side_c + side_a
   raise TriangleError if (side_a <= 0) || (side_b <= 0) || (side_c <= 0)
-  raise TriangleError if (side_a + side_b <= side_c) || (side_b + side_c <= side_a) || (side_a + side_c <= side_b)
+  raise TriangleError if (variable_one <= side_c) || (variable_two <= side_a) || (variable_tree <= side_b)
   return :equilateral if (side_a == side_b) && (side_a == side_c) && (side_b == side_c)
   return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_a == side_c)
 
