@@ -1,10 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutToStr < Neo::Koan
-
   class CanNotBeTreatedAsString
     def to_s
-      "non-string-like"
+      'non-string-like'
     end
   end
 
@@ -23,7 +22,7 @@ class AboutToStr < Neo::Koan
 
   class CanBeTreatedAsString
     def to_s
-      "string-like"
+      'string-like'
     end
 
     def to_str
@@ -33,7 +32,7 @@ class AboutToStr < Neo::Koan
 
   def test_to_str_also_returns_a_string_representation
     like_a_string = CanBeTreatedAsString.new
-    assert_equal "string-like", like_a_string.to_str
+    assert_equal 'string-like', like_a_string.to_str
   end
 
   def test_to_str_allows_objects_to_be_treated_as_strings

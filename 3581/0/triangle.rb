@@ -13,21 +13,27 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  if ((a + b) > c) && ((a + c) > b) && ((b + c) > a)   
-    if a <= 0 || b <= 0 || c <= 0
-      raise TriangleError
-    end
-    if c == a && c == b
-      return :equilateral
-    elsif c == a || c == b || a == b
-      return :isosceles
-    else 
-      return :scalene
-    end
-  else
-    raise TriangleError
+def triangle(leg_a, leg_b, leg_c)
+  if check_statement(leg_a, leg_b, leg_c)
+    type_of_triangle = process_legs(leg_a, leg_b, leg_c)
+    return type_of_triangle.nil? ? :scalene : type_of_triangle
   end
+  raise TriangleError
+end
+
+def process_legs(leg_a, leg_b, leg_c)
+  raise_error_on_statement(leg_a, leg_b, leg_c)
+  return :equilateral if leg_c == leg_a && leg_c == leg_b
+  return :isosceles if leg_c == leg_a || leg_c == leg_b || leg_a == leg_b
+end
+
+def raise_error_on_statement(leg_a, leg_b, leg_c)
+  raise TriangleError if leg_a <= 0 || leg_b <= 0 || leg_c <= 0
+end
+
+def check_statement(leg_a, leg_b, leg_c)
+  ((leg_a + leg_b) > leg_c) &&
+    ((leg_a + leg_c) > leg_b) && ((leg_b + leg_c) > leg_a)
 end
 
 # Error class used in part 2.  No need to change this code.
