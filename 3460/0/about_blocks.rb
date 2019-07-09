@@ -1,9 +1,6 @@
-# rubocop:disable all
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class AboutBlocks
+#:nodoc:
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield
@@ -58,8 +55,10 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_methods_can_see_if_they_have_been_called_with_a_block
-    assert_equal :with_block, (yield_tester { :with_block })
+    # rubocop: disable Lint/AmbiguousBlockAssociation
+    assert_equal :with_block, yield_tester { :with_block }
     assert_equal :no_block, yield_tester
+    # rubocop: enable Lint/AmbiguousBlockAssociation
   end
 
   # ------------------------------------------------------------------
@@ -87,13 +86,17 @@ class AboutBlocks < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_block(&block)
+    # rubocop: disable Performance/RedundantBlockCall
     block.call(10)
+    # rubocop: enable Performance/RedundantBlockCall
   end
 
   def test_methods_can_take_an_explicit_block_argument
-    assert_equal 20, (method_with_explicit_block { |n| n * 2 })
+    # rubocop: disable Lint/AmbiguousBlockAssociation
+    assert_equal 20, method_with_explicit_block { |n| n * 2 }
 
     add_one = ->(n) { n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
+    # rubocop: enable Lint/AmbiguousBlockAssociation
   end
 end
