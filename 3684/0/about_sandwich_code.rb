@@ -1,8 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:NilCheck
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:UncommunicativeMethodName
+
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     count = 0
     count += 1 while file.gets
     count
@@ -17,9 +21,11 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-    file = open(file_name)
-    while line = file.gets
-      return line if line.match(/e/)
+    file = File.open(file_name)
+    while (line = file.gets)
+      # rubocop:disable Performance/RedundantMatch
+      return line if line =~ /e/
+      # rubocop:enable Performance/RedundantMatch
     end
   ensure
     file&.close
@@ -28,7 +34,7 @@ class AboutSandwichCode < Neo::Koan
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
   end
-  # rubocop:enable Security/Open
+
   # ------------------------------------------------------------------
   # THINK ABOUT IT:
   #
@@ -52,7 +58,7 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     yield(file)
   ensure
     file&.close
@@ -73,13 +79,16 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
   def find_line2(file_name)
-    file = open(file_name)
-    while line = file.gets
-      return line if line.match(/e/)
+    # Rewrite find_line using the file_sandwich library function.
+    file_sandwich(file_name) do |file|
+      while (line = file.gets)
+        # rubocop:disable Performance/RedundantMatch
+        return line if line.match(/e/)
+        # rubocop:enable Performance/RedundantMatch
+      end
     end
-  ensure
-    file&.close
   end
 
   def test_finding_lines2
@@ -87,8 +96,9 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
   def count_lines3(file_name)
-    open(file_name) do |file|
+    File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
