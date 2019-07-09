@@ -111,7 +111,7 @@ class AboutJavaInterop < Neo::Koan
   def test_java_collections_are_enumerable
     java_array = java.util.ArrayList.new
     java_array << 'one' << 'two' << 'three'
-    assert_equal __, java_array.map { |item| item.upcase }
+    assert_equal __, java_array.map(&:upcase)
   end
 
   # ------------------------------------------------------------------
@@ -133,5 +133,4 @@ class AboutJavaInterop < Neo::Koan
 
     assert_equal __, java_array.multiply_all
   end
-
 end
