@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# :reek:UncommunicativeVariableName
 # Description class
 class AboutVariableScope < Neo::Koan
   def bark
@@ -38,9 +37,9 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
+      xodor = 0
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? xodor
   end
 
   # ------------------------------------------------------
@@ -71,7 +70,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i) }
+    (1..9).each { |item| Mouse.new(item) }
     # Things may appear easier than they actually are.
     assert_equal 9, Mouse.count
   end
