@@ -12,11 +12,7 @@ class DiceSet
   attr_accessor :values
 
   def roll(count)
-    @values = []
-    count.times do
-      @values.append(Random.rand(1..6))
-    end
-    @values
+    @values = Array.new(count) { rand(1..6) }
   end
 end
 #
