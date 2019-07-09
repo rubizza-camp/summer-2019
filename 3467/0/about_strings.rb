@@ -1,7 +1,6 @@
-# rubocop:disable Metrics/ClassLength
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable TooManyMethods
+# rubocop:disable UncommunicativeVariableName
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -192,4 +191,5 @@ SQL
     assert_equal false, a.object_id == b.object_id
   end
 end
-# # rubocop:enable Metrics/ClassLength
+# rubocop:enable TooManyMethods
+# rubocop:enable UncommunicativeVariableName

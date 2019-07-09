@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable UncommunicativeVariableName
+# rubocop:disable ManualDispatch
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
@@ -98,3 +99,5 @@ class AboutSymbols < Neo::Koan
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
 end
+# rubocop:enable UncommunicativeVariableName
+# rubocop:enable ManualDispatch
