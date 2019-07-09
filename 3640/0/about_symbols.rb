@@ -8,12 +8,12 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_can_be_compared
-    symbol1 = :a_symbol
-    symbol2 = :a_symbol
-    symbol3 = :something_else
+    symbol_one = :a_symbol
+    symbol_two = :a_symbol
+    symbol_tree = :something_else
 
-    assert_equal true, symbol1 == symbol2
-    assert_equal false, symbol1 == symbol3
+    assert_equal true, symbol_one == symbol_two
+    assert_equal false, symbol_one == symbol_tree
   end
 
   def test_identical_symbols_are_a_single_internal_object

@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about modules
 class AboutModules < Neo::Koan
+  # Module about nameable
   module Nameable
     def nemed(new_name)
       @name = new_name
@@ -51,6 +52,7 @@ class AboutModules < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal 'Fido', fido.name

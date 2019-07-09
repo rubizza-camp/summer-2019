@@ -7,6 +7,8 @@ class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
 
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
   def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
@@ -14,6 +16,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
+  # :reek:TooManyStatements
   def test_rescue_clause
     result = nil
     begin
@@ -33,6 +36,7 @@ class AboutExceptions < Neo::Koan
     assert_equal 'Oops', ex.message
   end
 
+  # :reek:TooManyStatements
   def test_raising_a_particular_error
     result = nil
     begin

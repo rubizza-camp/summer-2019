@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 require './triangle.rb'
 
 # Class about Triangle Project2
-class AboutTriangleProject2 < Neo::Koan
+class AboutTriangleProjectTwo < Neo::Koan
   # The first assignment did not talk about how to handle errors.
   # Let's handle that part now.
   # :reek:TooManyStatements

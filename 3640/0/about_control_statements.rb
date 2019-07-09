@@ -123,7 +123,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal 2, result
   end
 
-  # This method smells of :reek:FeatureEnvy
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
   def test_next_statement
     counter = 0
     result = []
