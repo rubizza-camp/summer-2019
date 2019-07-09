@@ -14,25 +14,19 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-# rubocop:disable Style/SymbolProc, Metrics/AbcSize:
+#:reek:FeatureEnvy
+# rubocop:disable Metrics/LineLength
+# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+def triangle(side_a, side_b, side_c)
+  raise TriangleError if (side_a <= 0) || (side_b <= 0) || (side_c <= 0)
+  raise TriangleError if (side_a + side_b <= side_c) || (side_b + side_c <= side_a) || (side_a + side_c <= side_b)
+  return :equilateral if (side_a == side_b) && (side_a == side_c) && (side_b == side_c)
+  return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_a == side_c)
 
-def triangle_validation?(*args)
-  (args[0] + args[1] <= args[2]) || (args[1] + args[2] <= args[0]) ||
-    (args[2] + args[0] <= args[1]) || args.any? { |argument| argument.negative? }
+  :scalene
 end
-# rubocop:enable Style/SymbolProc, Metrics/AbcSize:
-
-def triangle(*args)
-  raise TriangleError if triangle_validation?(*args)
-  case args.uniq.count
-  when 3
-    :scalene
-  when 2
-    :isosceles
-  when 1
-    :equilateral
-  end
-end
+# rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
