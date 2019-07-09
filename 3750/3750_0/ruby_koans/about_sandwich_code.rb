@@ -2,13 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
-# rubocop:disable Security/Open
-    file = open(file_name)
-# rubocop:enable Security/Open
+    file = File.open(file_name)
     count = 0
-    while file.gets
-      count += 1
-    end
+    count += 1 while file.gets
     count
   ensure
     file&.close if file
@@ -21,12 +17,12 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-# rubocop:disable all
-    file = open(file_name)
+    file = File.open(file_name)
     while (line = file.gets)
+# rubocop:disable all
       return line if line.match(/e/)
-    end
 # rubocop:enable all
+    end
   ensure
     file&.close if file
   end
@@ -58,9 +54,7 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-# rubocop:disable Security/Open
-    file = open(file_name)
-# rubocop:enable Security/Open
+    file = File.open(file_name)
     yield(file)
   ensure
     file&.close if file
@@ -85,9 +79,9 @@ class AboutSandwichCode < Neo::Koan
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
       while (line = file.gets)
-# rubocop:disable Performance/RedundantMatch
+# rubocop:disable all
         return line if line.match(/e/)
-# rubocop:enable Performance/RedundantMatch
+# rubocop:enable all
       end
     end
     # Rewrite find_line using the file_sandwich library function.
@@ -100,9 +94,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
-# rubocop:disable Security/Open
-    open(file_name) do |file|
-# rubocop:enable Security/Open
+    File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
