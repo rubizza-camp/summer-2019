@@ -35,7 +35,7 @@ def score(dice)
   triple_scores = [1000, 200, 300, 400, 500, 600]
   single_scores = [100, 0, 0, 0, 50, 0]
   (1..6).inject(0) do |score, number|
-    score += triple_scores[number - 1] * (dice.count(number) / 3) + single_scores[number - 1] * (dice.count(number) % 3)
+    score + triple_scores[number - 1] * (dice.count(number) / 3) + single_scores[number - 1] * (dice.count(number) % 3)
   end
 end
 
