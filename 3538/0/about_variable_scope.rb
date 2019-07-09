@@ -36,27 +36,27 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
+      item = 0
     end
-    assert_equal __, defined? x
+    assert_equal __, defined? item
   end
 
   # ------------------------------------------------------
 
   class Mouse
-    @@total = 0
+    @@ToTal = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(item)
+      @name = item
       # Instance variables are prefixed with one '@' character.
-      @@total += 1
+      @@ToTal += 1
     end
 
     attr_reader :name
 
     def self.count
-      @@total
+      @@ToTal
     end
   end
 
@@ -66,7 +66,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |item| Mouse.new(item.to_s) }
     # Things may appear easier than they actually are.
     assert_equal __, Mouse.count
   end
@@ -94,7 +94,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal __, $anywhere
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
+  def test_global_variables_can_be_changed_from_any_scopes
     # From within a block
     2.times do
       $anywhere = 'Hey'

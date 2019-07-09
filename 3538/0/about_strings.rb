@@ -31,8 +31,8 @@ class AboutStrings < Neo::Koan
     text1 = %(flexible quotes can handle both ' and " characters)
     text2 = %(flexible quotes can handle both ' and " characters)
     text3 = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    assert_equal true, text1 == text2
+    assert_equal true, text1 == text3
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
