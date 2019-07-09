@@ -5,12 +5,14 @@ class Game
     @deposit
   end
 
-  attr_reader :gamer
 
   def initialize(gamer)
     @gamer = gamer
     @deposit = 1_000_000
   end
+  
+  attr_reader :gamer
+
 
   def deposit_minus(win_user)
     @deposit -= win_user
