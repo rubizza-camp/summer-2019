@@ -205,6 +205,7 @@ class AboutStringsTwo < Neo::Koan
     assert_equal 'Now is the time', words.join(' ')
   end
 
+  # :reek:UncommunicativeVariableName
   def test_strings_are_unique_objects
     a = 'a string'
     b = 'a string'

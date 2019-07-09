@@ -1,9 +1,9 @@
 # rubocop:disable Style/PerlBackrefs
 # Style/PerlBackrefs like variables are used to access captives
+
+require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 # :reek:UncommunicativeVariableName
-require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class

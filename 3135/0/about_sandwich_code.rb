@@ -1,9 +1,9 @@
 # rubocop:disable Security/Open
-# :reek:UncommunicativeMethodName
-# :reek:NilCheck
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-#:reek:UtilityFunction:UncommunicativeMethodName:
+# :reek:UtilityFunction:UncommunicativeMethodName:
+# :reek:NilCheck
+# :reek:UncommunicativeMethodName
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)
@@ -63,7 +63,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # Now we write:
-
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0

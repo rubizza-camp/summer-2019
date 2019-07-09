@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyStatements
 # :reek:UncommunicativeMethodName
+# :reek:UncommunicativeVariableName
 
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError

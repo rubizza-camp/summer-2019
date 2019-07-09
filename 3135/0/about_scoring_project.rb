@@ -32,6 +32,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
 # :reek:TooManyStatements
+# :reek:FeatureEnvy
 
 def score(dice)
   score = 0
@@ -41,6 +42,7 @@ def score(dice)
   score
 end
 
+# :reek:TooManyStatements
 def outcome_count(key, value, score)
   if value >= 3
     score += key == 1 ? 1000 : 100 * key
