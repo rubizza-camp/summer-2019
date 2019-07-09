@@ -13,8 +13,6 @@
 # and
 #   about_triangle_project_2.rb
 #
-# :reek:FeatureEnvy
-# I have no idea whehe i can place this function
 def triangle(a_side, b_side, c_side)
   a_side, b_side, c_side = [a_side, b_side, c_side].sort
   raise TriangleError unless a_side.positive? && a_side + b_side > c_side

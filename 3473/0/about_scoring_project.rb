@@ -29,7 +29,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-ddef score(dice)
+def score(dice)
   (1..6).inject(0) do |score, key|
     value = dice.count(key)
     score += (value / 3) * (key == 1 ? 1000 : key * 100)
