@@ -35,22 +35,22 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     1.times do
-      x = 0
+      number = 0
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? number
   end
   # rubocop:enable Lint/UselessAssignment
   # ------------------------------------------------------
-  # rubocop:disable Style/ClassVars
   # rubocop:disable Style/TrivialAccessors
+  # :reek:ClassVariable
   class Mouse
-    @@total = 0
+    @total = 0
     # Class variables are prefixed with two '@' characters.
 
     def initialize(par_n)
       @name = par_n
       # Instance variables are prefixed with one '@' character.
-      @@total += 1
+      @total += 1
     end
 
     def name
@@ -58,18 +58,17 @@ class AboutVariableScope < Neo::Koan
     end
 
     def self.count
-      @@total
+      @total
     end
   end
   # rubocop:enable Style/TrivialAccessors
-  # rubocop:enable Style/ClassVars
   def test_instance_variable
     oscar = Mouse.new('Oscar')
     assert_equal 'Oscar', oscar.name
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |iter| Mouse.new(iter.to_s) }
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
@@ -97,7 +96,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
+  def test_global_variables_can_be_changed_from_any_scope_second
     # From within a block
     1.times do
       $anywhere = 'Hey'

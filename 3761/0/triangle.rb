@@ -13,15 +13,17 @@
 # and
 #   about_triangle_project_2.rb
 #
-def check_error(p_a, p_b, p_c)
-  raise TriangleError if (p_a + p_b <= p_c) || (p_b + p_c <= p_a) || (p_c + p_a <= p_b)
-end
 
-def triangle(p_a, p_b, p_c)
-  check_error(p_a, p_b, p_c)
-  if (p_a == p_b) && (p_b == p_c)
+def check_error(fir, sec, third)
+  raise TriangleError if (fir + sec <= third) || (sec + third <= fir) || (third + fir <= sec)
+end
+# :reek:FeatureEnvy
+
+def triangle(fir, sec, third)
+  check_error(fir, sec, third)
+  if (fir == sec) && (sec == third)
     :equilateral
-  elsif (p_a == p_b) || (p_a == p_c) || (p_b == p_c)
+  elsif (fir sec) || (fir == third) || (sec == third)
     :isosceles
   else
     :scalene
