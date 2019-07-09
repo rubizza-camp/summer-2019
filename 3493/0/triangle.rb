@@ -16,29 +16,26 @@
 #:reek:ControlParameter:reek:UtilityFunction:
 
 def scalene_return_check_triagle(*args)
-  return :scalene if (args[0] != args[1]) || (args[1] != args[2]) ||
-                     (args[2] != args[0])
+  return :scalene if args.uniq.count == 3
 end
 #:reek:ControlParameter:reek:UtilityFunction:
 
 def isosceles_return_check_triagle(*args)
-  return :isosceles if (args[0] == args[1]) || (args[1] == args[2]) ||
-                       (args[2] == args[0])
+  return :isosceles if args.uniq.count == 2
 end
 #:reek:ControlParameter:reek:UtilityFunction:
 
 def equilateral_return_check_triagle(*args)
-  return :equilateral if (args[0] == args[1]) && (args[1] == args[2])
+  return :equilateral if args.uniq.count == 1
 end
 #:reek:ControlParameter:
 # :reek:FeatureEnvy:
 
 def check_below_zero_triagle(*args)
-  raise TriangleError if (args[0] <= 0) || (args[1] <= 0) || (args[2] <= 0)
+  raise TriangleError if if args.each {|argument| argument.negative?}
 end
 #:reek:ControlParameter:
 
-# rubocop:disable Metrics/AbcSize
 # :reek:FeatureEnvy:
 def triangle(*args)
   check_below_zero_triagle(*args)
@@ -53,8 +50,9 @@ def triangle(*args)
 
   result
 end
-# rubocop:enable Metrics/AbcSize
 
 # Error class used in part 2.  No need to change this code.
+# rubocop:disable Lint/Syntax
 class TriangleError < StandardError
 end
+# rubocop:enable Lint/Syntax
