@@ -1,7 +1,5 @@
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
-# rubocop:disable Style/RedundantReturn
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Greed is a dice game where you roll up to five dice to accumulate
@@ -33,12 +31,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-def score(dice)
+def calc_score(array)
   result = 0
-  array = Array.new(6, 0)
-  dice.each do |value|
-    array[value - 1] += 1
-  end
   array.each_with_index do |value, id|
     if id.zero?
       result += (value / 3) * 1000 + (value % 3) * 100
@@ -48,8 +42,15 @@ def score(dice)
       result += (value / 3) * (id + 1) * 100
     end
   end
-  puts "score #{dice} => #{result} points"
-  return result
+  result
+end
+
+def score(dice)
+  array = Array.new(6, 0)
+  dice.each do |value|
+    array[value - 1] += 1
+  end
+  calc_score(array)
 end
 
 class AboutScoringProject < Neo::Koan
@@ -95,4 +96,3 @@ class AboutScoringProject < Neo::Koan
 end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
-# rubocop:enable Style/RedundantReturn
