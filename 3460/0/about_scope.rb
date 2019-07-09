@@ -1,11 +1,7 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class AboutScope < Neo::Koan
 class AboutScope < Neo::Koan
   module Jims
-    # class Dog
     class Dog
       def identify
         :jims_dog
@@ -14,7 +10,6 @@ class AboutScope < Neo::Koan
   end
 
   module Joes
-    # class Dog
     class Dog
       def identify
         :joes_dog
@@ -27,6 +22,7 @@ class AboutScope < Neo::Koan
       Dog.new
     end
   end
+  # :reek:TooManyStatements
 
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
@@ -79,6 +75,6 @@ class AboutScope < Neo::Koan
 
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
     assert_equal [:Dog], Jims.constants
-    assert Object.constants.size > 1
+    assert !Object.constants.empty?
   end
 end
