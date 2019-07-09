@@ -4,7 +4,7 @@
 # rubocop:disable Style/RaiseArgs
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyStatements
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end

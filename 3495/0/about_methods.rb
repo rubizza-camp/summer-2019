@@ -1,4 +1,4 @@
-# rubocop:disable Naming/UncommunicativeMethodParamName
+
 # rubocop:disable Style/EvalWithLocation
 # rubocop:disable Lint/Void
 # rubocop:disable Lint/UnreachableCode
@@ -6,11 +6,11 @@
 # rubocop:disable Lint/AmbiguousRegexpLiteral
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-def my_global_method(a, b)
-  a + b
+# :reek:UtilityFunction
+def my_global_method(aaa, bbb)
+  aaa + bbb
 end
-
+# :reek:TooManyMethods and :reek:TooManyStatements and :reek:UtilityFunction
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -36,7 +36,7 @@ class AboutMethods < Neo::Koan
     #
   end
 
-  # NOTE: wrong number of arguments is not a SYNTAX error, but a
+  # NOTE: wrong number of arguments is not aaa SYNTAX error, but aaa
   # runtime error.
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
@@ -52,8 +52,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b = :default_value)
-    [a, b]
+  def method_with_defaults(aaa, bbb = :default_value)
+    [aaa, bbb]
   end
 
   def test_calling_with_default_values
@@ -99,8 +99,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(aaa, bbb)
+    aaa * bbb
   end
 
   def test_calling_methods_in_same_class
@@ -114,12 +114,12 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def my_private_method
-    'a secret'
+    'aaa secret'
   end
   private :my_private_method
 
   def test_calling_private_methods_without_receiver
-    assert_equal 'a secret', my_private_method
+    assert_equal 'aaa secret', my_private_method
   end
 
   def test_calling_private_methods_with_an_explicit_receiver
@@ -155,7 +155,6 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Naming/UncommunicativeMethodParamName
 # rubocop:enable Style/EvalWithLocation
 # rubocop:enable Lint/Void
 # rubocop:enable Lint/UnreachableCode

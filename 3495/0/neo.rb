@@ -1,16 +1,4 @@
 # rubocop:disable all
-# :reek:ControlParameter
-# :reek:DataClump
-# :reek:FeatureEnvy
-# :reek:InstanceVariableAssumption
-# :reek:NestedIterators
-# :reek:NilCheck
-# :reek:TooManyInstanceVariables
-# :reek:TooManyMethods
-# :reek:TooManyStatements
-# :reek:UncommunicativeParameterName
-# :reek:UncommunicativeVariableName
-# :reek:UtilityFunction
 
 #!/usr/bin/env ruby
 # -*- ruby -*-
@@ -23,7 +11,7 @@ end
 # --------------------------------------------------------------------
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
-
+# :reek:all
 class FillMeInError < StandardError
 end
 

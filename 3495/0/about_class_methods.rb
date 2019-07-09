@@ -1,6 +1,6 @@
 # rubocop:disable Style/TrivialAccessors
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -49,28 +49,28 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Dog2
+  class Doggo
     def wag
       :instance_level_wag
     end
   end
 
-  def Dog2.wag
+  def Doggo.wag
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-    assert_equal :class_level_wag, Dog2.wag
+    assert_equal :class_level_wag, Doggo.wag
   end
 
   def test_class_methods_are_independent_of_instance_methods
-    fido = Dog2.new
+    fido = Doggo.new
     assert_equal :instance_level_wag, fido.wag
-    assert_equal :class_level_wag, Dog2.wag
+    assert_equal :class_level_wag, Doggo.wag
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:Attribute
   class Dog
     attr_accessor :name
   end
@@ -121,13 +121,13 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def self.class_method2
+    def self.class_method_doge
       :another_way_to_write_class_methods
     end
   end
 
   def test_you_can_use_self_instead_of_an_explicit_reference_to_dog
-    assert_equal :another_way_to_write_class_methods, Dog.class_method2
+    assert_equal :another_way_to_write_class_methods, Dog.class_method_doge
   end
 
   # ------------------------------------------------------------------

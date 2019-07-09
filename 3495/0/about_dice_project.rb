@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:InstanceVariableAssumption
 
 class DiceSet
   attr_reader :values
@@ -9,6 +10,7 @@ class DiceSet
     end
   end
 end
+# :reek:FeatureEnvy and :reek:InstanceVariableAssumption and :reek:TooManyStatements
 
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
@@ -16,7 +18,7 @@ class AboutDiceProject < Neo::Koan
     assert_not_nil dice
   end
 
-  def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+  def test_rolling_the_dice_returns_a_set_of_integers_between_one_and_six
     dice = DiceSet.new
 
     dice.roll(5)

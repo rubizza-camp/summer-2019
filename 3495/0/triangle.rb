@@ -15,7 +15,7 @@
 # and
 #   about_triangle_project_2.rb
 #
-
+# :reek:UtilityFunction
 class Triangle
   attr_reader :side_a, :side_b, :side_c
 
@@ -65,6 +65,7 @@ class Triangle
             triangle.side_c) && (triangle.side_a != triangle.side_c)
   end
 end
+# :reek:UtilityFunction
 
 def triangle(side_a, side_b, side_c)
   Triangle.new(side_a, side_b, side_c).type
