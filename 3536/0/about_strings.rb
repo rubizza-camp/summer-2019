@@ -193,4 +193,4 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable Metrics/ClassLength
+# # rubocop:enable Metrics/ClassLength

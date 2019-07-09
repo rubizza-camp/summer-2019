@@ -1,5 +1,4 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Style/SingleLineMethods
 # rubocop:disable Style/MethodMissing
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -188,3 +187,5 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
+# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Style/MethodMissing
