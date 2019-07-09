@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# Class About arrays
 class AboutArrays < Neo::Koan
-  # :reek:TooManyStatements
   def test_creating_arrays
-    empty_array = []
+    empty_array = Array[]
     assert_equal Array, empty_array.class
     assert_equal 0, empty_array.size
   end
 
   def test_array_literals
-    # :reek:TooManyStatements
-    array = []
+    array = Array[]
     assert_equal [], array
 
     array[0] = 1
@@ -23,7 +24,6 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2, 333], array
   end
 
-
   def test_accessing_array_elements
     array = %i[peanut butter and jelly]
 
@@ -35,12 +35,10 @@ class AboutArrays < Neo::Koan
     assert_equal :butter, array[-3]
   end
 
-
   def test_slicing_arrays
-    # :reek:TooManyStatements
     array = %i[peanut butter and jelly]
 
-    assert_equal [:peanut], array[0, 1]
+    assert_equal %i[peanut], array[0, 1]
     assert_equal %i[peanut butter], array[0, 2]
     assert_equal %i[and jelly], array[2, 2]
     assert_equal %i[and jelly], array[2, 20]
@@ -50,7 +48,6 @@ class AboutArrays < Neo::Koan
   end
 
   def test_arrays_and_ranges
-    # :reek:TooManyStatements
     assert_equal Range, (1..5).class
     assert_not_equal [1, 2, 3, 4, 5], (1..5)
     assert_equal [1, 2, 3, 4, 5], (1..5).to_a
@@ -64,7 +61,6 @@ class AboutArrays < Neo::Koan
     assert_equal %i[peanut butter], array[0...2]
     assert_equal %i[and jelly], array[2..-1]
   end
-  # :reek:TooManyStatements
 
   def test_pushing_and_popping_arrays
     array = [1, 2]
@@ -76,16 +72,15 @@ class AboutArrays < Neo::Koan
     assert_equal :last, popped_value
     assert_equal [1, 2], array
   end
-  # :reek:TooManyStatements
 
   def test_shifting_arrays
-    array = [1, 2]
+    array = %i[1 2]
     array.unshift(:first)
 
-    assert_equal [:first, 1, 2], array
+    assert_equal %i[first 1 2], array
 
     shifted_value = array.shift
     assert_equal :first, shifted_value
-    assert_equal [1, 2], array
+    assert_equal %i[1 2], array
   end
 end

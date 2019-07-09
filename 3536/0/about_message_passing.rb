@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# rubocop:disable Lint/MissingCopEnableDirective, Style/MethodMissing
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Style/MethodMissing
+
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -23,8 +26,8 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' + '?') # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
+    assert mc.send('caught' + '?') # What do you need to add to the first string
+    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string
   end
 
   def test_send_with_underscores_will_also_send_messages
@@ -65,7 +68,7 @@ class AboutMessagePassing < Neo::Koan
   # NOTE:
   #
   # Both obj.msg and obj.send(:msg) sends the message named :msg to
-  # the object. We use "send" when the name of the message can vary
+  # the object. We use 'send' when the name of the message can vary
   # dynamically (e.g. calculated at run time), but by far the most
   # common way of sending a message is just to say: obj.msg.
 
@@ -110,6 +113,8 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
+  # class
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
@@ -121,7 +126,7 @@ class AboutMessagePassing < Neo::Koan
 
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
+    assert_equal 'Someone called sum with <1..6>', catcher.sum(1..6)
   end
 
   def test_catching_messages_makes_respond_to_lie
@@ -144,7 +149,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-  # rubocop:enable Style/MethodMissing
+
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 

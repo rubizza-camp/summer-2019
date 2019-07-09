@@ -1,14 +1,12 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
 class AboutModules < Neo::Koan
-  #:nodoc:
   module Nameable
-    # rubocop: disable Naming/AccessorMethodName
-    def set_name(new_name)
+    def setname(new_name)
       @name = new_name
     end
-    # rubocop: enable Naming/AccessorMethodName
 
     def here
       :in_module
@@ -22,8 +20,6 @@ class AboutModules < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
   class Dog
     include Nameable
 
@@ -50,14 +46,14 @@ class AboutModules < Neo::Koan
   def test_module_methods_are_also_available_in_the_object
     fido = Dog.new
     assert_nothing_raised do
-      fido.set_name('Rover')
+      fido.setname('Rover')
     end
   end
 
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal 'Fido', fido.name
-    fido.set_name('Rover')
+    fido.setname('Rover')
     assert_equal 'Rover', fido.name
   end
 

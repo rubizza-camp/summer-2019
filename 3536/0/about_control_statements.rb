@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/ClassLength ,Lint/MissingCopEnableDirective
+# rubocop:disable Metrics/MethodLength
 # rubocop:disable Lint/LiteralAsCondition
-# rubocop:disable Metrics/ClassLength
-# :reek:RepeatedConditional
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# class
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
-    if true
-      result = :true_value if true
-    else
-      result = :false_value
-    end
+    result = if true
+               :true_value
+             else
+               :false_value
+             end
     assert_equal :true_value, result
   end
 
@@ -18,8 +22,6 @@ class AboutControlStatements < Neo::Koan
     result = :true_value if true
     assert_equal :true_value, result
   end
-  # rubocop:disable Metrics/MethodLength
-  # :reek:TooManyStatements
 
   def test_if_statements_return_values
     value = if true
@@ -28,19 +30,20 @@ class AboutControlStatements < Neo::Koan
               :false_value
             end
     assert_equal :true_value, value
+
     value = if false
               :true_value
             else
               :false_value
             end
     assert_equal :false_value, value
+
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
     # just if statements.
   end
-  # rubocop:enable Metrics/MethodLength
 
   def test_if_statements_with_no_else_with_false_condition_return_value
-    value = :true_value if false
+    value = (:true_value if false)
     assert_equal nil, value
   end
 
@@ -74,49 +77,48 @@ class AboutControlStatements < Neo::Koan
 
     assert_equal :false_value, result
   end
-  # :reek:FeatureEnvy
 
   def test_while_statement
-    iteration = 1
+    i = 1
     result = 1
-    while iteration <= 10
-      result *= iteration
-      iteration += 1
+    while i <= 10
+      result *= i
+      i += 1
     end
     assert_equal 3_628_800, result
   end
-  # :reek:TooManyStatements
 
   def test_break_statement
-    iteration = 1
+    i = 1
     result = 1
     loop do
-      break unless iteration <= 10
-      result *= iteration
-      iteration += 1
+      break unless i <= 10
+
+      result *= i
+      i += 1
     end
     assert_equal 3_628_800, result
   end
-  # :reek:FeatureEnvy
 
   def test_break_statement_returns_values
-    iteration = 1
-    result = while iteration <= 10
-               break iteration if (iteration % 2).zero?
-               iteration += 1
+    i = 1
+    result = while i <= 10
+               break i if (i % 2).zero?
+
+               i += 1
              end
+
     assert_equal 2, result
   end
-  # :reek:TooManyStatements
-  # :reek:FeatureEnvy
 
   def test_next_statement
-    iteration = 0
+    i = 0
     result = []
-    while iteration < 10
-      iteration += 1
-      next if (iteration % 2).zero?
-      result << iteration
+    while i < 10
+      i += 1
+      next if (i % 2).zero?
+
+      result << i
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
@@ -138,5 +140,3 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
-# rubocop:enable Metrics/ClassLength
-# rubocop:enable Lint/LiteralAsCondition
