@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/GuardClause
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 # triangle Project Code.
 
@@ -26,43 +26,40 @@ class Triangle
   end
 
   def type
-    if a_triangle?(self) || a_triangle_2?(self) || a_triangle_3?(self)
+    if check_triangle_existence || check_triangle_existence_more ||
+       check_triangle_existence_and_more
       raise TriangleError, 'the triangle does not exist'
-    elsif a_equilateral?(self)
+    elsif a_equilateral?
       :equilateral
-    elsif a_isosceles?(self)
+    elsif a_isosceles?
       :isosceles
-    elsif a_scalene?(self)
+    elsif a_scalene?
       :scalene
     end
   end
 
-  def a_triangle?(triangle)
-    true if (triangle.side_a + triangle.side_b <= triangle.side_c) ||
-            (triangle.side_a + triangle.side_c <= triangle.side_b)
+  def check_triangle_existence
+    (side_a + side_b <= side_c) || (side_a + side_c <= side_b)
   end
 
-  def a_triangle_2?(triangle)
-    true if triangle.side_a <= 0 || triangle.side_b <= 0 || triangle.side_c <= 0
+  def check_triangle_existence_more
+    side_a <= 0 || side_b <= 0 || side_c <= 0
   end
 
-  def a_triangle_3?(triangle)
-    true if triangle.side_c + triangle.side_b <= triangle.side_a
+  def check_triangle_existence_and_more
+    side_c + side_b <= side_a
   end
 
-  def a_equilateral?(triangle)
-    true if (triangle.side_a == triangle.side_b) && (triangle.side_b ==
-            triangle.side_c) && (triangle.side_a == triangle.side_c)
+  def a_equilateral?
+    (side_a == side_b) && (side_b == side_c) && (side_a == side_c)
   end
 
-  def a_isosceles?(triangle)
-    true if (triangle.side_a == triangle.side_b) || (triangle.side_b ==
-            triangle.side_c) || (triangle.side_a == triangle.side_c)
+  def a_isosceles?
+    (side_a == side_b) || (side_b == side_c) || (side_a == side_c)
   end
 
-  def a_scalene?(triangle)
-    true if (triangle.side_a != triangle.side_b) && (triangle.side_b !=
-            triangle.side_c) && (triangle.side_a != triangle.side_c)
+  def a_scalene?
+    (side_a != side_b) && (side_b != side_c) && (side_a != side_c)
   end
 end
 # :reek:UtilityFunction
@@ -74,4 +71,4 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/GuardClause
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
