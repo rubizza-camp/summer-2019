@@ -74,7 +74,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_period_is_a_shortcut_for_any_non_newline_character
-    assert_equal "abc", "abc\n123"[/a.+/]
+    assert_equal 'abc', "abc\n123"[/a.+/]
   end
 
   def test_a_character_class_can_be_negated
@@ -102,7 +102,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_caret_anchors_to_the_start_of_lines
-    assert_equal "2", "num 42\n2 lines"[/^\d+/]
+    assert_equal '2', "num 42\n2 lines"[/^\d+/]
   end
 
   def test_dollar_sign_anchors_to_the_end_of_lines
@@ -152,12 +152,10 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_sub_is_like_find_and_replace
-    assert_equal "one t-three", "one two-three".sub(/(t\w*)/) { $1[0, 1] }
+    assert_equal 'one t-three', "one two-three".sub(/(t\w*)/) { $1[0, 1] }
   end
 
   def test_gsub_is_like_find_and_replace_all
-# rubocop:disable all
-    assert_equal "one t-t", "one two-three".gsub(/(t\w*)/) { $1[0, 1] }
-# rubocop:enable all  
+    assert_equal 'one t-t', "one two-three".gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 end
