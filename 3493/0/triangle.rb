@@ -15,18 +15,15 @@
 #
 #:reek:ControlParameter:reek:UtilityFunction:
 
-def scalene_return_check_triagle(*args)
-  return :scalene if args.uniq.count == 3
-end
-#:reek:ControlParameter:reek:UtilityFunction:
-
-def isosceles_return_check_triagle(*args)
-  return :isosceles if args.uniq.count == 2
-end
-#:reek:ControlParameter:reek:UtilityFunction:
-
-def equilateral_return_check_triagle(*args)
-  return :equilateral if args.uniq.count == 1
+def triangle_analyzes(*args)
+  case args.uniq.count
+  when 3
+    :scalene
+  when 2
+    :isosceles
+  when 1
+    :equilateral
+  end
 end
 # :reek:ControlParameter:
 # :reek:FeatureEnvy:
@@ -35,25 +32,22 @@ end
 def check_below_zero_triagle(*args)
   raise TriangleError if args.each { |argument| argument.negative? }
 end
+# rubocop:disable Metrics/AbcSize:
+# :reek:FeatureEnvy:
+
+def check_no_triangle(*args)
+  raise TriangleError if (args[0] + args[1] < args[2]) || (args[1] + args[2] < args[0]) ||
+                         (args[2] + args[0] <= args[1])
+end
 #:reek:ControlParameter:
 # :reek:FeatureEnvy:
-# rubocop:enable Style/SymbolProc
-# rubocop:disable Metrics/AbcSize:
+# rubocop:enable Style/SymbolProc, Metrics/AbcSize:
 
 def triangle(*args)
   check_below_zero_triagle(*args)
-
-  result = equilateral_return_check_triagle(*args) ||
-           isosceles_return_check_triagle(*args) ||
-           scalene_return_check_triagle(*args)
-
-  raise TriangleError if (args[0] + args[1] < args[2]) ||
-                         (args[1] + args[2] < args[0]) ||
-                         (args[2] + args[0] <= args[1])
-
-  result
+  check_no_triangle(*args)
+  triangle_analyzes(*args)
 end
-# rubocop:enable Metrics/AbcSize:
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
