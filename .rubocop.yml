@@ -28,9 +28,6 @@ Metrics/AbcSize:
 Security/Open:
   Enabled: false
 
-Style/MethodMissingSuper:
-  Enabled: false
-
 Lint/Void:
   Enabled: false
 
@@ -47,7 +44,4 @@ Lint/LiteralAsCondition:
   Enabled: false
 
 Style/TrivialAccessors:
-  Enabled: false
-
-Style/MethodMissing:
   Enabled: false
