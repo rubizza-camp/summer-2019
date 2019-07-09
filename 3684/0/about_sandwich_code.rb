@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Security/Open
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)
@@ -16,7 +15,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/AssignmentInCondition
 
   def find_line(file_name)
     file = open(file_name)
@@ -27,7 +25,6 @@ class AboutSandwichCode < Neo::Koan
     file&.close
   end
 
-  # rubocop:enable Lint/AssignmentInCondition
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
   end
@@ -53,7 +50,6 @@ class AboutSandwichCode < Neo::Koan
   #
   # Consider the following code:
   #
-  # rubocop:disable Security/Open
 
   def file_sandwich(file_name)
     file = open(file_name)
@@ -62,7 +58,6 @@ class AboutSandwichCode < Neo::Koan
     file&.close
   end
 
-  # rubocop:enable Security/Open
   # Now we write:
 
   def count_lines2(file_name)
@@ -78,8 +73,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Security/Open
-  # rubocop:disable Lint/AssignmentInCondition
   def find_line2(file_name)
     file = open(file_name)
     while line = file.gets
@@ -89,14 +82,11 @@ class AboutSandwichCode < Neo::Koan
     file&.close
   end
 
-  # rubocop:enable Security/Open
-  # rubocop:enable Lint/AssignmentInCondition
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Security/Open Lint/AssignmentInCondition
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
@@ -105,7 +95,6 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
-  # rubocop:enable Security/Open
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')
   end
