@@ -1,3 +1,5 @@
+# rubocop:disable Layout/CommentIndentation, Layout/IndentationWidth
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
@@ -109,3 +111,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# rubocop:enable Layout/CommentIndentation, Layout/IndentationWidth

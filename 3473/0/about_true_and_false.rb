@@ -1,3 +1,5 @@
+# rubocop:disable Layout/CommentIndentation, Layout/IndentationWidth
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutTrueAndFalse < Neo::Koan
@@ -22,7 +24,7 @@ class AboutTrueAndFalse < Neo::Koan
     assert_equal :false_stuff, truth_value(nil)
   end
 
-# :reek:TooManyStatements
+  # :reek:TooManyStatements
   def test_everything_else_is_treated_as_true
     assert_equal :true_stuff, truth_value(1)
     assert_equal :true_stuff, truth_value(0)
@@ -32,3 +34,4 @@ class AboutTrueAndFalse < Neo::Koan
     assert_equal :true_stuff, truth_value('')
   end
 end
+# rubocop:enable Layout/CommentIndentation, Layout/IndentationWidth

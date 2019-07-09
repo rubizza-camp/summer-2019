@@ -1,3 +1,4 @@
+# rubocop:disable Layout/CommentIndentation, Layout/IndentationWidth
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyMethods
@@ -168,3 +169,5 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
+# rubocop:enable Layout/CommentIndentation, Layout/IndentationWidth
+
