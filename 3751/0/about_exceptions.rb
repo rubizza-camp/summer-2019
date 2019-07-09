@@ -11,7 +11,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
-  def test_rescue_clause
+  def test_rescue_clause # rubocop:disable Metrics/MethodLength
     result = nil
     begin
       raise 'Oops'
@@ -45,9 +45,6 @@ class AboutExceptions < Neo::Koan
 
   def test_ensure_clause
     begin
-      raise 'Oops'
-    rescue StandardError
-      # no code here
     ensure
       result = :always_run
     end

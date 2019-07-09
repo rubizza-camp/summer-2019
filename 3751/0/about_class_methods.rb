@@ -74,7 +74,7 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
-  def Dog.name  # rubocop:disable Style/TrivialAccessor
+  def Dog.name # rubocop:disable Style/TrivialAccessors
     @name
   end
 

@@ -26,8 +26,11 @@ end
 def check_triangle(a_side, b_side, c_side)
   zero_side = (a_side * b_side * c_side).zero?
   negative_side = (a_side.negative? || b_side.negative? || c_side.negative?)
-  less_sides = (a_side + b_side <= c_side || a_side + c_side <= b_side || b_side + c_side <= a_side)
-  zero_side || negative_side || less_sides
+  zero_side || negative_side || less_sides(a_side, b_side, c_side)
+end
+
+def less_sides(a_side, b_side, c_side)
+  (a_side + b_side <= c_side || a_side + c_side <= b_side || b_side + c_side <= a_side)
 end
 
 def triangles(a_side, b_side, c_side)

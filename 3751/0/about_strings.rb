@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutStrings < Neo::Koan
+class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -46,10 +46,10 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~END
+    long_string = <<~TXT
       It was the best of times,
       It was the worst of times.
-END
+TXT
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
