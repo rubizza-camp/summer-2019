@@ -1,5 +1,3 @@
-# rubocop: disable all
-# :reek:UtilityFunction:
 def version_ints(version)
   version.split('.').map(&:to_i)
 end
@@ -7,8 +5,7 @@ end
 def at_least_ruby_version(version)
   vints = version_ints(version)
   ruby_vints = version_ints(RUBY_VERSION)
-  # :reek:NilCheck:
-  vints.zip(ruby_vints).all? { |vin, rvin| vin.nil? || rvin.nil? || vin >= rvin }
+  vints.zip(ruby_vints).all? { |v, rv| v.nil? || rv.nil? || v >= rv }
 end
 
 require 'rspec/given'
