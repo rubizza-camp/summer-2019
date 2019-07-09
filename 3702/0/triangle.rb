@@ -17,7 +17,7 @@ def two_side_more3(a_side, b_side, c_side)
 end
 
 def angle_model(a_side, b_side, c_side)
-  (a_side == b_side && b_side == c_side && a_side == c_side) ? :equilateral :
+  return :equilateral if (a_side == b_side && b_side == c_side && a_side == c_side)  
   (a_side == b_side) || (a_side == c_side) || (c_side == b_side) ? :isosceles : :scalene
 end
 
