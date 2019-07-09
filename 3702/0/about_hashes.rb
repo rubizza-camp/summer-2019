@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# rubocop:disable Metrics/AbcSize
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -32,7 +32,7 @@ class AboutHashes < Neo::Koan
     # THINK ABOUT IT:
     #
     # Why might you want to use #fetch instead of #[] when accessing hash keys?
-    # Можно подставить свое значениевторым параметром при отсутствии оного
+    # You can substitute your value with the second parameter in the absence thereof
   end
 
   def test_changing_hashes
@@ -107,7 +107,7 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |_, key| hash[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

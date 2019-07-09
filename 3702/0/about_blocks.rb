@@ -1,4 +1,5 @@
-# frozen_string_literal: true
+  
+# rubocop:disable Performance/RedundantBlockCall, Lint/UnneededCopDisableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -95,3 +96,4 @@ class AboutBlocks < Neo::Koan
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end
+# rubocop:enable Performance/RedundantBlockCall, Lint/UnneededCopDisableDirective

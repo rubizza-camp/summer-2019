@@ -1,5 +1,6 @@
-# frozen_string_literal: true
-
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:disable Style/MethodMissing
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -15,30 +16,31 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
-  def initialize(tv_object)
-    @tv = tv_object
+  def initialize(target_object)
+    @object = target_object
+
+    @messages = Hash.new(0)
   end
 
-  attr_accessor :channel, :tv
-
-  def called?(msg)
-    self.send(msg)
+  def method_missing(method_name, *args, &block)
+    @messages[method_name] += 1
+    @object.send(method_name, *args, &block)
   end
 
-  def power
-    tv.power
+  def called?(method_name)
+    @messages.key?(method_name)
   end
 
-  def on?
-    tv.on?
+  def number_of_times_called(method_name)
+    @messages[method_name]
   end
 
   def messages
-    %i[power channel=]
+    @messages.keys
   end
 
-  def number_of_times_called(name)
-    { :power => 2, :channel= => 1, :on? => 0 }[name.to_sym]
+  def respond_to_missing?
+    true
   end
 end
 
@@ -59,14 +61,6 @@ class AboutProxyObjectProject < Neo::Koan
 
     tv.channel = 10
     tv.power
-
-    def self.called?(msg)
-      if msg.tu_sym == :power
-        tv.on?
-      elsif msg.tu_sym == :channel
-        tv.channel == nil
-      end
-    end
 
     assert_equal 10, tv.channel
     assert tv.on?
@@ -94,9 +88,9 @@ class AboutProxyObjectProject < Neo::Koan
 
     tv.power
     tv.power
-    tv.on?
+
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
   def test_proxy_counts_method_calls
@@ -111,22 +105,22 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 0, tv.number_of_times_called(:on?)
   end
 
-  # def test_proxy_can_record_more_than_just_tv_objects
-  #   proxy = Proxy.new("Code Mash 2009")
+  def test_proxy_can_record_more_than_just_tv_objects
+    proxy = Proxy.new('Code Mash 2009')
 
-  #   proxy.upcase!
-  #   result = proxy.split
+    proxy.upcase!
+    result = proxy.split
 
-  #   assert_equal ["CODE", "MASH", "2009"], result
-  #   assert_equal [:upcase!, :split], proxy.messages
-  # end
+    assert_equal %w[CODE MASH 2009], result
+    assert_equal %i[upcase! split], proxy.messages
+  end
 end
 
-# # ====================================================================
-# # The following code is to support the testing of the Proxy class.  No
-# # changes should be necessary to anything below this comment.
+# ====================================================================
+# The following code is to support the testing of the Proxy class.  No
+# changes should be necessary to anything below this comment.
 
-# # Example class using in the proxy testing above.
+# Example class using in the proxy testing above.
 class Television
   attr_accessor :channel
 
@@ -143,7 +137,7 @@ class Television
   end
 end
 
-# # Tests for the Television class.  All of theses tests should pass.
+# Tests for the Television class.  All of theses tests should pass.
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new
@@ -182,3 +176,6 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:enable Style/MethodMissing
+# rubocop:enable Lint/UnneededCopDisableDirective

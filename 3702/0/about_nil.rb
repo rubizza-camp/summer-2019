@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -13,7 +12,7 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
-  rescue Exception => e
+  rescue StandardError => e
     # What exception has been caught?
     assert_equal NoMethodError, e.class
 
@@ -34,7 +33,8 @@ class AboutNil < Neo::Koan
     # or
     #    obj == nil
     # Why?
-    # если объект nil, то лучше проверить obj.nil? не внося путаницу сравнениями и дополнительнвми обраениями к памяти
-    # так же и в других объектах - zero? empty? eny? all?
+    # if the object is nil, it is better to check obj.nil?
+    # without confusing comparisons and additional memory accesses
+    # # the same way in other objects - zero? empty? end? all?
   end
 end
