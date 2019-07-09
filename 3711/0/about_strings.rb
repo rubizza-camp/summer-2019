@@ -63,7 +63,6 @@ LS
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
