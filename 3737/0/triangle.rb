@@ -13,8 +13,9 @@
 # and
 #   about_triangle_project_2.rb
 def triangle(ast, bst, cst)
-  raise TriangleError unless ast.positive? || bst.positive? || cst.positive?
-  raise TriangleError if bst + cst <= ast || ast + cst <= bst || bst + ast <= cst
+  ast, bst, cst = [ast, bst, cst].sort
+  raise TriangleError unless ast.positive?
+  raise TriangleError if bst + ast <= cst
 
   kind(ast, bst, cst)
   # WRITE THIS CODE

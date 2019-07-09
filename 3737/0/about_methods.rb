@@ -1,10 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop: disable Naming/UncommunicativeMethodParamName
-def my_global_method(a, b)
-  a + b
+def my_global_method(ast, bst)
+  ast + bst
 end
-# rubocop: enable Naming/UncommunicativeMethodParamName
 
 #:nodoc:
 class AboutMethods < Neo::Koan
@@ -48,11 +46,9 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop: disable Naming/UncommunicativeMethodParamName
-  def method_with_defaults(a, b = :default_value)
-    [a, b]
+  def method_with_defaults(ast, bst = :default_value)
+    [ast, bst]
   end
-  # rubocop: enable Naming/UncommunicativeMethodParamName
 
   def test_calling_with_default_values
     assert_equal [1, :default_value], method_with_defaults(1)
@@ -103,11 +99,9 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop: disable Naming/UncommunicativeMethodParamName
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(ast, bst)
+    ast * bst
   end
-  # rubocop: enable Naming/UncommunicativeMethodParamName
 
   def test_calling_methods_in_same_class
     assert_equal 12, my_method_in_the_same_class(3, 4)
