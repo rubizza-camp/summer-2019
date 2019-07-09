@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# :reek:all
 # rubocop:diasble all
 # rubocop:disable Metrics/ClassLength ,Lint/MissingCopEnableDirective
 # rubocop:disable Metrics/MethodLength
@@ -9,6 +8,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # class
+# :reek:UncommunicativeVariableName
+# :reek:TooManyStatements
+# :reek:RepeatedConditional
+# :reek:FeatureEnvy
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true

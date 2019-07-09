@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-# :reek:all
-# rubocop:diasble all
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyMethods
 # Class AboutRegularExpressions
+# :reek:UncommunicativeVariableName
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -55,9 +56,10 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
+    # :reek:UncommunicativeVariableName
     assert_equal %w[cat bat rat], (animals.select { |a| a[/[cbr]at/] })
   end
-
+  # :reek:UncommunicativeVariableName
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
     assert_equal '42', 'the number is 42'[/[0123456789]+/]
     assert_equal '42', 'the number is 42'[/\d+/]

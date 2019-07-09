@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# :reek:all
 # rubocop:diasble all
 # rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment
 # rubocop:disable Metrics/MethodLength, Lint/HandleExceptions
@@ -8,6 +7,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # clas
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end

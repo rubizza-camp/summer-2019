@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-# :reek:all
-# rubocop:diasble all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable all
 # Class iteration
+# :reek:NestedIterators
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -13,12 +14,14 @@ class AboutIteration < Neo::Koan
   # whenever comparing to lists of methods.
 
   in_ruby_version('1.8') do
+    # :reek:UtilityFunction
     def as_name(name)
       name.to_s
     end
   end
 
   in_ruby_version('1.9', '2') do
+    # :reek:UtilityFunction
     def as_name(name)
       name.to_sym
     end
@@ -46,7 +49,7 @@ class AboutIteration < Neo::Koan
     array.each { |item| sum += item }
     assert_equal 6, sum
   end
-
+  # :reek:TooManyStatements
   def test_break_works_with_each_style_iterations
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     sum = 0
@@ -57,7 +60,7 @@ class AboutIteration < Neo::Koan
     end
     assert_equal 6, sum
   end
-
+  # :reek:TooManyStatements
   def test_collect_transforms_elements_of_an_array
     array = [1, 2, 3]
     new_array = array.collect { |item| item + 10 }
@@ -90,14 +93,16 @@ class AboutIteration < Neo::Koan
     assert_equal 9, result
 
     result2 = [2, 3, 4].inject(1) { |product, item| product * item }
+    # :reek:UncommunicativeVariableName
     assert_equal 24, result2
 
     # Extra Credit:
     # Describe in your own words what inject does.
   end
-
+  # :reek:TooManyStatements
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
+    # :reek:UncommunicativeVariableName
     result = (1..3).map { |item| item + 10 }
     assert_equal [11, 12, 13], result
 

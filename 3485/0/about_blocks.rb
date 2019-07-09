@@ -4,6 +4,8 @@
 # rubocop:diasble all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Class About Blocks
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield

@@ -1,10 +1,11 @@
 # rubocop:disable ClassLength
 # frozen_string_literal: false
 
-# :reek:all
 # rubocop:diasble all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class
+# :reek:TooManyMethods
+# :reek:UncommunicativeVariableName
 class AboutStrings < Neo::Koan
   # rubocop:enable ClassLength
   def test_double_quoted_strings_are_strings

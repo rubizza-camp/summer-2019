@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
-# :reek:all
-# rubocop:diasble all
-# rubocop:disable Lint/MissingCopEnableDirective
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Style/RedundantSelf
-# rubocop:disable Style/RedundantReturn
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UtilityFunction
 def my_global_method(first, second)
   first + second
 end
 
 # class
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:UtilityFunction
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)

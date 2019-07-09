@@ -13,7 +13,8 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
 def triangle(a_side, b_side, c_side)
   # in wiki is written is it better sort_by
   a_side, b_side, c_side = [a_side, b_side, c_side].sort_by
