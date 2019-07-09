@@ -31,10 +31,12 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+# :reek:UtilityFunction:
+# :reek:FeatureEnvy:reek:TooManyStatements:reek:UtilityFunction:
 
 def score(dice)
   sum = 0
-  arr = dice.each_with_object(Hash.new(0)) { |i, h| h[i] += 1; }
+  arr = dice.each_with_object(Hash.new(0)) { |myi, myh| h[myi] += 1; }
 
   if arr[1] >= 3
     sum = 1000 * (arr[1] / 3)
@@ -59,6 +61,7 @@ def score(dice)
 
   sum
 end
+# :reek:UtilityFunction:
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
