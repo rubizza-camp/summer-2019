@@ -43,6 +43,7 @@ def score(dice)
 end
 
 # :reek:TooManyStatements
+# :reek:UtilityFunction
 def outcome_count(key, value, score)
   if value >= 3
     score += key == 1 ? 1000 : 100 * key

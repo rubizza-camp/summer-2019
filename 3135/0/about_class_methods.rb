@@ -126,6 +126,7 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UncommunicativeMethodName
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
