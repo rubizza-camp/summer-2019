@@ -19,23 +19,24 @@ class Proxy
     @object = target_object
     @messages = []
   end
-# rubocop:disable Style/MethodMissing
+  # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args)
     @messages.push(method_name)
     @object.send(method_name, *args)
   end
 
-# rubocop:enable Style/MethodMissing
+  # rubocop:enable Style/MethodMissing
 
   def called?(message)
     return true unless @messages.index(message).nil?
     false
   end
-# rubocop:disable Style/RedundantReturn
+
+  # rubocop:disable Style/RedundantReturn
   def number_of_times_called(message)
     return @messages.count(message)
   end
-# rubocop:enable Style/RedundantReturn
+  # rubocop:enable Style/RedundantReturn
 
   # WRITE CODE HERE
 end
@@ -109,9 +110,9 @@ class AboutProxyObjectProject < Neo::Koan
     result = proxy.split
 
     assert_equal %w[CODE MASH 2009], result
-# rubocop:disable Style/SymbolArray
+    # rubocop:disable Style/SymbolArray
     assert_equal [:upcase!, :split], proxy.messages
-# rubocop:enable Style/SymbolArray  
+    # rubocop:enable Style/SymbolArray
   end
 end
 
