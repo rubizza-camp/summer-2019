@@ -22,6 +22,8 @@ class Proxy
   end
 
   # WRITE CODE HERE
+  # :reek:ManualDispatch
+  # I don't know, how to change it
   # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     @messages << method_name if @object.respond_to?(method_name)

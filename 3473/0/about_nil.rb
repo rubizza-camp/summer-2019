@@ -11,13 +11,13 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
-  rescue StandardError => e
+  rescue StandardError => ex
     # What exception has been caught?
-    assert_equal NoMethodError, e.class
+    assert_equal NoMethodError, ex.class
 
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
-    assert_match(/undefined method `some_method_nil_doesnt_know_about' for nil:NilClass/, e.message)
+    assert_match(/undefined method `some_method_nil_doesnt_know_about' for nil:NilClass/, ex.message)
   end
 
   def test_nil_has_a_few_methods_defined_on_it

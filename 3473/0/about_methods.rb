@@ -98,6 +98,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UtilityFunction
   def my_method_in_the_same_class(a_param, b_param)
     a_param * b_param
   end

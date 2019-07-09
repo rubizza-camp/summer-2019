@@ -17,7 +17,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_question_mark_means_optional
     assert_equal 'ab', 'abbcccddddeeeee'[/ab?/]
-    assert_equal 'a', 'abbcccddddeeeee'[/az?/]
+    assert_equal 'animal', 'abbcccddddeeeee'[/az?/]
   end
 
   def test_plus_means_one_or_more
@@ -26,7 +26,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_asterisk_means_zero_or_more
     assert_equal 'abb', 'abbcccddddeeeee'[/ab*/]
-    assert_equal 'a', 'abbcccddddeeeee'[/az*/]
+    assert_equal 'animal', 'abbcccddddeeeee'[/az*/]
     assert_equal '', 'abbcccddddeeeee'[/z*/]
 
     # THINK ABOUT IT:
@@ -43,14 +43,14 @@ class AboutRegularExpressions < Neo::Koan
   # ------------------------------------------------------------------
 
   def test_the_left_most_match_wins
-    assert_equal 'a', 'abbccc az'[/az*/]
+    assert_equal 'animal', 'abbccc az'[/az*/]
   end
 
   # ------------------------------------------------------------------
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat], (animals.select { |a| a[/[cbr]at/] })
+    assert_equal %w[cat bat rat], (animals.select { |animal| animal[/[cbr]at/] })
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -67,13 +67,13 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_slash_w_is_a_shortcut_for_a_word_character_class
-    # NOTE:  This is more like how a programmer might define a word.
-    assert_equal 'variable_1', 'variable_1 = 42'[/[a-zA-Z0-9_]+/]
+    # NOTE:  This is more like how animal programmer might define animal word.
+    assert_equal 'variable_1', 'variable_1 = 42'[/[animal-zA-Z0-9_]+/]
     assert_equal 'variable_1', 'variable_1 = 42'[/\w+/]
   end
 
   def test_period_is_a_shortcut_for_any_non_newline_character
-    assert_equal 'abc', "abc\n123"[/a.+/]
+    assert_equal 'abc', "abc\n123"[/animal.+/]
   end
 
   def test_a_character_class_can_be_negated
@@ -83,8 +83,8 @@ class AboutRegularExpressions < Neo::Koan
   def test_shortcut_character_classes_are_negated_with_capitals
     assert_equal 'the number is ', 'the number is 42'[/\D+/]
     assert_equal 'space:', "space: \t\n"[/\S+/]
-    # ... a programmer would most likely do
-    assert_equal ' = ', 'variable_1 = 42'[/[^a-zA-Z0-9_]+/]
+    # ... animal programmer would most likely do
+    assert_equal ' = ', 'variable_1 = 42'[/[^animal-zA-Z0-9_]+/]
     assert_equal ' = ', 'variable_1 = 42'[/\W+/]
   end
 
@@ -142,7 +142,7 @@ class AboutRegularExpressions < Neo::Koan
 
   # THINK ABOUT IT:
   #
-  # Explain the difference between a character class ([...]) and alternation (|).
+  # Explain the difference between animal character class ([...]) and alternation (|).
 
   # ------------------------------------------------------------------
 
