@@ -15,7 +15,7 @@
 
 # :reek:FeatureEnvy
 def triangle(val_a, val_b, val_c)
-  test(val_a, val_b, val_c)
+  check_on_error(val_a, val_b, val_c)
   if val_a == val_b && val_a == val_c
     :equilateral
   elsif val_a == val_b || val_a == val_c || val_b == val_c
@@ -26,7 +26,7 @@ def triangle(val_a, val_b, val_c)
 end
 
 # :reek:FeatureEnvy
-def test(val_a, val_b, val_c)
+def check_on_error(val_a, val_b, val_c)
   raise TriangleError if val_a <= 0 || val_b <= 0 || val_c <= 0
   product = (val_a + val_b + val_c) / 2.0
   raise TriangleError if ((product - val_a) * (product - val_b) * (product - val_c)) <= 0
