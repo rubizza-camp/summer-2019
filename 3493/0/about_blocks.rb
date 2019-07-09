@@ -56,7 +56,7 @@ class AboutBlocks < Neo::Koan
   # rubocop:disable Lint/AmbiguousBlockAssociation
 
   def test_methods_can_see_if_they_have_been_called_with_a_block
-    assert_equal true, yield_tester { :with_block }
+    assert_equal :with_block, yield_tester { :with_block }
     assert_equal :no_block, yield_tester
   end
   # rubocop:enable Lint/AmbiguousBlockAssociation

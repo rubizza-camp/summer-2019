@@ -192,10 +192,10 @@ SQL
   end
 
   def test_strings_are_unique_objects
-    fist_string = 'a string'
+    first_string = 'a string'
     second_string = 'a string'
 
-    assert_equal true, fist_string == b
+    assert_equal true, first_string == second_string
     assert_equal false, first_string.object_id == second_string.object_id
   end
 end
