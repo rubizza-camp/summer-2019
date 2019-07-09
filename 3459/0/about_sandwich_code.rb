@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Lint/AssignmentInCondition
+
 # rubocop:disable Security/Open
 # class AboutSandwichCode < Neo::Koan
 class AboutSandwichCode < Neo::Koan
@@ -22,9 +22,11 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line(file_name)
     file = open(file_name)
+    # rubocop:disable Lint/AssignmentInCondition
     while line = file.gets
       return line if line =~ /e/
     end
+    # rubocop:enable Lint/AssignmentInCondition
   ensure
     file.close
   end
@@ -106,4 +108,3 @@ class AboutSandwichCode < Neo::Koan
   end
 end
 # rubocop:enable Security/Open
-# rubocop:enable Lint/AssignmentInCondition
