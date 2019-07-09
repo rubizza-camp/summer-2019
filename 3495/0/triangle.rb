@@ -1,5 +1,3 @@
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
 # triangle Project Code.
 
 # triangle analyzes the lengths of the sides of a triangle
@@ -16,6 +14,7 @@
 #   about_triangle_project_2.rb
 #
 # :reek:UtilityFunction
+# rubocop:disable Metrics/AbcSize, Style/GuardClause
 class Triangle
   attr_reader :side_a, :side_b, :side_c
 
@@ -26,8 +25,7 @@ class Triangle
   end
 
   def type
-    if check_triangle_existence || check_triangle_existence_more ||
-       check_triangle_existence_and_more
+    if check_triangle_existence
       raise TriangleError, 'the triangle does not exist'
     elsif a_equilateral?
       :equilateral
@@ -39,15 +37,9 @@ class Triangle
   end
 
   def check_triangle_existence
-    (side_a + side_b <= side_c) || (side_a + side_c <= side_b)
-  end
-
-  def check_triangle_existence_more
-    side_a <= 0 || side_b <= 0 || side_c <= 0
-  end
-
-  def check_triangle_existence_and_more
-    side_c + side_b <= side_a
+    ((side_a + side_b <= side_c) || (side_a + side_c <= side_b) ||
+      side_a <= 0 || side_b <= 0 || side_c <= 0 ||
+      side_c + side_b <= side_a)
   end
 
   def a_equilateral?
@@ -71,4 +63,4 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:enable Style/GuardClause, Metrics/AbcSize

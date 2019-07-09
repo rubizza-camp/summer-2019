@@ -1,7 +1,4 @@
-# rubocop:disable Security/Open
-# rubocop:disable Style/WhileUntilModifier
-# rubocop:disable Lint/AssignmentInCondition
-# rubocop:disable Performance/RedundantMatch
+# rubocop:disable all
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:FeatureEnvy and :reek:RepeatedConditional and :reek:UnusedParameters
@@ -107,7 +104,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_linesss('example_file.txt')
   end
 end
-# rubocop:enable Security/Open
-# rubocop:enable Style/WhileUntilModifier
-# rubocop:enable Lint/AssignmentInCondition
-# rubocop:enable Performance/RedundantMatch
+# rubocop:enable all
