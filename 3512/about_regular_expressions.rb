@@ -50,7 +50,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal(%w[cat bat rat], animals.select { |a| a[/[cbr]at/] })
+    assert_equal %w[cat bat rat], (animals.select { |a| a[/[cbr]at/] })
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -105,7 +105,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_dollar_sign_anchors_to_the_end_of_lines
-    assert_equal '42', '2 lines\nnum 42'[/\d+$/]
+    assert_equal '42', "2 lines\nnum 42"[/\d+$/]
   end
 
   def test_slash_b_anchors_to_a_word_boundary
