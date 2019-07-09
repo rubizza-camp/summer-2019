@@ -2,6 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Metrics/AbcSize
 # Greed is a dice game where you roll up to five dice to accumulate
 # points.  The following "score" function will be used to calculate the
 # score of a single roll of the dice.
@@ -85,3 +86,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
+# rubocop:enable Metrics/AbcSize
