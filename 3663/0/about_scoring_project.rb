@@ -1,5 +1,3 @@
-# rubocop:disable all
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Greed is a dice game where you roll up to five dice to accumulate
@@ -32,29 +30,47 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
+  count = add_steps_to_hash(dice)
+  scoring(count)
+end
+
+def scoring(count)
   score = 0
-  hh = Hash.new(0)
 
-  dice.each do |step|
-    hh[step] += 1
-  end
-
-  hh.each do |key, value|
-    if key == 1 && value >= 3
+  count.each do |key, value|
+    if tripple_ones?(key, value)
       score += 1000
       value -= 3
-    end
 
-    if key != 1 && value >= 3
+    elsif tripple_others?(key, value)
       score += key * 100
       value -= 3
     end
 
-    score += value * 100 if key == 1 && value <= 2
-    score += value * 50 if key == 5 && value <= 2
+    score += value * 100 if one_ones?(key, value)
+    score += value * 50 if one_fifths?(key, value)
   end
-
   score
+end
+
+def add_steps_to_hash(dice)
+  dice.each_with_object(Hash.new(0)) { |key, hash| hash[key] += 1; }
+end
+
+def tripple_ones?(key, value)
+  true if key == 1 && value >= 3
+end
+
+def tripple_others?(key, value)
+  true if key != 1 && value >= 3
+end
+
+def one_ones?(key, value)
+  true if key == 1 && value <= 2
+end
+
+def one_fifths?(key, value)
+  true if key == 5 && value <= 2
 end
 
 class AboutScoringProject < Neo::Koan
