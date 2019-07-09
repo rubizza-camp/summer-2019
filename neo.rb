@@ -14,7 +14,7 @@ end
 class FillMeInError < StandardError
 end
 
-# :reek:NilCheck, UtilityFunction
+# :reek:NilCheck, :reek:UtilityFunction, :reek:ControlParameter
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
       (version == 'jruby' && defined?(JRUBY_VERSION)) ||
@@ -213,7 +213,8 @@ module Neo
     end
   end
 
-  # :reek:InstanceVariableAssumption, TooManyInstanceVariables, TooManyMethods
+  # :reek:InstanceVariableAssumption, :reek:TooManyInstanceVariables
+  # :reek:TooManyMethods
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -414,6 +415,7 @@ module Neo
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
+    # :reek:TooManyStatements
     def a_zenlike_statement
       if !failed?
         zen_statement = "Mountains are again merely mountains"

@@ -43,6 +43,7 @@ class AboutHashes < Neo::Koan
     # rather than used as a literal?
   end
 
+  # :reek:UncommunicativeVariableName
   def test_hash_is_unordered
     hash1 = { one: 'uno', two: 'dos' }
     hash2 = { two: 'dos', one: 'uno' }
@@ -76,6 +77,8 @@ class AboutHashes < Neo::Koan
     assert_equal true, expected == new_hash
   end
 
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   def test_default_value
     hash1 = {}
     hash1[:one] = 1
@@ -91,7 +94,7 @@ class AboutHashes < Neo::Koan
   end
 
   # rubocop:disable Metrics/AbcSize
-  # :reek:TooManyStatements
+  # :reek:TooManyStatements, :reek:FeatureEnvy
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -106,6 +109,8 @@ class AboutHashes < Neo::Koan
   end
   # rubocop:enable Metrics/AbcSize
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def test_default_value_with_block
     hash = Hash.new { |hash_local, key| hash_local[key] = [] }
 
