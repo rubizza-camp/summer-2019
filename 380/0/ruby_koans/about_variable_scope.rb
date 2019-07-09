@@ -104,6 +104,9 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Hey', $anywhere
   end
 end
+# rubocop:enable Lint/UselessAssignment
+# rubocop:enable Style/TrivialAccessors
+# rubocop:enable Style/GlobalVars
 
 # THINK ABOUT IT:
 #

@@ -55,6 +55,7 @@ def score(dice)
   end
   score
 end
+# rubocop:enable Metrics/MethodLength, Style/Next
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero

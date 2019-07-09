@@ -13,7 +13,6 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   # Open the existing Dog class and add a new method.
   class Dog
     def wag
@@ -28,12 +27,14 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/ClassAndModuleChildren
   class ::Integer
     def even?
       (self % 2).zero?
     end
   end
+  # rubocop:enabled Metrics/AbcSize
+
 
   def test_even_existing_built_in_classes_can_be_reopened
     assert_equal false, 1.even?

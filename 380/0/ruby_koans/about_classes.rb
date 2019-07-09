@@ -9,8 +9,7 @@ class AboutClasses < Neo::Koan
     assert_equal Dog, fido.class
   end
 
-  # ------------------------------------------------------------------
-
+  # rubocop:disable Naming/AccessorMethodName
   class Dog2
     def set_name(a_name)
       @name = a_name
@@ -32,7 +31,7 @@ class AboutClasses < Neo::Koan
     assert_raise(NoMethodError) do
       fido.name
     end
-
+    # rubocop:disable Style/EvalWithLocation
     assert_raise(Exception) do
       eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
@@ -50,24 +49,19 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
 
   # ------------------------------------------------------------------
 
   class Dog3
-    def set_name(a_name)
-      @name = a_name
-    end
-    def name
-      @name
-    end
+    attr_reader :name
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.set_name('Fido')
+    fido.name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -175,13 +169,16 @@ class AboutClasses < Neo::Koan
     assert_equal "<Dog named '#{fido}'>", fido.inspect
   end
 
+  # rubocop:disable Style/StringLiterals
   def test_all_objects_support_to_s_and_inspect
     array = [1, 2, 3]
-
     assert_equal '[1, 2, 3]', array.to_s
     assert_equal '[1, 2, 3]', array.inspect
 
     assert_equal 'STRING', 'STRING'.to_s
     assert_equal "\"STRING\"", 'STRING'.inspect
   end
+  # rubocop:enabled Naming/AccessorMethodName
+  # rubocop:enabled Style/EvalWithLocation
+  # rubocop:enabled Style/StringLiterals:
 end
