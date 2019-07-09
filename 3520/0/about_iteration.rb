@@ -1,3 +1,4 @@
+# rubocop:disable Lint/AmbiguousBlockAssociation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutIteration < Neo::Koan
@@ -121,3 +122,4 @@ class AboutIteration < Neo::Koan
   #
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 end
+# rubocop:enable Lint/AmbiguousBlockAssociation
