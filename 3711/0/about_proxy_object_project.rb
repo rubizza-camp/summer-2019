@@ -35,6 +35,10 @@ class Proxy
   def number_of_times_called(sym)
     @messages.count sym
   end
+
+  def respond_to_missing?
+    true
+  end
 end
 
 # The proxy object should pass the following Koan:

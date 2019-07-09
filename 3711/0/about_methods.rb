@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a_var, b_var)
-  a_var + b_var
+def my_global_method(first_arg, second_arg)
+  first_arg + second_arg
 end
 
 class AboutMethods < Neo::Koan
@@ -92,8 +92,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a_int, b_int)
-    a_int * b_int
+  def my_method_in_the_same_class(first_arg, second_arg)
+    first_arg * second_arg
   end
 
   def test_calling_methods_in_same_class
