@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:TooManyMethods
 
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
@@ -50,7 +51,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
+    assert_equal %w[cat bat rat], (animals.select { |temp_a| temp_a[/[cbr]at/] })
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -130,7 +131,6 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'Gray', Regexp.last_match(1)
     assert_equal 'James', Regexp.last_match(2)
   end
-
   # ------------------------------------------------------------------
 
   def test_a_vertical_pipe_means_or
