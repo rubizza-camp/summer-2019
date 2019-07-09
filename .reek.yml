@@ -11,3 +11,25 @@ detectors:
   UtilityFunction:
     enabled: false
     public_methods_only: true
+
+  UncommunicativeVariableName:
+    enabled: false
+  
+  TooManyStatements:
+    enabled: true
+    max_statements: 15
+
+  UncommunicativeModuleName:
+    enabled: false
+  
+  TooManyMethods:
+    enabled: false
+  
+  Attribute:
+    enabled: false
+
+  UncommunicativeMethodName:
+    enabled: false
+
+  InstanceVariableAssumption:
+    enabled: false

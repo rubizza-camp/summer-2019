@@ -34,7 +34,9 @@ class AboutClasses < Neo::Koan
     end
 
     assert_raise(SyntaxError) do
-      eval 'fido.@name'
+      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+        fido.@name
+      RUBY
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
@@ -50,7 +52,9 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.naming('Fido')
 
+    # rubocop:disable Style/EvalWithLocation
     assert_equal 'Fido', fido.instance_eval('@name') # string version
+    # rubocop:enable Style/EvalWithLocation
     # rubocop:disable Lint/AmbiguousBlockAssociation
     assert_equal 'Fido', fido.instance_eval { @name } # block version
     # rubocop:enable Lint/AmbiguousBlockAssociation

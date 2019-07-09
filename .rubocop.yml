@@ -13,3 +13,40 @@ Metrics/LineLength:
 
 Lint/UselessAssignment:
   Enabled: false
+
+Lint/LiteralAsCondition:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
+
+Style/MethodMissing:
+  Enabled: false
+
+Style/MethodMissing:
+  Enabled: false
+
+Lint/HandleExceptions:
+  Enabled: false
+

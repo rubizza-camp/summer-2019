@@ -38,6 +38,7 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
+    # rubocop:disable Lint/HandleExceptions
     result = nil
     begin
       raise 'Oops'
@@ -46,6 +47,7 @@ class AboutExceptions < Neo::Koan
     ensure
       result = :always_run
     end
+    # rubocop:enable Lint/HandleExceptions
     assert_equal :always_run, result
   end
 
