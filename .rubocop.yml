@@ -1,4 +1,7 @@
-
+AllCops:
+  Exclude:
+    - '3711/0/neo.rb'
+    
 Style/FrozenStringLiteralComment:
   Enabled: false
 
