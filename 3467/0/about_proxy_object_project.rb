@@ -1,3 +1,7 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:disable Style/MethodMissing
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -170,3 +174,6 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:enable Style/MethodMissing
+# rubocop:enable Lint/UnneededCopDisableDirective

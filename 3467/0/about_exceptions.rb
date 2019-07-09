@@ -1,3 +1,5 @@
+# rubocop:disable Lint/HandleExceptions, Metrics/MethodLength
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutExceptions < Neo::Koan
@@ -63,3 +65,5 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
+
+# rubocop:enable Lint/HandleExceptions, Metrics/MethodLength

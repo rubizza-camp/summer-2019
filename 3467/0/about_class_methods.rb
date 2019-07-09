@@ -1,3 +1,5 @@
+# rubocop:disable Style/TrivialAccessors
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClassMethods < Neo::Koan
@@ -166,3 +168,4 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
+# rubocop:enable Style/TrivialAccessors
