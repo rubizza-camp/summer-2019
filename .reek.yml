@@ -9,4 +9,5 @@ detectors:
     enabled: false
 
   UtilityFunction:
+    enabled: false
     public_methods_only: true
