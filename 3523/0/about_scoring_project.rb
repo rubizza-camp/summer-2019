@@ -37,11 +37,11 @@ def score(dice)
 end
 
 def sum(arr)
-  h = { 1 => 100, 5 => 50 }
+  hhhh = { 1 => 100, 5 => 50 }
   result = []
   dice = selector(arr)
-  dice.each do |i|
-    result << h[i] unless h[i].nil?
+  dice.each do |numb|
+    result << hhhh[numb] unless hhhh[numb].nil?
   end
   if exceptions(arr).first == 1
     result.sum + 1000
