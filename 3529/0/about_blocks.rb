@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
@@ -56,11 +55,14 @@ class AboutBlocks < Neo::Koan
     end
   end
 
+  # rubocop:disable  Lint/AmbiguousBlockAssociation
+
   def test_methods_can_see_if_they_have_been_called_with_a_block
     assert_equal :with_block, yield_tester { :with_block }
     assert_equal :no_block, yield_tester
   end
 
+  # rubocop:enable  Lint/AmbiguousBlockAssociation
   # ------------------------------------------------------------------
 
   def test_block_can_affect_variables_in_the_code_where_they_are_created
@@ -89,11 +91,13 @@ class AboutBlocks < Neo::Koan
     block.call(10)
   end
 
+  # rubocop:disable  Lint/AmbiguousBlockAssociation
+
   def test_methods_can_take_an_explicit_block_argument
     assert_equal 20, method_with_explicit_block { |n| n * 2 }
 
     add_one = ->(n) { n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
+  # rubocop:enable  Lint/AmbiguousBlockAssociation
 end
-# rubocop:enable all

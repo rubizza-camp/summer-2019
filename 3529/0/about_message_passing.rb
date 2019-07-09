@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:ManualDispatch
@@ -121,6 +120,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
   class AllMessageCatcher
     def method_missing(method_name, *args)
@@ -164,6 +164,7 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Foo to you too', catcher.foo_baz
   end
 
+  # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
   def test_non_foo_messages_are_treated_normally
     catcher = WellBehavedFooCatcher.new
 
@@ -192,4 +193,3 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-# rubocop:enable all

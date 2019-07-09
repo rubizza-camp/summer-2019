@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrayAssignment < Neo::Koan
@@ -52,4 +51,3 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal 'Roy', last_name
   end
 end
-# rubocop:enable all

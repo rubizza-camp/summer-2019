@@ -1,4 +1,4 @@
-# rubocop:disable all
+# rubocop:disable  Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength,  Style/EvenOdd, Style/NumericPredicate, Layout/EndAlignment, Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:FeatureEnvy
@@ -136,4 +136,4 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
-# rubocop: enable all
+# rubocop:enable  Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength,  Style/EvenOdd, Style/NumericPredicate, Layout/EndAlignment, Metrics/LineLength

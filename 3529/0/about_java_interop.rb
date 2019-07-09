@@ -1,4 +1,5 @@
-# rubocop:disable all
+# rubocop:disable Style/MixinUsage, Metrics/AbcSize
+# rubocop:disable Lint/AmbiguousBlockAssociation, Style/SymbolProc, Style/ClassAndModuleChildren
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 include Java
@@ -133,4 +134,5 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, java_array.multiply_all
   end
 end
-# rubocop:enable all
+# rubocop:enable Style/MixinUsage, Metrics/AbcSize
+# rubocop:enable Lint/AmbiguousBlockAssociation, Style/SymbolProc, Style/ClassAndModuleChildren

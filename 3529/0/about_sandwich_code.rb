@@ -1,7 +1,5 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-
+# rubocop:disable Security/Open, Lint/AssignmentInCondition
 # :reek:UncommunicativeMethodName
 # :reek:NilCheck
 
@@ -113,5 +111,6 @@ class AboutSandwichCode < Neo::Koan
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')
   end
+
+  # rubocop:enable Security/Open, Lint/AssignmentInCondition
 end
-# rubocop:enable all

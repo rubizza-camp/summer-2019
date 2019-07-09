@@ -1,10 +1,8 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
 # :reek:UncommunicativeVariableName
-
 
 class AboutHashes < Neo::Koan
   def test_creating_hashes
@@ -103,6 +101,8 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
+  # rubocop:disable Metrics/AbcSize, Lint/ShadowingOuterLocalVariable
+
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -126,5 +126,5 @@ class AboutHashes < Neo::Koan
     assert_equal ['dos'], hash[:two]
     assert_equal [], hash[:three]
   end
+  # rubocop:enable Metrics/AbcSize, Lint/ShadowingOuterLocalVariable
 end
-# rubocop:enable all

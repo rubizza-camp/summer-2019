@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Project: Create a Proxy Class
 #
@@ -14,6 +13,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:ManualDispatch
 # :cop:lint:AmbiguousBlockAssociation
+# rubocop:disable Style/MissingRespondToMissing
 
 class Proxy
   attr_reader :messages
@@ -41,7 +41,7 @@ class Proxy
   end
   # WRITE CODE HERE
 end
-
+# rubocop:enable Style/MissingRespondToMissing
 # The proxy object should pass the following Koan:
 #
 
@@ -202,4 +202,3 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
-# rubocop:enable all

@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutKeywordArguments < Neo::Koan
@@ -17,6 +16,7 @@ class AboutKeywordArguments < Neo::Koan
     [one, two, three]
   end
 
+  # rubocop:disable Lint/ParenthesesAsGroupedExpression
   def test_keyword_arguments_with_wrong_number_of_arguments
     exception = assert_raise (ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
@@ -24,8 +24,8 @@ class AboutKeywordArguments < Neo::Koan
     assert_match(/wrong number/, exception.message)
   end
 
+  # rubocop:enable Lint/ParenthesesAsGroupedExpression
   # THINK ABOUT IT:
   #
   # Keyword arguments always have a default value, making them optional to the caller
 end
-# rubocop:enable all

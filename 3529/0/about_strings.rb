@@ -1,6 +1,4 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 # :reek:UncommunicativeVariableName
 # :reek:Attribute
 # :reek:FeatureEnvy
@@ -10,6 +8,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:ManualDispatch
 # :reek:UncommunicativeMethodName
 # :reek:UncommunicativeModuleName
+# rubocop:disable Metrics/ClassLength, Naming/HeredocDelimiterNaming
+# rubocop:disable Lint/UselessAssignment, Lint/InterpolationCheck
 
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
@@ -144,6 +144,9 @@ It was the worst of times.
     assert_equal 'The value is #{value}', string
   end
 
+  # rubocop:enable Metrics/ClassLength, Naming/HeredocDelimiterNaming
+  # rubocop:enable Lint/UselessAssignment, Lint/InterpolationCheck
+
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
     assert_equal 'The square root of 5 is 2.23606797749979', string
@@ -207,4 +210,3 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable all

@@ -1,7 +1,4 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-
 # :reek:FeatureEnvy
 
 class AboutObjects < Neo::Koan
@@ -53,4 +50,3 @@ class AboutObjects < Neo::Koan
     assert_equal true, obj.object_id != copy.object_id
   end
 end
-# rubocop:enable all

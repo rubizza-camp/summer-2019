@@ -1,6 +1,4 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 # :reek:UtilityFunction
 # :reek:ManualDispatch
 
@@ -55,4 +53,3 @@ class AboutToStr < Neo::Koan
     assert_equal true,  acts_like_a_string?(CanBeTreatedAsString.new)
   end
 end
-# rubocop:enable all

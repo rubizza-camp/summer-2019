@@ -1,11 +1,7 @@
-
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 # :reek:UncommunicativeVariableName
 # :reek:TooManyStatements
 # :reek:ManualDispatch
-
 
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
@@ -103,11 +99,9 @@ class AboutSymbols < Neo::Koan
   def test_symbols_can_be_dynamically_created
     assert_equal :catsdogs, ('cats' + 'dogs').to_sym
   end
-
   # THINK ABOUT IT:
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
   # Ruby Symbols are put into memory only once so we use less memory.
   # Creating Symbols dynamically is unlogical because of memory
 end
-# rubocop:enable all

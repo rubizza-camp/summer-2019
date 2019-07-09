@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:Attribute
 # :reek:FeatureEnvy
@@ -32,6 +31,8 @@ class AboutClasses < Neo::Koan
     assert_equal [:@name], fido.instance_variables
   end
 
+  # rubocop:disable  Style/EvalWithLocation,  Lint/AmbiguousBlockAssociation
+
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
     fido.a_name('Fido')
@@ -60,6 +61,8 @@ class AboutClasses < Neo::Koan
     assert_equal 'Fido', fido.instance_eval('@name')  # string version
     assert_equal 'Fido', fido.instance_eval { @name } # block version
   end
+
+  # rubocop:enable  Style/EvalWithLocation,  Lint/AmbiguousBlockAssociation
 
   # ------------------------------------------------------------------
 
@@ -141,6 +144,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # rubocop:disable Naming/AccessorMethodName
 
   class Dog7
     attr_reader :name
@@ -194,4 +198,4 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
-# rubocop:enable all
+# rubocop:enable Naming/AccessorMethodName

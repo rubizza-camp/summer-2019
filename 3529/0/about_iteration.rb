@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:NestedIterators
@@ -69,6 +68,8 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], another_array
   end
 
+  # rubocop:disable Style/SymbolProc, Lint/AmbiguousBlockAssociation
+
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
@@ -85,6 +86,8 @@ class AboutIteration < Neo::Koan
 
     assert_equal 'Clarence', array.find { |item| item.size > 4 }
   end
+
+  # rubocop:enable Style/SymbolProc, Lint/AmbiguousBlockAssociation
 
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
@@ -125,4 +128,3 @@ class AboutIteration < Neo::Koan
   # HELP MEEEE
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 end
-# rubocop:enable all

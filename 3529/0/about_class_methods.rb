@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:Attribute
@@ -102,23 +101,26 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # rubocop:disable  Layout/IndentationWidth,  Layout/EndAlignment
 
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end
+  LAST_EXPR = class Dog
+    21
+             end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPR
   end
 
   # ------------------------------------------------------------------
 
-  SelfInsideOfClassStatement = class Dog
-                                 self
-                               end
+  SELF_EXPR = class Dog
+    self
+             end
+
+  # rubocop:enable  Layout/IndentationWidth,  Layout/EndAlignment
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SelfInsideOfClassStatement
+    assert_equal true, Dog == SELF_EXPR
   end
 
   # ------------------------------------------------------------------
@@ -162,13 +164,6 @@ class AboutClassMethods < Neo::Koan
   #
   # Which do you prefer and why?
   # Are there times you might prefer one over the other?
-
-  # class << self demonstrates that approach clearly — we are defining
-  # methods within the actual singleton class scope(more object oriented). When we use
-  # def self.method, though, we are defining a method across scopes:
-  # we are present in the regular class scope, but we use Ruby’s ability
-  # to define methods upon specific instances from anywhere
-
   # ------------------------------------------------------------------
 
   def test_heres_an_easy_way_to_call_class_methods_from_instance_methods
@@ -176,4 +171,3 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
-# rubocop:enable all

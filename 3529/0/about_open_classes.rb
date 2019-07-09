@@ -1,4 +1,3 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutOpenClasses < Neo::Koan
@@ -29,7 +28,8 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/ClassAndModuleChildren, Lint/DuplicateMethods
+  # rubocop:disable Lint/NestedMethodDefinition, Style/EvenOdd, Style/NumericPredicate
   class ::Integer
     def even?
       def even?
@@ -38,6 +38,8 @@ class AboutOpenClasses < Neo::Koan
     end
   end
 
+  # rubocop:enable Style/ClassAndModuleChildren, Lint/DuplicateMethods
+  # rubocop:enable Lint/NestedMethodDefinition, Style/EvenOdd, Style/NumericPredicate
   def test_even_existing_built_in_classes_can_be_reopened
     assert_equal false, 1.even?
     assert_equal true, 2.even?
@@ -46,4 +48,3 @@ class AboutOpenClasses < Neo::Koan
   # NOTE: To understand why we need the :: before Integer, you need to
   # become enlightened about scope.
 end
-# rubocop:enable all

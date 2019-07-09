@@ -1,6 +1,8 @@
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Naming/UncommunicativeMethodParamName, Lint/UnreachableCode
+# rubocop:disable Lint/Void, Style/AccessModifierDeclarations
+# rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
 # :reek:UncommunicativeParameterName
 # :reek:UtilityFunction
 def my_global_method(a, b)
@@ -155,4 +157,6 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable all
+# rubocop:enable Naming/UncommunicativeMethodParamName, Lint/UnreachableCode
+# rubocop:enable Lint/Void, Style/AccessModifierDeclarations
+# rubocop:enable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
