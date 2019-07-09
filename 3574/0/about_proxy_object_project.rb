@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+equire File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
 #
@@ -13,38 +13,28 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
-  def initialize(target_object)
-    @object = target_object
+  attr_reader :messages
+  def initialize(object)
+    @object = object
     # ADD MORE CODE HERE
     @messages = []
   end
 
+  def number_of_times_called(msg)
+    @messages.count(msg)
+  end
+
+  def called?(msg)
+    @messages.include?(msg)
+  end
+
   # WRITE CODE HERE
-  # :reek:Attribute:
-  attr_accessor :messages
-
-  # :reek:ManualDispatch
-  def method_missing(method_name, *args)
-    if @object.respond_to?(method_name)
-      messages << method_name
-      @object.send(method_name, *args)
-    else
-      super
-    end
-  end
-
-  def respond_to_missing?(method_name, *args, &block)
-    @object.respond_to_missing?(method_name, *args, &block)
-  end
-
-  def called?(method_name)
-    messages.include? method_name
-  end
-
-  def number_of_times_called(method_name)
-    messages.count method_name
+  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
+    @messages << method_name
+    @object.send(method_name, *args, &block)
   end
 end
+
 # The proxy object should pass the following Koan:
 #
 class AboutProxyObjectProject < Neo::Koan
@@ -57,7 +47,6 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.instance_of?(Proxy)
   end
 
-  # :reek:FeatureEnvy:
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
 
@@ -68,7 +57,6 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.on?
   end
 
-  # :reek:FeatureEnvy:
   def test_proxy_records_messages_sent_to_tv
     tv = Proxy.new(Television.new)
 
@@ -86,7 +74,6 @@ class AboutProxyObjectProject < Neo::Koan
     end
   end
 
-  # :reek:FeatureEnvy:
   def test_proxy_reports_methods_have_been_called
     tv = Proxy.new(Television.new)
 
@@ -97,8 +84,6 @@ class AboutProxyObjectProject < Neo::Koan
     assert !tv.called?(:channel)
   end
 
-  # :reek:TooManyStatements:
-  # :reek:FeatureEnvy:
   def test_proxy_counts_method_calls
     tv = Proxy.new(Television.new)
 
@@ -111,7 +96,6 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 0, tv.number_of_times_called(:on?)
   end
 
-  # :reek:FeatureEnvy:
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
@@ -128,8 +112,6 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
-# :reek:Attribute:
-# :reek:InstanceVariableAssumption:
 class Television
   attr_accessor :channel
 
@@ -148,7 +130,6 @@ end
 
 # Tests for the Television class.  All of theses tests should pass.
 class TelevisionTest < Neo::Koan
-  # :reek:FeatureEnvy:
   def test_it_turns_on
     tv = Television.new
 
@@ -156,7 +137,6 @@ class TelevisionTest < Neo::Koan
     assert tv.on?
   end
 
-  # :reek:FeatureEnvy:
   def test_it_also_turns_off
     tv = Television.new
 
@@ -166,8 +146,6 @@ class TelevisionTest < Neo::Koan
     assert !tv.on?
   end
 
-  # :reek:FeatureEnvy:
-  # :reek:TooManyStatements:
   def test_edge_case_on_off
     tv = Television.new
 
@@ -182,7 +160,6 @@ class TelevisionTest < Neo::Koan
     assert !tv.on?
   end
 
-  # :reek:FeatureEnvy:
   def test_can_set_the_channel
     tv = Television.new
 
