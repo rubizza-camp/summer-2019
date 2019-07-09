@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable all
 # class AboutHashes < Neo::Koan
 class AboutHashes < Neo::Koan
   def test_creating_hashes
@@ -93,8 +93,8 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  #:reek:TooManyStatements
-  def test_default_value_is_the_same_object
+  # :reek:TooManyStatements
+  def test_default_value_is_the_same
     hash = Hash.new([])
 
     hash[:one] << 'uno'
@@ -118,4 +118,4 @@ class AboutHashes < Neo::Koan
     assert_equal [], hash[:three]
   end
 end
-# rubocop:enable Metrics/AbcSize
+# rubocop:enable all
