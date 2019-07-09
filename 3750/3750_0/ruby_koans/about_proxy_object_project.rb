@@ -13,27 +13,29 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
-
   attr_reader :messages
 
   def initialize(target_object)
     @object = target_object
     @messages = []
   end
-
-  def method_missing(method_name, *args, &block)
+# rubocop:disable Style/MethodMissing
+  def method_missing(method_name, *args)
     @messages.push(method_name)
     @object.send(method_name, *args)
   end
+
+# rubocop:enable Style/MethodMissing
 
   def called?(message)
     return true unless @messages.index(message).nil?
     false
   end
-
+# rubocop:disable Style/RedundantReturn
   def number_of_times_called(message)
     return @messages.count(message)
   end
+# rubocop:enable Style/RedundantReturn
 
   # WRITE CODE HERE
 end
@@ -52,7 +54,7 @@ class AboutProxyObjectProject < Neo::Koan
 
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
-    
+
     tv.power
     tv.channel = 10
 
@@ -65,8 +67,9 @@ class AboutProxyObjectProject < Neo::Koan
 
     tv.power
     tv.channel = 10
-
+# rubocop:disable Style/SymbolArray
     assert_equal [:power, :channel=], tv.messages
+# rubocop:enable Style/SymbolArray
   end
 
   def test_proxy_handles_invalid_messages
@@ -84,7 +87,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
 
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
   def test_proxy_counts_method_calls
@@ -100,13 +103,15 @@ class AboutProxyObjectProject < Neo::Koan
   end
 
   def test_proxy_can_record_more_than_just_tv_objects
-    proxy = Proxy.new("Code Mash 2009")
+    proxy = Proxy.new('Code Mash 2009')
 
     proxy.upcase!
     result = proxy.split
 
-    assert_equal ["CODE", "MASH", "2009"], result
+    assert_equal %w[CODE MASH 2009], result
+# rubocop:disable Style/SymbolArray
     assert_equal [:upcase!, :split], proxy.messages
+# rubocop:enable Style/SymbolArray  
   end
 end
 
