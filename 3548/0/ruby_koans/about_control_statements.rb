@@ -1,9 +1,9 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# This class smells of hohoho
+# :reek:TooManyMethods
+# This class smells of :reek:RepeatedConditional
 # About control statements
 class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
+  # :reek:RepeatedConditional
   def test_if_then_else_statements
     if true  # rubocop:disable Lint/LiteralAsCondition, Style/ConditionalAssignment
       result = :true_value
@@ -33,6 +33,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     # just if statements.
   end
 
+  # :reek:RepeatedConditional
   def if_statements_return_values
     value = if false # rubocop:disable Lint/LiteralAsCondition
               :true_value
@@ -49,28 +50,30 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal nil, value
   end
 
-  # rubocop:disable Metrics/LineLength
   def test_condition_operators
-    assert_equal :true_value, (true ? :true_value : :false_value) # rubocop:disable Lint/LiteralAsCondition, Metrics/LineLength
-    assert_equal :false_value, (false ? :true_value : :false_value) # rubocop:disable Lint/LiteralAsCondition
+    # rubocop:disable Lint/LiteralAsCondition
+    assert_equal :true_value, (true ? :true_value : :false_value)
+    assert_equal :false_value, (false ? :true_value : :false_value)
+    # rubocop:enable Lint/LiteralAsCondition
   end
 
   def test_if_statement_modifiers
+    # rubocop:disable Lint/LiteralAsCondition
     result = :default_value
-    result = :true_value if true # rubocop:disable Lint/LiteralAsCondition
+    result = :true_value if true
 
     assert_equal :true_value, result
   end
 
   def test_unless_statement
     result = :default_value
-    unless false    # rubocop:disable Style/IfUnlessModifier, Lint/LiteralAsCondition, Layout/ExtraSpacing
+    unless false    # rubocop:disable Style/IfUnlessModifier, Layout/ExtraSpacing
       result = :false_value
     end
     assert_equal :false_value, result
+    # rubocop:enable Lint/LiteralAsCondition
   end
 
-  # rubocop:enable Metrics/LineLength
   def test_unless_statement_evaluate_true
     result = :default_value
     unless true # rubocop:disable Lint/LiteralAsCondition, Style/IfUnlessModifier
@@ -86,6 +89,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal :false_value, result
   end
 
+  # :reek:FeatureEnvy
   def test_while_statement
     integer = 1
     result = 1
@@ -96,29 +100,30 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal 3_628_800, result
   end
 
+  # :reek:TooManyStatements
   def test_break_statement
     integer = 1
     result = 1
     loop do
       break unless integer <= 10
-
       result *= integer
       integer += 1
     end
     assert_equal 3_628_800, result
   end
 
+  # :reek:FeatureEnvy
   def test_break_statement_returns_values
     integer = 1
     result = while integer <= 10
                break integer if (integer % 2).zero?
-
                integer += 1
              end
 
     assert_equal 2, result
   end
 
+  # :reek:TooManyStatements
   def test_next_statement
     integer = 0
     result = []
@@ -126,11 +131,11 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
     assert_equal [1, 3, 5, 7, 9], result
   end
 
+  # :reek:UtilityFunction
   def while_integer(integer, result)
     while integer < 10
       integer += 1
       next if (integer % 2).zero?
-
       result << integer
     end
   end
