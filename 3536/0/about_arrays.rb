@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrays < Neo::Koan
-    # :reek:TooManyStatements
+  # :reek:TooManyStatements
   def test_creating_arrays
     empty_array = []
     assert_equal Array, empty_array.class
@@ -9,7 +9,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_array_literals
-      # :reek:TooManyStatements
+    # :reek:TooManyStatements
     array = []
     assert_equal [], array
 
