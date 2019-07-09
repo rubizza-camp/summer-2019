@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UncommunicativeVariableName, :reek:UtilityFunction
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield
@@ -81,9 +81,8 @@ class AboutBlocks < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  def method_with_explicit_block(&block)
-    block.call(10)
+  def method_with_explicit_block(*)
+    yield(10)
   end
 
   def test_methods_can_take_an_explicit_block_argument

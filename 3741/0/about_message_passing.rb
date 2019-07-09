@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:BooleanParameter, :reek:ManualDispatch, :reek:UtilityFunction, :reek:ControlParameter
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
