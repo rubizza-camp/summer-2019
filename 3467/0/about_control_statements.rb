@@ -1,3 +1,4 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -106,6 +107,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal 2, result
   end
 
+  # rubocop:disable FeatureEnvy
   def test_next_statement
     i = 0
     result = []
@@ -117,6 +119,7 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
+  # rubocop:enable FeatureEnvy
 
   def test_for_statement
     array = %w[fish and chips]
@@ -136,3 +139,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 # rubocop:enable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
+# rubocop:enable Lint/UnneededCopDisableDirective

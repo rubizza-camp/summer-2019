@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UnneededCopDisableDirective
 class DiceSet
   attr_reader :values
 
@@ -14,14 +15,16 @@ class AboutDiceProject < Neo::Koan
     assert_not_nil dice
   end
 
-  def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+  # rubocop:disable FeatureEnvy
+  # rubocop:disable TooManyStatements
+  def test_rolling_the_dice_returns_a_set_of_integers_between_one_and_six
     dice = DiceSet.new
 
     dice.roll(5)
     assert dice.values.is_a?(Array), 'should be an array'
     assert_equal 5, dice.values.size
     dice.values.each do |value|
-      assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
+      assert value >= 1 && value <= 6, "value #{value} must be between one and six"
     end
   end
 
@@ -61,4 +64,7 @@ class AboutDiceProject < Neo::Koan
     dice.roll(1)
     assert_equal 1, dice.values.size
   end
+  # rubocop:enable FeatureEnvy
+  # rubocop:enable TooManyStatements
 end
+# rubocop:enable Lint/UnneededCopDisableDirective
