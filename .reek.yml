@@ -32,8 +32,8 @@ detectors:
   UncommunicativeMethodName:
     enabled: false
 
-    UtilityFunction:
+  UtilityFunction:
     enabled: false
 
-    NilCheck:
+  NilCheck:
     enabled: false
