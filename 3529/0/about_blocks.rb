@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
+# rubocop:disable Performance/RedundantBlockCall
 
 class AboutBlocks < Neo::Koan
   def method_with_block
@@ -99,5 +100,5 @@ class AboutBlocks < Neo::Koan
     add_one = ->(n) { n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
-  # rubocop:enable  Lint/AmbiguousBlockAssociation
+  # rubocop:enable  Lint/AmbiguousBlockAssociation, Performance/RedundantBlockCall
 end

@@ -35,7 +35,7 @@ def negative?(a_side, b_side, c_side)
 end
 # :reek:UtilityFunction
 def a_triangle?(a_side, b_side, c_side)
-  !((a_side + b_side <= c_side) || (a_side + c_side <= b_side) || (b_side + c_side <= a_side))
+  (a_side + b_side > c_side) && (a_side + c_side > b_side) && (b_side + c_side > a_side)
 end
 
 # Error class used in part 2.  No need to change this code.

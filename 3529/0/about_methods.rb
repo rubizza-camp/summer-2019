@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Naming/UncommunicativeMethodParamName, Lint/UnreachableCode
-# rubocop:disable Lint/Void, Style/AccessModifierDeclarations
+# rubocop:disable Lint/Void
 # rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
 # :reek:UncommunicativeParameterName
 # :reek:UtilityFunction
@@ -158,5 +158,5 @@ class AboutMethods < Neo::Koan
   end
 end
 # rubocop:enable Naming/UncommunicativeMethodParamName, Lint/UnreachableCode
-# rubocop:enable Lint/Void, Style/AccessModifierDeclarations
+# rubocop:enable Lint/Void
 # rubocop:enable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral

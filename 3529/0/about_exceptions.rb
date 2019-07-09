@@ -1,7 +1,7 @@
-# rubocop:disable  Naming/MethodName, Metrics/MethodLength,   Layout/TrailingWhitespace
-# rubocop:disable Style/StringLiterals, Naming/RescuedExceptionsVariableName 
-# rubocop:disable Layout/AlignArguments, Style/SignalException
-# rubocop:disable Lint/UselessAssignment, Lint/HandleExceptions
+# rubocop:disable  Naming/MethodName, Metrics/MethodLength
+# rubocop:disable Style/StringLiterals
+# rubocop:disable Style/SignalException
+# rubocop:disable Lint/UselessAssignment, Lint/HandleExceptions, Layout/AlignParameters
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyStatements
@@ -71,7 +71,7 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
-# rubocop:enable  Naming/MethodName, Metrics/MethodLength
-# rubocop:enable Style/StringLiterals, Naming/RescuedExceptionsVariableName 
-# rubocop:enable Layout/AlignArguments, Style/SignalException
-# rubocop:enable Lint/UselessAssignment, Lint/HandleExceptions, Layout/TrailingWhitespace
+# rubocop:enable  Naming/MethodName, Metrics/MethodLength, Layout/AlignParameters
+# rubocop:enable Style/StringLiterals
+# rubocop:enable Style/SignalException
+# rubocop:enable Lint/UselessAssignment, Lint/HandleExceptions
