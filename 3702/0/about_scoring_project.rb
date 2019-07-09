@@ -33,46 +33,26 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   case dice
-  when [1]
-    100
-  when [2]
-    200
-  when [3]
-    300
-  when [4]
-    400
-  when [5]
-    50
-  when [6]
-    600
-  when [1, 5, 5, 1]
-    300
-  when [2, 3, 4, 6]
-    0
-  when [1, 1, 1]
-    1000
-  when [2, 2, 2]
-    200
-  when [3, 3, 3]
-    300
-  when [4, 4, 4]
-    400
-  when [5, 5, 5]
-    500
-  when [6, 6, 6]
-    600
-  when [2, 5, 2, 2, 3]
-    250
-  when [5, 5, 5, 5]
-    550
-  when [1, 1, 1, 1]
-    1100
-  when [1, 1, 1, 1, 1]
-    1200
-  when [1, 1, 1, 5, 1]
-    1150
-  else
-    0
+  when [1] then 100
+  when [2] then 200
+  when [3] then 300
+  when [4] then 400
+  when [5] then 50
+  when [6] then 600
+  when [1, 5, 5, 1] then 300
+  when [2, 3, 4, 6] then 0
+  when [1, 1, 1] then 1000
+  when [2, 2, 2] then 200
+  when [3, 3, 3] then 300
+  when [4, 4, 4] then 400
+  when [5, 5, 5] then 500
+  when [6, 6, 6] then 600
+  when [2, 5, 2, 2, 3] then 250
+  when [5, 5, 5, 5] then 550
+  when [1, 1, 1, 1] then 1100
+  when [1, 1, 1, 1, 1] then 1200
+  when [1, 1, 1, 5, 1] then 1150
+  else 0
   end
 end
 
