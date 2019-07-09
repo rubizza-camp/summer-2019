@@ -14,7 +14,8 @@
 #   about_triangle_project_2.rb
 #
 def triangle(side_a, side_b, side_c)
-
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
   side_a, side_b, side_c = [side_a, side_b, side_c].sort
   raise TriangleError unless side_a.positive?
   raise TriangleError unless side_a + side_b > side_c
@@ -23,8 +24,6 @@ def triangle(side_a, side_b, side_c)
 
   :scalene
 end
-# :reek:TooManyStatements
-# :reek:FeatureEnvy
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
