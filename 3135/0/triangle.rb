@@ -13,12 +13,13 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:FeatureEnvy
 def triangle(a_length, b_length, c_length)
   # WRITE THIS CODE
-  a, b, c = [a_length, b_length, c_length].sort
+  a_length, b_length, c_length = [a_length, b_length, c_length].sort
   raise TriangleError if a <= 0 || a + b <= c
 
-  %i[equilateral isosceles scalene].fetch([a, b, c].uniq.size - 1)
+  %i[equilateral isosceles scalene].fetch([a_length, b_length, c_length].uniq.size - 1)
 end
 
 # Error class used in part 2.  No need to change this code.
