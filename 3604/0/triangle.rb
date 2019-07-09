@@ -35,14 +35,14 @@ class Triangle
   private
 
   def test_error
-    raise TriangleError if negative_sides? || some_condition_again?
+    raise TriangleError if negative_sides? || right_triangle?
   end
 
   def negative_sides?
     @val_a <= 0 || @val_b <= 0 || @val_c <= 0
   end
 
-  def some_condition_again?
+  def right_triangle?
     ((sum - @val_a) * (sum - @val_b) * (sum - @val_c)) <= 0
   end
 
