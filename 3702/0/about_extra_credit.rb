@@ -13,13 +13,13 @@ class Game
   end
 
   def deposit_minus(win_user)
-    @deposit = @deposit - win_user
+    @deposit -= win_user
     puts "DEPOSIT #{deposit}"
   end
 
   def deposit_plus(pay)
     puts "DEPOSIT #{deposit}"
-    @deposit = @deposit + pay
+    @deposit += pay
     puts "DEPOSIT #{deposit}"
   end
 
@@ -77,14 +77,14 @@ class Gamer
 
   def kesh_minus(pay)
     p "КЕШ= #{kesh}"
-    @kesh = @kesh - pay
+    @kesh -= pay
     p "КЕШ= #{kesh}"
     puts 'You lost'
   end
 
   def kesh_plus(pay)
     p "КЕШ= #{kesh}"
-    @kesh =  @kesh + pay
+    @kesh += pay
     p "КЕШ= #{kesh}"
     puts 'You win'
   end
