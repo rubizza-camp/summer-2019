@@ -67,7 +67,6 @@ class AboutSymbols < Neo::Koan
     assert_equal 'It is raining cats and dogs.', string
   end
 
-  # rubocop:disable Layout/TrailingWhitespace
   def test_symbols_are_not_strings
     symbol = :ruby
     assert_equal false, symbol.is_a?(String)
@@ -80,7 +79,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.respond_to?(:each_char)
     assert_equal false, symbol.respond_to?(:reverse)
   end
-  # rubocop:enable Layout/TrailingWhitespace
+
   # It's important to realize that symbols are not "immutable
   # strings", though they are immutable. None of the
   # interesting string operations are available on symbols.
