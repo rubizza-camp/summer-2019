@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UncommunicativeVariableName
@@ -206,3 +207,4 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable all

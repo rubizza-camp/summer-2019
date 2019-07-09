@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:FeatureEnvy
@@ -135,3 +136,4 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop: enable all

@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:FeatureEnvy
@@ -63,3 +64,4 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
+# rubocop:enable all

@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'.freeze
@@ -90,3 +91,4 @@ class AboutConstants < Neo::Koan
   # definition, so then the constant defined in MyAnimals passed out of scope,
   # and thus Ruby checked the parent class for the value of the constant
 end
+# rubocop:inable all

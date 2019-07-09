@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class DiceSet
@@ -64,3 +65,4 @@ class AboutDiceProject < Neo::Koan
     assert_equal 1, dice.values.size
   end
 end
+# rubocop:enable all

@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:NilCheck
@@ -41,3 +42,4 @@ class AboutNil < Neo::Koan
     # except for the object nil itself
   end
 end
+# rubocop:enable all

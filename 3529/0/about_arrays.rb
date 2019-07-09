@@ -1,4 +1,4 @@
-
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyStatements
 # Description class
@@ -83,3 +83,4 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 end
+# rubocop:enable all

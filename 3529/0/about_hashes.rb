@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:FeatureEnvy
@@ -126,3 +127,4 @@ class AboutHashes < Neo::Koan
     assert_equal [], hash[:three]
   end
 end
+# rubocop:enable all

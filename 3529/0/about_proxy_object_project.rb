@@ -1,7 +1,5 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-
-
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -15,6 +13,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 # :reek:ManualDispatch
+# :cop:lint:AmbiguousBlockAssociation
 
 class Proxy
   attr_reader :messages
@@ -155,8 +154,6 @@ class Television
     @power == :on
   end
 end
-
-
 # :reek:Attribute
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
@@ -166,8 +163,6 @@ end
 # :reek:UncommunicativeMethodName
 # :reek:NilCheck
 # :reek:InstanceVariableAssumption
-
-
 # Tests for the Television class.  All of theses tests should pass.
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
@@ -207,3 +202,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable all

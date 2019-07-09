@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutInheritance < Neo::Koan
@@ -82,3 +83,4 @@ class AboutInheritance < Neo::Koan
     end
   end
 end
+# rubocop:enable all

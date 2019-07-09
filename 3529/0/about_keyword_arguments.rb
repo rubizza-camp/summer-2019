@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutKeywordArguments < Neo::Koan
@@ -27,3 +28,4 @@ class AboutKeywordArguments < Neo::Koan
   #
   # Keyword arguments always have a default value, making them optional to the caller
 end
+# rubocop:enable all

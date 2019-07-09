@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:NestedIterators
@@ -124,3 +125,4 @@ class AboutIteration < Neo::Koan
   # HELP MEEEE
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 end
+# rubocop:enable all

@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:ClassVariable
@@ -113,3 +114,4 @@ end
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
+# rubocop:enable all

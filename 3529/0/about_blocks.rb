@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
@@ -95,3 +96,4 @@ class AboutBlocks < Neo::Koan
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end
+# rubocop:enable all

@@ -1,3 +1,5 @@
+
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UncommunicativeVariableName
@@ -108,3 +110,4 @@ class AboutSymbols < Neo::Koan
   # Ruby Symbols are put into memory only once so we use less memory.
   # Creating Symbols dynamically is unlogical because of memory
 end
+# rubocop:enable all
