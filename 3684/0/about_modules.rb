@@ -48,7 +48,6 @@ class AboutModules < Neo::Koan
       fido.setname('Rover')
     end
   end
-  
   # :reek:FeatureEnvy
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new

@@ -140,7 +140,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 1, tv.number_of_times_called(:channel=)
     assert_equal 0, tv.number_of_times_called(:on?)
   end
-
+  # :reek:FeatureEnvy
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
