@@ -14,29 +14,29 @@
 #   about_triangle_project_2.rb
 #
 # :reek:disable
-def check_sides_sums(fst, snd, thrd)
-  fst + snd > thrd && fst + thrd > snd && snd + thrd > fst
+def check_sides_sums(first, second, third)
+  first + second > third && first + third > second && second + third > first
 end
 # :reek:enable
 
 # :reek:disable
-def validate_sides(fst, snd, thrd)
-  fst.positive? && snd.positive? && thrd.positive?
+def validate_sides(first, second, third)
+  first.positive? && second.positive? && third.positive?
 end
 # :reek:enable
 
 # :reek:disable
-def isosceles?(fst, snd, thrd)
-  fst == snd || fst == thrd || snd == thrd
+def isosceles?(first, second, third)
+  first == second || first == third || second == third
 end
 # :reek:enable
 
 # :reek:disable
-def triangle(fst, snd, thrd)
-  raise TriangleError if !validate_sides(fst, snd, thrd) || !check_sides_sums(fst, snd, thrd)
+def triangle(first, second, third)
+  raise TriangleError if !validate_sides(first, second, third) || !check_sides_sums(first, second, third)
 
-  return :equilateral if fst == snd && snd == thrd
-  return :isosceles if isosceles?(fst, snd, thrd)
+  return :equilateral if first == second && second == third
+  return :isosceles if isosceles?(first, second, third)
 
   :scalene
 end
