@@ -1,5 +1,5 @@
 # rubocop: disable Lint/AmbiguousRegexpLiteral, Style/RedundantSelf, Style/EvalWithLocation
-# rubocop: disable Style/AccessModifierDeclarations, Lint/Void, Lint/UnreachableCode
+# rubocop: disable Lint/Void, Lint/UnreachableCode
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -116,7 +116,6 @@ class AboutMethods < Neo::Koan
     'a secret'
   end
   private :my_private_method
-  # rubocop: enable Style/AccessModifierDeclarations
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end

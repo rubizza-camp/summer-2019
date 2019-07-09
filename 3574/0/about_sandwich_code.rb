@@ -1,15 +1,13 @@
-# rubocop: disable Security/Open, Lint/AssignmentInCondition
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     count = 0
     count += 1 while file.gets
     count
   ensure
-    file&.close
+    file.close
   end
 
   def test_counting_lines
@@ -19,12 +17,12 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-    file = open(file_name)
-    while line = file.gets
-      return line if line.match(/e/)
+    file = File.open(file_name)
+    while (line = file.gets)
+      return line if line =~ /e/
     end
   ensure
-    file&.close
+    file.close
   end
 
   def test_finding_lines
@@ -54,10 +52,10 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = open(file_name)
+    file = File.open(file_name)
     yield(file)
   ensure
-    file&.close
+    file.close
   end
 
   # Now we write:
@@ -78,9 +76,8 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
-      while line = file.gets
+      while (line = file.gets)
         return line if line =~ /e/
-        # rubocop: enable Lint/AssignmentInCondition
       end
     end
   end
@@ -92,8 +89,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
-    open(file_name) do |file|
-      # rubocop: enable Security/Open
+    File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
