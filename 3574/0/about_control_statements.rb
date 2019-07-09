@@ -71,6 +71,7 @@ class AboutControlStatements < Neo::Koan
   def test_unless_statement_modifier
     result = :default_value
     result = :false_value unless false
+    # rubocop: enable Lint/LiteralAsCondition
 
     assert_equal :false_value, result
   end

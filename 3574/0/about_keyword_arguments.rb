@@ -21,6 +21,7 @@ class AboutKeywordArguments < Neo::Koan
     exception = assert_raise(ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
     end
+    # rubocop: enable Lint/ParenthesesAsGroupedExpression
     assert_match(/1/, exception.message)
   end
 

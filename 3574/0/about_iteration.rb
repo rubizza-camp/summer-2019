@@ -84,6 +84,7 @@ class AboutIteration < Neo::Koan
 
     assert_equal('Clarence', array.find { |item| item.size > 4 })
   end
+  # rubocop: enable Lint/AmbiguousBlockAssociation
 
   #:reek:TooManyStatements:
   def test_inject_will_blow_your_mind

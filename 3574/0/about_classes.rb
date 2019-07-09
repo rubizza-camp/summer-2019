@@ -60,6 +60,7 @@ class AboutClasses < Neo::Koan
 
     assert_equal 'Fido', fido.instance_eval('@name')  # string version
     assert_equal 'Fido', fido.instance_eval { @name } # block version
+    # rubocop: enable Style/EvalWithLocation, Lint/AmbiguousBlockAssociation
   end
 
   # rubocop:enable  Style/EvalWithLocation,  Lint/AmbiguousBlockAssociation
@@ -154,6 +155,7 @@ class AboutClasses < Neo::Koan
     end
 
     def get_self
+      # rubocop: enable Naming/AccessorMethodName
       self
     end
 

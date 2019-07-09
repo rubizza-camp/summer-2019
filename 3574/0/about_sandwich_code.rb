@@ -79,6 +79,7 @@ class AboutSandwichCode < Neo::Koan
     file_sandwich(file_name) do |file|
       while (line = file.gets)
         return line if line =~ /e/
+        # rubocop: enable Lint/AssignmentInCondition
       end
     end
   end
