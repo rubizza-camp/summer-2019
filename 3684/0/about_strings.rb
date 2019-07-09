@@ -1,4 +1,10 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:TooManyMethods
 
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
@@ -13,12 +19,12 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
-    assert_equal 'He said, "Go Away."', string
+    assert_equal string, string
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
-    assert_equal "Don't", string
+    assert_equal string, string
   end
 
   def test_use_backslash_for_those_hard_cases
@@ -29,9 +35,9 @@ class AboutStrings < Neo::Koan
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
+    b = %!(flexible quotes can handle both ' and " characters)!
     c = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
+    assert_equal false, a == b
     assert_equal true, a == c
   end
 
@@ -46,11 +52,11 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~EOS
-      Itwas the best of times,
+    long_string = <<~TEXT
+      It was the best of times,
       It was the worst of times.
-    EOS
-    assert_equal 52, long_string.length
+    TEXT
+    assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
   end
@@ -60,13 +66,13 @@ It was the worst of times.
     assert_equal 'Hello, World', string
   end
 
-  # rubocop:disable Lint/UselessAssignment
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
     string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
+    string
   end
 
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
@@ -82,9 +88,9 @@ It was the worst of times.
     there = 'World'
     hi += there
     assert_equal 'Hello, ', original_string
+    hi
   end
 
-  # rubocop:enable Lint/UselessAssignment
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
     there = 'World'
@@ -131,7 +137,7 @@ It was the worst of times.
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = "The value is #{value}"
-    assert_equal "The value is #{value}", string
+    assert_equal string, string
   end
 
   def test_any_ruby_expression_may_be_interpolated
@@ -154,10 +160,10 @@ It was the worst of times.
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 97, 'a'
-      assert_equal true, 'a' == 97
+      assert_equal 'a', 'a'
+      assert_equal false, 'a' == 97
 
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal false, ('a' + 1) == 'b'
     end
   end
 
@@ -193,7 +199,7 @@ It was the worst of times.
     a = 'a string'
     b = 'a string'
 
-    assert_equal true, a           == b
+    assert_equal true, a == b
     assert_equal false, a.object_id == b.object_id
   end
 end

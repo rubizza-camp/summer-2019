@@ -85,7 +85,7 @@ class AboutSandwichCode < Neo::Koan
     file_sandwich(file_name) do |file|
       while (line = file.gets)
         # rubocop:disable Performance/RedundantMatch
-        return line if line.match(/e/)
+        return line if line =~ /e/
         # rubocop:enable Performance/RedundantMatch
       end
     end
