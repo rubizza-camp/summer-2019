@@ -1,10 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-<<<<<<< HEAD
-=======
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable FeatureEnvy
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 class AboutModules < Neo::Koan
   module Nameable
     def give_name(new_name)
@@ -66,8 +61,3 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
-<<<<<<< HEAD
-=======
-# rubocop:enable FeatureEnvy
-# rubocop:enable Lint/UnneededCopDisableDirective
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d

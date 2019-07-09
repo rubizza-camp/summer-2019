@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Metrics/AbcSize
 
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutHashes < Neo::Koan
@@ -50,17 +47,10 @@ class AboutHashes < Neo::Koan
   end
 
   def test_hash_is_unordered
-<<<<<<< HEAD
-    hash1 = { one: 'uno', two: 'dos' }
-    hash2 = { two: 'dos', one: 'uno' }
-
-    assert_equal true, hash1 == hash2
-=======
     hash_one = { one: 'uno', two: 'dos' }
     hash_two = { two: 'dos', one: 'uno' }
 
     assert_equal true, hash_one == hash_two
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
   end
 
   def test_hash_keys
@@ -89,23 +79,6 @@ class AboutHashes < Neo::Koan
     assert_equal true, expected == new_hash
   end
 
-<<<<<<< HEAD
-  def test_default_value
-    hash1 = {}
-    hash1[:one] = 1
-
-    assert_equal 1, hash1[:one]
-    assert_equal nil, hash1[:two]
-
-    hash2 = Hash.new('dos')
-    hash2[:one] = 1
-
-    assert_equal 1, hash2[:one]
-    assert_equal 'dos', hash2[:two]
-  end
-
-=======
-  # rubocop:disable TooManyStatements
   def test_default_value
     hash_one = {}
     hash_one[:one] = 1
@@ -120,8 +93,6 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash_two[:two]
   end
 
-  # rubocop:disable FeatureEnvy
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -145,12 +116,6 @@ class AboutHashes < Neo::Koan
     assert_equal ['dos'], hash[:two]
     assert_equal [], hash[:three]
   end
-<<<<<<< HEAD
-end
-=======
-  # rubocop:enable TooManyStatements
-  # rubocop:enable FeatureEnvy
 end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Lint/UnneededCopDisableDirective
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d

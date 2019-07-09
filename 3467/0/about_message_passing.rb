@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
 # rubocop:disable Style/MethodMissing
 
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutMessagePassing < Neo::Koan
@@ -119,11 +116,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
-<<<<<<< HEAD
-    def respond_to_missing?(name, include_private); end
-=======
     def respond_to_missing?(method_name, *args); end
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
@@ -150,11 +143,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class WellBehavedFooCatcher
-<<<<<<< HEAD
-    def respond_to_missing?(name, include_private); end
-=======
     def respond_to_missing?(method_name, *args); end
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
@@ -200,9 +189,6 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-<<<<<<< HEAD
-=======
 # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 # rubocop:enable Style/MethodMissing
 # rubocop:enable Lint/UnneededCopDisableDirective
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d

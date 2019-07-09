@@ -30,28 +30,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-<<<<<<< HEAD
-  number_counts = Hash.new(0)
-
-  dice.each do |number|
-    number_counts[number] += 1
-  end
-
-  result(number_counts)
-end
-
-def result(number_counts)
-  result = 0
-  number_counts.each do |number, count|
-    if count >= 3
-      result += number == 1 ? 1000 : number * 100
-      count -= 3
-    end
-    result += count * 50 if number == 5
-    result += count * 100 if number == 1
-  end
-  result
-=======
   dice = dice.sort
   sum = 0
   (1..6).each do |round|
@@ -61,7 +39,6 @@ def result(number_counts)
     sum += (count % 3) * 50 if round == 5
   end
   sum
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 end
 
 class AboutScoringProject < Neo::Koan
@@ -69,19 +46,11 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([])
   end
 
-<<<<<<< HEAD
-  def test_score_of_a_single_roll_of_5_is_50
-    assert_equal 50, score([5])
-  end
-
-  def test_score_of_a_single_roll_of_1_is_100
-=======
   def test_score_of_a_single_roll_of_five_is_fifty
     assert_equal 50, score([5])
   end
 
   def test_score_of_a_single_roll_of_one_is_hundred
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
     assert_equal 100, score([1])
   end
 
@@ -93,11 +62,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
-<<<<<<< HEAD
-  def test_score_of_a_triple_1_is_1000
-=======
   def test_score_of_a_triple_one_is_thousand
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
     assert_equal 1000, score([1, 1, 1])
   end
 

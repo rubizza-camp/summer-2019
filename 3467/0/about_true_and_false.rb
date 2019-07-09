@@ -1,11 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutTrueAndFalse < Neo::Koan
-<<<<<<< HEAD
-=======
-  # rubocop:disable Lint/UnneededCopDisableDirective
-  # rubocop:disable ControlParameter
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
   def truth_value(condition)
     if condition
       :true_stuff
@@ -13,11 +8,6 @@ class AboutTrueAndFalse < Neo::Koan
       :false_stuff
     end
   end
-<<<<<<< HEAD
-=======
-  # rubocop:enable ControlParameter
-  # rubocop:enable Lint/UnneededCopDisableDirective
->>>>>>> ecc5273a98f21b47f778c5467994ffd510a3139d
 
   def test_true_is_treated_as_true
     assert_equal :true_stuff, truth_value(true)
