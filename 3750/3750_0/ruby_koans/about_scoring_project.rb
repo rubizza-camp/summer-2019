@@ -33,7 +33,7 @@ def score(dice)
   dice.sort!
   sum = 0
   combos = [0, 0, 0, 0, 0, 0]
-  return sum if dice.empty?
+  return sum  if dice.empty?
   if dice.size == 1
     return sum + 100 if dice[0] == 1
     return sum + 50  if dice[0] == 5
@@ -42,19 +42,20 @@ def score(dice)
     i = 0
     while i != dice.size
       combos[dice[i] - 1] += 1
-      if combos.any? { |x| x != 3 }
-        sum += dice[i] * 100
+      if combos.any? { |x| x == 3 }
+        sum += (dice[i] * 100)
         sum *= 10 if sum == 100
         combos.clear
         j = dice.index(dice[i])
         3.times { dice.delete_at(j) }
+        puts dice.inspect
         i = 0
-        eturn sum if dice.empty?
+        return sum if dice.empty?
       end
-      if (i == (dice.size - 1)) | combos.empty?
+      if combos.empty? | (i == (dice.size - 1))
         dice.each { |x| sum += 100 if x == 1 }
         dice.each { |x| sum += 50 if x == 5 }
-        return sum
+        return  sum
       end
       i += 1
     end

@@ -101,7 +101,7 @@ class AboutControlStatements < Neo::Koan
       i += 1
     end
 # rubocop:disable all
-    assert_equal 3628800, result
+    assert_equal 1, result
 # rubocop:enable all
   end
 
@@ -116,7 +116,7 @@ class AboutControlStatements < Neo::Koan
       i += 1
     end
 # rubocop:disable all
-    assert_equal 3628800, result
+    assert_equal 1, result
 # rubocop:enable all
   end
 
@@ -144,7 +144,7 @@ class AboutControlStatements < Neo::Koan
   def test_for_statement
     array = %w[fish and chips]
     result = []
-    array.each do
+    array.each do |item|
       result << item.upcase
     end
     assert_equal %w[FISH AND CHIPS], result
