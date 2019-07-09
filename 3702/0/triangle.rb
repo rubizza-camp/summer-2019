@@ -17,8 +17,9 @@ def two_side_more3(a_side, b_side, c_side)
 end
 
 def angle_model(a_side, b_side, c_side)
-  return :equilateral if (a_side == b_side && b_side == c_side && a_side == c_side)  
-  (a_side == b_side) || (a_side == c_side) || (c_side == b_side) ? :isosceles : :scalene
+  return :equilateral if a_side == b_side && b_side == c_side && a_side == c_side
+
+  a_side == b_side || a_side == c_side || c_side == b_side ? :isosceles : :scalene
 end
 
 # Error class used in part 2.  No need to change this code.
