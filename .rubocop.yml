@@ -8,5 +8,8 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
+Lint/UselessAssignment:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 150
