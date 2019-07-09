@@ -15,6 +15,7 @@ class AboutKeywordArguments < Neo::Koan
   def method_with_keyword_arguments_with_mandatory_argument(one, two: 2, three: 3)
     [one, two, three]
   end
+  
   # :reek:Lint/ParenthesesAsGroupedExpression:
   def test_keyword_arguments_with_wrong_number_of_arguments
     exception = assert_raise (ArgumentError) do
