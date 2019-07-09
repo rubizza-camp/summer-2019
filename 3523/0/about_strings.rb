@@ -34,11 +34,11 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and ' characters)
-    b = %(flexible quotes can handle both ' and ' characters)
-    c = %(flexible quotes can handle both ' and ' characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    a_s = %(flexible quotes can handle both ' and ' characters)
+    b_s= %(flexible quotes can handle both ' and ' characters)
+    c_s = %(flexible quotes can handle both ' and ' characters)
+    assert_equal true, a_s == b_s
+    assert_equal true, a_s == c_s
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
