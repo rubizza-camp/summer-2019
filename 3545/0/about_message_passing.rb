@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Style/MissingRespondToMissing
-# rubocop:disable Style/MethodMissingSuper
+
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -106,11 +105,14 @@ class AboutMessagePassing < Neo::Koan
     # Koans.
   end
 
+  # rubocop:disable Style/MethodMissing
   class AllMessageCatcher
+    # :reek:UtilityFunction
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
+  # :reek:ManualDispatch
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
@@ -138,7 +140,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-  # rubocop:enable Style/MissingRespondToMissing
+
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
@@ -164,6 +166,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
+  # :reek:ManualDispatch
 
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
@@ -173,4 +176,4 @@ class AboutMessagePassing < Neo::Koan
   end
 end
 
-# rubocop:enable Style/MethodMissingSuper
+# rubocop:enable Style/MethodMissing
