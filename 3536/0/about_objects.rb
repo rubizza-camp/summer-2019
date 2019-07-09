@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
 class AboutObjects < Neo::Koan
   def test_everything_is_an_object
     assert_equal true, 1.is_a?(Object)
@@ -20,11 +19,14 @@ class AboutObjects < Neo::Koan
     assert_equal 'nil', nil.inspect
   end
 
+  # rubocop:disable Lint/UnifiedInteger
+
   def test_every_object_has_an_id
     obj = Object.new
-    assert_equal Integer, obj.object_id.class
+    assert_equal Fixnum, obj.object_id.class
   end
 
+  # rubocop:enable Lint/UnifiedInteger
   def test_every_object_has_different_id
     obj = Object.new
     another_obj = Object.new
@@ -45,7 +47,7 @@ class AboutObjects < Neo::Koan
     obj = Object.new
     copy = obj.clone
 
-    assert_equal true, obj != copy
+    assert_equal true, obj           != copy
     assert_equal true, obj.object_id != copy.object_id
   end
 end

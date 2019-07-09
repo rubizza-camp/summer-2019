@@ -1,8 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-#:nodoc:
+# rubocop:disable Style/MethodMissing
 class AboutMessagePassing < Neo::Koan
-  #:nodoc:
   class MessageCatcher
     def caught?
       true
@@ -48,7 +46,6 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  #:nodoc:
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -74,7 +71,6 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  #:nodoc:
   class TypicalObject
   end
 
@@ -114,14 +110,10 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
   class AllMessageCatcher
-    # rubocop: disable all
-    def method_missing(method_name, *args, &_block)
+    def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
-    # rubocop: enable all
   end
 
   def test_all_messages_are_caught
@@ -143,9 +135,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  #:nodoc:
   class WellBehavedFooCatcher
-    # rubocop: disable all
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
@@ -153,9 +143,8 @@ class AboutMessagePassing < Neo::Koan
         super(method_name, *args, &block)
       end
     end
-    # rubocop: enable all
   end
-
+  # rubocop:enable Style/MethodMissing
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
@@ -174,7 +163,6 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   # (note: just reopening class from above)
-  #:nodoc:
   class WellBehavedFooCatcher
     def respond_to?(method_name)
       if method_name.to_s[0, 3] == 'foo'
