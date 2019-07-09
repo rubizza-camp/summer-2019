@@ -16,11 +16,11 @@
 def triangle(side_a, side_b, side_c)
   # :reek:TooManyStatements
   # :reek:FeatureEnvy
-  side_a, side_b, side_c = [side_a, side_b, side_c].sort
-  raise TriangleError unless side_a.positive?
-  raise TriangleError unless side_a + side_b > side_c
-  return :equilateral if side_a == side_c
-  return :isosceles if side_a == side_b || side_b == side_c
+  sides = [side_a, side_b, side_c].sort
+  raise TriangleError if sides[0] <= 0
+  raise TriangleError if sides[0] + sides[1] <= sides[2]
+  return :equilateral if sides[0] == sides[2]
+  return :isosceles if sides[0] == sides[1] || sides[1] == sides[2]
 
   :scalene
 end
