@@ -28,16 +28,24 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# :reek:TooManyStatements
-# :reek:FeatureEnvy
 
 def score(dice)
-  sum = 0
   return 0 if dice.empty?
+  sum = main_score(dice)
+  sum
+end
 
+def main_score(dice)
+  sum = 0
   sum += for_one(dice)
-  sum += dice.count(5) >= 3 ? 500 + (dice.count(5) - 3) * 50 : dice.count(5) * 50
+  sum += for_five(dice)
   sum += other(dice)
+  sum
+end
+# :reek:UtilityFunction
+
+def for_five(dice)
+  sum = dice.count(5) >= 3 ? 500 + (dice.count(5) - 3) * 50 : dice.count(5) * 50
   sum
 end
 # :reek:UtilityFunction
