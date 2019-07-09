@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength ,Lint/MissingCopEnableDirective
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Lint/LiteralAsCondition
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# about class AboutControlStatements
+# rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/MethodLength:
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -60,13 +60,13 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement
     result = :default_value
-    result = :false_value unless false
+    result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
     assert_equal :false_value, result
   end
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    result = :true_value unless true
+    result = :true_value unless true # same as saying 'if !true', which evaluates as 'if false'
     assert_equal :default_value, result
   end
 
@@ -99,25 +99,25 @@ class AboutControlStatements < Neo::Koan
     assert_equal 3_628_800, result
   end
 
+  # rubocop:disable Layout/EndAlignment
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
-               break i if (i % 2).zero?
+               break i if i.even?
 
                i += 1
-             end
+  end
 
     assert_equal 2, result
   end
+  # rubocop:enable Layout/EndAlignment
 
   def test_next_statement
-    # :reek:FeatureEnvy
-    # :reek:TooManyStatements
     i = 0
     result = []
     while i < 10
       i += 1
-      next if (i % 2).zero?
+      next if i.even?
 
       result << i
     end
@@ -141,3 +141,6 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Metrics/MethodLength:
