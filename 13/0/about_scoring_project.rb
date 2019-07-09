@@ -38,7 +38,7 @@ def score(dice)
   elsif dice == [1]
     100
   elsif dice == [1, 5, 5, 1]
-    300   
+    300
   elsif dice == [1, 1, 1]
     1000
   elsif dice == [2, 2, 2]
@@ -49,16 +49,16 @@ def score(dice)
     400
   elsif dice == [5, 5, 5]
     500
-  elsif dice == [6,6,6]
+  elsif dice == [6, 6, 6]
     600
-  elsif dice == [2,5,2,2,3]
+  elsif dice == [2, 5, 2, 2, 3]
     250
   elsif dice == [5, 5, 5, 5]
-    550 
+    550
   elsif dice == [1, 1, 1, 1]
     1100
   elsif dice == [1, 1, 1, 1, 1]
-    1200 
+    1200
   elsif dice == [1, 1, 1, 5, 1]
     1150
   end
@@ -104,5 +104,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1200, score([1, 1, 1, 1, 1])
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
-
 end
