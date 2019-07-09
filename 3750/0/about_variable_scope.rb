@@ -1,25 +1,25 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Style/GlobalVars
 class AboutVariableScope < Neo::Koan
-
   def bark
+    # rubocop:disable Lint/UselessAssignment
     noise = 'RUFF'
+    # rubocop:enable Lint/UselessAssignment
   end
 
   def test_noise_is_not_available_in_the_current_scope
-
     assert_raise(NameError) do
       noise
     end
-
   end
 
   def test_we_can_get_noise_by_calling_method
     assert_equal 'RUFF', bark
   end
-
-  inaccessible = "Outside our universe"
+  
+  # rubocop:disable Lint/UselessAssignment
+  inaccessible = 'Outside our universe'
+  # rubocop:enable Lint/UselessAssignment
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
     assert_equal nil, defined? inaccesible
@@ -27,18 +27,17 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
 
-  def test_blocks_can_access_variables_outside_scope 
+  def test_blocks_can_access_variables_outside_scope
     test = 'Hi'
-    (1..2).each do
+    2.times do
       test = 'Hey'
     end
-
-    assert_equal 'Hey', test    
+    assert_equal 'Hey', test
   end
 
   def test_block_variables_cannot_be_accessed_outside_scope
-    (1..2).each do
-      x = 0 
+    2.times do
+      x = 0
     end
     assert_equal nil, defined? x
   end
@@ -46,7 +45,6 @@ class AboutVariableScope < Neo::Koan
   # ------------------------------------------------------
 
   class Mouse
-
     attr_reader @name
     # rubocop:disable all
     @@total = 0
@@ -54,7 +52,7 @@ class AboutVariableScope < Neo::Koan
     # Class variables are prefixed with two '@' characters.
     # rubocop:disable Naming/UncommunicativeMethodParamName
     def initialize(n)
-    # rubocop:enable Naming/UncommunicativeMethodParamName
+      # rubocop:enable Naming/UncommunicativeMethodParamName
       @name = n
       # Instance variables are prefixed with one '@' character.
       # rubocop:disable all
@@ -80,8 +78,9 @@ class AboutVariableScope < Neo::Koan
     (1..9).each { |i| Mouse.new(i.to_s) }
     assert_equal 10, Mouse.count
   end
-
+  # rubocop:disable Style/GlobalVars
   $anywhere = 'Anywhere'
+  # rubocop:enable Style/GlobalVars
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
@@ -90,7 +89,9 @@ class AboutVariableScope < Neo::Koan
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
+    # rubocop:disable Style/GlobalVars
     $anywhere = 'Here'
+    # rubocop:enable Style/GlobalVars
     assert_equal 'Here', $anywhere
   end
 
@@ -108,4 +109,3 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Hey', $anywhere
   end
 end
-# rubocop:enable Style/GlobalVars
