@@ -1,6 +1,7 @@
 # rubocop:disable Lint/LiteralAsCondition, Metrics/ClassLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:RepeatedConditional
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -19,6 +20,7 @@ class AboutControlStatements < Neo::Koan
 
   # using an additional method causes an error
   # rubocop:disable Metrics/MethodLength
+  # :reek:TooManyStatements
   def test_if_statements_return_values
     value = if true
               :true_value
@@ -75,47 +77,52 @@ class AboutControlStatements < Neo::Koan
     assert_equal :false_value, result
   end
 
+  # :reek:FeatureEnvy
   def test_while_statement
-    i = 1
+    i_param = 1
     result = 1
-    while i <= 10
-      result *= i
-      i += 1
+    while i_param <= 10
+      result *= i_param
+      i_param += 1
     end
     assert_equal 3_628_800, result
   end
 
+  # :reek:TooManyStatements
   def test_break_statement
-    i = 1
+    i_param = 1
     result = 1
     loop do
-      break unless i <= 10
+      break unless i_param <= 10
 
-      result *= i
-      i += 1
+      result *= i_param
+      i_param += 1
     end
     assert_equal 3_628_800, result
   end
 
+  # :reek:FeatureEnvy
   def test_break_statement_returns_values
-    i = 1
-    result = while i <= 10
-               break i if i.even?
+    i_param = 1
+    result = while i_param <= 10
+               break i_param if i_param.even?
 
-               i += 1
+               i_param += 1
              end
 
     assert_equal 2, result
   end
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def test_next_statement
-    i = 0
+    i_param = 0
     result = []
-    while i < 10
-      i += 1
-      next if i.even?
+    while i_param < 10
+      i_param += 1
+      next if i_param.even?
 
-      result << i
+      result << i_param
     end
     assert_equal [1, 3, 5, 7, 9], result
   end

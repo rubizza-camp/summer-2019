@@ -3,6 +3,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -24,12 +25,14 @@ class AboutStrings < Neo::Koan
     assert_equal 'Don\'t', string
   end
 
+  # :reek:UncommunicativeVariableName
   def test_use_backslash_for_those_hard_cases
     a = "He said, \"Don't\""
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
 
+  # :reek:UncommunicativeVariableName
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %(flexible quotes can handle both ' and " characters)
@@ -192,6 +195,7 @@ It was the worst of times.
     assert_equal 'Now is the time', words.join(' ')
   end
 
+  # :reek:UncommunicativeVariableName
   def test_strings_are_unique_objects
     a = 'a string'
     b = 'a string'
