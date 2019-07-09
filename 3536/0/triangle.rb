@@ -14,6 +14,7 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a_side, b_side, c_side)
+  # :reek:TooManyStatements
   a_side, b_side, c_side = [a_side, b_side, c_side].sort
   raise TriangleError unless a_side.positive?
   raise TriangleError unless a_side + b_side > c_side
