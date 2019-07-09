@@ -43,6 +43,7 @@ class AboutHashes < Neo::Koan
     # Bonus Question: Why was "expected" broken out into a variable
     # rather than used as a literal?
   end
+  # :reek:UncommunicativeVariableName
 
   def test_hash_is_unordered
     hash1 = { one: 'uno', two: 'dos' }
@@ -77,6 +78,8 @@ class AboutHashes < Neo::Koan
     assert_equal true, expected == new_hash
   end
   # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
+  # reek:UncommunicativeVariableName
 
   def test_default_value
     hash1 = {}

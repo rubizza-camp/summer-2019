@@ -36,6 +36,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   # rubocop:disable UselessAssignment
+  # :reek:UncommunicativeVariableName
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
       x = 0

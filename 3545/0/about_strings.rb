@@ -23,6 +23,7 @@ class AboutStrings < Neo::Koan
     string = 'Goodbye, World'
     assert_equal true, string.is_a?(String)
   end
+  # :reek:UncommunicativeVariableName
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
@@ -200,6 +201,7 @@ class AboutStrings < Neo::Koan
     words = %w[Now is the time]
     assert_equal 'Now is the time', words.join(' ')
   end
+  # :reek:UncommunicativeVariableName
 
   def test_strings_are_unique_objects
     a = 'a string'
