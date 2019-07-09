@@ -81,7 +81,7 @@ class AboutBlocks < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:Lint/UnusedMethodArgument
   def method_with_explicit_block(&block)
     yield(10)
   end
