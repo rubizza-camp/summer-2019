@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutControlStatements < Neo::Koan
+class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_if_then_else_statements
     result = if true # rubocop:disable Lint/LiteralAsCondition
                :true_value
@@ -44,8 +44,10 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_condition_operators
+    # rubocop:disable Metrics/LineLength
     assert_equal :true_value, (true ? :true_value : :false_value) # rubocop:disable Lint/LiteralAsCondition
     assert_equal :false_value, (false ? :true_value : :false_value) # rubocop:disable Lint/LiteralAsCondition
+    # rubocop:enable Metrics/LineLength
   end
 
   def test_if_statement_modifiers

@@ -110,12 +110,13 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/MissingRespondToMissing
   class AllMessageCatcher
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissingSuper
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
+  # rubocop:enable Style/MissingRespondToMissing
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
@@ -137,13 +138,15 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block)
+    # rubocop:disable Style/MissingRespondToMissing
+    def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissingSuper
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
         super(method_name, *args, &block)
       end
     end
+    # rubocop:enable Style/MissingRespondToMissing
   end
 
   def test_foo_method_are_caught
