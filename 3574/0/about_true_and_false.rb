@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition
