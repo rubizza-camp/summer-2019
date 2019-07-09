@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
+# rubocop: disable all
 
 # -*- ruby -*-
 
@@ -11,3 +11,4 @@ task default: :test
 task :test do
   ruby 'path_to_enlightenment.rb'
 end
+# rubocop: enable all

@@ -2,6 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#:nodoc:
 class AboutKeywordArguments < Neo::Koan
   def method_with_keyword_arguments(one: 1, two: 'two')
     [one, two]
@@ -19,7 +20,9 @@ class AboutKeywordArguments < Neo::Koan
   end
 
   def test_keyword_arguments_with_wrong_number_of_arguments
+    # rubocop: disable all
     exception = assert_raise (ArgumentError) do
+    # rubocop: enable all
       method_with_keyword_arguments_with_mandatory_argument
     end
     assert_match(/wrong number of arguments/, exception.message)

@@ -4,6 +4,7 @@ def triangle(a_side, b_side, c_side)
   angle_model(a_side, b_side, c_side)
 end
 
+# rubocop: disable all
 def side_no_min_zero(a_side, b_side, c_side)
   raise TriangleError if a_side.negative? || b_side.negative? || c_side.negative?
 end
@@ -13,6 +14,7 @@ def two_side_more3(a_side, b_side, c_side)
                          a_side + c_side <= b_side ||
                          b_side + c_side <= a_side
 end
+# rubocop: enable all
 
 def angle_model(a_side, b_side, c_side)
   return :equilateral if a_side == b_side && b_side == c_side && a_side == c_side

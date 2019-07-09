@@ -1,8 +1,11 @@
 # rubocop:disable Style/EvalWithLocation
+# rubocop: disable Naming/AccessorMethodName
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#:nodoc:
 class AboutClasses < Neo::Koan
+  #:nodoc:
   class Dog
   end
 
@@ -12,7 +15,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #:nodoc:
   class Dog2
     def newname(a_name)
       @name = a_name
@@ -57,7 +60,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #:nodoc:
   class Dog3
     def newname(a_name)
       @name = a_name
@@ -74,7 +77,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #:nodoc:
   class Dog4
     attr_reader :name
 
@@ -91,7 +94,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #:nodoc:
   class Dog5
     attr_accessor :name
   end
@@ -104,7 +107,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #:nodoc:
   class Dog6
     attr_reader :name
     def initialize(initial_name)
@@ -132,7 +135,7 @@ class AboutClasses < Neo::Koan
   end
 
   # # ------------------------------------------------------------------
-
+  #:nodoc:
   class Dog7
     attr_reader :name
 
@@ -187,3 +190,4 @@ class AboutClasses < Neo::Koan
 end
 
 # rubocop:enable Style/EvalWithLocation
+# rubocop: enable Naming/AccessorMethodName

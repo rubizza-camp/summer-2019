@@ -1,6 +1,9 @@
-# rubocop:disable Metrics/ClassLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#:nodoc:
+# rubocop: disable Metrics/ClassLength
+# rubocop: disable Lint/UselessAssignment
+# rubocop: disable Lint/InterpolationCheck
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -47,10 +50,14 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
+    # rubocop: disable Naming/HeredocDelimiterNaming
+    # rubocop: disable Layout/IndentHeredoc
     long_string = <<~EOS
       It was the best of times,
       It was the worst of times.
     EOS
+    # rubocop: enable Layout/IndentHeredoc
+    # rubocop: enable Naming/HeredocDelimiterNaming
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -196,4 +203,6 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop: enable Metrics/ClassLength
+# rubocop: enable Lint/UselessAssignment
+# rubocop: enable Lint/InterpolationCheck

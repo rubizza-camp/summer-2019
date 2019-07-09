@@ -56,6 +56,7 @@ def score(dice)
   end
 end
 
+#:nodoc:
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])

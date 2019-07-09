@@ -4,8 +4,8 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(a, b)
-  a + b
+def my_global_method(aaa, baa)
+  aaa + baa
 end
 
 class AboutMethods < Neo::Koan
@@ -111,19 +111,19 @@ class AboutMethods < Neo::Koan
   # # ------------------------------------------------------------------
 
   def my_private_method
-    "a secret"
+    'a secret'
   end
   private :my_private_method
 
   def test_calling_private_methods_without_receiver
-    assert_equal "a secret", my_private_method
+    assert_equal 'a secret', my_private_method
   end
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /private method/ , exception.message
+    assert_match /private method/, exception.message
   end
 
   # # ------------------------------------------------------------------
