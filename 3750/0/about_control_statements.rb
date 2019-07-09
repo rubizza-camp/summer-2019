@@ -62,23 +62,25 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement
     result = :default_value
-    unless false # same as saying 'if !false', which evaluates as 'if true'
-      result = :false_value
-    end
+    # rubocop:disable Lint/LiteralAsCondition
+    result = :false_value unless false 
+    # rubocop:enable Lint/LiteralAsCondition
     assert_equal :false_value, result
   end
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    unless true # same as saying 'if !true', which evaluates as 'if false'
-      result = :true_value
-    end
+    # rubocop:disable Lint/LiteralAsCondition
+    result = :true_value unless true 
+    # rubocop:enable Lint/LiteralAsCondition
     assert_equal :default_value, result
   end
 
   def test_unless_statement_modifier
     result = :default_value
+    # rubocop:disable Lint/LiteralAsCondition
     result = :false_value unless false
+    # rubocop:enable Lint/LiteralAsCondition
     assert_equal :false_value, result
   end
 
@@ -89,15 +91,15 @@ class AboutControlStatements < Neo::Koan
       result *= result
       i += 1
     end
-# rubocop:disable all
+    # rubocop:disable all
     assert_equal 1, result
-# rubocop:enable all
+    # rubocop:enable all
   end
 
   def test_break_statement
     i = 1
     result = 1
-    while true
+    loop do
       break unless i <= 10
       result *= result
       i += 1
@@ -142,5 +144,5 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal 10, sum
   end
-# rubocop:enable Lint/LiteralAsCondition
+  # rubocop:enable Lint/LiteralAsCondition
 end

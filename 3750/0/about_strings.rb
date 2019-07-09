@@ -50,14 +50,14 @@ It was the worst of times.
 
   # rubocop:enable Style/PercentLiteralDelimiters
   def test_here_documents_can_also_handle_multiple_lines
+    # rubocop:disable Naming/HeredocDelimiterNaming
     long_string = <<~EOS
       It was the best of times,
       It was the worst of times.
-      # rubocop:disable Naming/HeredocDelimiterNaming
     EOS
     # rubocop:enable Naming/HeredocDelimiterNaming
-    assert_equal 101, long_string.length
-    assert_equal 3, long_string.lines.count
+    assert_equal 53, long_string.length
+    assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
   end
 
@@ -79,9 +79,9 @@ It was the worst of times.
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
     there = 'World'
-    # rubocop:disable Lint/UselessAssignment
+    # rubocop:disable all
     hi += there
-    # rubocop:enable Lint/UselessAssignment
+    # rubocop:enable all
     assert_equal 'Hello, World', hi
   end
 
@@ -89,7 +89,9 @@ It was the worst of times.
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
+    # rubocop:disable all
     hi += there
+    # rubocop:enable all
     assert_equal 'Hello, ', original_string
   end
 
