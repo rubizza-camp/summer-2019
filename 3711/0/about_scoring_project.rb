@@ -29,6 +29,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# :reek:FeatureEnvy
 def score(dice)
   # You need to write this method
   return unless dice.is_a? Array
@@ -52,6 +53,7 @@ def dice_result(dice)
     result [side] += 1
   end
 end
+# :reek:FeatureEnvy
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
