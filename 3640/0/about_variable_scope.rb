@@ -1,3 +1,4 @@
+#rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Class about Variable Scope

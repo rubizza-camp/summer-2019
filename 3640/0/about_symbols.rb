@@ -17,11 +17,11 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_identical_symbols_are_a_single_internal_object
-    symbol1 = :a_symbol
-    symbol2 = :a_symbol
+    symbol_one = :a_symbol
+    symbol_two = :a_symbol
 
-    assert_equal true, symbol1           == symbol2
-    assert_equal true, symbol1.object_id == symbol2.object_id
+    assert_equal true, symbol_one           == symbol_two
+    assert_equal true, symbol_one.object_id == symbol_two.object_id
   end
 
   def test_method_names_become_symbols
@@ -74,6 +74,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # :reek:ManualDispatch
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)
