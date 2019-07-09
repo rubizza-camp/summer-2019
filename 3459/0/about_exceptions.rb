@@ -52,7 +52,7 @@ class AboutExceptions < Neo::Koan
     result = nil
     begin
       raise 'Oops'
-    rescue StandardError => e
+    rescue StandardError
       # no code here
     ensure
       result = :always_run

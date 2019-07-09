@@ -299,7 +299,7 @@ module Neo
       'JRuby 1.9.x Koans'
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
-      completed = <<~ENDTEXT
+      completed = %(
                                           ,,   ,  ,,
                                         :      ::::,    :::,
                            ,        ,,: :::::::::::::,,  ::::   :  ,
@@ -333,7 +333,7 @@ module Neo
                          ,::::::::::::::::              ::,, ,   ,:::,
                               ,::::                         , ,,
                                                           ,,,
-      ENDTEXT
+      )
       puts completed
     end
 

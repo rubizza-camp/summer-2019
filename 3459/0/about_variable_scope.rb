@@ -6,7 +6,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class AboutVariableScope < Neo::Koan
 class AboutVariableScope < Neo::Koan
   def bark
-    no# rubocop:disable Style/MethodMissingise = 'RUFF'
+    noise = 'RUFF'
   end
 
   def test_noise_is_not_available_in_the_current_scope

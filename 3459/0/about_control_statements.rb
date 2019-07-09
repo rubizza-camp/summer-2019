@@ -3,7 +3,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Layout/EndAlignment
 # rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/LineLength
 # rubocop:disable Lint/LiteralAsCondition
 # rubocop:disable Metrics/ClassLength
 # calss AboutControlStatements < Neo::Koan
@@ -142,6 +141,5 @@ class AboutControlStatements < Neo::Koan
 end
 # rubocop:enable Metrics/ClassLength
 # rubocop:enable Lint/LiteralAsCondition
-# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Layout/EndAlignment
