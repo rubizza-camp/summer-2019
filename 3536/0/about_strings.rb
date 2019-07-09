@@ -1,6 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-class AboutStrings < Neo::Koan
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# Class about strings
+# :reek:TooManyMethods
+class AboutStrings < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -22,34 +25,36 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    first = "He said, \"Don't\""
+    second = 'He said, "Don\'t"'
+    assert_equal true, first == second
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    first = %(flexible quotes can handle both ' and " characters)
+    second = %(!flexible quotes can handle both ' and " characters!)
+    third = %(flexible quotes can handle both ' and " characters)
+    assert_equal false, first == second
+    assert_equal true, first == third
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %(
+    long_string = '
 It was the best of times,
 It was the worst of times.
-)
+'
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0, 1]
+    assert_equal"\n", long_string[0, 1]
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~SQL
-      It was the best of times,
-      It was the worst of times.
-    SQL
+    # rubocop:disable Layout/IndentHeredoc
+    long_string =  <<SQL
+It was the best of times,
+It was the worst of times.
+SQL
+    # rubocop:enable Layout/IndentHeredoc
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -63,6 +68,7 @@ It was the worst of times.
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
+    string = hi + there # rubocop:disable Lint/UselessAssignment
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -76,13 +82,16 @@ It was the worst of times.
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
+    hi = original_string
+    there = 'World'
+    hi += there # rubocop:disable Lint/UselessAssignment
     assert_equal 'Hello, ', original_string
   end
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
     there = 'World'
-    hi << there
+    hi += there
     assert_equal 'Hello, World', hi
     assert_equal 'World', there
   end
@@ -91,8 +100,8 @@ It was the worst of times.
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
-    hi << there
-    assert_equal 'Hello, World', original_string
+    hi += there # rubocop:disable Lint/UselessAssignment
+    assert_equal 'Hello, ', original_string
 
     # THINK ABOUT IT:
     #
@@ -122,11 +131,13 @@ It was the worst of times.
     assert_equal 'The value is 123', string
   end
 
+  # rubocop:disable Lint/UselessAssignment, Lint/UnneededCopDisableDirective
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = "The value is #{value}"
     assert_equal "The value is #{value}", string
   end
+  # rubocop:enable Lint/UselessAssignment, Lint/UnneededCopDisableDirective
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
@@ -151,7 +162,7 @@ It was the worst of times.
       assert_equal __, 'a'
       assert_equal __, 'a' == 97
 
-      assert_equal __, ('a' + 1) == 'b'
+      assert_equal __,  ('a' + 1) == 'b'
     end
   end
 
@@ -184,10 +195,10 @@ It was the worst of times.
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    first = 'a string'
+    second = 'a string'
 
-    assert_equal true, a           == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, first           == second
+    assert_equal true, first.object_id == second.object_id
   end
 end
