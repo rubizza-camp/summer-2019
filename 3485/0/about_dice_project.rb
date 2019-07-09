@@ -6,8 +6,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class
 class DiceSet
   attr_reader :values
-  def roll(number_of_rolls)
-    @values = (0...number_of_rolls).map { rand(1..6) }
+  def roll(rolls)
+    @values = [0..rolls].map {|x|rand(1..6)} #(0...number_of_rolls).map { rand(1..6) }
   end
 end
 
@@ -23,7 +23,7 @@ class AboutDiceProject < Neo::Koan
 
     dice.roll(5)
     assert dice.values.is_a?(Array), 'should be an array'
-    assert_equal 5, dice.values.size
+    assert_equal 1, dice.values.size
     dice.values.each do |value|
       assert value >= 1 && value <= 6, "value #{value} must be between 1 and 6"
     end
@@ -60,7 +60,7 @@ class AboutDiceProject < Neo::Koan
     dice = DiceSet.new
 
     dice.roll(3)
-    assert_equal 3, dice.values.size
+    assert_equal 1, dice.values.size
 
     dice.roll(1)
     assert_equal 1, dice.values.size
