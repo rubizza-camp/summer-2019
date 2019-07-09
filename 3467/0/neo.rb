@@ -4,6 +4,7 @@
 begin
   require 'win32console'
 rescue LoadError
+  puts 'Load error'
 end
 
 # --------------------------------------------------------------------
@@ -70,7 +71,7 @@ end
 class String
   def side_padding(width)
     extra = width - size
-    if width < 0
+    if width.negative?
       self
     else
       left_padding = extra / 2
@@ -98,7 +99,7 @@ module Neo
     module_function
 
     COLORS.each do |color, value|
-      module_eval "def #{color}(string); colorize(string, #{value}); end"
+      module_eval("def #{color}(string); colorize(string, #{value}); end", __FILE__, __LINE__)
       module_function color
     end
 
@@ -118,11 +119,7 @@ module Neo
       return false if ENV['NO_COLOR']
 
       if ENV['ANSI_COLOR'].nil?
-        if using_windows?
-          using_win32console
-        else
-          return true
-        end
+        using_windows? ? using_win32console : (return true)
       else
         ENV['ANSI_COLOR'] =~ /^(t|y)/i
       end
@@ -178,7 +175,7 @@ module Neo
     def assert_raise(exception)
       begin
         yield
-      rescue Exception => e
+      rescue StandardError => e
         expected = e.is_a?(exception)
         assert(expected, "Exception #{exception.inspect} expected, but #{e.inspect} was raised")
         return e
@@ -188,7 +185,7 @@ module Neo
 
     def assert_nothing_raised
       yield
-    rescue Exception => e
+    rescue StandardError
       flunk "Expected nothing to be raised, but exception #{exception.inspect} was raised"
     end
   end
@@ -232,15 +229,20 @@ module Neo
       if step.passed?
         @pass_count += 1
         if @pass_count > progress.last.to_i
-          @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness.")
+          @observations << Color.green("#{step.koan_file}##{step.name}
+ has expanded your awareness.")
         end
       else
-        @failed_test = step
-        @failure = step.failure
-        add_progress(@pass_count)
-        @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
-        throw :neo_exit
+        step_not_passed(step)
       end
+    end
+
+    def step_not_passed(step)
+      @failed_test = step
+      @failure = step.failure
+      add_progress(@pass_count)
+      @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
+      throw :neo_exit
     end
 
     def failed?
@@ -269,7 +271,7 @@ module Neo
       scale = bar_width.to_f / total_tests
       print Color.green('your path thus far [')
       happy_steps = (pass_count * scale).to_i
-      happy_steps = 1 if happy_steps == 0 && pass_count > 0
+      happy_steps = 1 if happy_steps.zero? && pass_count.positive?
       print Color.green('.' * happy_steps)
       if failed?
         print Color.red('X')
@@ -293,8 +295,8 @@ module Neo
     end
 
     def artistic_end_screen
-      'JRuby 1.9.x Koans'
-      ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
+      ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}
+Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
       completed = <<~ENDTEXT
                                           ,,   ,  ,,
@@ -335,22 +337,54 @@ module Neo
     end
 
     def encourage
+      master_says
+      if condition_1
+        dont_be_afraid
+      elsif condition_2
+        dont_lose_hope
+      elsif condition_3
+        good_boy
+      end
+    end
+
+    def master_says
       puts
       puts 'The Master says:'
       puts Color.cyan('  You have not yet reached enlightenment.')
-      if (recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1
-        puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
-      elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
-        puts Color.cyan('  Do not lose hope.')
-      elsif progress.last.to_i > 0
-        puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
-      end
+    end
+
+    def condition_1
+      (recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1
+    end
+
+    def condition_2
+      progress.last(2).size == 2 && progress.last(2).uniq.size == 1
+    end
+
+    def condition_3
+      progress.last.to_i.positive?
+    end
+
+    def dont_be_afraid
+      puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
+    end
+
+    def dont_lose_hope
+      puts Color.cyan('  Do not lose hope.')
+    end
+
+    def good_boy
+      puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
     end
 
     def guide_through_error
       puts
       puts 'The answers you seek...'
       puts Color.red(indent(failure.message).join)
+      guide_through_error_instruction
+    end
+
+    def guide_through_error_instruction
       puts
       puts 'Please meditate on the following code:'
       puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace)))
@@ -386,22 +420,21 @@ module Neo
       if !failed?
         zen_statement = 'Mountains are again merely mountains'
       else
-        zen_statement = case (@pass_count % 10)
-                        when 0
-                          'mountains are merely mountains'
-                        when 1, 2
-                          'learn the rules so you know how to break them properly'
-                        when 3, 4
-                          'remember that silence is sometimes the best answer'
-                        when 5, 6
-                          'sleep is the best meditation'
-                        when 7, 8
-                          "when you lose, don't lose the lesson"
-                        else
-                          'things are not what they appear to be: nor are they otherwise'
-        end
+        zen_statement
       end
       puts Color.green(zen_statement)
+    end
+  end
+
+  def zen_statement
+    case (@pass_count % 10)
+    when 0 then 'mountains are merely mountains'
+    when 1, 2 then 'learn the rules so you know how to break them properly'
+    when 3, 4 then 'remember that silence is sometimes the best answer'
+    when 5, 6 then 'sleep is the best meditation'
+    when 7, 8 then "when you lose, don't lose the lesson"
+    else
+      'things are not what they appear to be: nor are they otherwise'
     end
   end
 
@@ -437,13 +470,15 @@ module Neo
       rescue StandardError, Neo::Sensei::FailedAssertionError => e
         failed(e)
       ensure
-        begin
-          teardown
-        rescue StandardError, Neo::Sensei::FailedAssertionError => e
-          failed(e) if passed?
-        end
+        meditate_ensure
       end
       self
+    end
+
+    def meditate_ensure
+      teardown
+    rescue StandardError, Neo::Sensei::FailedAssertionError => e
+      failed(e) if passed?
     end
 
     # Class methods for the Neo test suite.

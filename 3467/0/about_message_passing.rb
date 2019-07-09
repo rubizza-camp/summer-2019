@@ -112,6 +112,8 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
+    def respond_to_missing?(name, include_private); end
+
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
@@ -137,6 +139,8 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class WellBehavedFooCatcher
+    def respond_to_missing?(name, include_private); end
+
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'

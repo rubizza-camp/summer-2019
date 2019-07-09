@@ -20,8 +20,7 @@ class Proxy
     @messages = []
   end
 
-  def respond_to_missing?(name, include_private)
-  end
+  def respond_to_missing?(name, include_private); end
 
   def method_missing(method_name, *args, &block)
     @messages << method_name

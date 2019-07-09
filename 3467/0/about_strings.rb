@@ -50,9 +50,9 @@ It was the worst of times.
       It was the best of times,
       It was the worst of times.
 SQL
-      assert_equal 65, long_string.length
-      assert_equal 2, long_string.lines.count
-      assert_equal ' ', long_string[0, 1]
+    assert_equal 65, long_string.length
+    assert_equal 2, long_string.lines.count
+    assert_equal ' ', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -123,8 +123,9 @@ SQL
   end
 
   def test_single_quoted_strings_do_not_interpolate
-    string = 'The value is #{value}'
-    assert_equal 'The value is #{value}', string
+    value = 123
+    string = "The value is #{value}"
+    assert_equal 'The value is 123', string
   end
 
   def test_any_ruby_expression_may_be_interpolated
