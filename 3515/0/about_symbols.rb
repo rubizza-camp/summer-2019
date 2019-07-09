@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # rubocop:disable Style/SymbolProc
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
 
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols

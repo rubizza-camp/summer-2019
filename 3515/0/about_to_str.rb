@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:ManualDispatch
+# This method smells of :reek:UtilityFunction
+
 class AboutToStr < Neo::Koan
   class CanNotBeTreatedAsString
     def to_s

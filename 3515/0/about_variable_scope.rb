@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:ClassVariable
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeVariableName
 # rubocop:disable Style/GlobalVars, Lint/UselessAssignment, Style/ClassVars
 
 class AboutVariableScope < Neo::Koan
