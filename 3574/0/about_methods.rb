@@ -21,6 +21,7 @@ class AboutMethods < Neo::Koan
 
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
+  # :reek:Style/EvalWithLocation:
   def test_sometimes_missing_parentheses_are_ambiguous
     eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
     # rubocop: enable Style/EvalWithLocation

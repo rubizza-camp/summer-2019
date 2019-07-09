@@ -101,7 +101,7 @@ class AboutControlStatements < Neo::Koan
     i = 1
     result = while i <= 10
     break i if i.even?
-    i += 1
+      i += 1
     end
 
     assert_equal 2, result
