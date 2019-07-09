@@ -90,7 +90,7 @@ module Neo
   end
 
   module Color
-    # shamelessly stolen (and modified) from redgreen you
+    # shamelessly stolen (and modified) from redgreen
     COLORS = {
       clear: 0,  black: 30, red: 31,
       green: 32, yellow: 33, blue: 34,
