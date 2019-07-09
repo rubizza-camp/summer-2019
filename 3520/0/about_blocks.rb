@@ -1,3 +1,5 @@
+# rubocop:disable Style/BlockDelimiters
+# rubocop:disable Lint/AmbiguousBlockAssociation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
@@ -40,7 +42,7 @@ class AboutBlocks < Neo::Koan
   def test_methods_can_call_yield_many_times
     result = []
     many_yields { |item| result << item }
-    assert_equal [:peanut, :butter, :and, :jelly], result
+    assert_equal %i[peanut butter and jelly], result
   end
 
   # ------------------------------------------------------------------
@@ -92,5 +94,6 @@ class AboutBlocks < Neo::Koan
     add_one = lambda { |n| n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
-
 end
+# rubocop:enable Style/BlockDelimiters
+# rubocop:enable Lint/AmbiguousBlockAssociation
