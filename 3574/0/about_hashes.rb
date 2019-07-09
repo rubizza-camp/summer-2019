@@ -1,10 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-# :reek:UncommunicativeVariableName
-# :reek:DuplicateMethodCall
-# :reek:TooManyStatements
-# :reek:FeatureEnvy
-# Description class
+# About hashes
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -44,17 +39,18 @@ class AboutHashes < Neo::Koan
     expected = { one: 'eins', two: 'dos' }
     assert_equal expected, hash
 
-    # Bonus Question: Why was 'expected' broken out into a variable
+    # Bonus Question: Why was "expected" broken out into a variable
     # rather than used as a literal?
   end
 
   def test_hash_is_unordered
-    hash1 = { one: 'uno', two: 'dos' }
-    hash2 = { two: 'dos', one: 'uno' }
+    hash_one = { one: 'uno', two: 'dos' }
+    hash_two = { two: 'dos', one: 'uno' }
 
-    assert_equal true, hash1 == hash2
+    assert_equal true, hash_one == hash_two
   end
 
+  # :reek:DuplicateMethodCall
   def test_hash_keys
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.keys.size
@@ -63,6 +59,7 @@ class AboutHashes < Neo::Koan
     assert_equal Array, hash.keys.class
   end
 
+  # :reek:DuplicateMethodCall
   def test_hash_values
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.values.size
@@ -72,30 +69,37 @@ class AboutHashes < Neo::Koan
   end
 
   def test_combining_hashes
-    hash = { 'jim' => 53, 'amy' => 20, 'dan' => 23 }
-    new_hash = hash.merge('jim' => 54, 'jenny' => 26)
+    hash = { jim: 53, amy: 20, dan: 23 }
+    new_hash = hash.merge(jim: 54, jenny: 26)
 
     assert_equal true, hash != new_hash
 
-    expected = { 'jim' => 54, 'amy' => 20, 'dan' => 23, 'jenny' => 26 }
-    assert_equal true, expected == new_hash
+    expected = { jim: 53, amy: 20, dan: 23, jenny: 26 }
+    assert_equal false, expected == new_hash
   end
 
   def test_default_value
-    hash1 = {}
-    hash1[:one] = 1
+    hash_one = {}
+    hash_one[:one] = 1
 
-    assert_equal 1, hash1[:one]
-    assert_equal nil, hash1[:two]
+    assert_equal 1, hash_one[:one]
+    assert_equal nil, hash_one[:two]
 
-    hash2 = Hash.new('dos')
-    hash2[:one] = 1
-
-    assert_equal 1, hash2[:one]
-    assert_equal 'dos', hash2[:two]
+    default_value
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
+  def default_value
+    hash_two = Hash.new('dos')
+    hash_two[:one] = 1
+
+    assert_equal 1, hash_two[:one]
+    assert_equal 'dos', hash_two[:two]
+  end
+
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -103,23 +107,32 @@ class AboutHashes < Neo::Koan
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
+    hashes_are_equal = hash[:one].object_id == hash[:two].object_id
 
+    default_value_is_the_same_object(hash, hashes_are_equal)
+  end
+
+  def default_value_is_the_same_object(hash, hashes_are_equal)
     assert_equal %w[uno dos], hash[:one]
     assert_equal %w[uno dos], hash[:two]
     assert_equal %w[uno dos], hash[:three]
 
-    assert_equal true, hash[:one].object_id == hash[:two].object_id
+    assert_equal true,  hashes_are_equal
   end
-  # rubocop:enable Metrics/AbcSize
 
+  # :reek:FeatureEnvy
   def test_default_value_with_block
-    hash = Hash.new { |val, key| val[key] = [] }
+    hash = Hash.new { |hash_one, key| hash_one[key] = [] }
 
     # rubocop: enable Lint/ShadowingOuterLocalVariable
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
+    default_value_with_block(hash)
+  end
+
+  def default_value_with_block(hash)
     assert_equal %w[uno], hash[:one]
     assert_equal %w[dos], hash[:two]
     assert_equal [], hash[:three]

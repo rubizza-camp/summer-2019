@@ -20,11 +20,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert fido.methods.size > 2
+    assert !fido.methods.empty?
   end
 
   def test_classes_have_methods
-    assert Dog.methods.size > 20
+    assert !Dog.methods.empty?
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -73,12 +73,14 @@ class AboutClassMethods < Neo::Koan
   #:reek:Attribute:
 
   class Dog
+    # :reek:Attribute
     attr_accessor :name
   end
-
-  def Dog.name # rubocop:disable Style/TrivialAccessors
+  # rubocop:disable Style/TrivialAccessors
+  def Dog.name
     @name
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
@@ -101,22 +103,22 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
-                                         21
-                                       end
+  LastExpressionInClassStatement = class Dog
+                                     21
+                                   end.freeze
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
+    assert_equal 21, LastExpressionInClassStatement
   end
 
   # ------------------------------------------------------------------
 
-  SELF_INSIDE_OF_CLASS_STATEMENT = class Dog
-                                     self
-                                   end
+  SelfInsideOfClassStatement = class Dog
+                                 self
+                               end.freeze
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATEMENT
+    assert_equal true, Dog == SelfInsideOfClassStatement
   end
 
   # ------------------------------------------------------------------
