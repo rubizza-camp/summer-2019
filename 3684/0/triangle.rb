@@ -16,6 +16,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:FeatureEnvy
 def triangle(aside, bside, cside)
   array = [aside, bside, cside].sort
   raise TriangleError if aside <= 0 || bside <= 0 || cside <= 0 || (array[0] + array[1] <= array[2])
