@@ -13,23 +13,21 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
+def triangle(fir, sec, thi)
+  invalid_traingle?(fir, sec, thi)
+  if fir == sec && sec == thi
+    :equilateral
+  elsif fir == sec || fir == thi || sec == thi
+    :isosceles
+  else
+    :scalene
+  end
+end
 
-	s = (a + b + c) / 2.0
-	validate = (s - a) * (s - b) * (s - c)
-
-	if a <= 0 || b <= 0 || c <= 0 || validate <= 0 then 
-    	raise TriangleError
-	end
-
-	if a == b && b == c then
-		:equilateral
-	elsif a == b || a == c || b == c then
-		:isosceles
-	else
-		:scalene
-	end
-	
+def invalid_traingle?(fir, sec, thi)
+  sum = (fir + sec + thi) / 2.0
+  sides = (sum - fir) * (sum - sec) * (sum - thi)
+  raise TriangleError if fir <= 0 || sec <= 0 || thi <= 0 || sides <= 0
 end
 
 # Error class used in part 2.  No need to change this code.
