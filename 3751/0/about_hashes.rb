@@ -94,10 +94,7 @@ class AboutHashes < Neo::Koan
     hash = Hash.new([])
 
     hash[:one] << 'uno'
-    hash[:two] << 'dos'
-
-    assert_equal %w[uno dos], hash[:one]
-    assert_equal %w[uno dos], hash[:two]
+    hash[:two] << 'uno'
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
