@@ -2,6 +2,10 @@
 # rubocop:disable, Performance/RedundantMatch
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UtilityFunction:UncommunicativeMethodName:
+# :reek:NilCheck
+# :reek:UncommunicativeMethodName
+# :reek:RepeatedConditional
 
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
@@ -75,7 +79,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:UnusedParameters
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
   end

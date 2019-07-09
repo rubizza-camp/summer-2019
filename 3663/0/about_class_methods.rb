@@ -1,6 +1,13 @@
 # rubocop:disable Lint/MissingCopEnableDirective, Style/TrivialAccessors
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyMethods
+# :reek:TooManyStatements
+# :reek:UncommunicativeModuleName
+# :reek:InstanceVariableAssumption
+# :reek:TooManyMethods
 
 class AboutClassMethods < Neo::Koan
   class Dog
@@ -49,7 +56,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #:reek:Attribute
   class Dog2
     def wag
       :instance_level_wag
@@ -71,7 +78,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #:reek:Attribute
   class Dog
     attr_accessor :name
   end
@@ -120,7 +127,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:UncommunicativeMethodName
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods

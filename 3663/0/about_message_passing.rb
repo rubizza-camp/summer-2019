@@ -1,6 +1,11 @@
 # rubocop:disable Lint/MissingCopEnableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:ManualDispatch
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher

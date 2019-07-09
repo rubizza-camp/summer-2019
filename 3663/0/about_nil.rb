@@ -1,6 +1,8 @@
 # rubocop:disable Lint/MissingCopEnableDirective, Style/RedundantBegin
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:NilCheck
+# :reek:UncommunicativeVariableName
 
 class AboutNil < Neo::Koan
   def test_nil_is_an_object

@@ -2,6 +2,13 @@
 # rubocop:disable Lint/AmbiguousBlockAssociation)
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyMethods
+# :reek:TooManyStatements
+# :reek:UncommunicativeModuleName
+# :reek:InstanceVariableAssumption
+# :reek:TooManyMethods
 
 class AboutClasses < Neo::Koan
   class Dog

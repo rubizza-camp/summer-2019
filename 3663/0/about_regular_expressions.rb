@@ -1,6 +1,8 @@
 # rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:TooManyMethods
+# :reek:UncommunicativeVariableName
 
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression

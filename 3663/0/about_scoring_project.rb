@@ -30,11 +30,16 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
 def score(dice)
   count = add_steps_to_hash(dice)
   scoring(count)
 end
 
+# :reek:TooManyStatements
 def scoring(count)
   score = 0
 
@@ -54,26 +59,41 @@ def scoring(count)
   score
 end
 
+# :reek:UtilityFunction
 def add_steps_to_hash(dice)
   dice.each_with_object(Hash.new(0)) { |key, hash| hash[key] += 1; }
 end
 
+# :reek:ControlParameter
+# :reek:UtilityFunction
 def tripple_ones?(key, value)
   true if key == 1 && value >= 3
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
 def tripple_others?(key, value)
   true if key != 1 && value >= 3
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
 def one_ones?(key, value)
   true if key == 1 && value <= 2
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
 def one_fifths?(key, value)
   true if key == 5 && value <= 2
 end
-
+# :reek:UtilityFunction:
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])

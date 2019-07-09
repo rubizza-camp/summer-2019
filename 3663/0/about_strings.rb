@@ -1,7 +1,15 @@
 # rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UncommunicativeVariableName
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UtilityFunction
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeModuleName
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -191,6 +199,7 @@ It was the worst of times.
     assert_equal 'Now is the time', words.join(' ')
   end
 
+  # :reek:UncommunicativeVariableName
   def test_strings_are_unique_objects
     a = 'a string'
     b = 'a string'

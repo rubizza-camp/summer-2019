@@ -13,6 +13,12 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:FeatureEnvy
+# :reek:ClassVariable
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeVariableName
 def triangle(a_side, b_side, c_side)
   a_side, b_side, c_side = [a_side, b_side, c_side].sort
 
