@@ -106,7 +106,6 @@ class AboutHashes < Neo::Koan
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
 
-  #:reek:UncommunicativeVariableName:
   def test_default_value_with_block
     hash = Hash.new { |h, k| h[k] = [] }
 
