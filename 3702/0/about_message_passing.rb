@@ -37,7 +37,7 @@ class AboutMessagePassing < Neo::Koan
     # THINK ABOUT IT:
     #
     # Why does Ruby provide both send and __send__ ?
-    # Метод с двумя подчеркиваниями по краям обращает внимание, что это специальный метод
+    # The method with two underscores on the edges draws attention that this is a special method
   end
 
   def test_classes_can_be_asked_if_they_know_how_to_respond
