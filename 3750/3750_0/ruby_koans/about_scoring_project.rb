@@ -28,7 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/MethodLength, Metrics/BlockNesting
+# rubocop:disable all
 def score(dice)
   dice.sort!
   sum = 0
@@ -62,10 +62,8 @@ def score(dice)
     return sum
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/MethodLength, Metrics/BlockNesting
-# rubocop:disable Lint/Syntax
-class AboutScoringProject < Neo::Koan
-# rubocop:enable Lint/Syntax
+# rubocop:enable all
+class AboutScoringProject < Neo::Koan # rubocop:disable Lint/Syntax
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
