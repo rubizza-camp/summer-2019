@@ -33,11 +33,11 @@ def score(dice)
   return 0 if dice.empty?
 
   score = 0
-  (1..6).each do |i|
-    amount = dice.count(i)
-    score += (i == 1 ? 1000 : i * 100) if amount >= 3
-    score += (amount % 3) * 100 if i == 1
-    score += (amount % 3) * 50 if i == 5
+  (1..6).each do |item|
+    amount = dice.count(item)
+    score += (item == 1 ? 1000 : item * 100) if amount >= 3
+    score += (amount % 3) * 100 if item == 1
+    score += (amount % 3) * 50 if item == 5
   end
 
   score
