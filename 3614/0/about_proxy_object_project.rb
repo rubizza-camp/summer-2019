@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable all
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -19,6 +18,7 @@ class Proxy
     @messages = Hash.new(0)
   end
 
+  # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     @messages[method_name] += 1
     @object.send(method_name, *args, &block)
@@ -41,6 +41,7 @@ class Proxy
   end
 end
 
+# rubocop:enable Style/MethodMissing
 # The proxy object should pass the following Koan:
 # :reek:FeatureEnvy
 # :reek:DuplicateMethodCall

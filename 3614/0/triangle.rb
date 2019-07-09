@@ -15,22 +15,22 @@
 #
 
 # :reek:UtilityFunction
-def triangle_type(side_a, side_b, side_c)
-  arr_side = [side_a, side_b, side_c].uniq.size
-  if arr_side == 1
+def triangle_type(a_value, b_value, c_value)
+  uniq_sides_count = [a_value, b_value, c_value].uniq.size
+  if uniq_sides_count == 1
     :equilateral
-  elsif arr_side == 2
+  elsif uniq_sides_count == 2
     :isosceles
   else
     :scalene
   end
 end
 
-def triangle(side_a, side_b, side_c)
-  side_a, side_b, side_c = [side_a, side_b, side_c].sort
-  raise TriangleError if side_c >= side_a + side_b
+def triangle(a_value, b_value, c_value)
+  a_value, b_value, c_value = [a_value, b_value, c_value].sort
+  raise TriangleError if c_value >= a_value + b_value
 
-  triangle_type(side_a, side_b, side_c)
+  triangle_type(a_value, b_value, c_value)
 end
 
 # Error class used in part 2.  No need to change this code.
