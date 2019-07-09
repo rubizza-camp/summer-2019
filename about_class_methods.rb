@@ -1,4 +1,4 @@
-# rubocop:disable Layout/EndAlignment, Style/Documentation, Lint/MissingCopEnableDirective, Metrics/LineLength
+
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Class
@@ -99,7 +99,7 @@ class AboutClassMethods < Neo::Koan
   # Class
   LEIC = class Dog
            21
-                                   end
+         end
 
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, LEIC
@@ -109,7 +109,7 @@ class AboutClassMethods < Neo::Koan
   # Class
   SIOC = class Dog
            self
-                               end
+         end
 
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SIOC
@@ -164,4 +164,3 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
-# rubocop:enable Layout/EndAlignment
