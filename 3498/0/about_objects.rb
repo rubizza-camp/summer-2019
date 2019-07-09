@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutObjects < Neo::Koan
@@ -41,7 +39,7 @@ class AboutObjects < Neo::Koan
     # THINK ABOUT IT:
     # What pattern do the object IDs for small integers follow?
   end
-
+  # :reek:FeatureEnvy:
   def test_clone_creates_a_different_object
     obj = Object.new
     copy = obj.clone

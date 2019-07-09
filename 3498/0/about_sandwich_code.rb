@@ -20,7 +20,7 @@ class AboutSandwichCode < Neo::Koan
   # rubocop: disable Performance/RedundantMatch
   def find_line(file_name)
     file = File.open(file_name)
-    while line = file.gets
+    while (line = file.gets)
       return line if line.match(/e/)
     end
   ensure
@@ -78,7 +78,7 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line_two(file_name)
     file_sandwich(file_name) do |file|
-      while line = file.gets
+      while (line = file.gets)
         return line if line.match(/e/)
       end
     end
@@ -91,7 +91,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def count_lines_three(file_name)
-    open(file_name) do |file|
+    File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
