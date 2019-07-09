@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 # Triangle Project Code.
 
@@ -41,3 +42,4 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# rubocop:disable all
