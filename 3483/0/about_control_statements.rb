@@ -3,6 +3,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This shiny device polishes bared foos
+#:reek:FeatureEnvy and :reek:RepeatedConditional and :reek:TooManyStatements and :reek:UncommunicativeVariableName
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true

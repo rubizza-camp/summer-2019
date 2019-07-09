@@ -3,6 +3,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This shiny device polishes bared foos
+#:reek:InstanceVariableAssumption 
 class DiceSet
   attr_reader :values
 
@@ -15,6 +16,7 @@ class DiceSet
   end
 end
 # This shiny device polishes bared foos
+#:reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeMethodName
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new

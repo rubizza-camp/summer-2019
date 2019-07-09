@@ -1,7 +1,7 @@
 # rubocop:disable  all
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+#:reek:TooManyMethods and :reek:UncommunicativeVariableName
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'

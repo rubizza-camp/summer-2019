@@ -3,6 +3,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This shiny device polishes bared foos
+#:reek:TooManyStatements and...
 class AboutArrays < Neo::Koan
   def test_creating_arrays
     empty_array = []

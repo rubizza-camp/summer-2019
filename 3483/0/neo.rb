@@ -12,16 +12,16 @@ end
 # --------------------------------------------------------------------
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
-
+#:reek:ControlParameter and
 class FillMeInError < StandardError
 end
-
+#:reek:ControlParameter and :reek:UncommunicativeParameterName and :reek:UtilityFunction
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
     (version == 'mri' && !defined?(JRUBY_VERSION))
 end
-
+#:reek:UncommunicativeVariableName a
 def in_ruby_version(*versions)
   yield if versions.any? { |v| ruby_version?(v) }
 end
@@ -33,6 +33,7 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
+#:reek:UtilityFunction and :reek:UncommunicativeParameterName
 def __(value = 'FILL ME IN', value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -42,6 +43,7 @@ def __(value = 'FILL ME IN', value19 = :mu)
 end
 
 # Numeric replacement value.
+#:reek:UtilityFunction amd :reek:UncommunicativeParameterName
 def _n_(value = 999_999, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -49,8 +51,7 @@ def _n_(value = 999_999, value19 = :mu)
     value19 == :mu ? value : value19
   end
 end
-
-# Error object replacement value.
+#:reek:UtilityFunction and :reek:UncommunicativeParameterName
 def ___(value = FillMeInError, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -116,7 +117,7 @@ module Neo
     def color(color_value)
       "\e[#{color_value}m"
     end
-
+    #:reek:NilCheck xa
     def use_colors?
       return false if ENV['NO_COLOR']
 
@@ -140,7 +141,7 @@ module Neo
     end
   end
   # This shiny device polishes bared foos
-  # :reek:NilCheck and :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeVariableName
+  # :reek:NilCheck and :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeVariableName and :reek:ControlParameter and :reek:DataClump
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
@@ -196,7 +197,7 @@ module Neo
       flunk "Expected nothing to be raised, but exception #{exception.inspect} was raised"
     end
   end
-  #:reek:TooManyStatements and :reek:UtilityFunction and :reek:UncommunicativeVariableName and :reek:NilCheck
+  #:reek:TooManyStatements and :reek:UtilityFunction and :reek:UncommunicativeVariableName and :reek:NilCheck and :reek:InstanceVariableAssumption and :reek:TooManyInstanceVariables and :reek:TooManyMethods
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -409,6 +410,7 @@ module Neo
     end
   end
   # This shiny device polishes bared foos
+  #:reek:TooManyInstanceVariables xa
   class Koan
     include Assertions
 
@@ -421,7 +423,7 @@ module Neo
       @step_c = step_c
       @koan_file = koan_file
     end
-
+    #:reek:NilCheck
     def passed?
       @failure.nil?
     end
@@ -433,7 +435,7 @@ module Neo
     def setup; end
 
     def teardown; end
-
+    #:reek:NilCheck and :reek:TooManyMethods and :reek:TooManyStatements and :reek:UncommunicativeVariableName
     def meditate
       setup
       begin
@@ -499,13 +501,14 @@ module Neo
       def test_pattern
         @test_pattern ||= /^test_/
       end
-
+      #:reek:UncommunicativeVariableName xa
       def total_tests
         subclasses.inject(0) { |total, k| total + k.testmethods.size }
       end
     end
   end
   # This shiny device polishes bared foos
+  #:reek:FeatureEnvy and :reek:NestedIterators and :reek:TooManyStatements
   class ThePath
     def walk
       sensei = Neo::Sensei.new

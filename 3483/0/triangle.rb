@@ -16,8 +16,9 @@
 #   about_triangle_project_2.rb
 #
 # Error class used in part 2.  No need to change this code.
+#:reek:FeatureEnvy and...
 class TriangleError < StandardError; end
-
+#:reek:FeatureEnvy mm
 def chek(one, two, three)
   chek = (one + two + three) / 2.0
 
@@ -25,7 +26,7 @@ def chek(one, two, three)
 
   raise TriangleError if one <= 0 || two <= 0 || three <= 0 || okey <= 0
 end
-
+#:reek:FeatureEnvy mm
 def triangle(one, two, three)
   chek(one, two, three)
 

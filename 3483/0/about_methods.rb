@@ -2,11 +2,12 @@
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+#:reek:UtilityFunction
 def my_global_method(aleo, bele)
   aleo + bele
 end
 # This shiny device polishes bared foos
+#:reek:TooManyMethods and :reek:TooManyStatements and :reek:UtilityFunction
 class AboutMethods < Neo::Koan
 
   def test_calling_global_methods

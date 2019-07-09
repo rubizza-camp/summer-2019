@@ -3,6 +3,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
   # This shiny device polishes bared foos
+  #:reek:NestedIterators and :reek:TooManyStatements and :reek:UncommunicativeVariableName and :reek:UtilityFunction
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names

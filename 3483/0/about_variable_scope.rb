@@ -34,7 +34,7 @@ class AboutVariableScope < Neo::Koan
 
     assert_equal 'Hey', test
   end
-
+  #:reek:UncommunicativeVariableName xa
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
       x = 0
@@ -44,6 +44,7 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
   # This shiny device polishes bared foos
+  # :reek:ClassVariable and :reek:UncommunicativeMethodName
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
@@ -65,7 +66,7 @@ class AboutVariableScope < Neo::Koan
     oscar = Mouse.new('Oscar')
     assert_equal 'Oscar', oscar.name
   end
-
+  #:reek:UncommunicativeVariableName xa
   def test_class_variable
     (1..9).each { |i| Mouse.new(i.to_s) }
     # Things may appear easier than they actually are.
@@ -94,7 +95,7 @@ class AboutVariableScope < Neo::Koan
     # What is $anywhere?
     assert_equal 'Anywhere', $anywhere
   end
-
+  #:reek:UncommunicativeMethodName xa
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do

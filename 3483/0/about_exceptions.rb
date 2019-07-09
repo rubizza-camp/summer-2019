@@ -3,6 +3,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This shiny device polishes bared foos
+#:reek:TooManyStatements 
 class AboutExceptions < Neo::Koan
   # This shiny device polishes bared foos
   class MySpecialError < RuntimeError
