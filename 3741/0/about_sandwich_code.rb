@@ -62,7 +62,6 @@ class AboutSandwichCode < Neo::Koan
   ensure
     file&.close
   end
-  # rubocop:enable Lint/Syntax
   # Now we write:
 
   def count_lines2(file_name)
