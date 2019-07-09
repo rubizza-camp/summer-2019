@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# rubocop:disable Lint/UnreachableCode
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -13,28 +13,47 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
-# gigi
+# :reek:Attribute:
+
+# :reek:ManualDispatch
 class Proxy
   attr_reader :messages
+
   def initialize(target_object)
-    @object   = target_object
+    @object = target_object
     @messages = []
+    # ADD MORE CODE HERE
   end
-  # rubocop:disable all
 
   def method_missing(method_name, *args, &block)
     @messages << method_name
-    @object.send method_name, *args, &block
+    return @object.send(method_name, *args, &block)
+    super
+  end
+
+  def respond_to_missing?
+    true
   end
 
   def called?(method_name)
-    @messages.include? method_name
+    @messages.include?(method_name)
   end
 
   def number_of_times_called(method_name)
-    @messages.count method_name
+    @messages.count(method_name)
   end
+  # WRITE CODE HERE
 end
+
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
+# :reek:NilCheck
+# :reek:InstanceVariableAssumption
 
 # The proxy object should pass the following Koan:
 #
@@ -97,6 +116,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 0, tv.number_of_times_called(:on?)
   end
 
+  # :reek:FeatureEnvy:
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
@@ -113,6 +133,17 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
+# :reek:NilCheck
+# :reek:InstanceVariableAssumption
+
 class Television
   attr_accessor :channel
 
@@ -130,6 +161,17 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
+# :reek:NilCheck
+# :reek:InstanceVariableAssumption
+
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new
@@ -168,3 +210,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Lint/UnreachableCode

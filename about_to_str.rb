@@ -1,9 +1,9 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# class
+
+# :reek:UtilityFunction
+# :reek:ManualDispatch
+
 class AboutToStr < Neo::Koan
-  # class
   class CanNotBeTreatedAsString
     def to_s
       'non-string-like'
@@ -22,7 +22,7 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # class
+
   class CanBeTreatedAsString
     def to_s
       'string-like'
@@ -43,7 +43,7 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:all
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)
     string.is_a?(String)

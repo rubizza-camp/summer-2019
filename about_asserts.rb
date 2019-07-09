@@ -1,10 +1,7 @@
-#!/usr/bin/env ruby
-# frozen_string_literal: true
-
 # -*- ruby -*-
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# It should be true, so it true
+
 class AboutAsserts < Neo::Koan
   # We shall contemplate truth by testing reality, via asserts.
   def test_assert_truth
@@ -26,7 +23,7 @@ class AboutAsserts < Neo::Koan
     assert expected_value == actual_value
   end
 
-  # Some ways of asserting equality are better t than others.
+  # Some ways of asserting equality are better than others.
   def test_a_better_way_of_asserting_equality
     expected_value = 2
     actual_value = 1 + 1

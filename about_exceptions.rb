@@ -1,9 +1,11 @@
-# frozen_string_literal: true
-
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength, Lint/HandleExceptions
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# Puti
+
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeVariableName
+
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
@@ -33,6 +35,7 @@ class AboutExceptions < Neo::Koan
 
     assert_equal 'Oops', e.message
   end
+  # :reek:TooManyStatements:
 
   def test_raising_a_particular_error
     result = nil
@@ -48,10 +51,10 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
+    # result = nil
     begin
       raise 'Oops'
     rescue StandardError
-      StandardError
       # no code here
     ensure
       result = :always_run
@@ -59,9 +62,8 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :always_run, result
   end
-  # rubocop:enable Metrics/MethodLength
-  # Sometimes, we must know about the unknown
 
+  # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
     assert_raise(MySpecialError) do
@@ -69,3 +71,4 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
+# rubocop:enable Metrics/MethodLength, Lint/HandleExceptions

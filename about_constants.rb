@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'.freeze
-# Class
+
 class AboutConstants < Neo::Koan
   C = 'nested'.freeze
 
@@ -19,13 +19,13 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # Class
+
   class Animal
     LEGS = 4
     def legs_in_animal
       LEGS
     end
-    # Class
+
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
@@ -38,7 +38,7 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # Class
+
   class Reptile < Animal
     def legs_in_reptile
       LEGS
@@ -53,7 +53,7 @@ class AboutConstants < Neo::Koan
 
   class MyAnimals
     LEGS = 2
-    # Class
+
     class Bird < Animal
       def legs_in_bird
         LEGS
@@ -69,17 +69,30 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-  class MyAnimals
-    # Class
-    class Oyster < Animal
-      def legs_in_oyster
-        LEGS
-      end
+
+  # rubocop:disable Style/ClassAndModuleChildren
+  class MyAnimals::Oyster < Animal
+    def legs_in_oyster
+      LEGS
     end
   end
 
+  # NESTED DEFINITION
+
+  # class MyAnimals
+  #   class Oyster < Animal
+  #     def legs_in_oyster
+  #       LEGS
+  #     end
+  #   end
+  # end
+
+  # NESTED DEFINITION CHANGES THE NEXT ASSERT_EQUAL
+  # rubocop:enable Style/ClassAndModuleChildren
+
   def test_who_wins_with_explicit_scoping_on_class_definition
-    assert_equal 2, MyAnimals::Oyster.new.legs_in_oyster
+    assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
+    # Compact style 4, Nested style 2. To be resolved later!
   end
 
   # QUESTION: Now which has precedence: The constant in the lexical

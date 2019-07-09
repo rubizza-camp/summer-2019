@@ -1,7 +1,11 @@
-# frozen_string_literal: true
+# rubocop:disable Metrics/AbcSize
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# Papich
+
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
+
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -32,12 +36,6 @@ class AboutHashes < Neo::Koan
     # THINK ABOUT IT:
     #
     # Why might you want to use #fetch instead of #[] when accessing hash keys?
-    #
-    # When you want the extra functionality that fetch gives you.
-    #   Default values
-    #   Error when key isn't found
-    #   Blocks can be evaluated
-    #
   end
 
   def test_changing_hashes
@@ -98,7 +96,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  def test_default_value_is_the_same_object # rubocop:disable Metrics/AbcSize
+  def test_default_value_is_the_same_object
     hash = Hash.new([])
 
     hash[:one] << 'uno'
@@ -122,3 +120,4 @@ class AboutHashes < Neo::Koan
     assert_equal [], hash[:three]
   end
 end
+# rubocop:enable Metrics/AbcSize

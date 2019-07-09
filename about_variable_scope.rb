@@ -1,8 +1,15 @@
-# frozen_string_literal: true
-
-#rubocop:disable all
+# rubocop:disable Style/GlobalVars, Style/ClassVars
+# rubocop:disable Style/TrivialAccessors, Style/ClassMethods
+# rubocop:disable Lint/UselessAssignment
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# :reek:ClassVariable
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
 
 class AboutVariableScope < Neo::Koan
   def bark
@@ -29,7 +36,7 @@ class AboutVariableScope < Neo::Koan
 
   def test_blocks_can_access_variables_outside_scope
     test = 'Hi'
-    2.times do
+    2.each do
       test = 'Hey'
     end
 
@@ -37,27 +44,29 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_block_variables_cannot_be_accessed_outside_scope
-    2.times do
+    2.each do
       x = 0
     end
     assert_equal nil, defined? x
   end
 
   # ------------------------------------------------------
-
+  # :reek:InstanceVariableAssumption
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(par_n)
+      @name = par_n
       # Instance variables are prefixed with one '@' character.
       @@total += 1
     end
 
-    attr_reader :name
+    def name
+      @name
+    end
 
-    def self.count
+    def Mouse.count
       @@total
     end
   end
@@ -75,10 +84,6 @@ class AboutVariableScope < Neo::Koan
 
   # Meditate on the following:
   # What is the difference between a class variable and instance variable?
-  #
-  #  A class variable belongs to the class Mouse, or is commonly shared by every instance of Mouse
-  #  whereas an instance variable is specific to each individual instance of Mouse; each has its own version.
-  #
   # ------------------------------------------------------
 
   $anywhere = 'Anywhere'
@@ -95,6 +100,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_global_variables_retain_value_from_last_change
+    # What is $anywhere?
     assert_equal 'Here', $anywhere
   end
 
@@ -109,22 +115,9 @@ class AboutVariableScope < Neo::Koan
 end
 
 # THINK ABOUT IT:
-#
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
-#
-#  This is confusing:
-#
-#  puts "#{$anywhere}!" # -->  This returns "Anywhere!"
-#
-#  but
-#
-#  class AboutOtherScopes < Neo::Koan
-#    def test_test
-#      assert_equal "Hey", $anywhere
-#      puts "#{$anywhere}!!"         # --> This returns "Hey!!"
-#    end
-#  end
-#
-#  If $anywhere is truly global, why should it behave differently in two different contexts??
-#
+
+# rubocop:enable Style/GlobalVars, Style/ClassVars
+# rubocop:enable Style/TrivialAccessors, Style/ClassMethods
+# rubocop:enable Lint/UselessAssignment

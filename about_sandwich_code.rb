@@ -1,14 +1,18 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Security/Open
 
-# class
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UtilityFunction:UncommunicativeMethodName:
+# :reek:NilCheck
+# :reek:UncommunicativeMethodName
+# :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
-    file = File.open(file_name)
+    file = open(file_name)
     count = 0
     count += 1 while file.gets
     count
   ensure
-    file.close
+    file&.close if file
   end
 
   def test_counting_lines
@@ -18,12 +22,12 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-    file = File.open(file_name)
+    file = open(file_name)
     while (line = file.gets)
       return line if line =~ /e/
     end
   ensure
-    file.close
+    file&.close if file
   end
 
   def test_finding_lines
@@ -53,14 +57,13 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = File.open(file_name)
+    file = open(file_name)
     yield(file)
   ensure
-    file.close
+    file&.close if file
   end
 
   # Now we write:
-
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
@@ -76,6 +79,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line2(file_name)
+    # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
       while (line = file.gets)
         return line if line =~ /e/
@@ -90,7 +94,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
-    File.open(file_name) do |file|
+    open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
@@ -101,3 +105,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# rubocop:enable Security/Open

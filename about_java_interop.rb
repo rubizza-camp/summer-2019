@@ -1,9 +1,9 @@
-# frozen_string_literal: true
 # rubocop:disable all
+# File is not from the path set 
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-include.class Java
+include Java
 
 # Concepts
 # * Pull in a java class
@@ -13,7 +13,7 @@ include.class Java
 # * Ruby Strings  VS Java Strings
 # * Calling custom java class
 # * Calling Ruby from java???
-# Class
+
 class AboutJavaInterop < Neo::Koan
   def test_using_a_java_library_class
     java_array = java.util.ArrayList.new

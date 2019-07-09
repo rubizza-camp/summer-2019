@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# Papich
+
 class AboutInheritance < Neo::Koan
-  # Class
   class Dog
     attr_reader :name
 
@@ -15,7 +12,7 @@ class AboutInheritance < Neo::Koan
       'WOOF'
     end
   end
-  # one
+
   class Chihuahua < Dog
     def wag
       :happy
@@ -58,7 +55,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # two
+
   class BullDog < Dog
     def bark
       super + ', GROWL'
@@ -71,7 +68,7 @@ class AboutInheritance < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # three
+
   class GreatDane < Dog
     def growl
       super.bark + ', GROWL'
@@ -80,7 +77,7 @@ class AboutInheritance < Neo::Koan
 
   def test_super_does_not_work_cross_method
     george = GreatDane.new('George')
-    assert_raise(StandardError) do
+    assert_raise(NoMethodError) do
       george.growl
     end
   end

@@ -1,10 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class
+# :reek:UncommunicativeVariableName
+# :reek:TooManyStatements
+# :reek:ManualDispatch
+
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
-
     assert_equal true, symbol.is_a?(Symbol)
   end
 
@@ -27,8 +29,7 @@ class AboutSymbols < Neo::Koan
 
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
-    etalon = 'test_method_names_become_symbols'
-    assert_equal true, symbols_as_strings.include?(etalon)
+    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
   # THINK ABOUT IT:
@@ -41,7 +42,7 @@ class AboutSymbols < Neo::Koan
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal false, all_symbols_as_strings.include?(RUBY_CONSTANT)
+      assert_equal true, all_symbols_as_strings.include?('RUBY_CONSTANT')
     end
   end
 
@@ -76,6 +77,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # :reek:ManualDispatch:
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)

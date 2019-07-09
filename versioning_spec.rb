@@ -1,8 +1,11 @@
-# frozen_string_literal: true
+#rubocop:disable all
+# :reek:UtilityFunction
 
 def version_ints(version)
   version.split('.').map(&:to_i)
 end
+# :reek:NilCheck
+# :reek:UncommunicativeVariableName
 
 def at_least_ruby_version(version)
   vints = version_ints(version)
@@ -27,3 +30,4 @@ describe 'at_least_ruby_version' do
   Then { !at_least_ruby_version('1.9') }
   Then { !at_least_ruby_version('1.9.9.9.9') }
 end
+# rubocop:enable all

@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# class
+# :reek:FeatureEnvy:
 class AboutModules < Neo::Koan
-  # superclass
   module Nameable
     def setname(new_name)
       @name = new_name
@@ -21,7 +18,7 @@ class AboutModules < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # class
+
   class Dog
     include Nameable
 
@@ -48,14 +45,14 @@ class AboutModules < Neo::Koan
   def test_module_methods_are_also_available_in_the_object
     fido = Dog.new
     assert_nothing_raised do
-      fido.set_name('Rover')
+      fido.setname('Rover')
     end
   end
 
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal 'Fido', fido.name
-    fido.set_name('Rover')
+    fido.setname('Rover')
     assert_equal 'Rover', fido.name
   end
 

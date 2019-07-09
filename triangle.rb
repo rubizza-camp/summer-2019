@@ -13,18 +13,18 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a_s, b_s, c_s)
-  a_s, b_s, c_s = [a_s, b_s, c_s].sort
-  raise TriangleError unless a_s.positive?
-  raise TriangleError unless a_s + b_s > c_s
-  return :equilateral if a_s == c_s
-  return :isosceles if a_s == b_s || b_s == c_s
+# :reek:FeatureEnvy
+# :reek:ClassVariable
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeVariableName
+def triangle(a_length, b_length, c_length)
+  # WRITE THIS CODE
+  a_length, b_length, c_length = [a_length, b_length, c_length].sort
+  raise TriangleError if a <= 0 || a + b <= c
 
-  :scalene
-end
-
-# Error class used in part 2.  No need to change this code.
-class TriangleError < StandardError
+  %i[equilateral isosceles scalene].fetch([a_length, b_length, c_length].uniq.size - 1)
 end
 
 # Error class used in part 2.  No need to change this code.

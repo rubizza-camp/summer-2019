@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# class
+
 class AboutOpenClasses < Neo::Koan
-  # class
   class Dog
     def bark
       'WOOF'
@@ -31,10 +28,10 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # class
+
   class Integer
     def even?
-      even?
+      (self % 2).zero?
     end
   end
 
