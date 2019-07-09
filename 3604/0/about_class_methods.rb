@@ -100,21 +100,21 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Naming/ConstantName
+
   LastExpressionInClassStatement = class Dog
                                      21
-                                   end
-  # rubocop:enable Naming/ConstantName
+                                   end.freeze
+
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, LastExpressionInClassStatement
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Naming/ConstantName
+
   SelfInsideOfClassStatement = class Dog
                                  self
-                               end
-  # rubocop:enable Naming/ConstantName
+                               end.freeze
+
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SelfInsideOfClassStatement
   end
