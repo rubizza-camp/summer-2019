@@ -16,6 +16,10 @@
 # and
 #   about_triangle_project_2.rb
 #
+
+#:reek:ControlParameter:
+# :reek:FeatureEnvy:
+
 def triangle(t_a, t_b, t_c)
   raise TriangleError if t_a + t_b <= t_c || t_a + t_c <= t_b || t_b + t_c <= t_a
 

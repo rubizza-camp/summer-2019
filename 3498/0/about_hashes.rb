@@ -1,7 +1,7 @@
 # rubocop:disable Metrics/AbcSize
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:FeatureEnvy:reek:TooManyStatements:
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -46,10 +46,10 @@ class AboutHashes < Neo::Koan
   end
 
   def test_hash_is_unordered
-    hash1 = { one: 'uno', two: 'dos' }
-    hash2 = { two: 'dos', one: 'uno' }
+    hashone = { one: 'uno', two: 'dos' }
+    hashtwo = { two: 'dos', one: 'uno' }
 
-    assert_equal true, hash1 == hash2
+    assert_equal true, hashone == hashtwo
   end
 
   def test_hash_keys
@@ -79,17 +79,17 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash1 = {}
-    hash1[:one] = 1
+    hashone = {}
+    hashone[:one] = 1
 
-    assert_equal 1, hash1[:one]
-    assert_equal nil, hash1[:two]
+    assert_equal 1, hashone[:one]
+    assert_equal nil, hashone[:two]
 
-    hash2 = Hash.new('dos')
-    hash2[:one] = 1
+    hashtwo = Hash.new('dos')
+    hashtwo[:one] = 1
 
-    assert_equal 1, hash2[:one]
-    assert_equal 'dos', hash2[:two]
+    assert_equal 1, hashtwo[:one]
+    assert_equal 'dos', hashtwo[:two]
   end
 
   def test_default_value_is_the_same_object

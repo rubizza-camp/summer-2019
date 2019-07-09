@@ -5,44 +5,45 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
-
+  # :reek:UncommunicativeMethodName:
   def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
-
+  # :reek:TooManyStatements:
   def test_rescue_clause
     result = nil
     begin
       raise 'Oops'
-    rescue StandardError => e
+    rescue StandardError => err
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
 
-    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
+    assert_equal true, err.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, err.is_a?(RuntimeError),  'Should be a Runtime Error'
 
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
     assert_equal 'Oops', e.message
   end
-
+  
+  # :reek:TooManyStatements:
   def test_raising_a_particular_error
     result = nil
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
-    rescue MySpecialError => e
+    rescue MySpecialError => err
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
-    assert_equal 'My Message', e.message
+    assert_equal 'My Message', err.message
   end
 
   def test_ensure_clause
