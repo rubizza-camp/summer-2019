@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
+class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
-    result = if true # rubocop:disable Lint/LiteralAsCondition
+    result = if true
                :true_value
              else
                :false_value
@@ -12,7 +12,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
 
   def test_if_then_statements
     result = :default_value
-    result = :true_value if true # rubocop:disable Lint/LiteralAsCondition
+    result = :true_value if true
     assert_equal :true_value, result
   end
 
@@ -25,7 +25,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
   end
 
   def test_if_statements_with_no_else_with_false_condition_return_value
-    value = (:true_value if false) # rubocop:disable Lint/LiteralAsCondition
+    value = (:true_value if false)
     assert_equal nil, value
   end
 # rubocop:disable all
