@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Lint/UnneededCopDisableDirective
 class AboutArrays < Neo::Koan
   def test_creating_arrays
     empty_array = []
@@ -8,7 +7,6 @@ class AboutArrays < Neo::Koan
     assert_equal 0, empty_array.size
   end
 
-  # rubocop:disable TooManyStatements
   def test_array_literals
     array = []
     assert_equal [], array
@@ -82,6 +80,4 @@ class AboutArrays < Neo::Koan
     assert_equal :first, shifted_value
     assert_equal [1, 2], array
   end
-  # rubocop:enable TooManyStatements
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
