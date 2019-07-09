@@ -1,3 +1,4 @@
+# :reek:disable
 def version_ints(version)
   version.split('.').map(&:to_i)
 end
@@ -5,7 +6,7 @@ end
 def at_least_ruby_version(version)
   vints = version_ints(version)
   ruby_vints = version_ints(RUBY_VERSION)
-  vints.zip(ruby_vints).all? { |v, rv| v.nil? || rv.nil? || v >= rv }
+  vints.zip(ruby_vints).all? { |vint, rv| vint.nil? || rv.nil? || vint >= rv }
 end
 
 require 'rspec/given'
@@ -25,3 +26,4 @@ describe 'at_least_ruby_version' do
   Then { !at_least_ruby_version('1.9') }
   Then { !at_least_ruby_version('1.9.9.9.9') }
 end
+# :reek:enable

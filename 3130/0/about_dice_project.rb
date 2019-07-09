@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
-#
+# :reek:disable
 class DiceSet
   attr_reader :values
 
@@ -74,3 +74,4 @@ class AboutDiceProject < Neo::Koan
     assert_equal 1, dice.values.size
   end
 end
+# :reek:enable

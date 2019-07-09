@@ -20,6 +20,7 @@ class AboutArrays < Neo::Koan
     array << 333
     assert_equal [1, 2, 333], array
   end
+  # :reek:disable TooManyStatements
 
   def test_accessing_array_elements
     array = %i[peanut butter and jelly]
@@ -31,6 +32,7 @@ class AboutArrays < Neo::Koan
     assert_equal :jelly, array[-1]
     assert_equal :butter, array[-3]
   end
+  # :reek:enable TooManyStatements
 
   def test_slicing_arrays
     array = %i[peanut butter and jelly]

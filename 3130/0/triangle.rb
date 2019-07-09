@@ -13,7 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
-
+# :reek:disable
 def check_sides_sums(fst, snd, thrd)
   fst + snd > thrd && fst + thrd > snd && snd + thrd > fst
 end
@@ -38,3 +38,4 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# :reek:enable

@@ -28,7 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+# :reek:disable
 def count_score_without_sets(hash_dice, score)
   score + hash_dice[1] * 100 + hash_dice[5] * 50
 end
@@ -87,3 +87,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
+# :reek:enable

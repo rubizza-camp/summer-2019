@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:disable
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
@@ -70,3 +70,4 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
+# :reek:enable

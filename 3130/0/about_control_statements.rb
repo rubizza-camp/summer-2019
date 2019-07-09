@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:disable
 # rubocop:disable Metrics/ClassLength
 class AboutControlStatements < Neo::Koan
   # rubocop:disable Lint/LiteralAsCondition:
@@ -153,3 +153,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 # rubocop:enable Metrics/ClassLength
+# :reek:enable

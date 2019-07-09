@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:disable
 class AboutScope < Neo::Koan
   module Jims
     class Dog
@@ -77,3 +77,4 @@ class AboutScope < Neo::Koan
     assert Object.constants.size > Jims.constants.size
   end
 end
+# :reek:enable

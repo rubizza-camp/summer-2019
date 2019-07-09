@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:disable
 class AboutVariableScope < Neo::Koan
   # rubocop:disable Lint/UselessAssignment:
   def bark
@@ -115,3 +115,5 @@ end
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
+
+# :reek:enable

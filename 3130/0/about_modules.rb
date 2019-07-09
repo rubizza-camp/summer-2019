@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:disable
 class AboutModules < Neo::Koan
   module Nameable
     # rubocop:disable  Naming/AccessorMethodName
@@ -63,3 +63,4 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
+# :reek:enable
