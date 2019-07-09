@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Metrics/LineLength
+# :reek:TooManyStatements,:reek:UncommunicativeVariableName and :reek:UtilityFunction,:reek:NestedIterators
+# rubocop:enable Metrics/LineLength
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names

@@ -1,6 +1,12 @@
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeMethodName
+# :reek:UtilityFunction
+# :reek:NilCheck
+
 class AboutSandwichCode < Neo::Koan
+  # rubocop:disable Lint/Syntax
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
@@ -57,7 +63,7 @@ class AboutSandwichCode < Neo::Koan
   ensure
     file&.close
   end
-
+  # rubocop:enable Lint/Syntax
   # Now we write:
 
   def count_lines2(file_name)
@@ -100,3 +106,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+

@@ -13,6 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:FeatureEnvy
 def triangle(fir, sec, thi)
   invalid_traingle?(fir, sec, thi)
   if fir == sec && sec == thi
@@ -24,6 +25,7 @@ def triangle(fir, sec, thi)
   end
 end
 
+# :reek:FeatureEnvy
 def invalid_traingle?(fir, sec, thi)
   sum = (fir + sec + thi) / 2.0
   sides = (sum - fir) * (sum - sec) * (sum - thi)
