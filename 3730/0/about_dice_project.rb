@@ -18,7 +18,7 @@ class AboutDiceProject < Neo::Koan
   # :reek:TooManyStatements
   # :reek:FeatureEnvy
 
-  def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
+  def test_rolling_the_dice_returns_a_set_of_integers_between_one_and_six
     dice = DiceSet.new
 
     dice.roll(5)

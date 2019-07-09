@@ -14,6 +14,8 @@ end
 class FillMeInError < StandardError
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
       (version == 'jruby' && defined?(JRUBY_VERSION)) ||
@@ -123,6 +125,7 @@ module Neo
       "\e[#{color_value}m"
     end
 
+    # :reek:NilCheck
     def use_colors?
       return false if ENV['NO_COLOR']
       if ENV['ANSI_COLOR'].nil?
@@ -145,6 +148,7 @@ module Neo
     end
   end
 
+  # :reek:DataClump
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
@@ -159,12 +163,13 @@ module Neo
       true
     end
 
-    # :reek:DataClump
+    # :reek:FeatureEnvy
     def assert_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to equal #{actual.inspect}"
       assert(expected == actual, msg)
     end
 
+    # :reek:FeatureEnvy
     def assert_not_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to not equal #{actual.inspect}"
       assert(expected != actual, msg)
@@ -181,10 +186,12 @@ module Neo
       assert(nil != actual, msg)
     end
 
+    # :reek:FeatureEnvy
     def assert_match(pattern, actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to match #{pattern.inspect}"
       assert pattern =~ actual, msg
     end
+    # :reek:TooManyStatements
 
     def assert_raise(exception)
       begin
@@ -206,6 +213,9 @@ module Neo
     end
   end
 
+  # :reek:TooManyInstanceVariables
+  # :reek:TooManyMethods
+  # :reek:InstanceVariableAssumption
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -228,6 +238,7 @@ module Neo
       end
     end
 
+    # :reek:NilCheck
     def progress
       if @_contents.nil?
         if File.exists?(PROGRESS_FILE_NAME)
@@ -240,6 +251,7 @@ module Neo
       end
       @_contents
     end
+    # :reek:TooManyStatements
 
     def observe(step)
       if step.passed?
@@ -264,6 +276,7 @@ module Neo
     def assert_failed?
       failure.is_a?(FailedAssertionError)
     end
+    # :reek:TooManyStatements
 
     def instruct
       if failed?
@@ -276,6 +289,7 @@ module Neo
         end_screen
       end
     end
+    # :reek:TooManyStatements
 
     def show_progress
       bar_width = 50
@@ -305,6 +319,7 @@ module Neo
     def boring_end_screen
       puts "Mountains are again merely mountains"
     end
+    # :reek:TooManyStatements
 
     def artistic_end_screen
       "JRuby 1.9.x Koans"
@@ -347,6 +362,7 @@ module Neo
       ENDTEXT
       puts completed
     end
+    # :reek:TooManyStatements
 
     def encourage
       puts
@@ -360,6 +376,7 @@ module Neo
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
     end
+    # :reek:TooManyStatements
 
     def guide_through_error
       puts
@@ -371,6 +388,7 @@ module Neo
       puts
     end
 
+    # :reek:UtilityFunction
     def embolden_first_line_only(text)
       first_line = true
       text.collect {|text|
@@ -383,11 +401,13 @@ module Neo
       }
     end
 
+    # :reek:UtilityFunction
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
       text.collect {|text_collected| "  #{text_collected}"}
     end
 
+    # :reek:UtilityFunction
     def find_interesting_lines(backtrace)
       backtrace.reject {|line|
         line =~ /neo\.rb/
@@ -396,6 +416,7 @@ module Neo
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
+    # :reek:TooManyStatements
     def a_zenlike_statement
       if !failed?
         zen_statement = "Mountains are again merely mountains"
@@ -419,6 +440,7 @@ module Neo
     end
   end
 
+  # :reek:TooManyInstanceVariables
   class Koan
     include Assertions
 
@@ -432,6 +454,7 @@ module Neo
       @koan_file = koan_file
     end
 
+    # :reek:NilCheck
     def passed?
       @failure.nil?
     end
@@ -445,6 +468,7 @@ module Neo
 
     def teardown
     end
+    # :reek:TooManyStatements
 
     def meditate
       setup
@@ -517,6 +541,7 @@ module Neo
     end
   end
 
+  # :reek:FeatureEnvy
   class ThePath
     def walk
       sensei = Neo::Sensei.new
@@ -525,7 +550,10 @@ module Neo
       end
       sensei.instruct
     end
+    # :reek:TooManyStatements
 
+    # :reek:FeatureEnvy
+    # :reek:NestedIterators
     def each_step
       catch(:neo_exit) {
         step_count = 0

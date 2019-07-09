@@ -32,6 +32,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/MethodLength
 # :reek:TooManyStatements
 # :reek:FeatureEnvy
+# :reek:UtilityFunction
 
 def score(dice)
   total_score = 0
@@ -55,11 +56,11 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([])
   end
 
-  def test_score_of_a_single_roll_of_5_is_50
+  def test_score_of_a_single_roll_of_five_is_fifty
     assert_equal 50, score([5])
   end
 
-  def test_score_of_a_single_roll_of_1_is_100
+  def test_score_of_a_single_roll_of_one_is_one_hundred
     assert_equal 100, score([1])
   end
 
@@ -71,7 +72,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
-  def test_score_of_a_triple_1_is_1000
+  def test_score_of_a_triple_one_is_one_thousand
     assert_equal 1000, score([1, 1, 1])
   end
 

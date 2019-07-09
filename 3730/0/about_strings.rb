@@ -25,17 +25,17 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    string_one = "He said, \"Don't\""
+    string_two = 'He said, "Don\'t"'
+    assert_equal true, string_one == string_two
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    string_one = %(flexible quotes can handle both ' and " characters)
+    string_two = %(flexible quotes can handle both ' and " characters)
+    string_three = %(flexible quotes can handle both ' and " characters)
+    assert_equal true, string_one == string_two
+    assert_equal true, string_one == string_three
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -151,17 +151,17 @@ It was the worst of times.
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 97, 'a'
-      assert_equal true, 'a' == 97
+      assert_equal 97, 'string_one'
+      assert_equal true, 'string_one' == 97
 
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal true, ('string_one' + 1) == 'string_two'
     end
   end
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal 'a', 'a'
-      assert_equal false, 'a' == 97
+      assert_equal 'string_one', 'string_one'
+      assert_equal false, 'string_one' == 97
     end
   end
 
@@ -176,7 +176,7 @@ It was the worst of times.
     words = string.split(/:/)
     assert_equal %w[the rain in spain], words
 
-    # NOTE: Patterns are formed from Regular Expressions.  Ruby has a
+    # NOTE: Patterns are formed from Regular Expressions.  Ruby has string_one
     # very powerful Regular Expression library.  We will become
     # enlightened about them soon.
   end
@@ -187,11 +187,11 @@ It was the worst of times.
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    string_one = 'string_one string'
+    string_two = 'string_one string'
 
-    assert_equal true, a           == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, string_one           == string_two
+    assert_equal false, string_one.object_id == string_two.object_id
   end
 end
 # rubocop:enable Metrics/ClassLength
