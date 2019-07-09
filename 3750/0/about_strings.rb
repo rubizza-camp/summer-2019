@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
+# :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -24,15 +25,20 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_backslash_for_those_hard_cases
+    # :reek:UncommunicativeVariableName
     a = "He said, \"Don\'t\""
+    # :reek:UncommunicativeVariableName
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
 
   # rubocop:disable Style/PercentLiteralDelimiters
   def test_use_flexible_quoting_to_handle_really_hard_cases
+    # :reek:UncommunicativeVariableName
     a = %(flexible quotes can handle both ' and " characters)
+    # :reek:UncommunicativeVariableName
     b = %!flexible quotes can handle both ' and " characters!
+    # :reek:UncommunicativeVariableName
     c = %{flexible quotes can handle both ' and " characters}
     assert_equal true, a == b
     assert_equal true, a == c
@@ -79,9 +85,7 @@ It was the worst of times.
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
     there = 'World'
-    # rubocop:disable all
     hi += there
-    # rubocop:enable all
     assert_equal 'Hello, World', hi
   end
 
@@ -89,9 +93,7 @@ It was the worst of times.
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
-    # rubocop:disable all
     hi += there
-    # rubocop:enable all
     assert_equal 'Hello, ', original_string
   end
 
@@ -200,7 +202,9 @@ It was the worst of times.
   end
 
   def test_strings_are_unique_objects
+    # :reek:UncommunicativeVariableName
     a = 'a string'
+    # :reek:UncommunicativeVariableName
     b = 'a string'
 
     assert_equal true, a           == b
