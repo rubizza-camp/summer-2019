@@ -1,5 +1,4 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable all
 # -*- ruby -*-
 
 begin
@@ -578,5 +577,4 @@ at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 end
-# rubocop:anable all
 # rubocop:enable Lint/UnneededCopDisableDirective
