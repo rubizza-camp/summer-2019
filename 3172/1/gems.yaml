@@ -1,0 +1,12 @@
+gems:
+  - sinatra
+  - rspec
+  - devise
+  - capybara
+  - factory_girl
+  - cancancan
+  - sidekiq
+  - russian
+  - jazz_hands
+  - rails
+  - xyeger
