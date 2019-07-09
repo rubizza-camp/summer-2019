@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 # Triangle Project Code.
@@ -17,19 +18,23 @@
 # rubocop:disable CyclomaticComplexity
 # rubocop:disable PerceivedComplexity
 #
+def sum(number_1, number_2)
+  number_1 + number_2
+end
 
-def triangle(side_a, side_b, side_c)
-  variable_one = side_a + side_b
-  variable_two = side_b + side_c
-  variable_tree = side_c + side_a
-  if variable_one <= side_c || variable_two <= side_a || variable_tree <= side_b
-    raise TriangleError, 'A triangle with such sides does not exist'
-  end
-
-  return :equilateral if side_a == side_b && side_b == side_c
-  return :isosceles if side_a == side_b || side_b == side_c || side_a == side_c
+def triangle_kind(side_a, side_b, side_c)
+  return :equilateral if (side_a == side_b) && (side_b == side_c)
+  return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_c == side_a)
 
   :scalene
+end
+
+def triangle(side_a, side_b, side_c)
+  if side_a + side_b <= side_c || side_b + side_c <= side_a || side_c + side_a <= side_b
+    raise TriangleError, 'Bad side length: triangle does not exist'
+  end
+
+  triangle_kind(side_a, side_b, side_c)
 end
 
 # Error class used in part 2.  No need to change this code.
