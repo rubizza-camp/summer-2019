@@ -110,7 +110,6 @@ class AboutProxyObjectProject < Neo::Koan
   end
 end
 
-
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
 # changes should be necessary to anything below this comment.
@@ -120,11 +119,11 @@ class Television
   attr_accessor :channel
 
   def power
-    if @power == :on
-      @power = :off
-    else
-      @power = :on
-    end
+    @power = if @power == :on
+               :off
+             else
+               :on
+             end
   end
 
   def on?
@@ -147,7 +146,7 @@ class TelevisionTest < Neo::Koan
     tv.power
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   def test_edge_case_on_off
@@ -161,12 +160,11 @@ class TelevisionTest < Neo::Koan
 
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   def test_can_set_the_channel
     tv = Television.new
-
     tv.channel = 11
     assert_equal 11, tv.channel
   end
