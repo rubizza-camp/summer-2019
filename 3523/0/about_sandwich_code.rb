@@ -1,3 +1,4 @@
+#rubcop:disable all
 # rubocop:disable Security/Open, Lint/AssignmentInCondition
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -103,3 +104,4 @@ class AboutSandwichCode < Neo::Koan
   end
 end
 # rubocop:enable Security/Open, Lint/AssignmentInCondition
+#rubcop:enable all
