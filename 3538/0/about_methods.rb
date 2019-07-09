@@ -117,7 +117,7 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method
+      my_private_method
     end
     assert_match /#{Regexp.quote(exception.message)}/, exception.message
   end
