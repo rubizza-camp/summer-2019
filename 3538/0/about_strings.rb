@@ -22,15 +22,15 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    text1 = "He said, \"Don't\""
+    text2 = 'He said, "Don\'t"'
+    assert_equal true, text1 == text2
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
+    text1 = %(flexible quotes can handle both ' and " characters)
+    text2 = %(flexible quotes can handle both ' and " characters)
+    text3 = %(flexible quotes can handle both ' and " characters)
     assert_equal true, a == b
     assert_equal true, a == c
   end
@@ -185,10 +185,10 @@ class AboutStrings < Neo::Koan
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    text1 = 'a string'
+    text2 = 'a string'
 
-    assert_equal true, a           == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, text1           == text2
+    assert_equal false, text1.object_id == text2.object_id
   end
 end
