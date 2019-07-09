@@ -1,10 +1,10 @@
-
-# rubocop:disable Style/EvalWithLocation
-# rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/EvalWithLocation, Lint/UnreachableCode, Lint/Void
+# rubocop:disable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(metod_arg1, metod_arg2)
-  metod_arg1 + metod_arg2
+def my_global_method(arg, brg)
+  arg + brg
 end
 
 class AboutMethods < Neo::Koan
@@ -48,8 +48,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(metod_arg1, metod_arg2 = :default_value)
-    [metod_arg1, metod_arg2]
+  def method_with_defaults(arg, brg = :default_value)
+    [arg, brg]
   end
 
   def test_calling_with_default_values
@@ -73,7 +73,9 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :return_value
+    :a_non_return_value
+    return :return_value
+    :another_non_return_value
   end
 
   def test_method_with_explicit_return
@@ -83,6 +85,7 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
+    :a_non_return_value
     :return_value
   end
 
@@ -92,8 +95,8 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(metod_arg1, metod_arg2)
-    metod_arg1 * metod_arg2
+  def my_method_in_the_same_class(arg, brg)
+    arg * brg
   end
 
   def test_calling_methods_in_same_class
@@ -101,7 +104,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -119,9 +122,7 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-
-    assert_match /#{Regexp.quote(exception.message)}/,
-                 exception.message
+    assert_match /private method/, exception.message
   end
 
   # ------------------------------------------------------------------
@@ -150,6 +151,6 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-
-# rubocop:enable Style/EvalWithLocation
-# rubocop:enable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:enable Style/EvalWithLocation, Lint/UnreachableCode, Lint/Void
+# rubocop:enable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:enable Lint/UnneededCopDisableDirective
