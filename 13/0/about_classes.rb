@@ -139,7 +139,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def get_self
+    def getself
       self
     end
 
@@ -155,7 +155,7 @@ class AboutClasses < Neo::Koan
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new('Fido')
 
-    fidos_self = fido.get_self
+    fidos_self = fido.getself
     assert_equal fido, fidos_self
   end
 
