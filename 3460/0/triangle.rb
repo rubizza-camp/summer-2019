@@ -16,20 +16,25 @@
 # and
 #   about_triangle_project_2.rb
 #
+def triangle(side_a, side_b, side_c)
+  sum = side_a + side_b + side_c
+  minimum = [side_a, side_b, side_c].min
+  maximum = [side_a, side_b, side_c].max
+  raise TriangleError unless minimum.positive? && (maximum < sum - maximum)
 
-def triangle_kind(side_a, side_b, side_c)
-  return :equilateral if (side_a == side_b) && (side_b == side_c)
-  return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_c == side_a)
+  return :equilateral if equilateral?(side_a, side_b, side_c)
+
+  return :isosceles if isosceles?(side_a, side_b, side_c)
 
   :scalene
 end
 
-def triangle(side_a, side_b, side_c)
-  if side_a + side_b <= side_c || side_b + side_c <= side_a || side_c + side_a <= side_b
-    raise TriangleError, 'Bad side length: triangle does not exist'
-  end
+def isosceles?(side_a, side_b, side_c)
+  (side_a == side_b) || (side_b == side_c) || (side_a == side_c)
+end
 
-  triangle_kind(side_a, side_b, side_c)
+def equilateral?(side_a, side_b, side_c)
+  (side_a == side_b) && (side_b == side_c)
 end
 
 # Error class used in part 2.  No need to change this code.
