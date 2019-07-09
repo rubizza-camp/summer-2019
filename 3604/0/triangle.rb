@@ -21,22 +21,6 @@ class Triangle
     @val_c = val_c
   end
 
-  private def test_error
-    raise TriangleError if negative_sides? || some_condition_again?
-  end
-
-  private def negative_sides?
-    @val_a <= 0 || @val_b <= 0 || @val_c <= 0
-  end
-
-  private def some_condition_again?
-    ((sum - @val_a) * (sum - @val_b) * (sum - @val_c)) <= 0
-  end
-
-  private def sum
-    @sum ||= (@val_a + @val_b + @val_c) / 2.0
-  end
-
   def triangle
     test_error
     if equilateral?
@@ -48,15 +32,33 @@ class Triangle
     end
   end
 
-  private def equilateral?
+  private
+
+  def test_error
+    raise TriangleError if negative_sides? || some_condition_again?
+  end
+
+  def negative_sides?
+    @val_a <= 0 || @val_b <= 0 || @val_c <= 0
+  end
+
+  def some_condition_again?
+    ((sum - @val_a) * (sum - @val_b) * (sum - @val_c)) <= 0
+  end
+
+  def sum
+    @sum ||= (@val_a + @val_b + @val_c) / 2.0
+  end
+
+  def equilateral?
     @val_a == @val_b && @val_a == @val_c
   end
 
-  private def isosceles?
+  def isosceles?
     @val_a == @val_b || @val_a == @val_c || @val_b == @val_c
   end
 
-  private def scalene?
+  def scalene?
     @val_a != @val_b && @val_a != @val_c
   end
 end
