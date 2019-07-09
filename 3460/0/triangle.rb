@@ -1,4 +1,5 @@
 # rubocop:disable all
+
 # frozen_string_literal: true
 
 # Triangle Project Code.
