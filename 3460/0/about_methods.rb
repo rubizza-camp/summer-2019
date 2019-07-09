@@ -1,12 +1,14 @@
+# rubocop:disable Lint/Void, Lint/UnreachableCode, Lint/AmbiguousRegexpLiteral
+# rubocop:disable Style/RedundantSelf
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Lint/UnreachableCode
-# rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+
 # :reek:UtilityFunction
-def my_global_method(param_one, param_two)
-  param_one + param_two
+def my_global_method(arg, brg)
+  arg + brg
 end
 
 # :reek:TooManyMethods
+# :reek:TooManyStatements
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -34,23 +36,22 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
-  # :reek:TooManyStatements
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
     end
-    assert_match(/wrong number of arguments \(given 0, expected 2\)/, exception.message)
+    assert_match(/wrong number of arguments/, exception.message)
 
     exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end
-    assert_match(/wrong number of arguments \(given 3, expected 2\)/, exception.message)
+    assert_match(/wrong number of arguments/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(param_one, param_two = :default_value)
-    [param_one, param_two]
+  def method_with_defaults(arg, brg = :default_value)
+    [arg, brg]
   end
 
   def test_calling_with_default_values
@@ -72,7 +73,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/Void
+
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
@@ -95,10 +96,9 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:enable Lint/Void
   # :reek:UtilityFunction
-  def my_method_in_the_same_class(param_one, param_two)
-    param_one * param_two
+  def my_method_in_the_same_class(arg, brg)
+    arg * brg
   end
 
   def test_calling_methods_in_same_class
@@ -106,7 +106,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -153,5 +153,5 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Lint/UnreachableCode
-# rubocop:enable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:enable Lint/Void, Lint/UnreachableCode, Lint/AmbiguousRegexpLiteral
+# rubocop:enable Style/RedundantSelf
