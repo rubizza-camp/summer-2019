@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/AbcSize
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutHashes < Neo::Koan
@@ -37,8 +36,7 @@ class AboutHashes < Neo::Koan
     hash = { one: 'uno', two: 'dos' }
     hash[:one] = 'eins'
 
-    expected = { one: 'eins', two: 'dos' }
-    assert_equal true, expected == hash
+    assert_equal hash = { one: 'eins', two: 'dos' }, hash
 
     # Bonus Question: Why was "expected" broken out into a variable
     # rather than used as a literal?
@@ -91,7 +89,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  def test_default_value_is_the_same
+  def test_default_value_is_the_same_object
     hash = Hash.new([])
 
     hash[:one] << 'uno'
@@ -105,14 +103,13 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_with_block
-    new_hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |_hh, key| hash[key] = [] }
 
-    new_hash[:one] << 'uno'
-    new_hash[:two] << 'dos'
+    hash[:one] << 'uno'
+    hash[:two] << 'dos'
 
-    assert_equal ['uno'], new_hash[:one]
-    assert_equal ['dos'], new_hash[:two]
-    assert_equal [], new_hash[:three]
+    assert_equal ['uno'], hash[:one]
+    assert_equal ['dos'], hash[:two]
+    assert_equal [], hash[:three]
   end
 end
-# rubocop:enable Metrics/AbcSize
