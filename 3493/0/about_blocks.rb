@@ -90,7 +90,7 @@ class AboutBlocks < Neo::Koan
   # rubocop:disable Lint/AmbiguousBlockAssociation
 
   def test_methods_can_take_an_explicit_block_argument
-    assert_equal 20, method_with_explicit_block { |n| n * 2 }
+    assert_equal 20, method_with_explicit_block { |number| number * 2 }
 
     add_one = ->(number) { number + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
