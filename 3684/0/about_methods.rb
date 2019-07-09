@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:FeatureEnvy
 def my_global_method(abs, bbs)
   abs + bbs
 end

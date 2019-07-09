@@ -68,7 +68,7 @@ class Proxy
     end
   end
 
-  def upcase!
+  def upcase
     @messages_array << :upcase!
     @object.upcase! if @object.class == String
   end
@@ -144,7 +144,7 @@ class AboutProxyObjectProject < Neo::Koan
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
-    proxy.upcase!
+    proxy.upcase
     result = proxy.split
 
     assert_equal %w[CODE MASH 2009], result
