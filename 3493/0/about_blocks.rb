@@ -10,12 +10,13 @@ class AboutBlocks < Neo::Koan
     yielded_result = method_with_block { 1 + 2 }
     assert_equal 3, yielded_result
   end
+  # rubocop:disable Style/BlockDelimiters:
 
   def test_blocks_can_be_defined_with_do_end_too
-    yielded_result = method_with_block { 1 + 2 }
+    yielded_result = method_with_block do 1 + 2 end
     assert_equal 3, yielded_result
   end
-
+  # rubocop:enable Style/BlockDelimiters:
   # ------------------------------------------------------------------
 
   def method_with_block_arguments
@@ -52,12 +53,13 @@ class AboutBlocks < Neo::Koan
       :no_block
     end
   end
+  # rubocop:disable Lint/AmbiguousBlockAssociation
 
   def test_methods_can_see_if_they_have_been_called_with_a_block
-    assert_equal true, yield_tester { :with_block } == :with_block
+    assert_equal true, yield_tester { :with_block }
     assert_equal :no_block, yield_tester
   end
-
+  # rubocop:enable Lint/AmbiguousBlockAssociation
   # ------------------------------------------------------------------
 
   def test_block_can_affect_variables_in_the_code_where_they_are_created
@@ -85,11 +87,13 @@ class AboutBlocks < Neo::Koan
   def method_with_explicit_block
     yield 10
   end
+  # rubocop:disable Lint/AmbiguousBlockAssociation
 
   def test_methods_can_take_an_explicit_block_argument
-    assert_equal true, method_with_explicit_block { |number| number * 2 } == 20
+    assert_equal 20, method_with_explicit_block { |n| n * 2 }
 
     add_one = ->(number) { number + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
+  # rubocop:enable Lint/AmbiguousBlockAssociation
 end
