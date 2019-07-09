@@ -13,14 +13,14 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Dog2
+  class Dog_two
     def put_name(a_name)
       @name = a_name
     end
   end
 
   def test_instance_variables_can_be_set_by_assigning_to_them
-    fido = Dog2.new
+    fido = Dog_two.new
     assert_equal [], fido.instance_variables
 
     fido.put_name('Fido')
@@ -28,7 +28,7 @@ class AboutClasses < Neo::Koan
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
-    fido = Dog2.new
+    fido = Dog_two.new
     fido.put_name('Fido')
 
     assert_raise(NoMethodError) do
@@ -42,14 +42,14 @@ class AboutClasses < Neo::Koan
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
-    fido = Dog2.new
+    fido = Dog_two.new
     fido.put_name('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
-    fido = Dog2.new
+    fido = Dog_two.new
     fido.put_name('Fido')
 
     assert_equal 'Fido', fido.instance_eval('@name') # string version
@@ -58,7 +58,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Dog3
+  class Dog_three
     def put_name(a_name)
       @name = a_name
     end
@@ -67,7 +67,7 @@ class AboutClasses < Neo::Koan
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
-    fido = Dog3.new
+    fido = Dog_three.new
     fido.put_name('Fido')
 
     assert_equal 'Fido', fido.name
