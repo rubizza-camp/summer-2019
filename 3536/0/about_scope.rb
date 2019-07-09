@@ -18,7 +18,7 @@ class AboutScope < Neo::Koan
   end
 
   def test_dog_is_not_available_in_the_current_scope
-    assert_raise(StandardError) do
+    assert_raise(NameError) do
       Dog.new
     end
   end
