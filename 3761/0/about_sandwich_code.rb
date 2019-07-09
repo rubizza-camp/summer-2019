@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:RepeatedConditional
+# :reek:NilCheck
 class AboutSandwichCode < Neo::Koan
   # :reek:UtilityFunction
 
@@ -22,7 +23,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
-      return line if line.match(/e/)
+      return line if line =~ /e/
     end
   ensure
     file&.close if file
