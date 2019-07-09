@@ -33,7 +33,8 @@ end
 
 # :reek:disable
 def triangle(first, second, third)
-  raise TriangleError if !validate_sides(first, second, third) || !check_sides_sums(first, second, third)
+  raise TriangleError if !validate_sides(first, second, third) ||
+                         !check_sides_sums(first, second, third)
 
   return :equilateral if first == second && second == third
   return :isosceles if isosceles?(first, second, third)
