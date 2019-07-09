@@ -1,6 +1,7 @@
 # rubocop:disable Layout/EndOfLine, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective
 # rubocop:disable Metrics/ClassLength
-# :reek:TooManyMethods
+# TooManyMethods
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
