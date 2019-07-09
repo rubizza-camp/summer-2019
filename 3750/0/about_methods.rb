@@ -1,9 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable all
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 def my_global_method(a, b)
   a + b
 end
 # rubocop:enable all
+# :reek:TooManyStatements
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -17,9 +20,9 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-# rubocop:disable all
+    # rubocop:disable all
     eval "assert_equal(5, my_global_method(2, 3))" # ENABLE CHECK
-# rubocop:enable all
+    # rubocop:enable all
     # Ruby doesn't know if you mean:
     #
     #   assert_equal(5, my_global_method(2), 3)
@@ -32,6 +35,7 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
+  # :reek:TooManyStatements
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
@@ -45,11 +49,12 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-# rubocop:disable all
+  # :reek:UncommunicativeParameterName
+  # rubocop:disable all
   def method_with_defaults(a, b=:default_value)
     [a, b]
   end
-# rubocop:enable all
+  # rubocop:enable all
 
   def test_calling_with_default_values
     assert_equal [1, :default_value], method_with_defaults(1)
@@ -95,7 +100,8 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:UncommunicativeParameterName
+  # :reek:UtilityFunction
   def my_method_in_the_same_class(a, b)
     a * b
   end

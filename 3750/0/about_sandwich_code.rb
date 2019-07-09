@@ -57,26 +57,31 @@ class AboutSandwichCode < Neo::Koan
     file = File.open(file_name)
     yield(file)
   ensure
+  # rubocop:disable all
     file&.close if file
+  # rubocop:enable all
   end
 
   # Now we write:
-
+  # rubocop:disable all
   def count_lines2(file_name)
+  # rubocop:enable all
     file_sandwich(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
     end
   end
-
+  # rubocop:disable all
   def test_counting_lines2
+  # rubocop:enable all
     assert_equal 4, count_lines2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable all
   def find_line2(file_name)
+  # rubocop:enable all
     file_sandwich(file_name) do |file|
       while (line = file.gets)
         # rubocop:disable Performance/RedundantMatch
@@ -86,14 +91,16 @@ class AboutSandwichCode < Neo::Koan
     end
     # Rewrite find_line using the file_sandwich library function.
   end
-
+  # rubocop:disable all
   def test_finding_lines2
+  # rubocop:enable all
     assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable all
   def count_lines3(file_name)
+  # rubocop:enable all
     File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets

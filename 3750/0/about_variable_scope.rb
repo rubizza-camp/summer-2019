@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Style/GlobalVars
 class AboutVariableScope < Neo::Koan
 
   def bark
@@ -45,39 +46,46 @@ class AboutVariableScope < Neo::Koan
   # ------------------------------------------------------
 
   class Mouse
-    @@total = 0
-    # Class variables are prefixed with two '@' characters.
 
+    attr_reader @name
+    # rubocop:disable all
+    @@total = 0
+    # rubocop:enable all
+    # Class variables are prefixed with two '@' characters.
+    # rubocop:disable Naming/UncommunicativeMethodParamName
     def initialize(n)
+    # rubocop:enable Naming/UncommunicativeMethodParamName
       @name = n
       # Instance variables are prefixed with one '@' character.
-      @@total += 1 
+      # rubocop:disable all
+      @@total += 1
+      # rubocop:enable all
     end
 
     def name
       @name
     end
 
-    def Mouse.count
+    def Self.count
       @@total
     end
   end
 
-  def test_instance_variable 
+  def test_instance_variable
     oscar = Mouse.new('Oscar')
-    assert_equal 'Oscar', oscar.name 
+    assert_equal 'Oscar', oscar.name
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) } 
+    (1..9).each { |i| Mouse.new(i.to_s) }
     assert_equal 10, Mouse.count
   end
- 
+
   $anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
-    assert_equal 'Anywhere', $anywhere    
+    assert_equal 'Anywhere', $anywhere
   end
 
   def test_global_variables_can_be_changed_from_any_scope
@@ -100,3 +108,4 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Hey', $anywhere
   end
 end
+# rubocop:enable Style/GlobalVars
