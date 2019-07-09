@@ -15,6 +15,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:TooManyStatements
 def triangle(side_a, side_b, side_c)
   minimum = [side_a, side_b, side_c].min
   maximum = [side_a, side_b, side_c].max
@@ -27,10 +28,12 @@ def triangle(side_a, side_b, side_c)
   :scalene
 end
 
+# :reek:ControlParameter and :reek:UtilityFunction
 def isosceles?(side_a, side_b, side_c)
   (side_a == side_b) || (side_b == side_c) || (side_a == side_c)
 end
 
+# :reek:ControlParameter and :reek:UtilityFunction
 def equilateral?(side_a, side_b, side_c)
   (side_a == side_b) && (side_b == side_c)
 end
