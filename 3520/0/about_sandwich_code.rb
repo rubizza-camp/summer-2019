@@ -1,3 +1,4 @@
+# rubocop:disable Style/SafeNavigation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class smells of :reek:UncommunicativeMethodName and :reek:RepeatedConditional
 # This class smells of :reek:UtilityFunction
@@ -102,3 +103,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# rubocop:enable Style/SafeNavigation
