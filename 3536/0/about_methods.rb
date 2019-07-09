@@ -1,7 +1,6 @@
 
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Style/EvalWithLocation, Lint/UnreachableCode, Lint/Void
-# rubocop:disable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:disable Style/EvalWithLocation
+# rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def my_global_method(metod_arg1, metod_arg2)
@@ -49,7 +48,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(metod_arg1, metod_arg2=:default_value)
+  def method_with_defaults(metod_arg1, metod_arg2 = :default_value)
     [metod_arg1, metod_arg2]
   end
 
@@ -68,7 +67,7 @@ class AboutMethods < Neo::Koan
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
-   assert_equal %i[one two], method_with_var_args(:one, :two)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------

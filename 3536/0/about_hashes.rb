@@ -105,14 +105,14 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    new_hash = Hash.new { |hash, key| hash[key] = [] }
 
-    hash[:one] << 'uno'
-    hash[:two] << 'dos'
+    new_hash[:one] << 'uno'
+    new_hash[:two] << 'dos'
 
-    assert_equal ['uno'], hash[:one]
-    assert_equal ['dos'], hash[:two]
-    assert_equal [], hash[:three]
+    assert_equal ['uno'], new_hash[:one]
+    assert_equal ['dos'], new_hash[:two]
+    assert_equal [], new_hash[:three]
   end
 end
 # rubocop:enable Metrics/AbcSize
