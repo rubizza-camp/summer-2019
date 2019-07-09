@@ -10,8 +10,9 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
   class Dog2
-    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
+    def name_set(a_name)
       @name = a_name
     end
   end
@@ -20,46 +21,44 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     assert_equal [], fido.instance_variables
 
-    fido.set_name('Fido')
-    assert_equal [:@name], fido.instance_variables
+    fido.name_set('Fido')
+    assert_equal %i[@name], fido.instance_variables
   end
 
+  # rubocop:disable Lint/AmbiguousBlockAssociation, Style/EvalWithLocation
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
-    fido.set_name('Fido')
+    fido.name_set('Fido')
 
     assert_raise(NoMethodError) do
-      fido.name
+      fido.attr_name
     end
 
-    assert_raise(SyntaxError) do
-      eval 'fido.@name' # rubocop:disable Style/EvalWithLocation
+    assert_raise(Exception) do
+      eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
-    fido.set_name('Fido')
+    fido.name_set('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
-    fido.set_name('Fido')
+    fido.name_set('Fido')
 
-    # rubocop:disable Style/EvalWithLocation
-    assert_equal 'Fido', fido.instance_eval('@name')
-    # rubocop:enable Style/EvalWithLocation
-    # rubocop:disable Lint/AmbiguousBlockAssociation
-    assert_equal 'Fido', fido.instance_eval { @name }
-    # rubocop:enable Lint/AmbiguousBlockAssociation
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
+    assert_equal 'Fido', fido.instance_eval { @name } # block version
   end
-
+  # rubocop:enable Lint/AmbiguousBlockAssociation, Style/EvalWithLocation
   # ------------------------------------------------------------------
+
   class Dog3
-    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
+    def name_set(a_name)
       @name = a_name
     end
 
@@ -68,7 +67,7 @@ class AboutClasses < Neo::Koan
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.set_name('Fido')
+    fido.name_set('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -77,14 +76,15 @@ class AboutClasses < Neo::Koan
 
   class Dog4
     attr_reader :name
-    def set_name(a_name) # rubocop:disable Naming/AccessorMethodName
+
+    def name_set(a_name)
       @name = a_name
     end
   end
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.set_name('Fido')
+    fido.name_set('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -140,7 +140,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def get_self # rubocop:disable Naming/AccessorMethodName
+    def self_get
       self
     end
 
@@ -156,7 +156,7 @@ class AboutClasses < Neo::Koan
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new('Fido')
 
-    fidos_self = fido.get_self
+    fidos_self = fido.self_get
     assert_equal fido, fidos_self
   end
 
