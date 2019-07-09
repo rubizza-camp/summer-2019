@@ -68,4 +68,3 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
-# rubocop:enable  all
