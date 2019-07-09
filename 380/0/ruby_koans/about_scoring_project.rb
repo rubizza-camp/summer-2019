@@ -33,11 +33,11 @@ def score(dice)
   score = 0
   dice.each do |points|
     if dice.count(points) >= 3
-      if points == 1
-        score += 1000
-      else
-        score += (points * 100)
-      end
+      score += if points.equal?(1)
+                 1000
+               else
+                 points * 100
+               end
       3.times { dice.delete_at(dice.index(points)) }
       next
     end
@@ -52,7 +52,6 @@ def score(dice)
       next
     end
   end
-
   score
 end
 
