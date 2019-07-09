@@ -32,6 +32,7 @@ recommended way to run them as we might build more functionality into this task)
 
 === Red, Green, Refactor
 
+<<<<<<< HEAD
 In test-driven development the mantra has always been <em>red, green, refactor</em>.
 Write a failing test and run it (<em>red</em>), make the test pass (<em>green</em>),
 then look at the code and consider if you can make it any better (<em>refactor</em>).
@@ -152,3 +153,7 @@ http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png
 RubyKoans is released under a Creative Commons,
 Attribution-NonCommercial-ShareAlike, Version 3.0
 (http://creativecommons.org/licenses/by-nc-sa/3.0/) License.
+=======
+### Дедлайн
+2019-07-09 18:00:00 UTC+3
+>>>>>>> 2a912137c99fe23610a6fc086510bdc99b96993a
