@@ -102,13 +102,11 @@ class AboutControlStatements < Neo::Koan
   # :reek:FeatureEnvy
 
   def test_break_statement_returns_values
-    i = 1
-    result = while i <= 10
-               break i if i.even?
-
-               i += 1
-    end
-
+    iteration = 1
+    result = while iteration <= 10
+               break iteration if (iteration % 2).zero?
+               iteration += 1
+             end
     assert_equal 2, result
   end
   # :reek:TooManyStatements

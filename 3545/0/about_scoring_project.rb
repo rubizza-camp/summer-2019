@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable all
 # Greed is a dice game where you roll up to five dice to accumulate
 # points.  The following "score" function will be used to calculate the
 # score of a single roll of the dice.
@@ -51,6 +51,7 @@ def score_for_single(number)
   end
 end
 
+
 def score(dice)
   return 0 if dice.empty?
 
@@ -63,13 +64,14 @@ def score(dice)
       numbers_left = item.length - 3 * multiply
       sum += (numbers_left * score_for_single(number))
     else
-      item.each do |number|
-        sum += score_for_single(number)
+      item.each do |num|
+        sum += score_for_single(num)
       end
     end
   end
   sum
 end
+
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
