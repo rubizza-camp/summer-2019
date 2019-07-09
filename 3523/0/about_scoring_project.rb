@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 #rubocop:disable all
-# rubocop:disable Style/IdenticalConditionalBranches
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/LineLength
+
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -127,8 +124,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:enable Style/IdenticalConditionalBranches
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/LineLength
 #rubocop:enable all
