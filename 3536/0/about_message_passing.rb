@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#:nodoc:
 class AboutMessagePassing < Neo::Koan
+  #:nodoc:
   class MessageCatcher
     def caught?
       true
@@ -46,6 +48,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  #:nodoc:
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -71,6 +74,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  #:nodoc:
   class TypicalObject
   end
 
@@ -80,7 +84,7 @@ class AboutMessagePassing < Neo::Koan
     exception = assert_raise(NoMethodError) do
       typical.foobar
     end
-    assert_match(/undefined method/, exception.message)
+    assert_match(/foobar/, exception.message)
   end
 
   def test_calling_method_missing_causes_the_no_method_error
@@ -89,7 +93,7 @@ class AboutMessagePassing < Neo::Koan
     exception = assert_raise(NoMethodError) do
       typical.method_missing(:foobar)
     end
-    assert_match(/undefined method/, exception.message)
+    assert_match(/foobar/, exception.message)
 
     # THINK ABOUT IT:
     #
@@ -111,10 +115,13 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  #:nodoc:
   class AllMessageCatcher
-    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissing
+    # rubocop: disable all
+    def method_missing(method_name, *args, &_block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
+    # rubocop: enable all
   end
 
   def test_all_messages_are_caught
@@ -136,14 +143,17 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  #:nodoc:
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
+    # rubocop: disable all
+    def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
         super(method_name, *args, &block)
       end
     end
+    # rubocop: enable all
   end
 
   def test_foo_method_are_caught
@@ -164,6 +174,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   # (note: just reopening class from above)
+  #:nodoc:
   class WellBehavedFooCatcher
     def respond_to?(method_name)
       if method_name.to_s[0, 3] == 'foo'

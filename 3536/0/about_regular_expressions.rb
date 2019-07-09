@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#:nodoc:
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -36,7 +37,7 @@ class AboutRegularExpressions < Neo::Koan
 
   # THINK ABOUT IT:
   #
-  # We say that the repetition operators above are 'greedy.'
+  # We say that the repetition operators above are "greedy."
   #
   # Why?
 
@@ -50,7 +51,9 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat], (animals.select { |a| a[/[cbr]at/] })
+    # rubocop: disable Lint/AmbiguousBlockAssociation
+    assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
+    # rubocop: enable Lint/AmbiguousBlockAssociation
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -63,7 +66,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_slash_s_is_a_shortcut_for_a_whitespace_character_class
-    assert_equal ' ', 'space: \t\n'[/\s+/]
+    assert_equal " \t\n", "space: \t\n"[/\s+/]
   end
 
   def test_slash_w_is_a_shortcut_for_a_word_character_class
@@ -82,7 +85,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_shortcut_character_classes_are_negated_with_capitals
     assert_equal 'the number is ', 'the number is 42'[/\D+/]
-    assert_equal 'space:', 'space: \t\n'[/\S+/]
+    assert_equal 'space:', "space: \t\n"[/\S+/]
     # ... a programmer would most likely do
     assert_equal ' = ', 'variable_1 = 42'[/[^a-zA-Z0-9_]+/]
     assert_equal ' = ', 'variable_1 = 42'[/\W+/]
@@ -101,11 +104,11 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_caret_anchors_to_the_start_of_lines
-    assert_equal nil, 'num 42\n2 lines'[/^\d+/]
+    assert_equal '2', "num 42\n2 lines"[/^\d+/]
   end
 
   def test_dollar_sign_anchors_to_the_end_of_lines
-    assert_equal '42', '2 lines\nnum 42'[/\d+$/]
+    assert_equal '42', "2 lines\nnum 42"[/\d+$/]
   end
 
   def test_slash_b_anchors_to_a_word_boundary
@@ -127,8 +130,10 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_variables_can_also_be_used_to_access_captures
     assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
-    assert_equal 'Gray', Regexp.last_match(1)
-    assert_equal 'James', Regexp.last_match(2)
+    # rubocop: disable Style/PerlBackrefs
+    assert_equal 'Gray', $1
+    assert_equal 'James', $2
+    # rubocop: enable Style/PerlBackrefs
   end
 
   # ------------------------------------------------------------------
@@ -140,9 +145,6 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal nil, 'Jim Gray'[grays, 1]
   end
 
-  # THINK ABOUT IT:
-  #
-  # Explain the difference between a character class ([...]) and alternation (|).
 
   # ------------------------------------------------------------------
 
@@ -151,10 +153,14 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_sub_is_like_find_and_replace
-    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
+    # rubocop: disable Style/PerlBackrefs
+    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { $1[0, 1] }
+    # rubocop: enable Style/PerlBackrefs
   end
 
   def test_gsub_is_like_find_and_replace_all
-    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
+    # rubocop: disable Style/PerlBackrefs
+    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { $1[0, 1] }
+    # rubocop: enable Style/PerlBackrefs
   end
 end
