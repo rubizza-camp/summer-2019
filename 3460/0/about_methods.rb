@@ -1,3 +1,5 @@
+# rubocop:disable all
+
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -160,3 +162,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable all
