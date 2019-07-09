@@ -15,9 +15,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
 
   def test_if_then_statements
     result = :default_value
-    if true  # rubocop:disable Lint/LiteralAsCondition
-      result = :true_value
-    end
+    if true result = :true_value # rubocop:disable Lint/LiteralAsCondition
     assert_equal :true_value, result
   end
 
