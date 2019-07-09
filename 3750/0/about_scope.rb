@@ -23,6 +23,7 @@ class AboutScope < Neo::Koan
     end
   end
 
+  # :reek:TooManyStatements
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
     rover = Joes::Dog.new
@@ -43,7 +44,7 @@ class AboutScope < Neo::Koan
   end
 
   def test_nested_string_is_not_the_same_as_the_system_string
-    assert_equal false, String == 'I'.class
+    assert_equal false, String == 'HI'.class
   end
 
   def test_use_the_prefix_scope_operator_to_force_the_global_scope

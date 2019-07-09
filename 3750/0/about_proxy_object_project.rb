@@ -19,24 +19,19 @@ class Proxy
     @object = target_object
     @messages = []
   end
-  # rubocop:disable Style/MethodMissing
+
   def method_missing(method_name, *args)
-    @messages.push(method_name)
+    @messages << method_name
     @object.send(method_name, *args)
   end
 
-  # rubocop:enable Style/MethodMissing
-
   def called?(message)
-    return true unless @messages.index(message).nil?
-    false
+    @messages.include?(message)
   end
 
-  # rubocop:disable Style/RedundantReturn
   def number_of_times_called(message)
-    return @messages.count(message)
+    @messages.count(message)
   end
-  # rubocop:enable Style/RedundantReturn
 
   # WRITE CODE HERE
 end
@@ -53,6 +48,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.instance_of?(Proxy)
   end
 
+  # :reek:FeatureEnvy
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
 
@@ -63,14 +59,13 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.on?
   end
 
+  # :reek:FeatureEnvy
   def test_proxy_records_messages_sent_to_tv
     tv = Proxy.new(Television.new)
 
     tv.power
     tv.channel = 10
-# rubocop:disable all
-    assert_equal [:power, :channel=], tv.messages
-# rubocop:enable all
+    assert_equal %i[power channel=], tv.messages
   end
 
   def test_proxy_handles_invalid_messages
@@ -81,6 +76,7 @@ class AboutProxyObjectProject < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_proxy_reports_methods_have_been_called
     tv = Proxy.new(Television.new)
 
@@ -91,6 +87,8 @@ class AboutProxyObjectProject < Neo::Koan
     assert !tv.called?(:channel)
   end
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def test_proxy_counts_method_calls
     tv = Proxy.new(Television.new)
 
@@ -103,6 +101,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 0, tv.number_of_times_called(:on?)
   end
 
+  # :reek:FeatureEnvy
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
@@ -110,9 +109,7 @@ class AboutProxyObjectProject < Neo::Koan
     result = proxy.split
 
     assert_equal %w[CODE MASH 2009], result
-    # rubocop:disable Style/SymbolArray
-    assert_equal [:upcase!, :split], proxy.messages
-    # rubocop:enable Style/SymbolArray
+    assert_equal %i[upcase! split], proxy.messages
   end
 end
 
@@ -121,6 +118,8 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# :reek:Attribute
+# :reek:InstanceVariableAssumption
 class Television
   attr_accessor :channel
 
@@ -137,6 +136,7 @@ class Television
   end
 end
 
+# :reek:FeatureEnvy
 # Tests for the Television class.  All of theses tests should pass.
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
@@ -146,6 +146,7 @@ class TelevisionTest < Neo::Koan
     assert tv.on?
   end
 
+  # :reek:FeatureEnvy
   def test_it_also_turns_off
     tv = Television.new
 
@@ -155,6 +156,8 @@ class TelevisionTest < Neo::Koan
     assert !tv.on?
   end
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def test_edge_case_on_off
     tv = Television.new
 
@@ -175,3 +178,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Style/MethodMissing
