@@ -70,9 +70,7 @@ class AboutControlStatements < Neo::Koan
   def test_unless_statement
     result = :default_value
     # rubocop: disable Lint/LiteralAsCondition
-    # rubocop: disable Metrics/LineLength
     result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
-    # rubocop: enable Metrics/LineLength
     # rubocop: enable Lint/LiteralAsCondition
     assert_equal :false_value, result
   end
@@ -80,9 +78,7 @@ class AboutControlStatements < Neo::Koan
   def test_unless_statement_evaluate_true
     result = :default_value
     # rubocop: disable Lint/LiteralAsCondition
-    # rubocop: disable Metrics/LineLength
     result = :true_value unless true # same as saying 'if !true', which evaluates as 'if false'
-    # rubocop: enable Metrics/LineLength
     # rubocop: enable Lint/LiteralAsCondition
     assert_equal :default_value, result
   end

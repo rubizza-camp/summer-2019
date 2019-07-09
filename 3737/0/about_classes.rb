@@ -32,14 +32,14 @@ class AboutClasses < Neo::Koan
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
-    fido.set_name("Fido")
+    fido.set_name('Fido')
 
     assert_raise(NoMethodError) do
       fido.name
     end
 
     assert_raise(SyntaxError) do
-      eval "fido.@name", binding, __FILE__, __LINE__
+      eval 'fido.@name', binding, __FILE__, __LINE__
       # NOTE: Using eval because the above line is a syntax error.
     end
   end

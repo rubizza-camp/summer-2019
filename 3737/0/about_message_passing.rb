@@ -25,10 +25,8 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    # rubocop: disable Metrics/LineLength
     assert mc.send('caught' + '?') # What do you need to add to the first string?
     assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
-    # rubocop: enable Metrics/LineLength
   end
 
   def test_send_with_underscores_will_also_send_messages
@@ -131,9 +129,7 @@ class AboutMessagePassing < Neo::Koan
 
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    # rubocop: disable Metrics/LineLength
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
-    # rubocop: enable Metrics/LineLength
   end
 
   def test_catching_messages_makes_respond_to_lie

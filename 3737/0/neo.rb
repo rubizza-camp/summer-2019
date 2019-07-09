@@ -1,6 +1,6 @@
-#!/usr/bin/env ruby
+# !/usr/bin/env ruby
 # -*- ruby -*-
-#rubocop: disable all 
+# rubocop: disable all 
 begin
   require 'win32console'
 rescue LoadError
@@ -533,4 +533,4 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
-#rubocop: enable all 
+# rubocop: enable all 

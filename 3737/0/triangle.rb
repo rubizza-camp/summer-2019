@@ -12,17 +12,13 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-# rubocop: disable Metrics/CyclomaticComplexity
 def triangle(ast, bst, cst)
   raise TriangleError unless ast.positive? || bst.positive? || cst.positive?
-  raise TriangleError if  bst + cst <= ast
-  raise TriangleError if  ast + cst <= bst
-  raise TriangleError if  bst + ast <= cst
+  raise TriangleError if bst + cst <= ast || ast + cst <= bst || bst + ast <= cst
 
   kind(ast, bst, cst)
   # WRITE THIS CODE
 end
-# rubocop: enable Metrics/CyclomaticComplexity
 
 def kind(ast, bst, cst)
   return :equilateral if ast == bst && ast == cst

@@ -8,7 +8,7 @@ class DiceSet
 
   def roll(num)
     @values = []
-    (1..num).each do |i|
+    (1..num).each do
       @values << rand(1..num)
     end
   end

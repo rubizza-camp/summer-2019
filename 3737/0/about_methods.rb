@@ -20,9 +20,7 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    # rubocop: disable Metrics/LineLength
     eval('assert_equal(5, my_global_method(2, 3))', binding, __FILE__, __LINE__) # ENABLE CHECK
-    # rubocop: enable Metrics/LineLength
     #
     # Ruby doesn't know if you mean:
     #
@@ -126,9 +124,8 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
-  # rubocop: disable Style/AccessModifierDeclarations
+
   private :my_private_method
-  # rubocop: enable Style/AccessModifierDeclarations
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method

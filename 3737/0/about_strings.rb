@@ -49,10 +49,12 @@ It was the worst of times.
 
   def test_here_documents_can_also_handle_multiple_lines
     # rubocop: disable Naming/HeredocDelimiterNaming
+    # rubocop: disable Layout/IndentHeredoc
     long_string = <<-EOS
 It was the best of times,
 It was the worst of times.
 EOS
+    # rubocop: enable Layout/IndentHeredoc
     # rubocop: enable Naming/HeredocDelimiterNaming
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
@@ -135,11 +137,13 @@ EOS
   end
 
   def test_single_quoted_strings_do_not_interpolate
+    # rubocop: disable Lint/UselessAssignment
     value = 123
+    # rubocop: enable Lint/UselessAssignment
     # rubocop: disable Lint/InterpolationCheck
     string = 'The value is #{value}'
-    # rubocop: enable Lint/InterpolationCheck
     assert_equal 'The value is #{value}', string
+    # rubocop: enable Lint/InterpolationCheck
   end
 
   def test_any_ruby_expression_may_be_interpolated

@@ -8,7 +8,7 @@ class AboutSandwichCode < Neo::Koan
     (count += 1) while file.gets
     count
   ensure
-    file&.close
+    file.close
   end
 
   def test_counting_lines
@@ -20,10 +20,12 @@ class AboutSandwichCode < Neo::Koan
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
+      # rubocop: disable Performance/RedundantMatch
       return line if line.match(/e/)
+      # rubocop: enable Performance/RedundantMatch
     end
   ensure
-    file&.close
+    file.close
   end
 
   def test_finding_lines
@@ -56,7 +58,7 @@ class AboutSandwichCode < Neo::Koan
     file = File.open(file_name)
     yield(file)
   ensure
-    file&.close
+    file.close
   end
 
   # Now we write:
@@ -78,7 +80,9 @@ class AboutSandwichCode < Neo::Koan
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
       while (line = file.gets)
+        # rubocop: disable Performance/RedundantMatch
         return line if line.match(/e/)
+        # rubocop: enable Performance/RedundantMatch
       end
     end
     # Rewrite find_line using the file_sandwich library function.
