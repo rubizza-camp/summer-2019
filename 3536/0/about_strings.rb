@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
@@ -191,3 +192,4 @@ EOS
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength

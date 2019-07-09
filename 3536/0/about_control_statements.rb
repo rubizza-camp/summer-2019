@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutControlStatements < Neo::Koan
@@ -130,3 +131,4 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
