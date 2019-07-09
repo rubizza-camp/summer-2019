@@ -1,6 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# Class
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -78,9 +79,7 @@ class AboutIteration < Neo::Koan
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
 
-    # rubocop: disable Lint/AmbiguousBlockAssociation
-    assert_equal 'Clarence', array.find { |item| item.size > 4 }
-    # rubocop: enable Lint/AmbiguousBlockAssociation
+    assert_equal 'Clarence', (array.find { |item| item.size > 4 })
   end
 
   def test_inject_will_blow_your_mind

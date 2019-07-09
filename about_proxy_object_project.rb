@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -11,40 +13,31 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
-
-#:nodoc:
+# gigi
 class Proxy
+  attr_reader :messages
   def initialize(target_object)
-    @object = target_object
-    # ADD MORE CODE HERE
+    @object   = target_object
     @messages = []
   end
-  attr_accessor :messages
-  # WRITE CODE HERE
-  def method_missing(name, *args, &block)
-    if name
-      @messages << name
-      @object.send(name, *args, &block)
-    else
-      super
-    end
+  # rubocop:disable all
+
+  def method_missing(method_name, *args, &block)
+    @messages << method_name
+    @object.send method_name, *args, &block
   end
 
-  def respond_to_missing?
-    true
+  def called?(method_name)
+    @messages.include? method_name
   end
 
-  def called?(arg)
-    @messages.include?(arg)
-  end
-
-  def number_of_times_called(arg)
-    @messages.count(arg)
+  def number_of_times_called(method_name)
+    @messages.count method_name
   end
 end
 
 # The proxy object should pass the following Koan:
-#:nodoc:
+#
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below

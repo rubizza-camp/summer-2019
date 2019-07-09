@@ -1,6 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# Doned test about Arrays
 class AboutArrays < Neo::Koan
   def test_creating_arrays
     empty_array = []

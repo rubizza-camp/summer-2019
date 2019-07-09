@@ -1,6 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# class
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition

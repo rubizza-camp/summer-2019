@@ -1,6 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# Papich
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -23,6 +24,7 @@ class AboutHashes < Neo::Koan
 
   def test_accessing_hashes_with_fetch
     hash = { one: 'uno' }
+    assert_equal 'uno', hash.fetch(:one)
     assert_raise(KeyError) do
       hash.fetch(:doesnt_exist)
     end
@@ -30,6 +32,12 @@ class AboutHashes < Neo::Koan
     # THINK ABOUT IT:
     #
     # Why might you want to use #fetch instead of #[] when accessing hash keys?
+    #
+    # When you want the extra functionality that fetch gives you.
+    #   Default values
+    #   Error when key isn't found
+    #   Blocks can be evaluated
+    #
   end
 
   def test_changing_hashes
@@ -90,8 +98,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  # rubocop: disable Metrics/AbcSize
-  def test_default_value_is_the_same_object
+  def test_default_value_is_the_same_object # rubocop:disable Metrics/AbcSize
     hash = Hash.new([])
 
     hash[:one] << 'uno'
@@ -103,10 +110,9 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
-  # rubocop: enable Metrics/AbcSize
 
   def test_default_value_with_block
-    hash = Hash.new { |hashs, key| hashs[key] = [] }
+    hash = Hash.new { |h, k| h[k] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

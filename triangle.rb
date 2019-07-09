@@ -12,21 +12,19 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-def triangle(ast, bst, cst)
-  ast, bst, cst = [ast, bst, cst].sort
-  raise TriangleError unless ast.positive?
-  raise TriangleError if bst + ast <= cst
-
-  kind(ast, bst, cst)
-  # WRITE THIS CODE
-end
-
-def kind(ast, bst, cst)
-  return :equilateral if ast == bst && ast == cst
-
-  return :isosceles if ast == bst || ast == cst || bst == cst
+#
+def triangle(a_s, b_s, c_s)
+  a_s, b_s, c_s = [a_s, b_s, c_s].sort
+  raise TriangleError unless a_s.positive?
+  raise TriangleError unless a_s + b_s > c_s
+  return :equilateral if a_s == c_s
+  return :isosceles if a_s == b_s || b_s == c_s
 
   :scalene
+end
+
+# Error class used in part 2.  No need to change this code.
+class TriangleError < StandardError
 end
 
 # Error class used in part 2.  No need to change this code.

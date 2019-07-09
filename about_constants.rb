@@ -1,8 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'.freeze
-
-#:nodoc:
+# Class
 class AboutConstants < Neo::Koan
   C = 'nested'.freeze
 
@@ -20,15 +19,13 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
+  # Class
   class Animal
     LEGS = 4
     def legs_in_animal
       LEGS
     end
-
-    #:nodoc:
+    # Class
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
@@ -41,8 +38,7 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
+  # Class
   class Reptile < Animal
     def legs_in_reptile
       LEGS
@@ -55,11 +51,9 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  #:nodoc:
   class MyAnimals
     LEGS = 2
-
-    #:nodoc:
+    # Class
     class Bird < Animal
       def legs_in_bird
         LEGS
@@ -75,10 +69,8 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
   class MyAnimals
-    #:nodoc:
+    # Class
     class Oyster < Animal
       def legs_in_oyster
         LEGS

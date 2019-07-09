@@ -1,14 +1,13 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# class
 class AboutModules < Neo::Koan
-  #:nodoc:
+  # superclass
   module Nameable
-    # rubocop: disable Naming/AccessorMethodName
-    def set_name(new_name)
+    def setname(new_name)
       @name = new_name
     end
-    # rubocop: enable Naming/AccessorMethodName
 
     def here
       :in_module
@@ -22,8 +21,7 @@ class AboutModules < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
+  # class
   class Dog
     include Nameable
 

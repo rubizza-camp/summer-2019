@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The path to Ruby Enlightenment starts with the following:
 
 $LOAD_PATH << File.dirname(__FILE__)
@@ -24,7 +26,7 @@ require 'about_triangle_project_2'
 require 'about_iteration'
 require 'about_blocks'
 require 'about_sandwich_code'
-require 'about_scoring_project'
+require 'about_scoping_project'
 require 'about_classes'
 require 'about_open_classes'
 require 'about_dice_project'

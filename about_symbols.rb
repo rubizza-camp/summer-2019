@@ -1,9 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
+# class
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
+
     assert_equal true, symbol.is_a?(Symbol)
   end
 
@@ -23,12 +24,13 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1           == symbol2
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
+  # rubocop:disable Metrics/LineLength,
 
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
-
+  # rubocop:enable Metrics/LineLength,
   # THINK ABOUT IT:
   #
   # Why do we convert the list of symbols to strings and then compare

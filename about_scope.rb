@@ -1,20 +1,20 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
+# classic
 class AboutScope < Neo::Koan
-  #:nodoc:
   module Jims
-    #:nodoc:
+    # da
     class Dog
       def identify
         :jims_dog
       end
     end
   end
-
-  #:nodoc:
+  # vot
   module Joes
-    #:nodoc:
+    # tak
     class Dog
       def identify
         :joes_dog

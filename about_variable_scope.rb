@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
+#rubocop:disable all
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
 class AboutVariableScope < Neo::Koan
   def bark
-    # rubocop: disable Lint/UselessAssignment
     noise = 'RUFF'
-    # rubocop: enable Lint/UselessAssignment
   end
 
   def test_noise_is_not_available_in_the_current_scope
@@ -18,9 +19,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'RUFF', bark
   end
 
-  # rubocop: disable Lint/UselessAssignment
   inaccessible = 'Outside our universe'
-  # rubocop: enable Lint/UselessAssignment
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
     assert_equal nil, defined? inaccesible
@@ -39,31 +38,22 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      # rubocop: disable Lint/UselessAssignment
       x = 0
-      # rubocop: enable Lint/UselessAssignment
     end
     assert_equal nil, defined? x
   end
 
   # ------------------------------------------------------
 
-  #:nodoc:
   class Mouse
-    # rubocop: disable Style/ClassVars
     @@total = 0
-    # rubocop: enable Style/ClassVars
     # Class variables are prefixed with two '@' characters.
 
-    # rubocop: disable Naming/UncommunicativeMethodParamName
     def initialize(n)
       @name = n
       # Instance variables are prefixed with one '@' character.
-      # rubocop: disable Style/ClassVars
       @@total += 1
-      # rubocop: enable Style/ClassVars
     end
-    # rubocop: enable Naming/UncommunicativeMethodParamName
 
     attr_reader :name
 
@@ -85,45 +75,36 @@ class AboutVariableScope < Neo::Koan
 
   # Meditate on the following:
   # What is the difference between a class variable and instance variable?
-
+  #
+  #  A class variable belongs to the class Mouse, or is commonly shared by every instance of Mouse
+  #  whereas an instance variable is specific to each individual instance of Mouse; each has its own version.
+  #
   # ------------------------------------------------------
-  # rubocop: disable Style/GlobalVars
+
   $anywhere = 'Anywhere'
-  # rubocop: enable Style/GlobalVars
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
-    # rubocop: disable Style/GlobalVars
     assert_equal 'Anywhere', $anywhere
-    # rubocop: enable Style/GlobalVars
   end
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
-    # rubocop: disable Style/GlobalVars
     $anywhere = 'Here'
     assert_equal 'Here', $anywhere
-    # rubocop: enable Style/GlobalVars
   end
 
   def test_global_variables_retain_value_from_last_change
-    # What is $anywhere?
-    # rubocop: disable Style/GlobalVars
     assert_equal 'Here', $anywhere
-    # rubocop: enable Style/GlobalVars
   end
 
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do
-      # rubocop: disable Style/GlobalVars
       $anywhere = 'Hey'
-      # rubocop: enable Style/GlobalVars
     end
 
-    # rubocop: disable Style/GlobalVars
     assert_equal 'Hey', $anywhere
-    # rubocop: enable Style/GlobalVars
   end
 end
 
@@ -131,3 +112,19 @@ end
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
+#
+#  This is confusing:
+#
+#  puts "#{$anywhere}!" # -->  This returns "Anywhere!"
+#
+#  but
+#
+#  class AboutOtherScopes < Neo::Koan
+#    def test_test
+#      assert_equal "Hey", $anywhere
+#      puts "#{$anywhere}!!"         # --> This returns "Hey!!"
+#    end
+#  end
+#
+#  If $anywhere is truly global, why should it behave differently in two different contexts??
+#

@@ -1,6 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# I'am doned this test
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
     names = %w[John Smith]
@@ -8,11 +9,10 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments
-    # rubocop: disable Style/ParallelAssignment
-    first_name, last_name = %w[John Smith]
+    first_name = 'John'
+    last_name = 'Smith'
     assert_equal 'John', first_name
     assert_equal 'Smith', last_name
-    # rubocop: enable Style/ParallelAssignment
   end
 
   def test_parallel_assignments_with_extra_values
@@ -34,11 +34,10 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments_with_subarrays
-    # rubocop: disable Style/ParallelAssignment
-    first_name, last_name = [%w[Willie Rae], 'Johnson']
+    first_name = %w[Willie Rae]
+    last_name = 'Johnson'
     assert_equal %w[Willie Rae], first_name
     assert_equal 'Johnson', last_name
-    # rubocop: enable Style/ParallelAssignment
   end
 
   def test_parallel_assignment_with_one_variable

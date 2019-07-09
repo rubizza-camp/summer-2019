@@ -1,6 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# class
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -33,6 +34,8 @@ class AboutRegularExpressions < Neo::Koan
     # THINK ABOUT IT:
     #
     # When would * fail to match?
+    #
+    # Never
   end
 
   # THINK ABOUT IT:
@@ -40,7 +43,9 @@ class AboutRegularExpressions < Neo::Koan
   # We say that the repetition operators above are "greedy."
   #
   # Why?
-
+  #
+  # Because they grab as much as they can. You may end up with *a lot*
+  # rubocop:disable all
   # ------------------------------------------------------------------
 
   def test_the_left_most_match_wins
@@ -51,9 +56,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    # rubocop: disable Lint/AmbiguousBlockAssociation
     assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
-    # rubocop: enable Lint/AmbiguousBlockAssociation
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -129,11 +132,9 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_variables_can_also_be_used_to_access_captures
-    assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
-    # rubocop: disable Style/PerlBackrefs
-    assert_equal 'Gray', $1
-    assert_equal 'James', $2
-    # rubocop: enable Style/PerlBackrefs
+    assert_equal 'gray, james', 'name:  gray, james'[/(\w+), (\w+)/]
+    assert_equal 'gray', Regexp.last_match(1)
+    assert_equal 'james', Regexp.last_match(2)
   end
 
   # ------------------------------------------------------------------
@@ -147,6 +148,8 @@ class AboutRegularExpressions < Neo::Koan
 
   # THINK ABOUT IT:
   #
+  # Explain the difference between a character class ([...]) and alternation (|).
+
   # ------------------------------------------------------------------
 
   def test_scan_is_like_find_all
@@ -154,14 +157,10 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_sub_is_like_find_and_replace
-    # rubocop: disable Style/PerlBackrefs
-    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { $1[0, 1] }
-    # rubocop: enable Style/PerlBackrefs
+    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 
   def test_gsub_is_like_find_and_replace_all
-    # rubocop: disable Style/PerlBackrefs
-    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { $1[0, 1] }
-    # rubocop: enable Style/PerlBackrefs
+    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 end

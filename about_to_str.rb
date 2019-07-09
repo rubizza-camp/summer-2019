@@ -1,8 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# class
 class AboutToStr < Neo::Koan
-  #:nodoc:
+  # class
   class CanNotBeTreatedAsString
     def to_s
       'non-string-like'
@@ -21,8 +22,7 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:noodc:
+  # class
   class CanBeTreatedAsString
     def to_s
       'string-like'

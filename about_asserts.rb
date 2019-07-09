@@ -1,9 +1,10 @@
-# !/usr/bin/env ruby
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # -*- ruby -*-
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-#:nodoc:
+# It should be true, so it true
 class AboutAsserts < Neo::Koan
   # We shall contemplate truth by testing reality, via asserts.
   def test_assert_truth

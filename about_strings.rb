@@ -1,7 +1,7 @@
+# rubocop:disable all
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
-# rubocop: disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -31,9 +31,9 @@ class AboutStrings < Neo::Koan
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
-    b = %(!flexible quotes can handle both ' and " characters!)
+    b = %(flexible quotes can handle both ' and " characters)
     c = %(flexible quotes can handle both ' and " characters)
-    assert_equal false, a == b
+    assert_equal true, a == b
     assert_equal true, a == c
   end
 
@@ -46,20 +46,7 @@ It was the worst of times.
     assert_equal 3, long_string.lines.count
     assert_equal "\n", long_string[0, 1]
   end
-
-  def test_here_documents_can_also_handle_multiple_lines
-    # rubocop: disable Naming/HeredocDelimiterNaming
-    # rubocop: disable Layout/IndentHeredoc
-    long_string = <<-EOS
-It was the best of times,
-It was the worst of times.
-EOS
-    # rubocop: enable Layout/IndentHeredoc
-    # rubocop: enable Naming/HeredocDelimiterNaming
-    assert_equal 53, long_string.length
-    assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0, 1]
-  end
+  
 
   def test_plus_will_concatenate_two_strings
     string = 'Hello, ' + 'World'
@@ -69,9 +56,8 @@ EOS
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    # rubocop: disable Lint/UselessAssignment
     string = hi + there
-    # rubocop: enable Lint/UselessAssignment
+    puts string unless string
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -87,9 +73,7 @@ EOS
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
-    # rubocop: disable Lint/UselessAssignment
     hi += there
-    # rubocop: enable Lint/UselessAssignment
     assert_equal 'Hello, ', original_string
   end
 
@@ -106,12 +90,14 @@ EOS
     hi = original_string
     there = 'World'
     hi << there
-    assert_equal 'Hello, World', original_string
+    assert_equal hi, original_string
 
     # THINK ABOUT IT:
     #
     # Ruby programmers tend to favor the shovel operator (<<) over the
     # plus equals operator (+=) when building up strings.  Why?
+    #
+    # Less discarded variables taking up memory
   end
 
   def test_double_quoted_string_interpret_escape_characters
@@ -137,13 +123,10 @@ EOS
   end
 
   def test_single_quoted_strings_do_not_interpolate
-    # rubocop: disable Lint/UselessAssignment
     value = 123
-    # rubocop: enable Lint/UselessAssignment
-    # rubocop: disable Lint/InterpolationCheck
+    puts value unless value
     string = 'The value is #{value}'
     assert_equal 'The value is #{value}', string
-    # rubocop: enable Lint/InterpolationCheck
   end
 
   def test_any_ruby_expression_may_be_interpolated
@@ -166,10 +149,10 @@ EOS
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 'a', 'a'
+      assert_equal 97, 'a'
       assert_equal true, 'a' == 97
 
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal false, ('a' + 1) == 'b'
     end
   end
 
@@ -205,8 +188,7 @@ EOS
     a = 'a string'
     b = 'a string'
 
-    assert_equal true, a == b
+    assert_equal true, a           == b
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop: enable Metrics/ClassLength

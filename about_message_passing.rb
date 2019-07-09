@@ -1,8 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# class
 class AboutMessagePassing < Neo::Koan
-  #:nodoc:
+  # class
   class MessageCatcher
     def caught?
       true
@@ -25,8 +26,8 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' + '?') # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
+    assert mc.send('caught' + '?')
+    assert mc.send('CAUGHT?'.downcase)
   end
 
   def test_send_with_underscores_will_also_send_messages
@@ -37,6 +38,8 @@ class AboutMessagePassing < Neo::Koan
     # THINK ABOUT IT:
     #
     # Why does Ruby provide both send and __send__ ?
+    #
+    # So you can overwrite send with a new class instance method if desired?
   end
 
   def test_classes_can_be_asked_if_they_know_how_to_respond
@@ -47,8 +50,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
+  # rub
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -74,7 +76,6 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  #:nodoc:
   class TypicalObject
   end
 
@@ -114,14 +115,12 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
+  # gub
+  # rubocop:disable all
   class AllMessageCatcher
-    # rubocop: disable all
-    def method_missing(method_name, *args, &_block)
+    def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
-    # rubocop: enable all
   end
 
   def test_all_messages_are_caught
@@ -129,7 +128,7 @@ class AboutMessagePassing < Neo::Koan
 
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
+    assert_equal 'Someone sum <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
   def test_catching_messages_makes_respond_to_lie
@@ -142,10 +141,8 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
+  # jim
   class WellBehavedFooCatcher
-    # rubocop: disable all
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
@@ -153,7 +150,6 @@ class AboutMessagePassing < Neo::Koan
         super(method_name, *args, &block)
       end
     end
-    # rubocop: enable all
   end
 
   def test_foo_method_are_caught
@@ -174,7 +170,6 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   # (note: just reopening class from above)
-  #:nodoc:
   class WellBehavedFooCatcher
     def respond_to?(method_name)
       if method_name.to_s[0, 3] == 'foo'
@@ -184,7 +179,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-
+  
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
 

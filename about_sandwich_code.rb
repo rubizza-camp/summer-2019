@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
+# class
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
-    (count += 1) while file.gets
+    count += 1 while file.gets
     count
   ensure
     file.close
@@ -20,9 +20,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
-      # rubocop: disable Performance/RedundantMatch
-      return line if line.match(/e/)
-      # rubocop: enable Performance/RedundantMatch
+      return line if line =~ /e/
     end
   ensure
     file.close
@@ -66,7 +64,7 @@ class AboutSandwichCode < Neo::Koan
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
-      (count += 1) while file.gets
+      count += 1 while file.gets
       count
     end
   end
@@ -80,12 +78,9 @@ class AboutSandwichCode < Neo::Koan
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
       while (line = file.gets)
-        # rubocop: disable Performance/RedundantMatch
-        return line if line.match(/e/)
-        # rubocop: enable Performance/RedundantMatch
+        return line if line =~ /e/
       end
     end
-    # Rewrite find_line using the file_sandwich library function.
   end
 
   def test_finding_lines2
@@ -97,7 +92,7 @@ class AboutSandwichCode < Neo::Koan
   def count_lines3(file_name)
     File.open(file_name) do |file|
       count = 0
-      (count += 1) while file.gets
+      count += 1 while file.gets
       count
     end
   end

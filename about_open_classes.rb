@@ -1,8 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# class
 class AboutOpenClasses < Neo::Koan
-  #:nodoc:
+  # class
   class Dog
     def bark
       'WOOF'
@@ -17,7 +18,6 @@ class AboutOpenClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   # Open the existing Dog class and add a new method.
-  #:nodoc:
   class Dog
     def wag
       'HAPPY'
@@ -31,15 +31,12 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  #:nodoc:
-  # rubocop: disable Style/ClassAndModuleChildren
-  class ::Integer
+  # class
+  class Integer
     def even?
-      (self % 2).zero?
+      even?
     end
   end
-  # rubocop: enable Style/ClassAndModuleChildren
 
   def test_even_existing_built_in_classes_can_be_reopened
     assert_equal false, 1.even?

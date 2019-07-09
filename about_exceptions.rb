@@ -1,8 +1,10 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
 
-#:nodoc:
+# rubocop:disable Metrics/MethodLength
+
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# Puti
 class AboutExceptions < Neo::Koan
-  #:nodoc:
   class MySpecialError < RuntimeError
   end
 
@@ -13,7 +15,6 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
-  # rubocop: disable Metrics/MethodLength
   def test_rescue_clause
     result = nil
     begin
@@ -21,14 +22,17 @@ class AboutExceptions < Neo::Koan
     rescue StandardError => e
       result = :exception_handled
     end
+
     assert_equal :exception_handled, result
+
     assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
+
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
+
     assert_equal 'Oops', e.message
   end
-  # rubocop: enable Metrics/MethodLength
 
   def test_raising_a_particular_error
     result = nil
@@ -44,14 +48,10 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
-    # rubocop: disable Lint/UselessAssignment
-    result = nil
-    # rubocop: enable Lint/UselessAssignment
     begin
       raise 'Oops'
-      # rubocop: disable Lint/HandleExceptions
     rescue StandardError
-      # rubocop: enable Lint/HandleExceptions
+      StandardError
       # no code here
     ensure
       result = :always_run
@@ -59,8 +59,9 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :always_run, result
   end
-
+  # rubocop:enable Metrics/MethodLength
   # Sometimes, we must know about the unknown
+
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
     assert_raise(MySpecialError) do

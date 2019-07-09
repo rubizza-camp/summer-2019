@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Greed is a dice game where you roll up to five dice to accumulate
@@ -28,39 +30,21 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+# rubocop:disable Metrics/AbcSize
 def score(dice)
-  # You need to write this method
-  sum = 0
-  hash = Hash.new(0)
-  unless dice.empty?
-    dice.each do |num|
-      hash[num] += 1
+  score = 0
+  (1..6).each do |i|
+    idice = dice.select { |d| d == i }
+    if idice.size >= 3
+      score += (i == 1 ? 1000 : i * 100)
     end
-    sum = calculate(hash, sum)
+    score += (idice.size % 3) * 100 if i == 1
+    score += (idice.size % 3) * 50 if i == 5
   end
-  sum
+  score
 end
-
-def calculate(hash, sum)
-  hash.each do |num, count|
-    if count >= 3
-      sum += 1000 if num == 1
-      sum += num * 100 if num != 1
-      count -= 3
-    end
-    sum = scoring(sum, num, count)
-  end
-  sum
-end
-
-def scoring(sum, num, count)
-  sum += 100 * count if count.positive? && num == 1
-  sum += 50 * count if count.positive? && num == 5
-  sum
-end
-
-#:nodoc:
+# rubocop:enable Metrics/AbcSize
+# class
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
