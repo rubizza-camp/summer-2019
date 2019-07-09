@@ -6,42 +6,4 @@ Style/Documentation:
 
 Metrics/LineLength:
   Max: 100
-
-Style/RedundantSelf:
-  Enabled: false
-
-Lint/AmbiguousRegexpLiteral:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/ClassLength:
-  Enabled: false
-
-Style/AccessModifierDeclarations:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
-Security/Open:
-  Enabled: false
-
-Lint/Void:
-  Enabled: false
-
-Lint/UnreachableCode:
-  Enabled: false
-
-Style/EvalWithLocation:
-  Enabled: false
-
-Lint/HandleExceptions:
-  Enabled: false
-
-Lint/LiteralAsCondition:
-  Enabled: false
-
-Style/TrivialAccessors:
-  Enabled: false
+    
