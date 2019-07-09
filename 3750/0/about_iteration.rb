@@ -65,11 +65,11 @@ class AboutIteration < Neo::Koan
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
-    even_numbers = array.select { |item| item.even? }
+    even_numbers = array.select(&:even?)
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all { |item| item.even? }
+    more_even_numbers = array.find_all(&:even?)
     assert_equal [2, 4, 6], more_even_numbers
   end
 

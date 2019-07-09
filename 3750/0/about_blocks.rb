@@ -24,7 +24,7 @@ class AboutBlocks < Neo::Koan
 
   def test_blocks_can_take_arguments
     method_with_block_arguments do |argument|
-      assert_equal "Jim", argument
+      assert_equal 'Jim', argument
     end
   end
 
@@ -44,8 +44,7 @@ class AboutBlocks < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  
-  # rubocop:disable all
+
   def yield_tester
     if block_given?
       yield
@@ -53,10 +52,9 @@ class AboutBlocks < Neo::Koan
       :no_block
     end
   end
-  # rubocop:enable all
 
   def test_methods_can_see_if_they_have_been_called_with_a_block
-    assert_equal :with_block, yield_tester { :with_block }
+    assert_equal :with_block, (yield_tester { :with_block })
     assert_equal :no_block, yield_tester
   end
 

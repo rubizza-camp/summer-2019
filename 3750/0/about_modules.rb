@@ -50,6 +50,7 @@ class AboutModules < Neo::Koan
   end
   #---------------------------------------------------------------------
 
+  # :reek:FeatureEnvy
   # rubocop:disable all
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
