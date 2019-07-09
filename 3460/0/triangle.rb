@@ -1,4 +1,4 @@
-# rubocop:disable all
+# rubocop:disable Metrics/LineLength
 
 # frozen_string_literal: true
 
@@ -40,4 +40,4 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable all
+# rubocop:enable Metrics/LineLength
