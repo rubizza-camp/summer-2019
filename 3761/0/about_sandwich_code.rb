@@ -1,13 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
+  # :reek:UtilityFunction
+
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
     count += 1 while file.gets
     count
   ensure
-    file.close if file
+    file&.close if file
   end
 
   def test_counting_lines
@@ -15,16 +17,15 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
 
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
-      # rubocop:disable Performance/RedundantMatch
       return line if line.match(/e/)
-      # rubocop:enable Performance/RedundantMatch
     end
   ensure
-    file.close if file
+    file&.close if file
   end
 
   def test_finding_lines
@@ -52,17 +53,18 @@ class AboutSandwichCode < Neo::Koan
   #
   # Consider the following code:
   #
+  # :reek:UtilityFunction
 
   def file_sandwich(file_name)
     file = File.open(file_name)
     yield(file)
   ensure
-    file.close if file
+    file&.close if file
   end
 
   # Now we write:
 
-  def count_lines2(file_name)
+  def count_lines_two(file_name)
     file_sandwich(file_name) do |file|
       count = 0
       count += 1 while file.gets
@@ -70,29 +72,28 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
-  def test_counting_lines2
-    assert_equal 4, count_lines2('example_file.txt')
+  def test_counting_lines_two
+    assert_equal 4, count_lines_two('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  def find_line2(file_name)
+  def find_line_two(file_name)
     file_sandwich(file_name) do |file|
       while (line = file.gets)
-        # rubocop:disable Performance/RedundantMatch
-        return line if line.match(/e/)
-        # rubocop:enable Performance/RedundantMatch
+        return line if line =~ /e/
       end
     end
   end
 
-  def test_finding_lines2
-    assert_equal "test\n", find_line2('example_file.txt')
+  def test_finding_lines_two
+    assert_equal "test\n", find_line_two('example_file.txt')
   end
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
 
-  def count_lines3(file_name)
+  def count_lines_three(file_name)
     File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
@@ -101,6 +102,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def test_open_handles_the_file_sandwich_when_given_a_block
-    assert_equal 4, count_lines3('example_file.txt')
+    assert_equal 4, count_lines_three('example_file.txt')
   end
 end

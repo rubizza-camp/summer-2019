@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UtilityFunction
 def my_global_method(par_a, par_b)
   par_a + par_b
 end
-
+# :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -32,6 +32,8 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
+  # :reek:TooManyStatements
+
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
@@ -95,6 +97,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
 
   def my_method_in_the_same_class(par_a, par_b)
     par_a * par_b

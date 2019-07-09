@@ -28,12 +28,16 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+# :reek:UtilityFunction
+
 def sum_points(numb, count)
   result = 0
   result += numb * 10 if (count / 3) == 1
   result += numb * (count % 3)
   result
 end
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
 
 def score(dice)
   result = 0
@@ -51,11 +55,11 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([])
   end
 
-  def test_score_of_a_single_roll_of_5_is_50
+  def test_score_of_a_single_roll_of_5_is_50t
     assert_equal 50, score([5])
   end
 
-  def test_score_of_a_single_roll_of_1_is_100
+  def test_score_of_a_single_roll_of_1_is_100t
     assert_equal 100, score([1])
   end
 
@@ -67,7 +71,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
-  def test_score_of_a_triple_1_is_1000
+  def test_score_of_a_triple_1_is_1000t
     assert_equal 1000, score([1, 1, 1])
   end
 

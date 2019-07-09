@@ -3,15 +3,15 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
-  # rubocop:disable Naming/MethodName
-  def test_exceptions_inherit_from_Exception
+
+  def test_exceptions_inherit_from_exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
-  # rubocop:enable Naming/MethodName
   # rubocop:disable Metrics/MethodLength
+  # :reek:TooManyStatements
 
   def test_rescue_clause
     result = nil
@@ -32,6 +32,7 @@ class AboutExceptions < Neo::Koan
     # rubocop:enable Metrics/LineLength
     assert_equal 'Oops', ex.message
   end
+  # :reek:TooManyStatements
 
   def test_raising_a_particular_error
     result = nil

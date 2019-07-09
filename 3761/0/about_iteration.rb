@@ -8,12 +8,14 @@ class AboutIteration < Neo::Koan
   # whenever comparing to lists of methods.
 
   in_ruby_version('1.8') do
+    # :reek:UtilityFunction
     def as_name(name)
       name.to_s
     end
   end
 
   in_ruby_version('1.9', '2') do
+    # :reek:UtilityFunction
     def as_name(name)
       name.to_sym
     end
@@ -41,6 +43,7 @@ class AboutIteration < Neo::Koan
     array.each { |item| sum += item }
     assert_equal 6, sum
   end
+  # :reek:TooManyStatements
 
   def test_break_works_with_each_style_iterations
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -51,6 +54,7 @@ class AboutIteration < Neo::Koan
     end
     assert_equal 6, sum
   end
+  # :reek:TooManyStatements
 
   def test_collect_transforms_elements_of_an_array
     array = [1, 2, 3]
@@ -61,6 +65,7 @@ class AboutIteration < Neo::Koan
     another_array = array.map { |item| item + 10 }
     assert_equal [11, 12, 13], another_array
   end
+  # :reek:TooManyStatements
 
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
@@ -78,17 +83,20 @@ class AboutIteration < Neo::Koan
 
     assert_equal 'Clarence', (array.find { |item| item.size > 4 })
   end
+  # :reek:TooManyStatements
 
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
 
-    result2 = [2, 3, 4].inject(1) { |product, item| product * item }
-    assert_equal 24, result2
+    result_two = [2, 3, 4].inject(1) { |product, item| product * item }
+    assert_equal 24, result_two
 
     # Extra Credit:
     # Describe in your own words what inject does.
   end
+  # :reek:TooManyStatements
+  # :reek:NestedIterators
 
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
