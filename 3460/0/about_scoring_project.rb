@@ -1,8 +1,8 @@
-# rubocop:disable all
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UtilityFunction
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
 def score(dice)
   dice = dice.sort
   sum = 0
@@ -15,7 +15,6 @@ def score(dice)
   sum
 end
 
-# class AboutScoringProject < Neo::Koan
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
@@ -57,4 +56,3 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:enable all
