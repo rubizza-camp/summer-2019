@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UnneededCopDisableDirective
 class AboutNil < Neo::Koan
   def test_nil_is_an_object
     assert_equal true, nil.is_a?(Object), 'Unlike NULL in other languages'
@@ -11,15 +12,16 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
-  rescue StandardError => e
+  rescue StandardError => err
     # What exception has been caught?
-    assert_equal NoMethodError, e.class
+    assert_equal NoMethodError, err.class
 
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
-    assert_match(/undefined method/, e.message)
+    assert_match(/undefined method/, err.message)
   end
 
+  # rubocop:disable NilCheck
   def test_nil_has_a_few_methods_defined_on_it
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s
@@ -33,4 +35,6 @@ class AboutNil < Neo::Koan
     #    obj == nil
     # Why?
   end
+  # rubocop:enable NilCheck
 end
+# rubocop:enable Lint/UnneededCopDisableDirective

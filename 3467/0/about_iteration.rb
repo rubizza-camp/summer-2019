@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UnneededCopDisableDirective
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -7,6 +8,7 @@ class AboutIteration < Neo::Koan
   # convert to the right format in the koans. We will use "as_name"
   # whenever comparing to lists of methods.
 
+  # rubocop:disable UtilityFunction
   in_ruby_version('1.8') do
     def as_name(name)
       name.to_s
@@ -18,7 +20,7 @@ class AboutIteration < Neo::Koan
       name.to_sym
     end
   end
-
+  # rubocop:enable UtilityFunction
   # Ok, now back to the Koans.
   # -------------------------------------------------------------------
 
@@ -119,3 +121,4 @@ class AboutIteration < Neo::Koan
   #
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 end
+# rubocop:enable Lint/UnneededCopDisableDirective

@@ -22,7 +22,7 @@ def ruby_version?(version)
 end
 
 def in_ruby_version(*versions)
-  yield if versions.any? { |v| ruby_version?(v) }
+  yield if versions.any? { |ver| ruby_version?(ver) }
 end
 
 in_ruby_version('1.8') do
