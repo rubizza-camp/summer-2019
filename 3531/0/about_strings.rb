@@ -160,7 +160,6 @@ It was the worst of times.
       assert_equal 'a', 'a'
       assert_equal false, 'a' == 97
       assert_equal false, ('a' + 1) == 'b'
-      assert_equal false, 'b' == ('a' + 1)
     end
   end
 
