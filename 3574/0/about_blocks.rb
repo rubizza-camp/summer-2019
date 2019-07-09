@@ -70,7 +70,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
-    add_one = ->(noon) { n + 1 }
+    add_one = ->(_noon) { n + 1 }
     assert_equal 11, add_one.call(10)
 
     # Alternative calling syntax

@@ -181,6 +181,7 @@ class TelevisionTest < Neo::Koan
 
     assert !tv.on?
   end
+
   # :reek:FeatureEnvy:
   def test_can_set_the_channel
     tv = Television.new
