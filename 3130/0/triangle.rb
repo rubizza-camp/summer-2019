@@ -17,15 +17,21 @@
 def check_sides_sums(fst, snd, thrd)
   fst + snd > thrd && fst + thrd > snd && snd + thrd > fst
 end
+# :reek:enable
 
+# :reek:disable
 def validate_sides(fst, snd, thrd)
   fst.positive? && snd.positive? && thrd.positive?
 end
+# :reek:enable
 
+# :reek:disable
 def isosceles?(fst, snd, thrd)
   fst == snd || fst == thrd || snd == thrd
 end
+# :reek:enable
 
+# :reek:disable
 def triangle(fst, snd, thrd)
   raise TriangleError if !validate_sides(fst, snd, thrd) || !check_sides_sums(fst, snd, thrd)
 

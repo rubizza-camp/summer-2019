@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:disable
+
 def my_global_method(first, second)
   first + second
 end
-
+# :reek:disable
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)

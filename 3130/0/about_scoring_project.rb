@@ -32,7 +32,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 def count_score_without_sets(hash_dice, score)
   score + hash_dice[1] * 100 + hash_dice[5] * 50
 end
+# :reek:enable
 
+# :reek:disable
 def score(dice)
   result_score = 0
   hash_dice = Hash.new(0)
@@ -45,7 +47,9 @@ def score(dice)
   end
   count_score_without_sets(hash_dice, result_score)
 end
+# :reek:enable
 
+# :reek:disable
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])

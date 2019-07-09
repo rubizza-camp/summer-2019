@@ -109,7 +109,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop: disable Style/MethodMissing
+  # rubocop:disable Style/MethodMissing
   # :reek:disable BooleanParameter
   class AllMessageCatcher
     def method_missing(method_name, *args)
@@ -121,7 +121,7 @@ class AboutMessagePassing < Neo::Koan
     end
   end
   # :reek:enable BooleanParameter
-  # rubocop: enable Style/MethodMissing
+  # rubocop:enable Style/MethodMissing
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 

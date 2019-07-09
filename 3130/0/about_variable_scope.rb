@@ -35,18 +35,21 @@ class AboutVariableScope < Neo::Koan
     assert_equal __, test
   end
 
-  # rubocop:disable Lint/UselessAssignment:
+  # rubocop:disable all
+  # :reek:disable
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
       x = 0
     end
     assert_equal __, defined? x
   end
-  # rubocop:enable Lint/UselessAssignment:
+  # :reek:enable
+  # rubocop:enable all
 
   # ------------------------------------------------------
 
-  # rubocop:disable Style/ClassVars
+  # rubocop:disable all
+  # :reek:disable
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
@@ -63,7 +66,8 @@ class AboutVariableScope < Neo::Koan
       @@total
     end
   end
-  # rubocop:enable Style/ClassVars
+  # :reek:enable
+  # rubocop:enable all
 
   def test_instance_variable
     oscar = Mouse.new('Oscar')
@@ -110,10 +114,9 @@ class AboutVariableScope < Neo::Koan
   end
 end
 # rubocop:enable Style/GlobalVars:
+# :reek:enable
 
 # THINK ABOUT IT:
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
-
-# :reek:enable
