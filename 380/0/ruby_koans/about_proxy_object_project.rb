@@ -28,15 +28,18 @@ class Proxy
     @messages.count method_name
   end
 
+  # rubocop:disable Lint/MissingCopEnableDirective
   def method_missing(method, *args, &block)
     if @object.respond_to? method
       @messages.push method
       @object.send method, *args
     else
+      super
       raise NoMethodError
     end
   end
 end
+# rubocop:enabled Lint/MissingCopEnableDirective
 
 # The proxy object should pass the following Koan:
 #
@@ -119,11 +122,11 @@ class Television
   attr_accessor :channel
 
   def power
-    if @power == :on
-      @power = :off
-    else
-      @power = :on
-    end
+    @power = if @power == :on
+               :off
+             else
+               :on
+             end
   end
 
   def on?

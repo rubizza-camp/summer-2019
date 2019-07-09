@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disabled Lint/LiteralAsCondition
+# rubocop:disabled Metrics/ClassLength
+# rubocop:disabled Lint/LiteralAsCondition
+# rubocop:disabled Style/ConditionalAssignment
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     if true
@@ -139,3 +142,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enabled Lint/LiteralAsCondition
+# rubocop:enabled Metrics/ClassLength
+# rubocop:enabled Lint/LiteralAsCondition
+# rubocop:enabled Style/ConditionalAssignment

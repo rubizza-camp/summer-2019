@@ -1,9 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disabled Style/MutableConstant
 C = 'top level'
 
 class AboutConstants < Neo::Koan
   C = 'nested'
+# rubocop:enabled Style/MutableConstant
 
   def test_nested_constants_may_also_be_referenced_with_relative_paths
     assert_equal 'nested', C
@@ -69,7 +71,7 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-
+  # rubocop:disabled Style/MutableConstant
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
@@ -79,6 +81,7 @@ class AboutConstants < Neo::Koan
   def test_who_wins_with_explicit_scoping_on_class_definition
     assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
   end
+  # rubocop:enabled Style/MutableConstant
 
   # QUESTION: Now which has precedence: The constant in the lexical
   # scope, or the constant from the inheritance hierarchy?  Why is it

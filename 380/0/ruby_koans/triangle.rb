@@ -35,3 +35,9 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+
+# rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Style/NumericPredicate
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/AbcSize
