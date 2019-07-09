@@ -1,10 +1,6 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class AboutMessagePassing < Neo::Koan
 class AboutMessagePassing < Neo::Koan
-  # class MessageCatcher
   class MessageCatcher
     def caught?
       true
@@ -40,16 +36,16 @@ class AboutMessagePassing < Neo::Koan
     #
     # Why does Ruby provide both send and __send__ ?
   end
+  # :reek:ManualDispatch
 
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
-
     assert_equal true, mc.respond_to?(:caught?)
     assert_equal false, mc.respond_to?(:does_not_exist)
   end
 
   # ------------------------------------------------------------------
-  # class MessageCatcher
+
   class MessageCatcher
     def add_a_payload(*args)
       args
@@ -74,7 +70,7 @@ class AboutMessagePassing < Neo::Koan
   # common way of sending a message is just to say: obj.msg.
 
   # ------------------------------------------------------------------
-  # class TypicalObject
+
   class TypicalObject
   end
 
@@ -112,12 +108,17 @@ class AboutMessagePassing < Neo::Koan
     # Thanks.  We now return you to your regularly scheduled Ruby
     # Koans.
   end
+
   # ------------------------------------------------------------------
-  # class AllMessageCatcher
+
   class AllMessageCatcher
-    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissing
+    # rubocop:disable Style/MethodMissing
+    # :reek:UtilityFunction
+
+    def method_missing(method_name, *args, &_block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
+    # rubocop:enable Style/MethodMissing
   end
 
   def test_all_messages_are_caught
@@ -127,10 +128,10 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
+  # :reek:ManualDispatch
 
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
-
     assert_nothing_raised do
       catcher.any_method
     end
@@ -138,15 +139,18 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # class AllMessageCatcher
+
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
+    # rubocop:disable Style/MethodMissing
+
+    def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
         super(method_name, *args, &block)
       end
     end
+    # rubocop:enable Style/MethodMissing
   end
 
   def test_foo_method_are_caught
@@ -165,6 +169,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
   # (note: just reopening class from above)
   class WellBehavedFooCatcher
     def respond_to?(method_name)
@@ -175,10 +180,10 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
+  # :reek:ManualDispatch
 
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
-
     assert_equal true, catcher.respond_to?(:foo_bar)
     assert_equal false, catcher.respond_to?(:something_else)
   end
