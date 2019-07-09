@@ -67,6 +67,7 @@ class AboutVariableScope < Neo::Koan
     oscar = Mouse.new('Oscar')
     assert_equal __, oscar.name
   end
+  # :reek:UncommunicativeVariableName
 
   def test_class_variable
     (1..9).each { |i| Mouse.new(i.to_s) }
