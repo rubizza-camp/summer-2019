@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable all
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -11,7 +11,6 @@ class AboutStrings < Neo::Koan
     assert_equal true, string.is_a?(String)
   end
 
-  # rubocop:enable Metrics/ClassLength
   def test_single_quoted_strings_are_also_strings
     string = 'Goodbye, World'
     assert_equal true, string.is_a?(String)
@@ -66,7 +65,6 @@ MEANINGFUL
     assert_equal 'Hello, World', string
   end
 
-  # rubocop:disable Lint/UselessAssignment
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
@@ -139,7 +137,6 @@ MEANINGFUL
     assert_equal "The value is #{value}", string
   end
 
-  # rubocop:enable Lint/UselessAssignment
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
     assert_equal 'The square root of 5 is 2.23606797749979', string
@@ -203,3 +200,4 @@ MEANINGFUL
     assert_equal false, str_a.object_id == str_b.object_id
   end
 end
+# rubocop:enable all
