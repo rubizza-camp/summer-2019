@@ -39,7 +39,7 @@ class AboutHashes < Neo::Koan
     expected = { one: 'eins', two: 'dos' }
     assert_equal expected, hash
 
-    # Bonus Question: Why was 'expected' broken out into a variable
+    # Bonus Question: Why was "expected" broken out into a variable
     # rather than used as a literal?
   end
 
@@ -90,8 +90,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def test_default_value_is_the_same_object
+  def test_default_value_is_the_same_object # rubocop:disable Metrics/AbcSize
     hash = Hash.new([])
 
     hash[:one] << 'uno'
@@ -103,9 +102,9 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
-  # rubocop:enable Metrics/AbcSize
+
   def test_default_value_with_block
-    hash = Hash.new { |haash, key| h[key] = [] }
+    hash = Hash.new { |hash, key| hash[key] = [] } # rubocop:disable Lint/ShadowingOuterLocalVariable
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

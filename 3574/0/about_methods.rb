@@ -1,4 +1,4 @@
-# rubocop: disable Lint/AmbiguousRegexpLiteral, Style/RedundantSelf, Style/EvalWithLocation
+# rubocop: disable Lint/AmbiguousRegexpLiteral, Style/RedundantSelf
 # rubocop: disable Lint/Void, Lint/UnreachableCode
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
