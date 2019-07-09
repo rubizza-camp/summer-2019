@@ -39,7 +39,6 @@ class Proxy
   end
 
   # rubocop:enable Style/MethodMissing
-
 end
 
 # The proxy object should pass the following Koan:
