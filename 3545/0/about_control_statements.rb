@@ -103,6 +103,8 @@ class AboutControlStatements < Neo::Koan
 
     assert_equal 2, result
   end
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
 
   def test_next_statement
     i = 0
