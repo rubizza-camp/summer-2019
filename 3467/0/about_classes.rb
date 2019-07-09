@@ -1,4 +1,5 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/EvalWithLocation
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -92,11 +93,9 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable Style/EvalWithLocation
   class DogFive
     attr_accessor :name
   end
-  # rubocop:enable Style/EvalWithLocation
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = DogFive.new
@@ -188,4 +187,5 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Style/EvalWithLocation
 # rubocop:enable Lint/UnneededCopDisableDirective
