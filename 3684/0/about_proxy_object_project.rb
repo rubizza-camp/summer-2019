@@ -13,25 +13,20 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
-  attr_reader :object, :channel_calls, :power_calls, :on_calls
+  attr_reader :object
   def initialize(target_object)
     @object = target_object
     @messages_array = []
-    @channel_calls = 0
-    @power_calls = 0
-    @on_calls = 0
   end
 
   def power
     @object.power
     @messages_array << :power
-    @power_calls += 1
   end
 
   def channel=(value)
     @object.channel = value
     @messages_array << :channel=
-    @channel_calls += 1
   end
 
   def channel
@@ -41,19 +36,10 @@ class Proxy
   def on?
     @object.on?
     @messages_array << :on?
-    @on_calls += 1
   end
 
   def number_of_times_called(parameter)
-    if parameter == :power
-      power_calls
-    elsif parameter == :channel=
-      channel_calls
-    elsif parameter == :on?
-      on_calls
-    else
-      raise ArgumentError
-    end
+    @messages_array.count(parameter)
   end
 
   def messages
