@@ -44,7 +44,7 @@ class AboutBlocks < Neo::Koan
   def test_methods_can_call_yield_many_times
     result = []
     many_yields { |item| result << item }
-    assert_equal %i(peanut butter and jelly), result
+    assert_equal %i[peanut butter and jelly], result
   end
 
   # ------------------------------------------------------------------

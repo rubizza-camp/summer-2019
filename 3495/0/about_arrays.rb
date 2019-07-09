@@ -19,7 +19,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_accessing_array_elements
-    array = %i(peanut butter and jelly)
+    array = %i[peanut butter and jelly]
     assert_equal :peanut, array[0]
     assert_equal :peanut, array.first
     assert_equal :jelly, array[3]
@@ -29,11 +29,11 @@ class AboutArrays < Neo::Koan
   end
 
   def test_slicing_arrays
-    array = %i(peanut butter and jelly)
+    array = %i[peanut butter and jelly]
     assert_equal [:peanut], array[0, 1]
-    assert_equal %i(peanut butter), array[0, 2]
-    assert_equal %i(and jelly), array[2, 2]
-    assert_equal %i(and jelly), array[2, 20]
+    assert_equal %i[peanut butter], array[0, 2]
+    assert_equal %i[and jelly], array[2, 2]
+    assert_equal %i[and jelly], array[2, 20]
     assert_equal [], array[4, 0]
     assert_equal [], array[4, 100]
     assert_equal nil, array[5, 0]
@@ -47,10 +47,10 @@ class AboutArrays < Neo::Koan
   end
 
   def test_slicing_with_ranges
-    array = %i(peanut butter and jelly)
-    assert_equal %i(peanut butter and), array[0..2]
-    assert_equal %i(peanut butter), array[0...2]
-    assert_equal %i(and jelly), array[2..-1]
+    array = %i[peanut butter and jelly]
+    assert_equal %i[peanut butter and], array[0..2]
+    assert_equal %i[peanut butter], array[0...2]
+    assert_equal %i[and jelly], array[2..-1]
   end
 
   def test_pushing_and_popping_arrays

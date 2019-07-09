@@ -116,12 +116,12 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_for_statement
-    array = %w(fish and chips)
+    array = %w[fish and chips]
     result = []
     array.each do |item|
       result << item.upcase
     end
-    assert_equal %w(FISH AND CHIPS), result
+    assert_equal %w[FISH AND CHIPS], result
   end
 
   def test_times_statement

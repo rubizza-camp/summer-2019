@@ -29,7 +29,8 @@ class AboutExceptions < Neo::Koan
     assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
 
-    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
+    assert RuntimeError.ancestors.include?(StandardError),
+           'RuntimeError is a subclass of StandardError'
     assert_equal 'Oops', ex.message
   end
 

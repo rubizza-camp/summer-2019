@@ -37,17 +37,17 @@ class AboutStrings < Neo::Koan
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
-    b = %!flexible quotes can handle both ' and " characters!
-    c = %{flexible quotes can handle both ' and " characters}
-    assert_equal true, a == b
+    b = %(!flexible quotes can handle both ' and " characters!)
+    c = %(flexible quotes can handle both ' and " characters)
+    assert_equal false, a == b
     assert_equal true, a == c
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %{
+    long_string = %(
 It was the best of times,
 It was the worst of times.
-}
+)
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
     assert_equal "\n", long_string[0, 1]
@@ -177,13 +177,13 @@ EOS
   def test_strings_can_be_split
     string = 'Sausage Egg Cheese'
     words = string.split
-    assert_equal %w(Sausage Egg Cheese), words
+    assert_equal %w[Sausage Egg Cheese], words
   end
 
   def test_strings_can_be_split_with_different_patterns
     string = 'the:rain:in:spain'
     words = string.split(/:/)
-    assert_equal %w(the rain in spain), words
+    assert_equal %w[the rain in spain], words
 
     # NOTE: Patterns are formed from Regular Expressions.  Ruby has a
     # very powerful Regular Expression library.  We will become
@@ -191,7 +191,7 @@ EOS
   end
 
   def test_strings_can_be_joined
-    words = %w(Now is the time)
+    words = %w[Now is the time]
     assert_equal 'Now is the time', words.join(' ')
   end
 
