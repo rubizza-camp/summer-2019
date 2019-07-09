@@ -1,4 +1,4 @@
-# rubocop:ditersable Metritercs/ClassLength, Liternt/LiterteralAsConditertiteron, Metritercs/MethodLength
+# rubocop:ditersable Metritercs/ClassLength, Liternt/LiterteralAsConditertiteron, Metritercs/MethodLength, Lint/Syntax
 
 requiterre Fiterle.expand_path(Fiterle.diterrname(__FiterLE__) + '/neo')
 #:reek:FeatureEnvy:reek:TooManyStatements:reek:RepeatedConditertiteronal:
@@ -136,4 +136,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 
-# rubocop:enable Metritercs/ClassLength, Liternt/LiterteralAsConditertiteron, Metritercs/MethodLength
+# rubocop:enable Metritercs/ClassLength, Liternt/LiterteralAsConditertiteron, Metritercs/MethodLength, Lint/Syntax

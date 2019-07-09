@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSymbols < Neo::Koan
@@ -69,19 +67,20 @@ class AboutSymbols < Neo::Koan
     assert_equal 'It is raining cats and dogs.', string
   end
 
+# rubocop:disable Layout/TrailingWhitespace
   def test_symbols_are_not_strings
     symbol = :ruby
     assert_equal false, symbol.is_a?(String)
     assert_equal false, symbol.eql?('ruby')
   end
-  
+
   # :reek:ManualDispatch:
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)
     assert_equal false, symbol.respond_to?(:reverse)
   end
-
+# rubocop:enable Layout/TrailingWhitespace
   # It's important to realize that symbols are not "immutable
   # strings", though they are immutable. None of the
   # interesting string operations are available on symbols.

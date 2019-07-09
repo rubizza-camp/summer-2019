@@ -72,9 +72,6 @@ class AboutScoringProject < Neo::Koan
     assert_equal 50, score([5])
   end
 
-  def test_score_of_a_single_roll_of_one
-  end
-
   def test_score_of_multiple_1s_and_fives_is_the_sum_of_individual_scores
     assert_equal 300, score([1, 5, 5, 1])
   end

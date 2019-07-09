@@ -12,6 +12,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
+  
   # :reek:TooManyStatements:
   def test_rescue_clause
     result = nil
@@ -29,7 +30,7 @@ class AboutExceptions < Neo::Koan
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
-    assert_equal 'Oops', e.message
+    assert_equal 'Oops', err.message
   end
   
   # :reek:TooManyStatements:
