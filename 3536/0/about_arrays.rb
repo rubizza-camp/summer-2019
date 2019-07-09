@@ -11,7 +11,7 @@ class AboutArrays < Neo::Koan
   def test_array_literals
     array = []
     assert_equal [], array
-
+  # :reek:TooManyStatements
     array[0] = 1
     assert_equal [1], array
 
