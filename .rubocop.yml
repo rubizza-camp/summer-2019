@@ -1,15 +1,15 @@
 AllCops:
   Exclude:
     - '3711/0/neo.rb'
-    
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 
-Lint/UselessAssignment:
-  Enabled: false
-
 Metrics/LineLength:
   Max: 150
+
+Lint/UselessAssignment:
+  Enabled: false
