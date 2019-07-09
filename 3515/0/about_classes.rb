@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:Attribute
+# :reek:UncommunicativeModuleName
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:InstanceVariableAssumption
+# :reek:FeatureEnvy
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -46,6 +51,7 @@ class AboutClasses < Neo::Koan
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
+  # :reek:FeatureEnvy
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.se_name('Fido')

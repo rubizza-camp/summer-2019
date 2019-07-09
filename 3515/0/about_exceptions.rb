@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
 # rubocop:disable Lint/UselessAssignment, HandleExceptions
 
 class AboutExceptions < Neo::Koan
