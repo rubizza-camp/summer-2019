@@ -1,3 +1,4 @@
+require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 # :reek:Attribute
 # :reek:FeatureEnvy
@@ -10,7 +11,6 @@
 # Class AboutStrings was split into AboutStrings1 and AboutStrings2
 # to avoid rubocop class length offense
 #:reek:TooManyMethods:UncommunicativeVariableName
-require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
