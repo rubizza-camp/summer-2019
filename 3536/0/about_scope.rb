@@ -1,3 +1,4 @@
+#rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutScope < Neo::Koan
@@ -78,3 +79,4 @@ class AboutScope < Neo::Koan
     assert !Object.constants.empty?
   end
 end
+#rubocop:anable all

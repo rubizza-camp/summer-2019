@@ -143,7 +143,6 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal nil, 'Jim Gray'[grays, 1]
   end
 
-
   # ------------------------------------------------------------------
 
   def test_scan_is_like_find_all

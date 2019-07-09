@@ -11,13 +11,12 @@
 # and
 # about_triangle_project_2.rb
 # :reek:TooManyStatements
-def triangle(a_side, b_side, c_side)
-  a_side, b_side, c_side = [a_side, b_side, c_side].sort # :reek:FeatureEnvy
-  raise TriangleError unless a_side.positive?
-  raise TriangleError unless a_side + b_side > c_side
-  return :equilateral if a_side == c_side
-  return :isosceles if a_side == b_side || b_side == c_side
-
+def triangle(asd, bsd, csd)
+  asd, bsd, csd = [asd, bsd, csd].sort # :reek:FeatureEnvy
+  raise TriangleError unless asd.positive?
+  raise TriangleError unless asd + bsd > csd
+  return :equilateral if asd == csd
+  return :isosceles if asd == bsd || bsd == csde
   :scalene
 end
 
