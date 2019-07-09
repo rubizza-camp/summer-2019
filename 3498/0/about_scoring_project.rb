@@ -36,7 +36,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   sum = 0
-  arr = dice.each_with_object(Hash.new(0)) { |myi, myh| h[myi] += 1; }
+  arr = dice.each_with_object(Hash.new(0)) { |myi, myh| myh[myi] += 1; }
 
   if arr[1] >= 3
     sum = 1000 * (arr[1] / 3)
