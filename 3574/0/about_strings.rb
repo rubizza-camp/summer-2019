@@ -133,8 +133,8 @@ It was the worst of times.
   def test_single_quoted_strings_do_not_interpolate
     valuee = 123
     # :reek:Lint/InterpolationCheck:
-    stringg = 'The value is #{valuee}'
-    assert_equal 'The value is #{valuee}', stringg
+    stringg = "The value is #{valuee}"
+    assert_equal "The value is #{valuee}", stringg
     # rubocop: enable Lint/InterpolationCheck, Lint/UselessAssignment
   end
 

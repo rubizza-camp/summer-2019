@@ -9,12 +9,14 @@ class AboutIteration < Neo::Koan
   # convert to the right format in the koans. We will use "as_name"
   # whenever comparing to lists of methods.
 
+  # :reek:UtilityFunction:
   in_ruby_version('1.8') do
     def as_name(name)
       name.to_s
     end
   end
 
+  # :reek:UtilityFunction:
   in_ruby_version('1.9', '2') do
     def as_name(name)
       name.to_sym
@@ -44,6 +46,7 @@ class AboutIteration < Neo::Koan
     assert_equal 6, sum
   end
 
+  # :reek:TooManyStatements:
   def test_break_works_with_each_style_iterations
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     sum = 0
