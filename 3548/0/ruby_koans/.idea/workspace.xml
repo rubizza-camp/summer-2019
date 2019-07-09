@@ -18,16 +18,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="about_proxy_object_project.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/about_proxy_object_project.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="22" column="117" lean-forward="false" selection-start-line="22" selection-start-column="117" selection-end-line="22" selection-end-column="117" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="about_symbols.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/about_symbols.rb">
           <provider selected="true" editor-type-id="text-editor">
@@ -61,18 +51,30 @@
       <file leaf-file-name="about_dice_project.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/about_dice_project.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="18" column="67" lean-forward="true" selection-start-line="18" selection-start-column="67" selection-end-line="18" selection-end-column="67" />
+            <state relative-caret-position="196">
+              <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+              <folding>
+                <element signature="e#1097#1388#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="about_class_methods.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/about_class_methods.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="about_hashes.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="about_hashes.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/about_hashes.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="14" lean-forward="false" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+            <state relative-caret-position="1503">
+              <caret line="135" column="3" lean-forward="false" selection-start-line="135" selection-start-column="3" selection-end-line="135" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -153,7 +155,6 @@
         <option value="$PROJECT_DIR$/about_to_str.rb" />
         <option value="$PROJECT_DIR$/about_exceptions.rb" />
         <option value="$PROJECT_DIR$/about_java_interop.rb" />
-        <option value="$PROJECT_DIR$/about_class_methods.rb" />
         <option value="$PROJECT_DIR$/about_nil.rb" />
         <option value="$PROJECT_DIR$/about_strings.rb" />
         <option value="$PROJECT_DIR$/about_scoring_project.rb" />
@@ -171,9 +172,10 @@
         <option value="$PROJECT_DIR$/about_symbols.rb" />
         <option value="$PROJECT_DIR$/about_sandwich_code.rb" />
         <option value="$PROJECT_DIR$/neo.rb" />
-        <option value="$PROJECT_DIR$/about_dice_project.rb" />
         <option value="$PROJECT_DIR$/triangle.rb" />
         <option value="$PROJECT_DIR$/about_hashes.rb" />
+        <option value="$PROJECT_DIR$/about_dice_project.rb" />
+        <option value="$PROJECT_DIR$/about_class_methods.rb" />
       </list>
     </option>
   </component>
@@ -248,12 +250,12 @@
       <workItem from="1562558006152" duration="9617000" />
       <workItem from="1562576498932" duration="3746000" />
       <workItem from="1562584393717" duration="4999000" />
-      <workItem from="1562653963453" duration="1591000" />
+      <workItem from="1562653963453" duration="2453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58927000" />
+    <option name="totallyTimeSpent" value="59789000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -469,13 +471,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/about_java_interop.rb" />
-    <entry file="file://$PROJECT_DIR$/about_class_methods.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1740">
-          <caret line="116" column="35" lean-forward="false" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/about_strings.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
@@ -613,14 +608,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/about_dice_project.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="18" column="67" lean-forward="true" selection-start-line="18" selection-start-column="67" selection-end-line="18" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/about_nil.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -639,8 +626,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/about_hashes.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="14" lean-forward="false" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+        <state relative-caret-position="1503">
+          <caret line="135" column="3" lean-forward="false" selection-start-line="135" selection-start-column="3" selection-end-line="135" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/about_dice_project.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+          <folding>
+            <element signature="e#1097#1388#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/about_class_methods.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
           <folding />
         </state>
       </provider>
