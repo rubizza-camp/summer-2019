@@ -80,7 +80,7 @@ class AboutMessagePassing < Neo::Koan
     exception = assert_raise(NoMethodError) do
       typical.foobar
     end
-    assert_match(/foobar/, exception.message)
+    assert_match(/undefined method/, exception.message)
   end
 
   def test_calling_method_missing_causes_the_no_method_error
@@ -89,7 +89,7 @@ class AboutMessagePassing < Neo::Koan
     exception = assert_raise(NoMethodError) do
       typical.method_missing(:foobar)
     end
-    assert_match(/foobar/, exception.message)
+    assert_match(/undefined method/, exception.message)
 
     # THINK ABOUT IT:
     #
@@ -112,7 +112,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissing
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
@@ -137,16 +137,12 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class WellBehavedFooCatcher
-    def method_missing(method_name, *args, &block)
+    def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
         super(method_name, *args, &block)
       end
-    end
-
-    def respond_to_missing?(method_name, *args)
-      method_name.to_s[0, 3] == 'foo' ? false : super(method_name, *args)
     end
   end
 
