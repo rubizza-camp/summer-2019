@@ -1,6 +1,3 @@
-# rubocop: disable Lint/InterpolationCheck, Lint/UselessAssignment
-# rubocop: disable Naming/HeredocDelimiterNaming, Metrics/ClassLength
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
@@ -50,11 +47,10 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~EOS
+    long_string = <<~OOS
       It was the best of times,
       It was the worst of times.
-    EOS
-    # rubocop: enable Naming/HeredocDelimiterNaming
+    OOS
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]

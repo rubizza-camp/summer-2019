@@ -1,4 +1,4 @@
-#rubocop: disable Style/MethodMissingSuper, Style/MissingRespondToMissing, Lint/MissingCopEnableDirective, Layout/LeadingCommentSpace, Metrics/LineLength
+# rubocop: disable Style/MethodMissing
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -140,6 +140,7 @@ class AboutMessagePassing < Neo::Koan
 
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
+      # rubocop: enable Style/MethodMissing
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
