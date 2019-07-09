@@ -1,7 +1,15 @@
-# rubocop:disable Layout/EndOfLine, Lint/UnneededCopDisableDirective, Lint/MissingCopEnableDirective
-# rubocop:disable Metrics/ClassLength
-# TooManyMethods
-# rubocop:disable all
+# :reek:UncommunicativeVariableName
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UtilityFunction
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeModuleName
+# Class AboutStrings was split into AboutStrings1 and AboutStrings2
+# to avoid rubocop class length offense
+#:reek:TooManyMethods:UncommunicativeVariableName
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
