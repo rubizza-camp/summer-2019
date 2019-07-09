@@ -64,7 +64,7 @@ def score(dice)
 end
 # rubocop:enable all
 
-class AboutScoringProject < Neo::Koan 
+class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end

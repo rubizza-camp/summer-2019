@@ -91,7 +91,9 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
+    # rubocop:disable Lint/Void
     :a_non_return_value
+    # rubocop:enable Lint/Void
     :return_value
   end
 
@@ -100,55 +102,60 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # :reek:UncommunicativeParameterName
+  # rubocop:disable Naming/UncommunicativeMethodParamName
   # :reek:UtilityFunction
   def my_method_in_the_same_class(a, b)
     a * b
   end
+  # rubocop:enable Naming/UncommunicativeMethodParamName
 
   def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3,4)
+    # rubocop:disable Style/RedundantSelf
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    # rubocop:enable Style/RedundantSelf
   end
 
   # ------------------------------------------------------------------
 
   def my_private_method
-    "a secret"
+    'a secret'
   end
   private :my_private_method
 
   def test_calling_private_methods_without_receiver
-    assert_equal "a secret", my_private_method
+    assert_equal 'a secret', my_private_method
   end
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
+      # rubocop:disable Style/RedundantSelf
       self.my_private_method
+      # rubocop:disable Style/RedundantSelf
     end
-    assert_match /private method/, exception.message
+    assert_match (/private method/), exception.message
   end
 
   # ------------------------------------------------------------------
 
   class Dog
     def name
-      "Fido"
+      'Fido'
     end
 
     private
 
     def tail
-      "tail"
+      'tail'
     end
   end
 
   def test_calling_methods_in_other_objects_require_explicit_receiver
     rover = Dog.new
-    assert_equal "Fido", rover.name
+    assert_equal 'Fido', rover.name
   end
 
   def test_calling_private_methods_in_other_objects

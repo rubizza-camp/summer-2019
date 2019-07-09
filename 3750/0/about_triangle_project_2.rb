@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # You need to write the triangle method in the file 'triangle.rb'
 require './triangle.rb'
-# rubocop:disable UncommunicativeModuleName
+# :reek:UncommunicativeModuleName
 class AboutTriangleProject2 < Neo::Koan
   # rubocop:enable UncommunicativeModuleName
   # The first assignment did not talk about how to handle errors.
