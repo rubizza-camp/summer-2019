@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSandwichCode < Neo::Koan
   # :reek:UtilityFunction
-def count_lines(file_name)
+  def count_lines(file_name)
     file = File.open(file_name)
     count = 0
     count += 1 while file.gets
@@ -17,7 +17,7 @@ def count_lines(file_name)
 
   # ------------------------------------------------------------------
 
-  # :reek:UtilityFunction
+# :reek:UtilityFunction
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
@@ -53,7 +53,7 @@ def count_lines(file_name)
   # Consider the following code:
   #
 
-  # :reek:UtilityFunction
+# :reek:UtilityFunction
   def file_sandwich(file_name)
     file = File.open(file_name)
     yield(file)
@@ -63,7 +63,7 @@ def count_lines(file_name)
 
   # Now we write:
 
-  # :reek:UncommunicativeMethodName
+# :reek:UncommunicativeMethodName
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
@@ -72,14 +72,14 @@ def count_lines(file_name)
     end
   end
 
-  # :reek:UncommunicativeMethodName
+# :reek:UncommunicativeMethodName
   def test_counting_lines2
     assert_equal 4, count_lines2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  # :reek:UncommunicativeMethodName
+# :reek:UncommunicativeMethodName
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
       while (line = file.gets)
@@ -88,16 +88,16 @@ def count_lines(file_name)
     end
   end
 
-  # :reek:UncommunicativeMethodName
+# :reek:UncommunicativeMethodName
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  # :reek:UncommunicativeMethodName
-  # :reek:UtilityFunction
-def count_lines3(file_name)
+# :reek:UncommunicativeMethodName
+# :reek:UtilityFunction
+  def count_lines3(file_name)
     File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
