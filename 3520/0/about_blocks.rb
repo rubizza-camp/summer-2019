@@ -1,5 +1,7 @@
 # rubocop:disable Style/BlockDelimiters
 # rubocop:disable Lint/AmbiguousBlockAssociation
+# rubocop:disable Style/Lambda
+# rubocop:disable Performance/RedundantBlockCall
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
@@ -97,3 +99,5 @@ class AboutBlocks < Neo::Koan
 end
 # rubocop:enable Style/BlockDelimiters
 # rubocop:enable Lint/AmbiguousBlockAssociation
+# rubocop:enable Style/Lambda
+# rubocop:enable Performance/RedundantBlockCall

@@ -1,5 +1,7 @@
 # rubocop:disable Lint/UselessAssignment
 # rubocop:disable Metrics/ClassLength
+# rubocop:disable Style/PercentLiteralDelimiters
+# rubocop:disable Lint/InterpolationCheck
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
@@ -199,3 +201,5 @@ EOS
 end
 # rubocop:enable Lint/UselessAssignment
 # rubocop:enable Metrics/ClassLength
+# rubocop:enable Style/PercentLiteralDelimiters
+# rubocop:enable Lint/InterpolationCheck

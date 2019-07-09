@@ -1,4 +1,8 @@
 # rubocop:disable Naming/AccessorMethodName
+# rubocop:disable Lint/AmbiguousBlockAssociation
+# rubocop:disable Style/StringLiterals
+# rubocop:disable Style/TrivialAccessors
+# rubocop:disable Style/EvalWithLocation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutClasses < Neo::Koan
@@ -35,7 +39,9 @@ class AboutClasses < Neo::Koan
     end
 
     assert_raise(SyntaxError) do
-      eval 'fido.@name'
+      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+        'fido.@name'
+      RUBY
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
@@ -189,3 +195,7 @@ class AboutClasses < Neo::Koan
   end
 end
 # rubocop:enable Naming/AccessorMethodName
+# rubocop:enable Lint/AmbiguousBlockAssociation
+# rubocop:enable Style/StringLiterals
+# rubocop:enable Style/TrivialAccessors
+# rubocop:enable Style/EvalWithLocation
