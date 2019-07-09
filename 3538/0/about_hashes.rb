@@ -44,10 +44,10 @@ class AboutHashes < Neo::Koan
   end
 
   def test_hash_is_unordered
-    hash1 = { one: 'uno', two: 'dos' }
-    hash2 = { two: 'dos', one: 'uno' }
+    hash_1 = { one: 'uno', two: 'dos' }
+    hash_2 = { two: 'dos', one: 'uno' }
 
-    assert_equal true, hash1 == hash2
+    assert_equal true, hash_1 == hash_2
   end
 
   def test_hash_keys
@@ -77,40 +77,40 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash1 = {}
-    hash1[:one] = 1
+    hash_1 = {}
+    hash_1[:one] = 1
 
-    assert_equal 1, hash1[:one]
-    assert_equal nil, hash1[:two]
+    assert_equal 1, hash_1[:one]
+    assert_equal nil, hash_1[:two]
 
-    hash2 = Hash.new('dos')
-    hash2[:one] = 1
+    hash_2 = Hash.new('dos')
+    hash_2[:one] = 1
 
-    assert_equal 1, hash2[:one]
-    assert_equal 'dos', hash2[:two]
+    assert_equal 1, hash_2[:one]
+    assert_equal 'dos', hash_2[:two]
   end
 
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
-    hash[:one] << 'uno'
-    hash[:two] << 'dos'
+    hh[:one] << 'uno'
+    hh[:two] << 'dos'
 
-    assert_equal %w[uno dos], hash[:one]
-    assert_equal %w[uno dos], hash[:two]
-    assert_equal %w[uno dos], hash[:three]
+    assert_equal %w[uno dos], hh[:one]
+    assert_equal %w[uno dos], hh[:two]
+    assert_equal %w[uno dos], hh[:three]
 
-    assert_equal true, hash[:one].object_id == hash[:two].object_id
+    assert_equal true, hh[:one].object_id == hh[:two].object_id
   end
 
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    new_hash = Hash.new { |hash, key| hash[key] = [] }
 
-    hash[:one] << 'uno'
-    hash[:two] << 'dos'
+    new_hash[:one] << 'uno'
+    new_hash[:two] << 'dos'
 
-    assert_equal ['uno'], hash[:one]
-    assert_equal ['dos'], hash[:two]
-    assert_equal [], hash[:three]
+    assert_equal ['uno'], new_hash[:one]
+    assert_equal ['dos'], new_hash[:two]
+    assert_equal [], new_hash[:three]
   end
 end
