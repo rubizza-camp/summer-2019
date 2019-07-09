@@ -76,6 +76,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal :false_value, result
   end
   # :reek:FeatureEnvy
+  # :reek:UncommunicativeVariableName
 
   def test_while_statement
     i = 1
@@ -111,6 +112,7 @@ class AboutControlStatements < Neo::Koan
   end
   # :reek:TooManyStatements
   # :reek:FeatureEnvy
+  # :reek:UncommunicativeVariableName
 
   def test_next_statement
     i = 0
