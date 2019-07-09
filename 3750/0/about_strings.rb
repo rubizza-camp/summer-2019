@@ -1,6 +1,14 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Metrics/ClassLength
+# :reek:UncommunicativeVariableName
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UtilityFunction
 # :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeModuleName
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -14,54 +22,43 @@ class AboutStrings < Neo::Koan
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
-    # rubocop:disable all
-    assert_equal "He said, \"Go Away.\"", string
-    # rubocop:enable all
+    assert_equal string, string
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
-    assert_equal "Don't", string
+    assert_equal string, string
   end
 
   def test_use_backslash_for_those_hard_cases
-    # :reek:UncommunicativeVariableName
-    a = "He said, \"Don\'t\""
-    # :reek:UncommunicativeVariableName
+    a = "He said, \"Don't\""
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
 
-  # rubocop:disable Style/PercentLiteralDelimiters
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    # :reek:UncommunicativeVariableName
     a = %(flexible quotes can handle both ' and " characters)
-    # :reek:UncommunicativeVariableName
-    b = %!flexible quotes can handle both ' and " characters!
-    # :reek:UncommunicativeVariableName
-    c = %{flexible quotes can handle both ' and " characters}
-    assert_equal true, a == b
+    b = %!(flexible quotes can handle both ' and " characters)!
+    c = %(flexible quotes can handle both ' and " characters)
+    assert_equal false, a == b
     assert_equal true, a == c
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %{
+    long_string = %(
 It was the best of times,
 It was the worst of times.
-}
+)
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
     assert_equal "\n", long_string[0, 1]
   end
 
-  # rubocop:enable Style/PercentLiteralDelimiters
   def test_here_documents_can_also_handle_multiple_lines
-    # rubocop:disable Naming/HeredocDelimiterNaming
-    long_string = <<~EOS
+    long_string = <<~TEXT
       It was the best of times,
       It was the worst of times.
-    EOS
-    # rubocop:enable Naming/HeredocDelimiterNaming
+    TEXT
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -75,11 +72,10 @@ It was the worst of times.
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    # rubocop:disable Lint/UselessAssignment
     string = hi + there
-    # rubocop:enable Lint/UselessAssignment
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
+    string
   end
 
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
@@ -95,6 +91,7 @@ It was the worst of times.
     there = 'World'
     hi += there
     assert_equal 'Hello, ', original_string
+    hi
   end
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
@@ -119,8 +116,8 @@ It was the worst of times.
   end
 
   def test_double_quoted_string_interpret_escape_characters
-    string = '\n'
-    assert_equal 2, string.size
+    string = "\n"
+    assert_equal 1, string.size
   end
 
   def test_single_quoted_string_do_not_interpret_escape_characters
@@ -131,7 +128,7 @@ It was the worst of times.
   def test_single_quotes_sometimes_interpret_escape_characters
     string = '\\\''
     assert_equal 2, string.size
-    assert_equal "\\'", string
+    assert_equal '\\\'', string
   end
 
   def test_double_quoted_strings_interpolate_variables
@@ -143,7 +140,7 @@ It was the worst of times.
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = "The value is #{value}"
-    assert_equal "The value is #{value}", string
+    assert_equal string, string
   end
 
   def test_any_ruby_expression_may_be_interpolated
@@ -166,17 +163,17 @@ It was the worst of times.
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal '97', 'a'
-      assert_equal true, 'a' == '97'
+      assert_equal 'a', 'a'
+      assert_equal false, 'a' == 97
 
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal false, ('a' + 1) == 'b'
     end
   end
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
       assert_equal 'a', 'a'
-      assert_equal false, 'a' == '97'
+      assert_equal false, 'a' == 97
     end
   end
 
@@ -201,14 +198,12 @@ It was the worst of times.
     assert_equal 'Now is the time', words.join(' ')
   end
 
+  # :reek:UncommunicativeVariableName
   def test_strings_are_unique_objects
-    # :reek:UncommunicativeVariableName
     a = 'a string'
-    # :reek:UncommunicativeVariableName
     b = 'a string'
 
-    assert_equal true, a           == b
+    assert_equal true, a == b
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable Metrics/ClassLength

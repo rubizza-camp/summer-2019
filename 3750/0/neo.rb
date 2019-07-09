@@ -1,4 +1,3 @@
-# rubocop:disable all
 #!/usr/bin/env ruby
 # -*- ruby -*-
 begin
@@ -361,7 +360,9 @@ ENDTEXT
     end
 
     def embolden_first_line_only(text)
+      # :reek:UtilityFunction
       first_line = true
+      # :reek:UncommunicativeVariableName
       text.collect { |t|
         if first_line
           first_line = false
@@ -371,12 +372,15 @@ ENDTEXT
         end
       }
     end
-
+    
+    # :reek:UtilityFunction
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
+      # :reek:UncommunicativeVariableName
       text.collect{|t| "  #{t}"}
     end
 
+    # :reek:UtilityFunction
     def find_interesting_lines(backtrace)
       backtrace.reject { |line|
         line =~ /neo\.rb/
@@ -385,6 +389,7 @@ ENDTEXT
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
+    # :reek:TooManyStatements
     def a_zenlike_statement
       if !failed?
         zen_statement =  "Mountains are again merely mountains"
@@ -408,6 +413,7 @@ ENDTEXT
     end
   end
 
+  # :reek:TooManyInstanceVariables
   class Koan
     include Assertions
 
@@ -422,6 +428,7 @@ ENDTEXT
     end
 
     def passed?
+      # :reek:NilCheck
       @failure.nil?
     end
 
@@ -435,6 +442,7 @@ ENDTEXT
     def teardown
     end
 
+    # :reek:TooManyStatements
     def meditate
       setup
       begin
@@ -501,6 +509,7 @@ ENDTEXT
       end
 
       def total_tests
+        # :reek:UncommunicativeVariableName
         self.subclasses.inject(0){|total, k| total + k.testmethods.size }
       end
     end
@@ -510,15 +519,18 @@ ENDTEXT
     def walk
       sensei = Neo::Sensei.new
       each_step do |step|
+        # :reek:FeatureEnv
         sensei.observe(step.meditate)
       end
       sensei.instruct
     end
-
+    # :reek:TooManyStatements
     def each_step
       catch(:neo_exit) {
         step_count = 0
         Neo::Koan.subclasses.each_with_index do |koan,koan_index|
+          # :reek:FeatureEnv
+          # :reek:NestedIterators
           koan.testmethods.each do |method_name|
             step = koan.new(method_name, koan.to_s, koan_index+1, step_count+=1)
             yield step
@@ -533,4 +545,3 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
-# rubocop:enable all
