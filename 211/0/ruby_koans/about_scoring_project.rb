@@ -30,17 +30,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+  dice = dice.sort
   result = 0
-  h = Hash[dice.group_by { |x| x }.map { |k, v| [k, v.count] }]
-
-  n = h.select { |_k, v| v >= 3 }.keys[0]
-  if n
-    n == 1 ? result += 1000 : result += n * 100
-    h[n] = h[n] - 3
+  (1..6).each do |turn|
+    count = dice.count(turn)
+    result += (turn == 1 ? 1000 : turn * 100) if count >= 3
+    result += (count % 3) * 100 if turn == 1
+    result += (count % 3) * 50 if turn == 5
   end
-  result += h[1] * 100 if h[1]
-  result += h[5] * 50 if h[5]
   result
 end
 
