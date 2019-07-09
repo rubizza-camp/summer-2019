@@ -35,7 +35,7 @@ class AboutStrings < Neo::Koan
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a_s = %(flexible quotes can handle both ' and ' characters)
-    b_s= %(flexible quotes can handle both ' and ' characters)
+    b_s = %(flexible quotes can handle both ' and ' characters)
     c_s = %(flexible quotes can handle both ' and ' characters)
     assert_equal true, a_s == b_s
     assert_equal true, a_s == c_s
@@ -196,10 +196,10 @@ MEANINGFUL
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    a_s = 'a string'
+    b_s = 'a string'
 
-    assert_equal true, a           == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, a_s          == b_s
+    assert_equal false, a_s.object_id == b_s.object_id
   end
 end
