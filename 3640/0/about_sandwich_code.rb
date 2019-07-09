@@ -4,14 +4,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This class smells of :reek:UncommunicativeModuleName
 # This class smells of :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
-  # This method smells of :reek:FeatureEnvy
+  # :reek:UtilityFunction
   def count_lines(file_name)
     file = open(file_name)
     count = 0
     count += 1 while file.gets
     count
   ensure
-    file.close if file
+    file&.close if file
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -24,14 +24,14 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # This method smells of :reek:FeatureEnvy
+  # :reek:UtilityFunction
   def find_line(file_name)
     file = open(file_name)
     while (line = file.gets)
       return line if line =~ /e/
     end
   ensure
-    file.close if file
+    file&.close if file
   end
 
   # This method smells of :reek:UncommunicativeMethodName
@@ -64,11 +64,12 @@ class AboutSandwichCode < Neo::Koan
   # Consider the following code:
   #
 
+  # :reek:UtilityFunction
   def file_sandwich(file_name)
     file = open(file_name)
     yield(file)
   ensure
-    file.close if file
+    file&.close if file
   end
 
   # This class smells of :reek:UncommunicativeMethodName

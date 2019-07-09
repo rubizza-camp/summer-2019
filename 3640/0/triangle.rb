@@ -13,6 +13,8 @@
 # and
 #   about_triangle_project_2.rb
 #
+
+# :reek:FeatureEnvy
 def triangle(a_side, b_side, c_side)
   # WRITE THIS CODE
   a_side, b_side, c_side = [a_side, b_side, c_side].sort
