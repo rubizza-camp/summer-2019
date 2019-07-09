@@ -72,9 +72,11 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class MyAnimals::Oyster < Animal
-    def legs_in_oyster
-      LEGS
+  class MyAnimals
+    class Oyster < Animal
+      def legs_in_oyster
+        LEGS
+      end
     end
   end
 
