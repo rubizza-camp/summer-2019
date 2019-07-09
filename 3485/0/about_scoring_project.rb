@@ -22,7 +22,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Examples:
 # rubocop:disable Lint/MissingCopEnableDirective
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength
 # score([1,1,1,5,1]) => 1150 points
 # score([2,3,4,6,2]) => 0 points
 # score([3,4,5,3,3]) => 350 points
@@ -34,29 +34,17 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   score = 0
-  results = {}
 
-  (1..6).each do |x|
-    results[x] = []
+  1.upto(6).each do |key|
+    # found on wiki count seems like the best way
+    results = dice.count(key)
+    if results >= 3
+      score += key == 1 ? 1000 : key * 100
+      results -= 3
+    end
+    score += 100 * results if key == 1
+    score += 50 * results if key == 5
   end
-
-  dice.each do |d|
-    results[d].push(d)
-  end
-
-  results.keys.each do |key|
-    next unless results[key].length >= 3
-
-    score = if key == 1
-              1000
-            else
-              100 * key
-            end
-  end
-
-  score += (results[1].length % 3) * 100
-  score += (results[5].length % 3) * 50
-
   score
 end
 
