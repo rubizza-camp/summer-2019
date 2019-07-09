@@ -27,6 +27,7 @@ def triangle(side_a, side_b, side_c)
 end
 # rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+#:reek:FeatureEnvy
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
