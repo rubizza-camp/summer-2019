@@ -67,9 +67,9 @@ class AboutProxyObjectProject < Neo::Koan
 
     tv.power
     tv.channel = 10
-# rubocop:disable Style/SymbolArray
+# rubocop:disable all
     assert_equal [:power, :channel=], tv.messages
-# rubocop:enable Style/SymbolArray
+# rubocop:enable all
   end
 
   def test_proxy_handles_invalid_messages
