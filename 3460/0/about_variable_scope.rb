@@ -1,11 +1,8 @@
-# frozen_string_literal: true
-
-# rubocop:disable Lint/UselessAssignment
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class AboutVariableScope < Neo::Koan
 class AboutVariableScope < Neo::Koan
+  # rubocop:disable Lint/UselessAssignment
+
   def bark
     noise = 'RUFF'
   end
@@ -30,46 +27,48 @@ class AboutVariableScope < Neo::Koan
 
   def test_blocks_can_access_variables_outside_scope
     test = 'Hi'
-    2.times do
+    1.times do
       test = 'Hey'
     end
-
     assert_equal 'Hey', test
   end
 
   def test_block_variables_cannot_be_accessed_outside_scope
-    2.times do
-      x = 0
+    1.times do
+      number = 0
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? number
   end
-
+  # rubocop:enable Lint/UselessAssignment
   # ------------------------------------------------------
-  # class Mouse
+  # rubocop:disable Style/TrivialAccessors
+  # :reek:ClassVariable
   class Mouse
     @total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(number)
-      @name = number
+    def initialize(par_n)
+      @name = par_n
       # Instance variables are prefixed with one '@' character.
       @total += 1
     end
 
-    attr_reader :name
+    def name
+      @name
+    end
 
     def self.count
-      @@total
+      @total
     end
   end
-
+  # rubocop:enable Style/TrivialAccessors
   def test_instance_variable
     oscar = Mouse.new('Oscar')
     assert_equal 'Oscar', oscar.name
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |iter| Mouse.new(iter.to_s) }
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
@@ -79,7 +78,6 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
   # rubocop:disable Style/GlobalVars
-
   $anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
 
@@ -98,19 +96,17 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
+  def test_global_variables_can_be_changed_from_any_scope_second
     # From within a block
-    2.times do
+    1.times do
       $anywhere = 'Hey'
     end
 
     assert_equal 'Hey', $anywhere
   end
+  # rubocop:enable Style/GlobalVars
 end
-# rubocop:enable Lint/UselessAssignment
-# rubocop:enable Style/GlobalVars
 
 # THINK ABOUT IT:
-#
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
