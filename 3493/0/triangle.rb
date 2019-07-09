@@ -15,41 +15,45 @@
 #
 #:reek:ControlParameter:reek:UtilityFunction:
 
-def scalene_return_check_triagle(first_value, second_value, third_value)
-  return :scalene if (first_value != second_value) || (second_value != third_value) ||
-                     (third_value != first_value)
+def scalene_return_check_triagle(*args)
+  return :scalene if (args[0] != args[1]) || (args[1] != args[2]) ||
+                     (args[2] != args[0])
 end
 #:reek:ControlParameter:reek:UtilityFunction:
 
-def isosceles_return_check_triagle(first_value, second_value, third_value)
-  return :isosceles if (first_value == second_value) || (second_value == third_value) ||
-                       (third_value == first_value)
+def isosceles_return_check_triagle(*args)
+  return :isosceles if (args[0] == args[1]) || (args[1] == args[2]) ||
+                       (args[2] == args[0])
 end
 #:reek:ControlParameter:reek:UtilityFunction:
 
-def equilateral_return_check_triagle(first_value, second_value, third_value)
-  return :equilateral if (first_value == second_value) && (second_value == third_value)
+def equilateral_return_check_triagle(*args)
+  return :equilateral if (args[0] == args[1]) && (args[1] == args[2])
+end
+#:reek:ControlParameter:
+# :reek:FeatureEnvy:
+
+def check_below_zero_triagle(*args)
+  raise TriangleError if (args[0] <= 0) || (args[1] <= 0) || (args[2] <= 0)
 end
 #:reek:ControlParameter:
 
-def check_below_zero_triagle(first_value, second_value, third_value)
-  raise TriangleError if (first_value <= 0) || (second_value <= 0) || (third_value <= 0)
-end
-#:reek:ControlParameter:
+# rubocop:disable Metrics/AbcSize
+# :reek:FeatureEnvy:
+def triangle(*args)
+  check_below_zero_triagle(*args)
 
-def triangle(first_value, second_value, third_value)
-  check_below_zero_triagle(first_value, second_value, third_value)
+  result = equilateral_return_check_triagle(*args) ||
+           isosceles_return_check_triagle(*args) ||
+           scalene_return_check_triagle(*args)
 
-  result = equilateral_return_check_triagle(first_value, second_value, third_value) ||
-           isosceles_return_check_triagle(first_value, second_value, third_value) ||
-           scalene_return_check_triagle(first_value, second_value, third_value)
-
-  raise TriangleError if (first_value + second_value < third_value) ||
-                         (second_value + third_value < first_value) ||
-                         (third_value + first_value <= second_value)
+  raise TriangleError if (args[0] + args[1] < args[2]) ||
+                         (args[1] + args[2] < args[0]) ||
+                         (args[2] + args[0] <= args[1])
 
   result
 end
+# rubocop:enable Metrics/AbcSize
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
