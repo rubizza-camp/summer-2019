@@ -17,7 +17,6 @@
 # and
 #   about_triangle_project_2.rb
 #
-# rubocop:disable all
 def triangle(side_a, side_b, side_c)
   minimum = [side_a, side_b, side_c].min
   maximum = [side_a, side_b, side_c].max
@@ -41,5 +40,4 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable all
 # rubocop:enable Metrics/LineLength
