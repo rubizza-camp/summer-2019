@@ -1,8 +1,11 @@
 # rubocop:disable Lint/HandleExceptions, Metrics/MethodLength
+# rubocop: disable Lint/UselessAssignment
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#:nodoc:
 class AboutExceptions < Neo::Koan
+  #:nodoc:
   class MySpecialError < RuntimeError
   end
 
@@ -16,15 +19,15 @@ class AboutExceptions < Neo::Koan
   def test_rescue_clause
     result = nil
     begin
-      fail "Oops"
+      raise 'Oops'
     rescue StandardError => e
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
 
-    assert_equal true, e.is_a?(StandardError), "Should be a Standard Error"
-    assert_equal true, e.is_a?(RuntimeError),  "Should be a Runtime Error"
+    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
 
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
@@ -67,3 +70,4 @@ class AboutExceptions < Neo::Koan
   end
 end
 # rubocop:enable Lint/HandleExceptions, Metrics/MethodLength
+# rubocop: enable Lint/UselessAssignment
