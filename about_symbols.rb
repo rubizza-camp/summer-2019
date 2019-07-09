@@ -24,13 +24,13 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1           == symbol2
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
-  # rubocop:disable Metrics/LineLength,
 
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map(&:to_s)
-    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
+    etalon = 'test_method_names_become_symbols'
+    assert_equal true, symbols_as_strings.include?(etalon)
   end
-  # rubocop:enable Metrics/LineLength,
+
   # THINK ABOUT IT:
   #
   # Why do we convert the list of symbols to strings and then compare
