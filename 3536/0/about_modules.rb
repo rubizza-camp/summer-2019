@@ -1,10 +1,10 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:FeatureEnvy
+# rubocop:disable Naming/AccessorMethodName
 class AboutModules < Neo::Koan
   module Nameable
-    def setname(new_name)
+    def set_name(new_name)
       @name = new_name
     end
 
@@ -19,7 +19,9 @@ class AboutModules < Neo::Koan
     end
   end
 
+  # rubocop:enable Naming/AccessorMethodName
   # ------------------------------------------------------------------
+
   class Dog
     include Nameable
 
@@ -46,15 +48,14 @@ class AboutModules < Neo::Koan
   def test_module_methods_are_also_available_in_the_object
     fido = Dog.new
     assert_nothing_raised do
-      fido.setname('Rover')
+      fido.set_name('Rover')
     end
   end
 
   def test_module_methods_can_affect_instance_variables_in_the_object
-    # :reek:FeatureEnvy
     fido = Dog.new
     assert_equal 'Fido', fido.name
-    fido.setname('Rover')
+    fido.set_name('Rover')
     assert_equal 'Rover', fido.name
   end
 
