@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutVariableScope < Neo::Koan
+  # rubocop:disable UselessAssignment
   def bark
     noise = 'RUFF'
   end
@@ -20,8 +21,10 @@ class AboutVariableScope < Neo::Koan
     # defined? does not return true or false
     assert_equal __, defined? inaccesible
   end
-
+  # rubocop:enable UselessAssignment
   # ------------------------------------------------------
+  # rubocop:disable Style/ClassVars
+  # :reek:ClassVariable
 
   def test_blocks_can_access_variables_outside_scope
     test = 'Hi'
@@ -32,6 +35,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal __, test
   end
 
+  # rubocop:disable UselessAssignment
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
       x = 0
@@ -40,13 +44,13 @@ class AboutVariableScope < Neo::Koan
   end
 
   # ------------------------------------------------------
-
+  # rubocop:enable UselessAssignment
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
 
-    def initialize(n)
-      @name = n
+    def initialize(n_is_variable)
+      @name = n_is_variable
       # Instance variables are prefixed with one '@' character.
       @@total += 1
     end
@@ -57,6 +61,7 @@ class AboutVariableScope < Neo::Koan
       @@total
     end
   end
+  # rubocop:enable Style/ClassVars
 
   def test_instance_variable
     oscar = Mouse.new('Oscar')
@@ -73,6 +78,7 @@ class AboutVariableScope < Neo::Koan
   # What is the difference between a class variable and instance variable?
 
   # ------------------------------------------------------
+  # rubocop:disable Style/GlobalVars
 
   $anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
@@ -99,6 +105,7 @@ class AboutVariableScope < Neo::Koan
     end
 
     assert_equal __, $anywhere
+    # rubocop:enable Style/GlobalVars
   end
 end
 
