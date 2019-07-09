@@ -4,9 +4,7 @@ class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
-    while file.gets
-      count += 1
-    end
+    count += 1 while file.gets
     count
   ensure
     file.close if file
@@ -20,8 +18,8 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line(file_name)
     file = File.open(file_name)
-    while line = file.gets
-      return line if line.match(/e/)
+    while (line = file.gets)
+      return line if line =~ /e/
     end
   ensure
     file.close if file

@@ -121,11 +121,11 @@ class Television
   attr_accessor :channel
 
   def power
-    if @power == :on
-      @power = :off
-    else
-      @power = :on
-    end
+    @power = if @power == :on
+               :off
+             else
+               :on
+             end
   end
 
   def on?
