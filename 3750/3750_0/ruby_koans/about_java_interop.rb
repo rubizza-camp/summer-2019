@@ -136,4 +136,3 @@ class AboutJavaInterop < Neo::Koan
   end
 end
 # rubocop:enable all
-

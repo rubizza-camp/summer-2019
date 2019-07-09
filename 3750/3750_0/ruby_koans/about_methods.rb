@@ -1,13 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-def my_global_method(a,b)
+# rubocop:disable all
+def my_global_method(a, b)
   a + b
 end
-
+# rubocop:enable all
 class AboutMethods < Neo::Koan
-
   def test_calling_global_methods
-    assert_equal 5, my_global_method(2,3)
+    assert_equal 5, my_global_method(2, 3)
   end
 
   def test_calling_global_methods_without_parentheses
@@ -18,8 +17,9 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
+# rubocop:disable all
     eval "assert_equal(5, my_global_method(2, 3))" # ENABLE CHECK
-    #
+# rubocop:enable all
     # Ruby doesn't know if you mean:
     #
     #   assert_equal(5, my_global_method(2), 3)
@@ -39,16 +39,17 @@ class AboutMethods < Neo::Koan
     assert_match(/wrong number/, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/wrong number/, exception.message)
   end
 
   # ------------------------------------------------------------------
-
+# rubocop:disable all
   def method_with_defaults(a, b=:default_value)
     [a, b]
   end
+# rubocop:enable all
 
   def test_calling_with_default_values
     assert_equal [1, :default_value], method_with_defaults(1)
@@ -65,15 +66,17 @@ class AboutMethods < Neo::Koan
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
+# rubocop:disable all
     :a_non_return_value
     return :return_value
     :another_non_return_value
+# rubocop:enable all
   end
 
   def test_method_with_explicit_return
