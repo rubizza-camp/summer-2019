@@ -11,6 +11,7 @@
 #   about_triangle_project_2.rb
 
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 # :reek:FeatureEnvy
 def triangle(a_side, b_side, c_side)
   array = [a_side, b_side, c_side].sort
@@ -20,6 +21,7 @@ def triangle(a_side, b_side, c_side)
   :scalene
 end
 # rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
