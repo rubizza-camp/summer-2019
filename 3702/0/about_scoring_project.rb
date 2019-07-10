@@ -1,4 +1,5 @@
 # rubocop:disable Metrics/AbcSize, Lint/UnneededCopDisableDirective
+# rubocop:disable Metrics/ClassLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -99,3 +100,4 @@ class AboutScoringProject < Neo::Koan
   end
 end
 # rubocop:enable Metrics/AbcSize, Lint/UnneededCopDisableDirective
+# rubocop:enable Metrics/ClassLength
