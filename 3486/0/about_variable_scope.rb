@@ -93,7 +93,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
+  def test_global_variables_can_be_changed_from_any_scope
     # From within a block
     2.times do
       $anywhere = 'Hey'
