@@ -1,4 +1,3 @@
-# rubocop:disable Lint/MissingCopEnableDirective
 # rubocop:disable, Performance/RedundantMatch
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')

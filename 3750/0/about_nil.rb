@@ -10,7 +10,7 @@ class AboutNil < Neo::Koan
     # following begin/rescue/end code block captures the exception and
     # makes some assertions about it.
     nil.some_method_nil_doesnt_know_about
-    # rubocop:desable Lint/RescueException
+    # rubocop:disable Lint/RescueException
   rescue Exception => ex
     # rubocop:enable Lint/RescueException
     # What exception has been caught?
