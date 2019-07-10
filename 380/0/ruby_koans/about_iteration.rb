@@ -103,7 +103,7 @@ class AboutIteration < Neo::Koan
     # Files act like a collection of lines
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
-      assert_equal %w(THIS IS A TEST), upcase_lines
+      assert_equal %w[THIS IS A TEST], upcase_lines
     end
 
     # NOTE: You can create your own collections that work with each,
