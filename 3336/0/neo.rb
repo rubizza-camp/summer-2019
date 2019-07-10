@@ -14,12 +14,15 @@ end
 class FillMeInError < StandardError
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
     (version == 'mri' && !defined?(JRUBY_VERSION))
 end
 
+# :reek:UncommunicativeVariableName
 def in_ruby_version(*versions)
   yield if versions.any? { |v| ruby_version?(v) }
 end
@@ -31,6 +34,9 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
+# :reek:UtilityFunction
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeParameterName
 def __(value = 'FILL ME IN', value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -40,6 +46,9 @@ def __(value = 'FILL ME IN', value19 = :mu)
 end
 
 # Numeric replacement value.
+# :reek:UtilityFunction
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeParameterName
 def _n_(value = 999_999, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -49,6 +58,9 @@ def _n_(value = 999_999, value19 = :mu)
 end
 
 # Error object replacement value.
+# :reek:UtilityFunction
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeParameterName
 def ___(value = FillMeInError, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -145,13 +157,14 @@ module Neo
   # :reek:NilCheck
   # :reek:FeatureEnvy
   # :reek:TooManyStatements
+  # :reek:DataClump
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
     def flunk(msg)
       raise FailedAssertionError, msg
     end
-    # :reek:ControlParametr
+    # :reek:ControlParameter
     def assert(condition, msg = nil)
       msg ||= 'Failed assertion.'
       flunk(msg) unless condition
@@ -374,6 +387,7 @@ ENDTEXT
       puts
     end
 
+    # :reek:UtilityFunction
     def embolden_first_line_only(text)
       first_line = true
       text.collect do |t|
@@ -386,11 +400,13 @@ ENDTEXT
       end
     end
 
+    # :reek:UtilityFunction
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
       text.collect { |t| "  #{t}" }
     end
 
+    # :reek:UtilityFunction
     def find_interesting_lines(backtrace)
       backtrace.reject do |line|
         line =~ /neo\.rb/
@@ -518,6 +534,7 @@ ENDTEXT
     end
   end
 
+  # :reek:NestedIterators
   class ThePath
     def walk
       sensei = Neo::Sensei.new
