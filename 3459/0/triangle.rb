@@ -1,10 +1,3 @@
-# frozen_string_literal: true
-
-# :reek:all
-# rubocop:disable Naming/UncommunicativeMethodParamName
-# rubocop:disable Style/NumericPredicate
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -21,29 +14,31 @@
 #   about_triangle_project_2.rb
 #
 
-def triangle(a, b, c)
-  res = 0
-  raise TriangleError unless [a, b, c].reject(&:positive?).empty?
+#:reek:ControlParameter:reek:UtilityFunction:
+# :reek:ControlParameter:
+# :reek:FeatureEnvy:
+# rubocop:disable Style/SymbolProc, Metrics/AbcSize:
 
-  x, y, z = [a, b, c].sort
-  raise TriangleError if x + y <= z
+def triangle_validation?(*args)
+  (args[0] + args[1] <= args[2]) || (args[1] + args[2] <= args[0]) ||
+    (args[2] + args[0] <= args[1]) || args.any? { |argument| argument.negative? }
+end
+#:reek:ControlParameter:
+# :reek:FeatureEnvy:
+# rubocop:enable Style/SymbolProc, Metrics/AbcSize:
 
-  [a, b, c].each do |i|
-    if [a, b, c].select { |num| i == num }.length == 3
-      res = :equilateral
-    elsif [a, b, c].select { |num| i == num }.length == 2
-      res = :isosceles
-    end
+def triangle(*args)
+  raise TriangleError if triangle_validation?(*args)
+  case args.uniq.count
+  when 3
+    :scalene
+  when 2
+    :isosceles
+  when 1
+    :equilateral
   end
-  res = :scalene if res == 0
-
-  res
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Naming/UncommunicativeMethodParamName
-# rubocop:enable Style/NumericPredicate
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
