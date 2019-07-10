@@ -1,18 +1,12 @@
-# rubocop:disable Style/RedundantSelf
-# rubocop:disable Lint/UnreachableCode, Lint/Void
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# :reek:UncommunicativeParameterName
 # :reek:UtilityFunction
-def my_global_method(par_a, par_b)
-  par_a + par_b
+def my_global_method(first, second)
+  first + second
 end
 
 # :reek:TooManyMethods
-# :reek:TooManyStatements
-# :reek:UtilityFunction
-# :reek:UncommunicativeParameterName
+# require comment
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -23,10 +17,11 @@ class AboutMethods < Neo::Koan
     assert_equal 5, result
   end
 
+  # rubocop:disable all
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
+    eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -37,25 +32,27 @@ class AboutMethods < Neo::Koan
     # Rewrite the eval string to continue.
     #
   end
+  # rubocop:enable all
 
-  # NOTE: wrong number of arguments is not par_a SYNTAX error, but par_a
+  # :reek:TooManyStatements
+  # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/wrong number/, exception.message)
 
     exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end
-    assert_match(/wrong number of arguments/, exception.message)
+    assert_match(/wrong number/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(par_a, par_b = :default_value)
-    [par_a, par_b]
+  def method_with_defaults(first, second = :default_value)
+    [first, second]
   end
 
   def test_calling_with_default_values
@@ -79,9 +76,9 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :a_non_return_value
-    return :return_value
-    :another_non_return_value
+    # rubocop void context :a_non_return_value
+    :return_value # rubocop return
+    # rubocop void context :another_non_return_value
   end
 
   def test_method_with_explicit_return
@@ -91,7 +88,7 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    :a_non_return_value
+    # rubocop void context :a_non_return_value
     :return_value
   end
 
@@ -101,8 +98,9 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(par_a, par_b)
-    par_a * par_b
+  # :reek:UtilityFunction
+  def my_method_in_the_same_class(first, second)
+    first * second
   end
 
   def test_calling_methods_in_same_class
@@ -110,26 +108,29 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
 
+  private
+
   def my_private_method
-    'par_a secret'
+    'a secret'
   end
-  private :my_private_method
 
   def test_calling_private_methods_without_receiver
-    assert_equal 'par_a secret', my_private_method
+    assert_equal 'a secret', my_private_method
   end
 
+  # rubocop:disable all
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method
+      self.my_private_method # rubocop talk delete "self.", but than crashing rake
     end
-    assert_match(/private method/, exception.message)
+    assert_match /private method/, exception.message
   end
+  # rubocop:enable all
 
   # ------------------------------------------------------------------
 
@@ -157,5 +158,3 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Style/RedundantSelf
-# rubocop:enable Lint/UnreachableCode, Lint/Void
