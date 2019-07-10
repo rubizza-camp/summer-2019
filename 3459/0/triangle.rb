@@ -17,7 +17,7 @@
 def triangle(side_a, side_b, side_c)
   if check_statement(side_a, side_b, side_c)
     type_of_triangle = process_legs(side_a, side_b, side_c)
-    return type_of_triangle.nil? ? :scalene : type_of_triangle
+    return :scalene, type_of_triangle
   end
   raise TriangleError
 end
