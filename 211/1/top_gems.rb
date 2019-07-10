@@ -1,6 +1,7 @@
 require 'yaml'
 require 'httparty'
 require 'nokogiri'
+require 'optparse'
 
 class GemPopularity
   include HTTParty
@@ -17,12 +18,42 @@ class GemPopularity
   end
 end
 
-gems_array = YAML.safe_load(File.read('gem_list.yml'))
-gems_array['gems'].each do |gem_n|
-  # puts gem_n.class
-  gem_name = GemPopularity.new(gem_n)
-  puts "#{gem_name.name} | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks "
-end
+
 # sinatra = GemPopularity.new('sinatra')
 
 # puts "#{sinatra.name} | watched by #{sinatra.watch} | #{sinatra.star} stars | #{sinatra.fork} forks "
+
+
+
+class OptparseScript
+  def self.parse(args)
+    options = {}
+      opt_parser = OptionParser.new do |opts|
+  
+        opts.on('--top[=NUM]') do |num|
+          p options[:top] = num.to_i
+        end
+        opts.on('--name[=NAME]') do |name|
+          p options[:name] = name
+        end
+        opts.on('--file[=FILE]') do |file|
+          p options[:file] = file
+        end
+      end 
+  
+      opt_parser.parse!(args)
+      options
+  end
+
+end
+
+options = OptparseScript.parse(ARGV)
+pp options
+
+
+gems_array = YAML.safe_load(File.read(options[:file]))
+
+gems_array['gems'].take(options[:top]).each do |gem_n|
+  gem_name = GemPopularity.new(gem_n)
+  puts "#{gem_name.name} | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks "
+end
