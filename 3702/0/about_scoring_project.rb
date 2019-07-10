@@ -1,5 +1,22 @@
-# rubocop:disable Metrics/AbcSize, Lint/UnneededCopDisableDirective, Metrics/ClassLength
+Skip to content
+ 
+Search or jump to…
 
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@gitpetr 
+0
+0 80 nikolaiprivalov/summer-2019
+forked from rubizza-camp/summer-2019
+ Code  Pull requests 0  Projects 0  Wiki  Security  Insights
+summer-2019/3737/0/about_scoring_project.rb
+@M1ha11 M1ha11 Initial commit
+963730a 21 hours ago
+105 lines (92 sloc)  2.48 KB
+  
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Greed is a dice game where you roll up to five dice to accumulate
@@ -30,30 +47,36 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-#:nodoc:
+
 def score(dice)
-  case dice
-  when [1] then 100
-  when [2] then 200
-  when [3] then 300
-  when [4] then 400
-  when [5] then 50
-  when [6] then 600
-  when [1, 5, 5, 1] then 300
-  when [2, 3, 4, 6] then 0
-  when [1, 1, 1] then 1000
-  when [2, 2, 2] then 200
-  when [3, 3, 3] then 300
-  when [4, 4, 4] then 400
-  when [5, 5, 5] then 500
-  when [6, 6, 6] then 600
-  when [2, 5, 2, 2, 3] then 250
-  when [5, 5, 5, 5] then 550
-  when [1, 1, 1, 1] then 1100
-  when [1, 1, 1, 1, 1] then 1200
-  when [1, 1, 1, 5, 1] then 1150
-  else 0
+  # You need to write this method
+  sum = 0
+  hash = Hash.new(0)
+  unless dice.empty?
+    dice.each do |num|
+      hash[num] += 1
+    end
+    sum = calculate(hash, sum)
   end
+  sum
+end
+
+def calculate(hash, sum)
+  hash.each do |num, count|
+    if count >= 3
+      sum += 1000 if num == 1
+      sum += num * 100 if num != 1
+      count -= 3
+    end
+    sum = scoring(sum, num, count)
+  end
+  sum
+end
+
+def scoring(sum, num, count)
+  sum += 100 * count if count.positive? && num == 1
+  sum += 50 * count if count.positive? && num == 5
+  sum
 end
 
 #:nodoc:
@@ -98,4 +121,15 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:enable Metrics/AbcSize, Lint/UnneededCopDisableDirective, Metrics/ClassLength
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

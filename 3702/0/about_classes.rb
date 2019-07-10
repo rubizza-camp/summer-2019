@@ -1,4 +1,4 @@
-# rubocop:disable Style/EvalWithLocation, Naming/AccessorMethodName
+# rubocop:disable Style/EvalWithLocation
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -49,7 +49,7 @@ class AboutClasses < Neo::Koan
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.newname('Fido')
-    assert_equal 'Fido', fido.instance_eval('@name')  # string version
+    assert_equal 'Fido', fido.instance_eval('@name') # string version
     assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
   # ------------------------------------------------------------------
@@ -173,4 +173,4 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
-# rubocop:enable Style/EvalWithLocation, Naming/AccessorMethodName
+# rubocop:enable Style/EvalWithLocation
