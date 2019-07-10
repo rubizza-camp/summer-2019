@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction
 # rubocop:disable Style/MethodMissing
 
-
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -125,7 +124,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
   class WellBehavedFooCatcher
-  # rubocop:disable Style/MethodMissing
+    # rubocop:disable Style/MethodMissing
 
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
