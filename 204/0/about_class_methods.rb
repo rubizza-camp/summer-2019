@@ -3,9 +3,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:Attribute
-# :reek:TooManyMethods
 # :reek:UncommunicativeMethodName
-
+# :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   class Dog; end
 
@@ -21,8 +20,8 @@ class AboutClassMethods < Neo::Koan
   def test_classes_are_objects_too
     assert_equal true, Dog.is_a?(Object)
   end
-  # :reek:FeatureEnvy
 
+  # :reek:FeatureEnvy
   def test_objects_have_methods
     fido = Dog.new
     obj_method_qty = fido.methods.count - 1

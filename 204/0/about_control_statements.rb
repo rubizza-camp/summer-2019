@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop: disable  Metrics/MethodLength, Metrics/ClassLength
+# rubocop: disable  Metrics/MethodLength, Metrics/ClassLength, Lint/UnneededCopDisableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -26,6 +26,7 @@ class AboutControlStatements < Neo::Koan
     result = :true_value if true_condition
     assert_equal :true_value, result
   end
+  # rubocop:disable Lint/ShadowedArgument
 
   def value_true
     true_condition = true
@@ -46,6 +47,7 @@ class AboutControlStatements < Neo::Koan
       end
     assert_equal :false_value, value
   end
+  # rubocop:enable Lint/ShadowedArgument
 
   def test_if_statements_with_no_else_with_false_condition_return_value
     false_condition = false
@@ -151,4 +153,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 
-# rubocop: enable  Metrics/MethodLength, Metrics/ClassLength
+# rubocop: enable  Metrics/MethodLength, Metrics/ClassLength, Lint/UnneededCopDisableDirective
