@@ -16,6 +16,8 @@
 # rubocop:disable Metrics/CyclomaticComplexity, Naming/UncommunicativeMethodParamName
 # rubocop:disable Metrics/PerceivedComplexity, Style/GuardClause
 # :reek:FeatureEnvy
+# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeVariableName
 
 def triangle(a, b, c)
   # WRITE THIS CODE
