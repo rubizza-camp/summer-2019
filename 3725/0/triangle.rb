@@ -1,4 +1,4 @@
-ln_a# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
 # :reek:UncommunicativeVariableName
@@ -6,12 +6,11 @@ ln_a# rubocop:disable Metrics/AbcSize
 # :reek:TooManyStatements
 
 def triangle(ln_a, ln_b, ln_c)
-  half_sum = (ln_a + ln_b +ln_c) / 2
-  raise TriangleError if half_sum < 0 ||
-    (half_sum - ln_a) * (half_sum - ln_b) * (half_sum - ln_c) < 0
-  return :equilateral if (ln_a == ln_b) && (ln_a == ln_b)
-  return :isosceles if (ln_a == ln_b) || (ln_b == ln_c) || (ln_a == ln_c)
-
+  ln_a, ln_b, c = [ln_a, ln_b, ln_c].sort
+  raise TriangleError unless ln_a > 0
+  raise TriangleError unless ln_a + ln_b > ln_c
+  return :equilateral if ln_a == ln_c
+  return :isosceles if ln_a == ln_b or bln_b == ln_c
   :scalene
 end
 
