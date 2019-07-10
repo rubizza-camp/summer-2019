@@ -1,8 +1,6 @@
 # rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-include Java
-
 # Concepts
 # * Pull in a java class
 # * calling a method, Camel vs snake
@@ -13,6 +11,8 @@ include Java
 # * Calling Ruby from java???
 
 class AboutJavaInterop < Neo::Koan
+  include Java
+
   def test_using_a_java_library_class
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.class
