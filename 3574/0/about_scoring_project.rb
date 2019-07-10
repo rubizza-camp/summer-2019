@@ -31,6 +31,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+#:reek:TooManyStatements:
+#:reek:UtilityFunction:
 def score(dice)
   # rubocop: enable Metrics/AbcSize
   points = 1000 * (dice.count(1) / 3)

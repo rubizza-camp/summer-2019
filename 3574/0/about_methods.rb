@@ -24,7 +24,6 @@ class AboutMethods < Neo::Koan
   # :reek:Style/EvalWithLocation:
   def test_sometimes_missing_parentheses_are_ambiguous
     assert_equal(5, my_global_method(2, 3)) # ENABLE CHECK
-    # rubocop: enable Style/EvalWithLocation
     #
     # Ruby doesn't know if you mean:
     #
