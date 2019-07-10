@@ -95,14 +95,15 @@ class AboutControlStatements < Neo::Koan
     assert_equal 2, result
   end
 
+  # reek: FeatureEnvy
   def test_next_statement
-    i = 0
+    var_i = 0
     result = []
-    while i < 10
-      i += 1
-      next if (i % 2).zero?
+    while var_i < 10
+      var_i += 1
+      next if (var_i % 2).zero?
 
-      result << i
+      result << var_i
     end
     assert_equal [1, 3, 5, 7, 9], result
   end

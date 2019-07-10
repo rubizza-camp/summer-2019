@@ -35,6 +35,7 @@ class AboutDiceProject < Neo::Koan
     assert_equal first_time, second_time
   end
 
+  # reek:FeatureEnvy and reek: TooManyStatements
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
 
@@ -54,6 +55,7 @@ class AboutDiceProject < Neo::Koan
     # better way to test this?
   end
 
+  # reek:FeatureEnvy
   def test_you_can_roll_different_numbers_of_dice
     dice = DiceSet.new
 
