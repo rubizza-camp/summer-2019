@@ -35,8 +35,6 @@ class Proxy
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
-
-  # rubocop:enable Style/MethodMissing
 end
 
 class AboutProxyObjectProject < Neo::Koan
@@ -180,3 +178,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable Style/MethodMissing
