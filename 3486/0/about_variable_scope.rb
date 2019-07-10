@@ -35,9 +35,9 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
-      x = 0
+      xl = 0
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? xl
   end
 
   # ------------------------------------------------------
