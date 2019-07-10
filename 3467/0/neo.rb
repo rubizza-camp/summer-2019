@@ -179,10 +179,10 @@ module Neo
     def assert_raise(exception)
       begin
         yield
-      rescue StandardError => e
+      rescue StandardError => err
         expected = e.is_a?(exception)
-        assert(expected, "Exception #{exception.inspect} expected, but #{e.inspect} was raised")
-        return e
+        assert(expected, "Exception #{exception.inspect} expected, but #{err.inspect} was raised")
+        return err
       end
       flunk "Exception #{exception.inspect} expected, but nothing raised"
     end
@@ -212,15 +212,15 @@ module Neo
     def add_progress(prog)
       @_contents = nil
       exists = File.exist?(PROGRESS_FILE_NAME)
-      File.open(PROGRESS_FILE_NAME, 'a+') do |f|
-        f.print "#{',' if exists}#{prog}"
+      File.open(PROGRESS_FILE_NAME, 'a+') do |fff|
+        fff.print "#{',' if exists}#{prog}"
       end
     end
 
     def progress
       if @_contents.nil?
         if File.exist?(PROGRESS_FILE_NAME)
-          File.open(PROGRESS_FILE_NAME, 'r') do |f|
+          File.open(PROGRESS_FILE_NAME, 'r') do |fff|
             @_contents = f.read.to_s.gsub(/\s/, '').split(',')
           end
         else
@@ -260,7 +260,7 @@ module Neo
 
     def instruct
       if failed?
-        @observations.each { |c| puts c }
+        @observations.each { |ccc| puts ccc }
         encourage
         guide_through_error
         a_zenlike_statement
@@ -403,19 +403,19 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
 
     def embolden_first_line_only(text)
       first_line = true
-      text.collect do |t|
+      text.collect do |ttt|
         if first_line
           first_line = false
-          Color.red(t)
+          Color.red(ttt)
         else
-          Color.cyan(t)
+          Color.cyan(ttt)
         end
       end
     end
 
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
-      text.collect { |t| "  #{t}" }
+      text.collect { |ttt| "  #{ttt}" }
     end
 
     def find_interesting_lines(backtrace)
@@ -479,8 +479,8 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       setup
       begin
         send(name)
-      rescue StandardError, Neo::Sensei::FailedAssertionError => e
-        failed(e)
+      rescue StandardError, Neo::Sensei::FailedAssertionError => err
+        failed(err)
       ensure
         meditate_ensure
       end
@@ -489,8 +489,8 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
 
     def meditate_ensure
       teardown
-    rescue StandardError, Neo::Sensei::FailedAssertionError => e
-      failed(e) if passed?
+    rescue StandardError, Neo::Sensei::FailedAssertionError => err
+      failed(err) if passed?
     end
 
     # Class methods for the Neo test suite.
