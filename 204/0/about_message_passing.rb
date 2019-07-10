@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/MethodMissing
 # rubocop:disable Lint/UnneededCopDisableDirective, Style/MissingRespondToMissing
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -160,6 +159,7 @@ class AboutMessagePassing < Neo::Koan
     end
   end
   # rubocop: enable Style/MethodMissing
+
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
@@ -194,5 +194,4 @@ class AboutMessagePassing < Neo::Koan
   end
 end
 
-# rubocop:enable Style/MethodMissing
 # rubocop:enable Lint/UnneededCopDisableDirective, Style/MissingRespondToMissing
