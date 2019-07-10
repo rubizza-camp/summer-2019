@@ -16,6 +16,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop: disable Performance/RedundantMatch
+  #:reek:FeatureEnvy:
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
