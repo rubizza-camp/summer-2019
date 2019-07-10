@@ -13,6 +13,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:InstanceVariableAssumption
 # :reek:TooManyStatements
 # :reek:TooManyMethods
+# rubocop:disable Style/MethodMissing
 
 class Proxy
   attr_reader :messages
@@ -30,14 +31,12 @@ class Proxy
     @messages.count(message)
   end
 
-  # rubocop:disable Style/MethodMissingSuper
-
   def method_missing(method_name, *args, &block)
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
 
-  # rubocop:enable Style/MethodMissingSuper
+  # rubocop:enable Style/MethodMissing
 end
 
 class AboutProxyObjectProject < Neo::Koan
