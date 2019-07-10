@@ -30,18 +30,12 @@ class Game
 
   def win_user
     case values
-    when [1, 1, 1, 1, 1]
-      kesh_plus(1000)
-    when [2, 2, 2, 2, 2]
-      kesh_plus(2000)
-    when [3, 3, 3, 3, 3]
-      kesh_plus(3000)
-    when [4, 4, 4, 4, 4]
-      kesh_plus(5000)
-    when [5, 5, 5, 5, 5]
-      kesh_plus(7000)
-    when [6, 6, 6, 6, 6, 6]
-      kesh_plus(11000)
+    when [1, 1, 1, 1, 1] then kesh_plus(1000)
+    when [2, 2, 2, 2, 2] then kesh_plus(2000)
+    when [3, 3, 3, 3, 3] then kesh_plus(3000)
+    when [4, 4, 4, 4, 4] then kesh_plus(5000)
+    when [5, 5, 5, 5, 5] then kesh_plus(7000)
+    when [6, 6, 6, 6, 6, 6] then kesh_plus(11_000)
     else
       deposit_plus(1000)
       gamer.kesh_minus(1000)

@@ -99,5 +99,3 @@ class AboutScoringProject < Neo::Koan
   end
 end
 # rubocop:enable Metrics/AbcSize, Lint/UnneededCopDisableDirective, Metrics/ClassLength
-
- 

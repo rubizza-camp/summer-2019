@@ -96,8 +96,8 @@ class AboutMethods < Neo::Koan
 
   # # ------------------------------------------------------------------
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(aaa, baa)
+    aaa * baa
   end
 
   def test_calling_methods_in_same_class

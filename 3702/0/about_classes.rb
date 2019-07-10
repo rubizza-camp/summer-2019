@@ -1,5 +1,4 @@
-# rubocop:disable Style/EvalWithLocation
-# rubocop: disable Naming/AccessorMethodName
+# rubocop:disable Style/EvalWithLocation, Naming/AccessorMethodName
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -56,7 +55,7 @@ class AboutClasses < Neo::Koan
     fido.newname('Fido')
 
     assert_equal 'Fido', fido.instance_eval('@name')  # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
 
   # ------------------------------------------------------------------
@@ -189,5 +188,4 @@ class AboutClasses < Neo::Koan
   end
 end
 
-# rubocop:enable Style/EvalWithLocation
-# rubocop: enable Naming/AccessorMethodName
+# rubocop:enable Style/EvalWithLocation, Naming/AccessorMethodName

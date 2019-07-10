@@ -61,7 +61,7 @@ class AboutProxyObjectProject < Neo::Koan
       if msg.tu_sym == :power
         tv.on?
       elsif msg.tu_sym == :channel
-        tv.channel == 0
+        tv.channel.zero?
       end
     end
     assert_equal 10, tv.channel

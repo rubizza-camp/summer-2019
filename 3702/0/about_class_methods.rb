@@ -103,12 +103,12 @@ class AboutClassMethods < Neo::Koan
 
   # # ------------------------------------------------------------------
 
-  LAST_EXPRESSION_IN_ClASS_STATMENT = class Dog
-                                        21
-                                      end
+  LAST_EXPRESSION_IN_CLASS_STATEMENT = class Dog
+                                         21
+                                       end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LAST_EXPRESSION_IN_ClASS_STATMENT
+    assert_equal 21, LAST_EXPRESSION_IN_CLASS_STATEMENT
   end
 
   # # ------------------------------------------------------------------
