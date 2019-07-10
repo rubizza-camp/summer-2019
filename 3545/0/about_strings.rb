@@ -1,19 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:UncommunicativeVariableName
-# :reek:Attribute
-# :reek:FeatureEnvy
-# :reek:TooManyStatements
-# :reek:UtilityFunction
-# :reek:TooManyMethods
-# :reek:ManualDispatch
-# :reek:UncommunicativeMethodName
-# :reek:UncommunicativeVariableName
-# :reek:UncommunicativeModuleName
-# Class AboutStrings was split into AboutStrings1 and AboutStrings2
-# to avoid rubocop class length offense
-#:reek:TooManyMethods:UncommunicativeVariableName
-
+# rubocop:disable Metrics/ClassLength
+#:reek:TooManyMethods
 class AboutStrings < Neo::Koan
+  # rubocop:enable Metrics/ClassLength
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
     assert_equal true, string.is_a?(String)
@@ -23,7 +12,6 @@ class AboutStrings < Neo::Koan
     string = 'Goodbye, World'
     assert_equal true, string.is_a?(String)
   end
-  # :reek:UncommunicativeVariableName
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
@@ -32,41 +20,43 @@ class AboutStrings < Neo::Koan
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
     string = "Don't"
-    assert_equal "Don't", string
+    assert_equal 'Don\'t', string
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    first_string = "He said, \"Don't\""
+    second_string = 'He said, "Don\'t"'
+    assert_equal true, second_string == first_string
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    # rubocop:disable Style/PercentLiteralDelimiters
+    first_string = %(flexible quotes can handle both ' and " characters)
+    second_string = %!flexible quotes can handle both ' and " characters!
+    third_string = %{flexible quotes can handle both ' and " characters}
+    assert_equal true, first_string == second_string
+    assert_equal true, first_string == third_string
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %(
-  It was the best of times,
-  It was the worst of times.
-    )
-    assert_equal 62, long_string.length
-    assert_equal 4, long_string.lines.count
-    assert_equal "\n", long_string[0, 1]
+    long_string = %{
+It was the best of times,
+It was the worst of times.
+}
+    assert_equal 54, long_string.length
+    assert_equal 3, long_string.lines.count
+    assert_equal %{\n}, long_string[0, 1]
+    # rubocop:enable Style/PercentLiteralDelimiters
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~SQL
-      It was the best of times,
-      It was the worst of times.
-    SQL
-    assert_equal 53, long_string.length
+    long_string = <<SQL
+  It was the best of times,
+  It was the worst of times.
+SQL
+    assert_equal 57, long_string.length
     assert_equal 2, long_string.lines.count
-    assert_equal 'I', long_string[0, 1]
+    assert_equal ' ', long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -77,7 +67,7 @@ class AboutStrings < Neo::Koan
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    string = hi + there
+    # string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -89,12 +79,13 @@ class AboutStrings < Neo::Koan
     assert_equal 'Hello, World', hi
   end
 
-  def test_the_shovel_operator_modifies_the_original_string
-    original_string = "Hello, "
-    hi = original_string
-    there = "World"
-    hi << there
-    assert_equal "Hello, World", original_string
+  def test_plus_equals_also_will_leave_the_original_string_unmodified
+    original_string = 'Hello, '
+    # hi = original_string
+    # there = 'World'
+    # hi += there
+    assert_equal 'Hello, ', original_string
+  end
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
@@ -199,14 +190,12 @@ class AboutStrings < Neo::Koan
     words = %w[Now is the time]
     assert_equal 'Now is the time', words.join(' ')
   end
-  # :reek:UncommunicativeVariableName
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    first_string = 'a string'
+    second_string = 'a string'
 
-    assert_equal true, a           == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, first_string == second_string
+    assert_equal false, first_string.object_id == second_string.object_id
   end
-  end
-  end
+end
