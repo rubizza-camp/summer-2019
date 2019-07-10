@@ -19,6 +19,8 @@ class AboutExceptions < Neo::Koan
   # :reek:UncommunicativeVariableName
   def test_rescue_clause
     result = nil
+    # :reek:UncommunicativeVariableName
+    # :reek:UselessAssignment
     begin
       raise 'Oops'
     rescue StandardError => e
@@ -40,6 +42,8 @@ class AboutExceptions < Neo::Koan
   # :reek:UncommunicativeVariableName
   def test_raising_a_particular_error
     result = nil
+    # :reek:UncommunicativeVariableName
+    # :reek:UselessAssignment
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
