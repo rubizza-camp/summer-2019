@@ -116,7 +116,7 @@ class AboutControlStatements < Neo::Koan
 
       result << i
     end
-    assert_equal [3, 5, 7, 9], result
+    assert_equal [2, 4, 6, 8], result
   end
 
   def test_for_statement
