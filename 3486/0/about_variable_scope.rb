@@ -49,7 +49,7 @@ class AboutVariableScope < Neo::Koan
     def initialize(n)
       @name = n
       # Instance variables are prefixed with one '@' character.
-      @@total += 1
+      @total += 1
     end
 
     attr_reader :name
