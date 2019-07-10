@@ -25,7 +25,6 @@ class AboutDiceProject < Neo::Koan
     assert_not_nil dice
   end
 
-
   #:reek:FeatureEnvy:reek:TooManyStatements
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
     dice = DiceSet.new
@@ -46,7 +45,7 @@ class AboutDiceProject < Neo::Koan
     assert_equal first_time, second_time
   end
 
-   #:reek:FeatureEnvy:reek:TooManyStatements
+  #:reek:FeatureEnvy:reek:TooManyStatements
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
 
