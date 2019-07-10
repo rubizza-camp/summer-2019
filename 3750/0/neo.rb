@@ -214,6 +214,7 @@ module Neo
   # :reek:UncommunicativeVariableName
   # :reek:NilCheck
   # :reek:TooManyStatements
+  # :reek:UtilityFunction
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -528,6 +529,9 @@ ENDTEXT
     end
   end
 
+  # :reek:NestedIterators
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   class ThePath
     def walk
       sensei = Neo::Sensei.new
