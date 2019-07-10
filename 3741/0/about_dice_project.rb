@@ -6,10 +6,7 @@ class DiceSet
   attr_reader :values
 
   def roll(score)
-    @values = []
-    score.downto(1) do |_i|
-      @values.push(rand(1..6))
-    end
+    @values = (1..score).each_with_object([]) { |_i, value| value << rand(1..6) }
   end
 end
 # :reek:Attribute
