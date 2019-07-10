@@ -12,7 +12,7 @@
 #   about_triangle_project.rb
 # and
 #   about_triangle_project_2.rb
-#:reek:FetureEnvy
+#:reek:FeatureEnvy
 def triangle(side_a, side_b, side_c)
   triangle_exist?(side_a, side_b, side_c)
 
