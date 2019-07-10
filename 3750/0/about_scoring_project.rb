@@ -1,3 +1,4 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Metrics/AbcSize, Metrics/MethodLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Greed is a dice game where you roll up to five dice to accumulate
@@ -28,7 +29,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# rubocop:disable all
+
+# :reek:UncommunicativeVariableName
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
 def score(dice)
   dice.sort!
   sum = 0
@@ -62,8 +66,14 @@ def score(dice)
     return sum
   end
 end
-# rubocop:enable all
 
+# :reek:UtilityFunction:
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
