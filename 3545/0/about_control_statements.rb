@@ -88,6 +88,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal 3_628_800, result
   end
   # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
 
   def test_break_statement
     i = 1

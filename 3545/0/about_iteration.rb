@@ -1,4 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
+# :reek:TooManyStatements
 
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
@@ -66,6 +69,7 @@ class AboutIteration < Neo::Koan
     another_array = array.map { |item| item + 10 }
     assert_equal [11, 12, 13], another_array
   end
+  # :reek:TooManyStatements
 
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
@@ -84,6 +88,7 @@ class AboutIteration < Neo::Koan
     assert_equal 'Clarence', (array.find { |item| item.size > 4 })
   end
   # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
 
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
