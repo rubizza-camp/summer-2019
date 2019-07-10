@@ -29,6 +29,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# :reek:TooManyStatements:, :reek:UtilityFunction:
 # rubocop:disable Metrics/MethodLength, Style/Next
 def score(dice)
   score = 0
@@ -62,10 +63,12 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([])
   end
 
+  # :reek:UncommunicativeMethodName:
   def test_score_of_a_single_roll_of_5_is_50
     assert_equal 50, score([5])
   end
 
+  # :reek:UncommunicativeMethodName:
   def test_score_of_a_single_roll_of_1_is_100
     assert_equal 100, score([1])
   end
@@ -78,6 +81,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
+  # :reek:UncommunicativeMethodName:
   def test_score_of_a_triple_1_is_1000
     assert_equal 1000, score([1, 1, 1])
   end

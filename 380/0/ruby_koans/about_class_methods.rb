@@ -1,4 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:TooManyMethods
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeModuleName
 
 class AboutClassMethods < Neo::Koan
   class Dog
@@ -106,12 +109,12 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  self_inside_of_Class_statesment = class Dog
+  self_inside_of_class_statesment = class Dog
                                       self
                                     end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == self_inside_of_Class_statesment
+    assert_equal true, Dog == self_inside_of_class_statesment
   end
   # rubocop:enabled Lint/UselessAssignment
   # ------------------------------------------------------------------

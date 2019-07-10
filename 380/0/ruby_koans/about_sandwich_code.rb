@@ -1,13 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:FeatureEnvy:
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
-    file = open(file_name)
+    file_one = open(file_name)
     count = 0
-    count += 1 while file.gets
+    count += 1 while file_one.gets
     count
   ensure
-    file.close if file
+    file_one.close if file_one
   end
 
   def test_counting_lines
@@ -17,12 +18,12 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-    file = open(file_name)
-    while line = file.gets
+    file_two = open(file_name)
+    while line = file_two.gets
       return line if line.match(/e/)
     end
   ensure
-    file.close if file
+    file_two.close if file_two
   end
 
   def test_finding_lines
@@ -52,15 +53,15 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = open(file_name)
-    yield(file)
+    file_three = open(file_name)
+    yield(file_three)
   ensure
-    file.close if file
+    file.close if file_three
   end
 
   # Now we write:
 
-  def count_lines2(file_name)
+  def count_lines_two(file_name)
     file_sandwich(file_name) do |file|
       count = 0
       count += 1 while file.gets
@@ -68,13 +69,13 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
-  def test_counting_lines2
-    assert_equal 4, count_lines2('example_file.txt')
+  def test_counting_lines_two
+    assert_equal 4, count_lines_two('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  def find_line2(file_name)
+  def find_line_two(file_name)
     file_sandwich(file_name) do |file|
       while line = file.gets
         return line if line.match(/e/)
@@ -82,13 +83,13 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
-  def test_finding_lines2
-    assert_equal "test\n", find_line2('example_file.txt')
+  def test_finding_lines_two
+    assert_equal "test\n", find_line_two('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
-  def count_lines3(file_name)
+  def count_lines_three(file_name)
     open(file_name) do |file|
       count = 0
       count += 1 while file.gets
@@ -97,6 +98,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   def test_open_handles_the_file_sandwich_when_given_a_block
-    assert_equal 4, count_lines3('example_file.txt')
+    assert_equal 4, count_lines_three('example_file.txt')
   end
 end

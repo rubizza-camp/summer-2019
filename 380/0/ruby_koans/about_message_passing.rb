@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:ManualDispatch:
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -112,6 +113,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
+    # :reek:UtilityFunction:
     def method_missing(method_name, *args, &block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end

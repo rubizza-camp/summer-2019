@@ -15,16 +15,14 @@
 #
 # rubocop:disabel Metrics/LineLength
 # rubocop:disable Metrics/CyclomaticComplexity
-# rubocop:disable Style/NumericPredicate
 # rubocop:disable Metrics/PerceivedComplexity
 # rubocop:disable Metrics/AbcSize
+# :reek:TooManyStatements
 
-def triangle(a_side, b_side, c_side)
-  raise TriangleError if a_side.equal?(0) && a_side.equal?(0) && a_side.equal?(0)
-  raise TriangleError if a_side < 0 || b_side < 0 || c_side < 0
-  # rubocop:disable Metrics/LineLength
-  raise TriangleError if (a_side + b_side <= c_side) || (a_side + c_side <= b_side) || (b_side + c_side <= a_side)
-  # rubocop:enable Metrics/LineLength
+def triangle(a_s, b_s, c_s)
+  raise TriangleError if a_s.equal?(0) && c_s.equal?(0) && b_s.equal?(0)
+  raise TriangleError if a_s < 0 || b_s < 0 || c_s < 0
+  raise TriangleError if (a_s + b_s <= c_s) || (a_s + c_s <= b_s) || (b_s + c_s <= a_s)
 
   return :equilateral if a_side.equal?(b_side) && a_side.equal?(c_side)
   return :isosceles if a_side.equal?(b_side) || a_side.equal?(c_side) || b_side.equal?(c_side)
@@ -38,6 +36,5 @@ end
 
 # rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/CyclomaticComplexity
-# rubocop:enable Style/NumericPredicate
 # rubocop:enable Metrics/PerceivedComplexity
 # rubocop:enable Metrics/AbcSize

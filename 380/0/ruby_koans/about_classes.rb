@@ -1,4 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Metrics/LineLength
+# :reek:Attribute, :reek:FeatureEnvy, :reek:UncommunicativeMethodName, :reek:UncommunicativeVariableName, :reek:UncommunicativeModuleName, :reek:TooManyStatements,:reek:TooManyMethods, :reek:InstanceVariableAssumption
+# rubocop:enable Metrics/LineLength
 
 class AboutClasses < Neo::Koan
   class Dog
