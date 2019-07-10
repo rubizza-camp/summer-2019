@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
+# rubocop:disable Naming/AccessorMethodName, Style/EvalWithLocation
 # rubocop:disable Lint/AmbiguousBlockAssociation)
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -191,5 +191,5 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
-# rubocop:enable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
+# rubocop:enable Naming/AccessorMethodName, Style/EvalWithLocation
 # rubocop:enable Lint/AmbiguousBlockAssociation)

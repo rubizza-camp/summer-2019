@@ -19,6 +19,8 @@ def triangle(a_side, b_side, c_side)
   return :isosceles if (a_side == b_side) | (a_side == c_side) | (b_side == c_side)
   :scalene
 end
+# rubocop:enable Metrics/AbcSize
+
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end

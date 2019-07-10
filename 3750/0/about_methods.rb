@@ -1,5 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/Void, Lint/UnreachableCode
-# rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/Void, Lint/UnreachableCode
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UncommunicativeParameterName
@@ -77,7 +76,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/Void
+
   def method_with_explicit_return
     :a_non_return_value
     return :return_value
@@ -157,5 +156,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Lint/MissingCopEnableDirective, Lint/Void, Lint/UnreachableCode
-# rubocop:enable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:enable Lint/Void, Lint/UnreachableCode

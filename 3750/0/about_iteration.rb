@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
+# rubocop:disable Lint/MissingCopEnableDirective
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:NestedIterators
