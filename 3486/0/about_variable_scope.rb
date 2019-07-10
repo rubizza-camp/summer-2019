@@ -65,7 +65,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |ik| Mouse.new(ik.to_s) }
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
