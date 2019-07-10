@@ -1,9 +1,10 @@
-#rubocop:disable all
+# rubocop:disable Layout/EndOfLine
+# rubocop:enable Layout/EndOfLine
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This shiny device polishes bared foos
-#:reek:InstanceVariableAssumption 
+#:reek:InstanceVariableAssumption
 class DiceSet
   attr_reader :values
 

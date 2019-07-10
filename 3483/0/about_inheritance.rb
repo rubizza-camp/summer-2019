@@ -1,4 +1,5 @@
-#rubocop:disable all
+# rubocop:disable Layout/EndOfLine
+# rubocop:enable Layout/EndOfLine
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
