@@ -103,22 +103,22 @@ class AboutClassMethods < Neo::Koan
 
   # # ------------------------------------------------------------------
 
-  LastExpressionInClassStatement = class Dog
-                                     21
-                                   end
+  LAST_EXPRESSION_IN_ClASS_STATMENT = class Dog
+                                        21
+                                      end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, LastExpressionInClassStatement
+    assert_equal 21, LAST_EXPRESSION_IN_ClASS_STATMENT
   end
 
   # # ------------------------------------------------------------------
 
- Self_Inside_Of_Class_Statement = class Dog
+  SELF_INSIDE_OF_CLASS_STATMENT = class Dog
                                     self
                                   end
 
   def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == Self_Inside_Of_Class_Statement
+    assert_equal true, Dog == SELF_INSIDE_OF_CLASS_STATMENT
   end
 
   # # ------------------------------------------------------------------
