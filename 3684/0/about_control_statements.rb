@@ -1,4 +1,5 @@
 # rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Metrics/ClassLength, Metrics/MethodLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UncommunicativeVariableName
@@ -140,3 +141,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 # rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Metrics/ClassLength, Metrics/MethodLength

@@ -1,11 +1,9 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UncommunicativeVariableName
 # This method smells of :reek:TooManyStatements
 # This method smells of :reek:TooManyMethods
-
+# rubocop:disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -52,10 +50,10 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~TEXT
+    long_string = %(TEXT
       It was the best of times,
       It was the worst of times.
-    TEXT
+    TEXT)
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -203,3 +201,4 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength
