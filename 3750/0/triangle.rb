@@ -14,9 +14,9 @@
 # :reek:FeatureEnvy
 def triangle(a_side, b_side, c_side)
   array = [a_side, b_side, c_side].sort
-  raise TriangleError if array.min <= 0 || array[0] + array[1] <= array[2]
-  return :equilateral if (a_side == b_side) & (a_side == c_side)
-  return :isosceles if (a_side == b_side) | (a_side == c_side) | (b_side == c_side)
+  raise TriangleError if array.first <= 0 || array[0] + array[1] <= array[2]
+  return :equilateral if (a_side == b_side) && (a_side == c_side)
+  return :isosceles if (a_side == b_side) || (a_side == c_side) || (b_side == c_side)
   :scalene
 end
 # rubocop:enable Metrics/AbcSize
