@@ -97,13 +97,13 @@ class AboutIteration < Neo::Koan
     # Describe in your own words what inject does.
   end
 
+  # :reek:TooManyStatements
+  # :reek:NestedIterators
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }
     assert_equal [11, 12, 13], result
 
-    #:reek:NestedIterators:
-    #:reek:TooManyStatements:
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
       assert_equal %w[THIS IS A TEST], upcase_lines
