@@ -187,5 +187,5 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-# rubocop:disable Lint/MissingCopEnableDirective
-# rubocop:disable Style/MethodMissing
+# rubocop:enable Lint/MissingCopEnableDirective
+# rubocop:enable Style/MethodMissing
