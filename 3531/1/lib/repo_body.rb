@@ -31,7 +31,7 @@ class RepoBody
     stats[:stars] = doc.css("a[class='social-count js-social-count']").text
     stats[:forks] = doc.css("a[class='social-count']")[1].text
     stats[:issues] = doc.css("span[class='Counter']")[0].text
-    stats[:used_by] = used_by_doc.css("a[class='btn-link selected']").text.delete("'' \n Repositories")
+    stats[:used_by] = used_by_doc.css("a[class='btn-link selected']").text
     stats[:contributors] = get_contributors(doc)
 
     delete_spaces(stats)
