@@ -36,15 +36,18 @@ class Game
     when [4, 4, 4, 4, 4] then kesh_plus(5000)
     when [5, 5, 5, 5, 5] then kesh_plus(7000)
     when [6, 6, 6, 6, 6, 6] then kesh_plus(11_000)
-    else
-      deposit_plus(1000)
-      gamer.kesh_minus(1000)
+    else kesh_minus
     end
   end
 
   def kesh_plus(win)
     gamer.kesh_plus(win)
     deposit_minus(win)
+  end
+
+  def kesh_minus
+    deposit_plus(1000)
+    gamer.kesh_minus(1000)
   end
 end
 
