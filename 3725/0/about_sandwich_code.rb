@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeMethodName
 # :reek:FeatureEnvy
+# :reek:NilCheck 
 # :reek:RepeatedConditional
 # :rubocop:disable Style/SafeNavigation
 class AboutSandwichCode < Neo::Koan
@@ -10,7 +11,7 @@ class AboutSandwichCode < Neo::Koan
     count += 1 while file.gets
     count
   ensure
-    file.close if file
+    file&.close
   end
 
   def test_counting_lines
@@ -25,7 +26,7 @@ class AboutSandwichCode < Neo::Koan
       return line if line =~ /e/
     end
   ensure
-    file.close if file
+    file&.close
   end
 
   def test_finding_lines
@@ -58,7 +59,7 @@ class AboutSandwichCode < Neo::Koan
     file = open(file_name) # rubocop:disable Security/Open
     yield(file)
   ensure
-    file.close if file
+    file&.close
   end
 
   # Now we write:
