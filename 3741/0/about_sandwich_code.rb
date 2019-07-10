@@ -1,4 +1,5 @@
 
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UncommunicativeMethodName
@@ -11,7 +12,7 @@ class AboutSandwichCode < Neo::Koan
     count += 1 while file.gets
     count
   ensure
-    file&.close
+    file.close if file
   end
 
   def test_counting_lines
@@ -26,7 +27,7 @@ class AboutSandwichCode < Neo::Koan
       return line if line.match(/e/)
     end
   ensure
-    file&.close
+    file.close if file
   end
 
   def test_finding_lines
@@ -54,12 +55,11 @@ class AboutSandwichCode < Neo::Koan
   #
   # Consider the following code:
   #
-
   def file_sandwich(file_name)
     file = File.open(file_name)
     yield(file)
   ensure
-    file&.close
+    file.close if file
   end
   # Now we write:
 
@@ -103,3 +103,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# rubocop:enable all
