@@ -16,9 +16,10 @@
 # :reek:FeatureEnvy
 
 def test_error(val_a, val_b, val_c)
-  raise TriangleError if val_a <= 0 || val_b <= 0 || val_c <= 0
+  raise TriangleError 'be negative' if val_a <= 0 || val_b <= 0 || val_c <= 0
+
   sum = (val_a + val_b + val_c) / 2.0
-  raise TriangleError if ((sum - val_a) * (sum - val_b) * (sum - val_c)) <= 0
+  raise TriangleError 'be negative' if ((sum - val_a) * (sum - val_b) * (sum - val_c)) <= 0
 end
 # :reek:FeatureEnvy
 
