@@ -1,12 +1,17 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Lint/UnreachableCode
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/Void, Lint/UnreachableCode
 # rubocop:disable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# :reek:UncommunicativeParameterName
 # :reek:UtilityFunction
-def my_global_method(a, b)
-  a + b
+def my_global_method(argument_one, argument_two)
+  argument_one + argument_two
 end
 
 # :reek:TooManyMethods
+# :reek:TooManyStatements
+# :reek:UtilityFunction
+# :reek:UncommunicativeParameterName
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -49,7 +54,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(param_one, param_two=:default_value)
+  def method_with_defaults(param_one, param_two = :default_value)
     [param_one, param_two]
   end
 
@@ -95,10 +100,9 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:enable Lint/Void
-  # :reek:UtilityFunction
-  def my_method_in_the_same_class(a, b)
-    a * b
+
+  def my_method_in_the_same_class(argument_one, argument_two)
+    argument_one * argument_two
   end
 
   def test_calling_methods_in_same_class
@@ -153,5 +157,5 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Lint/UnreachableCode
+# rubocop:enable Lint/MissingCopEnableDirective, Lint/Void, Lint/UnreachableCode
 # rubocop:enable Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
