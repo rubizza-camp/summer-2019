@@ -1,10 +1,10 @@
-
-# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UncommunicativeMethodName
 # :reek:UtilityFunction
 # :reek:NilCheck
+# :reek:RepeatedConditional
+# rubocop:disable all
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = File.open(file_name)
@@ -20,7 +20,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
@@ -55,6 +55,7 @@ class AboutSandwichCode < Neo::Koan
   #
   # Consider the following code:
   #
+
   def file_sandwich(file_name)
     file = File.open(file_name)
     yield(file)
