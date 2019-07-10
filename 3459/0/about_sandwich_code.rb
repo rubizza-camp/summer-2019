@@ -23,7 +23,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line(file_name)
     file = open(file_name)
     while (line = file.gets)
-      return line if line =~ /e/
+      return line if line.match(/e/)
     end
   ensure
     file.close
