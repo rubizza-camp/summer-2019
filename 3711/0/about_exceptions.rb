@@ -11,20 +11,32 @@ class AboutExceptions < Neo::Koan
     assert_equal Object,        MySpecialError.ancestors[4]
   end
 
+  # :reek:TooManyStatements
+  # rubocop:disable Style/SignalException
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/LineLength
   def test_rescue_clause
     result = nil
     begin
-      raise 'Oops'
+      fail 'Oops'
     rescue StandardError => ex
       result = :exception_handled
     end
+
     assert_equal :exception_handled, result
+
     assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
+
     assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
+
     assert_equal 'Oops', ex.message
   end
 
+  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Metrics/MethodLength
+
+  # :reek:TooManyStatements
   def test_raising_a_particular_error
     result = nil
     begin
@@ -33,22 +45,27 @@ class AboutExceptions < Neo::Koan
     rescue MySpecialError => ex
       result = :exception_handled
     end
+
     assert_equal :exception_handled, result
     assert_equal 'My Message', ex.message
   end
 
   def test_ensure_clause
+    # rubocop:disable Lint/UselessAssignment
     result = nil
+    # rubocop:enable Lint/UselessAssignment
+    # rubocop:disable Lint/HandleExceptions
     begin
-      raise 'Oops'
+      fail 'Oops'
     rescue StandardError
       # no code here
-      puts 'handled'
     ensure
       result = :always_run
     end
+    # rubocop:enable Lint/HandleExceptions
     assert_equal :always_run, result
   end
+  # rubocop:enable Style/SignalException
 
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised

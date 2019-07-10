@@ -14,15 +14,20 @@ class DiceSet
   end
 
   def roll(count)
-    return unless count.is_a? Integer
-    rolls = []
-    count.times do |_i|
-      rolls << rand(1..6)
+    unless count.is_a? Integer
+      raise ArgumentError, "wrong argument type (given #{count.class}, expected Integer)"
     end
-    @values = rolls
+    @values = []
+    count.times do
+      @values << rand(1..6)
+    end
+    @values
   end
 end
 
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new

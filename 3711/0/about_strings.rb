@@ -1,8 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyMethods and :reek:UncommunicativeVariableName
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Style/StringLiterals
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
-    string = 'Hello, World'
+    string = "Hello, World"
     assert_equal true, string.is_a?(String)
   end
 
@@ -27,39 +30,46 @@ class AboutStrings < Neo::Koan
     assert_equal true, a == b
   end
 
+  # rubocop:disable Style/PercentLiteralDelimiters
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
+    b = %{flexible quotes can handle both ' and " characters}
+    c = %!flexible quotes can handle both ' and " characters!
     assert_equal true, a == b
     assert_equal true, a == c
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %(
+    long_string = %{
 It was the best of times,
 It was the worst of times.
-)
-    assert_equal 54, long_string.length
-    assert_equal 3, long_string.lines.count
+}
+    assert_equal 54,   long_string.length
+    assert_equal 3,    long_string.lines.count
     assert_equal "\n", long_string[0, 1]
   end
+  # rubocop:enable Style/PercentLiteralDelimiters
 
+  # rubocop:disable Layout/IndentHeredoc
+  # rubocop:disable Naming/HeredocDelimiterNaming:
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<LS
-  It was the best of times,
-  It was the worst of times.
-LS
-    assert_equal 57, long_string.length
-    assert_equal 2, long_string.lines.count
-    assert_equal ' ', long_string[0, 1]
+    long_string = <<EOS
+It was the best of times,
+It was the worst of times.
+EOS
+    assert_equal 53,  long_string.length
+    assert_equal 2,   long_string.lines.count
+    assert_equal 'I', long_string[0, 1]
   end
+  # rubocop:enable Layout/IndentHeredoc
+  # rubocop:enable Naming/HeredocDelimiterNaming:
 
   def test_plus_will_concatenate_two_strings
     string = 'Hello, ' + 'World'
     assert_equal 'Hello, World', string
   end
 
+  # rubocop:disable Lint/UselessAssignment
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
@@ -82,6 +92,7 @@ LS
     hi += there
     assert_equal 'Hello, ', original_string
   end
+  # rubocop:enable Lint/UselessAssignment
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
@@ -117,8 +128,8 @@ LS
 
   def test_single_quotes_sometimes_interpret_escape_characters
     string = '\\\''
-    assert_equal 2, string.size
-    assert_equal "\\'", string # ???
+    assert_equal 2,     string.size
+    assert_equal "\\'", string
   end
 
   def test_double_quoted_strings_interpolate_variables
@@ -153,10 +164,9 @@ LS
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal __, 'a'
-      assert_equal __, 'a' == 97
-
-      assert_equal __, ('a' + 1) == 'b'
+      assert_equal 97, 'a'
+      assert_equal true, 'a' == 97
+      assert_equal true, ('a' + 1) == 'b'
     end
   end
 
@@ -192,7 +202,9 @@ LS
     a = 'a string'
     b = 'a string'
 
-    assert_equal true, a           == b
+    assert_equal true,  a == b
     assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Style/StringLiterals
