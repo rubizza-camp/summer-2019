@@ -1,5 +1,11 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Lint/HandleExceptions
+# rubocop:disable Metrics/MethodLength, Metrics/LineLength
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeVariableName
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
@@ -10,14 +16,11 @@ class AboutExceptions < Neo::Koan
     assert_equal Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
-# rubocop:disable Metrics/MethodLength
+
   def test_rescue_clause
-# rubocop:enable Metrics/MethodLength
     result = nil
     begin
-# rubocop:disable Style/StringLiterals
       fail 'Oops'
-# rubocop:enable Style/StringLiterals
     rescue StandardError => ex
       result = :exception_handled
     end
@@ -46,17 +49,11 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
-# rubocop:disable Lint/UselessAssignment
     result = nil
-# rubocop:enable Lint/UselessAssignment
     begin
-# rubocop:disable Style/StringLiterals
       fail 'Oops'
-# rubocop:enable Style/StringLiterals
-# rubocop:disable Lint/HandleExceptions
     rescue StandardError
       # no code here
-# rubocop:enable Lint/HandleExceptions
     ensure
       result = :always_run
     end
@@ -67,10 +64,10 @@ class AboutExceptions < Neo::Koan
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
-# rubocop:disable Style/RaiseArgs
     assert_raise(MySpecialError) do
-      raise MySpecialError.new('New instances can be raised directly.')
-# rubocop:enable Style/RaiseArgs    
+      raise MySpecialError.new('New instances can be raised directly.') 
     end
   end
 end
+# rubocop:enable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Lint/HandleExceptions
+# rubocop:enable Metrics/MethodLength, Metrics/LineLength
