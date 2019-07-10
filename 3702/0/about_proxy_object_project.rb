@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -14,6 +12,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
+#:nodoc:
 class Proxy
   def initialize(tv_object)
     @tv = tv_object
@@ -22,7 +21,7 @@ class Proxy
   attr_accessor :channel, :tv
 
   def called?(msg)
-    self.send(msg)
+    tv.send(msg)
   end
 
   def power
@@ -56,28 +55,21 @@ class AboutProxyObjectProject < Neo::Koan
 
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
-
     tv.channel = 10
     tv.power
-
     def self.called?(msg)
       if msg.tu_sym == :power
         tv.on?
       elsif msg.tu_sym == :channel
-        tv.channel == nil
+        tv.channel == 0
       end
     end
-
     assert_equal 10, tv.channel
     assert tv.on?
   end
 
   def test_proxy_records_messages_sent_to_tv
     tv = Proxy.new(Television.new)
-
-    tv.power
-    tv.channel = 10
-
     assert_equal %i[power channel=], tv.messages
   end
 
@@ -96,7 +88,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
     tv.on?
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
   def test_proxy_counts_method_calls

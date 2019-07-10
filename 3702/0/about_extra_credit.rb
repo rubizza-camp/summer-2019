@@ -1,16 +1,10 @@
-# frozen_string_literal: true
-
 class Game
-  def deposit
-    @deposit
-  end
+  attr_reader :deposit, :gamer
 
   def initialize(gamer)
     @gamer = gamer
     @deposit = 1_000_000
   end
-  
-  attr_reader :gamer
 
   def deposit_minus(win_user)
     @deposit -= win_user
@@ -23,9 +17,9 @@ class Game
     puts "DEPOSIT #{deposit}"
   end
 
-  def roll(n)
+  def roll(num)
     @roll = []
-    n.times { @roll << (rand(n) + 1) }
+    num.times { @roll << (rand(num) + 1) }
     puts "ВЫПАЛО #{@roll}"
     win_user
   end
@@ -37,43 +31,33 @@ class Game
   def win_user
     case values
     when [1, 1, 1, 1, 1]
-      gamer.kesh_plus(1000)
-      deposit_minus(1000)
-      1000
+      kesh_plus(1000)
     when [2, 2, 2, 2, 2]
-      gamer.kesh_plus(2000)
-      deposit_minus(2000)
-      2000
+      kesh_plus(2000)
     when [3, 3, 3, 3, 3]
-      gamer.kesh_plus(3000)
-      deposit_minus(3000)
-      3000
+      kesh_plus(3000)
     when [4, 4, 4, 4, 4]
-      gamer.kesh_plus(5000)
-      deposit_minus(5000)
-      5000
+      kesh_plus(5000)
     when [5, 5, 5, 5, 5]
-      gamer.kesh_plus(7000)
-      deposit_minus(7000)
-      7000
+      kesh_plus(7000)
     when [6, 6, 6, 6, 6, 6]
-      gamer.kesh_plus(10_000)
-      deposit_minus(10_000)
-      10_000
+      kesh_plus(11000)
     else
       deposit_plus(1000)
-
       gamer.kesh_minus(1000)
     end
+  end
+
+  def kesh_plus(win)
+    gamer.kesh_plus(win)
+    deposit_minus(win)
   end
 end
 
 class Gamer
   attr_reader :name
 
-  def kesh
-    @kesh
-  end
+  attr_reader :kesh
 
   def kesh_minus(pay)
     p "КЕШ= #{kesh}"

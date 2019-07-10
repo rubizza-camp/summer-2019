@@ -30,7 +30,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-
+#:nodoc:
 def score(dice)
   case dice
   when [1] then 100
