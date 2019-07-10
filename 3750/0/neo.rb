@@ -31,6 +31,8 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 def __(value = 'FILL ME IN', value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -40,6 +42,8 @@ def __(value = 'FILL ME IN', value19 = :mu)
 end
 
 # Numeric replacement value.
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 def _n_(value = 999_999, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -49,6 +53,8 @@ def _n_(value = 999_999, value19 = :mu)
 end
 
 # Error object replacement value.
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 def ___(value = FillMeInError, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -115,6 +121,7 @@ module Neo
       "\e[#{color_value}m"
     end
 
+    # :reek:NilCheck
     def use_colors?
       return false if ENV['NO_COLOR']
       if ENV['ANSI_COLOR'].nil?
@@ -137,6 +144,10 @@ module Neo
     end
   end
 
+  # :reek:FeatureEnvy
+  # :reek:NilCheck
+  # :reek:ControlParameter
+  # :reek:DataClump
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
@@ -160,22 +171,16 @@ module Neo
       assert(expected != actual, msg)
     end
 
-    # :reek:FeatureEnvy
-    # :reek:NilCheck
     def assert_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to be nil"
       assert(actual.nil?, msg)
     end
 
-    # :reek:FeatureEnvy
-    # :reek:NilCheck
     def assert_not_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to not be nil"
       assert(!actual.nil?, msg)
     end
 
-    # :reek:FeatureEnvy
-    # :reek:NilCheck
     def assert_match(pattern, actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to match #{pattern.inspect}"
       assert pattern =~ actual, msg

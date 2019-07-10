@@ -1,4 +1,10 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:NestedIterators
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
 
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
