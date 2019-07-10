@@ -5,6 +5,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # class comment
+# :reek:RepeatedConditional
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -21,6 +22,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
+  # :reek:TooManyStatements
+  # :reek:TooManyStatements
   def test_if_statements_return_values
     value = if true
               :true_value
@@ -76,6 +79,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal :false_value, result
   end
 
+  # :reek:FeatureEnvy
+  # :reek:UncommunicativeVariableName
   def test_while_statement
     i = 1
     result = 1
@@ -86,6 +91,9 @@ class AboutControlStatements < Neo::Koan
     assert_equal 3_628_800, result
   end
 
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
+  # :reek:TooManyStatements
   def test_break_statement
     i = 1
     result = 1
@@ -98,6 +106,9 @@ class AboutControlStatements < Neo::Koan
     assert_equal 3_628_800, result
   end
 
+  # :reek:FeatureEnvy
+  # :reek:UncommunicativeVariableName
+  # :reek:TooManyStatements
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
@@ -109,6 +120,9 @@ class AboutControlStatements < Neo::Koan
     assert_equal 2, result
   end
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   def test_next_statement
     i = 0
     result = []

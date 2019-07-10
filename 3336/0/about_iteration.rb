@@ -9,13 +9,13 @@ class AboutIteration < Neo::Koan
   # as symbols. So we use a version dependent method "as_name" to
   # convert to the right format in the koans. We will use "as_name"
   # whenever comparing to lists of methods.
-
+  # :reek:UtilityFunction
   in_ruby_version('1.8') do
     def as_name(name)
       name.to_s
     end
   end
-
+  # :reek:UtilityFunction
   in_ruby_version('1.9', '2') do
     def as_name(name)
       name.to_sym
@@ -45,6 +45,7 @@ class AboutIteration < Neo::Koan
     assert_equal 6, sum
   end
 
+  # :reek:TooManyStatements
   def break_workswitheach_style_iterations
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     sum = 0
@@ -56,6 +57,7 @@ class AboutIteration < Neo::Koan
     assert_equal 6, sum
   end
 
+  # :reek:TooManyStatements
   def test_collecttransformselements_ofan_array
     array = [1, 2, 3]
     new_array = array.collect { |item| item + 10 }
@@ -83,6 +85,8 @@ class AboutIteration < Neo::Koan
     assert_equal 'Clarence', (array.find { |item| item.size > 4 })
   end
 
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
@@ -94,11 +98,12 @@ class AboutIteration < Neo::Koan
     # Describe in your own words what inject does.
   end
 
+  # :reek:NestedIterators
+  # :reek:TooManyStatements
   def test_all_iterationmethodsworkonanycollectionnot_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }
     assert_equal [11, 12, 13], result
-
     # Files act like a collection of lines
     File.open('example_file.txt') do |file|
       upcase_lines = file.map { |line| line.strip.upcase }

@@ -3,6 +3,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # class
+# :reek:TooManyMethods
 class AboutClassMethods < Neo::Koan
   class Dog
   end
@@ -50,6 +51,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
   class Dog2
     def wag
       :instance_level_wag
@@ -71,6 +73,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:Attribute
   class Dog
     attr_accessor :name
   end

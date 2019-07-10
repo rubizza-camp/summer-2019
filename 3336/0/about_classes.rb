@@ -21,6 +21,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_iv_can_beset_by_assigning_tothem
     fido = Dog2.new
     assert_equal [], fido.instance_variables
@@ -29,6 +30,7 @@ class AboutClasses < Neo::Koan
     assert_equal [:@name], fido.instance_variables
   end
 
+  # :reek:TooManyStatements
   def test_iv_cannotbe_accessed_outside_theclass
     fido = Dog2.new
     fido.sett_name('Fido')
@@ -43,6 +45,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_youcan_politely_ask_for_ivvalues
     fido = Dog2.new
     fido.sett_name('Fido')
@@ -50,6 +53,7 @@ class AboutClasses < Neo::Koan
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
+  # :reek:FeatureEnvy
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.sett_name('Fido')
@@ -71,6 +75,7 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
     fido.sett_name('Fido')
@@ -87,6 +92,8 @@ class AboutClasses < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
+  # :reek:Attribute
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
     fido.sett_name('Fido')
@@ -95,10 +102,12 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:Attribute
   class Dog5
     attr_accessor :name
   end
 
+  # :reek:FeatureEnvy
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
 

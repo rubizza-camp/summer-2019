@@ -16,6 +16,7 @@
 #   about_triangle_project_2.rb
 #
 
+# :reek:FeatureEnvy
 def triangle(aaa, bbb, ccc)
   raise TriangleError if (aaa <= 0) || (bbb <= 0) || (ccc <= 0)
   raise TriangleError if (aaa + bbb <= ccc) || (bbb + ccc <= aaa) || (ccc + aaa <= bbb)

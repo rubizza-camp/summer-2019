@@ -69,6 +69,7 @@ class AboutBlocks < Neo::Koan
     assert_equal :modified_in_a_block, value
   end
 
+  # :reek:UncommunicativeVariableName
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
     add_one = lambda do |n|
       n + 1
@@ -79,6 +80,7 @@ class AboutBlocks < Neo::Koan
     assert_equal 11, add_one[10]
   end
 
+  # :reek:UncommunicativeVariableName
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
     make_upper = lambda do |n|
       n.upcase
@@ -88,11 +90,12 @@ class AboutBlocks < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # :reek:UtilityFunction
   def method_with_explicit_block(&block)
     block.call(10)
   end
 
+  # :reek:UncommunicativeVariableName
   def test_methods_can_take_an_explicit_block_argument
     assert_equal 20, (method_with_explicit_block { |n| n * 2 })
 
