@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-# rubocop:disable Style/MethodMissingSuper, Style/SingleLineMethods, Style/MissingRespondToMissing
+# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 

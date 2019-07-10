@@ -86,11 +86,11 @@ class AboutSandwichCode < Neo::Koan
   # :reek:UncommunicativeMethodName
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
-        while line = file.gets
-          return line if line.match(/e/)
-        end
-          file.close
+      while line = file.gets
+        return line if line.match(/e/)
       end
+      file.close
+    end
   end
 
   # :reek:UncommunicativeMethodName
