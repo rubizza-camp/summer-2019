@@ -25,7 +25,7 @@ end
 
 # :reek:UtilityFunction
 def sides_arent_good(first, second, third)
-  !(first + second > third && first + third > second && second + third > first)
+  first + second <= third || first + third <= second || second + third <= first
 end
 
 # :reek:FeatureEnvy
