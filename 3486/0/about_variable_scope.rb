@@ -55,7 +55,7 @@ class AboutVariableScope < Neo::Koan
     attr_reader :name
 
     def self.count
-      @@total
+      @total
     end
   end
 
