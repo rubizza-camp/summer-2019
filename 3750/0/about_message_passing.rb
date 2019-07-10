@@ -1,5 +1,12 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Lint/MissingCopEnableDirective
 # rubocop:disable Style/MethodMissing
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# :reek:ManualDispatch
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -15,7 +22,6 @@ class AboutMessagePassing < Neo::Koan
 
   def test_methods_can_be_invoked_by_sending_the_message
     mc = MessageCatcher.new
-
     assert mc.send(:caught?)
   end
 
@@ -23,8 +29,8 @@ class AboutMessagePassing < Neo::Koan
     mc = MessageCatcher.new
 
     assert mc.send('caught?')
-    assert mc.send('caught' + '?')    # What do you need to add to the first string?
-    assert mc.send('CAUGHT?'.downcase )      # What would you need to do to the string?
+    assert mc.send('caught' + '?') # What do you need to add to the first string?
+    assert mc.send('CAUGHT?'.downcase) # What would you need to do to the string?
   end
 
   def test_send_with_underscores_will_also_send_messages
@@ -37,7 +43,6 @@ class AboutMessagePassing < Neo::Koan
     # Why does Ruby provide both send and __send__ ?
   end
 
-  # :reek:ManualDispatch
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
 
@@ -112,9 +117,8 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # :reek:UtilityFunction
   class AllMessageCatcher
-    def method_missing(method_name, *args, &block)
+    def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(", ")}>"
     end
   end
@@ -127,7 +131,6 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
-  # :reek:ManualDispatch
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
 
@@ -177,7 +180,6 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
-  # :reek:ManualDispatch
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
 
@@ -185,4 +187,5 @@ class AboutMessagePassing < Neo::Koan
     assert_equal false, catcher.respond_to?(:something_else)
   end
 end
-# rubocop:enable Style/MethodMissing
+# rubocop:disable Lint/MissingCopEnableDirective
+# rubocop:disable Style/MethodMissing

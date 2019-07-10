@@ -2,7 +2,6 @@
 # rubocop:disable Lint/AmbiguousBlockAssociation)
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 # :reek:Attribute
 # :reek:FeatureEnvy
 # :reek:TooManyMethods
@@ -10,6 +9,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeModuleName
 # :reek:InstanceVariableAssumption
 # :reek:TooManyMethods
+
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -60,7 +60,7 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval("@name")  # string version
+    assert_equal 'Fido', fido.instance_eval('@name')  # string version
     assert_equal 'Fido', fido.instance_eval { @name } # block version
   end
 
@@ -70,9 +70,8 @@ class AboutClasses < Neo::Koan
     def set_name(a_name)
       @name = a_name
     end
-    def name
-      @name
-    end
+
+    attr_reader :name
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
@@ -103,7 +102,6 @@ class AboutClasses < Neo::Koan
   class Dog5
     attr_accessor :name
   end
-
 
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
@@ -190,6 +188,8 @@ class AboutClasses < Neo::Koan
     assert_equal '[1, 2, 3]', array.inspect
 
     assert_equal 'STRING', 'STRING'.to_s
-    assert_equal "\"STRING\"", 'STRING'.inspect
+    assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
+# rubocop:enable Lint/AmbiguousBlockAssociation)
