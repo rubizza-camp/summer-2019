@@ -53,7 +53,6 @@ class Proxy
   end
 
   def upcase
-    puts @object
     @messages_array << :upcase!
     @object.upcase! if @object.class == String
   end
@@ -62,7 +61,6 @@ class Proxy
     @messages_array << :split
     @object.split(' ') if @object.class == String
   end
-  # WRITE CODE HERE
 end
 
 # The proxy object should pass the following Koan:
