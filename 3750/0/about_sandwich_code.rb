@@ -1,4 +1,11 @@
+# rubocop:disable Lint/MissingCopEnableDirective
+# rubocop:disable, Performance/RedundantMatch
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UtilityFunction:UncommunicativeMethodName:
+# :reek:NilCheck
+# :reek:UncommunicativeMethodName
+# :reek:RepeatedConditional
 
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
@@ -7,7 +14,7 @@ class AboutSandwichCode < Neo::Koan
     count += 1 while file.gets
     count
   ensure
-    file&.close if file
+    file&.close
   end
 
   def test_counting_lines
@@ -19,9 +26,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
-      # rubocop:disable Performance/RedundantMatch
       return line if line.match(/e/)
-      # rubocop:enable Performance/RedundantMatch
     end
   ensure
     file&.close if file
@@ -57,50 +62,38 @@ class AboutSandwichCode < Neo::Koan
     file = File.open(file_name)
     yield(file)
   ensure
-  # rubocop:disable all
     file&.close if file
-  # rubocop:enable all
   end
 
   # Now we write:
-  # rubocop:disable all
   def count_lines2(file_name)
-  # rubocop:enable all
     file_sandwich(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
     end
   end
-  # rubocop:disable all
+
   def test_counting_lines2
-  # rubocop:enable all
     assert_equal 4, count_lines2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable all
+
   def find_line2(file_name)
-  # rubocop:enable all
     file_sandwich(file_name) do |file|
       while (line = file.gets)
-        # rubocop:disable Performance/RedundantMatch
         return line if line.match(/e/)
-        # rubocop:enable Performance/RedundantMatch
       end
     end
     # Rewrite find_line using the file_sandwich library function.
   end
-  # rubocop:disable all
   def test_finding_lines2
-  # rubocop:enable all
     assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable all
   def count_lines3(file_name)
-  # rubocop:enable all
     File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
