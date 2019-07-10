@@ -31,20 +31,16 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
-  return unless dice.is_a? Array
-
-  score = 0
-  results = dice_result(dice)
-  results.each do |num, count|
-    score += if num == 1
-               num * 1000 * (count / 3) + (count % 3) * 100
-             elsif num == 5
-               num * 100 * (count / 3) + (count % 3) * 50
-             else
-               num * 100 * (count / 3)
-             end
-  end
-  score
+  return unless dice.is_a? Array  
+  dice_result(dice).each_pair.map do |side, count|
+    if side == 1
+      side * 1000 * (count / 3) + (count % 3) * 100
+    elsif side == 5
+      side * 100 * (count / 3) + (count % 3) * 50
+    else
+      side * 100 * (count / 3)
+    end
+  end.sum
 end
 
 def dice_result(dice)
