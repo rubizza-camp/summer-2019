@@ -7,25 +7,25 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_can_be_compared
-    symbol1 = :a_symbol
-    symbol2 = :a_symbol
-    symbol3 = :something_else
+    symbol_one = :a_symbol
+    symbol_two = :a_symbol
+    symbol_three = :something_else
 
-    assert_equal true, symbol1 == symbol2
-    assert_equal false, symbol1 == symbol3
+    assert_equal true, symbol_one == symbol_two
+    assert_equal false, symbol_one == symbol_three
   end
 
   def test_identical_symbols_are_a_single_internal_object
-    symbol1 = :a_symbol
-    symbol2 = :a_symbol
+    symbol_one = :a_symbol
+    symbol_two = :a_symbol
 
-    assert_equal true, symbol1           == symbol2
-    assert_equal true, symbol1.object_id == symbol2.object_id
+    assert_equal true, symbol_one           == symbol_two
+    assert_equal true, symbol_one.object_id == symbol_two.object_id
   end
 
   def test_method_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
-    assert_equal true, symbols_as_strings.include?("test_method_names_become_symbols")
+    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
+    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
   # THINK ABOUT IT:
@@ -33,17 +33,17 @@ class AboutSymbols < Neo::Koan
   # Why do we convert the list of symbols to strings and then compare
   # against the string value rather than against symbols?
 
-  in_ruby_version("mri") do
-    RubyConstant = "What is the sound of one hand clapping?"
+  in_ruby_version('mri') do
+    RUBYCONSTANTS = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal true, all_symbols_as_strings.include?("method")
+      assert_equal true, all_symbols_as_strings.include?('method')
     end
   end
 
   def test_symbols_can_be_made_from_strings
-    string = "catsAndDogs"
+    string = 'catsAndDogs'
     assert_equal :catsAndDogs, string.to_sym
   end
 
@@ -54,7 +54,7 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_with_interpolation_can_be_built
-    value = "and"
+    value = 'and'
     symbol = :"cats #{value} dogs"
 
     assert_equal :"cats and dogs".to_sym, symbol
@@ -64,14 +64,15 @@ class AboutSymbols < Neo::Koan
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
 
-    assert_equal "It is raining cats and dogs.", string
+    assert_equal 'It is raining cats and dogs.', string
   end
 
   def test_symbols_are_not_strings
     symbol = :ruby
     assert_equal false, symbol.is_a?(String)
-    assert_equal false, symbol.eql?("ruby")
+    assert_equal false, symbol.eql?('ruby')
   end
+  # :reek:ManualDispatch
 
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
@@ -91,7 +92,7 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_can_be_dynamically_created
-    assert_equal :catsdogs, ("cats" + "dogs").to_sym
+    assert_equal :catsdogs, ('cats' + 'dogs').to_sym
   end
 
   # THINK ABOUT IT:

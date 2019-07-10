@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby
+# rubocop:disable all
+# !/usr/bin/env ruby
 # -*- ruby -*-
 
 begin
@@ -13,14 +14,16 @@ end
 class FillMeInError < StandardError
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
-    (version == 'jruby' && defined?(JRUBY_VERSION)) ||
-    (version == 'mri' && ! defined?(JRUBY_VERSION))
+      (version == 'jruby' && defined?(JRUBY_VERSION)) ||
+      (version == 'mri' && !defined?(JRUBY_VERSION))
 end
 
 def in_ruby_version(*versions)
-  yield if versions.any? { |v| ruby_version?(v) }
+  yield if versions.any? {|version| ruby_version?(version)}
 end
 
 in_ruby_version("1.8") do
@@ -30,7 +33,9 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
-def __(value="FILL ME IN", value19=:mu)
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
+def __(value = "FILL ME IN", value19 = :mu)
   if RUBY_VERSION < "1.9"
     value
   else
@@ -39,7 +44,9 @@ def __(value="FILL ME IN", value19=:mu)
 end
 
 # Numeric replacement value.
-def _n_(value=999999, value19=:mu)
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
+def _n_(value = 999999, value19 = :mu)
   if RUBY_VERSION < "1.9"
     value
   else
@@ -48,7 +55,9 @@ def _n_(value=999999, value19=:mu)
 end
 
 # Error object replacement value.
-def ___(value=FillMeInError, value19=:mu)
+# :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
+def ___(value = FillMeInError, value19 = :mu)
   if RUBY_VERSION < "1.9"
     value
   else
@@ -58,7 +67,7 @@ end
 
 # Method name replacement.
 class Object
-  def ____(method=nil)
+  def ____(method = nil)
     if method
       self.send(method)
     end
@@ -76,8 +85,8 @@ class String
       self
     else
       left_padding = extra / 2
-      right_padding = (extra+1)/2
-      (" " * left_padding) + self + (" " *right_padding)
+      right_padding = (extra + 1) / 2
+      (" " * left_padding) + self + (" " * right_padding)
     end
   end
 end
@@ -92,9 +101,9 @@ module Neo
   module Color
     #shamelessly stolen (and modified) from redgreen
     COLORS = {
-      :clear   => 0,  :black   => 30, :red   => 31,
-      :green   => 32, :yellow  => 33, :blue  => 34,
-      :magenta => 35, :cyan    => 36,
+        :clear => 0, :black => 30, :red => 31,
+        :green => 32, :yellow => 33, :blue => 34,
+        :magenta => 35, :cyan => 36,
     }
 
     module_function
@@ -116,6 +125,7 @@ module Neo
       "\e[#{color_value}m"
     end
 
+    # :reek:NilCheck
     def use_colors?
       return false if ENV['NO_COLOR']
       if ENV['ANSI_COLOR'].nil?
@@ -125,7 +135,7 @@ module Neo
           return true
         end
       else
-        ENV['ANSI_COLOR'] =~ /^(t|y)/i
+        ENV['ANSI_COLOR'] =~ /^(text_collected|y)/i
       end
     end
 
@@ -138,6 +148,7 @@ module Neo
     end
   end
 
+  # :reek:DataClump
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
@@ -145,36 +156,42 @@ module Neo
       raise FailedAssertionError, msg
     end
 
-    def assert(condition, msg=nil)
+    # :reek:ControlParameter
+    def assert(condition, msg = nil)
       msg ||= "Failed assertion."
       flunk(msg) unless condition
       true
     end
 
-    def assert_equal(expected, actual, msg=nil)
+    # :reek:FeatureEnvy
+    def assert_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to equal #{actual.inspect}"
       assert(expected == actual, msg)
     end
 
-    def assert_not_equal(expected, actual, msg=nil)
+    # :reek:FeatureEnvy
+    def assert_not_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to not equal #{actual.inspect}"
       assert(expected != actual, msg)
     end
 
-    def assert_nil(actual, msg=nil)
+    # :reek:NilCheck
+    def assert_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to be nil"
       assert(nil == actual, msg)
     end
 
-    def assert_not_nil(actual, msg=nil)
+    def assert_not_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to not be nil"
       assert(nil != actual, msg)
     end
 
-    def assert_match(pattern, actual, msg=nil)
+    # :reek:FeatureEnvy
+    def assert_match(pattern, actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to match #{pattern.inspect}"
       assert pattern =~ actual, msg
     end
+    # :reek:TooManyStatements
 
     def assert_raise(exception)
       begin
@@ -196,6 +213,9 @@ module Neo
     end
   end
 
+  # :reek:TooManyInstanceVariables
+  # :reek:TooManyMethods
+  # :reek:InstanceVariableAssumption
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -213,16 +233,17 @@ module Neo
     def add_progress(prog)
       @_contents = nil
       exists = File.exists?(PROGRESS_FILE_NAME)
-      File.open(PROGRESS_FILE_NAME,'a+') do |f|
-        f.print "#{',' if exists}#{prog}"
+      File.open(PROGRESS_FILE_NAME, 'a+') do |file|
+        file.print "#{',' if exists}#{prog}"
       end
     end
 
+    # :reek:NilCheck
     def progress
       if @_contents.nil?
         if File.exists?(PROGRESS_FILE_NAME)
-          File.open(PROGRESS_FILE_NAME,'r') do |f|
-            @_contents = f.read.to_s.gsub(/\s/,'').split(',')
+          File.open(PROGRESS_FILE_NAME, 'r') do |file|
+            @_contents = file.read.to_s.gsub(/\s/, '').split(',')
           end
         else
           @_contents = []
@@ -230,6 +251,7 @@ module Neo
       end
       @_contents
     end
+    # :reek:TooManyStatements
 
     def observe(step)
       if step.passed?
@@ -246,17 +268,19 @@ module Neo
       end
     end
 
+    # :reek:NilCheck
     def failed?
-      ! @failure.nil?
+      !@failure.nil?
     end
 
     def assert_failed?
       failure.is_a?(FailedAssertionError)
     end
+    # :reek:TooManyStatements
 
     def instruct
       if failed?
-        @observations.each{|c| puts c }
+        @observations.each {|cause| puts cause}
         encourage
         guide_through_error
         a_zenlike_statement
@@ -265,18 +289,19 @@ module Neo
         end_screen
       end
     end
+    # :reek:TooManyStatements
 
     def show_progress
       bar_width = 50
       total_tests = Neo::Koan.total_tests
-      scale = bar_width.to_f/total_tests
+      scale = bar_width.to_f / total_tests
       print Color.green("your path thus far [")
-      happy_steps = (pass_count*scale).to_i
+      happy_steps = (pass_count * scale).to_i
       happy_steps = 1 if happy_steps == 0 && pass_count > 0
-      print Color.green('.'*happy_steps)
+      print Color.green('.' * happy_steps)
       if failed?
         print Color.red('X')
-        print Color.cyan('_'*(bar_width-1-happy_steps))
+        print Color.cyan('_' * (bar_width - 1 - happy_steps))
       end
       print Color.green(']')
       print " #{pass_count}/#{total_tests}"
@@ -294,12 +319,13 @@ module Neo
     def boring_end_screen
       puts "Mountains are again merely mountains"
     end
+    # :reek:TooManyStatements
 
     def artistic_end_screen
       "JRuby 1.9.x Koans"
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
-        completed = <<-ENDTEXT
+      completed = <<-ENDTEXT
                                   ,,   ,  ,,
                                 :      ::::,    :::,
                    ,        ,,: :::::::::::::,,  ::::   :  ,
@@ -333,9 +359,10 @@ module Neo
                  ,::::::::::::::::              ::,, ,   ,:::,
                       ,::::                         , ,,
                                                   ,,,
-ENDTEXT
-        puts completed
+      ENDTEXT
+      puts completed
     end
+    # :reek:TooManyStatements
 
     def encourage
       puts
@@ -349,6 +376,7 @@ ENDTEXT
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
     end
+    # :reek:TooManyStatements
 
     def guide_through_error
       puts
@@ -360,60 +388,65 @@ ENDTEXT
       puts
     end
 
+    # :reek:UtilityFunction
     def embolden_first_line_only(text)
       first_line = true
-      text.collect { |t|
+      text.collect {|text|
         if first_line
           first_line = false
-          Color.red(t)
+          Color.red(text)
         else
-          Color.cyan(t)
+          Color.cyan(text)
         end
       }
     end
 
+    # :reek:UtilityFunction
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
-      text.collect{|t| "  #{t}"}
+      text.collect {|text_collected| "  #{text_collected}"}
     end
 
+    # :reek:UtilityFunction
     def find_interesting_lines(backtrace)
-      backtrace.reject { |line|
+      backtrace.reject {|line|
         line =~ /neo\.rb/
       }
     end
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
+    # :reek:TooManyStatements
     def a_zenlike_statement
       if !failed?
-        zen_statement =  "Mountains are again merely mountains"
+        zen_statement = "Mountains are again merely mountains"
       else
         zen_statement = case (@pass_count % 10)
-        when 0
-          "mountains are merely mountains"
-        when 1, 2
-          "learn the rules so you know how to break them properly"
-        when 3, 4
-          "remember that silence is sometimes the best answer"
-        when 5, 6
-          "sleep is the best meditation"
-        when 7, 8
-          "when you lose, don't lose the lesson"
-        else
-          "things are not what they appear to be: nor are they otherwise"
-        end
+                        when 0
+                          "mountains are merely mountains"
+                        when 1, 2
+                          "learn the rules so you know how to break them properly"
+                        when 3, 4
+                          "remember that silence is sometimes the best answer"
+                        when 5, 6
+                          "sleep is the best meditation"
+                        when 7, 8
+                          "when you lose, don'text_collected lose the lesson"
+                        else
+                          "things are not what they appear to be: nor are they otherwise"
+                        end
       end
       puts Color.green(zen_statement)
     end
   end
 
+  # :reek:TooManyInstanceVariables
   class Koan
     include Assertions
 
     attr_reader :name, :failure, :koan_count, :step_count, :koan_file
 
-    def initialize(name, koan_file=nil, koan_count=0, step_count=0)
+    def initialize(name, koan_file = nil, koan_count = 0, step_count = 0)
       @name = name
       @failure = nil
       @koan_count = koan_count
@@ -421,6 +454,7 @@ ENDTEXT
       @koan_file = koan_file
     end
 
+    # :reek:NilCheck
     def passed?
       @failure.nil?
     end
@@ -434,6 +468,7 @@ ENDTEXT
 
     def teardown
     end
+    # :reek:TooManyStatements
 
     def meditate
       setup
@@ -487,7 +522,7 @@ ENDTEXT
         @subclasses ||= []
       end
 
-       # Lazy initialize list of test methods.
+      # Lazy initialize list of test methods.
       def testmethods
         @test_methods ||= []
       end
@@ -501,11 +536,12 @@ ENDTEXT
       end
 
       def total_tests
-        self.subclasses.inject(0){|total, k| total + k.testmethods.size }
+        self.subclasses.inject(0) {|total, koan| total + koan.testmethods.size}
       end
     end
   end
 
+  # :reek:FeatureEnvy
   class ThePath
     def walk
       sensei = Neo::Sensei.new
@@ -514,13 +550,16 @@ ENDTEXT
       end
       sensei.instruct
     end
+    # :reek:TooManyStatements
 
+    # :reek:FeatureEnvy
+    # :reek:NestedIterators
     def each_step
       catch(:neo_exit) {
         step_count = 0
-        Neo::Koan.subclasses.each_with_index do |koan,koan_index|
+        Neo::Koan.subclasses.each_with_index do |koan, koan_index|
           koan.testmethods.each do |method_name|
-            step = koan.new(method_name, koan.to_s, koan_index+1, step_count+=1)
+            step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
             yield step
           end
         end

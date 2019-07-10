@@ -13,12 +13,17 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity, Style/GuardClause
+# :reek:FeatureEnvy
+
+def triangle(first, second, third)
   # WRITE THIS CODE
-  a, b, c = [a, b, c].sort
-  raise TriangleError if a <= 0 || a + b <= c
-  return :equilateral if a == b && b == c
-  if a == b || b == c || a == c
+  first, second, third = [first, second, third].sort
+  raise TriangleError if first <= 0 || first + second <= third
+
+  return :equilateral if first == second && second == third
+  if first == second || second == third || first == third
     return :isosceles
   else
     :scalene
@@ -28,3 +33,5 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity, Style/GuardClause
