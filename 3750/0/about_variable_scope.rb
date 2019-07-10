@@ -1,6 +1,14 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Style/ClassVars
 # rubocop:disable Style/GlobalVars
-# # rubocop:disable Lint/UselessAssignment, Style/ClassVars
+
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:ClassVariable
+# :reek:TooManyStatements
+# :reek:UncommunicativeMethodName
+# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
+
 class AboutVariableScope < Neo::Koan
   def bark
     noise = 'RUFF'
@@ -40,7 +48,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   # ------------------------------------------------------
-  # :reek:ClassVariable
+
   class Mouse
     attr_reader @name
     @@total = 0
@@ -96,5 +104,4 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Hey', $anywhere
   end
 end
-# rubocop:enable Style/GlobalVars
-# rubocop:enable Lint/UselessAssignment, Style/ClassVars
+

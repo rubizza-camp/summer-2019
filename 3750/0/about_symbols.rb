@@ -65,7 +65,7 @@ class AboutSymbols < Neo::Koan
   def test_to_s_is_called_on_interpolated_symbols
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
-    assert_equal 'It is raining %s and dogs.' % symbol, string
+    assert_equal 'It is raining cats and dogs.', string
   end
 
   def test_symbols_are_not_strings

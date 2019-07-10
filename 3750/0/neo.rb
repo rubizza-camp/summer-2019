@@ -160,16 +160,22 @@ module Neo
       assert(expected != actual, msg)
     end
 
+    # :reek:FeatureEnvy
+    # :reek:NilCheck
     def assert_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to be nil"
       assert(actual.nil?, msg)
     end
 
+    # :reek:FeatureEnvy
+    # :reek:NilCheck
     def assert_not_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to not be nil"
       assert(!actual.nil?, msg)
     end
 
+    # :reek:FeatureEnvy
+    # :reek:NilCheck
     def assert_match(pattern, actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to match #{pattern.inspect}"
       assert pattern =~ actual, msg
