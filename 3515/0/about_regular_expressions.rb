@@ -49,13 +49,10 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/AmbiguousBlockAssociation
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
-    assert_equal %w[cat bat rat], animals.select { |var| var[/[cbr]at/] }
+    assert_equal %w[cat bat rat], (animals.select { |var| var[/[cbr]at/] })
   end
-
-  # rubocop:enable Lint/AmbiguousBlockAssociation
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
     assert_equal '42', 'the number is 42'[/[0123456789]+/]

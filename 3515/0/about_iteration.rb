@@ -23,9 +23,6 @@ class AboutIteration < Neo::Koan
     end
   end
 
-  # Ok, now back to the Koans.
-  # -------------------------------------------------------------------
-
   def test_each_is_a_method_on_arrays
     assert_equal true, [].methods.include?(as_name(:each))
   end
@@ -72,11 +69,11 @@ class AboutIteration < Neo::Koan
 
     # rubocop:disable Style/SymbolProc
 
-    even_numbers = array.select { |item| item.even? }
+    even_numbers = array.select(&:even?)
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all { |item| item.even? }
+    more_even_numbers = array.find_all(&:even?)
     # rubocop:enable Style/SymbolProc
     assert_equal [2, 4, 6], more_even_numbers
   end
@@ -93,9 +90,6 @@ class AboutIteration < Neo::Koan
 
     result_two = [2, 3, 4].inject(1) { |product, item| product * item }
     assert_equal 24, result_two
-
-    # Extra Credit:
-    # Describe in your own words what inject does.
   end
 
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays

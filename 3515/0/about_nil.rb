@@ -8,19 +8,11 @@ class AboutNil < Neo::Koan
     assert_equal true, nil.is_a?(Object), 'Unlike NULL in other languages'
   end
 
-  # rubocop:disable Style/RedundantBegin
-
   def test_you_dont_get_null_pointer_errors_when_calling_methods_on_nil
-    begin
-      # rubocop:enable Style/RedundantBegin
-      nil.some_method_nil_doesnt_know_about
-    rescue StandardError => e
-      assert_equal NoMethodError, e.class
-
-      # What message was attached to the exception?
-      # (HINT: replace __ with part of the error message.)
-      assert_match(/`some_method_nil_doesnt_know_about'/, e.message)
-    end
+    nil.some_method_nil_doesnt_know_about
+  rescue StandardError => e
+    assert_equal NoMethodError, e.class
+    assert_match(/`some_method_nil_doesnt_know_about'/, e.message)
   end
 
   # :reek:NilCheck

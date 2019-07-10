@@ -14,13 +14,13 @@
 #   about_triangle_project_2.rb
 # :reek:UtilityFunction
 
-def triangle_first_error(first, second, third)
+def triangle_are_the_sides_positive?(first, second, third)
   raise TriangleError if (first <= 0) || (second <= 0) || (third <= 0)
 end
 
 # :reek:FeatureEnvyame
 
-def triangle_second_error(first, second, third)
+def triangle_exist?(first, second, third)
   raise TriangleError if (first + second <= third) ||
                          (first + third <= second) || (second + third <= first)
 end
@@ -47,8 +47,8 @@ def triangle_scalene(first, second, third)
 end
 
 def triangle(first, second, third)
-  triangle_first_error(first, second, third) ||
-    triangle_second_error(first, second, third) ||
+  triangle_are_the_sides_positive?(first, second, third) ||
+    triangle_exist?(first, second, third) ||
     triangle_equilateral(first, second, third) ||
     triangle_isosceles(first, second, third) ||
     triangle_scalene(first, second, third)

@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -42,11 +42,11 @@ class AboutStrings < Neo::Koan
 
   def test_flexible_quotes_can_handle_multiple_lines
     long_string = %(
-It was the best of times,
-It was the worst of times.
-)
-    assert_equal 54, long_string.length
-    assert_equal 3, long_string.lines.count
+      It was the best of times,
+      It was the worst of times.
+    )
+    assert_equal 70, long_string.length
+    assert_equal 4, long_string.lines.count
     assert_equal "\n", long_string[0, 1]
   end
 
@@ -202,3 +202,5 @@ It was the worst of times.
     assert_equal false, var_one.object_id == var_two.object_id
   end
 end
+
+# rubocop:enable Metrics/ClassLength

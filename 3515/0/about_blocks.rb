@@ -1,14 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UtilityFunction
-# rubocop:disable Lint/UselessAssignment
 
 class AboutBlocks < Neo::Koan
   def method_with_block
-    result = yield # I have to use rubocop:disable here because of koan feature
+    yield # I have to use rubocop:disable here because of koan feature
   end
-
-  # rubocop:enable Lint/UselessAssignment
 
   def test_methods_can_take_blocks
     yielded_result = method_with_block { 1 + 2 }

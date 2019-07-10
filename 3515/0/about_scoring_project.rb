@@ -28,7 +28,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# This method smells of :reek:UncommunicativeVariableName
 # rubocop:disable Metrics/AbcSize
 # This method smells of :reek:UtilityFunction
 # This method smells of :reek:TooManyStatements
