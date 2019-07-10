@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyStatements
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -7,12 +8,14 @@ class AboutIteration < Neo::Koan
   # convert to the right format in the koans. We will use "as_name"
   # whenever comparing to lists of methods.
 
+  # :reek:UtilityFunction
   in_ruby_version('1.8') do
     def as_name(name)
       name.to_s
     end
   end
 
+  # :reek:UtilityFunction
   in_ruby_version('1.9', '2') do
     def as_name(name)
       name.to_sym
@@ -62,16 +65,20 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], another_array
   end
 
+  # rubocop:disable Style/EvenOdd
+  # rubocop:disable Style/NumericPredicate:
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
-    even_numbers = array.select(&:even?)
+    even_numbers = array.select { |item| (item % 2) == 0 }
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all(&:even?)
+    more_even_numbers = array.find_all { |item| (item % 2) == 0 }
     assert_equal [2, 4, 6], more_even_numbers
   end
+  # rubocop:enable Style/NumericPredicate:
+  # rubocop:enable Style/EvenOdd
 
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
@@ -79,17 +86,19 @@ class AboutIteration < Neo::Koan
     assert_equal 'Clarence', (array.find { |item| item.size > 4 })
   end
 
+  # :reek:UncommunicativeVariableName
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
 
-    result = [2, 3, 4].inject(10) { |product, item| product * item }
-    assert_equal 240, result
+    result2 = [2, 3, 4].inject(1) { |product, item| product * item }
+    assert_equal 24, result2
 
     # Extra Credit:
     # Describe in your own words what inject does.
   end
 
+  # :reek:NestedIterators
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }

@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:InstanceVariableAssumption
+# :reek:TooManyMethods
+# :reek:UncommunicativeModuleName
+# :reek:FeatureEnvy
+# rubocop:disable Naming/AccessorMethodName
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -25,6 +30,8 @@ class AboutClasses < Neo::Koan
     assert_equal [:@name], fido.instance_variables
   end
 
+  # :reek:TooManyStatements
+  # rubocop:disable Style/EvalWithLocation
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
     fido.set_name('Fido')
@@ -55,6 +62,7 @@ class AboutClasses < Neo::Koan
     assert_equal 'Fido', fido.instance_eval { @name } # block version
     # rubocop:enable Lint/AmbiguousBlockAssociation
   end
+  # rubocop:enable Style/EvalWithLocation
 
   # ------------------------------------------------------------------
 
@@ -63,7 +71,11 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
 
-    attr_reader :name
+    # rubocop:disable Style/TrivialAccessors
+    def name
+      @name
+    end
+    # rubocop:enable Style/TrivialAccessors
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
@@ -92,6 +104,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:Attribute
   class Dog5
     attr_accessor :name
   end
@@ -186,3 +199,4 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Naming/AccessorMethodName

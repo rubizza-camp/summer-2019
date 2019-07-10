@@ -1,14 +1,23 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UtilityFunction
+# :reek:RepeatedConditional
+# :reek:UncommunicativeMethodName
 class AboutSandwichCode < Neo::Koan
+  # rubocop:disable Style/SafeNavigation
+  # rubocop:disable Style/WhileUntilModifier
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
-    count += 1 while file.gets
+    while file.gets
+      count += 1
+    end
     count
   ensure
     file.close if file
   end
+  # rubocop:enable Style/SafeNavigation
+  # rubocop:enable Style/WhileUntilModifier
 
   def test_counting_lines
     assert_equal 4, count_lines('example_file.txt')
@@ -16,14 +25,20 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/AssignmentInCondition
+  # rubocop:disable Style/SafeNavigation
+  # rubocop:disable Performance/RedundantMatch
   def find_line(file_name)
     file = File.open(file_name)
     while line = file.gets
-      return line if line =~ /e/
+      return line if line.match(/e/)
     end
   ensure
     file.close if file
   end
+  # rubocop:enable Lint/AssignmentInCondition
+  # rubocop:enable Style/SafeNavigation
+  # rubocop:enable Performance/RedundantMatch
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -51,22 +66,27 @@ class AboutSandwichCode < Neo::Koan
   # Consider the following code:
   #
 
+  # rubocop:disable Style/SafeNavigation
   def file_sandwich(file_name)
     file = File.open(file_name)
     yield(file)
   ensure
     file.close if file
   end
+  # rubocop:enable Style/SafeNavigation
 
   # Now we write:
-
+  # rubocop:disable Style/WhileUntilModifier
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
-      count += 1 while file.gets
+      while file.gets
+        count += 1
+      end
       count
     end
   end
+  # rubocop:enable Style/WhileUntilModifier
 
   def test_counting_lines2
     assert_equal 4, count_lines2('example_file.txt')
@@ -74,6 +94,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/AssignmentInCondition
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
@@ -82,6 +103,7 @@ class AboutSandwichCode < Neo::Koan
       end
     end
   end
+  # rubocop:enable Lint/AssignmentInCondition
 
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
@@ -89,13 +111,17 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Style/WhileUntilModifier
   def count_lines3(file_name)
     File.open(file_name) do |file|
       count = 0
-      count += 1 while file.gets
+      while file.gets
+        count += 1
+      end
       count
     end
   end
+  # rubocop:enable Style/WhileUntilModifier
 
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')

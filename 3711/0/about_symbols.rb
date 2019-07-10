@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:UncommunicativeVariableName
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
@@ -11,7 +12,7 @@ class AboutSymbols < Neo::Koan
     symbol2 = :a_symbol
     symbol3 = :something_else
 
-    assert_equal true, symbol1 == symbol2
+    assert_equal true,  symbol1 == symbol2
     assert_equal false, symbol1 == symbol3
   end
 
@@ -23,8 +24,9 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
 
+  # rubocop:disable Style/SymbolProc
   def test_method_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
+    symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
@@ -36,11 +38,12 @@ class AboutSymbols < Neo::Koan
   in_ruby_version('mri') do
     RUBY_CONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
+      all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
 
       assert_equal true, all_symbols_as_strings.include?('RUBY_CONSTANT')
     end
   end
+  # rubocop:enable Style/SymbolProc
 
   def test_symbols_can_be_made_from_strings
     string = 'catsAndDogs'
@@ -49,14 +52,12 @@ class AboutSymbols < Neo::Koan
 
   def test_symbols_with_spaces_can_be_built
     symbol = :"cats and dogs"
-
     assert_equal 'cats and dogs'.to_sym, symbol
   end
 
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
     symbol = :"cats #{value} dogs"
-
     assert_equal 'cats and dogs'.to_sym, symbol
   end
 
@@ -73,6 +74,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # :reek:ManualDispatch
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)

@@ -1,43 +1,9 @@
-AllCops:
-  Exclude:
-    - '3711/0/neo.rb'
-
 Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 
-
-Style/MethodMissing:
-  Enabled: false
-
-Style/TrivialAccessors:
-  Enabled: false
-
-Lint/LiteralAsCondition:
-  Enabled: false
-
-Style/EvalWithLocation:
-  Enabled: false
-
-Lint/AmbiguousRegexpLiteral:
-  Enabled: false
-
-Style/EvenOdd:
-  Enabled: false
-
-Lint/UselessAssignment:
-  Enabled: false
-
-Style/GlobalVars:
-  Enabled: false
-
-Naming/AccessorMethodName:
-  Enabled: false
-
-Lint/AssignmentInCondition:
-  Enabled: false
 
 Metrics/LineLength:
   Max: 100

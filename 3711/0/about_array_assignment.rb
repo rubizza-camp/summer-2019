@@ -6,9 +6,9 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal %w[John Smith], names
   end
 
+  # rubocop:disable Style/ParallelAssignment
   def test_parallel_assignments
-    first_name = 'John'
-    last_name = 'Smith'
+    first_name, last_name = %w[John Smith]
     assert_equal 'John', first_name
     assert_equal 'Smith', last_name
   end
@@ -26,17 +26,17 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments_with_too_few_variables
-    first_name, last_name = ['Cher']
+    first_name, last_name = %w[Cher]
     assert_equal 'Cher', first_name
     assert_equal nil, last_name
   end
 
   def test_parallel_assignments_with_subarrays
-    first_name = %w[Willie Rae]
-    last_name = 'Johnson'
+    first_name, last_name = [%w[Willie Rae], 'Johnson']
     assert_equal %w[Willie Rae], first_name
     assert_equal 'Johnson', last_name
   end
+  # rubocop:enable Style/ParallelAssignment
 
   def test_parallel_assignment_with_one_variable
     first_name, = %w[John Smith]
