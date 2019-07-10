@@ -1,6 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 # :reek:InstanceVariableAssumption
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyMethods
+# :reek:TooManyStatements
+# :reek:UncommunicativeModuleName
+# :reek:UncommunicativeVariableName
+# :reek:InstanceVariableAssumption
+
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -11,6 +19,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
   # rubocop:disable Naming/AccessorMethodName
   class Dog2
     def set_name(a_name)
@@ -19,6 +28,7 @@ class AboutClasses < Neo::Koan
   end
   # :reek:FeatureEnvy
   # rubocop:enable Naming/AccessorMethodName
+  # :reek:UncommunicativeModuleName
 
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
@@ -64,6 +74,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disable Naming/AccessorMethodName
+  # :reek:UncommunicativeModuleName
   class Dog3
     def set_name(a_name)
       @name = a_name
@@ -73,6 +84,7 @@ class AboutClasses < Neo::Koan
   end
   # rubocop:enable Naming/AccessorMethodName
   # :reek:FeatureEnvy
+  # :reek:UncommunicativeModuleName
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
@@ -83,6 +95,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disable Naming/AccessorMethodName
+  # :reek:UncommunicativeModuleName
   class Dog4
     attr_reader :name
 
@@ -100,6 +113,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
 
   class Dog5
     # :reek:Attribute
@@ -115,6 +129,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
 
   class Dog6
     attr_reader :name
@@ -144,6 +159,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
 
   class Dog7
     attr_reader :name

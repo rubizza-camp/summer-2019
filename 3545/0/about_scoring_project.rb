@@ -29,6 +29,13 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
+# :reek:ControlParameter
+# :reek:NestedIterators
+
 def score_for_set(number)
   if number == 1
     1000
@@ -40,6 +47,12 @@ def score_for_set(number)
     number * 100
   end
 end
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
+# :reek:ControlParameter
+# :reek:NestedIterators
 
 def score_for_single(number)
   if number == 1
@@ -50,7 +63,12 @@ def score_for_single(number)
     0
   end
 end
-
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
+# :reek:ControlParameter
+# :reek:NestedIterators
 
 def score(dice)
   return 0 if dice.empty?
@@ -71,7 +89,14 @@ def score(dice)
   end
   sum
 end
-
+# :reek:UtilityFunction:
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
+# :reek:ControlParameter
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero

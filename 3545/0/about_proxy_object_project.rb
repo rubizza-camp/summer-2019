@@ -35,6 +35,15 @@ class Proxy
     @object.send(method_name, *args, &block)
   end
 end
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:ManualDispatch
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
+# :reek:NilCheck
+# :reek:InstanceVariableAssumption
 
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
@@ -111,6 +120,7 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# :reek:Attribute
 class Television
   attr_accessor :channel
 
@@ -129,12 +139,14 @@ end
 
 # Tests for the Television class.  All of theses tests should pass.
 class TelevisionTest < Neo::Koan
+  # :reek:FeatureEnvy
   def test_it_turns_on
     tv = Television.new
 
     tv.power
     assert tv.on?
   end
+  # :reek:FeatureEnvy
 
   def test_it_also_turns_off
     tv = Television.new
@@ -144,6 +156,8 @@ class TelevisionTest < Neo::Koan
 
     assert !tv.on?
   end
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
 
   def test_edge_case_on_off
     tv = Television.new
@@ -158,6 +172,7 @@ class TelevisionTest < Neo::Koan
 
     assert !tv.on?
   end
+  # :reek:FeatureEnvy
 
   def test_can_set_the_channel
     tv = Television.new
