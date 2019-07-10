@@ -1,10 +1,8 @@
-# frozen_string_literal: true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class DiceSet
   def roll(num)
-    @roll = Array.new(num) {rand(num) + 1}
+    @roll = Array.new(num) { rand(num) + 1 }
   end
 
   def values
