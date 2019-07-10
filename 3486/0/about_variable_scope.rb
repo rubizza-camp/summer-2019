@@ -43,7 +43,7 @@ class AboutVariableScope < Neo::Koan
   # ------------------------------------------------------
 
   class Mouse
-    @@total = 0
+      @total = 0
     # Class variables are prefixed with two '@' characters.
 
     def initialize(n)
