@@ -33,7 +33,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 #:nodoc:
 def score(dice)
- dice_one(dice) + dice_two(dice) + dice_three(dice)
+  dice_one(dice) + dice_two(dice) + dice_three(dice)
 end
 
 def dice_one(dice)
@@ -116,4 +116,4 @@ class AboutScoringProject < Neo::Koan
   end
 end
 # rubocop:enable Metrics/AbcSize, Lint/UnneededCopDisableDirective, Metrics/ClassLength
-#rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/CyclomaticComplexity
