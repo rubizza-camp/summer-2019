@@ -1,6 +1,3 @@
-#!/usr/bin/env ruby
-# frozen_string_literal: true
-
 # -*- ruby -*-
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
