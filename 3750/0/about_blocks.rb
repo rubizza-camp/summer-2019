@@ -1,11 +1,9 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
-# rubocop:disable Performance/RedundantBlockCall
+# rubocop:disable Lint/AmbiguousBlockAssociation
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
-
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield
@@ -89,9 +87,7 @@ class AboutBlocks < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_block(&block)
-  # rubocop:disable all
     block.call(10)
-  # rubocop:enable all
   end
 
   def test_methods_can_take_an_explicit_block_argument
