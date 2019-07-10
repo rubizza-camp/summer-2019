@@ -1,5 +1,5 @@
 # rubocop:disable Metrics/AbcSize, Lint/UnneededCopDisableDirective, Metrics/ClassLength
-#rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/CyclomaticComplexity
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
