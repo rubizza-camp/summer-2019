@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:IrresponsibleModule
 class AboutKeywordArguments < Neo::Koan
   def method_with_keyword_arguments(one: 1, two: 'two')
     [one, two]

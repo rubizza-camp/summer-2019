@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:all
 class AboutVariableScope < Neo::Koan
   def bark
     # rubocop: disable Lint/UselessAssignment
@@ -39,34 +40,28 @@ class AboutVariableScope < Neo::Koan
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
       # rubocop: disable Lint/UselessAssignment
-      x = 0
+      variable = 0
       # rubocop: enable Lint/UselessAssignment
     end
-    assert_equal nil, defined? x
+    assert_equal nil, defined? variable
   end
 
   # ------------------------------------------------------
 
   class Mouse
-    # rubocop: disable Style/ClassVars
-    @@total = 0
-    # rubocop: enable Style/ClassVars
+    @total = 0
     # Class variables are prefixed with two '@' characters.
 
-    # rubocop: disable Naming/UncommunicativeMethodParamName
-    def initialize(n)
-      @name = n
+    def initialize(num)
+      @name = num
       # Instance variables are prefixed with one '@' character.
-      # rubocop: disable Style/ClassVars
-      @@total += 1
-      # rubocop: enable Style/ClassVars
+      @total += 1
     end
-    # rubocop: enable Naming/UncommunicativeMethodParamName
 
     attr_reader :name
 
     def self.count
-      @@total
+      @total
     end
   end
 
@@ -76,7 +71,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |number| Mouse.new(number.to_s) }
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
@@ -111,7 +106,7 @@ class AboutVariableScope < Neo::Koan
     # rubocop: enable Style/GlobalVars
   end
 
-  def test_global_variables_can_be_changed_from_any_scope_2
+  def test_global_variables_can_be_changed_from_any_scope_2t
     # From within a block
     2.times do
       # rubocop: disable Style/GlobalVars

@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:all
 class AboutNil < Neo::Koan
   def test_nil_is_an_object
     assert_equal true, nil.is_a?(Object) # Unlike NULL in other languages

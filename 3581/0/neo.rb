@@ -9,7 +9,7 @@ end
 # --------------------------------------------------------------------
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
-
+# :reek:all
 class FillMeInError < StandardError
 end
 

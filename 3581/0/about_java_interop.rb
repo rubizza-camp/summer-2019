@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop: disable MixinUsage
 include Java
 # rubocop:enable MixinUsage
-
+# :reek:all
 # Concepts
 # * Pull in a java class
 # * calling a method, Camel vs snake

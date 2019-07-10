@@ -1,3 +1,4 @@
+# :reek:all
 def version_ints(version)
   version.split('.').map(&:to_i)
 end

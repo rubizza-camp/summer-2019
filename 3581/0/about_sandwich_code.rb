@@ -1,7 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-#:nodoc:
+# :reek:all
 class AboutSandwichCode < Neo::Koan
+  # :reek:UtilityFunction
+
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
@@ -16,6 +18,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
 
   def find_line(file_name)
     file = File.open(file_name)

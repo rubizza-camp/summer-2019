@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:IrresponsibleModule
 class AboutHashes < Neo::Koan
+  # :reek:TooManyStatements
   def test_creating_hashes
     empty_hash = {}
     assert_equal Hash, empty_hash.class
@@ -43,12 +45,13 @@ class AboutHashes < Neo::Koan
   end
 
   def test_hash_is_unordered
-    hash1 = { one: 'uno', two: 'dos' }
-    hash2 = { two: 'dos', one: 'uno' }
+    hash1s = { one: 'uno', two: 'dos' }
+    hash2s = { two: 'dos', one: 'uno' }
 
-    assert_equal true, hash1 == hash2
+    assert_equal true, hash1s == hash2s
   end
 
+  # :reek:DuplicateMethodCall
   def test_hash_keys
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.keys.size
@@ -57,6 +60,7 @@ class AboutHashes < Neo::Koan
     assert_equal Array, hash.keys.class
   end
 
+  # :reek:DuplicateMethodCall
   def test_hash_values
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.values.size
@@ -75,21 +79,25 @@ class AboutHashes < Neo::Koan
     assert_equal true, expected == new_hash
   end
 
+  # :reek:TooManyStatements
   def test_default_value
-    hash1 = {}
-    hash1[:one] = 1
+    hash1s = {}
+    hash1s[:one] = 1
 
-    assert_equal 1, hash1[:one]
-    assert_equal nil, hash1[:two]
+    assert_equal 1, hash1s[:one]
+    assert_equal nil, hash1s[:two]
 
-    hash2 = Hash.new('dos')
-    hash2[:one] = 1
+    hash2s = Hash.new('dos')
+    hash2s[:one] = 1
 
-    assert_equal 1, hash2[:one]
-    assert_equal 'dos', hash2[:two]
+    assert_equal 1, hash2s[:one]
+    assert_equal 'dos', hash2s[:two]
   end
 
   # rubocop: disable Metrics/AbcSize
+  # :reek:TooManyStatements
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -104,6 +112,9 @@ class AboutHashes < Neo::Koan
   end
   # rubocop: enable Metrics/AbcSize
 
+  # :reek:TooManyStatements
+  # :reek:DuplicateMethodCall
+  # :reek:FeatureEnvy
   def test_default_value_with_block
     hash = Hash.new { |hashs, key| hashs[key] = [] }
 

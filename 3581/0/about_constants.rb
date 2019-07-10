@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'.freeze
 
+# :reek:all
 class AboutConstants < Neo::Koan
   C = 'nested'.freeze
 

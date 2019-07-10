@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
-#
+# :reek:all
 class DiceSet
   attr_accessor :values
   def roll(size)

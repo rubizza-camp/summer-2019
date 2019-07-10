@@ -1,5 +1,6 @@
 # Triangle Project Code.
 
+# :reek:all
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #

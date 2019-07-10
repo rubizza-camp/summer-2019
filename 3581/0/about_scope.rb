@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:all
 class AboutScope < Neo::Koan
   module Jims
     class Dog
