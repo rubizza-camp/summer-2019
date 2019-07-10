@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
+    multipart-post (2.1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  faraday
+
+BUNDLED WITH
+   1.17.2

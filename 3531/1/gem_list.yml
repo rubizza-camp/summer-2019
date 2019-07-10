@@ -1,0 +1,7 @@
+gems:
+ - rails
+ - sinatra
+ - rest-client
+ - bundler
+ - ffi
+ - rubyzip
