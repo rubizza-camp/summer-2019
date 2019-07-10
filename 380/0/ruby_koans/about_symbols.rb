@@ -23,24 +23,27 @@ class AboutSymbols < Neo::Koan
     assert_equal true, the_first_symbol.object_id == the_second_symbol.object_id
   end
 
+  # rubocop:disable Style/SymbolProc
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map { |word| word.to_s }
     assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
-
+  # rubocop:enable Style/SymbolProc
   # THINK ABOUT IT:
   #
   # Why do we convert the list of symbols to strings and then compare
   # against the string value rather than against symbols?
 
+  # rubocop:disable Style/SymbolProc, Style/MutableConstant
   in_ruby_version('mri') do
-    RubyConstant = 'What is the sound of one hand clapping?'
+    RUBY_CONSTANT = 'What is the sound of one hand clapping?'
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map { |word| word.to_s }
 
-      assert_equal false, all_symbols_as_strings.include?(RubyConstant)
+      assert_equal false, all_symbols_as_strings.include?(RUBY_CONSTANT)
     end
   end
+  # rubocop:enable Style/SymbolProc, Style/MutableConstant
 
   def test_symbols_can_be_made_from_strings
     string = 'catsAndDogs'
@@ -55,7 +58,7 @@ class AboutSymbols < Neo::Koan
 
   def test_symbols_with_interpolation_can_be_built
     value = 'and'
-    symbol = :'cats #{value} dogs'
+    symbol = :"cats #{value} dogs"
 
     assert_equal symbol.to_sym, symbol
   end
@@ -72,6 +75,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.is_a?(String)
     assert_equal false, symbol.eql?('ruby')
   end
+
   # :reek:ManualDispatch:
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
