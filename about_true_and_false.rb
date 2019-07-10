@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+#reek:TooManyStatements
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class
 class AboutTrueAndFalse < Neo::Koan
