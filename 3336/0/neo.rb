@@ -17,6 +17,7 @@ end
 # :reek:UtilityFunction
 # :reek:ControlParameter
 def ruby_version?(version)
+  # :reek:ControlParameter
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
     (version == 'mri' && !defined?(JRUBY_VERSION))
@@ -24,6 +25,7 @@ end
 
 # :reek:UncommunicativeVariableName
 def in_ruby_version(*versions)
+  # :reek:UncommunicativeVariableName
   yield if versions.any? { |v| ruby_version?(v) }
 end
 
@@ -34,21 +36,21 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
-# :reek:UtilityFunction
 # :reek:UncommunicativeVariableName
 # :reek:UncommunicativeParameterName
+# :reek:UtilityFunction
 def __(value = 'FILL ME IN', value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
   else
+    # :reek:UncommunicativeParameterName
     value19 == :mu ? value : value19
   end
 end
 
 # Numeric replacement value.
-# :reek:UtilityFunction
 # :reek:UncommunicativeVariableName
-# :reek:UncommunicativeParameterName
+# :reek:UncommunicativeParameterName and :reek:UtilityFunction
 def _n_(value = 999_999, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
