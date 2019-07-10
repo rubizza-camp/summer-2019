@@ -49,24 +49,24 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Dog_t
+  class DogT
     def wag
       :instance_level_wag
     end
   end
 
-  def Dog_t.wag
+  def DogT.wag
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-    assert_equal :class_level_wag, Dog_t.wag
+    assert_equal :class_level_wag, DogT.wag
   end
 
   def test_class_methods_are_independent_of_instance_methods
-    fido = Dog_t.new
+    fido = DogT.new
     assert_equal :instance_level_wag, fido.wag
-    assert_equal :class_level_wag, Dog_t.wag
+    assert_equal :class_level_wag, DogT.wag
   end
 
   # ------------------------------------------------------------------
