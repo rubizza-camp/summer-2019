@@ -15,22 +15,42 @@
 # and
 #   about_triangle_project_2.rb
 #
-# rubocop:disable Metrics/LineLength, Style/GuardClause, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+# :reek:ControlParameter
+# :reek:UtilityFunction
+def sides_equal_zero(first, second, third)
+  if first.zero? && second.zero? && third.zero?
+    true
+  else
+    false
+  end
+end
+
+# :reek:UtilityFunction
+def sides_arent_good(first, second, third)
+  if first + second > third && first + third > second && second + third > first
+    false
+  else
+    true
+  end
+end
+
 # :reek:FeatureEnvy
 def triangle(first, second, third)
   # WRITE THIS CODE
-  if first * second * third <= 0 || !(first + second > third && first + third > second && second + third > first)
+  if sides_equal_zero(first, second, third) || sides_arent_good(first, second, third)
     raise TriangleError, "Triangle Doesn't Exist!!!!!!!!!!!"
   end
   if (first == second) && (second == third)
-    return :equilateral
+    :equilateral
   elsif (first == second) || (first == third) || (second == third)
-    return :isosceles
+    :isosceles
   else
-    return :scalene
+    :scalene
   end
 end
-# rubocop:enable Metrics/LineLength, Style/GuardClause, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
