@@ -69,7 +69,7 @@ class AboutBlocks < Neo::Koan
     assert_equal :modified_in_a_block, value
   end
 
-  # :reek:UncommunicativeVariableName
+  # :reek:UncommunicativeVariableNam
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
     add_one = lambda do |n|
       n + 1

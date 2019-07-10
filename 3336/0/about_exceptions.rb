@@ -1,3 +1,5 @@
+# rubocop:disable all
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutExceptions < Neo::Koan
@@ -14,6 +16,7 @@ class AboutExceptions < Neo::Koan
 
   # :reek:UncommunicativeMethodName
   # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   def test_rescue_clause
     result = nil
     begin
@@ -24,16 +27,17 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :exception_handled, result
 
-    assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
+    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
 
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
-    assert_equal 'Oops', ex.message
+    assert_equal 'Oops', e.message
   end
 
   # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   def test_raising_a_particular_error
     result = nil
     begin
@@ -44,7 +48,7 @@ class AboutExceptions < Neo::Koan
     end
 
     assert_equal :exception_handled, result
-    assert_equal 'My Message', ex.message
+    assert_equal 'My Message', e.message
   end
 
   def test_ensure_clause
@@ -68,3 +72,5 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
+
+# rubocop:enable all

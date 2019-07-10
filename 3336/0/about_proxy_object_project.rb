@@ -186,4 +186,4 @@ class TelevisionTest < Neo::Koan
   end
 end
 
-# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing, Style/SingleLineMethods
+# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing

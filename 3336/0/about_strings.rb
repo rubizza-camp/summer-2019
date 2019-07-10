@@ -1,3 +1,4 @@
+# rubocop:disable all
 # frozen_string_literal:true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -195,3 +196,4 @@ It was the worst of times.
     assert_equal true, a.object_id == b.object_id
   end
 end
+# rubocop:enable all

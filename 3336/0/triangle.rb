@@ -1,3 +1,4 @@
+# rubocop:disable all
 # frozen_string_literal:true
 
 # Triangle Project Code.
@@ -17,13 +18,13 @@
 #
 
 # :reek:FeatureEnvy
-def triangle(aaa, bbb, ccc)
-  raise TriangleError if (aaa <= 0) || (bbb <= 0) || (ccc <= 0)
-  raise TriangleError if (aaa + bbb <= ccc) || (bbb + ccc <= aaa) || (ccc + aaa <= bbb)
+def triangle(a_side, b_side, c_side)
+  raise TriangleError if (a_side <= 0) || (b_side <= 0) || (c_side <= 0)
+  raise TriangleError if (a_side + b_side <= c_side) || (b_side + c_side <= a_side) || (c_side + a_side <= b_side)
 
-  if (aaa == bbb) & (bbb == ccc)
+  if (a_side == b_side) & (b_side == c_side)
     :equilateral
-  elsif (aaa == bbb) || (bbb == ccc) || (aaa == ccc)
+  elsif (a_side == b_side) || (b_side == c_side) || (a_side == c_side)
     :isosceles
   else
     :scalene
@@ -34,3 +35,4 @@ end
 class TriangleError < StandardError
 end
 # comment for hound check commit
+# rubocop:enable all

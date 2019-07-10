@@ -1,3 +1,4 @@
+# rubocop:disable all
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -122,7 +123,7 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      my_private_method
+      self.my_private_method
     end
     assert_match //, exception.message
   end
@@ -152,3 +153,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable all
