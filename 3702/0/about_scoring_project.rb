@@ -1,4 +1,5 @@
 # rubocop:disable Metrics/AbcSize, Lint/UnneededCopDisableDirective, Metrics/ClassLength
+#rubocop:disable Metrics/CyclomaticComplexity
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -35,7 +36,6 @@ def score(dice)
  dice_one(dice) + dice_two(dice) + dice_three(dice)
 end
 
-
 def dice_one(dice)
   case dice
   when [1] then 100
@@ -57,7 +57,7 @@ def dice_two(dice)
   when [3, 3, 3] then 300
   when [4, 4, 4] then 400
   when [5, 5, 5] then 500
-  else 0 
+  else 0
   end
 end
 
@@ -116,3 +116,4 @@ class AboutScoringProject < Neo::Koan
   end
 end
 # rubocop:enable Metrics/AbcSize, Lint/UnneededCopDisableDirective, Metrics/ClassLength
+#rubocop:enable Metrics/CyclomaticComplexity
