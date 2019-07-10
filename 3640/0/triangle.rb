@@ -17,9 +17,10 @@
 # :reek:UtilityFunction
 def triangle_type(side_a, side_b, side_c)
   arr_side = [side_a, side_b, side_c].uniq.size
-  if arr_side == 1
+  case arr_side
+  when 1
     :equilateral
-  elsif arr_side == 2
+  when 2
     :isosceles
   else
     :scalene
