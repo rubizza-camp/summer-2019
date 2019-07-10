@@ -30,24 +30,15 @@ class Proxy
     @messages.count(message)
   end
 
-  # rubocop:disable Style/MissingRespondToMissing
-
   def method_missing(method_name, *args, &block)
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
 end
 
-# rubocop:enable Style/MissingRespondToMissing
-# The proxy object should pass the following Koan:
-#
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
-    # NOTE: The Television class is defined below
     tv = Proxy.new(Television.new)
-
-    # HINT: Proxy class is defined above, may need tweaking...
-
     assert tv.instance_of?(Proxy)
   end
 
