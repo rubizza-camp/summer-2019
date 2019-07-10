@@ -130,7 +130,7 @@ class AboutMethods < Neo::Koan
     end
     assert_match /private method/, exception.message
   end
-  # rubocop:disable RedundantSelf
+  # rubocop:enable RedundantSelf
 
   # ------------------------------------------------------------------
 
