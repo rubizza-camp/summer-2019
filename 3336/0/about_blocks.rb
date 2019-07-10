@@ -91,8 +91,8 @@ class AboutBlocks < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UtilityFunction
-  def method_with_explicit_block(&block)
-    block.call(10)
+  def method_with_explicit_block(&_block)
+    yield(10)
   end
 
   # :reek:UncommunicativeVariableName
