@@ -175,6 +175,7 @@ module Neo
       assert pattern =~ actual, msg
     end
 
+    # :reek:TooManyStatements
     def assert_raise(exception)
       begin
         yield
@@ -193,6 +194,12 @@ module Neo
     end
   end
 
+  # :reek:InstanceVariableAssumption
+  # :reek:TooManyInstanceVariables
+  # :reek:TooManyMethods
+  # :reek:UncommunicativeVariableName
+  # :reek:NilCheck
+  # :reek:TooManyStatements
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -405,6 +412,12 @@ ENDTEXT
     end
   end
 
+  # :reek:InstanceVariableAssumption
+  # :reek:TooManyInstanceVariables
+  # :reek:TooManyMethods
+  # :reek:UncommunicativeVariableName
+  # :reek:NilCheck
+  # :reek:TooManyStatements
   class Koan
     include Assertions
 
