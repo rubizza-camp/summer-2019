@@ -13,7 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
-
+# :reek:TooManyStatements
 def triangle(a_var, b_var, c_var)
   uniq_side_length = [a_var, b_var, c_var].uniq.length
   raise TriangleError if [a_var, b_var, c_var].min <= 0

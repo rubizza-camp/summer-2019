@@ -74,6 +74,7 @@ class AboutBlocks < Neo::Koan
     # Alternative calling syntax
     assert_equal 11, add_one[10]
   end
+  # :reek:UncommunicativeVariableName
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
     make_upper = ->(n) { n.upcase }

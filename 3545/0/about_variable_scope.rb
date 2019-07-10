@@ -46,6 +46,7 @@ class AboutVariableScope < Neo::Koan
 
   # ------------------------------------------------------
   # rubocop:enable UselessAssignment
+  # :reek:InstanceVariableAssumption
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.

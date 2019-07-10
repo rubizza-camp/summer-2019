@@ -69,7 +69,6 @@ class AboutStrings < Neo::Koan
     assert_equal 'I', long_string[0, 1]
   end
 
-
   def test_plus_will_concatenate_two_strings
     string = 'Hello, ' + 'World'
     assert_equal 'Hello, World', string
@@ -90,13 +89,12 @@ class AboutStrings < Neo::Koan
     assert_equal 'Hello, World', hi
   end
 
-  def test_plus_equals_also_will_leave_the_original_string_unmodified
-    original_string = 'Hello, '
+  def test_the_shovel_operator_modifies_the_original_string
+    original_string = "Hello, "
     hi = original_string
-    there = 'World'
-    hi += there
-    assert_equal 'Hello, ', original_string
-  end
+    there = "World"
+    hi << there
+    assert_equal "Hello, World", original_string
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
@@ -143,8 +141,8 @@ class AboutStrings < Neo::Koan
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = 'The value is #{value}'
-    assert_equal "The value is \#{value}", string
+    string = "The value is #{value}"
+    assert_equal "The value is #{value}", string
   end
 
   def test_any_ruby_expression_may_be_interpolated
@@ -210,4 +208,5 @@ class AboutStrings < Neo::Koan
     assert_equal true, a           == b
     assert_equal false, a.object_id == b.object_id
   end
-end
+  end
+  end

@@ -4,6 +4,7 @@ def version_ints(version)
 end
 # :reek:NilCheck
 # :reek:UncommunicativeVariableName
+
 def at_least_ruby_version(version)
   vints = version_ints(version)
   ruby_vints = version_ints(RUBY_VERSION)
