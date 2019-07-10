@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/LiteralAsCondition
-
+#:reek:TooMany
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = true ? :true_value : :false_value
@@ -61,33 +61,33 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_while_statement
-    i = 1
+    var_i = 1
     result = 1
-    while i <= 10
-      result *= i
-      i += 1
+    while var_i <= 10
+      result *= var_i
+      var_i += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement
-    i = 1
+    var_i = 1
     result = 1
     loop do
-      break unless i <= 10
+      break unless var_i <= 10
 
-      result *= i
-      i += 1
+      result *= var_i
+      var_i += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
-    i = 1
-    while i <= 10
-      break i if (i % 2).zero?
+    var_i = 1
+    while var_i <= 10
+      break var_i if (var_i 2).zero?
 
-      i += 1
+      var_i += 1
     end
 
     result = i

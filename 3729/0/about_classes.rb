@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+#:reek:FeatureEnvy and :reek:TooMany and :reek:InstanceVariableAssumption
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -11,7 +12,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Dog2
+  class DogTwo
     def name_set(a_name)
       @name = a_name
     end

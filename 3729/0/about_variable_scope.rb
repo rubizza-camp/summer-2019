@@ -41,7 +41,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   # ------------------------------------------------------
-
+  #:reek:ClassVariable
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
@@ -65,7 +65,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_class_variable
-    (1..9).each { |i| Mouse.new(i.to_s) }
+    (1..9).each { |var_i| Mouse.new(var_i.to_s) }
     # Things may appear easier than they actually are.
     assert_equal 10, Mouse.count
   end
@@ -92,6 +92,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
+  #:reek:UncommunicativeMethodName
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do

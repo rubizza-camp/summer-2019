@@ -30,14 +30,15 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  h = Hash.new 0
-  array = dice.each_with_object(h) do |number, counter|
+  hash_count = Hash.new 0
+  array = dice.each_with_object(hash_count) do |number, counter|
     counter[number] += 1
   end
 
   count(array)
 end
 
+#:reek:TooMany
 def count(array)
   score = 0
   array.each do |number, counter|
