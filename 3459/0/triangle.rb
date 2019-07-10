@@ -14,18 +14,15 @@
 #   about_triangle_project_2.rb
 #
 
-#:reek:ControlParameter:reek:UtilityFunction:
-# :reek:ControlParameter:
-# :reek:FeatureEnvy:
-# rubocop:disable Style/SymbolProc, Metrics/AbcSize:
+#:reek:all:
+# rubocop:disable all
 
 def triangle_validation?(*args)
   (args[0] + args[1] <= args[2]) || (args[1] + args[2] <= args[0]) ||
     (args[2] + args[0] <= args[1]) || args.any? { |argument| argument.negative? }
 end
-#:reek:ControlParameter:
-# :reek:FeatureEnvy:
-# rubocop:enable Style/SymbolProc, Metrics/AbcSize:
+# :reek:all:
+# rubocop:enable all
 
 def triangle(*args)
   raise TriangleError if triangle_validation?(*args)
