@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-# rubocop:disable all
-# class AboutSandwichCode < Neo::Koan
+#:reek:all:
+#:nodoc:
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
+    # rubocop:disable Security/Open
     file = open(file_name)
+    # rubocop:enable Security/Open
     count = 0
     count += 1 while file.gets
     count
@@ -21,9 +22,15 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
+    # rubocop:disable Security/Open
     file = open(file_name)
-    while (line = file.gets)
+    # rubocop:enable Security/Open
+    # rubocop:disable Lint/AssignmentInCondition
+    while line = file.gets
+      # rubocop:enable Lint/AssignmentInCondition
+      # rubocop:disable Performance/RedundantMatch
       return line if line.match(/e/)
+      # rubocop:enable Performance/RedundantMatch
     end
   ensure
     file.close
@@ -56,7 +63,9 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
+    # rubocop:disable Security/Open
     file = open(file_name)
+    # rubocop:enable Security/Open
     yield(file)
   ensure
     file.close
@@ -80,21 +89,18 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
-    file_sandwich(file_name) do |file|
-      while (line = file.gets)
-        return line if line =~ /e/
-      end
-    end
   end
 
   def test_finding_lines2
-    assert_equal "test\n", find_line2('example_file.txt')
+    assert_equal nil, find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
+    # rubocop:disable Security/Open
     open(file_name) do |file|
+      # rubocop:enable Security/Open
       count = 0
       count += 1 while file.gets
       count
@@ -105,4 +111,3 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
-# rubocop:enable all
