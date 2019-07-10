@@ -13,8 +13,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:InstanceVariableAssumption
 # :reek:TooManyStatements
 # :reek:TooManyMethods
-# rubocop:disable Style/MethodMissing
-
 class Proxy
   attr_reader :messages
 
@@ -30,7 +28,7 @@ class Proxy
   def number_of_times_called(message)
     @messages.count(message)
   end
-
+  # rubocop:disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     @messages << method_name
     @object.send(method_name, *args, &block)
