@@ -30,18 +30,18 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    first_phrase = %[flexible quotes can handle both ' and " characters]
-    second_phrase = %[!flexible quotes can handle both ' and " characters!]
-    third_phrase = %[{flexible quotes can handle both ' and " characters}]
+    first_phrase = %(flexible quotes can handle both ' and " characters)
+    second_phrase = %(!flexible quotes can handle both ' and " characters!)
+    third_phrase = %({flexible quotes can handle both ' and " characters})
     assert_equal true, first_phrase == second_phrase
     assert_equal true, first_phrase == third_phrase
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
-    long_string = %[{
+    long_string = %({
 It was the best of times,
 It was the worst of times.
-}]
+})
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
     assert_equal "\n", long_string[0, 1]
