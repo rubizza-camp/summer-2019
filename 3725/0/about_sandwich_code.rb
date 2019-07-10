@@ -1,12 +1,13 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeMethodName
 # :reek:FeatureEnvy
-# :reek:NilCheck 
+# :reek:NilCheck
 # :reek:RepeatedConditional
 # :rubocop:disable Style/SafeNavigation
+# :rubocop:disable Security/Open
+require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
-    file = open(file_name) # rubocop:disable Security/Open
+    file = open(file_name)
     count = 0
     count += 1 while file.gets
     count
@@ -21,8 +22,8 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def find_line(file_name)
-    file = open(file_name) # rubocop:disable Security/Open
-    while line = file.gets # rubocop:disable Lint/AssignmentInCondition
+    file = open(file_name)
+    while line = file.gets
       return line if line =~ /e/
     end
   ensure
@@ -56,7 +57,7 @@ class AboutSandwichCode < Neo::Koan
   #
 
   def file_sandwich(file_name)
-    file = open(file_name) # rubocop:disable Security/Open
+    file = open(file_name)
     yield(file)
   ensure
     file&.close
@@ -93,7 +94,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
-    open(file_name) do |file| # rubocop:disable Security/Open
+    open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
@@ -105,3 +106,4 @@ class AboutSandwichCode < Neo::Koan
   end
 end
 # :rubocop:enable Style/SafeNavigation
+# :rubocop:enable Security/Open
