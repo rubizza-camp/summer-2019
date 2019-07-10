@@ -23,7 +23,7 @@ class AboutVariableScope < Neo::Koan
   def test_we_can_get_noise_by_calling_method
     assert_equal 'RUFF', bark
   end
-  
+
   inaccessible = 'Outside our universe'
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
@@ -53,15 +53,13 @@ class AboutVariableScope < Neo::Koan
     attr_reader @name
     @@total = 0
     # Class variables are prefixed with two '@' characters.
-    def initialize(n)
-      @name = n
+    def initialize(name_one)
+      @name = name_one
       # Instance variables are prefixed with one '@' character.
       @@total += 1
     end
 
-    def name
-      @name
-    end
+    attr_reader @name
 
     def Self.count
       @@total

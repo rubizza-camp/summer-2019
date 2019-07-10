@@ -1,5 +1,5 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Lint/HandleExceptions
-# rubocop:disable Metrics/MethodLength, Metrics/LineLength
+# rubocop:disable Lint/UselessAssignment, Lint/HandleExceptions
+# rubocop:disable Metrics/MethodLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -20,7 +20,7 @@ class AboutExceptions < Neo::Koan
   def test_rescue_clause
     result = nil
     begin
-      fail 'Oops'
+      raise 'Oops'
     rescue StandardError => ex
       result = :exception_handled
     end
@@ -51,7 +51,7 @@ class AboutExceptions < Neo::Koan
   def test_ensure_clause
     result = nil
     begin
-      fail 'Oops'
+      raise 'Oops'
     rescue StandardError
       # no code here
     ensure
@@ -69,5 +69,5 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
-# rubocop:enable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Lint/HandleExceptions
-# rubocop:enable Metrics/MethodLength, Metrics/LineLength
+# rubocop:enable Lint/UselessAssignment, Lint/HandleExceptions
+# rubocop:enable Metrics/MethodLength

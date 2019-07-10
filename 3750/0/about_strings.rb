@@ -1,5 +1,5 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Metrics/ClassLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+
 # :reek:UncommunicativeVariableName
 # :reek:Attribute
 # :reek:FeatureEnvy

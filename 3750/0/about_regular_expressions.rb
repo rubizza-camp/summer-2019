@@ -1,5 +1,3 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyMethods
@@ -162,4 +160,3 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
   end
 end
-# rubocop:enable Lint/MissingCopEnableDirective, Lint/AmbiguousBlockAssociation
