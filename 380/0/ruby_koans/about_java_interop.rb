@@ -8,7 +8,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # * Ruby Strings  VS Java Strings
 # * Calling custom java class
 # * Calling Ruby from java???
-
+# rubocop: disable all
 class AboutJavaInterop < Neo::Koan
   include Java
 
