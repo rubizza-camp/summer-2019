@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+# rubocop:disable all
+# :reek:all
+
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -13,29 +17,27 @@
 # and
 #   about_triangle_project_2.rb
 #
+def triangle(side_a, side_b, side_c)
+  minimum = [side_a, side_b, side_c].min
+  maximum = [side_a, side_b, side_c].max
+  raise TriangleError unless minimum.positive? && (maximum < [side_a, side_b, side_c].inject(:+) - maximum)
 
-#:reek:all:
-# rubocop:disable all
+  return :equilateral if equilateral?(side_a, side_b, side_c)
 
-def triangle_validation?(*args)
-  (args[0] + args[1] <= args[2]) || (args[1] + args[2] <= args[0]) ||
-    (args[2] + args[0] <= args[1]) || args.any? { |argument| argument.negative? }
+  return :isosceles if isosceles?(side_a, side_b, side_c)
+
+  :scalene
 end
-# :reek:all:
-# rubocop:enable all
 
-def triangle(*args)
-  raise TriangleError if triangle_validation?(*args)
-  case args.uniq.count
-  when 3
-    :scalene
-  when 2
-    :isosceles
-  when 1
-    :equilateral
-  end
+def isosceles?(side_a, side_b, side_c)
+  (side_a == side_b) || (side_b == side_c) || (side_a == side_c)
+end
+
+def equilateral?(side_a, side_b, side_c)
+  (side_a == side_b) && (side_b == side_c)
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# rubocop:disable all
