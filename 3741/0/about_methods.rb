@@ -1,15 +1,16 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/EvalWithLocation, Lint/UnreachableCode, Lint/Void
+# rubocop:disable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# :reek:UtilityFunction
-def my_global_method(first, second)
-  first + second
+def my_global_method(aaa, baa)
+  aaa + baa
 end
 
-# :reek:TooManyMethods
-# require comment
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
-    assert_equal 5, my_global_method(2, 3)
+    assert_equal(5, my_global_method(2, 3))
   end
 
   def test_calling_global_methods_without_parentheses
@@ -17,11 +18,10 @@ class AboutMethods < Neo::Koan
     assert_equal 5, result
   end
 
-  # rubocop:disable all
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
+    eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -32,27 +32,25 @@ class AboutMethods < Neo::Koan
     # Rewrite the eval string to continue.
     #
   end
-  # rubocop:enable all
 
-  # :reek:TooManyStatements
-  # NOTE: wrong number of arguments is not a SYNTAX error, but a
-  # runtime error.
+  # # NOTE: wrong number of arguments is not a SYNTAX error, but a
+  # # runtime error.
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
     end
-    assert_match(/wrong number/, exception.message)
+    assert_match(/wrong number of arguments/, exception.message)
 
     exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end
-    assert_match(/wrong number/, exception.message)
+    assert_match(/wrong number of arguments/, exception.message)
   end
 
-  # ------------------------------------------------------------------
+  # # ------------------------------------------------------------------
 
-  def method_with_defaults(first, second = :default_value)
-    [first, second]
+  def method_with_defaults(ana, bena = :default_value)
+    [ana, bena]
   end
 
   def test_calling_with_default_values
@@ -60,7 +58,7 @@ class AboutMethods < Neo::Koan
     assert_equal [1, 2], method_with_defaults(1, 2)
   end
 
-  # ------------------------------------------------------------------
+  # # ------------------------------------------------------------------
 
   def method_with_var_args(*args)
     args
@@ -69,26 +67,26 @@ class AboutMethods < Neo::Koan
   def test_calling_with_variable_arguments
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
-    assert_equal [:one], method_with_var_args(:one)
-    assert_equal %i[one two], method_with_var_args(:one, :two)
+    assert_equal  [:one], method_with_var_args(:one)
+    assert_equal  %i[one two], method_with_var_args(:one, :two)
   end
 
-  # ------------------------------------------------------------------
+  # # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    # rubocop void context :a_non_return_value
-    :return_value # rubocop return
-    # rubocop void context :another_non_return_value
+    :a_non_return_value
+    return :return_value
+    :another_non_return_value
   end
 
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
   end
 
-  # ------------------------------------------------------------------
+  # # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    # rubocop void context :a_non_return_value
+    :a_non_return_value
     :return_value
   end
 
@@ -96,11 +94,10 @@ class AboutMethods < Neo::Koan
     assert_equal :return_value, method_without_explicit_return
   end
 
-  # ------------------------------------------------------------------
+  # # ------------------------------------------------------------------
 
-  # :reek:UtilityFunction
-  def my_method_in_the_same_class(first, second)
-    first * second
+  def my_method_in_the_same_class(aaa, baa)
+    aaa * baa
   end
 
   def test_calling_methods_in_same_class
@@ -111,28 +108,25 @@ class AboutMethods < Neo::Koan
     assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
-  # ------------------------------------------------------------------
-
-  private
+  # # ------------------------------------------------------------------
 
   def my_private_method
     'a secret'
   end
+  private :my_private_method
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
 
-  # rubocop:disable all
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method # rubocop talk delete "self.", but than crashing rake
+      self.my_private_method
     end
     assert_match /private method/, exception.message
   end
-  # rubocop:enable all
 
-  # ------------------------------------------------------------------
+  # # ------------------------------------------------------------------
 
   class Dog
     def name
@@ -158,3 +152,6 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable Style/EvalWithLocation, Lint/UnreachableCode, Lint/Void
+# rubocop:enable Style/AccessModifierDeclarations, Style/RedundantSelf, Lint/AmbiguousRegexpLiteral
+# rubocop:enable Lint/UnneededCopDisableDirective
