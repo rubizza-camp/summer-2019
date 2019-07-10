@@ -109,7 +109,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -123,12 +123,14 @@ class AboutMethods < Neo::Koan
     assert_equal 'a secret', my_private_method
   end
 
+  # rubocop:disable RedundantSelf
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match (/private method/), exception.message
+    assert_match /private method/, exception.message
   end
+  # rubocop:disable RedundantSelf
 
   # ------------------------------------------------------------------
 
