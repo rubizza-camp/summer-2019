@@ -1,11 +1,13 @@
+#:reek:UtilityFunction
 def version_ints(version)
   version.split('.').map(&:to_i)
 end
 
+#:reek:NilCheck
 def at_least_ruby_version(version)
   vints = version_ints(version)
   ruby_vints = version_ints(RUBY_VERSION)
-  vints.zip(ruby_vints).all? { |v, rv| v.nil? || rv.nil? || v >= rv }
+  vints.zip(ruby_vints).all? { |var_v, rv| var_v.nil? || rv.nil? || var_v >= rv }
 end
 
 require 'rspec/given'
