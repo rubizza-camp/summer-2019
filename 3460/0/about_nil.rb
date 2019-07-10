@@ -13,6 +13,7 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
     begin
       nil.some_method_nil_doesnt_know_about
+      # rescue Exception => ex
     rescue Exception => ex
       # What exception has been caught?
       assert_equal NoMethodError, ex.class
