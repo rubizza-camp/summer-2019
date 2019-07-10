@@ -3,14 +3,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:Attribute
-<<<<<<< HEAD
 # :reek:UncommunicativeMethodName
 # :reek:TooManyMethods
-=======
-# :reek:TooManyMethods
-# :reek:UncommunicativeMethodName
-
->>>>>>> squash ruby koans + reek
 class AboutClassMethods < Neo::Koan
   class Dog; end
 
@@ -26,7 +20,6 @@ class AboutClassMethods < Neo::Koan
   def test_classes_are_objects_too
     assert_equal true, Dog.is_a?(Object)
   end
-<<<<<<< HEAD
 
   # :reek:FeatureEnvy
   def test_objects_have_methods
@@ -36,19 +29,6 @@ class AboutClassMethods < Neo::Koan
 
   def test_classes_have_methods
     assert Dog.methods.any? == true
-=======
-  # :reek:FeatureEnvy
-
-  def test_objects_have_methods
-    fido = Dog.new
-    obj_method_qty = fido.methods.count - 1
-    assert fido.methods.count > obj_method_qty
-  end
-
-  def test_classes_have_methods
-    class_method_count = Dog.methods.count - 1
-    assert Dog.methods.count > class_method_count
->>>>>>> squash ruby koans + reek
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -74,26 +54,17 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UncommunicativeModuleName
-<<<<<<< HEAD
   class Dachshund
-=======
-  class Dog2
->>>>>>> squash ruby koans + reek
     def wag
       :instance_level_wag
     end
   end
 
-<<<<<<< HEAD
   def Dachshund.wag
-=======
-  def Dog2.wag
->>>>>>> squash ruby koans + reek
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-<<<<<<< HEAD
     assert_equal :class_level_wag, Dachshund.wag
   end
 
@@ -101,15 +72,6 @@ class AboutClassMethods < Neo::Koan
     fido = Dachshund.new
     assert_equal :instance_level_wag, fido.wag
     assert_equal :class_level_wag, Dachshund.wag
-=======
-    assert_equal :class_level_wag, Dog2.wag
-  end
-
-  def test_class_methods_are_independent_of_instance_methods
-    fido = Dog2.new
-    assert_equal :instance_level_wag, fido.wag
-    assert_equal :class_level_wag, Dog2.wag
->>>>>>> squash ruby koans + reek
   end
 
   # ------------------------------------------------------------------

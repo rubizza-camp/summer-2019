@@ -31,24 +31,14 @@ class DiceSet
       assert dice.values.is_a?(Array), 'should be an array'
       assert_equal @five, dice.values.count
       dice.values.each do |value|
-<<<<<<< HEAD
         assert value >= min && value <= max, 'value must be between 1 and 6'
-=======
-        assert value >= min && value <= max, "value #{value} must be between 1 and 6"
->>>>>>> squash ruby koans + reek
       end
     end
 
     def test_dice_values_do_not_change_unless_explicitly_rolled
       dice = DiceSet.new
       dice.roll(5)
-<<<<<<< HEAD
       assert_equal [1, 2, 3, 4, 5], dice.values
-=======
-      first_time = dice.values
-      second_time = dice.values
-      assert_equal first_time, second_time
->>>>>>> squash ruby koans + reek
     end
 
     def test_dice_values_should_change_between_rolls

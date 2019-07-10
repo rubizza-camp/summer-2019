@@ -1,10 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-<<<<<<< HEAD
 # rubocop: disable Lint/UnneededCopDisableDirective
 
-=======
->>>>>>> squash ruby koans + reek
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -36,18 +33,12 @@ class Proxy
     @messages[method_name]
   end
 
-<<<<<<< HEAD
   # rubocop: disable Style/MethodMissing
-=======
->>>>>>> squash ruby koans + reek
   def method_missing(method_name, *args, &block)
     @messages[method_name] += 1
     @object.send(method_name, *args, &block)
   end
-<<<<<<< HEAD
   # rubocop: enable Style/MethodMissing
-=======
->>>>>>> squash ruby koans + reek
 end
 
 # The proxy object should pass the following Koan:

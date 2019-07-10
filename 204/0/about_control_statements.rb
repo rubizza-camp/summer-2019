@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
 # rubocop: disable  Metrics/MethodLength, Metrics/ClassLength, Lint/UnneededCopDisableDirective
-=======
-# rubocop: disable  Metrics/MethodLength, Metrics/ClassLength
->>>>>>> squash ruby koans + reek
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -30,10 +26,7 @@ class AboutControlStatements < Neo::Koan
     result = :true_value if true_condition
     assert_equal :true_value, result
   end
-<<<<<<< HEAD
   # rubocop:disable Lint/ShadowedArgument
-=======
->>>>>>> squash ruby koans + reek
 
   def value_true
     true_condition = true
@@ -54,10 +47,7 @@ class AboutControlStatements < Neo::Koan
       end
     assert_equal :false_value, value
   end
-<<<<<<< HEAD
   # rubocop:enable Lint/ShadowedArgument
-=======
->>>>>>> squash ruby koans + reek
 
   def test_if_statements_with_no_else_with_false_condition_return_value
     false_condition = false
@@ -163,8 +153,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 
-<<<<<<< HEAD
 # rubocop: enable  Metrics/MethodLength, Metrics/ClassLength, Lint/UnneededCopDisableDirective
-=======
-# rubocop: enable  Metrics/MethodLength, Metrics/ClassLength
->>>>>>> squash ruby koans + reek
