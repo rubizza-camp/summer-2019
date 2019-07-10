@@ -10,7 +10,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
-# of the Proxy class is given in the AboutProxyObjectProject koan.
 # :reek:InstanceVariableAssumption
 # :reek:TooManyStatements
 # :reek:TooManyMethods
@@ -31,12 +30,15 @@ class Proxy
     @messages.count(message)
   end
 
+  # rubocop:disable Style/MissingRespondToMissing, Style/MethodMissingSuper:
+
   def method_missing(method_name, *args, &block)
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
 end
 
+# rubocop:enable Style/MissingRespondToMissing, Style/MethodMissingSuper:
 # The proxy object should pass the following Koan:
 #
 class AboutProxyObjectProject < Neo::Koan
