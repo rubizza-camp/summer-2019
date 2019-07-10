@@ -118,7 +118,7 @@ class AboutMessagePassing < Neo::Koan
     end
     assert_equal false, catcher.respond_to?(:any_method)
   end
-  # rubocop:disable Style/MethodMissing
+  # rubocop:enable Style/MethodMissing
   # ------------------------------------------------------------------
   # rubocop:disable Style/MethodMissing
   class WellBehavedFooCatcher
