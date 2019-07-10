@@ -20,20 +20,12 @@
 # :reek:ControlParameter
 # :reek:UtilityFunction
 def sides_equal_zero(first, second, third)
-  if first.zero? && second.zero? && third.zero?
-    true
-  else
-    false
-  end
+  first.zero? && second.zero? && third.zero?
 end
 
 # :reek:UtilityFunction
 def sides_arent_good(first, second, third)
-  if first + second > third && first + third > second && second + third > first
-    false
-  else
-    true
-  end
+  !(first + second > third && first + third > second && second + third > first)
 end
 
 # :reek:FeatureEnvy
