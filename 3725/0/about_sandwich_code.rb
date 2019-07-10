@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeMethodName
 # :reek:FeatureEnvy
 # :reek:RepeatedConditional
+# :rubocop:disable Style/SafeNavigation
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name) # rubocop:disable Security/Open
@@ -102,3 +103,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# :rubocop:enable Style/SafeNavigation
