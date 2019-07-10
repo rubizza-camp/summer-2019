@@ -63,6 +63,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
   class Dog3
     def sett_name(a_name)
       @name = a_name
@@ -84,6 +85,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
   class Dog4
     attr_reader :name
 
@@ -103,6 +105,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:Attribute
+  # :reek:UncommunicativeModuleName
   class Dog5
     attr_accessor :name
   end
@@ -116,6 +119,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
   class Dog6
     attr_reader :name
     def initialize(initial_name)
@@ -144,6 +148,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeModuleName
   class Dog7
     attr_reader :name
 
