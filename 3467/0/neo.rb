@@ -180,7 +180,7 @@ module Neo
       begin
         yield
       rescue StandardError => err
-        expected = e.is_a?(exception)
+        expected = err.is_a?(exception)
         assert(expected, "Exception #{exception.inspect} expected, but #{err.inspect} was raised")
         return err
       end
@@ -221,7 +221,7 @@ module Neo
       if @_contents.nil?
         if File.exist?(PROGRESS_FILE_NAME)
           File.open(PROGRESS_FILE_NAME, 'r') do |fff|
-            @_contents = f.read.to_s.gsub(/\s/, '').split(',')
+            @_contents = fff.read.to_s.gsub(/\s/, '').split(',')
           end
         else
           @_contents = []
