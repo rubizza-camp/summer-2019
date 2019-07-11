@@ -13,8 +13,25 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  # WRITE THIS CODE
+# :reek:FeatureEnvy
+
+def test_error(val_a, val_b, val_c)
+  raise TriangleError if val_a <= 0 || val_b <= 0 || val_c <= 0
+
+  sum = (val_a + val_b + val_c) / 2.0
+  raise TriangleError if ((sum - val_a) * (sum - val_b) * (sum - val_c)) <= 0
+end
+# :reek:FeatureEnvy
+
+def triangle(val_a, val_b, val_c)
+  test_error(val_a, val_b, val_c)
+  if val_a == val_b && val_a == val_c
+    :equilateral
+  elsif val_a == val_b || val_a == val_c || val_b == val_c
+    :isosceles
+  else
+    :scalene
+  end
 end
 
 # Error class used in part 2.  No need to change this code.

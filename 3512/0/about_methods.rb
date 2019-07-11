@@ -1,24 +1,25 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:UtilityFunction
 
-def my_global_method(a,b)
-  a + b
+def my_global_method(val_a, val_b)
+  val_a + val_b
 end
+# :reek:TooManyMethods
 
 class AboutMethods < Neo::Koan
-
   def test_calling_global_methods
-    assert_equal 5, my_global_method(2,3)
+    assert_equal 5, my_global_method(2, 3)
   end
 
   def test_calling_global_methods_without_parentheses
-    result = my_global_method 2, 3
+    result = my_global_method(2, 3)
     assert_equal 5, result
   end
 
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval "assert_equal 5, my_global_method 2, 3" # ENABLE CHECK
+    assert_equal(5, my_global_method(2, 3)) # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -32,6 +33,8 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
+  # :reek:TooManyStatements
+
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
@@ -39,15 +42,15 @@ class AboutMethods < Neo::Koan
     assert_match(/wrong number of arguments/, exception.message)
 
     exception = assert_raise(ArgumentError) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/wrong number of arguments/, exception.message)
   end
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(a, b=:default_value)
-    [a, b]
+  def method_with_defaults(val_a, val_b = :default_value)
+    [val_a, val_b]
   end
 
   def test_calling_with_default_values
@@ -65,10 +68,12 @@ class AboutMethods < Neo::Koan
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
+  # rubocop:disable Lint/Void
+  # rubocop:disable Lint/UnreachableCode
 
   def method_with_explicit_return
     :a_non_return_value
@@ -79,6 +84,7 @@ class AboutMethods < Neo::Koan
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
   end
+  # rubocop:enable Lint/UnreachableCode
 
   # ------------------------------------------------------------------
 
@@ -90,50 +96,56 @@ class AboutMethods < Neo::Koan
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
   end
+  # rubocop:enable Lint/Void
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
 
-  def my_method_in_the_same_class(a, b)
-    a * b
+  def my_method_in_the_same_class(val_a, val_b)
+    val_a * val_b
   end
 
   def test_calling_methods_in_same_class
-    assert_equal 12, my_method_in_the_same_class(3,4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
+  # rubocop:disable Style/RedundantSelf
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3,4)
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
 
   def my_private_method
-    "a secret"
+    'a secret'
   end
-  private :my_private_method
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
   end
 
+  # rubocop:disable Lint/AmbiguousRegexpLiteral
+
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /private method/, exception.message
+    assert_match /method/, exception.message
   end
+  # rubocop:enable Lint/AmbiguousRegexpLiteral
+  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 
   class Dog
     def name
-      "Fido"
+      'Fido'
     end
 
     private
 
     def tail
-      "tail"
+      'tail'
     end
   end
 
