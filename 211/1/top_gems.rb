@@ -3,11 +3,12 @@ require 'httparty'
 require 'nokogiri'
 require 'optparse'
 require 'json'
+require 'table_print'
 
 class GemPopularity
   include HTTParty
   base_uri 'https://api.github.com/repos/'
-  attr_accessor :used, :name, :watch, :star, :fork, :contrib, :issues, :used_by
+  attr_accessor  :name, :watch, :star, :fork, :contrib, :issues, :used_by
 
   def initialize(gem_name)
     @name = gem_name
@@ -99,3 +100,7 @@ gems_done.each do |gem_name|
   puts "#{gem_name.name}| used by #{gem_name.used_by}  | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks | #{gem_name.contrib} contributors "
 end
 
+puts gems_done[0]
+
+
+tp gems_done, 'name' , {:fork => {:display_name  => 'Forked By'}}
