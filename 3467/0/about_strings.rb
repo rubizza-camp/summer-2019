@@ -1,6 +1,10 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
+# rubocop:disable Style/CharacterLiteral
+# rubocop:disable Style/YodaCondition
+# rubocop:disable Lint/InterpolationCheck
+# rubocop:disable Lint/UselessAssignment
 # :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
@@ -197,4 +201,8 @@ SQL
   end
 end
 # rubocop:enable Metrics/ClassLength
+# rubocop:enable Style/CharacterLiteral
+# rubocop:enable Style/YodaCondition
+# rubocop:enable Lint/InterpolationCheck
+# rubocop:enable Lint/UselessAssignment
 # rubocop:enable Lint/UnneededCopDisableDirective

@@ -1,3 +1,7 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/NumericPredicate
+# rubocop:disable Style/EvenOdd
+# rubocop:disable Style/ClassAndModuleChildren
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutOpenClasses < Neo::Koan
@@ -43,3 +47,7 @@ class AboutOpenClasses < Neo::Koan
   # NOTE: To understand why we need the :: before Integer, you need to
   # become enlightened about scope.
 end
+# rubocop:enable Style/NumericPredicate
+# rubocop:enable Style/EvenOdd
+# rubocop:enable Style/ClassAndModuleChildren
+# rubocop:enable Lint/UnneededCopDisableDirective

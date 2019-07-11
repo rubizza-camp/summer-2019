@@ -1,5 +1,6 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Style/EmptyLiteral
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -120,4 +121,5 @@ class AboutHashes < Neo::Koan
   end
 end
 # rubocop:enable Metrics/AbcSize
+# rubocop:enable Style/EmptyLiteral
 # rubocop:enable Lint/UnneededCopDisableDirective

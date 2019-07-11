@@ -1,5 +1,6 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Style/EvalWithLocation
+# rubocop:disable Style/TrivialAccessors
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -68,6 +69,7 @@ class AboutClasses < Neo::Koan
     def put_name(a_name)
       @name = a_name
     end
+
     def name
       @name
     end
@@ -194,4 +196,5 @@ class AboutClasses < Neo::Koan
   end
 end
 # rubocop:enable Style/EvalWithLocation
+# rubocop:enable Style/TrivialAccessors
 # rubocop:enable Lint/UnneededCopDisableDirective

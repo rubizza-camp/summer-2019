@@ -1,6 +1,8 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Lint/HandleExceptions, Metrics/MethodLength
 # rubocop:disable Naming/RescuedExceptionsVariableName
+# rubocop:disable Style/SignalException
+# rubocop:disable Lint/UselessAssignment
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -73,4 +75,6 @@ end
 
 # rubocop:enable Lint/HandleExceptions, Metrics/MethodLength
 # rubocop:enable Naming/RescuedExceptionsVariableName
+# rubocop:enable Style/SignalException
+# rubocop:enable Lint/UselessAssignment
 # rubocop:enable Lint/UnneededCopDisableDirective

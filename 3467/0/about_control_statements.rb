@@ -1,5 +1,10 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
+# rubocop:disable Style/For
+# rubocop:disable Layout/EmptyLineAfterGuardClause
+# rubocop:disable Style/InfiniteLoop
+# rubocop:disable Style/IfUnlessModifier
+# rubocop:disable Style/ConditionalAssignment
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -64,7 +69,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement
     result = :default_value
-    unless false    # same as saying 'if !false', which evaluates as 'if true'
+    unless false # same as saying 'if !false', which evaluates as 'if true'
       result = :false_value
     end
     assert_equal :false_value, result
@@ -72,7 +77,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    unless true    # same as saying 'if !true', which evaluates as 'if false'
+    unless true # same as saying 'if !true', which evaluates as 'if false'
       result = :true_value
     end
     assert_equal :default_value, result
@@ -147,4 +152,9 @@ class AboutControlStatements < Neo::Koan
   end
 end
 # rubocop:enable Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength
+# rubocop:enable Style/For
+# rubocop:enable Layout/EmptyLineAfterGuardClause
+# rubocop:enable Style/InfiniteLoop
+# rubocop:enable Style/IfUnlessModifier
+# rubocop:enable Style/ConditionalAssignment
 # rubocop:enable Lint/UnneededCopDisableDirective

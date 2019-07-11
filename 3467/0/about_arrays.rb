@@ -1,14 +1,14 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/EmptyLiteral
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyStatements
 class AboutArrays < Neo::Koan
-  # rubocop:disable Style/EmptyLiteral
   def test_creating_arrays
     empty_array = Array.new
     assert_equal Array, empty_array.class
     assert_equal 0, empty_array.size
   end
-  # rubocop:enable Style/EmptyLiteral
 
   def test_array_literals
     array = Array.new
@@ -84,3 +84,5 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 end
+# rubocop:enable Style/EmptyLiteral
+# rubocop:enable Lint/UnneededCopDisableDirective

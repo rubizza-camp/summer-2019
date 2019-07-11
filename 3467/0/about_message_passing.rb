@@ -1,6 +1,7 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
 # rubocop:disable Style/MethodMissing
+# rubocop:disable Lint/UnusedMethodArgument
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -189,4 +190,5 @@ class AboutMessagePassing < Neo::Koan
 end
 # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 # rubocop:enable Style/MethodMissing
+# rubocop:enable Lint/UnusedMethodArgument
 # rubocop:enable Lint/UnneededCopDisableDirective
