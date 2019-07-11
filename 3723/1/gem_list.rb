@@ -8,27 +8,30 @@ require 'open-uri'
 
 list = YAML.load_file('ruby_gems.yml')
 
-def gem_presence(html)
-  #page = Nokogiri::HTML.parse(open(html))  
-  #page.css('body').text.include?('gem install')
-end
-
 def take_repo(list)
   list.dig('gems').map do |info|
-    response = Faraday.get "https://api.github.com/search/repositories?q=#{info}"
-    data = JSON.parse(response.body)
-    repo = data['items'][0]['full_name']
-    for_presence = "https://raw.githubusercontent.com/#{repo}/master/README.md"
-    "https://api.github.com/repos/#{repo}"
+    gem_presense = Faraday.get "https://rubygems.org/api/v1/gems/#{info}.json"
+    valid_gem = gem_presense.body.include?('name')
+    if valid_gem
+      response = Faraday.get "https://api.github.com/search/repositories?q=#{info}"
+      data = JSON.parse(response.body)
+      repo = data['items'][0]['full_name']
+      "https://api.github.com/repos/#{repo}"
+    end
   end
 end
 
 def gem_stats(list)
   rows = []
-  take_repo(list).map do |repo|
+  take_repo(list).compact.map do |repo|
     response  = Faraday.get "#{repo}"
     data = JSON.parse(response.body)
-    rows << [data['name'], "watched by #{data['watchers_count']}", "#{data['stargazers_count']} stars", "forks #{data['forks_count']}", "issues #{data['open_issues_count']}"]
+    name = data['name']
+    watch = "watched by #{data['watchers_count']}"
+    stars = "#{data['stargazers_count']} stars"
+    forks = "forks #{data['forks_count']}"
+    issues = "issues #{data['open_issues_count']}"
+    rows << [name, watch, stars, forks, issues]
   end
   table = Terminal::Table.new :rows => rows
   puts table
