@@ -1,97 +1,32 @@
 # frozen_string_literal: true
-
-# rubocop:disable Style/IdenticalConditionalBranches
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Lint/UselessAssignment
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# Greed is a dice game where you roll up to five dice to accumulate
-# points.  The following "score" function will be used to calculate the
-# score of a single roll of the dice.
-#
-# A greed roll is scored as follows:
-#
-# * A set of three ones is 1000 points
-#
-# * A set of three numbers (other than ones) is worth 100 times the
-#   number. (e.g. three fives is 500 points).
-#
-# * A one (that is not part of a set of three) is worth 100 points.
-#
-# * A five (that is not part of a set of three) is worth 50 points.
-#
-# * Everything else is worth 0 points.
-#
-#
-# Examples:
-#
-# score([1,1,1,5,1]) => 1150 points
-# score([2,3,4,6,2]) => 0 points
-# score([3,4,5,3,3]) => 350 points
-# score([1,5,1,2,4]) => 250 points
-#
-# More scoring examples are given in the tests below:
-#
-# Your goal is to write the score method.
-
 def score(dice)
-  sum(dice)
-end
-
-# :reek:NilCheck
-# :reek:TooManyStatements
-# :reek:UncommunicativeVariableName:
-def sum(arr)
-  h = { 1 => 100, 5 => 50 }
-  result = []
-  dice = selector(arr)
-  dice.each do |i|
-    result << h[i] unless h[i].nil?
-  end
-  if exceptions(arr).first == 1
-    result.sum + 1000
-  elsif !exceptions(arr).first != 1 && !exceptions(arr).first.nil?
-    result.sum + exceptions(arr).first * 100
-  else
-    result.sum
-  end
+  digits = Hash.new(0)
+  dice.each { |num| digits[num] += 1 }
+  result(digits)
 end
 
 # :reek:FeatureEnvy
-# :reek:TooManyStatements
-def selector(arr)
-  if arr.select { |num| num == 1 }.length > 3
-    dice = arr - exceptions(arr)
-    (arr.count(1) - 3).times { dice << 1 }
-  elsif arr.select { |num| num == 5 }.length > 3
-    dice = arr - exceptions(arr)
-    (arr.count(5) - 3).times { dice << 5 }
-  else
-    dice = arr - exceptions(arr)
-  end
-  dice
+def result(digits)
+  result = result_exceptions(digits)
+# rubocop:disable Lint/UselessAssignment
+  result += 100 * (digits[1] % 3)
+
+  result += 50 * (digits[5] % 3)
 end
 
-# :reek:NestedIterators
-# :reek:NilCheck
-# :reek:TooManyStatements
-# :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
-def exceptions(dice)
-  exception1 = dice.select { |num| num == 1 }.slice(0..2) if dice.select { |num| num == 1 }.length >= 3
-  exception2 = dice.each do |i|
-    return dice.select { |num| num == i }.slice(0..2) if dice.select { |num| num == i }.length >= 3
-  end
+def result_exceptions(digits)
+  result = 0
+  result += 1000 if digits[1] >= 3
 
-  if !exception1.nil?
-    exception1
-  elsif !exception2.nil?
-    exception2.slice(0..2)
+  (digits.keys - [1]).each do |num|
+    result += num * 100 if digits[num] >= 3
   end
-
-  []
+  result
 end
 
 class AboutScoringProject < Neo::Koan
@@ -140,7 +75,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:enable Style/IdenticalConditionalBranches
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/LineLength
+# rubocop:disable Lint/UselessAssignment

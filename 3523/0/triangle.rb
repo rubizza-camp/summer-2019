@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-# :reek:all
-# rubocop:disable Naming/UncommunicativeMethodParamName
-# rubocop:disable Style/NumericPredicate
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -21,29 +16,21 @@
 #   about_triangle_project_2.rb
 #
 
-def triangle(a, b, c)
-  res = 0
-  raise TriangleError unless [a, b, c].reject(&:positive?).empty?
+def triangle(side_a, side_b, side_c)
+  result = :scalene
+  result = :isosceles if side_a == side_b || side_b == side_c || side_c == side_a
+  result = :equilateral if side_a == side_b && side_b == side_c
+  errors(side_a, side_b, side_c)
+  result
+end
 
-  x, y, z = [a, b, c].sort
-  raise TriangleError if x + y <= z
+def errors(side_a, side_b, side_c)
+  raise TriangleError unless [side_a, side_b, side_c].reject(&:positive?).empty?
 
-  [a, b, c].each do |i|
-    if [a, b, c].select { |num| i == num }.length == 3
-      res = :equilateral
-    elsif [a, b, c].select { |num| i == num }.length == 2
-      res = :isosceles
-    end
-  end
-  res = :scalene if res == 0
-
-  res
+  x_s, y_s, z_s = [side_a, side_b, side_c].sort
+  raise TriangleError if x_s + y_s <= z_s
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable Naming/UncommunicativeMethodParamName
-# rubocop:enable Style/NumericPredicate
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength

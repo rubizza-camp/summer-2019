@@ -3,15 +3,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
-# :reek:Attribute
-# :reek:InstanceVariableAssumption:
-# :reek:UncommunicativeVariableName
+# :reek:InstanceVariableAssumption
 class DiceSet
-  attr_accessor :values
+  attr_reader :values
   def roll(num)
     @values = []
-    (1..num).each do |i|
-      @values << i
+    (1..num).each_with_object do |obj|
+      @values << obj
       @values.shuffle!
     end
   end
