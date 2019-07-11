@@ -1,0 +1,8 @@
+gems:
+ - sinatra
+ - rspec
+ - rails
+ - activerecord
+ - activestorage
+ - active-redis
+ - s2d
