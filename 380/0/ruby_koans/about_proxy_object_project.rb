@@ -16,7 +16,6 @@ class Proxy
     @messages.count method_name
   end
 end
-# rubocop:enable Style/MethodMissing
 
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object

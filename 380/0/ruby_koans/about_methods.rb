@@ -1,9 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UtilityFunction:
-# rubocop:disable Style/SingleLineMethods
 def my_global_method(first, second); first + second; end
-# rubocop:enable Style/SingleLineMethods
 # :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
