@@ -12,13 +12,9 @@ class AboutClasses < Neo::Koan
     assert_equal Dog, fido.class
   end
 
-  # rubocop:disable Naming/AccessorMethodName
   class DogTwo
-    def set_name(a_name)
-      @name = a_name
-    end
+    attr_accessor a_name
   end
-  # rubocop:enable Naming/AccessorMethodName
 
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = DogTwo.new
@@ -27,6 +23,7 @@ class AboutClasses < Neo::Koan
     fido.set_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
+
   # rubocop:disable Style/EvalWithLocation
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = DogTwo.new
@@ -40,7 +37,6 @@ class AboutClasses < Neo::Koan
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
-  # rubocop:enable Style/EvalWithLocation
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = DogTwo.new
@@ -49,7 +45,6 @@ class AboutClasses < Neo::Koan
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
-  # rubocop:enable Style/EvalWithLocation
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = DogTwo.new
     fido.set_name('Fido')
@@ -57,7 +52,7 @@ class AboutClasses < Neo::Koan
     assert_equal 'Fido', fido.instance_eval('@name') # string version
     assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
-  # rubocop:disable Style/EvalWithLocation
+  # rubocop:enable Style/EvalWithLocation
 
   class DogThree
     attr_reader :name
@@ -70,7 +65,6 @@ class AboutClasses < Neo::Koan
     assert_equal 'Fido', fido.name
   end
 
-  # ------------------------------------------------------------------
   # rubocop:disable Naming/AccessorMethodName
   class DogFour
     attr_reader :name
