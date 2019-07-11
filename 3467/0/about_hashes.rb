@@ -7,7 +7,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:FeatureEnvy
 class AboutHashes < Neo::Koan
   def test_creating_hashes
-    empty_hash = {}
+    empty_hash = Hash.new
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
@@ -82,7 +82,7 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash_one = {}
+    hash_one = Hash.new
     hash_one[:one] = 1
 
     assert_equal 1, hash_one[:one]

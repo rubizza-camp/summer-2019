@@ -118,7 +118,7 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *args, &block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end

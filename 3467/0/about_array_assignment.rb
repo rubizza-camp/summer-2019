@@ -1,3 +1,4 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyMethods
@@ -7,12 +8,19 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal %w[John Smith], names
   end
 
+  # rubocop:disable Style/ParallelAssignment
+  # rubocop:disable Style/WordArray
+  # rubocop:disable Style/StringLiterals
+  # rubocop:disable Style/StringLiterals
   def test_parallel_assignments
-    first_name = 'John'
-    last_name = 'Smith'
+    first_name, last_name = ["John", "Smith"]
     assert_equal 'John', first_name
     assert_equal 'Smith', last_name
   end
+  # rubocop:enable Style/ParallelAssignment
+  # rubocop:enable Style/WordArray
+  # rubocop:enable Style/StringLiterals
+  # rubocop:enable Style/StringLiterals
 
   def test_parallel_assignments_with_extra_values
     first_name, last_name = %w[John Smith III]
@@ -33,10 +41,9 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments_with_subarrays
-    first_name = %w[Willie Rae]
-    last_name = 'Johnson'
-    assert_equal %w[Willie Rae], first_name
-    assert_equal 'Johnson', last_name
+    first_name, last_name = [["Willie", "Rae"], "Johnson"]
+    assert_equal ["Willie", "Rae"], first_name
+    assert_equal "Johnson", last_name
   end
 
   def test_parallel_assignment_with_one_variable
@@ -52,3 +59,4 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal 'Roy', last_name
   end
 end
+# rubocop:enable Lint/UnneededCopDisableDirective

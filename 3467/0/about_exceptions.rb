@@ -50,8 +50,9 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
+    result = nil
     begin
-      raise 'Oops'
+      fail 'Oops'
     rescue StandardError
       # no code here
     ensure

@@ -29,11 +29,9 @@ class AboutOpenClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Object
-    class Integer
-      def even?
-        super
-      end
+  class ::Integer
+    def even?
+      (self % 2) == 0
     end
   end
 

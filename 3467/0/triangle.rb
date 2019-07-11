@@ -14,22 +14,19 @@
 #   about_triangle_project_2.rb
 #
 # :reek:FeatureEnvy
-def triangle(s_a, s_b, s_c)
-  triangle_does_not_exists(s_a, s_b, s_c)
+def triangle(side_a, side_b, side_c)
+  triangle_does_not_exists(side_a, side_b, side_c)
 
-  return :equilateral if (s_a == s_b) && (s_b == s_c)
-  return :isosceles if (s_a == s_b) || (s_b == s_c) || (s_c == s_a)
+  return :equilateral if (side_a == side_b) && (side_b == side_c)
+  return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_c == side_a)
 
   :scalene
 end
 
-def triangle_does_not_exists(s_a, s_b, s_c)
-  s_a_b = s_a + s_b
-  s_b_c = s_b + s_c
-  s_c_a = s_c + s_a
-  if (s_a_b <= s_c) ||
-     (s_b_c <= s_a) ||
-     (s_c_a <= s_b)
+def triangle_does_not_exists(side_a, side_b, side_c)
+  if side_a + side_b <= side_c ||
+     side_b + side_c <= side_a ||
+     side_c + side_a <= side_b
     raise TriangleError
   end
 end

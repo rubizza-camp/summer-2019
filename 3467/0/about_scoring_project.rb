@@ -30,21 +30,17 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-# rubocop:disable Metrics/AbcSize
 # :reek:TooManyStatements
 # :reek:UtilityFunction
 def score(dice)
-  dice = dice.sort
-  sum = 0
-  (1..6).each do |round|
+  once = [100, 0, 0, 0, 50, 0]
+  thrice = [1000, 200, 300, 400, 500, 600]
+  (1..6).inject(0) do |sum, round|
     count = dice.count(round)
-    sum += (round == 1 ? 1000 : round * 100) if count >= 3
-    sum += (count % 3) * 100 if round == 1
-    sum += (count % 3) * 50 if round == 5
+    sum += thrice[round - 1] * (count / 3)
+    sum + once[round - 1] * (count % 3)
   end
-  sum
 end
-# rubocop:enable Metrics/AbcSize
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero

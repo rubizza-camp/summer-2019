@@ -65,6 +65,7 @@ SQL
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
+    string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
@@ -78,6 +79,9 @@ SQL
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
+    hi = original_string
+    there = 'World'
+    hi += there
     assert_equal 'Hello, ', original_string
   end
 
@@ -126,8 +130,8 @@ SQL
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = "The value is #{value}"
-    assert_equal 'The value is 123', string
+    string = 'The value is #{value}'
+    assert_equal 'The value is #{value}', string
   end
 
   def test_any_ruby_expression_may_be_interpolated
@@ -150,16 +154,16 @@ SQL
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 97, 'a'
-      assert_equal true, 'a' == 97
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal 97, ?a
+      assert_equal true, ?a == 97
+      assert_equal true, ?b == (?a + 1)
     end
   end
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal 'a', 'a'
-      assert_equal false, 'a' == 97
+      assert_equal 'a', ?a
+      assert_equal false, ?a == 97
     end
   end
 
