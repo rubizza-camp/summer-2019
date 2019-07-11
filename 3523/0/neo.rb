@@ -31,7 +31,7 @@ end
 
 class FillMeInError < StandardError
 end
-
+# :reek:all
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
