@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+equire File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutToStr < Neo::Koan
   class CanNotBeTreatedAsString
@@ -40,7 +40,9 @@ class AboutToStr < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  #:reek:all  :
+  # :reek:ManualDispatch
+  # :reek:UtilityFunction
+
   def acts_like_a_string?(string)
     string = string.to_str if string.respond_to?(:to_str)
     string.is_a?(String)
@@ -48,6 +50,6 @@ class AboutToStr < Neo::Koan
 
   def test_user_defined_code_can_check_for_to_str
     assert_equal false, acts_like_a_string?(CanNotBeTreatedAsString.new)
-    assert_equal true,  acts_like_a_string?(CanBeTreatedAsString.new)
+    assert_equal true, acts_like_a_string?(CanBeTreatedAsString.new)
   end
 end
