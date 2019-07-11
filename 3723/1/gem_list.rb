@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'terminal-table'
 require 'json'
 require 'yaml'
