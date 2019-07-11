@@ -1,3 +1,6 @@
+# rubocop: disable Lint/MissingCopEnableDirective, Style/ParallelAssignment
+# rubocop: disable Style/WordArray, Style/StringLiterals
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrayAssignment < Neo::Koan
@@ -7,8 +10,7 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments
-    first_name = 'John'
-    last_name = 'Smith'
+    first_name, last_name = ["John", "Smith"]
     assert_equal first_name, first_name
     assert_equal last_name, last_name
   end
@@ -32,8 +34,7 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments_with_subarrays
-    first_name = %w[Willie Rae]
-    last_name = 'Johnson'
+    first_name, last_name = [["Willie", "Rae"], "Johnson"]
     assert_equal first_name, first_name
     assert_equal last_name, last_name
   end
