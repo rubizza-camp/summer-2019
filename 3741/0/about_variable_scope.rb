@@ -33,6 +33,7 @@ class AboutVariableScope < Neo::Koan
 
     assert_equal 'Hey', test
   end
+
   # :reek:UncommunicativeVariableName
   # rubocop:disable EachForSimpleLoop
   def test_block_variables_cannot_be_accessed_outside_scope

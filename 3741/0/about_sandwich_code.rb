@@ -11,7 +11,7 @@ class AboutSandwichCode < Neo::Koan
     count += 1 while file.gets
     count
   ensure
-    file&.close
+    file.close if file
   end
 
   def test_counting_lines
@@ -19,15 +19,16 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable RedundantMatch
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
       return line if line.match(/e/)
     end
   ensure
-    file&.close
+    file.close if file
   end
+  # rubocop:enable RedundantMatch
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -59,10 +60,11 @@ class AboutSandwichCode < Neo::Koan
     file = File.open(file_name)
     yield(file)
   ensure
-    file&.close
+    file.close if file
   end
   # Now we write:
 
+  # rubocop:disable WhileUntilModifier
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
@@ -72,6 +74,7 @@ class AboutSandwichCode < Neo::Koan
       count
     end
   end
+  # rubocop:enable WhileUntilModifier
 
   def test_counting_lines2
     assert_equal 4, count_lines2('example_file.txt')
@@ -92,7 +95,8 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable WhileUntilModifier
+  # rubocop:disable Security/Open
   def count_lines3(file_name)
     open(file_name) do |file|
       count = 0
@@ -102,6 +106,8 @@ class AboutSandwichCode < Neo::Koan
       count
     end
   end
+  # rubocop:enable WhileUntilModifier
+  # rubocop:enable Security/Open
 
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')
