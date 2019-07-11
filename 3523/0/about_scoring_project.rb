@@ -15,8 +15,7 @@ end
 def result(digits)
   result = result_exceptions(digits)
   result += 100 * (digits[1] % 3)
-
-  result += 50 * (digits[5] % 3)
+  result + 50 * (digits[5] % 3)
 end
 
 # :reek:UtilityFunction
@@ -24,10 +23,7 @@ def result_exceptions(digits)
   result = 0
   result += 1000 if digits[1] >= 3
 
-  (digits.keys - [1]).each do |num|
-    result += num * 100 if digits[num] >= 3
-  end
-  result
+  result + (digits.keys - [1]).sum { |num| digits[num] >= 3 ? num * 100 : 0 }
 end
 
 class AboutScoringProject < Neo::Koan
