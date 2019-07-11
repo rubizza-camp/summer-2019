@@ -30,7 +30,7 @@ class Proxy
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
-  
+
   def called?(method_name)
     @messages.include?(method_name)
   end
