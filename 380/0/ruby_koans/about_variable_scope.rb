@@ -64,6 +64,7 @@ class AboutVariableScope < Neo::Koan
     def Mouse.count
       @@total
     end
+    # rubocop:enable Style/ClassMethods
   end
 
   def test_instance_variable
@@ -108,6 +109,9 @@ end
 # rubocop:enable Lint/UselessAssignment
 # rubocop:enable Style/TrivialAccessors
 # rubocop:enable Style/GlobalVars
+# rubocop:enable Style/EachForSimpleLoop
+# rubocop:enable Style/ClassVars
+# rubocop:enable Style/UnneededInterpolation
 
 # THINK ABOUT IT:
 #
