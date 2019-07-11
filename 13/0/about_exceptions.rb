@@ -1,8 +1,3 @@
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Lint/UselessAssignment
-# rubocop:disable Lint/HandleExceptions
-# rubocop:disable Style/RaiseArgs
-# rubocop:disable Naming/RescuedExceptionsVariableName
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyStatements
 class AboutExceptions < Neo::Koan
@@ -69,8 +64,3 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Lint/UselessAssignment
-# rubocop:enable Lint/HandleExceptions
-# rubocop:enable Style/RaiseArgs
-# rubocop:enable Naming/RescuedExceptionsVariableName
