@@ -12,7 +12,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
-# :reek:TooManyStatements:
+# :reek:TooManyStatements
 class Proxy
   attr_reader :messages
 
@@ -29,6 +29,7 @@ class Proxy
     @messages.count method_name
   end
 
+  # :reek:ManualDispatch
   # rubocop:disable Style/MethodMissing
   def method_missing(method, *args, &block)
     if @object.respond_to? method

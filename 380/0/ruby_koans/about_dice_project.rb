@@ -22,6 +22,7 @@ class AboutDiceProject < Neo::Koan
   end
 
   # rubocop:disable Metrics/AbcSize
+  # :reek:FeatureEnvy, :reek:TooManyStatements
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_six
     dice = DiceSet.new
 

@@ -15,6 +15,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:NilCheck
   def find_line(file_name)
     file_two = open(file_name)
     while (line = file_two.gets)
