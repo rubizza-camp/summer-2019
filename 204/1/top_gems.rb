@@ -39,13 +39,3 @@ table = Terminal::Table.new do |t|
   t.style = { border_top: false, border_bottom: false }
 end
 
-options = {}
-
-optparse = OptionParser.new do |opts|
-  options[:file_path] = nil
-  opts.on('-f', '--file', 'Enter the config file to open.') do
-    options[:dry_run] = true
-  end
-end
-
-optparse.parse!

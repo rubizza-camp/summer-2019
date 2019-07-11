@@ -11,15 +11,24 @@ def opt_file
   options = {}
   optparse = OptionParser.new do |opts|
     options[:config_file] = nil
-    opts.on('-f', '--config-file', 'Enter the config file to open.') do
-      options[:dry_run] = true
+    options[:name_sort] = nil
+    options[:top] = 2
+    opts.on('-f', '--config-file [Array]', Array , 'Enter the config file to open.') do |file|
+      options[:config_file] = file
+    end
+    opts.on('-n', '--name [STRING]', String, 'Enter the config file to open.') do |name|
+      options[:name_sort] = name
+      byebug
+    end
+    opts.on('-t', '--top [INTEGER]', Integer, 'Enter the config file to open.') do |t|
+      options[:top] = t
     end
   end
-  parsing_file = optparse.parse!
-  if parsing_file.empty?
+  optparse.parse!
+  if options[:config_file].methods
     file = 'gems.yaml'
   else
-    file = parsing_file.to_s.gsub!(/[^0-9A-Za-z.]/, '')
+    file = options[:config_file].to_s.gsub!(/[^0-9A-Za-z.]/, '')
   end
   file
 end
@@ -37,9 +46,9 @@ def yaml_parser
   @gems_hash = {}
   thing.values[0].each do |name|
     gem = Gems.info(name)
-    gem_uri = gem['source_code_uri'].sub! 'https://github.com/', ''
-    user = client.repo gem_uri
-    doc = Nokogiri::HTML(open('https://github.com/' + gem_uri))
+    uri = gem['source_code_uri'].sub! 'https://github.com/', ''
+    user = client.repo uri
+    doc = Nokogiri::HTML(open('https://github.com/' + uri))
     @gems_hash.merge!("#{name}": gem_stats(user))
     @gems_hash.merge!("#{name}": contributors(doc))
   end
