@@ -2,6 +2,7 @@
 # rubocop:disable Lint/Void, Lint/UnreachableCode, Style/RedundantSelf
 # rubocop:disable Naming/UncommunicativeMethodParamName
 # rubocop:disable Style/AccessModifierDeclarations
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeParameterName:
 # :reek:UtilityFunction
@@ -160,3 +161,4 @@ end
 # rubocop:enable Lint/Void, Lint/UnreachableCode, Style/RedundantSelf
 # rubocop:enable Naming/UncommunicativeMethodParamName
 # rubocop:enable Style/AccessModifierDeclarations
+# rubocop:enable all

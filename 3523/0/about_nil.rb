@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/RescueException
 # rubocop:disable Naming/RescuedExceptionsVariableName
+# rubocop:disable all
 # :reek:NilCheck
 # :reek:UncommunicativeVariableName
 class AboutNil < Neo::Koan
@@ -39,3 +40,4 @@ class AboutNil < Neo::Koan
 end
 # rubocop:enable Lint/RescueException
 # rubocop:enable Naming/RescuedExceptionsVariableName
+# rubocop:enable all

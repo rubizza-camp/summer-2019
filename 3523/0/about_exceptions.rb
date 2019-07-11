@@ -1,3 +1,4 @@
+# rubocop:disable all
 # rubocop:disable Metrics/MethodLength, Lint/HandleExceptions, Lint/UnneededCopDisableDirective
 # rubocop:disable Lint/UselessAssignment
 # rubocop:disable Naming/RescuedExceptionsVariableName
@@ -72,3 +73,4 @@ end
 # rubocop:enable Metrics/MethodLength, Lint/HandleExceptions, Lint/UnneededCopDisableDirective
 # rubocop:enable Lint/UselessAssignment
 # rubocop:enable Naming/RescuedExceptionsVariableName
+# rubocop:enable all

@@ -1,5 +1,5 @@
 # rubocop:disable Lint/LiteralAsCondition, Metrics/ClassLength, Metrics/MethodLength
-
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Style/ConditionalAssignment
 # rubocop:disable Style/IfUnlessModifier
@@ -7,8 +7,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:RepeatedConditional
 # :reek:UncommunicativeVariableName
 # :reek:TooManyStatements
-# rubocop:disable Layout/IndentationConsistency
-# rubocop:disable Layout/EmptyLineAfterGuardClause
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     if true
@@ -153,4 +151,4 @@ end
 # rubocop:enable Style/ConditionalAssignment
 # rubocop:enable Style/IfUnlessModifier
 # rubocop:enable Layout/IndentationConsistency
-# rubocop:enable Layout/EmptyLineAfterGuardClause
+# rubocop:enable all

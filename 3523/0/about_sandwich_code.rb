@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable all
 # rubocop:disable Style/WhileUntilModifier
 # rubocop:disable Style/SafeNavigation
 # rubocop:disable Security/Open
@@ -116,3 +117,4 @@ end
 # rubocop:enable Style/WhileUntilModifier
 # rubocop:enable Style/SafeNavigation
 # rubocop:enable Security/Open
+# rubocop:enable all
