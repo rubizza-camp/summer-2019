@@ -3,7 +3,6 @@
 # rubocop:disable Lint/UnreachableCode
 # rubocop:disable Style/RedundantSelf
 # rubocop:disable Lint/AmbiguousRegexpLiteral
-# rubocop:disable Style/AccessModifierDeclarations
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 #:reek:all
 def my_global_method(one, two)
@@ -159,4 +158,3 @@ end
 # rubocop:enable Lint/UnreachableCode
 # rubocop:enable Style/RedundantSelf
 # rubocop:enable Lint/AmbiguousRegexpLiteral
-# rubocop:enable Style/AccessModifierDeclarations

@@ -12,48 +12,45 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_rescue_clause
-    result = nil
+    result_var = nil
     begin
       raise 'Oops'
     rescue StandardError => mes
-      result = :exception_handled
+      result_var = :exception_handled
     end
 
-    assert_equal :exception_handled, result
-
+    assert_equal :exception_handled, result_var
     assert_equal true, mes.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, mes.is_a?(RuntimeError),  'Should be a Runtime Error'
-
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
-
     assert_equal 'Oops', mes.message
   end
 
   def test_raising_a_particular_error
-    result = nil
+    result_var = nil
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
     rescue MySpecialError => mes
-      result = :exception_handled
+      result_var = :exception_handled
     end
 
-    assert_equal :exception_handled, result
+    assert_equal :exception_handled, result_var
     assert_equal 'My Message', mes.message
   end
 
   def test_ensure_clause
-    result = nil
+    result_var = nil
     begin
       raise 'Oops'
     rescue StandardError
       # no code here
     ensure
-      result = :always_run
+      result_var = :always_run
     end
 
-    assert_equal :always_run, result
+    assert_equal :always_run, result_var
   end
 
   # Sometimes, we must know about the unknown
