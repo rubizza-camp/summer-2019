@@ -79,7 +79,6 @@ class AboutHashes < Neo::Koan
     assert_equal true, expected == new_hash
   end
 
-  # rubocop:disable TooManyStatements
   def test_default_value
     hash_one = {}
     hash_one[:one] = 1
@@ -94,7 +93,6 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash_two[:two]
   end
 
-  # rubocop:disable FeatureEnvy
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -118,8 +116,6 @@ class AboutHashes < Neo::Koan
     assert_equal ['dos'], hash[:two]
     assert_equal [], hash[:three]
   end
-  # rubocop:enable TooManyStatements
-  # rubocop:enable FeatureEnvy
 end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Lint/UnneededCopDisableDirective
