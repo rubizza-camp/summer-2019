@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/LiteralAsCondition
 # rubocop:disable Style/ConditionalAssignment
 # rubocop:disable Metrics/ClassLength
-# :reek:RepeatedConditional:LiteralInCondition:ClassLength:reek:TooManyStatements:reek:FeatureEnvy
 
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
