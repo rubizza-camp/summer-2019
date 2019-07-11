@@ -85,12 +85,12 @@ class AboutControlStatements < Neo::Koan
   def test_break_statement_returns_values
     var_i = 1
     while var_i <= 10
-      break var_i if (var_i 2).zero?
+      break var_i if (var_i % 2).zero?
 
       var_i += 1
     end
 
-    result = i
+    result = var_i
 
     assert_equal 2, result
   end
