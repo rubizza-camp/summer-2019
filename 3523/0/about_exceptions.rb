@@ -1,3 +1,4 @@
+
 # rubocop:disable Naming/MethodName, Metrics/MethodLength, Style/SignalException
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutExceptions < Neo::Koan

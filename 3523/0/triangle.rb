@@ -15,7 +15,7 @@
 # and
 #   about_triangle_project_2.rb
 #
-
+# :reek:FeatureEnvy
 def triangle(side_a, side_b, side_c)
   result = :scalene
   result = :isosceles if side_a == side_b || side_b == side_c || side_c == side_a

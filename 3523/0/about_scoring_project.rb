@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# rubocop:disable Lint/UselessAssignment
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -12,7 +11,6 @@ end
 # :reek:FeatureEnvy
 def result(digits)
   result = result_exceptions(digits)
-# rubocop:disable Lint/UselessAssignment
   result += 100 * (digits[1] % 3)
 
   result += 50 * (digits[5] % 3)
@@ -75,4 +73,3 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:disable Lint/UselessAssignment

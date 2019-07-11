@@ -11,14 +11,14 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
-  rescue StandardError => except
+  rescue StandardError => e
     # What exception has been caught?
-    assert_equal NoMethodError, except.class
+    assert_equal NoMethodError, e.class
 
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
     assert_match(/undefined method `some_method_nil_doesnt_know_about' for nil:NilClass/,
-                 except.message)
+                 e.message)
   end
   # :reek:NilCheck:
 
