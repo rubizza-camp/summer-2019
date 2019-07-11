@@ -1,7 +1,6 @@
-# rubocop:disable Metrics/ClassLength, Lint/UselessAssignment
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Style/PercentLiteralDelimiters
+
 # :reek:TooManyMethods
 # :reek:UncommunicativeVariableName
 
@@ -51,10 +50,10 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = %{
-      It was the best of times,
-      It was the worst of times.
-  }
+    long_string = <<EOS
+It was the best of times,
+It was the worst of times.
+EOS
 
     assert_equal 68, long_string.length
     assert_equal 4, long_string.lines.count
@@ -201,6 +200,4 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable Metrics/ClassLength, Lint/UselessAssignment
-# rubocop:enable Lint/UnneededCopDisableDirective
-# rubocop:enable Style/PercentLiteralDelimiters
+# rubocop:enable all

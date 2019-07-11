@@ -1,8 +1,5 @@
-# rubocop:disable Lint/LiteralAsCondition, Metrics/ClassLength, Metrics/MethodLength
 # rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Style/ConditionalAssignment
-# rubocop:disable Style/IfUnlessModifier
 # :reek:FeatureEnvy
 # :reek:RepeatedConditional
 # :reek:UncommunicativeVariableName
@@ -147,8 +144,4 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
-# rubocop:enable Lint/LiteralAsCondition, Metrics/ClassLength, Metrics/MethodLength
-# rubocop:enable Style/ConditionalAssignment
-# rubocop:enable Style/IfUnlessModifier
-# rubocop:enable Layout/IndentationConsistency
 # rubocop:enable all

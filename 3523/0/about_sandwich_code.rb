@@ -1,8 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable all
-# rubocop:disable Style/WhileUntilModifier
-# rubocop:disable Style/SafeNavigation
-# rubocop:disable Security/Open
 # :reek:NilCheck
 # :reek:UncommunicativeMethodName
 # :reek:UtilityFunction
@@ -114,7 +111,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
-# rubocop:enable Style/WhileUntilModifier
-# rubocop:enable Style/SafeNavigation
-# rubocop:enable Security/Open
 # rubocop:enable all
