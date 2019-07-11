@@ -33,8 +33,7 @@ class AboutOpenClasses < Neo::Koan
       (self % 2).zero?
     end
   end
-  # rubocop:enabled Metrics/AbcSize
-
+  # rubocop:enable Style/ClassAndModuleChildren
 
   def test_even_existing_built_in_classes_can_be_reopened
     assert_equal false, 1.even?
