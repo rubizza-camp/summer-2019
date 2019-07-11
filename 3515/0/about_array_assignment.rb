@@ -1,4 +1,4 @@
-# rubocop:disable Style/ParallelAssignment, Style/StringLiterals, Style/WordArray
+# rubocop:disable Style/ParallelAssignment, Style/WordArray
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrayAssignment < Neo::Koan
