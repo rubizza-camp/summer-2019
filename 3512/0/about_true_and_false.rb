@@ -1,7 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+<<<<<<< HEAD
 
 # :reek:ControlParameter
 # Description class
+=======
+# :reek:ControlParameter
+
+>>>>>>> master
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition
@@ -22,8 +27,13 @@ class AboutTrueAndFalse < Neo::Koan
   def test_nil_is_treated_as_false_too
     assert_equal :false_stuff, truth_value(nil)
   end
+<<<<<<< HEAD
 
   # :reek:TooManyStatements
+=======
+  # :reek:TooManyStatements
+
+>>>>>>> master
   def test_everything_else_is_treated_as_true
     assert_equal :true_stuff, truth_value(1)
     assert_equal :true_stuff, truth_value(0)

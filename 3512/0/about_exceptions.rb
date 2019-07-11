@@ -18,19 +18,32 @@ class AboutExceptions < Neo::Koan
     result = nil
     begin
       raise 'Oops'
+<<<<<<< HEAD
     rescue StandardError => ex
+=======
+    rescue StandardError => e
+>>>>>>> master
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
 
+<<<<<<< HEAD
     assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
+=======
+    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
+>>>>>>> master
 
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
+<<<<<<< HEAD
     assert_equal 'Oops', ex.message
+=======
+    assert_equal 'Oops', e.message
+>>>>>>> master
   end
   # rubocop:enable Metrics/MethodLength
   # :reek:TooManyStatements
@@ -40,12 +53,20 @@ class AboutExceptions < Neo::Koan
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
+<<<<<<< HEAD
     rescue MySpecialError => ex
+=======
+    rescue MySpecialError => e
+>>>>>>> master
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
+<<<<<<< HEAD
     assert_equal 'My Message', ex.message
+=======
+    assert_equal 'My Message', e.message
+>>>>>>> master
   end
   # rubocop:disable Lint/HandleExceptions
 

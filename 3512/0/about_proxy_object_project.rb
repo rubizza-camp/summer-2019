@@ -26,10 +26,16 @@ class Proxy
   def number_of_times_called(method_name)
     @messages.count method_name
   end
+<<<<<<< HEAD
   # rubocop:disable Style/MethodMissing
   # :reek:ManualDispatch
 
   def method_missing(method_name, *args)
+=======
+  # :reek:ManualDispatch
+
+  def respond_to_missing(method_name, *args)
+>>>>>>> master
     if @object.respond_to? method_name
       # track each method called that target object can respond to
       @messages.push method_name
@@ -41,7 +47,10 @@ class Proxy
       super method_name, *args
     end
   end
+<<<<<<< HEAD
   # rubocop:enable Style/MethodMissing
+=======
+>>>>>>> master
 end
 
 # The proxy object should pass the following Koan:

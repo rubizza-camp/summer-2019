@@ -20,8 +20,14 @@ class AboutKeywordArguments < Neo::Koan
     exception = assert_raise(ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
     end
+<<<<<<< HEAD
     assert_match(/wrong number of arguments/, exception.message)
   end
+=======
+    assert_match(/wrong/, exception.message)
+  end
+
+>>>>>>> master
   # THINK ABOUT IT:
   #
   # Keyword arguments always have a default value, making them optional to the caller

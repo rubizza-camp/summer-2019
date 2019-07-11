@@ -13,6 +13,7 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
     begin
       nil.some_method_nil_doesnt_know_about
+<<<<<<< HEAD
     rescue Exception => ex
       # What exception has been caught?
       assert_equal NoMethodError, ex.class
@@ -20,6 +21,15 @@ class AboutNil < Neo::Koan
       # What message was attached to the exception?
       # (HINT: replace __ with part of the error message.)
       assert_match(/undefined method/, ex.message)
+=======
+    rescue Exception => e
+      # What exception has been caught?
+      assert_equal NoMethodError, e.class
+
+      # What message was attached to the exception?
+      # (HINT: replace __ with part of the error message.)
+      assert_match(/undefined method/, e.message)
+>>>>>>> master
     end
   end
   # rubocop:enable Style/RedundantBegin

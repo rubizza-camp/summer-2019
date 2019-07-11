@@ -15,3 +15,7 @@ class AboutTriangleProjectTwo < Neo::Koan
     assert_raise(TriangleError) { triangle(2, 4, 2) }
     # HINT: for tips, see http://stackoverflow.com/questions/3834203/ruby-koan-151-raising-exceptions
   end
+<<<<<<< HEAD
+=======
+end
+>>>>>>> master

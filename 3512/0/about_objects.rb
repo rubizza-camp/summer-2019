@@ -38,7 +38,10 @@ class AboutObjects < Neo::Koan
 
     # THINK ABOUT IT:
     # What pattern do the object IDs for small integers follow?
+<<<<<<< HEAD
     # 2*int+1
+=======
+>>>>>>> master
   end
   # :reek:FeatureEnvy
 
@@ -46,7 +49,11 @@ class AboutObjects < Neo::Koan
     obj = Object.new
     copy = obj.clone
 
+<<<<<<< HEAD
     assert_equal true, obj != copy
+=======
+    assert_equal true, obj           != copy
+>>>>>>> master
     assert_equal true, obj.object_id != copy.object_id
   end
 end

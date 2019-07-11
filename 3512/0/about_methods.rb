@@ -119,7 +119,10 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
+<<<<<<< HEAD
   private :my_private_method
+=======
+>>>>>>> master
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method

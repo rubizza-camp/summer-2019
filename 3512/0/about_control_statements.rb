@@ -92,6 +92,10 @@ class AboutControlStatements < Neo::Koan
     result = 1
     loop do
       break unless iteration <= 10
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
       result *= iteration
       iteration += 1
     end
@@ -103,6 +107,10 @@ class AboutControlStatements < Neo::Koan
     iteration = 1
     result = while iteration <= 10
                break iteration if (iteration % 2).zero?
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
                iteration += 1
              end
     assert_equal 2, result
@@ -116,6 +124,10 @@ class AboutControlStatements < Neo::Koan
     while iteration < 10
       iteration += 1
       next if (iteration % 2).zero?
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
       result << iteration
     end
     assert_equal [1, 3, 5, 7, 9], result
