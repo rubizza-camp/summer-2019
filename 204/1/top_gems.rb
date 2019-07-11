@@ -2,16 +2,19 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 require 'terminal-table'
+require 'gems'
+require 'optparse'
 
-uri = 'https://github.com/rails/rails'
+gem = Gems.info 'rails'
+gem_uri = Gems.info('rails').key('source_code_uri')
+p gem_uri
 
-doc = Nokogiri::HTML(open(uri), &:huge)
+doc = Nokogiri::HTML(open('http://github.com/rails/rails'), &:huge)
 
 def rails(doc)
   @counts_rails = []
   social = doc.css('a.social-count')
   @counts_rails = social.to_a.map { |x| x.values[2] }
-end
 end
 
 def contributors(doc)
@@ -35,5 +38,3 @@ table = Terminal::Table.new do |t|
   t.add_separator
   t.style = { border_top: false, border_bottom: false }
 end
-
-puts table

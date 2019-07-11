@@ -1,5 +1,8 @@
 source 'https://rubygems.org' do
-  gem 'json'
+  gem 'gems'
   gem 'nokogiri'
-  gem 'terminal-table'
+  gem 'octokit'
+  gem 'open-uri'
+  gem 'yaml'
+  gem 'optparse'
 end
