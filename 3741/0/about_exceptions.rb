@@ -25,7 +25,6 @@ class AboutExceptions < Neo::Koan
            'RuntimeError is a subclass of StandardError'
     assert_equal 'Oops', e.message
   end
-  # rubocop:enable
 
   def test_raising_a_particular_error
     result = nil
@@ -39,7 +38,8 @@ class AboutExceptions < Neo::Koan
     assert_equal 'My Message', e.message
   end
 
-  # rubocop:disable all
+  # rubocop:disable UselessAssignment
+  # rubocop:disable HandleExceptions
   def test_ensure_clause
     result = nil
     begin
@@ -52,7 +52,8 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :always_run, result
   end
-  # rubocop:enable all
+  # rubocop:enable UselessAssignment
+  # rubocop:enable HandleExceptions
 
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised

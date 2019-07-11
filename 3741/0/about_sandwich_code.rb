@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction
 # :reek:NilCheck
 # :reek:RepeatedConditional
-# rubocop:disable all
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = File.open(file_name)
@@ -12,7 +11,7 @@ class AboutSandwichCode < Neo::Koan
     count += 1 while file.gets
     count
   ensure
-    file.close if file
+    file&.close
   end
 
   def test_counting_lines
@@ -20,15 +19,16 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable
+  # rubocop:disable RedundantMatch
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
       return line if line.match(/e/)
     end
   ensure
-    file.close if file
+    file&.close
   end
+  # rubocop:enable RedundantMatch
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -60,7 +60,7 @@ class AboutSandwichCode < Neo::Koan
     file = File.open(file_name)
     yield(file)
   ensure
-    file.close if file
+    file&.close
   end
   # Now we write:
 
@@ -91,17 +91,17 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Security/Open
   def count_lines3(file_name)
-    File.open(file_name) do |file|
+    open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
     end
   end
+  # rubocop:enable Security/Open
 
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
-# rubocop:enable all

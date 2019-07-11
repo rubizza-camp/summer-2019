@@ -8,7 +8,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_noise_is_not_available_in_the_current_scope
-    assert_raise(__) do
+    assert_raise(NameError) do
       noise
     end
   end
@@ -20,7 +20,7 @@ class AboutVariableScope < Neo::Koan
   inaccessible = 'Outside our universe'
   def test_defs_cannot_access_variables_outside_scope
     # defined? does not return true or false
-    assert_equal __, defined? inaccesible
+    assert_equal nil, defined? inaccesible
   end
 
   # ------------------------------------------------------
@@ -31,15 +31,19 @@ class AboutVariableScope < Neo::Koan
       test = 'Hey'
     end
 
-    assert_equal __, test
+    assert_equal 'Hey', test
   end
 
+  # :reek:UncommunicativeVariableName
+  # :reek:UncommunicativeMethodName
+  # rubocop:disable EachForSimpleLoop
   def test_block_variables_cannot_be_accessed_outside_scope
-    2.times do
-      val_x = 0
+    (1..2).each do
+      x = 0
     end
-    assert_equal __, defined? val_x
+    assert_equal nil, defined? val_x
   end
+  # rubocop:enable EachForSimpleLoop
   # rubocop:enable UselessAssignment
 
   # ------------------------------------------------------
@@ -72,7 +76,7 @@ class AboutVariableScope < Neo::Koan
   def test_class_variable
     (1..9).each { |iteration| Mouse.new(iteration.to_s) }
     # Things may appear easier than they actually are.
-    assert_equal __, Mouse.count
+    assert_equal 10, Mouse.count
   end
 
   # Meditate on the following:

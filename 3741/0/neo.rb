@@ -1,7 +1,6 @@
 # rubocop:disable all
 #!/usr/bin/env ruby
 # -*- ruby -*-
-# rubocop:disable all
 begin
   require 'win32console'
 rescue LoadError
@@ -10,7 +9,7 @@ end
 # --------------------------------------------------------------------
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
-
+# rubocop:disable all
 class FillMeInError < StandardError
 end
 
@@ -548,6 +547,7 @@ module Neo
     end
   end
 end
+
 
 END {
   Neo::Koan.command_line(ARGV)

@@ -47,24 +47,34 @@ It was the worst of times.
     assert_equal "\n", long_string[0, 1]
   end
 
+  # rubocop:disable IndentHeredoc
+  # rubocop:disable HeredocDelimiterNaming
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = "It was the best of times, \nIt was the worst of times."
+    long_string = <<EOS
+It was the best of times,
+It was the worst of times.
+EOS
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
   end
+  # rubocop:enable IndentHeredoc
+  # rubocop:enable HeredocDelimiterNaming
 
   def test_plus_will_concatenate_two_strings
     string = 'Hello, ' + 'World'
     assert_equal 'Hello, World', string
   end
 
+  # rubocop:disable UselessAssignment
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
+    string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
+  # rubocop:enable UselessAssignment
 
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
@@ -121,12 +131,12 @@ It was the worst of times.
     assert_equal 'The value is 123', string
   end
 
-  # rubocop:disable all
+  # rubocop:disable InterpolationCheck
   def test_single_quoted_strings_do_not_interpolate
     string = 'The value is #{value}'
     assert_equal "The value is \#{value}", string
   end
-  # rubocop:enable all
+  # rubocop:enable InterpolationCheck
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
