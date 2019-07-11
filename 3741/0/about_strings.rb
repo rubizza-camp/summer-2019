@@ -121,12 +121,12 @@ It was the worst of times.
     assert_equal 'The value is 123', string
   end
 
-  # rubocop:disable all
+  # rubocop:disable InterpolationCheck
   def test_single_quoted_strings_do_not_interpolate
     string = 'The value is #{value}'
     assert_equal "The value is \#{value}", string
   end
-  # rubocop:enable all
+  # rubocop:enable InterpolationCheck
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
