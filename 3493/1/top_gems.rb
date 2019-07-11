@@ -1,14 +1,11 @@
 require 'yaml'
-require 'terminal-table'
 require 'json'
-require 'pry'
-require_relative './Models/Gems.rb'
+require 'terminal-table'
+require './Models/Gems.rb'
 require 'net/http'
 require 'uri'
 require 'nokogiri'
 require 'open-uri'
-
-#name:wathc:star:fork
 
 def parse_yml_file
   file = YAML.load_file("gems.yml")
@@ -23,9 +20,9 @@ def find_fields(url)
   result = []
   doc = Nokogiri::HTML(open(url))
   doc.css('.social-count').each do |a|
-    result.push (a.content.to_i)
+    result.push (a.content.gsub(/[^0-9]/, '').to_i)
   end
-  result.push(doc.css('.Counter')[0].content.gsub(/[^0-9]/, ''))
+  result.push(doc.css('.Counter')[0].content.gsub(/[^0-9]/, '').to_i)
   result.push(doc.css('.num').css('.text-emphasized')[3].text.gsub(/[^0-9]/, ''))
 end
 
@@ -38,16 +35,17 @@ end
 def response_body_hash url
   Net::HTTP.start(url.host, url.port,
   :use_ssl => url.scheme == 'https') do |http|
-      request = Net::HTTP::Get.new url
-      # request[:authorization] = 'c1506ab44cb419f35966897aa904b048cab97e8a'
-      response = http.request request # Net::HTTPResponse object
-      return JSON.parse(response.body, symbolize_names: true)
+    request = Net::HTTP::Get.new url
+    response = http.request request
+    return JSON.parse(response.body, symbolize_names: true)
   end
 end
 
-def show_table(*args)
+def show_table(args)
+  arr = []
+  args.each { |i| arr.push(i[0].get_fields) }
   table = Terminal::Table.new do |t|
-    t.rows = [args]
+    t.rows = arr
     t.style = { :border_top => false, :border_bottom => false }
   end
   puts table
@@ -55,17 +53,20 @@ end
 
 def main(*args)
   array= []
-  parse_yml_file.each do |gem| 
+  parsed_file = parse_yml_file
+  complited = 0
+  print "Complited status #{complited}/#{parsed_file.count}"
+  parsed_file.each do |gem| 
+    complited += 1
+    print "\rComplited status----------------------------------------------------------------#{complited}/#{parsed_file.count}"
+    print "\n" if complited == parsed_file.count
     gem_object = Gems.new(gem)
     gem_object.url = find_repo_html_url(gem)
     gem_object.set_fields(find_fields(gem_object.url))
     gem_object.count_used_by = find_used_by(gem_object.url)
     array.push(gem_object)
   end
-
-  p array
-  # g = Gems.new(1,2,3,4,5,6,7)
-  # show_table(1)
+  show_table(array.each_slice(1).to_a)
 end
 
 main(1)
