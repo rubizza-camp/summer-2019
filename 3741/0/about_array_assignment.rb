@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# class coment
+
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
     names = %w[John Smith]

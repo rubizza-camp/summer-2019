@@ -5,14 +5,16 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:NilCheck
 # :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
+  # rubocop:disable Syntax
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
     count += 1 while file.gets
     count
   ensure
-    file.close if file
+    file&.close
   end
+  # rubocop:enable Syntax
 
   def test_counting_lines
     assert_equal 4, count_lines('example_file.txt')
@@ -20,16 +22,16 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  # rubocop:disable RedundantMatch
+  # rubocop:disable Syntax
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
       return line if line.match(/e/)
     end
   ensure
-    file.close if file
+    file&.close
   end
-  # rubocop:enable RedundantMatch
+  # rubocop:enable Syntax
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -57,12 +59,14 @@ class AboutSandwichCode < Neo::Koan
   # Consider the following code:
   #
 
+  # rubocop:disable Syntax
   def file_sandwich(file_name)
     file = File.open(file_name)
     yield(file)
   ensure
-    file.close if file
+    file&.close
   end
+  # rubocop:enable Syntax
   # Now we write:
 
   def count_lines2(file_name)
