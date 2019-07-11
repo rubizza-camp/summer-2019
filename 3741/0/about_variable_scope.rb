@@ -41,7 +41,7 @@ class AboutVariableScope < Neo::Koan
     (1..2).each do
       x = 0
     end
-    assert_equal nil, defined? val_x
+    assert_equal nil, defined? x
   end
   # rubocop:enable EachForSimpleLoop
   # rubocop:enable UselessAssignment
