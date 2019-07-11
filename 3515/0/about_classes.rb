@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 # :reek:InstanceVariableAssumption
 # :reek:FeatureEnvy
+# rubocop:disable Style/TrivialAccessors
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -72,7 +73,9 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
 
-    attr_reader :name
+    def name
+      @name
+    end
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
@@ -195,3 +198,4 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Style/TrivialAccessors

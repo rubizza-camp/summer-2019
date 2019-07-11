@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UtilityFunction
+# rubocop:disable Style/BlockDelimiters, Style/Lambda
 
 class AboutBlocks < Neo::Koan
   def method_with_block
@@ -13,7 +14,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_defined_with_do_end_too
-    yielded_result = method_with_block { 1 + 2 }
+    yielded_result = method_with_block do 1 + 2 end
     assert_equal 3, yielded_result
   end
 
@@ -68,7 +69,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
-    add_one = ->(var) { var + 1 }
+    add_one = lambda { |var| var + 1 }
     assert_equal 11, add_one.call(10)
 
     # Alternative calling syntax
@@ -76,7 +77,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
-    make_upper = ->(var) { var.upcase }
+    make_upper = lambda { |var| var.upcase }
     result = method_with_block_arguments(&make_upper)
     assert_equal 'JIM', result
   end
@@ -91,7 +92,8 @@ class AboutBlocks < Neo::Koan
   def test_methods_can_take_an_explicit_block_argument
     assert_equal true, method_with_explicit_block { |num| num * 2 } == 20
 
-    add_one = ->(num) { num + 1 }
+    add_one = lambda { |num| num + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end
+# rubocop:enable Style/BlockDelimiters, Style/Lambda

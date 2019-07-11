@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:Attribute
 # This method smells of :reek:TooManyMethods
+# rubocop:disable Style/ClassMethods
 
 class AboutClassMethods < Neo::Koan
   class Dog
@@ -22,11 +23,11 @@ class AboutClassMethods < Neo::Koan
 
   def test_objects_have_methods
     fido = Dog.new
-    assert !fido.methods.empty?
+    assert fido.methods.size > 1
   end
 
   def test_classes_have_methods
-    assert !Dog.methods.empty?
+    assert Dog.methods.size > 1
   end
 
   def test_you_can_define_methods_on_individual_objects
@@ -92,7 +93,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def self.a_class_method
+    def Dog.a_class_method
       :dogs_class_method
     end
   end
@@ -170,3 +171,4 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
+# rubocop:enable Style/ClassMethods
