@@ -82,7 +82,7 @@ class AboutBlocks < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Performance/RedundantBlockCall
   def method_with_explicit_block(&block)
     block.call(10)
   end
@@ -93,5 +93,6 @@ class AboutBlocks < Neo::Koan
     add_one = ->(var_n) { var_n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
+  # rubocop:enable Performance/RedundantBlockCall
   # rubocop:enable Lint/AmbiguousBlockAssociation
 end
