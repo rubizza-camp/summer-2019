@@ -18,7 +18,6 @@ class AboutExceptions < Neo::Koan
     rescue StandardError => mes
       result_var = :exception_handled
     end
-
     assert_equal :exception_handled, result_var
     assert_equal true, mes.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, mes.is_a?(RuntimeError),  'Should be a Runtime Error'
@@ -41,16 +40,16 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
-    result_var = nil
+    result = nil
     begin
       raise 'Oops'
     rescue StandardError
       # no code here
     ensure
-      result_var = :always_run
+      result = :always_run
     end
 
-    assert_equal :always_run, result_var
+    assert_equal :always_run, result
   end
 
   # Sometimes, we must know about the unknown
