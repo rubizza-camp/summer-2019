@@ -28,7 +28,7 @@ end
 
 def used_by_count(list)
   doc = Nokogiri::HTML.parse(open(list))
-  doc.css('.btn-link').css('.selected').text[/\d+/].to_i
+  doc.css('.btn-link').css('.selected').text.split(/[^\d]/).join
 end
 
 def gem_stats(list)
