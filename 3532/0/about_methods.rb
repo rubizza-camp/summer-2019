@@ -45,7 +45,7 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  def method_with_defaults(first, second=:default_value)
+  def method_with_defaults(first, second = :default_value)
     [first, second]
   end
 
@@ -64,15 +64,13 @@ class AboutMethods < Neo::Koan
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
-    assert_equal [:one, :two], method_with_var_args(:one, :two)
+    assert_equal %i[one two], method_with_var_args(:one, :two)
   end
 
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :a_non_return_value
-    return :return_value
-    :another_non_return_value
+    :return_value
   end
 
   def test_method_with_explicit_return
@@ -82,7 +80,6 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    :a_non_return_value
     :return_value
   end
 
@@ -101,23 +98,23 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, self.my_method_in_the_same_class(3, 4)
+    assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
+  private
 
   def my_private_method
-    "a secret"
+    'a secret'
   end
-  private :my_private_method
 
   def test_calling_private_methods_without_receiver
-    assert_equal "a secret", my_private_method
+    assert_equal 'a secret', my_private_method
   end
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method
+      public_send(:my_private_method)
     end
     assert_match (/`my_private_method'/), exception.message
   end
