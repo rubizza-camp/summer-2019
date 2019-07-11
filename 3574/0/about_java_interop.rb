@@ -1,4 +1,7 @@
-# rubocop:disable all
+# rubocop: disable Lint/MissingCopEnableDirective, Layout/EmptyLinesAroundClassBody
+# rubocop: disable Lint/AmbiguousBlockAssociation, Layout/SpaceAfterComma,
+# rubocop: disable Style/ClassAndModuleChildren, Style/SymbolProc
+# rubocop: disable Style/MixinUsage, Style/StringLiterals, Metrics/AbcSize
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -115,6 +118,7 @@ class AboutJavaInterop < Neo::Koan
     java_array << "one" << "two" << "three"
     assert_equal __, java_array.map { |item| item.upcase }
   end
+  # rubocop: enable Lint/MissingCopEnableDirective
 
   # ------------------------------------------------------------------
 

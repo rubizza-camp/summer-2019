@@ -1,15 +1,16 @@
-# rubocop:disable all
+# rubocop: disable Lint/MissingCopEnableDirective, Style/StringLiterals, Style/SymbolProc
 # :reek:UncommunicativeVariableName and :reek:UtilityFunction
+
 def version_ints(version)
   version.split(".").map { |v| v.to_i }
 end
 # :reek:NilCheck and :reek:UncommunicativeVariableName
+
 def at_least_ruby_version(version)
   vints = version_ints(version)
   ruby_vints = version_ints(RUBY_VERSION)
   vints.zip(ruby_vints).all? { |v, rv| v.nil? || rv.nil? || v >= rv }
 end
-
 
 require 'rspec/given'
 
@@ -25,6 +26,6 @@ describe "at_least_ruby_version" do
   Then { at_least_ruby_version("2.1") }
   Then { at_least_ruby_version("2.1.3.4.1") }
 
-  Then { ! at_least_ruby_version("1.9") }
-  Then { ! at_least_ruby_version("1.9.9.9.9") }
+  Then { !at_least_ruby_version("1.9") }
+  Then { !at_least_ruby_version("1.9.9.9.9") }
 end
