@@ -29,8 +29,7 @@ class Proxy
     @messages.count method_name
   end
 
-  # :reek:ManualDispatch:
-  # rubocop:disable Lint/MissingCopEnableDirective
+  # rubocop:disable Style/MethodMissing
   def method_missing(method, *args, &block)
     if @object.respond_to? method
       @messages.push method
@@ -41,7 +40,7 @@ class Proxy
     end
   end
 end
-# rubocop:enabled Lint/MissingCopEnableDirective
+# rubocop:enable Style/MethodMissing
 
 # The proxy object should pass the following Koan:
 #
@@ -73,7 +72,7 @@ class AboutProxyObjectProject < Neo::Koan
     tv.power
     tv.channel = 10
 
-    assert_equal %i(power channel=), tv.messages
+    assert_equal %i[power channel=], tv.messages
   end
 
   def test_proxy_handles_invalid_messages
