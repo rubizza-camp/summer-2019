@@ -8,7 +8,7 @@ class DiceSet
   attr_reader :values
   def roll(num)
     @values = []
-    (1..num).each_with_object do |obj|
+    (1..num).each do |obj|
       @values << obj
       @values.shuffle!
     end
