@@ -1,3 +1,5 @@
+# rubocop: disable Lint/MissingCopEnableDirective, Style/EmptyLiteral
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyStatements:
@@ -9,7 +11,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_array_literals
-    array = []
+    array = Array.new
     assert_equal [], array
 
     array[0] = 1
