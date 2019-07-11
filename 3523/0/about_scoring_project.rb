@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Lint/UselessAssignment
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
@@ -73,3 +75,4 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
+# rubocop:enable Lint/UselessAssignment

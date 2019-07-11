@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable all
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you

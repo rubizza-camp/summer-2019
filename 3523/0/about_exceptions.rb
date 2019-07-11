@@ -1,5 +1,5 @@
-
 # rubocop:disable Naming/MethodName, Metrics/MethodLength, Style/SignalException
+# rubocop:disable Lint/UselessAssignment
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
@@ -11,13 +11,14 @@ class AboutExceptions < Neo::Koan
     assert_equal  Exception, MySpecialError.ancestors[3]
     assert_equal Object, MySpecialError.ancestors[4]
   end
-  # :reek:TooManyStatements:
 
+  # :reek:TooManyStatements:
+  # :reek:UncommunicativeVariableName:
   def test_rescue_clause
     result = nil
     begin
       fail 'Oops'
-    rescue StandardError => exception
+    rescue StandardError => e
       result = :exception_handled
     end
 
@@ -31,15 +32,16 @@ class AboutExceptions < Neo::Koan
 
     assert_equal 'Oops', exception.message
   end
+
   # rubocop:enable Naming/MethodName, Metrics/MethodLength, Style/SignalException
   # :reek:TooManyStatements:
-
+  # :reek:UncommunicativeVariableName
   def test_raising_a_particular_error
     result = nil
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
-    rescue MySpecialError => exception
+    rescue MySpecialError => e
       result = :exception_handled
     end
 
@@ -69,3 +71,4 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
+# rubocop:enable Lint/UselessAssignment
