@@ -2,27 +2,49 @@ require 'yaml'
 require 'httparty'
 require 'nokogiri'
 require 'optparse'
+require 'json'
 
 class GemPopularity
   include HTTParty
-  base_uri 'https://github.com/'
-  attr_accessor :used, :name, :watch, :star, :fork
+  base_uri 'https://api.github.com/repos/'
+  attr_accessor :used, :name, :watch, :star, :fork, :contrib, :issues, :used_by
 
   def initialize(gem_name)
     @name = gem_name
-    page = HTTParty.get("https://github.com/#{gem_name}/#{gem_name}")
-    doc = Nokogiri::HTML(page.body)
-    @watch = doc.css('a.social-count')[0].text.strip
-    @star = doc.css('a.social-count')[1].text.strip
-    @fork = doc.css('a.social-count')[2].text.strip
+    page = HTTParty.get("https://api.github.com/repos/#{gem_name}/#{gem_name}")
+    # doc = Nokogiri::HTML(page.body)
+    # @watch = doc.css('a.social-count')[0].text.to_i
+    # @star = doc.css('a.social-count')[1].text.to_i
+    # @fork = doc.css('a.social-count')[2].text.to_i
+    page  = JSON.parse(page.body)
+    # @used_by = page["watchers"]
+    @watch = page["subscribers_count"]
+    @star = page["stargazers_count"]
+    @fork = page["forks"]
+
+     page2 = HTTParty.get("https://api.github.com/repos/#{gem_name}/#{gem_name}/contributors")
+     page2  = JSON.parse(page2.body)
+     @contrib = page2.count
+
+
+     page3 = HTTParty.get("https://api.github.com/repos/#{gem_name}/#{gem_name}/issues")
+     page3  = JSON.parse(page3.body)
+     @issues = page3.count
+
+
+page4 = HTTParty.get("https://github.com/#{gem_name}/#{gem_name}/network/dependents")
+doc = Nokogiri::HTML(page4.body)
+@used_by = doc.css('a.selected')[3].text.match(/([0-9]+),[0-9]+/).to_s.gsub(/,/,'').to_i
+
+
+
+
   end
 end
 
 # sinatra = GemPopularity.new('sinatra')
 
 # puts "#{sinatra.name} | watched by #{sinatra.watch} | #{sinatra.star} stars | #{sinatra.fork} forks "
-
-
 
 class OptparseScript
   def self.parse(args)
@@ -54,23 +76,15 @@ def load_gemlist(file=nil)
   @gems = YAML.safe_load(File.read(file))
 end
 
-
-# options[:file] ? load_gemlist(options[:file]) : load_gemlist()
-
 def find_match(gems, name=nil)
   name ||= '\w+'
   @gems_array = @gems['gems'].find_all {|g| g.match(name)}
 end
 
-
-# options[:name] ? find_match(@gems, options[:name]) :find_match(@gems, '\w+') 
-
 def take_top(top=nil)
   top ||= @gems_array.size
   @gems_array  = @gems_array.take(top)
 end
-
-# options[:top] ? take_top(options[:top]) : take_top()
 
 load_gemlist(options[:file])
 find_match(@gems, options[:name])
@@ -87,6 +101,6 @@ end
 gems_done.sort_by! {|gem| gem.name}
 # gems_printed = gems_done.find_all {|g| g.name.match(options[:name])}
 gems_done.each do |gem_name|
-  puts "#{gem_name.name} | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks "
+  puts "#{gem_name.name}| used by #{gem_name.used_by}  | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks | #{gem_name.contrib} contributors "
 end
 
