@@ -31,7 +31,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction, :reek:FeatureEnvy
 
 def score(dice)
-  dice.uniq.map { |item| dice_sum(item, dice.count(item)) }.sum
+  dice.uniq.sum { |item| dice_sum(item, dice.count(item)) }
 end
 
 # :reek:TooManyStatements, :reek:UtilityFunction
