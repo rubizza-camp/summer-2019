@@ -27,7 +27,7 @@ class AboutClasses < Neo::Koan
     fido.set_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
-
+  # rubocop:disable Style/EvalWithLocation
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = DogTwo.new
     fido.set_name('Fido')
@@ -35,8 +35,6 @@ class AboutClasses < Neo::Koan
     assert_raise(NoMethodError) do
       fido.name
     end
-
-    # rubocop:disable Style/EvalWithLocation
     assert_raise(Exception) do
       eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
@@ -173,11 +171,6 @@ class AboutClasses < Neo::Koan
     assert_equal "My dog is #{fido}", "My dog is #{fido}"
   end
 
-  def test_inspect_provides_a_more_complete_string_version
-    fido = DogSeven.new('Fido')
-    assert_equal "<Dog named '#{fido}'>", fido.inspect
-  end
-
   # rubocop:disable Style/StringLiterals
   def test_all_objects_support_to_s_and_inspect
     array = [1, 2, 3]
@@ -188,6 +181,11 @@ class AboutClasses < Neo::Koan
     assert_equal "\"STRING\"", 'STRING'.inspect
   end
   # rubocop:enabled Style/StringLiterals
+
+  def test_inspect_provides_a_more_complete_string_version
+    fido = DogSeven.new('Fido')
+    assert_equal "<Dog named '#{fido}'>", fido.inspect
+  end
   # rubocop:enabled Naming/AccessorMethodName
   # rubocop:enabled Style/EvalWithLocation
 end
