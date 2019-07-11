@@ -3,6 +3,9 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:FeatureEnvy
+# :reek:RepeatedConditional
+# :reek:TooManyStatements
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -75,46 +78,46 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_while_statement
-    i = 1
+    iii = 1
     result = 1
-    while i <= 10
-      result *= i
-      i += 1
+    while iii <= 10
+      result *= iii
+      iii += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement
-    i = 1
+    iii = 1
     result = 1
     loop do
-      break unless i <= 10
+      break unless iii <= 10
 
-      result *= i
-      i += 1
+      result *= iii
+      iii += 1
     end
     assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
-    i = 1
-    result = while i <= 10
-               break i if i.even?
+    iii = 1
+    result = while iii <= 10
+               break iii if iii.even?
 
-               i += 1
+               iii += 1
              end
 
     assert_equal 2, result
   end
 
   def test_next_statement
-    i = 0
+    iii = 0
     result = []
-    while i < 10
-      i += 1
-      next if i.even?
+    while iii < 10
+      iii += 1
+      next if iii.even?
 
-      result << i
+      result << iii
     end
     assert_equal [1, 3, 5, 7, 9], result
   end

@@ -14,6 +14,8 @@ end
 class FillMeInError < StandardError
 end
 
+# :reek:ControlParameter
+# :reek:UtilityFunction
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
@@ -30,30 +32,33 @@ in_ruby_version('1.8') do
 end
 
 # Standard, generic replacement value.
-# If value19 is given, it is used in place of value for Ruby 1.9.
-def __(value = 'FILL ME IN', value19 = :mu)
+# If value_nineteen is given, it is used in place of value for Ruby 1.9.
+# :reek:UtilityFunction
+def __(value = 'FILL ME IN', value_nineteen = :mu)
   if RUBY_VERSION < '1.9'
     value
   else
-    value19 == :mu ? value : value19
+    value_nineteen == :mu ? value : value_nineteen
   end
 end
 
 # Numeric replacement value.
-def _n_(value = 999_999, value19 = :mu)
+# :reek:UtilityFunction
+def _n_(value = 999_999, value_nineteen = :mu)
   if RUBY_VERSION < '1.9'
     value
   else
-    value19 == :mu ? value : value19
+    value_nineteen == :mu ? value : value_nineteen
   end
 end
 
 # Error object replacement value.
-def ___(value = FillMeInError, value19 = :mu)
+# :reek:UtilityFunction
+def ___(value = FillMeInError, value_nineteen = :mu)
   if RUBY_VERSION < '1.9'
     value
   else
-    value19 == :mu ? value : value19
+    value_nineteen == :mu ? value : value_nineteen
   end
 end
 
@@ -82,6 +87,16 @@ class String
   end
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
+# :reek:DataClump
+# :reek:TooManyStatements
+# :reek:NilCheck
+# :reek:NestedIterators
+# :reek:InstanceVariableAssumption
+# :reek:FeatureEnvy
+# :reek:TooManyInstanceVariables
+# :reek:TooManyMethods
 module Neo
   class << self
     def simple_output
@@ -347,11 +362,11 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
 
     def encourage
       master_says
-      if condition_1
+      if condition_one
         dont_be_afraid
-      elsif condition_2
+      elsif condition_two
         dont_lose_hope
-      elsif condition_3
+      elsif condition_tree
         good_boy
       end
     end
@@ -362,15 +377,15 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       puts Color.cyan('  You have not yet reached enlightenment.')
     end
 
-    def condition_1
+    def condition_one
       (recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1
     end
 
-    def condition_2
+    def condition_two
       progress.last(2).size == 2 && progress.last(2).uniq.size == 1
     end
 
-    def condition_3
+    def condition_tree
       progress.last.to_i.positive?
     end
 

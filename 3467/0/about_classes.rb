@@ -3,6 +3,11 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:InstanceVariableAssumption
+# :reek:FeatureEnvy
+# :reek:Attribute
 class AboutClasses < Neo::Koan
   class Dog
   end

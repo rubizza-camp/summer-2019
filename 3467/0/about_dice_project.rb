@@ -8,6 +8,8 @@ class DiceSet
   end
 end
 
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
