@@ -12,33 +12,28 @@ class GemPopularity
   def initialize(gem_name)
     @name = gem_name
     page = HTTParty.get("https://api.github.com/repos/#{gem_name}/#{gem_name}")
-    # doc = Nokogiri::HTML(page.body)
-    # @watch = doc.css('a.social-count')[0].text.to_i
-    # @star = doc.css('a.social-count')[1].text.to_i
-    # @fork = doc.css('a.social-count')[2].text.to_i
     page  = JSON.parse(page.body)
-    # @used_by = page["watchers"]
     @watch = page["subscribers_count"]
     @star = page["stargazers_count"]
     @fork = page["forks"]
+  end
 
-     page2 = HTTParty.get("https://api.github.com/repos/#{gem_name}/#{gem_name}/contributors")
-     page2  = JSON.parse(page2.body)
-     @contrib = page2.count
+  def contrib
+    page = HTTParty.get("https://api.github.com/repos/#{self.name}/#{self.name}/contributors")
+    page  = JSON.parse(page.body)
+    contrib = page.count
+  end
 
+  def issues
+    page = HTTParty.get("https://api.github.com/repos/#{self.name}/#{self.name}/issues")
+    page  = JSON.parse(page.body)
+    issues = page.count
+  end
 
-     page3 = HTTParty.get("https://api.github.com/repos/#{gem_name}/#{gem_name}/issues")
-     page3  = JSON.parse(page3.body)
-     @issues = page3.count
-
-
-page4 = HTTParty.get("https://github.com/#{gem_name}/#{gem_name}/network/dependents")
-doc = Nokogiri::HTML(page4.body)
-@used_by = doc.css('a.selected')[3].text.match(/([0-9]+),[0-9]+/).to_s.gsub(/,/,'').to_i
-
-
-
-
+  def used_by
+    page = HTTParty.get("https://github.com/#{self.name}/#{self.name}/network/dependents")
+    doc = Nokogiri::HTML(page.body)
+    used_by = doc.css('a.selected')[3].text.match(/([0-9]+),[0-9]+/).to_s.gsub(/,/,'').to_i
   end
 end
 
