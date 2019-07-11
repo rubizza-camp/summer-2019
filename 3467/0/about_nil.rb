@@ -1,3 +1,5 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Naming/RescuedExceptionsVariableName
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutNil < Neo::Koan
@@ -35,3 +37,5 @@ class AboutNil < Neo::Koan
     # Why?
   end
 end
+# rubocop:enable Naming/RescuedExceptionsVariableName
+# rubocop:enable Lint/UnneededCopDisableDirective

@@ -1,4 +1,6 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Naming/RescuedExceptionsVariableName
+# rubocop:disable Style/AccessModifierDeclarations
 # -*- ruby -*-
 
 begin
@@ -588,4 +590,6 @@ at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 end
+# rubocop:enable Style/AccessModifierDeclarations
+# rubocop:enable Naming/RescuedExceptionsVariableName
 # rubocop:enable Lint/UnneededCopDisableDirective
