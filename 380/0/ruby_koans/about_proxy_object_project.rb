@@ -30,7 +30,7 @@ class Proxy
   end
 
   # :reek:ManualDispatch
-  # rubocop:disable Style/MethodMissing
+  # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method, *args, &block)
     if @object.respond_to? method
       @messages.push method

@@ -174,7 +174,7 @@ class AboutClasses < Neo::Koan
     assert_equal 'STRING', 'STRING'.to_s
     assert_equal "\"STRING\"", 'STRING'.inspect
   end
-  # rubocop:enabled Style/StringLiterals
+  # rubocop:enable Style/StringLiterals
 
   def test_inspect_provides_a_more_complete_string_version
     fido = DogSeven.new('Fido')

@@ -70,7 +70,6 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-  # rubocop:disable Style/ClassAndModuleChildren
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS

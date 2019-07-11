@@ -94,7 +94,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disabled Lint/UselessAssignment
+  # rubocop:disable Lint/UselessAssignment
   self_inside_of_class_statesment = class Dog
                                       self
                                     end
@@ -111,7 +111,7 @@ class AboutClassMethods < Neo::Koan
     assert_equal 21, last_expression_in_class_statement
   end
 
-  # rubocop:enabled Lint/UselessAssignment
+  # rubocop:enable Lint/UselessAssignment
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
