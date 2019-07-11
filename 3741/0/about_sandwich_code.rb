@@ -66,7 +66,9 @@ class AboutSandwichCode < Neo::Koan
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
-      count += 1 while file.gets
+      while file.gets
+        count += 1
+      end
       count
     end
   end
@@ -92,9 +94,11 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   def count_lines3(file_name)
-    File.open(file_name) do |file|
+    open(file_name) do |file|
       count = 0
-      count += 1 while file.gets
+      while file.gets
+        count += 1
+      end
       count
     end
   end
