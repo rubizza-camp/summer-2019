@@ -1,8 +1,10 @@
 require 'yaml'
 
-def server_info
-  yml = YAML::load(open('gems-names.yml'))
-  puts yml['gems']['gem1']['name']
+def list_gems
+  gems_names = YAML::load(open('gems-names.yml'))
+  gems_names.each do |gem|
+    puts gem
+  end
 end
 
-server_info
+list_gems
