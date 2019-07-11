@@ -35,20 +35,20 @@ def gem_stats(list)
   rows = []
   take_repo(list).compact.map do |repo|
     response  = Faraday.get "#{repo}"
-    html_for_parse = repo.sub('/api.github.com/repos/', '/github.com/')
+    html_for_contributors = repo.sub('/api.github.com/repos/', '/github.com/')
+    html_for_depen = html_for_contributors + '/network/dependents'
     data = JSON.parse(response.body)
-    contributors = "#{contributors_count(html_for_parse)} contributors"
-    used_by = "used by #{used_by_count(html_for_parse)}"
+    contributors = "#{contributors_count(html_for_contributors)} contributors"
+    used_by = "used by #{used_by_count(html_for_depen)}"
     name = data['name']
     watch = "watched by #{data['watchers_count']}"
     stars = "#{data['stargazers_count']} stars"
     forks = "forks #{data['forks_count']}"
     issues = "issues #{data['open_issues_count']}"
-    rows << [name, used_by, watch, stars, forks, contributors, sissues]
+    rows << [name, used_by, watch, stars, forks, contributors, issues]
   end
   table = Terminal::Table.new :rows => rows
   puts table
 end
 
-puts used_by_count('https://github.com/tj/terminal-table/network/dependents')
-#gem_stats(list)
+gem_stats(list)
