@@ -35,6 +35,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   # :reek:UncommunicativeVariableName
+  # :reek:UncommunicativeMethodName
   # rubocop:disable EachForSimpleLoop
   def test_block_variables_cannot_be_accessed_outside_scope4
     (1..2).each do
