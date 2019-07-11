@@ -50,7 +50,6 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   class Dog2
     def wag
       :instance_level_wag
@@ -72,7 +71,6 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   class Dog
     attr_reader :name
   end
@@ -85,7 +83,6 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
   class Dog
     def self.a_class_method
       :dogs_class_method
@@ -98,6 +95,13 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disabled Lint/UselessAssignment
+  self_inside_of_class_statesment = class Dog
+                                      self
+                                    end
+
+  def test_self_while_inside_class_is_class_object_not_instance
+    assert_equal true, Dog == self_inside_of_class_statesment
+  end
 
   last_expression_in_class_statement = class Dog
                                          21
@@ -106,18 +110,8 @@ class AboutClassMethods < Neo::Koan
   def test_class_statements_return_the_value_of_their_last_expression
     assert_equal 21, last_expression_in_class_statement
   end
-  # ------------------------------------------------------------------
 
-  self_inside_of_class_statesment = class Dog
-                                      self
-                                    end
-
-  def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == self_inside_of_class_statesment
-  end
   # rubocop:enabled Lint/UselessAssignment
-  # ------------------------------------------------------------------
-
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
@@ -127,7 +121,6 @@ class AboutClassMethods < Neo::Koan
   def test_you_can_use_self_instead_of_an_explicit_reference_to_dog
     assert_equal :another_way_to_write_class_methods, Dog.class_method2
   end
-
   # ------------------------------------------------------------------
 
   class Dog
@@ -159,7 +152,6 @@ class AboutClassMethods < Neo::Koan
   # Are there times you might prefer one over the other?
 
   # ------------------------------------------------------------------
-
   def test_heres_an_easy_way_to_call_class_methods_from_instance_methods
     fido = Dog.new
     assert_equal :still_another_way, fido.class.another_class_method
