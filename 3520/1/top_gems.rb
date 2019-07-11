@@ -20,7 +20,12 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: top_gems.rb [options]"
 
-  opts.on("-top", "Show toplist of gems.") do |v|
-    options[:toplist] = v
+  opts.on("-top", "--top=TOP", "Show toplist of gems.") do |v|
+    # Here we can call our function for top with number TOP
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
   end
 end.parse!
