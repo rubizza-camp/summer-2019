@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Lint/UnneededCopDisableDirective
 class DiceSet
   attr_reader :values
 
@@ -15,8 +14,8 @@ class AboutDiceProject < Neo::Koan
     assert_not_nil dice
   end
 
-  # rubocop:disable FeatureEnvy
-  # rubocop:disable TooManyStatements
+  # :reek:FeatureEnvy
+  # :reek:TooManyMethods
   def test_rolling_the_dice_returns_a_set_of_integers_between_one_and_six
     dice = DiceSet.new
 
@@ -64,7 +63,4 @@ class AboutDiceProject < Neo::Koan
     dice.roll(1)
     assert_equal 1, dice.values.size
   end
-  # rubocop:enable FeatureEnvy
-  # rubocop:enable TooManyStatements
 end
-# rubocop:enable Lint/UnneededCopDisableDirective

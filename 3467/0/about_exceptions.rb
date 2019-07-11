@@ -14,7 +14,7 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
-  # rubocop:disable TooManyStatements
+  # :reek:TooManyStatements
   def test_rescue_clause
     result = nil
     begin
@@ -46,7 +46,6 @@ class AboutExceptions < Neo::Koan
     assert_equal :exception_handled, result
     assert_equal 'My Message', err.message
   end
-  # rubocop:enable TooManyStatements
 
   def test_ensure_clause
     begin

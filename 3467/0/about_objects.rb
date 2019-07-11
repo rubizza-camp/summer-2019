@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Lint/UnneededCopDisableDirective
 class AboutObjects < Neo::Koan
   def test_everything_is_an_object
     assert_equal true, 1.is_a?(Object)
@@ -41,7 +40,7 @@ class AboutObjects < Neo::Koan
     # What pattern do the object IDs for small integers follow?
   end
 
-  # rubocop:disable FeatureEnvy
+  # :reek:FeatureEnvy
   def test_clone_creates_a_different_object
     obj = Object.new
     copy = obj.clone
@@ -49,6 +48,4 @@ class AboutObjects < Neo::Koan
     assert_equal true, obj           != copy
     assert_equal true, obj.object_id != copy.object_id
   end
-  # rubocop:enable FeatureEnvy
 end
-# rubocop:enable Lint/UnneededCopDisableDirective

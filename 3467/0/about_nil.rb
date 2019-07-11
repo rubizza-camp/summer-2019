@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Lint/UnneededCopDisableDirective
 class AboutNil < Neo::Koan
   def test_nil_is_an_object
     assert_equal true, nil.is_a?(Object), 'Unlike NULL in other languages'
@@ -21,7 +20,7 @@ class AboutNil < Neo::Koan
     assert_match(/undefined method/, err.message)
   end
 
-  # rubocop:disable NilCheck
+  # :reek:NilCheck
   def test_nil_has_a_few_methods_defined_on_it
     assert_equal true, nil.nil?
     assert_equal '', nil.to_s
@@ -35,6 +34,4 @@ class AboutNil < Neo::Koan
     #    obj == nil
     # Why?
   end
-  # rubocop:enable NilCheck
 end
-# rubocop:enable Lint/UnneededCopDisableDirective

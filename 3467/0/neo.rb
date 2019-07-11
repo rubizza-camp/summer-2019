@@ -63,11 +63,10 @@ class Object
     send(method) if method
   end
 
-  # rubocop:disable AccessModifierDeclarations
+  # :reek:AccessModifierDeclarations
   in_ruby_version('1.9', '2') do
     public :method_missing
   end
-  # rubocop:enable AccessModifierDeclarations
 end
 
 class String
@@ -545,7 +544,7 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
   end
 
   class ThePath
-    # rubocop:disable FeatureEnvy
+    # :reek:FeatureEnvy
     def walk
       sensei = Neo::Sensei.new
       each_step do |step|
@@ -554,22 +553,19 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       sensei.instruct
     end
 
-    # rubocop:disable TooManyStatements
+    # :reek:TooManyStatements
     def each_step
       catch(:neo_exit) do
         step_count = 0
-        # rubocop:disable NestedIterators
+        # :reek:NestedIterators
         Neo::Koan.subclasses.each_with_index do |koan, koan_index|
           koan.testmethods.each do |method_name|
             step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
             yield step
           end
         end
-        # rubocop:enable NestedIterators
       end
     end
-    # rubocop:enable TooManyStatements
-    # rubocop:enable FeatureEnvy
   end
 end
 

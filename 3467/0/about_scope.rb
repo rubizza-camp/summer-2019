@@ -23,8 +23,7 @@ class AboutScope < Neo::Koan
     end
   end
 
-  # rubocop:disable Lint/UnneededCopDisableDirective
-  # rubocop:disable TooManyStatements
+  # :reek:TooManyStatements
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
     rover = Joes::Dog.new
@@ -34,8 +33,6 @@ class AboutScope < Neo::Koan
     assert_equal true, fido.class != rover.class
     assert_equal true, Jims::Dog != Joes::Dog
   end
-  # rubocop:enable TooManyStatements
-  # rubocop:enable Lint/UnneededCopDisableDirective
 
   # ------------------------------------------------------------------
 
