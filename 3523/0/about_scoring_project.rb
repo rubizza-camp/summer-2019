@@ -1,27 +1,28 @@
 # frozen_string_literal: true
 
 # rubocop:disable Lint/UselessAssignment
+# rubocop:disable Lint/ShadowingOuterLocalVariable, Lint/Void
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   digits = Hash.new(0)
-  dice.each { |num| digits[num] += 1 }
+  digits = dice.each_with_object(Hash.new(0)) { |num, digits| digits[num] += 1 }
   result(digits)
 end
 
 # :reek:FeatureEnvy
 def result(digits)
   result = result_exceptions(digits)
-  result += 100 * (digits[1] % 3)
+  result + 100 * (digits[1] % 3)
 
-  result += 50 * (digits[5] % 3)
+  result + 50 * (digits[5] % 3)
 end
 
 # :reek:UtilityFunction
 def result_exceptions(digits)
   result = 0
-  result += 1000 if digits[1] >= 3
+  result + 1000 if digits[1] >= 3
 
   (digits.keys - [1]).each do |num|
     result += num * 100 if digits[num] >= 3
@@ -76,3 +77,4 @@ class AboutScoringProject < Neo::Koan
   end
 end
 # rubocop:enable Lint/UselessAssignment
+# rubocop:enable Lint/ShadowingOuterLocalVariable, Lint/Void
