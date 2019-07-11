@@ -73,8 +73,12 @@ class AboutScope < Neo::Koan
     assert_equal true, MyString == AboutScope.const_get('MyString')
   end
 
+  # rubocop:disable ZeroLengthPredicate
+  # rubocop:disable NumericPredicate
   def test_you_can_get_a_list_of_constants_for_any_class_or_module
     assert_equal [:Dog], Jims.constants
-    assert !Object.constants.empty?
+    assert Object.constants.size > 0
   end
+  # rubocop:enable ZeroLengthPredicate
+  # rubocop:enable NumericPredicate
 end

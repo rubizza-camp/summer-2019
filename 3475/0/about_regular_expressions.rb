@@ -128,10 +128,11 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal 'James', 'Gray, James'[/(\w+), (\w+)/, 2]
   end
 
+  # rubocop:disable PerlBackrefs
   def test_variables_can_also_be_used_to_access_captures
     assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
-    assert_equal 'Gray', Regexp.last_match(1)
-    assert_equal 'James', Regexp.last_match(2)
+    assert_equal 'Gray', $1
+    assert_equal 'James', $2
   end
 
   # ------------------------------------------------------------------
@@ -154,10 +155,11 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_sub_is_like_find_and_replace
-    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
+    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { $1[0, 1] }
   end
 
   def test_gsub_is_like_find_and_replace_all
-    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match(1)[0, 1] }
+    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { $1[0, 1] }
   end
+  # rubocop:enable PerlBackrefs
 end

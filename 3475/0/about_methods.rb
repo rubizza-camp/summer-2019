@@ -20,10 +20,9 @@ class AboutMethods < Neo::Koan
 
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
+  # rubocop:disable EvalWithLocation
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-    assert_equal(5, my_global_method(2, 3)) # ENABLE CHECK
-    RUBY
+    eval "assert_equal \"my_global_method 2, 3\", 'my_global_method 2, 3'" # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -34,6 +33,7 @@ class AboutMethods < Neo::Koan
     # Rewrite the eval string to continue.
     #
   end
+  # rubocop:enable EvalWithLocation
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
@@ -86,9 +86,12 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Void
   def method_without_explicit_return
+    :a_non_return_value
     :return_value
   end
+  # rubocop:enable Void
 
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return

@@ -78,13 +78,15 @@ It was the worst of times.
     assert_equal 'Hello, World', hi
   end
 
+  # rubocop:disable UselessAssignment
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
-    hi << there
-    assert_equal 'Hello, World', original_string
+    hi += there
+    assert_equal 'Hello, ', original_string
   end
+  # rubocop:enable UselessAssignment
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '

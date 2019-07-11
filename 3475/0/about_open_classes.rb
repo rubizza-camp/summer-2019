@@ -29,13 +29,13 @@ class AboutOpenClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Object
-    class Integer
-      def even?
-        super
-      end
+  # rubocop:disable ClassAndModuleChildren
+  class ::Integer
+    def even?
+      (self % 2).zero?
     end
   end
+  # rubocop:enable ClassAndModuleChildren
 
   def test_even_existing_built_in_classes_can_be_reopened
     assert_equal false, 1.even?

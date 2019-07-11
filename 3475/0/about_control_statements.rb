@@ -6,6 +6,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:TooManyStatements
 # This method smells of :reek:RepeatedConditional
+# rubocop:disable ClassLength
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -52,17 +53,23 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
+  # rubocop:disable IfUnlessModifier
   def test_unless_statement
     result = :default_value
-    result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
+    unless false # same as saying 'if !false', which evaluates as 'if true'
+      result = :false_value
+    end
     assert_equal :false_value, result
   end
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    result = :true_value unless true # same as saying 'if !true', which evaluates as 'if false'
+    unless true # same as saying 'if !true', which evaluates as 'if false'
+      result = :true_value
+    end
     assert_equal :default_value, result
   end
+  # rubocop:enable IfUnlessModifier
 
   def test_unless_statement_modifier
     result = :default_value
@@ -144,4 +151,5 @@ class AboutControlStatements < Neo::Koan
   end
 end
 
+# rubocop:enable ClassLength
 # rubocop:enable Lint/LiteralAsCondition

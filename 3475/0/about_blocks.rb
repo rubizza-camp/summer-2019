@@ -11,10 +11,12 @@ class AboutBlocks < Neo::Koan
     assert_equal 3, yielded_result
   end
 
+  # rubocop:disable BlockDelimiters
   def test_blocks_can_be_defined_with_do_end_too
-    yielded_result = method_with_block { 1 + 2 }
+    yielded_result = method_with_block do 1 + 2 end
     assert_equal 3, yielded_result
   end
+  # rubocop:enable BlockDelimiters
 
   # ------------------------------------------------------------------
 
@@ -66,13 +68,16 @@ class AboutBlocks < Neo::Koan
     assert_equal :modified_in_a_block, value
   end
 
+  # :reek:UncommunicativeVariableName
+  # rubocop:disable Lambda
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
-    add_one = ->(param) { param + 1 }
+    add_one = lambda { |n| n + 1 }
     assert_equal 11, add_one.call(10)
 
     # Alternative calling syntax
     assert_equal 11, add_one[10]
   end
+  # rubocop:enable Lambda
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
     make_upper = ->(param) { param.upcase }
@@ -86,10 +91,13 @@ class AboutBlocks < Neo::Koan
     block.yield(10)
   end
 
+  # :reek:UncommunicativeVariableName
+  # rubocop:disable Lambda
   def test_methods_can_take_an_explicit_block_argument
     assert_equal 20, (method_with_explicit_block { |param| param * 2 })
 
-    add_one = ->(param) { param + 1 }
+    add_one = lambda { |n| n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
+  # rubocop:enable Lambda
 end

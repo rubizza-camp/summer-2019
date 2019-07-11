@@ -1,15 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrays < Neo::Koan
+  # rubocop:disable EmptyLiteral
   def test_creating_arrays
-    empty_array = []
+    empty_array = Array.new
     assert_equal Array, empty_array.class
     assert_equal 0, empty_array.size
   end
   # :reek:TooManyStatements
 
   def test_array_literals
-    array = []
+    array = Array.new
     assert_equal [], array
 
     array[0] = 1
@@ -22,6 +23,7 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2, 333], array
   end
   # :reek:TooManyStatements
+  # rubocop:enable EmptyLiteral
 
   def test_accessing_array_elements
     array = %i[peanut butter and jelly]

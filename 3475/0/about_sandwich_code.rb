@@ -54,13 +54,14 @@ class AboutSandwichCode < Neo::Koan
   # Consider the following code:
   #
   # :reek:UtilityFunction
-
+  # rubocop:disable SafeNavigation
   def file_sandwich(file_name)
     file = File.open(file_name)
     yield(file)
   ensure
-    file.close
+    file.close if file
   end
+  # rubocop:enable SafeNavigation
 
   # Now we write:
 
@@ -93,16 +94,16 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UtilityFunction
-
-  def count_lines_three(file_name)
-    File.open(file_name) do |file|
+  # :reek:UncommunicativeMethodName
+  # rubocop:disable all
+  def count_lines3(file_name)
+    open(file_name) do |file|
       count = 0
-      count += 1 while file.gets
+      while file.gets
+        count += 1
+      end
       count
     end
   end
-
-  def test_open_handles_the_file_sandwich_when_given_a_block
-    assert_equal 4, count_lines_three('example_file.txt')
-  end
+  # rubocop:enable all
 end

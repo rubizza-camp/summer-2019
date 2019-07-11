@@ -13,10 +13,14 @@ class AboutHashes < Neo::Koan
     assert_equal 0, empty_hash.size
   end
 
+  # rubocop:disable HashSyntax
+  # rubocop:disable StringLiterals
   def test_hash_literals
-    hash = { one: 'uno', two: 'dos' }
+    hash = { :one => "uno", :two => "dos" }
     assert_equal 2, hash.size
   end
+  # rubocop:enable StringLiterals
+  # rubocop:enable HashSyntax
 
   def test_accessing_hashes
     hash = { one: 'uno', two: 'dos' }
@@ -84,8 +88,9 @@ class AboutHashes < Neo::Koan
 
   # This method smells of :reek:UncommunicativeVariableName
   # This method smells of :reek:TooManyStatements
+  # rubocop:disable EmptyLiteral
   def test_default_value
-    hash1 = {}
+    hash1 = Hash.new
     hash1[:one] = 1
 
     assert_equal 1, hash1[:one]
@@ -97,6 +102,7 @@ class AboutHashes < Neo::Koan
     assert_equal 1, hash2[:one]
     assert_equal 'dos', hash2[:two]
   end
+  # rubocop:enable EmptyLiteral
 
   # This method smells of :reek:TooManyStatements
   # This method smells of :reek:FeatureEnvy
