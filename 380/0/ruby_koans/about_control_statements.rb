@@ -100,6 +100,7 @@ class AboutControlStatements < Neo::Koan
     end
     assert_equal 3_628_800, result
   end
+
   def test_break_statement_returns_values
     iterator = 1
     result = while iterator <= 10
@@ -124,10 +125,10 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_for_statement
-    array = %w(fish and chips)
+    array = %w[fish and chips]
     result = []
     array.each { |item|  result << item.upcase }
-    assert_equal %w(FISH AND CHIPS), result
+    assert_equal %w[FISH AND CHIPS], result
   end
 
   def test_times_statement
