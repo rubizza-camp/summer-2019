@@ -15,6 +15,7 @@ class Gems
   end
 
   def get_fields
-    [@name, @count_used_by, @count_watched, @count_stars, @count_forks, @count_contributors, @count_issues]
+    [@name,"used by #{@count_used_by}", "watched by #{@count_watched}","#{@count_stars} stars",
+       "#{@count_forks} forks","#{@count_contributors} contibutors", "#{@count_issues} issues"]
   end
 end
