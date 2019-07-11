@@ -591,7 +591,7 @@ at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 end
-# rubocop:disable Lint/UnusedBlockArgument
+# rubocop:enable Lint/UnusedBlockArgument
 # rubocop:enable Style/AccessModifierDeclarations
 # rubocop:enable Naming/RescuedExceptionsVariableName
 # rubocop:enable Lint/UnneededCopDisableDirective
