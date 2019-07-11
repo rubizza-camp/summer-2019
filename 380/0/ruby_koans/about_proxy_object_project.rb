@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 # :reek:TooManyStatements
 class Proxy
   attr_reader :messages
@@ -13,26 +12,12 @@ class Proxy
     @messages.include? method_name
   end
 
-  # :reek:ManualDispatch
-  # rubocop:disable Style/MethodMissing
-  def method_missing(method, *args, &block)
-    if @object.respond_to? method
-      @messages.push method
-      @object.send method, *args
-    else
-      super
-      raise NoMethodError
-    end
-  end
-
   def number_of_times_called(method_name)
     @messages.count method_name
   end
 end
 # rubocop:enable Style/MethodMissing
 
-# The proxy object should pass the following Koan:
-#
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below

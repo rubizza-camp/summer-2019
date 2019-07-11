@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Style/SingleLineMethods
 def my_global_method(first, second); first + second; end
 # rubocop:enable Style/SingleLineMethods
-
 # :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
@@ -16,6 +15,8 @@ class AboutMethods < Neo::Koan
     assert_equal 5, result
   end
 
+  # rubocop:disable Style/EvalWithLocation
+  def test_sometimes_missing_parentheses_are_ambiguous
     eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
