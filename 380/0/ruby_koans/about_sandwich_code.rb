@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:enable Security/Open
+# rubocop:disable Security/Open
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file_one = open(file_name)
@@ -90,7 +90,7 @@ class AboutSandwichCode < Neo::Koan
       count
     end
   end
-  # rubocop:disable Security/Open
+  # rubocop:enable Security/Open
 
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines_three('example_file.txt')
