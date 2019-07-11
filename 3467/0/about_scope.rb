@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyStatements
 class AboutScope < Neo::Koan
   module Jims
     class Dog
@@ -23,7 +24,6 @@ class AboutScope < Neo::Koan
     end
   end
 
-  # :reek:TooManyStatements
   def test_you_can_reference_nested_classes_using_the_scope_operator
     fido = Jims::Dog.new
     rover = Joes::Dog.new

@@ -464,7 +464,6 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       'things are not what they appear to be: nor are they otherwise'
     end
   end
-  # rubocop:enable Metrics/ClassLength
   # rubocop:enable Metrics/AbcSize
 
   class Koan
@@ -561,8 +560,10 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
     end
   end
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
+  # :reek:NestedIterators
   class ThePath
-    # :reek:FeatureEnvy
     def walk
       sensei = Neo::Sensei.new
       each_step do |step|
@@ -571,11 +572,9 @@ Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       sensei.instruct
     end
 
-    # :reek:TooManyStatements
     def each_step
       catch(:neo_exit) do
         step_count = 0
-        # :reek:NestedIterators
         Neo::Koan.subclasses.each_with_index do |koan, koan_index|
           koan.testmethods.each do |method_name|
             step = koan.new(method_name, koan.to_s, koan_index + 1, step_count += 1)
@@ -594,4 +593,5 @@ end
 # rubocop:enable Lint/UnusedBlockArgument
 # rubocop:enable Style/AccessModifierDeclarations
 # rubocop:enable Naming/RescuedExceptionsVariableName
+# rubocop:enable Metrics/ClassLength
 # rubocop:enable Lint/UnneededCopDisableDirective
