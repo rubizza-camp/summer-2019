@@ -1,0 +1,7 @@
+gems:
+  gem1:
+    name: 'sinatra'
+    url: 'https://github.com/sinatra/sinatra'
+  gem2:
+    name: 'rspec'
+    url: 'https://github.com/rspec/rspec'
