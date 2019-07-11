@@ -22,7 +22,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
-      return line if line.match(/e/)
+      return line if line =~ /e/
     end
   ensure
     file&.close
@@ -80,7 +80,7 @@ class AboutSandwichCode < Neo::Koan
   def find_line_two(file_name)
     file_sandwich(file_name) do |file|
       while (line = file.gets)
-        return line if line.match(/e/)
+        return line if line =~ /e/
       end
     end
   end
