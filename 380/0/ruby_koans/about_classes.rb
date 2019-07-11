@@ -15,7 +15,6 @@ class AboutClasses < Neo::Koan
   class DogTwo
     attr_accessor a_name
   end
-  # rubocop:enable Naming/AccessorMethodName
 
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = DogTwo.new
