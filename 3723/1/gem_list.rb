@@ -21,20 +21,34 @@ def take_repo(list)
   end
 end
 
+def contributors_count(list)
+  doc = Nokogiri::HTML.parse(open(list))
+  doc.css('#js-repo-pjax-container > div.container.new-discussion-timeline.experiment-repo-nav > div.repository-content > div.overall-summary.overall-summary-bottomless > div > div > ul > li:nth-child(4) > a > span').text.strip
+end
+
+def used_by_count(list)
+  doc = Nokogiri::HTML.parse(open(list))
+  doc.css('.btn-link').css('.selected').text[/\d+/].to_i
+end
+
 def gem_stats(list)
   rows = []
   take_repo(list).compact.map do |repo|
     response  = Faraday.get "#{repo}"
+    html_for_parse = repo.sub('/api.github.com/repos/', '/github.com/')
     data = JSON.parse(response.body)
+    contributors = "#{contributors_count(html_for_parse)} contributors"
+    used_by = "used by #{used_by_count(html_for_parse)}"
     name = data['name']
     watch = "watched by #{data['watchers_count']}"
     stars = "#{data['stargazers_count']} stars"
     forks = "forks #{data['forks_count']}"
     issues = "issues #{data['open_issues_count']}"
-    rows << [name, watch, stars, forks, issues]
+    rows << [name, used_by, watch, stars, forks, contributors, sissues]
   end
   table = Terminal::Table.new :rows => rows
   puts table
 end
 
-gem_stats(list)
+puts used_by_count('https://github.com/tj/terminal-table/network/dependents')
+#gem_stats(list)
