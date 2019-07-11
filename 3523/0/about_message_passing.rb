@@ -1,5 +1,5 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
-
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:ManualDispatch
@@ -185,3 +185,4 @@ class AboutMessagePassing < Neo::Koan
   end
 end
 # rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable all

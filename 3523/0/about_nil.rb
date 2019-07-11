@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Lint/RescueException
+# rubocop:disable Naming/RescuedExceptionsVariableName
 # :reek:NilCheck
 # :reek:UncommunicativeVariableName
 class AboutNil < Neo::Koan
@@ -13,13 +14,13 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
-  rescue StandardError => e
+  rescue Exception => ex
     # What exception has been caught?
-    assert_equal NoMethodError, e.class
+    assert_equal NoMethodError, ex.class
 
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
-    assert_match(/\w/, e.message)
+    assert_match(/\w/, ex.message)
   end
 
   def test_nil_has_a_few_methods_defined_on_it
@@ -36,3 +37,5 @@ class AboutNil < Neo::Koan
     # Why?
   end
 end
+# rubocop:enable Lint/RescueException
+# rubocop:enable Naming/RescuedExceptionsVariableName

@@ -1,6 +1,8 @@
 # rubocop: disable Lint/AmbiguousBlockAssociation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Style/BlockDelimiters
+# rubocop:disable Style/SymbolArray
+# rubocop:disable Style/Lambda
 # :reek:UncommunicativeVariableName
 # :reek:UtilityFunction
 class AboutBlocks < Neo::Koan
@@ -15,7 +17,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_defined_with_do_end_too
-    yielded_result = method_with_block { 1 + 2 }
+    yielded_result = method_with_block do 1 + 2 end
     assert_equal 3, yielded_result
   end
 
@@ -43,7 +45,7 @@ class AboutBlocks < Neo::Koan
   def test_methods_can_call_yield_many_times
     result = []
     many_yields { |item| result << item }
-    assert_equal %i[peanut butter and jelly], result
+    assert_equal [:peanut, :butter, :and, :jelly], result
   end
 
   # ------------------------------------------------------------------
@@ -70,7 +72,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
-    add_one = ->(n) { n + 1 }
+    add_one = lambda { |n| n + 1 }
     assert_equal 11, add_one.call(10)
 
     # Alternative calling syntax
@@ -78,7 +80,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
-    make_upper = ->(n) { n.upcase }
+    make_upper = lambda { |n| n.upcase }
     result = method_with_block_arguments(&make_upper)
     assert_equal 'JIM', result
   end
@@ -96,3 +98,6 @@ class AboutBlocks < Neo::Koan
   end
 end
 # rubocop: enable Lint/AmbiguousBlockAssociation
+# rubocop:enable Style/BlockDelimiters
+# rubocop:enable Style/SymbolArray
+# rubocop:enable Style/Lambda

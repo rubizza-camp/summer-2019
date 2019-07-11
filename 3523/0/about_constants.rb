@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
-C = 'top level'.freeze
+# rubocop:disable Style/MutableConstant
+C = 'top level'
 
 class AboutConstants < Neo::Koan
-  C = 'nested'.freeze
+  C = 'nested'
 
   def test_nested_constants_may_also_be_referenced_with_relative_paths
     assert_equal 'nested', C
@@ -84,3 +84,4 @@ class AboutConstants < Neo::Koan
   # scope, or the constant from the inheritance hierarchy?  Why is it
   # different than the previous answer?
 end
+# rubocop:enable Style/MutableConstant

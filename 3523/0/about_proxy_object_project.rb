@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable all
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -28,7 +28,7 @@ class Proxy
     @messages.count(msg)
   end
 
-  def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
+  def method_missing(method_name, *args, &block) 
     @messages << method_name
     @object.send(method_name, *args, &block)
   end
@@ -171,3 +171,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop:enable all

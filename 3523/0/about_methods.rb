@@ -1,10 +1,12 @@
 # rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/UnneededCopDisableDirective
 # rubocop:disable Lint/Void, Lint/UnreachableCode, Style/RedundantSelf
+# rubocop:disable Naming/UncommunicativeMethodParamName
+# rubocop:disable Style/AccessModifierDeclarations
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UncommunicativeParameterName:
 # :reek:UtilityFunction
-def my_global_method(arg, brg)
-  arg + brg
+def my_global_method(a, b)
+  a + b
 end
 
 # :reek:TooManyMethods
@@ -49,9 +51,9 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  def method_with_defaults(arg, brg = :default_value)
-    [arg, brg]
+  # :reek:UncommunicativeParameterName:
+  def method_with_defaults(a, b = :default_value)
+    [a, b]
   end
 
   def test_calling_with_default_values
@@ -97,8 +99,9 @@ class AboutMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UtilityFunction
-  def my_method_in_the_same_class(arg, brg)
-    arg * brg
+  # :reek:UncommunicativeParameterName:
+  def my_method_in_the_same_class(a, b)
+    a * b
   end
 
   def test_calling_methods_in_same_class
@@ -155,3 +158,5 @@ class AboutMethods < Neo::Koan
 end
 # rubocop:enable Lint/AmbiguousRegexpLiteral, Lint/UnneededCopDisableDirective
 # rubocop:enable Lint/Void, Lint/UnreachableCode, Style/RedundantSelf
+# rubocop:enable Naming/UncommunicativeMethodParamName
+# rubocop:enable Style/AccessModifierDeclarations

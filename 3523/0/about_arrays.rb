@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Style/EmptyLiteral
+# rubocop:disable Style/SymbolArray
 # :reek:TooManyStatements
 class AboutArrays < Neo::Koan
   def test_creating_arrays
@@ -9,7 +10,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_array_literals
-    array = []
+    array = Array.new
     assert_equal [], array
 
     array[0] = 1
@@ -23,7 +24,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_accessing_array_elements
-    array = %i[peanut butter and jelly]
+    array = [:peanut, :butter, :and, :jelly]
 
     assert_equal :peanut, array[0]
     assert_equal :peanut, array.first
@@ -34,7 +35,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_slicing_arrays
-    array = %i[peanut butter and jelly]
+    array = [:peanut, :butter, :and, :jelly]
 
     assert_equal [:peanut], array[0, 1]
     assert_equal %i[peanut butter], array[0, 2]
@@ -53,11 +54,11 @@ class AboutArrays < Neo::Koan
   end
 
   def test_slicing_with_ranges
-    array = %i[peanut butter and jelly]
+    array = [:peanut, :butter, :and, :jelly]
 
-    assert_equal %i[peanut butter and], array[0..2]
-    assert_equal %i[peanut butter], array[0...2]
-    assert_equal %i[and jelly], array[2..-1]
+    assert_equal [:peanut, :butter, :and], array[0..2]
+    assert_equal [:peanut, :butter], array[0...2]
+    assert_equal [:and, :jelly], array[2..-1]
   end
 
   def test_pushing_and_popping_arrays
@@ -82,3 +83,5 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 end
+# rubocop:enable Style/EmptyLiteral
+# rubocop:enable Style/SymbolArray

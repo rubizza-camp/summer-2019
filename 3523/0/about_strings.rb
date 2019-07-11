@@ -1,6 +1,7 @@
-# rubocop:disable Metrics/ClassLength, Naming/HeredocDelimiterNaming, Lint/UselessAssignment
+# rubocop:disable Metrics/ClassLength, Lint/UselessAssignment
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/PercentLiteralDelimiters
 # :reek:TooManyMethods
 # :reek:UncommunicativeVariableName
 
@@ -50,14 +51,14 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<-EOS
+    long_string = %{
       It was the best of times,
       It was the worst of times.
-    EOS
+  }
 
-    assert_equal 65, long_string.length
-    assert_equal 2, long_string.lines.count
-    assert_equal ' ', long_string[0, 1]
+    assert_equal 68, long_string.length
+    assert_equal 4, long_string.lines.count
+    assert_equal "\n", long_string[0, 1]
   end
 
   def test_plus_will_concatenate_two_strings
@@ -200,4 +201,6 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable Metrics/ClassLength, Naming/HeredocDelimiterNaming, Lint/UselessAssignment
+# rubocop:enable Metrics/ClassLength, Lint/UselessAssignment
+# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Style/PercentLiteralDelimiters

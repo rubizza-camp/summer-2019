@@ -1,24 +1,29 @@
 # rubocop:disable Lint/LiteralAsCondition, Metrics/ClassLength, Metrics/MethodLength
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable Style/ConditionalAssignment
+# rubocop:disable Style/IfUnlessModifier
 # :reek:FeatureEnvy
 # :reek:RepeatedConditional
 # :reek:UncommunicativeVariableName
 # :reek:TooManyStatements
+# rubocop:disable Layout/IndentationConsistency
+# rubocop:disable Layout/EmptyLineAfterGuardClause
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
-    result = if true
-               :true_value
-             else
-               :false_value
-             end
+    if true
+      result = :true_value
+    else
+      result = :false_value
+    end
     assert_equal :true_value, result
   end
 
   def test_if_then_statements
     result = :default_value
-    result = :true_value if true
+     if true
+       result = :true_value
+     end
     assert_equal :true_value, result
   end
 
@@ -42,7 +47,9 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_if_statements_with_no_else_with_false_condition_return_value
-    value = (:true_value if false)
+    value = if false
+              :true_value
+            end
     assert_equal nil, value
   end
 
@@ -53,15 +60,19 @@ class AboutControlStatements < Neo::Koan
 
   def test_if_statement_modifiers
     result = :default_value
-    result = :true_value if true
+    unless false # same as saying 'if !false', which evaluates as 'if true'
+      result = :false_value
+    end
 
-    assert_equal :true_value, result
+    assert_equal :false_value, result
   end
 
   def test_unless_statement
     result = :default_value
-    result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
-    assert_equal :false_value, result
+    unless true # same as saying 'if !true', which evaluates as 'if false'
+      result = :true_value
+    end
+    assert_equal :default_value, result
   end
 
   def test_unless_statement_evaluate_true
@@ -139,3 +150,7 @@ class AboutControlStatements < Neo::Koan
   end
 end
 # rubocop:enable Lint/LiteralAsCondition, Metrics/ClassLength, Metrics/MethodLength
+# rubocop:enable Style/ConditionalAssignment
+# rubocop:enable Style/IfUnlessModifier
+# rubocop:enable Layout/IndentationConsistency
+# rubocop:enable Layout/EmptyLineAfterGuardClause

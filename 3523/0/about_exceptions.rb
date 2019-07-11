@@ -1,5 +1,6 @@
 # rubocop:disable Metrics/MethodLength, Lint/HandleExceptions, Lint/UnneededCopDisableDirective
 # rubocop:disable Lint/UselessAssignment
+# rubocop:disable Naming/RescuedExceptionsVariableName
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UncommunicativeVariableName
@@ -19,19 +20,19 @@ class AboutExceptions < Neo::Koan
     result = nil
     begin
       raise 'Oops'
-    rescue StandardError => e
+    rescue StandardError => ex
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
 
-    assert_equal true, e.is_a?(StandardError), 'Should be a Standard Error'
-    assert_equal true, e.is_a?(RuntimeError),  'Should be a Runtime Error'
+    assert_equal true, ex.is_a?(StandardError), 'Should be a Standard Error'
+    assert_equal true, ex.is_a?(RuntimeError),  'Should be a Runtime Error'
 
     assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
 
-    assert_equal 'Oops', e.message
+    assert_equal 'Oops', ex.message
   end
 
   def test_raising_a_particular_error
@@ -39,19 +40,19 @@ class AboutExceptions < Neo::Koan
     begin
       # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
-    rescue MySpecialError => e
+    rescue MySpecialError => ex
       result = :exception_handled
     end
 
     assert_equal :exception_handled, result
-    assert_equal 'My Message', e.message
+    assert_equal 'My Message', ex.message
   end
 
   def test_ensure_clause
     result = nil
     begin
       raise 'Oops'
-    rescue StandardError => e
+    rescue StandardError => ex
       # no code here
     ensure
       result = :always_run
@@ -70,3 +71,4 @@ class AboutExceptions < Neo::Koan
 end
 # rubocop:enable Metrics/MethodLength, Lint/HandleExceptions, Lint/UnneededCopDisableDirective
 # rubocop:enable Lint/UselessAssignment
+# rubocop:enable Naming/RescuedExceptionsVariableName
