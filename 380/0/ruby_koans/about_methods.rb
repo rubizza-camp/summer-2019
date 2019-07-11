@@ -114,7 +114,6 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Style/AccessModifierDeclarations
   def my_private_method
     'a secret'
   end
@@ -130,7 +129,6 @@ class AboutMethods < Neo::Koan
     end
     assert_match(/\d+/, exception.message)
   end
-  # rubocop:enable Style/AccessModifierDeclarations
   # ------------------------------------------------------------------
 
   class Dog
