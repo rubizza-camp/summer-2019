@@ -18,7 +18,6 @@ class GemPopularity
   end
 end
 
-
 # sinatra = GemPopularity.new('sinatra')
 
 # puts "#{sinatra.name} | watched by #{sinatra.watch} | #{sinatra.star} stars | #{sinatra.fork} forks "
@@ -50,10 +49,44 @@ end
 options = OptparseScript.parse(ARGV)
 pp options
 
+def load_gemlist(file=nil)
+  file ||= 'gem_list.yml'
+  @gems = YAML.safe_load(File.read(file))
+end
 
-gems_array = YAML.safe_load(File.read(options[:file]))
 
-gems_array['gems'].take(options[:top]).each do |gem_n|
+# options[:file] ? load_gemlist(options[:file]) : load_gemlist()
+
+def find_match(gems, name=nil)
+  name ||= '\w+'
+  @gems_array = @gems['gems'].find_all {|g| g.match(name)}
+end
+
+
+# options[:name] ? find_match(@gems, options[:name]) :find_match(@gems, '\w+') 
+
+def take_top(top=nil)
+  top ||= @gems_array.size
+  @gems_array  = @gems_array.take(top)
+end
+
+# options[:top] ? take_top(options[:top]) : take_top()
+
+load_gemlist(options[:file])
+find_match(@gems, options[:name])
+take_top(options[:top])
+
+gems_done = []
+
+@gems_array.each do |gem_n|
   gem_name = GemPopularity.new(gem_n)
+  gems_done << gem_name
+end
+
+
+gems_done.sort_by! {|gem| gem.name}
+# gems_printed = gems_done.find_all {|g| g.name.match(options[:name])}
+gems_done.each do |gem_name|
   puts "#{gem_name.name} | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks "
 end
+
