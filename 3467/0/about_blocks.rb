@@ -1,5 +1,6 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Style/BlockDelimiters
+# rubocop:disable Performance/RedundantBlockCall
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
@@ -97,4 +98,5 @@ class AboutBlocks < Neo::Koan
   end
 end
 # rubocop:enable Style/BlockDelimiters
+# rubocop:enable Performance/RedundantBlockCall
 # rubocop:enable Lint/UnneededCopDisableDirective
