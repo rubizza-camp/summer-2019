@@ -11,10 +11,11 @@ class AboutExceptions < Neo::Koan
     assert_equal Object, MySpecialError.ancestors[4]
   end
 
+  # rubocop:disable Style/SignalException
   def test_rescue_clause # rubocop:disable Metrics/MethodLength
     result = nil
     begin
-      raise 'Oops'
+      fail 'Oops'
     rescue StandardError => e
       result = :exception_handled
     end
@@ -25,6 +26,7 @@ class AboutExceptions < Neo::Koan
            'RuntimeError is a subclass of StandardError'
     assert_equal 'Oops', e.message
   end
+  # rubocop:enable Style/SignalException
 
   def test_raising_a_particular_error
     result = nil
@@ -40,10 +42,11 @@ class AboutExceptions < Neo::Koan
 
   # rubocop:disable UselessAssignment
   # rubocop:disable HandleExceptions
+  # rubocop:disable Style/SignalException
   def test_ensure_clause
     result = nil
     begin
-      raise 'Oops'
+      fail 'Oops'
     rescue StandardError
       # no code here
     ensure
@@ -54,6 +57,7 @@ class AboutExceptions < Neo::Koan
   end
   # rubocop:enable UselessAssignment
   # rubocop:enable HandleExceptions
+  # rubocop:enable Style/SignalException
 
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised

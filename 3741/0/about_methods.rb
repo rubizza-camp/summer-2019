@@ -111,9 +111,11 @@ class AboutMethods < Neo::Koan
     assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
+  # rubocop:disable Style/RedundantSelf
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, my_method_in_the_same_class(3, 4)
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
   end
+  # rubocop:enable Style/RedundantSelf
 
   # ------------------------------------------------------------------
 

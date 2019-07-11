@@ -8,10 +8,12 @@ class AboutStrings < Neo::Koan
     assert_equal true, string.is_a?(String)
   end
 
+  # rubocop:disable Style/StringLiterals
   def test_single_quoted_strings_are_also_strings
-    string = 'Goodbye, World'
+    string = "Goodbye, World"
     assert_equal true, string.is_a?(String)
   end
+  # rubocop:enable Style/StringLiterals
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
@@ -29,13 +31,15 @@ class AboutStrings < Neo::Koan
     assert_equal true, a == b
   end
 
+  # rubocop:disable Style/PercentLiteralDelimiters
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
+    b = %!flexible quotes can handle both ' and " characters!
+    c = %{flexible quotes can handle both ' and " characters}
     assert_equal true, a == b
     assert_equal true, a == c
   end
+  # rubocop:enable Style/PercentLiteralDelimiters
 
   def test_flexible_quotes_can_handle_multiple_lines
     long_string = %(
@@ -125,11 +129,13 @@ EOS
     assert_equal "\\'", string
   end
 
+  # rubocop:disable Style/StringLiterals
   def test_double_quoted_strings_interpolate_variables
     value = 123
     string = "The value is #{value}"
-    assert_equal 'The value is 123', string
+    assert_equal "The value is 123", string
   end
+  # rubocop:enable Style/StringLiterals
 
   # rubocop:disable InterpolationCheck
   def test_single_quoted_strings_do_not_interpolate

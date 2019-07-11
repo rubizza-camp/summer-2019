@@ -120,14 +120,16 @@ class AboutControlStatements < Neo::Koan
     assert_equal [1, 3, 5, 7, 9], result
   end
 
+  # rubocop:disable Style/For
   def test_for_statement
     array = %w[fish and chips]
     result = []
-    array.each do |item|
+    for item in array
       result << item.upcase
     end
     assert_equal %w[FISH AND CHIPS], result
   end
+  # rubocop:enable Style/For
 
   def test_times_statement
     sum = 0
