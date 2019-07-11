@@ -20,9 +20,14 @@ class GemPopularity
   end
 
   def contrib
-    page = HTTParty.get("https://api.github.com/repos/#{self.name}/#{self.name}/contributors")
-    page  = JSON.parse(page.body)
-    contrib = page.count
+    # page = HTTParty.get("https://api.github.com/repos/#{self.name}/#{self.name}/contributors")
+    # page  = JSON.parse(page.body)
+    # contrib = page.count
+
+    page = HTTParty.get("https://github.com/#{self.name}/#{self.name}")
+    doc = Nokogiri::HTML(page.body)
+    ul = doc.css('ul.numbers-summary li span')[3].text.to_i
+    puts ul
   end
 
   def issues
