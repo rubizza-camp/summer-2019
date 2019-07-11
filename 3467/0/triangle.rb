@@ -1,4 +1,3 @@
-# :reek:FeatureEnvy
 # Triangle Project Code.
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -14,6 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:FeatureEnvy
 def triangle(s_a, s_b, s_c)
   triangle_does_not_exists(s_a, s_b, s_c)
 

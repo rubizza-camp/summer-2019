@@ -1,3 +1,4 @@
+# rubocop:disable Lint/UnneededCopDisableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
 # :reek:TooManyMethods
@@ -192,3 +193,4 @@ SQL
   end
 end
 # rubocop:enable Metrics/ClassLength
+# rubocop:enable Lint/UnneededCopDisableDirective
