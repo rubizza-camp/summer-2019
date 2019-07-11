@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Lint/LiteralAsCondition
-# rubocop:disable Lint/LiteralInCondition
 # rubocop:disable Style/ConditionalAssignment
 # rubocop:disable Metrics/ClassLength
 # :reek:RepeatedConditional:LiteralInCondition:ClassLength:reek:TooManyStatements:reek:FeatureEnvy
@@ -142,6 +141,5 @@ class AboutControlStatements < Neo::Koan
   end
 end
 # rubocop:enable Lint/LiteralAsCondition
-# rubocop:enable Lint/LiteralInCondition
 # rubocop:enable Style/ConditionalAssignment
 # rubocop:enable Metrics/ClassLength
