@@ -5,3 +5,4 @@ gems:
  - bundler
  - ffi
  - rubyzip
+ - spring

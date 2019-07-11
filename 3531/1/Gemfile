@@ -7,3 +7,6 @@ gem 'nokogiri'
 
 # better output
 gem 'terminal-table'
+
+# instead of net/http
+gem 'faraday'

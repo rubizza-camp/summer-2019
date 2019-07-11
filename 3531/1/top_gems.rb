@@ -7,6 +7,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'optparse'
 require 'terminal-table'
+require 'faraday'
 
 options = {}
 
