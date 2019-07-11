@@ -23,7 +23,7 @@ end
 
 def contributors_count(list)
   doc = Nokogiri::HTML.parse(open(list))
-  doc.css('#js-repo-pjax-container > div.container.new-discussion-timeline.experiment-repo-nav > div.repository-content > div.overall-summary.overall-summary-bottomless > div > div > ul > li:nth-child(4) > a > span').text.strip
+  doc.css('.num').css('.text-emphasized').last.text.strip
 end
 
 def used_by_count(list)
