@@ -1,5 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# rubocop:disable Lint/UselessAssignment
+# rubocop:disable Naming/HeredocDelimiterNaming
+# rubocop:disable Metrics/ClassLength
 
+require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:all
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -22,17 +26,17 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_backslash_for_those_hard_cases
-    a = "He said, \"Don't\""
-    b = 'He said, "Don\'t"'
-    assert_equal true, a == b
+    alfa = "He said, \"Don't\""
+    beta = 'He said, "Don\'t"'
+    assert_equal true, alfa == beta
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
-    a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
-    assert_equal true, a == b
-    assert_equal true, a == c
+    alfa = %(flexible quotes can handle both ' and " characters)
+    beta = %(flexible quotes can handle both ' and " characters)
+    gamma = %(flexible quotes can handle both ' and " characters)
+    assert_equal true, alfa == beta
+    assert_equal true, alfa == gamma
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -132,7 +136,7 @@ It was the worst of times.
     string = 'The value is #{value}'
     assert_equal "The value is \#{value}", string
   end
-  #rubocop: enable Lint/InterpolationCheck
+  # rubocop: enable Lint/InterpolationCheck
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
@@ -190,10 +194,13 @@ It was the worst of times.
   end
 
   def test_strings_are_unique_objects
-    a = 'a string'
-    b = 'a string'
+    a_string = 'a string'
+    b_string = 'a string'
 
-    assert_equal true, a == b
-    assert_equal false, a.object_id == b.object_id
+    assert_equal true, a_string == b_string
+    assert_equal false, a_string.object_id == b_string.object_id
   end
 end
+# rubocop:enable Lint/UselessAssignment
+# rubocop:enable Naming/HeredocDelimiterNaming
+# rubocop:enable Metrics/ClassLength

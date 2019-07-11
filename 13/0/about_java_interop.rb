@@ -1,3 +1,4 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 include Java
@@ -134,3 +135,4 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, java_array.multiply_all
   end
 end
+# rubocop:enable all

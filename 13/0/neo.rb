@@ -1,3 +1,5 @@
+# rubocop:disable all
+
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
@@ -9,7 +11,7 @@ end
 # --------------------------------------------------------------------
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
-
+# :reek:all
 class FillMeInError < StandardError
 end
 
@@ -528,3 +530,4 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
+# rubocop:enable all

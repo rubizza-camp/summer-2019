@@ -1,5 +1,6 @@
+# rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:all
 class AboutVariableScope < Neo::Koan
   def bark
     noise = 'RUFF'
@@ -40,7 +41,7 @@ class AboutVariableScope < Neo::Koan
   end
 
   # ------------------------------------------------------
-
+  #:reek:ClassVariable
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
@@ -105,3 +106,4 @@ end
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
+# rubocop:enable all

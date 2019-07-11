@@ -1,5 +1,6 @@
 # frozen_string_literal: true.
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+# :reek:FeatureEnvy and :reek:TooManyStatements
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -44,10 +45,10 @@ class AboutHashes < Neo::Koan
   end
 
   def test_hash_is_unordered
-    hash1 = { one: 'uno', two: 'dos' }
-    hash2 = { two: 'dos', one: 'uno' }
+    hash_first = { one: 'uno', two: 'dos' }
+    hash_second = { two: 'dos', one: 'uno' }
 
-    assert_equal true, hash1 == hash2
+    assert_equal true, hash_first == hash_second
   end
 
   def test_hash_keys
@@ -77,19 +78,20 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash1 = {}
-    hash1[:one] = 1
+    hash_first = {}
+    hash_first[:one] = 1
 
-    assert_equal 1, hash1[:one]
-    assert_equal nil, hash1[:two]
+    assert_equal 1, hash_first[:one]
+    assert_equal nil, hash_first[:two]
 
-    hash2 = Hash.new('dos')
-    hash2[:one] = 1
+    hash_second = Hash.new('dos')
+    hash_second[:one] = 1
 
-    assert_equal 1, hash2[:one]
-    assert_equal 'dos', hash2[:two]
+    assert_equal 1, hash_second[:one]
+    assert_equal 'dos', hash_second[:two]
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -102,9 +104,10 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |_hash, key| hash[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'

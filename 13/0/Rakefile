@@ -1,4 +1,7 @@
-#!/usr/bin/env ruby
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/ScriptPermission
+# rubocop:disable Style/HashSyntax
+# !/usr/bin/env ruby
 # -*- ruby -*-
 
 require 'rake/clean'
@@ -9,4 +12,6 @@ task :default => :test
 task :test do
   ruby 'path_to_enlightenment.rb'
 end
-
+# rubocop:enable Lint/ScriptPermission
+# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Style/HashSyntax

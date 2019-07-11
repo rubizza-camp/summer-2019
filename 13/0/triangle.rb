@@ -1,5 +1,9 @@
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/MethodLength
 # Triangle Project Code.
-
+# :reek:all
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -13,16 +17,15 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  # WRITE THIS CODE
-  raise TriangleError if a.zero? || b.zero? || c.zero?
-  raise TriangleError if a.negative? || b.negative? || c.negative?
-  raise TriangleError if ((a + b) < c) || ((a + c) < b) || ((b + c) < a)
-  raise TriangleError if ((a + b) == c) || ((a + c) == b) || ((b + c) == a)
+def triangle(s_a, s_b, s_c)
+  raise TriangleError if s_a.zero? || s_b.zero? || s_c.zero?
+  raise TriangleError if s_a.negative? || s_b.negative? || s_c.negative?
+  raise TriangleError if ((s_a + s_b) < s_c) || ((s_a + s_c) < s_b) || ((s_b + s_c) < s_a)
+  raise TriangleError if ((s_a + s_b) == s_c) || ((s_a + s_c) == s_b) || ((s_b + s_c) == s_a)
 
-  if (a == b) && (b == c) && (a == c)
+  if (s_a == s_b) && (s_b == s_c) && (s_a == s_c)
     :equilateral
-  elsif (a == b) || (a == c) || (b == c)
+  elsif (s_a == s_b) || (s_a == s_c) || (s_b == s_c)
     :isosceles
   else
     :scalene
@@ -32,3 +35,7 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/MethodLength

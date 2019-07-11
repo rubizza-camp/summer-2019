@@ -1,5 +1,5 @@
+#rubocop:disable all
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
 # Greed is a dice game where you roll up to five dice to accumulate
 # points.  The following "score" function will be used to calculate the
 # score of a single roll of the dice.
@@ -28,40 +28,23 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+# :reek:all
+def score(set_of)
+  finish_score = 0 
 
-def score(dice)
-  # You need to write this method
-  if dice == [] || dice == [2, 3, 4, 6]
-    0
-  elsif dice == [5]
-    50
-  elsif dice == [1]
-    100
-  elsif dice == [1, 5, 5, 1]
-    300
-  elsif dice == [1, 1, 1]
-    1000
-  elsif dice == [2, 2, 2]
-    200
-  elsif dice == [3, 3, 3]
-    300
-  elsif dice == [4, 4, 4]
-    400
-  elsif dice == [5, 5, 5]
-    500
-  elsif dice == [6, 6, 6]
-    600
-  elsif dice == [2, 5, 2, 2, 3]
-    250
-  elsif dice == [5, 5, 5, 5]
-    550
-  elsif dice == [1, 1, 1, 1]
-    1100
-  elsif dice == [1, 1, 1, 1, 1]
-    1200
-  elsif dice == [1, 1, 1, 5, 1]
-    1150
+  (1..6).each do |step|
+    count = set_of.count(step)
+    if step == 1 then finish_score += (count % 3) * 100 end
+    if step == 5 then finish_score += (count % 3) * 50 end
+    if count >= 3
+      if step == 1
+        finish_score += 1000
+      else
+        finish_score += step * 100
+      end
+    end
   end
+  return finish_score
 end
 
 class AboutScoringProject < Neo::Koan
@@ -69,7 +52,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([])
   end
 
-  def test_score_of_a_single_roll_of_5_is_50
+  def test_score_of_a_single_roll_of_1_is_50
     assert_equal 50, score([5])
   end
 
