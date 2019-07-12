@@ -32,7 +32,7 @@ def opt_file
 end
 
 def authentication
-  @client = Octokit::Client.new(access_token: 'ec1b04b3765d7a5fe6030337ee82faaec5b090f1')
+  @client = Octokit::Client.new(:access_token => "fc1076230728f91f95b4571992b36d6fa5b9930e")
   user = @client.user
   user.login
 end
@@ -113,8 +113,7 @@ def sorted_hash
   if @options[:top].eql?(nil)
     @gems_hash.sort_by { |_k, v| v[:popularity] }.reverse.to_h
   else
-    @gems_hash.sort_by { |_k, v| v[:popularity] }.reverse.to_h
-    @gems_hash.first(@options[:top])
+    @gems_hash.sort_by { |_k, v| v[:popularity] }.reverse.to_h.first(@options[:top])
   end
 end
 
