@@ -48,10 +48,10 @@ end
 def main
   begin
     setting = ARGV.map { |argumet| argumet.split('=') }
-    setting = { '--file' => 'gems.yml' } if ARGV.empty?
+    setting = { '--file' => 'gems.yaml' } if ARGV.empty?
     choose_option(setting.to_h)
   rescue StandardError
-    puts 'Please, check list of gems'
+    puts 'Please, check list of gems!!'
   end
 end
 
