@@ -1,10 +1,11 @@
 # :reek:TooManyMethods
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Metrics/ClassLength, Style/PercentLiteralDelimiters, Style/StringLiterals
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
-    string = 'Hello, World'
+    string = "Hello, World"
     assert_equal true, string.is_a?(String)
   end
 
@@ -31,8 +32,8 @@ class AboutStrings < Neo::Koan
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
     first = %(flexible quotes can handle both ' and " characters)
-    second = %(flexible quotes can handle both ' and " characters)
-    third = %(flexible quotes can handle both ' and " characters)
+    second = %!flexible quotes can handle both ' and " characters!
+    third = %{flexible quotes can handle both ' and " characters}
     assert_equal true, first == second
     assert_equal true, first == third
   end
@@ -193,4 +194,5 @@ It was the worst of times.
     assert_equal false, first.object_id == second.object_id
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Style/PercentLiteralDelimiters, Style/StringLiterals
+# rubocop:enable Lint/UnneededCopDisableDirective
