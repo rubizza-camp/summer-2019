@@ -15,6 +15,16 @@ class RepoPage
     @name = name
   end
 
+  def rating
+    @rows.sort_by! { |row| score(row) }.reverse!
+  end
+
+  def score(row)
+    row.map do |str|
+      str.split(/[^\d]/).join.to_i
+    end.sum
+  end
+
   def used_by(repo)
     net = "#{repo}/network/dependents"
     doc = Nokogiri::HTML.parse(open(net))
@@ -63,15 +73,10 @@ class RepoPage
     list.compact.map do |repo|
       rowing(repo)
     end
+    rating
     table = Terminal::Table.new rows: rows
     puts table
   end
 end
 
-doc = YAML.load_file('ruby_gems.yml')
-gem_list = RepoList.new('new_list')
-gem_list.take_repo(doc)
-
-repo_info = RepoPage.new('new_info')
-repo_info.represent_info(gem_list.list)
 # rubocop:enable Security/Open
