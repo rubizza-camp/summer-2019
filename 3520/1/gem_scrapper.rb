@@ -8,7 +8,7 @@ class GemScrapper
     @link = @page.link_with(id: 'code').click
   end
 
-  def used_by(link)
+  def used_by(link = @link)
     link.link_with(href: /pulse/).click
         .link_with(href: %r{network\/dependencies}).click
         .link_with(text: /Dependent/).click
@@ -18,23 +18,23 @@ class GemScrapper
     # d_dents.link_with(text: /Repositories/).text.split(/\s/).select { |el| el.size > 1 }.join(' ')
   end
 
-  def watch(link)
+  def watch(link = @link)
     link.link_with(href: /watchers/).text.split(/\s/).last
   end
 
-  def star(link)
+  def star(link = @link)
     link.search('a.social-count.js-social-count').first.text.split(/\s/).last
   end
 
-  def fork(link)
+  def fork(link = @link)
     link.link_with(href: %r{network\/members}).text.split(/\s/).last
   end
 
-  def contributors(link)
+  def contributors(link = @link)
     link.link_with(text: /contributors/).text.split(/\s/).select { |el| el.size > 1 }.join(' ')
   end
 
-  def issues(link)
+  def issues(link = @link)
     link.link_with(text: /Issues/).text.split(/\s/).select { |el| el.size > 1 }.join(' ')
   end
 end
