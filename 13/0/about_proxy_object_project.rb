@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 #:reek:Attribute
 #:reek:ManualDispatch
+# rubocop: disable Lint/UnneededCopDisableDirective
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -32,7 +33,6 @@ class Proxy
   def respond_to_missing?
     true
   end
-  
   # rubocop: disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     if @object.respond_to?(method_name)
@@ -178,3 +178,5 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
+# rubocop: enable Lint/UnneededCopDisableDirective
+
