@@ -1,9 +1,11 @@
 # frozen_string_literal: true
+
 # rubocop:disable Lint/AssignmentInCondition
 # rubocop:disable Security/Open
 # rubocop:disable Style/SafeNavigation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:FeatureEnvy and :reek:RepeatedConditional and :reek:UnusedParameters and :reek:UtilityFunction
+# :reek:FeatureEnvy and :reek:RepeatedConditional and :reek:UnusedParameters
+# :reek:UtilityFunction
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = open(file_name)
