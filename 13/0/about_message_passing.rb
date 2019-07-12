@@ -119,15 +119,17 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UtilityFunction
+  # rubocop: disable Style/MethodMissing
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
+  # rubocop: enable Style/MethodMissing
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
-
+    sum = 1, 2, 3, 4, 5, 6
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
