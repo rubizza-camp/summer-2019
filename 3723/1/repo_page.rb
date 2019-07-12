@@ -1,3 +1,4 @@
+# rubocop:disable Security/Open
 require 'terminal-table'
 require 'json'
 require 'yaml'
@@ -45,19 +46,22 @@ class RepoPage
     doc.css('.Counter').first.text.strip
   end
 
+  def rowing(repo)
+    name = repo.split('/').last
+    rows << [
+      name,
+      "used by #{used_by(repo)}",
+      "watched by #{watch(repo)}",
+      "stars #{stars(repo)}",
+      "forks #{forks(repo)}",
+      "contributors #{contributors(repo)}",
+      "issues #{issues(repo)}"
+    ]
+  end
+
   def represent_info(list)
     list.compact.map do |repo|
-        response = Faraday.get repo.to_s
-        name = repo.split('/').last
-        rows << [
-          name,
-          "used by #{used_by(repo)}",
-          "watched by #{watch(repo)}",
-          "#{stars(repo)} stars",
-          "forks #{forks(repo)}",
-          "contributors #{contributors(repo)}",
-          "issues #{issues(repo)}"
-        ]
+      rowing(repo)
     end
     table = Terminal::Table.new rows: rows
     puts table
@@ -70,3 +74,4 @@ gem_list.take_repo(doc)
 
 repo_info = RepoPage.new('new_info')
 repo_info.represent_info(gem_list.list)
+# rubocop:enable Security/Open
