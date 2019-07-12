@@ -40,7 +40,7 @@ class AboutArrayAssignment < Neo::Koan
 
   # rubocop:disable Style/ParallelAssignment, Style/WordArray
   def test_parallel_assignments_with_subarrays
-    first_name, last_name = ['Willie', 'Rae'], 'Johnson'
+    first_name, last_name = [['Willie', 'Rae'], 'Johnson']
     assert_equal ['Willie', 'Rae'], first_name
     assert_equal 'Johnson', last_name
   end
