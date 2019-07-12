@@ -1,0 +1,7 @@
+gems:
+- rubocop
+- cowsay
+- capybara
+- yard
+- nyancat
+- rspec
