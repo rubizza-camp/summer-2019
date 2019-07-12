@@ -1,2 +1,7 @@
-- 'sinatra'
-- 'rspec'
+gems:
+ - 'rubocop'
+ - 'cowsay'
+ - 'capybara'
+ - 'yard'
+ - 'nyancat'
+ - 'rspec'
