@@ -1,4 +1,11 @@
+# frozen_string_literal: true
+
+# rubocop:disable Lint/UnneededCopDisableDirective, Style/MissingRespondToMissing
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# :reek:ManualDispatch
+# :reek:UtilityFunction
 
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
