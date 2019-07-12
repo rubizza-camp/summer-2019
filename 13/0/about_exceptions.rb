@@ -17,9 +17,14 @@ class AboutExceptions < Neo::Koan
     rescue StandardError => mes
       result_var = :exception_handled
     end
-    assert_equal :exception_handled, result_var
-    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
+    error = mes
+    assert RuntimeError.ancestors.include?(StandardError), 
+           'RuntimeError is a subclass of StandardError'
     assert_equal 'Oops', mes.message
+  end
+
+  def assert_equal_exception(result)
+    assert_equal :exception_handled, result
   end
 
   def assert_equal_is_a?(error)
