@@ -12,12 +12,13 @@ class TopGems
   end
 
   def run
-    file, name, top = @options.values_at(:file, :name, :top)
+    file, name, top = options.values_at(:file, :name, :top)
     TableDrawer.new(ranking(file, name), top).draw
   end
 
   private
 
+  attr_reader :options
   def ranking(file, name)
     ranking = file.each_with_object({}) do |str, hsh|
       next unless str.start_with? name

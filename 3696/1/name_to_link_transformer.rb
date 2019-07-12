@@ -12,12 +12,14 @@ class NameToLinkTransformer
 
   private
 
+  attr_reader :doc
+
   def github_in_code_link
-    @doc.css('a#code').map { |link| link.attribute('href').to_s }.first
+    doc.css('a#code').map { |link| link.attribute('href').to_s }.first
   end
 
   def github_in_home_link
-    alternative = @doc.css('a#home').map { |link| link.attribute('href').to_s }.first
+    alternative = doc.css('a#home').map { |link| link.attribute('href').to_s }.first
     return alternative if alternative.include?('github')
   end
 end

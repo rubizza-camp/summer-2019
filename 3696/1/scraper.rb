@@ -19,6 +19,7 @@ class Scraper
 
   private
 
+  attr_reader :github_page, :link
   def normalize(link)
     link.split('/').take(5).join('/')
   end
@@ -28,19 +29,19 @@ class Scraper
   end
 
   def watches_stars_forks
-    @github_page.css('.social-count').map { |item| item.text.strip }
+    github_page.css('.social-count').map { |item| item.text.strip }
   end
 
   def used_by
-    page = Nokogiri::HTML(URI.open(@link + FOR_USED_BY))
+    page = Nokogiri::HTML(URI.open(link + FOR_USED_BY))
     page.to_s.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip
   end
 
   def contributors
-    @github_page.css('.num.text-emphasized').to_a.last.text.strip
+    github_page.css('.num.text-emphasized').to_a.last.text.strip
   end
 
   def issues
-    @github_page.css('.Counter').first.text
+    github_page.css('.Counter').first.text
   end
 end

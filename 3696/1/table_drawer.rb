@@ -2,7 +2,7 @@ require './scraper'
 require 'terminal-table'
 class TableDrawer
   def initialize(hash, top)
-    @hash = hash
+    @info_hash = hash
     @top = top
   end
 
@@ -13,16 +13,18 @@ class TableDrawer
 
   private
 
+  attr_reader :info_hash, :top
+
   def rows
-    @hash = append_names_transform
-    table_rows = @hash.values.sort_by { |value| -popularity(value) }
-    return table_rows.take(@top) unless @top.zero?
+    info_hash = append_names_transform
+    table_rows = info_hash.values.sort_by { |value| -popularity(value) }
+    return table_rows.take(top) unless top.zero?
 
     table_rows
   end
 
   def append_names_transform
-    Hash[@hash.collect { |key, value| [key, value.unshift(key)] }]
+    Hash[info_hash.collect { |key, value| [key, value.unshift(key)] }]
   end
 
   def popularity(info)
