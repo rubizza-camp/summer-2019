@@ -1,5 +1,5 @@
 # enjoy
-
+# rubocop:disable Performance/StringReplacement
 require 'httparty'
 require 'optparse'
 require 'nokogiri'
@@ -82,3 +82,4 @@ class Helpmeplease
   end
   puts table
 end
+# rubocop:enable Performance/StringReplacement
