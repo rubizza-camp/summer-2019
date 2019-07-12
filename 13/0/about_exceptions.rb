@@ -21,9 +21,9 @@ class AboutExceptions < Neo::Koan
     end
     error = e
     asserts(result, error)
-    assert RuntimeError.ancestors.include?(StandardError), 
+    assert RuntimeError.ancestors.include?(StandardError),
            'RuntimeError is a subclass of StandardError'
-           assert_equal 'Oops', error.message
+    assert_equal 'Oops', error.message
   end
 
   def asserts(result, error)
