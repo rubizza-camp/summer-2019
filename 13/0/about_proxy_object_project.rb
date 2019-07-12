@@ -1,6 +1,6 @@
-# rubocop:disable Style/SingleLineMethods
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+#:reek:Attribute
+#:reek:ManualDispatch
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you
@@ -14,24 +14,32 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
-  attr_reader :messages
+  attr_accessor :messages
 
   def initialize(target_object)
     @object = target_object
     @messages = []
   end
 
-  def number_of_times_called(method_name)
-    @messages.count(method_name)
+  def called?(method_name)
+    messages.include? method_name
   end
 
-  def called?(method_name)
-    @messages.include?(method_name)
+  def number_of_times_called(method_name)
+    @messages.count method_name
+  end
+
+  def respond_to_missing?
+    true
   end
 
   def method_missing(method_name, *args, &block)
-    @messages << method_name
-    @object.send(method_name, *args, &block)
+    if @object.respond_to?(method_name)
+      messages << method_name
+      @object.send(method_name, *args, &block)
+    else
+      super
+    end
   end
 end
 # The proxy object should pass the following Koan:
@@ -168,4 +176,3 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
-# rubocop:enable Style/SingleLineMethods
