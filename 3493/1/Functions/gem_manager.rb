@@ -73,9 +73,9 @@ module  Functions
     def show_table
       rows = []
       @gem_hash.each { |_key, value| rows << value.strings }
-      table = Terminal::Table.new do |table|
-        table.rows = rows
-        table.style = { border_top: false, border_bottom: false }
+      table = Terminal::Table.new do |tab|
+        tab.rows = rows
+        tab.style = { border_top: false, border_bottom: false }
       end
       puts table
     end
