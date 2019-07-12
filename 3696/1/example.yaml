@@ -4,5 +4,5 @@ gems:
  - rails
  - activerecord
  - activestorage
- - active-redis
  - s2d
+ - spring
