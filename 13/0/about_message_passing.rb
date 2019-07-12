@@ -79,8 +79,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class TypicalObject
-  end
+  class TypicalObject; end
 
   def test_sending_undefined_messages_to_a_typical_object_results_in_errors
     typical = TypicalObject.new
@@ -132,7 +131,7 @@ class AboutMessagePassing < Neo::Koan
     sum = 1, 2, 3, 4, 5, 6
     assert_equal 'Someone called foobar with <>', catcher.foobar
     assert_equal 'Someone called foobaz with <1>', catcher.foobaz(1)
-    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
+    assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(sum)
   end
 
   # :reek:ManualDispatch
