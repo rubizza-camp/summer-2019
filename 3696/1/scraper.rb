@@ -5,7 +5,7 @@ class Scraper
   include Config
   FOR_USED_BY = '/network/dependents'
   URL = 'https://rubygems.org/gems/'
-  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d+)\s*\n*\s*(Repositories)/.freeze
+  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d+)\s*\n*\s*(Repositories)/
   attr_reader :row
 
   def initialize(link)
