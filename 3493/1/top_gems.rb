@@ -41,9 +41,16 @@ def choose_option(setting)
   end
 end
 
+# rubocop:disable Style/RedundantBegin
 def main
-  setting = ARGV.map { |argumet| argumet.split('=') }
-  choose_option(setting.to_h)
+  begin
+    setting = ARGV.map { |argumet| argumet.split('=') }
+    setting = { '--file' => 'gems.yml' } if ARGV.empty?
+    choose_option(setting.to_h)
+  rescue StandardError
+    puts 'Please, check list of gems'
+  end
 end
 
+# rubocop:enable Style/RedundantBegin
 main
