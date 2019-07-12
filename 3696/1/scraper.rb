@@ -1,39 +1,53 @@
-module Scraper
+require './config'
+class Scraper
+  include Config
   FOR_USED_BY = '/network/dependents'.freeze
   URL = 'https://rubygems.org/gems/'.freeze
-  # I can't think of better place for this method, because Monkey Patching is bad and,
-  # as I understand modules, they can be just a bunch of methods without dependency on the state
-  # :reek:UtilityFunction
-  def to_natural(num)
-    num.delete(',').to_i
+
+  attr_reader :row
+
+  def normalize
+    @link = @link.split('/').take(5).join('/')
   end
 
-  # :reek:UtilityFunction
-  def get_github_link(url)
-    doc = Nokogiri::HTML(URI.open(URL + url))
-    all_links = doc.css('a#code').map { |link| link.attribute('href').to_s }
-    all_links.first
+  def flatten_and_to_natural
+    @row.flatten.map { |attr| attr.delete(',').to_i }
   end
 
-  # :reek:UtilityFunction
-  def repo_link?(link)
-    link.include?('github') && !(link.match? 'rubygems')
+  def initialize(link)
+    @link = link
+    normalize
+    @row = []
+    @page = Nokogiri::HTML(URI.open(@link))
+    three_in_one_push
+    @link << FOR_USED_BY
+    @page = Nokogiri::HTML(URI.open(@link))
+    @row << used_by
+    @row = flatten_and_to_natural
   end
 
-  def get_watches_stars_forks(page)
-    page.css('.social-count').to_a.map { |item| to_natural(item.text.strip) }
+  def three_in_one_push
+    @row << watches_stars_forks << contributors << issues
   end
 
-  def get_used_by(page)
-    page.to_s[/(\d*,?\d+)\s*\n*\s*(Repositories)/]
-    to_natural(Regexp.last_match(1))
+  def watches_stars_forks
+    @page.css('.social-count').to_a.map { |item| item.text.strip }
   end
 
-  def get_commits_branches_releases_contributors(page)
-    page.css('.num.text-emphasized').to_a.map { |item| to_natural(item.text.strip) }
+  def used_by
+    @page.to_s[/(\d*,?\d+)\s*\n*\s*(Repositories)/]
+    Regexp.last_match(1)
   end
 
-  def get_issues(page)
-    to_natural(page.css('.Counter').to_a[0].text)
+  def contributors
+    @page.css('.num.text-emphasized').to_a[-1].text.strip
+  end
+
+  def issues
+    @page.css('.Counter').to_a.first.text
+  end
+
+  def popularity
+    Config::WEIGHTS.zip(@row).inject(0) { |sum, (weight, value)| sum + (weight * value) }
   end
 end
