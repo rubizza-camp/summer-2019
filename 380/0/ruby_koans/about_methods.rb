@@ -113,7 +113,7 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
-  
+
   private :my_private_method
 
   def test_calling_private_methods_without_receiver
