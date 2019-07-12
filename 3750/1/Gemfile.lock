@@ -30,12 +30,18 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+<<<<<<< HEAD
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
     unicode-display_width (1.6.0)
+=======
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.6)
+>>>>>>> feature getting to github repos from links at rubygems.org
     webrobots (0.1.2)
 
 PLATFORMS
@@ -45,7 +51,10 @@ DEPENDENCIES
   mechanize
   nokogiri
   pry
+<<<<<<< HEAD
   terminal-table
+=======
+>>>>>>> feature getting to github repos from links at rubygems.org
 
 BUNDLED WITH
    2.0.2
