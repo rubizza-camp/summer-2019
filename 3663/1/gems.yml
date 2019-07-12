@@ -1,0 +1,4 @@
+gems:
+  - rubocop
+  - rspec-expectations
+  - diff-lcs
