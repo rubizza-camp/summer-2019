@@ -1,7 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UtilityFunction:
-def my_global_method(first, second); first + second; end
+def my_global_method(first, second)
+  first + second
+end
 # :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
@@ -108,11 +110,12 @@ class AboutMethods < Neo::Koan
     assert_equal 12, my_method_in_the_same_class(3, 4)
   end
 
-  # ------------------------------------------------------------------
   def my_private_method
     'a secret'
   end
+  # rubocop:enable Style/AccessModifierDeclarations
   private :my_private_method
+  # rubocop:disable Style/AccessModifierDeclarations
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
