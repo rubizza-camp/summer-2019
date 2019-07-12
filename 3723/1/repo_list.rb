@@ -5,8 +5,7 @@ require 'nokogiri'
 require 'open-uri'
 
 class RepoList
-  attr_accessor :list
-  attr_reader :name
+  attr_reader :list, :name
 
   def initialize(name)
     @list = []

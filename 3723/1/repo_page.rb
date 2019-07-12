@@ -1,3 +1,4 @@
+require 'terminal-table'
 require 'json'
 require 'yaml'
 require 'faraday'
@@ -6,11 +7,10 @@ require 'open-uri'
 require_relative './repo_list'
 
 class RepoPage
-  attr_accessor :list_info
-  attr_reader :name
+  attr_reader :rows, :name
 
   def initialize(name)
-    @list_info = []
+    @rows = []
     @name = name
   end
 
@@ -46,11 +46,21 @@ class RepoPage
   end
 
   def represent_info(list)
-  list.compact.map do |repo|
-      response = Faraday.get repo.to_s
-      name = repo.split('/').last
-      @list_info << issues(repo)
-  end
+    list.compact.map do |repo|
+        response = Faraday.get repo.to_s
+        name = repo.split('/').last
+        rows << [
+          name,
+          "used by #{used_by(repo)}",
+          "watched by #{watch(repo)}",
+          "#{stars(repo)} stars",
+          "forks #{forks(repo)}",
+          "contributors #{contributors(repo)}",
+          "issues #{issues(repo)}"
+        ]
+    end
+    table = Terminal::Table.new rows: rows
+    puts table
   end
 end
 
@@ -60,5 +70,3 @@ gem_list.take_repo(doc)
 
 repo_info = RepoPage.new('new_info')
 repo_info.represent_info(gem_list.list)
-puts repo_info.list_info
-
