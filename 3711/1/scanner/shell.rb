@@ -5,8 +5,13 @@ module Scanner
       /^--name=[A-z0-9]+/,
       %r{^--file=(\/?[A-z0-9])+\.yml$}
     ]
-    def scan(args)
-      filter_args(args).each_with_object({}) do |arg, obj|
+
+    def initialize(args)
+      @args = args
+    end
+
+    def scan
+      filter_args.each_with_object({}) do |arg, obj|
         flag, value = arg.split('=')
         arg_name = flag.tr('--', '')
         obj[arg_name] = value
@@ -15,8 +20,8 @@ module Scanner
 
     private
 
-    def filter_args(args)
-      args.select do |arg|
+    def filter_args
+      @args.select do |arg|
         arg if ARG_REGEXPS.any? { |arg_regexp| arg.match(arg_regexp) }
       end
     end
