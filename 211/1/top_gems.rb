@@ -22,21 +22,21 @@ class GemPopularity
     # @fork = page['forks']
     page = HTTParty.get(@github_link)
     @doc = Nokogiri::HTML(page.body)
-    @watch = @doc.css('.social-count')[0].text.to_i
-    @star = @doc.css('.social-count')[1].text.to_i
-    @fork = @doc.css('.social-count')[2].text.to_i
+    @watch = @doc.css('.social-count')[0].text.tr('^0-9', '').to_i
+    @star = @doc.css('.social-count')[1].text.tr('^0-9', '').to_i
+    @fork = @doc.css('.social-count')[2].text.tr('^0-9', '').to_i
   end
 
   def contrib
-    @contrib = @doc.css('ul.numbers-summary li span')[3].text.to_i
+    @contrib = @doc.css('ul.numbers-summary li span')[3].text.tr('^0-9', '').to_i
   end
 
   def issues
     page = HTTParty.get("#{@github_link}/issues")
     doc = Nokogiri::HTML(page.body)
     issues = doc.css('div.states')
-    @issues_closed = issues.css('a')[1].text.to_i
-    @issues_op = issues.css('a')[0].text.to_i
+    @issues_op = issues.css('a')[0].text.tr('^0-9', '').to_i
+    @issues_closed = issues.css('a')[1].text.tr('^0-9', '').to_i
     @issues = "Closed issues / opened issues = #{@issues_closed/@issues_op}"
   end
 
