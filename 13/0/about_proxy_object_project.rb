@@ -32,7 +32,7 @@ class Proxy
   def respond_to_missing?
     true
   end
-
+  # rubocop: disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     if @object.respond_to?(method_name)
       messages << method_name
@@ -41,6 +41,7 @@ class Proxy
       super
     end
   end
+  # rubocop: enable Style/MethodMissing
 end
 # The proxy object should pass the following Koan:
 # :reek:TooManyStatements and :reek:FeatureEnvy
