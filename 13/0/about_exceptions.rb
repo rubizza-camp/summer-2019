@@ -21,8 +21,7 @@ class AboutExceptions < Neo::Koan
     assert_equal :exception_handled, result_var
     assert_equal true, mes.is_a?(StandardError), 'Should be a Standard Error'
     assert_equal true, mes.is_a?(RuntimeError),  'Should be a Runtime Error'
-    assert RuntimeError.ancestors.include?(StandardError),
-           'RuntimeError is a subclass of StandardError'
+    assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
     assert_equal 'Oops', mes.message
   end
 
@@ -40,11 +39,10 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
-    result = nil
     begin
       raise 'Oops'
     rescue StandardError
-      # no code here
+      p StandardError
     ensure
       result = :always_run
     end
