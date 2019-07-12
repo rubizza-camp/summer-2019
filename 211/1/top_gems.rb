@@ -7,26 +7,29 @@ require 'table_print'
 
 class GemPopularity
   include HTTParty
-  base_uri 'https://api.github.com/repos/'
+  # base_uri 'https://api.github.com/repos/'
   attr_accessor  :name, :watch, :star, :fork, :contrib, :issues_op, :issues_closed, :used_by, :issues
 
   def initialize(gem_name)
     @name = gem_name
-    page = HTTParty.get("https://api.github.com/repos/#{gem_name}/#{gem_name}")
-    page  = JSON.parse(page.body)
-    @watch = page["subscribers_count"]
-    @star = page["stargazers_count"]
-    @fork = page["forks"]
+    rubygems_page = HTTParty.get("https://rubygems.org/api/v1/gems/#{gem_name}")
+    @github_link = JSON.parse(rubygems_page.body)['source_code_uri']
+    @api_github_link = @github_link.gsub(/github.com/, "api.github.com/repos" )
+    response = HTTParty.get(@api_github_link)
+    page  = JSON.parse(response.body)
+    @watch = page['subscribers_count']
+    @star = page['stargazers_count']
+    @fork = page['forks']
   end
 
   def contrib
-    page = HTTParty.get("https://github.com/#{self.name}/#{self.name}")
+    page = HTTParty.get(@github_link)
     doc = Nokogiri::HTML(page.body)
     ul = doc.css('ul.numbers-summary li span')[3].text.to_i
   end
 
   def issues
-    page = HTTParty.get("https://github.com/#{self.name}/#{self.name}/issues")
+    page = HTTParty.get("#{@github_link}/issues")
     doc = Nokogiri::HTML(page.body)
     issues = doc.css('div.states')
     @issues_closed = issues.css('a')[1].text.to_i
@@ -35,7 +38,7 @@ class GemPopularity
   end
 
   def used_by
-    page = HTTParty.get("https://github.com/#{self.name}/#{self.name}/network/dependents")
+    page = HTTParty.get("#{@github_link}/network/dependents")
     doc = Nokogiri::HTML(page.body)
     used_by = doc.css('a.selected')[3].text.match(/([0-9]+),[0-9]+/).to_s.gsub(/,/,'').to_i
   end
@@ -98,7 +101,7 @@ end
 
 
 gems_done.sort_by! {|gem| gem.name}
-# gems_printed = gems_done.find_all {|g| g.name.match(options[:name])}
+
 gems_done.each do |gem_name|
   puts gem_name.issues
   puts "#{gem_name.name}| used by #{gem_name.used_by}  | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks | #{gem_name.contrib} contributors "
