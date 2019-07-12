@@ -8,4 +8,5 @@ require_relative 'ruby_gem'
 require_relative 'rating'
 require_relative 'printer'
 
-puts 1
+rating_args = Scanner::Shell.new.scan(ARGV)
+p rating_args
