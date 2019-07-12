@@ -32,6 +32,7 @@ class Proxy
   def respond_to_missing?
     true
   end
+  
   # rubocop: disable Style/MethodMissing
   def method_missing(method_name, *args, &block)
     if @object.respond_to?(method_name)
