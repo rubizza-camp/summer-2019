@@ -38,19 +38,24 @@ def authentication
   @username = gets.chomp
   puts 'Введите пароль'
   @password = gets.chomp
+  @client = Octokit::Client.new\
+  :client_id     => @username,
+  :client_secret => @password
+  user = @client.user 'drujok'
 end
 
 def yaml_parser
   thing = YAML.load_file(opt_file)
-  client = Octokit::Client.new(login: 'drujok', password: '33motina')
+  authentication
   @gems_hash = {}
   thing.values[0].each do |name|
     gem = Gems.info(name)
     uri = gem['source_code_uri'].sub! 'https://github.com/', ''
-    user = client.repo uri
+    user = @client.repo uri
     doc = Nokogiri::HTML(open('https://github.com/' + uri))
+    doc_dependents = Nokogiri::HTML(open('https://github.com/' + uri + '/network/dependents'))
     @gems_hash.merge!("#{name}": gem_stats(user))
-    @gems_hash.merge!("#{name}": contributors(doc))
+    @gems_hash.merge!("#{name}": contributors(doc, doc_dependents))
   end
 end
 
@@ -60,13 +65,15 @@ def gem_stats(user)
   @gem_stats.merge!(stargazers: user[:stargazers_count])
   @gem_stats.merge!(forks_count: user[:forks_count])
   @gem_stats.merge!(issues: user[:open_issues_count])
-  @gem_stats.merge!(subscribers: user[:subscribers_count])
+  @gem_stats.merge!(subscribers: user[:watchers_count])
   @gem_stats.merge!(used_by: '')
 end
 
-def contributors(doc)
+def contributors(doc, doc_dependents)
   contributors = doc.css('span.num.text-emphasized').children[2].to_s.delete('^0-9').to_i
+  used_by = doc_dependents.css('.btn-link')[1].text.delete('^0-9').to_i
   @gem_stats.merge!(contributors: contributors)
+  @gem_stats.merge!(used_by: contributors)
 end
 
 @keys = yaml_parser
