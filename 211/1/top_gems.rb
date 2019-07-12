@@ -14,18 +14,21 @@ class GemPopularity
     @name = gem_name
     rubygems_page = HTTParty.get("https://rubygems.org/api/v1/gems/#{gem_name}")
     @github_link = JSON.parse(rubygems_page.body)['source_code_uri']
-    @api_github_link = @github_link.gsub(/github.com/, "api.github.com/repos" )
-    response = HTTParty.get(@api_github_link)
-    page  = JSON.parse(response.body)
-    @watch = page['subscribers_count']
-    @star = page['stargazers_count']
-    @fork = page['forks']
+    # @api_github_link = @sgithub_link.gsub(/github.com/, "api.github.com/repos" )
+    # response = HTTParty.get(@api_github_link)
+    # page  = JSON.parse(response.body)
+    # @watch = page['subscribers_count']
+    # @star = page['stargazers_count']
+    # @fork = page['forks']
+    page = HTTParty.get(@github_link)
+    @doc = Nokogiri::HTML(page.body)
+    @watch = @doc.css('.social-count')[0].text.to_i
+    @star = @doc.css('.social-count')[1].text.to_i
+    @fork = @doc.css('.social-count')[2].text.to_i
   end
 
   def contrib
-    page = HTTParty.get(@github_link)
-    doc = Nokogiri::HTML(page.body)
-    ul = doc.css('ul.numbers-summary li span')[3].text.to_i
+    @contrib = @doc.css('ul.numbers-summary li span')[3].text.to_i
   end
 
   def issues
@@ -40,7 +43,7 @@ class GemPopularity
   def used_by
     page = HTTParty.get("#{@github_link}/network/dependents")
     doc = Nokogiri::HTML(page.body)
-    used_by = doc.css('a.selected')[3].text.match(/([0-9]+),[0-9]+/).to_s.gsub(/,/,'').to_i
+    used_by = doc.css('a.selected')[3].text.tr('^0-9', '').to_i
   end
 end
 
