@@ -8,7 +8,7 @@ require 'table_print'
 class GemPopularity
   include HTTParty
   base_uri 'https://api.github.com/repos/'
-  attr_accessor  :name, :watch, :star, :fork, :contrib, :issues, :used_by
+  attr_accessor  :name, :watch, :star, :fork, :contrib, :issues_op, :issues_closed, :used_by, :issues
 
   def initialize(gem_name)
     @name = gem_name
@@ -20,20 +20,18 @@ class GemPopularity
   end
 
   def contrib
-    # page = HTTParty.get("https://api.github.com/repos/#{self.name}/#{self.name}/contributors")
-    # page  = JSON.parse(page.body)
-    # contrib = page.count
-
     page = HTTParty.get("https://github.com/#{self.name}/#{self.name}")
     doc = Nokogiri::HTML(page.body)
     ul = doc.css('ul.numbers-summary li span')[3].text.to_i
-    puts ul
   end
 
   def issues
-    page = HTTParty.get("https://api.github.com/repos/#{self.name}/#{self.name}/issues")
-    page  = JSON.parse(page.body)
-    issues = page.count
+    page = HTTParty.get("https://github.com/#{self.name}/#{self.name}/issues")
+    doc = Nokogiri::HTML(page.body)
+    issues = doc.css('div.states')
+    @issues_closed = issues.css('a')[1].text.to_i
+    @issues_op = issues.css('a')[0].text.to_i
+    @issues = "Closed issues / opened issues = #{@issues_closed/@issues_op}"
   end
 
   def used_by
@@ -102,10 +100,17 @@ end
 gems_done.sort_by! {|gem| gem.name}
 # gems_printed = gems_done.find_all {|g| g.name.match(options[:name])}
 gems_done.each do |gem_name|
+  puts gem_name.issues
   puts "#{gem_name.name}| used by #{gem_name.used_by}  | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks | #{gem_name.contrib} contributors "
 end
 
-puts gems_done[0]
+tp gems_done,  :name,
+               {:used_by => {:display_name  => 'used by'}},
+               {:watch => {:display_name  => 'Watched By'}},
+               :star,
+               :fork,
+               {:contrib => {:display_name  => 'Contributors'}},
+               {:issues_op => {:display_name  => 'Opend issues'}},
+               {:issues_closed => {:display_name  => 'Closed issues'}}
 
 
-tp gems_done, 'name' , {:fork => {:display_name  => 'Forked By'}}
