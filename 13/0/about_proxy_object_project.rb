@@ -1,5 +1,4 @@
-# rubocop:disable Style/MethodMissingSuper
-# rubocop:disable Style/MissingRespondToMissing
+# rubocop:disable Style/SingleLineMethods
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
@@ -169,5 +168,4 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
-# rubocop:enable Style/MethodMissingSuper
-# rubocop:enable Style/MissingRespondToMissing
+# rubocop:enable Style/SingleLineMethods
