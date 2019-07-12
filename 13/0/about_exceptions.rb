@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
+# :reek:UncommunicativeMethodName
 class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
@@ -14,12 +16,19 @@ class AboutExceptions < Neo::Koan
   def test_rescue_clause
     begin
       raise 'Oops'
-    rescue StandardError => mes
-      result_var = :exception_handled
+    rescue StandardError => e
+      result = :exception_handled
     end
+    error = e
+    asserts(result, error)
     assert RuntimeError.ancestors.include?(StandardError), 
            'RuntimeError is a subclass of StandardError'
-    assert_equal 'Oops', mes.message
+           assert_equal 'Oops', error.message
+  end
+
+  def asserts(result, error)
+    assert_equal_exception(result)
+    assert_equal_is_a?(error)
   end
 
   def assert_equal_exception(result)
