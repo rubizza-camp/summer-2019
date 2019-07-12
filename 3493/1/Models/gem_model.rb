@@ -1,4 +1,7 @@
 module Models
+  # :reek:InstanceVariableAssumption
+  # :reek:Attribute
+  # :reek:TooManyInstanceVariables:
   class GemModel
     attr_reader :url, :name
     attr_writer :url, :name, :count_contributors, :count_used_by
