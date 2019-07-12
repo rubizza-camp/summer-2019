@@ -1,5 +1,9 @@
+# rubocop:disable Lint/AssignmentInCondition
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:FeatureEnvy
+# :reek:UtilityFunction
+# :reek:UncommunicativeMethodName
+# :reek:NilCheck
 class AboutSandwichCode < Neo::Koan
   def count_lines(file_name)
     file = File.open(file_name)
@@ -18,11 +22,10 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line(file_name)
     file = File.open(file_name)
-    # rubocop:disable Lint/AssignmentInCondition
+
     while line = file.gets
-      return line if line.match(/e/)
+      return line if line.=~(/e/)
     end
-    # rubocop:enable Lint/AssignmentInCondition
   ensure
     file&.close
   end
@@ -78,11 +81,9 @@ class AboutSandwichCode < Neo::Koan
 
   def find_line2(file_name)
     file = File.open(file_name)
-    # rubocop:disable Lint/AssignmentInCondition
     while line = file.gets
-      return line if line.match(/e/)
+      return line if line.=~(/e/)
     end
-    # rubocop:enable Lint/AssignmentInCondition
   ensure
     file&.close
   end
@@ -105,3 +106,4 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
+# rubocop:enable Lint/AssignmentInCondition

@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:UtilityFunction
+# :reek:TooManyStatements
+# :reek:NestedIterators
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -81,6 +83,7 @@ class AboutIteration < Neo::Koan
     # rubocop:enable Lint/AmbiguousBlockAssociation
   end
 
+  # :reek:UncommunicativeVariableName
   def test_inject_will_blow_your_mind
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result

@@ -11,41 +11,33 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
+# rubocop:disable all
 
 class Proxy
   attr_reader :messages
-  # rubocop:disable Metrics/MethodLength
 
   def initialize(target_object)
     @object = target_object
-    @methods_called = Hash.new(0)
     @messages = []
-
-    methods_to_forward = @object.methods - %i[__send__ object_id instance_of? method_missing]
-    methods_to_forward.each do |method|
-      # rubocop:disable Security/Eval
-      binding.eval ''" def #{method}(*args, &block)
-                  @methods_called[:#{method}] += 1
-                  @messages.push :#{method}
-                  @object.send(:#{method}, *args, &block)
-               end
-          "''
-      # rubocop:enable Security/Eval
-    end
-    # rubocop:enable Metrics/MethodLength
   end
 
-  def called?(method)
-    number_of_times_called(method).positive?
+  def method_missing(method_name, *args, &block)
+    @messages << method_name
+    @object.send(method_name, *args, &block)
   end
 
-  def number_of_times_called(method)
-    @methods_called[method]
+  def called?(method_name)
+    @messages.include?(method_name)
+  end
+
+  def number_of_times_called(method_name)
+    @messages.count(method_name)
   end
 end
 
 # The proxy object should pass the following Koan:
 #
+# :reek:FeatureEnvy
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
@@ -93,6 +85,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert !tv.called?(:channel)
   end
 
+  # :reek:TooManyStatements
   def test_proxy_counts_method_calls
     tv = Proxy.new(Television.new)
 
@@ -121,6 +114,9 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# :reek:FeatureEnvy
+# :reek:InstanceVariableAssumption
+# :reek:Attribute
 class Television
   attr_accessor :channel
 
@@ -138,6 +134,7 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+# :reek:FeatureEnvy
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new
@@ -155,6 +152,7 @@ class TelevisionTest < Neo::Koan
     assert !tv.on?
   end
 
+  # :reek:TooManyStatements
   def test_edge_case_on_off
     tv = Television.new
 

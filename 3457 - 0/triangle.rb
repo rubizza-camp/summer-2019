@@ -13,6 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:UncommunicativeVariableName
 def triangle(aaa, bbb, ccc)
   raise TriangleError if [aaa, bbb, ccc].min <= 0
 

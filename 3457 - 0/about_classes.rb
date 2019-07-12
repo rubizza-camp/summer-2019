@@ -1,5 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# :reek:TooManyStatements
+# :reek:TooManyMethods
+# :reek:InstanceVariableAssumption
+# :reek:FeatureEnvy
+# :reek:Attribute
+# :reek:UncommunicativeModuleName
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -10,6 +15,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UncommunicativeVariableName
 
   class Dog2
     def setname(a_name)

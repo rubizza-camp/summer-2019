@@ -1,6 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
 
+# :reek:FeatureEnvy
+# :reek:RepeatedConditional
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     # rubocop:disable Lint/LiteralAsCondition

@@ -1,9 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-
+# rubocop:disable all
+# :reek:UtilityFunction
 def my_global_method(aaa, bbb)
   aaa + bbb
 end
-
+# :reek:TooManyMethods
+# :reek:UtilityFunction
+# :reek:TooManyStatements
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -17,7 +20,6 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    # rubocop:disable Style/EvalWithLocation
     eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
@@ -28,7 +30,6 @@ class AboutMethods < Neo::Koan
     #
     # Rewrite the eval string to continue.
     #
-    # rubocop:enable Style/EvalWithLocation
   end
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
@@ -104,14 +105,12 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/UnneededCopDisableDirective
+
   def my_private_method
     'a secret'
   end
-  # rubocop:enable Lint/UnneededCopDisableDirective
-  # rubocop:disable Style/AccessModifierDeclarations
+
   private :my_private_method
-  # rubocop:enable Style/AccessModifierDeclarations
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
@@ -119,13 +118,9 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      # rubocop:disable Style/RedundantSelf
       self.my_private_method
-      # rubocop:enable Style/RedundantSelf
     end
-    # rubocop:disable Lint/AmbiguousRegexpLiteral
     assert_match /private method /, exception.message
-    # rubocop:enable Lint/AmbiguousRegexpLiteral
   end
 
   # ------------------------------------------------------------------

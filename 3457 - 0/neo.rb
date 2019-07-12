@@ -1,11 +1,10 @@
+# rubocop:disable all
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
 begin
   require 'win32console'
-  # rubocop:disable Lint/HandleExceptions
 rescue LoadError
-  # rubocop:enable Lint/HandleExceptions
 end
 
 # --------------------------------------------------------------------
@@ -15,6 +14,8 @@ end
 class FillMeInError < StandardError
 end
 
+# :reek:ControlParameter
+# :reek:UtilityFunction
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
@@ -32,6 +33,7 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
+# :reek:UtilityFunction
 def __(value = 'FILL ME IN', value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -41,6 +43,7 @@ def __(value = 'FILL ME IN', value19 = :mu)
 end
 
 # Numeric replacement value.
+# :reek:UtilityFunction
 def _n_(value = 999_999, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -50,6 +53,7 @@ def _n_(value = 999_999, value19 = :mu)
 end
 
 # Error object replacement value.
+# :reek:UtilityFunction
 def ___(value = FillMeInError, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -63,18 +67,15 @@ class Object
   def ____(method = nil)
     send(method) if method
   end
-
+  # :reek:AccessModifierDeclarations
   in_ruby_version('1.9', '2') do
-    # rubocop:disable Style/AccessModifierDeclarations
     public :method_missing
-    # rubocop:enable Style/AccessModifierDeclarations
   end
 end
 
 class String
   def side_padding(width)
     extra = width - size
-    # rubocop:disable Style/NumericPredicate
     if width < 0
       self
     else
@@ -82,10 +83,19 @@ class String
       right_padding = (extra + 1) / 2
       (' ' * left_padding) + self + (' ' * right_padding)
     end
-    # rubocop:enable Style/NumericPredicate
   end
 end
 
+# :reek:UtilityFunction
+# :reek:ControlParameter
+# :reek:DataClump
+# :reek:TooManyStatements
+# :reek:NilCheck
+# :reek:NestedIterators
+# :reek:InstanceVariableAssumption
+# :reek:FeatureEnvy
+# :reek:TooManyInstanceVariables
+# :reek:TooManyMethod
 module Neo
   class << self
     def simple_output
@@ -104,14 +114,10 @@ module Neo
     module_function
 
     COLORS.each do |color, value|
-      # rubocop:disable Style/EvalWithLocation
       module_eval "def #{color}(string); colorize(string, #{value}); end"
-      # rubocop:disable Style/AccessModifierDeclarations
-      # rubocop:enable Style/EvalWithLocation
       module_function color
-      # rubocop:enable Style/AccessModifierDeclarations
     end
-
+    
     def colorize(string, color_value)
       if use_colors?
         color(color_value) + string + color(COLORS[:clear])
@@ -128,13 +134,11 @@ module Neo
       return false if ENV['NO_COLOR']
 
       if ENV['ANSI_COLOR'].nil?
-        # rubocop:disable Style/GuardClause
         if using_windows?
           using_win32console
         else
           return true
         end
-        # rubocop:enable Style/GuardClause
       else
         ENV['ANSI_COLOR'] =~ /^(t|y)/i
       end
@@ -190,27 +194,20 @@ module Neo
     def assert_raise(exception)
       begin
         yield
-        # rubocop:disable Lint/RescueException
       rescue Exception => e
         expected = e.is_a?(exception)
         assert(expected, "Exception #{exception.inspect} expected, but #{e.inspect} was raised")
         return e
-        # rubocop:enable Lint/RescueException
       end
       flunk "Exception #{exception.inspect} expected, but nothing raised"
     end
 
     def assert_nothing_raised
       yield
-      # rubocop:disable Lint/RescueException
-      # rubocop:disable Lint/UselessAssignment
     rescue Exception => e
       flunk "Expected nothing to be raised, but exception #{exception.inspect} was raised"
-      # rubocop:enable Lint/UselessAssignment
-      # rubocop:enable Lint/RescueException
     end
   end
-  # rubocop:disable Metrics/ClassLength
 
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
@@ -246,8 +243,6 @@ module Neo
       end
       @_contents
     end
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/MethodLength
 
     def observe(step)
       if step.passed?
@@ -263,8 +258,7 @@ module Neo
         @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
         throw :neo_exit
       end
-      # rubocop:enable Metrics/MethodLength
-      # rubocop:enable Metrics/AbcSize
+
     end
 
     def failed?
@@ -286,8 +280,6 @@ module Neo
         end_screen
       end
     end
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/MethodLength
 
     def show_progress
       bar_width = 50
@@ -303,8 +295,6 @@ module Neo
       end
       print Color.green(']')
       print " #{pass_count}/#{total_tests}"
-      # rubocop:enable Metrics/MethodLength
-      # rubocop:enable Metrics/AbcSize
     end
 
     def end_screen
@@ -318,7 +308,6 @@ module Neo
     def boring_end_screen
       puts 'Mountains are again merely mountains'
     end
-    # rubocop:disable Metrics/MethodLength
 
     def artistic_end_screen
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby
@@ -360,11 +349,7 @@ module Neo
                                                           ,,,
       ENDTEXT
       puts completed
-      # rubocop:enable Metrics/MethodLength
     end
-    # rubocop:disable Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/AbcSize
 
     def encourage
       puts 'The Master says:'
@@ -376,9 +361,6 @@ module Neo
       elsif progress.last.to_i.positive?
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
-      # rubocop:enable Metrics/PerceivedComplexity
-      # rubocop:enable Metrics/CyclomaticComplexity
-      # rubocop:enable Metrics/AbcSize
     end
 
     def guide_through_error
@@ -413,8 +395,6 @@ module Neo
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/MethodLength
     def a_zenlike_statement
       if !failed?
         zen_statement = 'Mountains are again merely mountains'
@@ -435,10 +415,7 @@ module Neo
                         end
       end
       puts Color.green(zen_statement)
-      # rubocop:enable Metrics/CyclomaticComplexity
-      # rubocop:enable Metrics/MethodLength
     end
-    # rubocop:enable Metrics/ClassLength
   end
 
   class Koan
@@ -465,7 +442,6 @@ module Neo
     def setup; end
 
     def teardown; end
-    # rubocop:disable Metrics/MethodLength
 
     def meditate
       setup
@@ -481,7 +457,6 @@ module Neo
         end
       end
       self
-      # rubocop:enable Metrics/MethodLength
     end
 
     # Class methods for the Neo test suite.
@@ -497,7 +472,6 @@ module Neo
       def end_of_enlightenment
         @tests_disabled = true
       end
-      # rubocop:disable Metrics/MethodLength
 
       def command_line(args)
         args.each do |arg|
@@ -507,16 +481,13 @@ module Neo
           when /^-n(.*)$/
             @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
           else
-            # rubocop:disable Style/GuardClause
             if File.exist?(arg)
               load(arg)
             else
               raise "Unknown command line argument '#{arg}'"
             end
-            # rubocop:enable Style/GuardClause
           end
         end
-        # rubocop:enable Metrics/MethodLength
       end
 
       # Lazy initialize list of subclasses
@@ -565,9 +536,7 @@ module Neo
     end
   end
 end
-# rubocop:disable Style/BlockDelimiters
-at_exit {
+at_exit do
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
-}
-# rubocop:enable Style/BlockDelimiters
+end

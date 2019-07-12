@@ -1,9 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
 
+# :reek:UncommunicativeVariableName
+# :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
-    string = 'Hello, World'
+    # rubocop:disable Style/StringLiterals
+    string = "Hello, World"
+    # rubocop:enable Style/StringLiterals
     assert_equal true, string.is_a?(String)
   end
 

@@ -51,6 +51,7 @@ class AboutModules < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal 'Fido', fido.name
