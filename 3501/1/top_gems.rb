@@ -70,9 +70,8 @@ class TopGems
     @tabs_length_max = Hash.new { |hash, key| hash[key] = 0 }
     @gems_stats.each do |gem_stats|
       gem_stats.keys.each do |key|
-        if gem_stats[key].to_s.size > @tabs_length_max[key]
-          @tabs_length_max[key] = gem_stats[key].to_s.size
-        end
+        @tabs_length_max[key] = gem_stats[key].to_s.size if
+          gem_stats[key].to_s.size > @tabs_length_max[key]
       end
     end
   end
