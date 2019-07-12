@@ -179,4 +179,3 @@ class TelevisionTest < Neo::Koan
   end
 end
 # rubocop: enable Lint/UnneededCopDisableDirective
-
