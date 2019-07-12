@@ -24,14 +24,14 @@ class GitGet
 
   def number_from_selector(selector)
     inner_html = @search_html_result.css(selector)[0].text
-    inner_html = inner_html.gsub(/,/, '')[/[0-9]+/]
+    inner_html = inner_html.delete(',')[/[0-9]+/]
     number = inner_html.to_i
     number
   end
 
   def umber_from_selector_class(selector1, selector2)
     inner_html = @search_html_result.css(selector1).css(selector2)[3].text
-    inner_html = inner_html.gsub(/,/, '')[/[0-9]+/]
+    inner_html = inner_html.delete(',')[/[0-9]+/]
     number = inner_html.to_i
     number
   end
