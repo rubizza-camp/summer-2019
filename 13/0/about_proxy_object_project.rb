@@ -42,7 +42,6 @@ class Proxy
       super
     end
   end
-
 end
 # The proxy object should pass the following Koan:
 # :reek:TooManyStatements and :reek:FeatureEnvy
