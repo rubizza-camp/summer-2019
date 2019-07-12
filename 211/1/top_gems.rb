@@ -103,7 +103,7 @@ gems_done = []
 end
 
 
-gems_done.sort_by! {|gem| gem.name}
+gems_done.sort_by! {|gem| gem.watch}
 
 gems_done.each do |gem_name|
   puts gem_name.issues

@@ -76,4 +76,25 @@ criteria.each do |cr, hsh|
 	criteria[cr] = hsh.each {|ge, num| hsh[ge] = (num * weights[cr]).round(3) }
 end
 
-puts criteria
+def transp(hsh)
+  hsh.inject({}) do |a,(k,v)|
+    v.inject(a) do |a1,(k1,v1)|
+      a1[k1] ||= {}
+      a1[k1][k] = v1
+      a1
+    end
+  end
+end
+puts
+puts
+
+p criteria_new = transp(criteria)
+
+def summarize(hsh)
+  hsh.each do |k,v|
+  	hsh[k] =  v.values.reduce(:+)
+  end
+end
+puts
+puts
+p summarize(criteria_new)
