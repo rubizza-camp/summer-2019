@@ -16,8 +16,8 @@ class TableDrawer
   attr_reader :info_hash, :top
 
   def rows
-    info_hash = append_names_transform
-    table_rows = info_hash.values.sort_by { |value| -popularity(value) }
+    info_hash_local = append_names_transform
+    table_rows = info_hash_local.values.sort_by { |value| -popularity(value) }
     return table_rows.take(top) unless top.zero?
 
     table_rows
