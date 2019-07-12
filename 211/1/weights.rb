@@ -15,11 +15,13 @@ arr = [rails_g,rspec_g, sinat_g]
 # weights = {:used_by => 9 , :watch => 5 , :star => 8, :fork => 10 , :contr => 1 , :op_iss => 1 , :cl_iss => 7  }
 
 
-#нормализация критериев
-def normalise(x, xmin, xmax, d0=0, d1=1)
-  xrange = xmax - xmin
-  drange = d1 - d0
-  d0 + (x - xmin) * (drange.to_f / xrange) 
+class Array
+  def normalise!(d0,d1)
+    xMin,xMax = self.minmax
+    dx = d1-d0
+    xrange = (xMax-xMin).to_f
+    self.map! {|x| (d0 + dx * (x-xMin) / xrange).round(2) }
+  end
 end
 
 criteria = {:used_by => [] , :watch => [] , :star => [], :fork => [] , :contr => [] , :op_iss => [] , :cl_iss => []  }
@@ -28,28 +30,8 @@ criteria.each do |cr, ar|
   arr.each do |gemn|
   	ar << gemn[cr]
   end
+  ar.normalise!(0,1)
 end
 
-puts criteria
-
-# xmin = arr_used.min
-# xmax = arr_used.max
-
-# arr_used.each do |u|
-# 	puts normalise(u, xmin, xmax)
-# end
-
-criteria.each do |cr, ar|
-	xmin = ar.min
-	xmax = ar.max
-	normalized_arr = []
-	ar.each do |crit|
-	  normalized_arr << normalise(crit, xmin, xmax)
-	end
-	p normalized_arr
-	p criteria[cr] = normalized_arr
-
-end
-
-puts
 p criteria
+
