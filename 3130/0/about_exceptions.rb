@@ -13,11 +13,11 @@ class AboutExceptions < Neo::Koan
   end
   # rubocop: enable Naming/MethodName
 
-  # rubocop: disable Metrics/MethodLength
+  # rubocop: disable Metrics/MethodLength, Style/SignalException
   def test_rescue_clause
     result = nil
     begin
-      raise 'Oops'
+      fail 'Oops'
     rescue StandardError => ex
       result = :exception_handled
     end
@@ -32,7 +32,7 @@ class AboutExceptions < Neo::Koan
 
     assert_equal 'Oops', ex.message
   end
-  # rubocop: enable Metrics/MethodLength
+  # rubocop: enable Metrics/MethodLength, Style/SignalException
 
   def test_raising_a_particular_error
     result = nil
@@ -47,11 +47,11 @@ class AboutExceptions < Neo::Koan
     assert_equal 'My Message', ex.message
   end
 
-  # rubocop: disable Lint/HandleExceptions, Lint/UselessAssignment
+  # rubocop: disable Lint/HandleExceptions, Lint/UselessAssignment, Style/SignalException
   def test_ensure_clause
     result = nil
     begin
-      raise 'Oops'
+      fail 'Oops'
     rescue StandardError
       # no code here
     ensure
@@ -60,7 +60,7 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :always_run, result
   end
-  # rubocop: enable Lint/HandleExceptions, Lint/UselessAssignment
+  # rubocop: enable Lint/HandleExceptions, Lint/UselessAssignment, Style/SignalException
 
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised

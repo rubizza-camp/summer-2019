@@ -1,14 +1,17 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrays < Neo::Koan
+  # rubocop:disable  Style/EmptyLiteral
   def test_creating_arrays
-    empty_array = []
+    empty_array = Array.new
     assert_equal Array, empty_array.class
     assert_equal 0, empty_array.size
   end
+  # rubocop:enable Style/EmptyLiteral
 
+  # rubocop:disable Style/EmptyLiteral
   def test_array_literals
-    array = []
+    array = Array.new
     assert_equal [], array
 
     array[0] = 1
@@ -20,10 +23,12 @@ class AboutArrays < Neo::Koan
     array << 333
     assert_equal [1, 2, 333], array
   end
+  # rubocop:enable  Style/EmptyLiteral
   # :reek:disable TooManyStatements
 
+  # rubocop:disable  Style/SymbolArray
   def test_accessing_array_elements
-    array = %i[peanut butter and jelly]
+    array = [:peanut, :butter, :and, :jelly]
 
     assert_equal :peanut, array[0]
     assert_equal :peanut, array.first
@@ -32,10 +37,12 @@ class AboutArrays < Neo::Koan
     assert_equal :jelly, array[-1]
     assert_equal :butter, array[-3]
   end
+  # rubocop:enable  Style/SymbolArray
   # :reek:enable TooManyStatements
 
+  # rubocop:disable  Style/SymbolArray
   def test_slicing_arrays
-    array = %i[peanut butter and jelly]
+    array = [:peanut, :butter, :and, :jelly]
 
     assert_equal [:peanut], array[0, 1]
     assert_equal %i[peanut butter], array[0, 2]
@@ -45,6 +52,7 @@ class AboutArrays < Neo::Koan
     assert_equal [], array[4, 100]
     assert_equal nil, array[5, 0]
   end
+  # rubocop:enable  Style/SymbolArray
 
   def test_arrays_and_ranges
     assert_equal Range, (1..5).class
@@ -53,13 +61,15 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2, 3, 4], (1...5).to_a
   end
 
+  # rubocop:disable  Style/SymbolArray
   def test_slicing_with_ranges
-    array = %i[peanut butter and jelly]
+    array = [:peanut, :butter, :and, :jelly]
 
     assert_equal %i[peanut butter and], array[0..2]
     assert_equal %i[peanut butter], array[0...2]
     assert_equal %i[and jelly], array[2..-1]
   end
+  # rubocop:enable  Style/SymbolArray
 
   def test_pushing_and_popping_arrays
     array = [1, 2]

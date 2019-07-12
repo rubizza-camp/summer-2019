@@ -1,10 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutArrayAssignment < Neo::Koan
+  # rubocop:disable Style/WordArray
   def test_non_parallel_assignment
-    names = %w[John Smith]
-    assert_equal %w[John Smith], names
+    names = ['John', 'Smith']
+    assert_equal ['John', 'Smith'], names
   end
+  # rubocop:enable Style/WordArray
 
   # rubocop:disable Style/ParallelAssignment
   def test_parallel_assignments
@@ -14,17 +16,21 @@ class AboutArrayAssignment < Neo::Koan
   end
   # rubocop:enable Style/ParallelAssignment
 
+  # rubocop:disable Style/WordArray
   def test_parallel_assignments_with_extra_values
-    first_name, last_name = %w[John Smith III]
+    first_name, last_name = ['John', 'Smith', 'III']
     assert_equal 'John', first_name
     assert_equal 'Smith', last_name
   end
+  # rubocop:enable Style/WordArray
 
+  # rubocop:disable Style/WordArray
   def test_parallel_assignments_with_splat_operator
-    first_name, *last_name = %w[John Smith III]
+    first_name, *last_name = ['John', 'Smith', 'III']
     assert_equal 'John', first_name
-    assert_equal %w[Smith III], last_name
+    assert_equal ['Smith', 'III'], last_name
   end
+  # rubocop:enable Style/WordArray
 
   def test_parallel_assignments_with_too_few_variables
     first_name, last_name = ['Cher']
@@ -32,17 +38,20 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal nil, last_name
   end
 
+  # rubocop:disable Style/ParallelAssignment, Style/WordArray
   def test_parallel_assignments_with_subarrays
-    first_name = %w[Willie Rae]
-    last_name = 'Johnson'
-    assert_equal %w[Willie Rae], first_name
+    first_name, last_name = ['Willie', 'Rae'], 'Johnson'
+    assert_equal ['Willie', 'Rae'], first_name
     assert_equal 'Johnson', last_name
   end
+  # rubocop:enable Style/ParallelAssignment, Style/WordArray
 
+  # rubocop:disable Style/WordArray
   def test_parallel_assignment_with_one_variable
-    first_name, = %w[John Smith]
+    first_name, = ['John', 'Smith']
     assert_equal 'John', first_name
   end
+  # rubocop:enable Style/WordArray
 
   # rubocop:disable Style/ParallelAssignment
   def test_swapping_with_parallel_assignment

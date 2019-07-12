@@ -69,7 +69,11 @@ class AboutClasses < Neo::Koan
     end
     # rubocop:enable Naming/AccessorMethodName
 
-    attr_reader :name
+    # rubocop:disable Style/TrivialAccessors
+    def name
+      @name
+    end
+    # rubocop:enable Style/TrivialAccessors
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
