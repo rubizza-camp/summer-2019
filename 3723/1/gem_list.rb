@@ -1,3 +1,5 @@
+# rubocop:disable Security/Open
+
 require 'terminal-table'
 require 'json'
 require 'yaml'
@@ -11,12 +13,12 @@ def take_repo(list)
   list.dig('gems').map do |info|
     gem_presense = Faraday.get "https://rubygems.org/api/v1/gems/#{info}.json"
     valid_gem = gem_presense.body.include?('name')
-    if valid_gem
-      response = Faraday.get "https://api.github.com/search/repositories?q=#{info}"
-      data = JSON.parse(response.body)
-      repo = data['items'][0]['full_name']
-      "https://api.github.com/repos/#{repo}"
-    end
+    next unless valid_gem
+
+    response = Faraday.get "https://api.github.com/search/repositories?q=#{info}"
+    data = JSON.parse(response.body)
+    repo = data['items'][0]['full_name']
+    "https://api.github.com/repos/#{repo}"
   end
 end
 
@@ -33,7 +35,7 @@ end
 def gem_stats(list)
   rows = []
   take_repo(list).compact.map do |repo|
-    response  = Faraday.get "#{repo}"
+    response = Faraday.get repo.to_s
     html_for_contributors = repo.sub('/api.github.com/repos/', '/github.com/')
     html_for_depen = html_for_contributors + '/network/dependents'
     data = JSON.parse(response.body)
@@ -46,8 +48,10 @@ def gem_stats(list)
     issues = "issues #{data['open_issues_count']}"
     rows << [name, used_by, watch, stars, forks, contributors, issues]
   end
-  table = Terminal::Table.new :rows => rows
+  table = Terminal::Table.new rows: rows
   puts table
 end
 
 gem_stats(list)
+
+# rubocop:enable Security/Open
