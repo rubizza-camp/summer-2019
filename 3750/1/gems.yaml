@@ -1,0 +1,9 @@
+gems:
+  - rails
+  - sinatra
+  - thor
+  - rake
+  - nokogiri
+  - rspec
+  - tilt
+  - arel
