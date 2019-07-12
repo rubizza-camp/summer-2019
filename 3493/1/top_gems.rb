@@ -9,18 +9,21 @@ require 'nokogiri'
 require 'open-uri'
 require 'gems'
 
+# :reek:UtilityFunction:
 def name_instruction(name_gems)
   gem_manager = Functions::GemManager.new
   gem_manager.parse_gem(name_gems: name_gems)
   gem_manager.show_table
 end
 
+# :reek:UtilityFunction:
 def file_instruction(file_name)
   gem_manager = Functions::GemManager.new
   gem_manager.parse_gem(file_name: file_name)
   gem_manager.show_table
 end
 
+# :reek:UtilityFunction:
 def top_instruction(top_count)
   gem_manager = Functions::GemManager.new
   gem_manager.parse_gem
