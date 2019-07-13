@@ -33,9 +33,5 @@ class RepoBody
 
   def get_used_by_doc
     Nokogiri::HTML(open("#{@git_url}/network/dependents"))
-  rescue StandardError
-    system('clear')
-    puts '404 gem not found'
-    abort
   end
 end

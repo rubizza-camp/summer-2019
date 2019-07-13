@@ -44,10 +44,16 @@ class TopGems
   private
 
   def parse_yaml
-    YAML.load_file(@file)['gems']
-  rescue StandardError
+    begin
+      return YAML.load_file(@file)['gems'] if @file
+    rescue StandardError
+      puts 'file not found, use default'
+    end
+    
     YAML.load_file('gem_list.yml')['gems']
   end
+
+ 
 
   def check_and_sort_gems(gem_list)
     gem_repos = gem_list.map { |gem_name| RepoBody.new(gem_name) }
