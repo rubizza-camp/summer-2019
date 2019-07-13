@@ -35,10 +35,12 @@ class AboutSymbols < Neo::Koan
 
   in_ruby_version('mri') do
     RUBYCONSTANT = 'What is the sound of one hand clapping?'.freeze
+    # rubocop:disable Style/SymbolProc
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols(&:to_s)
-      assert_equal true, all_symbols_as_strings.include?(:RUBYCONSTANT)
+      all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+      assert_equal true, all_symbols_as_strings.include?('RUBYCONSTANT')
     end
+    # rubocop:enable Style/SymbolProc
   end
 
   def test_symbols_can_be_made_from_strings

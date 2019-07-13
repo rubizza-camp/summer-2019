@@ -81,17 +81,15 @@ class AboutSandwichCode < Neo::Koan
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
-      count = 0
-      while file.gets
-        count += 1
+      while line = file.gets
+        return line if line.match(/e/)
       end
-      count
     end
   end
   # rubocop:enable Style/WhileUntilModifier
 
   def test_finding_lines2
-    assert_equal 4, find_line2('example_file.txt')
+    assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------

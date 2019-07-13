@@ -112,13 +112,11 @@ class AboutMessagePassing < Neo::Koan
   # ------------------------------------------------------------------
 
   class AllMessageCatcher
+    # rubocop:disable Style/MethodMissing
     def method_missing(method_name, *args)
-      "Someone called #{method_name} with <#{args.join(', ')}>" || super
+      "Someone called #{method_name} with <#{args.join(', ')}>" || super(method_name, *args)
     end
-
-    def respond_to_missing?(method_name, *args)
-      super
-    end
+    # rubocop:enable Style/MethodMissing
   end
 
   def test_all_messages_are_caught
