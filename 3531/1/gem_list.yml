@@ -6,3 +6,4 @@ gems:
  - ffi
  - rubyzip
  - spring
+ - rails

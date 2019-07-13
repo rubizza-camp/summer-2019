@@ -50,7 +50,8 @@ class TopGems
       puts 'file is not found, use default file...'
     end
 
-    YAML.load_file('gem_list.yml')['gems']
+    gem_names = YAML.load_file('gem_list.yml')['gems']
+    gem_names.uniq
   end
 
   def check_and_sort_gems(gem_list)
