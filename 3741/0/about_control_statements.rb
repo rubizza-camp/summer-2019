@@ -3,14 +3,16 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:RepeatedConditional
 
 class AboutControlStatements < Neo::Koan
+  # rubocop:disable Style/ConditionalAssignment
   def test_if_then_else_statements
     if true
-      result = :true_value if true
+      result = :true_value
     else
       result = :false_value
     end
     assert_equal :true_value, result
   end
+  # rubocop:enable Style/ConditionalAssignment
 
   def test_if_then_statements
     result = :default_value

@@ -36,8 +36,8 @@ class AboutSymbols < Neo::Koan
   in_ruby_version('mri') do
     RUBYCONSTANT = 'What is the sound of one hand clapping?'.freeze
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
-      assert_equal false, all_symbols_as_strings.include?(RUBYCONSTANT)
+      all_symbols_as_strings = Symbol.all_symbols(&:to_s)
+      assert_equal true, all_symbols_as_strings.include?(:RUBYCONSTANT)
     end
   end
 

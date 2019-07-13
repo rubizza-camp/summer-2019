@@ -145,12 +145,8 @@ class AboutMessagePassing < Neo::Koan
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else
-        super
+        super(method_name, *args, &block)
       end
-    end
-
-    def respond_to_missing?(method_name, *args)
-      super
     end
   end
 
