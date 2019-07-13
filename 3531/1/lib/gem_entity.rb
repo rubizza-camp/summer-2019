@@ -12,7 +12,7 @@ class GemEntity
   private
 
   def check_req
-    STDERR.print('.')
+    STDOUT.print('.')
   end
 
   def set_stats
@@ -28,27 +28,27 @@ class GemEntity
   end
 
   def issues
-    @doc.css("span[class='Counter']")[0].text
+    @doc.css('span.Counter')[0].text
   end
 
   def used_by
-    @used_by_doc.css("a[class='btn-link selected']").text
+    @used_by_doc.css('a.btn-link.selected').text
   end
 
   def forks
-    @doc.css("a[class='social-count']")[1].text
+    @doc.css('a.social-count')[1].text
   end
 
   def stars
-    @doc.css("a[class='social-count js-social-count']").text
+    @doc.css('a.social-count.js-social-count').text
   end
 
   def watched_by
-    @doc.css("a[class='social-count js-social-count']").text
+    @doc.css('a.social-count.js-social-count').text
   end
 
   def contributors
-    elem = @doc.css("a span[class='num text-emphasized']").text.split(' ')
+    elem = @doc.css('a span.num.text-emphasized').text.split(' ')
 
     return elem[2] unless elem[3]
 
