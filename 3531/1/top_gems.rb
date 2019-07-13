@@ -72,7 +72,7 @@ class TopGems
       gem = RepoBody.new(gem_name)
       gem.fetch_params
 
-      gem_entity = GemEntity.new(gem.name, gem.doc, gem.used_by_doc, @options[:verbose])
+      gem_entity = GemEntity.new(gem_name, gem.doc, gem.used_by_doc, @options[:verbose])
       gem_entity.set_params
       gem_entity
     end

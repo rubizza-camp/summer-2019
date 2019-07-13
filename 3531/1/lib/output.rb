@@ -23,16 +23,16 @@ class Output
     table = Terminal::Table.new do |t|
       ready_gems.each do |gem|
         gem_stats = gem[2].stats
-        t.add_row content(gem_stats)
+        t.add_row content(gem[1], gem_stats)
       end
     end
     puts ''
     puts table
   end
 
-  def content(stats)
+  def content(name, stats)
     [
-      stats[:name], "used by #{stats[:used_by]}",
+      name, "used by #{stats[:used_by]}",
       "watched by #{stats[:watched_by]}", "#{stats[:stars]} stars",
       "#{stats[:forks]} forks", "#{stats[:contributors]} contributors",
       "#{stats[:issues]} issues"

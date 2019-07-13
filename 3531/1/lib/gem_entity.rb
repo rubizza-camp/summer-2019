@@ -48,7 +48,7 @@ class GemEntity
   end
 
   def watched_by
-    @doc.css('a.social-count.js-social-count').text
+    @doc.css('a.social-count')[0].text
   end
 
   def contributors
