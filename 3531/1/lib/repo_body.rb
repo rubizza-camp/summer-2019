@@ -26,7 +26,7 @@ class RepoBody
 
     git_url.delete_suffix!('/') if git_url.end_with?('/')
     git_url
-  rescue StandardError
+  rescue NoMethodError
     system('clear')
     puts 'git url is not found'
     abort

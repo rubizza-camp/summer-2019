@@ -10,10 +10,7 @@ class Output
   def gems(gems)
     ready_gems = gems
     ready_gems = gems[0..@top] if @top
-
-    if @name
-      ready_gems = ready_gems.select { |gem| gem.dig(1).include?(@name) }
-    end
+    ready_gems = ready_gems.select { |gem| gem.dig(1).include?(@name) } if @name
 
     output_gems(ready_gems)
   end

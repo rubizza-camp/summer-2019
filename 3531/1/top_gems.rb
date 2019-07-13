@@ -46,7 +46,7 @@ class TopGems
   def parse_yaml
     begin
       return YAML.load_file(@file)['gems'] if @file
-    rescue StandardError
+    rescue TypeError
       puts 'not found, use default'
     end
 
@@ -54,11 +54,11 @@ class TopGems
   end
 
   def check_and_sort_gems(gem_list)
-    gems = gem_list.map do |gem_name|  
+    gems = gem_list.map do |gem_name|
       gem = RepoBody.new(gem_name)
       GemEntity.new(gem.name, gem.doc, gem.used_by_doc)
     end
-    
+
     GemSort.new(gems).call
   end
 end
