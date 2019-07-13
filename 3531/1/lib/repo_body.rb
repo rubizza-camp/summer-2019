@@ -1,18 +1,16 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Metrics/LineLength, Security/Open
-
 class RepoBody
   attr_reader :name, :doc, :used_by_doc
 
   def initialize(gem_name)
     @name = gem_name
-    @git_url = get_git_url
-    @doc = get_doc
-    @used_by_doc = get_used_by_doc
+    @git_url = set_git_url
+    @doc = set_doc
+    @used_by_doc = set_used_by_doc
   end
 
   private
 
-  def get_git_url
+  def set_git_url
     gem_url = "https://rubygems.org/api/v1/gems/#{@name}.json"
 
     begin
@@ -33,24 +31,21 @@ class RepoBody
     git_url.delete_suffix!('/') if git_url.end_with?('/')
     git_url
   rescue NoMethodError
-    system('clear')
     puts 'git url is not found'
     abort
   end
 
-  def get_doc
-    Nokogiri::HTML(open(@git_url))
+  def set_doc
+    Nokogiri::HTML(Kernel.open(@git_url))
   rescue SocketError
-    system('clear')
     puts 'tcp connection error'
     abort
   rescue Errno::ENOENT
-    system('clear')
     puts 'gem without git link'
     abort
   end
 
-  def get_used_by_doc
-    Nokogiri::HTML(open("#{@git_url}/network/dependents"))
+  def set_used_by_doc
+    Nokogiri::HTML(Kernel.open("#{@git_url}/network/dependents"))
   end
 end

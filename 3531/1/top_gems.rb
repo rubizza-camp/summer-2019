@@ -1,5 +1,3 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/GuardClause
-
 require_relative './lib/repo_body.rb'
 require_relative './lib/gem_sort.rb'
 require_relative './lib/output.rb'
@@ -57,17 +55,18 @@ class TopGems
     end
 
     gem_names = YAML.load_file('gem_list.yml')['gems']
-    gem_names.uniq
+    gem_names.uniq!
     check_gem_count(gem_names)
     gem_names
   end
 
   def check_gem_count(gems)
-    if gems.count >= 30
-      system('clear')
-      puts 'too much gems, limit is 30'
-      abort
-    end
+    exit_with_much_gems if gems.count >= 30
+  end
+
+  def exit_with_much_gems
+    puts 'too much gems, limit is 30'
+    abort
   end
 
   def check_and_sort_gems(gem_list)

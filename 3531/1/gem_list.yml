@@ -7,3 +7,5 @@ gems:
  - rubyzip
  - spring
  - rspec
+ - touch_action
+ - action_args
