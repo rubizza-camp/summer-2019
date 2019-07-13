@@ -1,0 +1,38 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    childprocess (1.0.1)
+      rake (< 13.0)
+    mini_portile2 (2.4.0)
+    nokogiri (1.10.3)
+      mini_portile2 (~> 2.4.0)
+    rake (12.3.2)
+    regexp_parser (1.5.1)
+    ruby-progressbar (1.10.1)
+    rubyzip (1.2.3)
+    selenium-webdriver (3.142.3)
+      childprocess (>= 0.5, < 2.0)
+      rubyzip (~> 1.2, >= 1.2.2)
+    terminal-table (1.8.0)
+      unicode-display_width (~> 1.1, >= 1.1.1)
+    unicode-display_width (1.6.0)
+    watir (6.16.5)
+      regexp_parser (~> 1.2)
+      selenium-webdriver (~> 3.6)
+    webdrivers (4.1.0)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (>= 3.0, < 4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  nokogiri
+  ruby-progressbar
+  terminal-table
+  watir
+  webdrivers
+
+BUNDLED WITH
+   2.0.2
