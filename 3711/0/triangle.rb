@@ -13,6 +13,7 @@
 # and
 #   about_triangle_project_2.rb
 #
+# :reek:TooManyStatements and :reek:FeatureEnvy
 def triangle(a_s, b_s, c_s)
   # Check triangle sides length
   sides = [a_s, b_s, c_s]

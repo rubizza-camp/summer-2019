@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
-# rubocop:disable all 
+# rubocop:disable all and :reek:disableall
 begin
   require 'win32console'
 rescue LoadError
