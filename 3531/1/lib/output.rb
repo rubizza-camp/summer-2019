@@ -24,7 +24,7 @@ class Output
         t.add_row [gem[2].name.to_s, "used by #{gem[2].stats[:used_by]}", "watched by #{gem[2].stats[:watched_by]}", "#{gem[2].stats[:stars]} stars", "#{gem[2].stats[:forks]} forks", "#{gem[2].stats[:contributors]} contributors", "#{gem[2].stats[:issues]} issues"]
       end
     end
-    
+
     system('clear')
     puts table
   end
