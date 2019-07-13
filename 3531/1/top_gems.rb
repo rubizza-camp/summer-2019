@@ -1,6 +1,7 @@
 require_relative './lib/repo_body.rb'
 require_relative './lib/gem_sort.rb'
 require_relative './lib/output.rb'
+require_relative './lib/gem_entity.rb'
 require 'yaml'
 require 'json'
 require 'nokogiri'
@@ -49,7 +50,8 @@ class TopGems
   end
 
   def check_and_sort_gems(gem_list)
-    gems = gem_list.map { |gem_name| RepoBody.new(gem_name) }
+    gem_repos = gem_list.map { |gem_name| RepoBody.new(gem_name) }
+    gems = gem_repos.map { |gem| GemEntity.new(gem.name, gem.doc, gem.used_by_doc) }
     GemSort.new(gems).call
   end
 end
