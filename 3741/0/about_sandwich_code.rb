@@ -77,7 +77,7 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/WhileUntilModifier
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
@@ -88,6 +88,7 @@ class AboutSandwichCode < Neo::Koan
       count
     end
   end
+  # rubocop:enable Style/WhileUntilModifier
 
   def test_finding_lines2
     assert_equal 4, find_line2('example_file.txt')
