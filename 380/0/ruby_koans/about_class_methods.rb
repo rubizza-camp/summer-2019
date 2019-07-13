@@ -71,17 +71,16 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  class Dog
-    attr_reader :name
+  class DogMore
+    attr_accessor :name
   end
 
   def test_classes_and_instances_do_not_share_instance_variables
-    fido = Dog.new
+    fido = DogMore.new
     fido.name = 'Fido'
     assert_equal 'Fido', fido.name
-    assert_equal nil, Dog.name
+    assert_equal 'AboutClassMethods::DogMore', DogMore.name
   end
-
   # ------------------------------------------------------------------
   class Dog
     def self.a_class_method
@@ -95,20 +94,23 @@ class AboutClassMethods < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disable Lint/UselessAssignment
-  self_inside_of_class_statesment = class Dog
-                                      self
-                                    end
-
-  def test_self_while_inside_class_is_class_object_not_instance
-    assert_equal true, Dog == self_inside_of_class_statesment
-  end
-
-  last_expression_in_class_statement = class Dog
-                                         21
-                                       end
+  # rubocop:disable Naming/ConstantName
+  LastExpressionInClassStatement = class Dog
+                                     21
+                                   end
 
   def test_class_statements_return_the_value_of_their_last_expression
-    assert_equal 21, last_expression_in_class_statement
+    assert_equal 21, LastExpressionInClassStatement
+  end
+
+  # ------------------------------------------------------------------
+
+  SelfInsideOfClassStatement = class Dog
+                                 self
+                               end
+
+  def test_self_while_inside_class_is_class_object_not_instance
+    assert_equal true, Dog == SelfInsideOfClassStatement
   end
 
   # rubocop:enable Lint/UselessAssignment

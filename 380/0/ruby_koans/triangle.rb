@@ -30,8 +30,8 @@ def triangle(a_s, b_s, c_s)
     raise TriangleError, 'No two sides can add to be less than or equal to the other side'
   end
 
-  return :equilateral if a_side.equal?(b_side) && a_side.equal?(c_side)
-  return :isosceles if a_side.equal?(b_side) || a_side.equal?(c_side) || b_side.equal?(c_side)
+  return :equilateral if a_s.equal?(b_s) && a_s.equal?(c_s)
+  return :isosceles if a_s.equal?(b_s) || a_s.equal?(c_s) || b_s.equal?(c_s)
 
   :scalene
 end

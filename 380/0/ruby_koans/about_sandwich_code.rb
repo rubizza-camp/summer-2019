@@ -8,7 +8,7 @@ class AboutSandwichCode < Neo::Koan
     count += 1 while file_one.gets
     count
   ensure
-    file&.close if file
+    file_one&.close if file_one
   end
 
   def test_counting_lines
@@ -51,12 +51,12 @@ class AboutSandwichCode < Neo::Koan
   #
   # Consider the following code:
   #
-
+  # :reek:NilCheck
   def file_sandwich(file_name)
     file_three = open(file_name)
     yield(file_three)
   ensure
-    file.close if file_three
+    file_three&.close
   end
   # Now we write:
 

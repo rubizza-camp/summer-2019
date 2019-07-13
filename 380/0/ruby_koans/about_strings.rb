@@ -33,8 +33,8 @@ class AboutStrings < Neo::Koan
     first_phrase = %(flexible quotes can handle both ' and " characters)
     second_phrase = %(!flexible quotes can handle both ' and " characters!)
     third_phrase = %({flexible quotes can handle both ' and " characters})
-    assert_equal true, first_phrase == second_phrase
-    assert_equal true, first_phrase == third_phrase
+    assert_equal false, first_phrase == second_phrase
+    assert_equal false, first_phrase == third_phrase
   end
 
   def test_flexible_quotes_can_handle_multiple_lines
@@ -42,9 +42,9 @@ class AboutStrings < Neo::Koan
 It was the best of times,
 It was the worst of times.
 })
-    assert_equal 54, long_string.length
-    assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0, 1]
+    assert_equal 56, long_string.length
+    assert_equal 4, long_string.lines.count
+    assert_equal "{", long_string[0, 1]
   end
 
   def test_here_documents_can_also_handle_multiple_lines
