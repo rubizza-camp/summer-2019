@@ -1,7 +1,6 @@
 # rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Metrics/AbcSize
 class GemEntity
   attr_reader :name, :stats, :score
-
   def initialize(name, doc, used_by_doc)
     @name = name
     @doc = doc
@@ -13,21 +12,21 @@ class GemEntity
   private
 
   def get_stats
-    stats = {}
-
-    stats[:watched_by] = @doc.css("a[class='social-count']")[0].text
-    stats[:stars] = @doc.css("a[class='social-count js-social-count']").text
-    stats[:forks] = @doc.css("a[class='social-count']")[1].text
-    stats[:issues] = @doc.css("span[class='Counter']")[0].text
-    stats[:used_by] = @used_by_doc.css("a[class='btn-link selected']").text
-    stats[:contributors] = get_contributors
+    stats = {
+      watched_by: @doc.css("a[class='social-count']")[0].text,
+      stars: @doc.css("a[class='social-count js-social-count']").text,
+      forks: @doc.css("a[class='social-count']")[1].text,
+      issues: @doc.css("span[class='Counter']")[0].text,
+      used_by: @used_by_doc.css("a[class='btn-link selected']").text,
+      contributors: get_contributors
+    }
 
     delete_spaces(stats)
   end
 
   def get_contributors
     elem = @doc.css("a span[class='num text-emphasized']").text.split(' ')
-    # without license
+
     return elem[2] unless elem[3]
 
     # with license
