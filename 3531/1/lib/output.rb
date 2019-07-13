@@ -3,6 +3,7 @@
 class Output
   def initialize(params)
     @name = params[:name] if params[:name]
+    # array starts with 0
     @top = params[:top] - 1 if params[:top]
   end
 
