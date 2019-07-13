@@ -20,13 +20,13 @@ class GetGemDataFromGit
     @api_response = HTTParty.get("#{API_URL}#{gem_name}#{PARAMS}")
     @repo = repository
     @html = use_nokogiri
-  rescue GetGemDataFromGitException => error # rubocop:disable Naming/RescuedExceptionsVariableName
+  rescue GetGemDataFromGitException => error
     repository_not_found(gem_name, error.message)
   end
 
   def call(gem_name)
     call_from_response
-  rescue GetGemDataFromGitException => error # rubocop:disable Naming/RescuedExceptionsVariableName
+  rescue GetGemDataFromGitException => error
     repository_not_found(gem_name, error.message)
   end
 
