@@ -44,7 +44,7 @@ It was the worst of times.
 })
     assert_equal 56, long_string.length
     assert_equal 4, long_string.lines.count
-    assert_equal "{", long_string[0, 1]
+    assert_equal '{', long_string[0, 1]
   end
 
   def test_here_documents_can_also_handle_multiple_lines

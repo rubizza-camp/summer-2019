@@ -70,7 +70,7 @@ class AboutClassMethods < Neo::Koan
     assert_equal :class_level_wag, Dog2.wag
   end
 
-  # ------------------------------------------------------------------
+  # :reek:Attribute
   class DogMore
     attr_accessor :name
   end

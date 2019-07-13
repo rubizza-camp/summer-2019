@@ -17,7 +17,7 @@
 # rubocop:disable Metrics/PerceivedComplexity
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/LineLength
-# :reek:TooManyStatements
+# :reek:TooManyStatements, :reek:FeatureEnvy
 
 def triangle(a_s, b_s, c_s)
   raise TriangleError, 'one or many sides equal to zero!' if a_s.equal?(0) || c_s.equal?(0) || b_s.equal?(0)
@@ -28,8 +28,11 @@ def triangle(a_s, b_s, c_s)
 
   :scalene
 end
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/LineLength
 
 # Errsor class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# rubocop:enable All
