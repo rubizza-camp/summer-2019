@@ -8,7 +8,9 @@ require 'terminal-table'
 require 'optparse'
 require_relative 'filters.rb'
 
+# rubocop:disable Style/MixinUsage
 include Filters
+# rubocop:enable Style/MixinUsage
 
 # :reek:TooManyStatements
 def run
@@ -100,13 +102,13 @@ end
 def popularity(info)
   info.values.select { |value| Numeric === value }.reduce(:+)
 end
-# rubocop:enable Style/CaseEquality
 
+# rubocop:enable Style/CaseEquality
+# rubocop:disable Security/Open
 def contributors(uri)
   Nokogiri::HTML(open('https://github.com/' + uri))
 end
 
-# rubocop:disable Security/Open
 def dependents(uri)
   Nokogiri::HTML(open('https://github.com/' + uri + '/network/dependents'))
 end
