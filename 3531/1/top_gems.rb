@@ -49,9 +49,7 @@ class TopGems
   end
 
   def check_and_sort_gems(gem_list)
-    gems = []
-
-    gem_list.each { |gem_name| gems << RepoBody.new(gem_name) }
+    gems = gem_list.map { |gem_name| RepoBody.new(gem_name) }
     GemSort.new(gems).sorted_gems
   end
 end
