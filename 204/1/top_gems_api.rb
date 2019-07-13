@@ -3,124 +3,140 @@ require 'yaml'
 require 'octokit'
 require 'open-uri'
 require 'nokogiri'
-require 'byebug'
+require 'pry'
 require 'terminal-table'
 require 'optparse'
+require_relative 'filters.rb'
 
-def opt_file
-  @options = {}
+include Filters
+
+# :reek:TooManyStatements
+def run
+  client = authentication
+  options = options_parse
+  data = load_yaml(options[:file])
+  data = filter_by_name(data, options[:name_sort])
+  result = info(data, client)
+  result = filter_by_top(result, options[:top])
+  result = sort_by_popularity(result)
+  puts output(result)
+end
+
+private
+# rubocop:disable Metrics/MethodLength
+# :reek:UtilityFunction
+# :reek:NilCheck:
+# :reek:TooManyStatements
+# :reek:NestedIterators:
+def options_parse
+  options = {}
   optparse = OptionParser.new do |opts|
-    @options[:config_file] = nil
-    @options[:name_sort] = nil
-    @options[:top] = nil
-    opts.on('-f', '--config-file [Array]', Array, 'Enter the config file to open.') do |file|
-      @options[:config_file] = file
+    opts.on('-f', '---file [STRING]', String, 'Enter the config file to open.') do |file|
+      options[:file] = file
     end
-    opts.on('-n', '--name [STRING]', String, 'Enter the config file to open.') do |name|
-      @options[:name_sort] = name
+    opts.on('-n', '--name [STRING]', String, 'Enter name to filter gems by name') do |name|
+      options[:name_sort] = name
     end
-    opts.on('-t', '--top [INTEGER]', Integer, 'Enter the config file to open.') do |t|
-      @options[:top] = t
+    opts.on('-t', '--top [INTEGER]', Integer, 'Enter number to filter top of gems') do |top|
+      options[:top] = top
     end
   end
   optparse.parse!
-  file = if @options[:config_file].nil?
-           'gems.yaml'
-         else
-           @options[:config_file].to_s.gsub!(/[^0-9A-Za-z.]/, '')
-         end
+  options[:file].nil? ? options[:file] = 'gems.yaml' : options[:file]
+  options
 end
+# rubocop:enable Metrics/MethodLength
 
+# :reek:UtilityFunction
 def authentication
-  @client = Octokit::Client.new(:access_token => "fc1076230728f91f95b4571992b36d6fa5b9930e")
-  user = @client.user
-  user.login
+  client = Octokit::Client.new(access_token: 'ee18b1d8b291cd58a847c3e38aa74bed71151966')
+  client.user.login
+  client
 end
 
-def yaml_parser
-  thing = YAML.load_file(opt_file)
-  authentication
-  @gems_hash = {}
-  thing.values[0].each do |name|
-    gem = Gems.info(name)
-    @uri = if gem['source_code_uri'].eql?(nil)
-             if gem['homepage_uri'].include?('https:')
-               gem['homepage_uri'].sub! 'https://github.com/', ''
-             else
-               gem['homepage_uri'].sub! 'http://github.com/', ''
-             end
-           else
-             if gem['source_code_uri'].include?('https:')
-               gem['source_code_uri'].sub! 'https://github.com/', ''
-             else
-               gem['source_code_uri'].sub! 'http://github.com/', ''
-             end
-           end
-    user = @client.repo @uri
-    doc = Nokogiri::HTML(open('https://github.com/' + @uri))
-    doc_dependents = Nokogiri::HTML(open('https://github.com/' + @uri + '/network/dependents'))
-    @gems_hash.merge!("#{name}": gem_stats(user))
-    @gems_hash.merge!("#{name}": contributors(doc, doc_dependents))
-    @gems_hash.merge!("#{name}": popularizer)
+# :reek:UtilityFunction
+def load_yaml(options)
+  data = YAML.load_file(options)
+  data
+end
+
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
+# :reek:TooManyStatements
+def info(data, client)
+  gem_data = {}
+  data.each do |gem|
+    gem_info = Gems.info(gem)
+    uri = (gem_info['source_code_uri'] || gem_info['homepage_uri']).sub!(%r{http.*com/}, '')
+    repo = client.repo uri
+    contributors_count = contributors(uri).css('span.num.text-emphasized').children[2].text.to_i
+    used_by_count = dependents(uri).css('.btn-link')[1].text.delete('^0-9').to_i
+    info = gem_info(repo, contributors_count, used_by_count)
+    gem_data.merge!("#{gem}": info)
   end
+  gem_data
 end
 
-def gem_stats(user)
-  @gem_stats = {}
-  @gem_stats.merge!(name: user[:name])
-  @gem_stats.merge!(stargazers: user[:stargazers_count])
-  @gem_stats.merge!(forks_count: user[:forks_count])
-  @gem_stats.merge!(issues: user[:open_issues_count])
-  @gem_stats.merge!(subscribers: user[:subscribers_count])
+# rubocop:enable Metrics/AbcSize
+# :reek:FeatureEnvy
+def gem_info(repo, contributors_count, used_by_count)
+  info = {
+    name: repo[:name],
+    stargazers: repo[:stargazers_count],
+    forks_count: repo[:forks_count],
+    issues: repo[:open_issues_count],
+    subscribers: repo[:subscribers_count],
+    contributors: contributors_count,
+    used_by: used_by_count,
+    popularity: 0
+  }
+  info[:popularity] = popularity(info)
+  info
 end
 
-def contributors(doc, doc_dependents)
-  contributors = doc.css('span.num.text-emphasized').children[2].to_s.delete('^0-9').to_i
-  used_by = doc_dependents.css('.btn-link')[1].text.delete('^0-9').to_i
-  @gem_stats.merge!(contributors: contributors)
-  @gem_stats.merge!(used_by: used_by)
+# :reek:UtilityFunction
+# rubocop:enable Metrics/MethodLength
+# rubocop:disable Style/CaseEquality
+def popularity(info)
+  info.values.select { |value| Numeric === value }.reduce(:+)
+end
+# rubocop:enable Style/CaseEquality
+
+def contributors(uri)
+  Nokogiri::HTML(open('https://github.com/' + uri))
 end
 
-def popularizer
-  popularity = @gem_stats.values.select { |i| Numeric === i }.reduce(:+)
-  @gem_stats.merge!(popularity: popularity)
+# rubocop:disable Security/Open
+def dependents(uri)
+  Nokogiri::HTML(open('https://github.com/' + uri + '/network/dependents'))
+end
+# rubocop:enable Security/Open
+
+# :reek:UtilityFunction
+def result_parse(result, gem)
+  result[gem].values_at(
+    :name,
+    :used_by,
+    :subscribers,
+    :stargazers,
+    :forks_count,
+    :contributors,
+    :issues,
+    :popularity
+  )
 end
 
-@keys = yaml_parser
-
-def table(sorted_hash)
-  table = Terminal::Table.new do |t|
-    t.headings = ['gem', 'used by', 'watched by', 'stars', 'forks', 'contributors', 'issues', 'popularity']
-    table_hash = sorted_hash.to_h
-    table_hash.to_h.keys.each do |key|
-      key_hash = table_hash[key]
-      t << [key, key_hash[:used_by], key_hash[:subscribers], key_hash[:stargazers], key_hash[:forks_count], key_hash[:contributors], key_hash[:issues], key_hash[:popularity]]
-      t << :separator
-      t.style = { border_top: false, border_bottom: false }
+# :reek:FeatureEnvy
+# :reek:NestedIterators:
+def output(result)
+  Terminal::Table.new do |table|
+    table.headings = [
+      'gem', 'used by', 'watched by', 'stars', 'forks', 'contributors', 'issues', 'popularity'
+    ]
+    result.keys.each do |gem|
+      table << result_parse(result, gem)
     end
   end
 end
 
-def name_sort
-  if @options[:name_sort].eql?(nil)
-    @gems_hash
-  else
-    @gems_hash = @gems_hash.select { |k, _v| k.match? @options[:name_sort] }
-  end
-end
-
-def sorted_hash
-  if @options[:top].eql?(nil)
-    @gems_hash.sort_by { |_k, v| v[:popularity] }.reverse.to_h
-  else
-    @gems_hash.sort_by { |_k, v| v[:popularity] }.reverse.to_h.first(@options[:top])
-  end
-end
-
-def result
-  name_sort
-  sorted_hash
-  puts table(sorted_hash)
-end
-
-result
+run
