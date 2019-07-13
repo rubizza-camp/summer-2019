@@ -2,25 +2,36 @@ require 'rubygems'
 require 'open-uri'
 require 'nokogiri'
 
-url = 'https://github.com/rspec/rspec-core'
-html = open(url)
-doc = Nokogiri::HTML(html)
+class Parcer
+	def open_first_url(gem_name)
+		@url = "https://github.com/#{gem_name}"
+        @html = open(@url)
+        @doc = Nokogiri::HTML(@html)
+	end
 
-link = doc.search('main div div li')
-puts link[0].content
-puts link[1].content
-puts link[3].content
-puts link[4].content
-puts link[5].content
-puts link[6].content
+	def open_second_url(gem_name)
+		@url = "https://github.com/#{gem_name}/network/dependents"
+        @html = open(@url)
+        @doc = Nokogiri::HTML(@html)
+	end
 
-url = 'https://github.com/rspec/rspec-core/network/dependents'
-html = open(url)
-doc = Nokogiri::HTML(html)
+	def url_info(gem_name)
+		mass = []
 
-bla = doc.css('a[class *="btn-link selected"]').text
-puts bla
+		open_first_url(gem_name)
 
+		link = @doc.search('main div div li')
 
-puts 'I work'
+		(0..6).each do |i|
+     	mass << link[i].content.scan(/[A-Za-z0-9,]+/).join(' ')
+        end
 
+        open_second_url(gem_name)
+        mass << @doc.css('a[class *="btn-link selected"]').text.scan(/[A-Za-z0-9,]+/).join(' ')
+        puts mass.inspect
+	end
+end
+
+test_oop = Parcer.new
+
+test_oop.url_info("rspec/rspec-core")
