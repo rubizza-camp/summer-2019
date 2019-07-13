@@ -1,11 +1,16 @@
+class NotFoundError < StandardError; end
+
 class RepoBody
   attr_reader :name, :doc, :used_by_doc
 
   def initialize(gem_name)
     @name = gem_name
+  end
+
+  def fetch_params
     @git_url = set_git_url
-    @doc = set_doc
-    @used_by_doc = set_used_by_doc
+    @doc = fetch_doc
+    @used_by_doc = fetch_used_by_doc
   end
 
   private
@@ -15,11 +20,11 @@ class RepoBody
 
     begin
       res = Faraday.get(gem_url)
-      raise NoMethodError if res.status == 404
+      raise NotFoundError if res.status == 404
 
       res_params = JSON.parse(res.body)
-    rescue NoMethodError
-      puts '404 gem not found'
+    rescue NotFoundError
+      warn '404 gem not found'
       abort
     end
     fetch_url(res_params)
@@ -31,22 +36,22 @@ class RepoBody
 
     git_url.delete_suffix!('/') if git_url.end_with?('/')
     git_url
-  rescue NoMethodError
-    puts 'git url is not found'
+  rescue NotFoundError
+    warn 'git url is not found'
     abort
   end
 
-  def set_doc
+  def fetch_doc
     Nokogiri::HTML(Kernel.open(@git_url))
   rescue SocketError
-    puts 'tcp connection error'
+    warn 'tcp connection error'
     abort
   rescue Errno::ENOENT
-    puts 'gem without git link'
+    warn 'gem without git link'
     abort
   end
 
-  def set_used_by_doc
+  def fetch_used_by_doc
     Nokogiri::HTML(Kernel.open("#{@git_url}/network/dependents"))
   end
 end

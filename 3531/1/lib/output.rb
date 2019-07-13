@@ -16,7 +16,7 @@ class Output
   private
 
   def outputs_gems(ready_gems)
-    puts 'no gems' if ready_gems.empty?
+    warn 'no gems' if ready_gems.empty?
     create_table(ready_gems) unless ready_gems.empty?
   end
 

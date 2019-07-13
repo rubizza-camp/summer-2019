@@ -4,9 +4,13 @@ class GemEntity
     @name = name
     @doc = doc
     @used_by_doc = used_by_doc
+    @verbose = verbose
+  end
+
+  def set_params
     @stats = set_stats
     @score = set_score
-    check_req if verbose
+    check_req if @verbose
   end
 
   private

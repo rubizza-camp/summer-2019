@@ -38,7 +38,7 @@ class TopGems
     @options = options
   end
 
-  def call
+  def run
     output = Output.new(@options)
     gem_list = parse_yaml
     sorted_gems = check_and_sort_gems(gem_list)
@@ -54,29 +54,33 @@ class TopGems
   end
 
   def load_default
-    file = File.expand_path('.', File.dirname(__FILE__) + '/gem_list.yml')
+    file = File.join(Dir.pwd, 'gem_list.yml')
     YAML.load_file(file)['gems'].uniq
   rescue Errno::ENOENT
-    puts "file #{file} is not found, please use -f option"
+    warn "file #{file} is not found, please use -f option"
     abort
   end
 
   def load_custom
-    file = File.expand_path('.', File.dirname(__FILE__) + "/#{@file}")
+    file = File.join(Dir.pwd, @file)
     YAML.load_file(file)['gems'].uniq
   rescue Errno::ENOENT
-    puts "file #{file} is not found, using default file..."
+    warn "file #{file} is not found, using default file..."
     load_default
   end
 
   def check_and_sort_gems(gem_list)
     gems = gem_list.map do |gem_name|
       gem = RepoBody.new(gem_name)
-      GemEntity.new(gem.name, gem.doc, gem.used_by_doc, @options[:verbose])
+      gem.fetch_params
+
+      gem_entity = GemEntity.new(gem.name, gem.doc, gem.used_by_doc, @options[:verbose])
+      gem_entity.set_params
+      gem_entity
     end
 
     GemSort.new(gems).call
   end
 end
 
-TopGems.new(options).call
+TopGems.new(options).run
