@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyStatements
@@ -7,11 +9,10 @@ class AboutArrays < Neo::Koan
     empty_array = Array.new
     assert_equal Array, empty_array.class
     assert_equal 0, empty_array.size
-    # rubocop:enable Style/EmptyLiteral
   end
 
   def test_array_literals
-    array = []
+    array = Array.new
     assert_equal [], array
 
     array[0] = 1
@@ -22,6 +23,7 @@ class AboutArrays < Neo::Koan
 
     array << 333
     assert_equal [1, 2, 333], array
+    # rubocop:enable Style/EmptyLiteral
   end
 
   def test_accessing_array_elements
