@@ -104,7 +104,6 @@ def popularity(info)
 end
 
 # rubocop:enable Style/CaseEquality
-# rubocop:disable Security/Open
 def contributors(uri)
   Nokogiri::HTML(open('https://github.com/' + uri))
 end
@@ -112,7 +111,6 @@ end
 def dependents(uri)
   Nokogiri::HTML(open('https://github.com/' + uri + '/network/dependents'))
 end
-# rubocop:enable Security/Open
 
 # :reek:UtilityFunction
 def result_parse(result, gem)
