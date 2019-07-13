@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require './scraper'
 require 'terminal-table'
 class TableDrawer
+  PATH_TO_WEIGHTS = 'weights.yaml'
   def initialize(hash, top)
     @info_hash = hash
     @top = top
@@ -28,6 +31,7 @@ class TableDrawer
   end
 
   def popularity(info)
-    Config::WEIGHTS.zip(info[1..-1]).inject(0) { |sum, (weight, value)| sum + (weight * value) }
+    weights_arr = YAML.load_file(PATH_TO_WEIGHTS)['weights'].values
+    weights_arr.zip(info[1..-1]).inject(0) { |sum, (weight, value)| sum + (weight * value) }
   end
 end

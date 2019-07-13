@@ -11,8 +11,7 @@ class TopGems
   end
 
   def run
-    file, name, top = options.values_at(:file, :name, :top)
-    TableDrawer.new(ranking(file, name), top).draw
+    TableDrawer.new(ranking(gem_names, name_pattern), top).draw
   end
 
   private
@@ -26,6 +25,21 @@ class TopGems
       transformer_link = NameToLinkTransformer.new(str).link
       hsh[str] = scrape_value(transformer_link) unless transformer_link == 'no-link'
     end
+  end
+
+  def gem_names
+    @gem_names ||= begin
+      path = options[:file] || 'example.yaml'
+      YAML.load_file(path)['gems']
+    end
+  end
+
+  def name_pattern
+    @name_pattern ||= @options[:name] || ''
+  end
+
+  def top
+    @top ||= @options[:top].to_i
   end
 
   def scrape_value(link)
@@ -46,15 +60,7 @@ class TopGems
   def parse
     options = {}
     create_parser.parse!(into: options)
-    validate_options(options)
-  end
-
-  def validate_options(options_hash)
-    options_hash[:file] ||= 'example.yaml'
-    options_hash[:file] = YAML.load_file(options_hash[:file])['gems']
-    options_hash[:name] ||= ''
-    options_hash[:top] = options_hash[:top].to_i
-    options_hash
+    options
   end
 end
 TopGems.new.run
