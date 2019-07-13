@@ -93,7 +93,6 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Lint/UselessAssignment
   # rubocop:disable Naming/ConstantName
   LastExpressionInClassStatement = class Dog
                                      21
@@ -112,8 +111,7 @@ class AboutClassMethods < Neo::Koan
   def test_self_while_inside_class_is_class_object_not_instance
     assert_equal true, Dog == SelfInsideOfClassStatement
   end
-
-  # rubocop:enable Lint/UselessAssignment
+  # rubocop:enable Naming/ConstantName
   class Dog
     def self.class_method2
       :another_way_to_write_class_methods
