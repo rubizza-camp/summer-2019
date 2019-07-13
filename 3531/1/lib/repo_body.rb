@@ -14,9 +14,15 @@ class RepoBody
 
   def get_git_url
     gem_url = "https://rubygems.org/api/v1/gems/#{@name}.json"
-    res = Faraday.get(gem_url)
-    res_params = JSON.parse(res.body)
 
+    begin
+      res = Faraday.get(gem_url)
+      res_params = JSON.parse(res.body)
+    rescue JSON::ParserError
+      system('clear')
+      puts '404 gem not found'
+      abort
+    end
     fetch_url(res_params)
   end
 
@@ -34,9 +40,9 @@ class RepoBody
 
   def get_doc
     Nokogiri::HTML(open(@git_url))
-  rescue StandardError
+  rescue SocketError
     system('clear')
-    puts '404 gem not found'
+    puts 'tcp connection error'
     abort
   end
 
