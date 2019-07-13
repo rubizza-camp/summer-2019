@@ -53,38 +53,18 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-<<<<<<< HEAD
-<<<<<<< HEAD
   # :reek:UncommunicativeModuleName
   class Dachshund
-=======
-
-  class DogSecond
->>>>>>> fix about_class_methods
-=======
-  # :reek:UncommunicativeModuleName
-  class Dog2
->>>>>>> Revert "fix about_class_methods"
     def wag
       :instance_level_wag
     end
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   def Dachshund.wag
-=======
-  def DogSecond.wag
->>>>>>> fix about_class_methods
-=======
-  def Dog2.wag
->>>>>>> Revert "fix about_class_methods"
     :class_level_wag
   end
 
   def test_since_classes_are_objects_you_can_define_singleton_methods_on_them_too
-<<<<<<< HEAD
-<<<<<<< HEAD
     assert_equal :class_level_wag, Dachshund.wag
   end
 
@@ -92,22 +72,6 @@ class AboutClassMethods < Neo::Koan
     fido = Dachshund.new
     assert_equal :instance_level_wag, fido.wag
     assert_equal :class_level_wag, Dachshund.wag
-=======
-    assert_equal :class_level_wag, DogSecond.wag
-=======
-    assert_equal :class_level_wag, Dog2.wag
->>>>>>> Revert "fix about_class_methods"
-  end
-
-  def test_class_methods_are_independent_of_instance_methods
-    fido = Dog2.new
-    assert_equal :instance_level_wag, fido.wag
-<<<<<<< HEAD
-    assert_equal :class_level_wag, DogSecond.wag
->>>>>>> fix about_class_methods
-=======
-    assert_equal :class_level_wag, Dog2.wag
->>>>>>> Revert "fix about_class_methods"
   end
 
   # ------------------------------------------------------------------

@@ -158,15 +158,9 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
-<<<<<<< HEAD
-<<<<<<< HEAD
-  # rubocop: enable Style/MethodMissing
-=======
-=======
-  # rubocop: enable Style/MethodMissing
->>>>>>> Revert "little rewrite rubocop about_message"
 
->>>>>>> little rewrite rubocop about_message
+  # rubocop: enable Style/MethodMissing
+
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
 
