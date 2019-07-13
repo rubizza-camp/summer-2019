@@ -69,7 +69,6 @@ class TopGems
   def check_and_sort_gems(gem_list)
     gems = gem_list.map do |gem_name|
       gem = RepoBody.new(gem_name)
-      puts gem
       GemEntity.new(gem.name, gem.doc, gem.used_by_doc)
     end
 

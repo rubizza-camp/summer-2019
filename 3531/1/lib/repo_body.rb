@@ -44,6 +44,10 @@ class RepoBody
     system('clear')
     puts 'tcp connection error'
     abort
+  rescue Errno::ENOENT
+    system('clear')
+    puts 'gem without git link'
+    abort
   end
 
   def get_used_by_doc
