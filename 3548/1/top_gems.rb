@@ -75,8 +75,9 @@ class Helpmeplease
   end
 
   num = options[:number] # display top of some number
-  if !num.nil? # rubocop:disable Style/ConditionalAssignment
-    table = Terminal::Table.new rows: uganda[0..num.to_i - 1]
+  if !num.nil? && !num.empty?
+    puts num.inspect
+    table = Terminal::Table.new rows: uganda[0...num.to_i]
   else
     table = Terminal::Table.new rows: uganda
   end
