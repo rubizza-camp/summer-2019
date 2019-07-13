@@ -22,7 +22,7 @@ def triangle(a_s, b_s, c_s)
   # Check triangle sides length
   zero_side_error_text = 'All sides have to be more than 0'
   too_long_side_erro_text = "One side of triangle can't be longer then the other two"
-  a_s, b_s, c_s = sides = [a_s, b_s, c_s].sort { |a, b| -1 * (a <=> b) }
+  a_s, b_s, c_s = sides = [a_s, b_s, c_s].sort { |side_a, side_b| -1 * (side_a <=> side_b) }
   raise TriangleError, zero_side_error_text if sides.any? { |side| side <= 0 }
   raise TriangleError, too_long_side_erro_text if a_s >= b_s + c_s
 

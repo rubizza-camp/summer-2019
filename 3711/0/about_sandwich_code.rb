@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction
 # :reek:RepeatedConditional
 class AboutSandwichCode < Neo::Koan
+  # rubocop:disable Style/SafeNavigation
   def count_lines(file_name)
     file = File.open(file_name)
     count = 0
@@ -11,6 +12,7 @@ class AboutSandwichCode < Neo::Koan
   ensure
     file.close if file
   end
+  # rubocop:enable Style/SafeNavigation
 
   def test_counting_lines
     assert_equal 4, count_lines('example_file.txt')
@@ -19,6 +21,7 @@ class AboutSandwichCode < Neo::Koan
   # ------------------------------------------------------------------
 
   # rubocop:disable Lint/AssignmentInCondition
+  # rubocop:disable Style/SafeNavigation
   def find_line(file_name)
     file = File.open(file_name)
     while line = file.gets
@@ -28,6 +31,7 @@ class AboutSandwichCode < Neo::Koan
     file.close if file
   end
   # rubocop:enable Lint/AssignmentInCondition
+  # rubocop:enable Style/SafeNavigation
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -55,12 +59,14 @@ class AboutSandwichCode < Neo::Koan
   # Consider the following code:
   #
 
+  # rubocop:disable Style/SafeNavigation
   def file_sandwich(file_name)
     file = File.open(file_name)
     yield(file)
   ensure
     file.close if file
   end
+  # rubocop:enable Style/SafeNavigation
 
   # Now we write:
 
