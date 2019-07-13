@@ -1,4 +1,4 @@
 gems:
-  - rubocop
-  - rspec-expectations
-  - diff-lcs
+  - reek
+  - nokogiri
+  - mechanize
