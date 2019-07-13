@@ -28,6 +28,10 @@ OptionParser.new do |opts|
   opts.on('-f', '--file=PATH', String, 'the path to the gem file') do |path|
     options[:file] = path
   end
+
+  opts.on('-v', '--verbose', 'Run verbosely') do |ver|
+    options[:verbose] = ver
+  end
 end.parse!
 
 class TopGems
@@ -59,9 +63,9 @@ class TopGems
   end
 
   def check_gem_count(gems)
-    if gems.count >= 15
+    if gems.count >= 30
       system('clear')
-      puts 'too much gems, limit is 9'
+      puts 'too much gems, limit is 30'
       abort
     end
   end
@@ -69,7 +73,7 @@ class TopGems
   def check_and_sort_gems(gem_list)
     gems = gem_list.map do |gem_name|
       gem = RepoBody.new(gem_name)
-      GemEntity.new(gem.name, gem.doc, gem.used_by_doc)
+      GemEntity.new(gem.name, gem.doc, gem.used_by_doc, @options[:verbose])
     end
 
     GemSort.new(gems).call

@@ -1,15 +1,20 @@
 # rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Metrics/AbcSize
 class GemEntity
   attr_reader :name, :stats, :score
-  def initialize(name, doc, used_by_doc)
+  def initialize(name, doc, used_by_doc, verbose)
     @name = name
     @doc = doc
     @used_by_doc = used_by_doc
     @stats = get_stats
     @score = get_score
+    check_req if verbose
   end
 
   private
+
+  def check_req
+    STDERR.print('.')
+  end
 
   def get_stats
     stats = {
