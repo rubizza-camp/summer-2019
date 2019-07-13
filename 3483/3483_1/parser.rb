@@ -32,6 +32,8 @@ class Parcer
 	end
 end
 
+#plus metod
+
 test_oop = Parcer.new
 
 test_oop.url_info("rspec/rspec-core")
