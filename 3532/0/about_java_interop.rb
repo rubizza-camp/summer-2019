@@ -116,7 +116,7 @@ class AboutJavaInterop < Neo::Koan
   # ------------------------------------------------------------------
 
   # Open the Java ArrayList class and add a new method.
-  class Java::JavaUtil::ArrayList
+  class Java < JavaUtil::ArrayList
     def multiply_all
       result = 1
       each do |item|
