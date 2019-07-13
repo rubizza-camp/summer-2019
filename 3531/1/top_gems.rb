@@ -1,5 +1,5 @@
 require_relative './lib/repo_body.rb'
-require_relative './lib/gem_sort.rb'
+require_relative './lib/gem_sorter.rb'
 require_relative './lib/output.rb'
 require_relative './lib/gem_entity.rb'
 require 'yaml'
@@ -79,7 +79,7 @@ class TopGems
       gem_entity
     end
 
-    GemSort.new(gems).call
+    GemSorter.new.call(gems)
   end
 end
 
