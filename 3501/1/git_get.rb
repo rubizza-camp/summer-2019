@@ -8,26 +8,35 @@ class GetGemDataFromGit
   class GetGemDataFromGitException < RuntimeError
   end
 
+  attr_reader :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
+
   API_URL = 'https://api.github.com/search/repositories?q='.freeze
   PARAMS = '&sort=stars&order=desc@per_page=1'.freeze
   CONTRIBUTORS_CSS_SELECTOR = "a span[class='num text-emphasized']".freeze
   WATCHED_CSS_SELECTOR = '/html/body/div[4]/div/main/div[1]/div/ul/li'.freeze
   USED_BY_CSS_SELECTOR = 'a.btn-link:nth-child(1)'.freeze
 
-  attr_reader :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
-  #:reek:UncommunicativeVariableName
   def initialize(gem_name)
     @api_response = HTTParty.get("#{API_URL}#{gem_name}#{PARAMS}")
     @repo = repository
     @html = use_nokogiri
+  rescue GetGemDataFromGitException => error # rubocop:disable Naming/RescuedExceptionsVariableName
+    repository_not_found(gem_name, error.message)
+  end
+
+  def call(gem_name)
     call_from_response
-  rescue GetGemDataFromGitException => e
-    repositories_not_found(gem_name, e.message)
+  rescue GetGemDataFromGitException => error # rubocop:disable Naming/RescuedExceptionsVariableName
+    repository_not_found(gem_name, error.message)
   end
 
   private
 
   def call_from_response
+    raise(GetGemDataFromGitException, 'permission denied') if @api_response.include?('message')
+
+    raise(GetGemDataFromGitException, 'not found') if @api_response.to_hash['items'].empty?
+
     @name = @repo[:name]
     @stars = @repo[:stargazers_count]
     @forks = @repo[:forks_count]
@@ -37,7 +46,7 @@ class GetGemDataFromGit
     @used_by = used_by_count
   end
 
-  def repositories_not_found(gem_name, message)
+  def repository_not_found(gem_name, message)
     @name = "#{gem_name} - #{message}"
     @used_by = 0
     @watched_by = 0
