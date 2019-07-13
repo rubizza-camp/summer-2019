@@ -15,9 +15,10 @@ class RepoBody
 
     begin
       res = Faraday.get(gem_url)
+      raise NoMethodError if res.status == 404
+
       res_params = JSON.parse(res.body)
-    rescue JSON::ParserError
-      system('clear')
+    rescue NoMethodError
       puts '404 gem not found'
       abort
     end
@@ -25,8 +26,8 @@ class RepoBody
   end
 
   def fetch_url(res_params)
-    git_url = res_params['homepage_uri'] if res_params['homepage_uri']
     git_url = res_params['source_code_uri'] if res_params['source_code_uri']
+    git_url = res_params['homepage_uri'] if res_params['homepage_uri']&.include?('https://github')
 
     git_url.delete_suffix!('/') if git_url.end_with?('/')
     git_url
