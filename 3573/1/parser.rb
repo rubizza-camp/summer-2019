@@ -3,10 +3,11 @@ require_relative 'gem_statictic'
 require 'open-uri'
 require 'json'
 
+# :reek:InstanceVariableAssumption
 class Parser
   attr_reader :gem_name
 
-  def initialize (gem_name:)
+  def initialize(gem_name:)
     @gem_name = gem_name
   end
 
@@ -22,21 +23,21 @@ class Parser
   end
 
   def repo_doc
-    @repo_doc ||= Nokogiri::HTML(open(repo_url).read)
+    @repo_doc ||= Nokogiri::HTML(::Kernel.open(repo_url).read)
   end
 
   def repo_dependents_doc
-    @repo_dependents_doc ||= Nokogiri::HTML(open(repo_dependents_url).read)
+    @repo_dependents_doc ||= Nokogiri::HTML(::Kernel.open(repo_dependents_url).read)
   end
 
   def xpaths
     {
-        used_by: '//a[@class="btn-link selected"]',
-        watches: '//a[@class="social-count"]',
-        stars: '//a[@class="social-count js-social-count"]',
-        forks: '//a[@class="social-count"]',
-        contributors: '//a/span[@class="num text-emphasized"]',
-        issues: '//a/span[@class="Counter"]'
+      used_by: '//a[@class="btn-link selected"]',
+      watches: '//a[@class="social-count"]',
+      stars: '//a[@class="social-count js-social-count"]',
+      forks: '//a[@class="social-count"]',
+      contributors: '//a/span[@class="num text-emphasized"]',
+      issues: '//a/span[@class="Counter"]'
     }
   end
 
@@ -49,34 +50,34 @@ class Parser
   end
 
   def parse_watch
-    repo_nodes_by_xpath(:watches).text.strip.delete(' ').to_i
+    repo_nodes_by_xpath(:watches).text.strip.delete(' ').gsub(/\D/, '').to_i
   end
 
   def parse_stars
-    repo_nodes_by_xpath(:stars).text.gsub(/\D/, '').to_i
+    repo_nodes_by_xpath(:stars).text.gsub(/\D/, '').gsub(/\D/, '').to_i
   end
 
   def parse_forks
-    repo_nodes_by_xpath(:forks).last.text.gsub(/\D/, '').to_i
+    repo_nodes_by_xpath(:forks).last.text.gsub(/\D/, '').gsub(/\D/, '').to_i
   end
 
   def parse_contributors
-    repo_nodes_by_xpath(:contributors).last.text.strip.delete(' ').to_i
+    repo_nodes_by_xpath(:contributors).last.text.strip.delete(' ').gsub(/\D/, '').to_i
   end
 
   def parse_issues
-    repo_nodes_by_xpath(:issues).first.text.strip.delete(' ').to_i
+    repo_nodes_by_xpath(:issues).first.text.strip.delete(' ').gsub(/\D/, '').to_i
   end
 
   def create_statistic
     RubyGemStatistic.new(
-        gem_name: gem_name,
-        used_by: parse_used_by,
-        watches: parse_watch,
-        stars: parse_stars,
-        forks: parse_forks,
-        contributors: parse_contributors,
-        issues: parse_issues
+      gem_name: gem_name,
+      used_by: parse_used_by,
+      watches: parse_watch,
+      stars: parse_stars,
+      forks: parse_forks,
+      contributors: parse_contributors,
+      issues: parse_issues
     )
   end
 end
