@@ -6,9 +6,10 @@ require 'nokogiri'
 require 'open-uri'
 require 'terminal-table'
 
-class Helpmeplease
+class TopGems
   options = {}
   options[:file_name] = 'gems.yaml'
+
   OptionParser.new do |opt|
     opt.on('--top NUMBER') { |opa| options[:number] = opa }
     opt.on('--name EXCERPT') { |opa| options[:exp] = opa }
@@ -18,67 +19,68 @@ class Helpmeplease
   # read file
   names = []
   filename = options[:file_name]
-  fh = File.open filename
-  fh.each do |line|
+  file_content = File.open filename
+  file_content.each do |line|
     names.push line.gsub(' - ', '').gsub("\n", '')
   end
 
-  fh.close
+  file_content.close
 
   names.shift
 
-  uganda = []
+  main_arr = []
   names.each do |name_id|
     response = HTTParty.get("https://api.github.com/search/repositories?q=#{name_id}")
-    coco = response['items'].first
-    do_u_wanna_de_way = []
+    git_api = response['items'].first
+    array = []
 
-    do_u_wanna_de_way << name_id
+    array << name_id
 
-    nokogiri_object = Nokogiri::HTML(URI.open("#{coco['html_url']}/network/dependents"))
+    nokogiri_object = Nokogiri::HTML(URI.open("#{git_api['html_url']}/network/dependents"))
     tagcloud_elements = nokogiri_object.css('div.table-list-header-toggle > a.btn-link')
-    do_u_wanna_de_way << tagcloud_elements.first.text.gsub(',', '').to_i # used by
+    array << tagcloud_elements.first.text.gsub(',', '').to_i # used by
 
-    nokogiri_object = Nokogiri::HTML(URI.open(coco['html_url']))
+    nokogiri_object = Nokogiri::HTML(URI.open(git_api['html_url']))
     tagcloud_elements = nokogiri_object.css('ul.pagehead-actions > li > a.social-count')
-    do_u_wanna_de_way << tagcloud_elements.first.text.gsub(',', '').to_i # watch
+    array << tagcloud_elements.first.text.gsub(',', '').to_i # watch
 
-    do_u_wanna_de_way << coco['watchers'] # stars
+    array << git_api['watchers'] # stars
 
-    do_u_wanna_de_way << coco['forks'] # forks
+    array << git_api['forks'] # forks
 
     tagcloud_elements = nokogiri_object.css('ul.numbers-summary > li > a > span.num')
-    do_u_wanna_de_way << tagcloud_elements.last.text.gsub(',', '').to_i # contributors
+    array << tagcloud_elements.last.text.gsub(',', '').to_i # contributors
 
-    do_u_wanna_de_way << coco['open_issues_count'] # issuses
+    array << git_api['open_issues_count'] # issuses
 
-    uganda << do_u_wanna_de_way
+    main_arr << array
   end
 
-  uganda.sort! { |aleluya, bob| bob[1] <=> aleluya[1] } # sort array by parameter "used by"
+  main_arr.sort! { |first, sekond| sekond[1] <=> first[1] } # sort array by parameter "used by"
 
   exp = options[:exp] # deleting gems that not include name
   if !exp.nil? # rubocop:disable Style/NegatedIf
-    uganda.each do |knok_knok|
-      knok_knok.pop(7) if knok_knok[0].include?(exp) == false
+    main_arr.each do |temporary_array|
+      temporary_array.pop(7) if temporary_array[0].include?(exp) == false
     end
   end
 
-  uganda.delete([]).inspect
-  uganda.each do |knok_knok|
-    knok_knok[1] = 'used by ' + knok_knok[1].to_s
-    knok_knok[2] = 'watched by ' + knok_knok[2].to_s
-    knok_knok[3] = knok_knok[3].to_s + ' stars'
-    knok_knok[4] = knok_knok[4].to_s + ' forks'
-    knok_knok[5] = knok_knok[5].to_s + ' contributors'
-    knok_knok[6] = knok_knok[6].to_s + ' issues'
+  main_arr.delete([]).inspect
+  main_arr.each do |temporary_array|
+    temporary_array[1] = 'used by ' + temporary_array[1].to_s
+    temporary_array[2] = 'watched by ' + temporary_array[2].to_s
+    temporary_array[3] = temporary_array[3].to_s + ' stars'
+    temporary_array[4] = temporary_array[4].to_s + ' forks'
+    temporary_array[5] = temporary_array[5].to_s + ' contributors'
+    temporary_array[6] = temporary_array[6].to_s + ' issues'
   end
 
   num = options[:number] # display top of some number
-  if !num.nil? # rubocop:disable Style/ConditionalAssignment
-    table = Terminal::Table.new rows: uganda[0..num.to_i - 1]
+  if !num.nil? && !num.empty?
+    puts num.inspect
+    table = Terminal::Table.new rows: main_arr[0...num.to_i]
   else
-    table = Terminal::Table.new rows: uganda
+    table = Terminal::Table.new rows: main_arr
   end
   puts table
 end

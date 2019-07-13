@@ -2,3 +2,9 @@ gems:
  - sinatra
  - rspec
  - aasm
+ - terminal-table
+ - nokogiri
+ - httparty
+ - rollout
+ - wicked_pdf
+ - cocoon
