@@ -47,7 +47,7 @@ class TopGems
     begin
       return YAML.load_file(@file)['gems'] if @file
     rescue TypeError
-      puts 'not found, use default'
+      puts 'file is not found, use default file...'
     end
 
     YAML.load_file('gem_list.yml')['gems']
