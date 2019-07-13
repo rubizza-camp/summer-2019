@@ -1,0 +1,12 @@
+gems:
+  - nokogiri
+  - rspec
+  - bundler
+  - multi
+  - rake
+  - rack
+  - json
+  - mime
+  - activesupport
+  - thor
+  - pry
