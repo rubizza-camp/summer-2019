@@ -51,7 +51,7 @@ end
 
 # :reek:UtilityFunction
 def authentication
-  client = Octokit::Client.new(access_token: 'ee18b1d8b291cd58a847c3e38aa74bed71151966')
+  client = Octokit::Client.new(access_token: '4a43fd1178ebe4725d4548de777ed5b6beb61fdf')
   client.user.login
   client
 end
