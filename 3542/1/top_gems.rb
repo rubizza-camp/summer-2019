@@ -1,4 +1,4 @@
-require_relative 'lib/gems'
+require_relative 'lib/gem_manager'
 
-gems = Gems.new(ARGV)
-gems.show
+gem_manager = GemManager.new(ARGV)
+gem_manager.show
