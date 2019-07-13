@@ -180,8 +180,5 @@ class TelevisionTest < Neo::Koan
     assert_equal 11, tv.channel
   end
 end
-<<<<<<< HEAD
 
 # rubocop: enable Lint/UnneededCopDisableDirective
-=======
->>>>>>> squash ruby koans + reek
