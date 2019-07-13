@@ -3,17 +3,17 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
 # :reek:UncommunicativeVariableName and :reek:TooManyMethods
 class AboutStrings < Neo::Koan
-  def test_double_quoted_strings_are_strings
-    string = 'Hello, World'
-    assert_equal true, string.is_a?(String)
-  end
-
   # rubocop:disable Style/StringLiterals
-  def test_single_quoted_strings_are_also_strings
-    string = "Goodbye, World"
+  def test_double_quoted_strings_are_strings
+    string = "Hello, World'"
     assert_equal true, string.is_a?(String)
   end
   # rubocop:enable Style/StringLiterals
+
+  def test_single_quoted_strings_are_also_strings
+    string = 'Goodbye, World'
+    assert_equal true, string.is_a?(String)
+  end
 
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
@@ -166,9 +166,9 @@ EOS
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
       assert_equal 'a', ?a
-      assert_equal false, ?a == 97
+      assert_equal true, ?a == 97
 
-      assert_equal __, ('a' + 1) == 'b'
+      assert_equal true, (?a + 1) == ?b
     end
   end
 
