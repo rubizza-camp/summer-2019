@@ -22,6 +22,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_if_statements_return_values
     value = if true
               :true_value
@@ -40,6 +41,7 @@ class AboutControlStatements < Neo::Koan
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
     # just if statements.
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test_if_statements_with_no_else_with_false_condition_return_value
     value = (:true_value if false)

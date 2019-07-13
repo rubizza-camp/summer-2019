@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Lint/UselessAssignment
+# rubocop:disable Style/GlobalVars
 class AboutVariableScope < Neo::Koan
   def bark
     noise = 'RUFF'
@@ -101,6 +103,8 @@ class AboutVariableScope < Neo::Koan
     assert_equal __, $anywhere
   end
 end
+# rubocop:enable Lint/UselessAssignment
+# rubocop:enable Style/GlobalVars
 
 # THINK ABOUT IT:
 #

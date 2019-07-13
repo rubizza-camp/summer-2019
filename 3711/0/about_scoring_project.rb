@@ -31,9 +31,10 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:FeatureEnvy
 
+# rubocop:disable Metrics/AbcSize
 def score(dice)
   # You need to write this method
-  return unless dice.is_a? Array  
+  return unless dice.is_a? Array
   dice_result(dice).each_pair.map do |side, count|
     if side == 1
       side * 1000 * (count / 3) + (count % 3) * 100
@@ -44,6 +45,7 @@ def score(dice)
     end
   end.sum
 end
+# rubocop:enable Metrics/AbcSize
 
 # :reek:UtilityFunction
 def dice_result(dice)

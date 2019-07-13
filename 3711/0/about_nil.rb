@@ -17,7 +17,7 @@ class AboutNil < Neo::Koan
 
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
-    assert_match(/undefined method `some_method_nil_doesnt_know_about' for nil:NilClass/, ex.message)
+    assert_match(/undefined method `some_method_nil_doesnt_know_about'/, ex.message)
   end
 
   # :reek:NilCheck

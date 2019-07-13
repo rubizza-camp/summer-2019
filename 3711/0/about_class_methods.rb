@@ -77,9 +77,11 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
+  # rubocop:disable Style/TrivialAccessors
   def Dog.name
     @name
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new

@@ -1,7 +1,7 @@
 # A file which has a shebang line as its first line is
 # granted execute permission.
 
-#!/usr/bin/env ruby
+# !/usr/bin/env ruby
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutAsserts < Neo::Koan

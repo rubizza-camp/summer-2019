@@ -95,6 +95,7 @@ class AboutHashes < Neo::Koan
 
   # :reek:FeatureEnvy
   # :reek:TooManyStatements
+  # rubocop:disable Metrics/AbcSize
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -107,6 +108,7 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
+  # rubocop:enable Metrics/AbcSize
 
   # :reek:FeatureEnvy
   # :reek:TooManyStatements

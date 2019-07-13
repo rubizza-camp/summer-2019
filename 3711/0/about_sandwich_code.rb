@@ -18,6 +18,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/AssignmentInCondition
   def find_line(file_name)
     file = File.open(file_name)
     while line = file.gets
@@ -26,6 +27,7 @@ class AboutSandwichCode < Neo::Koan
   ensure
     file.close if file
   end
+  # rubocop:enable Lint/AssignmentInCondition
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -76,6 +78,7 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Lint/AssignmentInCondition
   def find_line_second_way(file_name)
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
@@ -84,6 +87,7 @@ class AboutSandwichCode < Neo::Koan
       end
     end
   end
+  # rubocop:enable Lint/AssignmentInCondition
 
   def test_finding_lines_second_way
     assert_equal "test\n", find_line_second_way('example_file.txt')

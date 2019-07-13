@@ -88,6 +88,7 @@ class AboutJavaInterop < Neo::Koan
     # How would you do it?
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_however_most_methods_returning_strings_return_ruby_strings
     java_array = java.util.ArrayList.new
     assert_equal __, java_array.toString
@@ -107,6 +108,7 @@ class AboutJavaInterop < Neo::Koan
     assert_equal __, {}.to_java.class == Java::JavaUtil::HashMap
     assert_equal __, Object.new.to_java.class == Java::JavaLang::Object
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_java_collections_are_enumerable
     java_array = java.util.ArrayList.new
@@ -117,6 +119,7 @@ class AboutJavaInterop < Neo::Koan
   # ------------------------------------------------------------------
 
   # Open the Java ArrayList class and add a new method.
+  # rubocop:disable Style/ClassAndModuleChildren
   class Java::JavaUtil::ArrayList
     def multiply_all
       result = 1
@@ -126,6 +129,7 @@ class AboutJavaInterop < Neo::Koan
       result
     end
   end
+  # rubocop:enable Style/ClassAndModuleChildren
 
   def test_java_class_are_open_from_ruby
     java_array = java.util.ArrayList.new

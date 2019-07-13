@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:TooManyMethods
+# rubocop:disable Metrics/ClassLength
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
     string = 'Hello, World'
@@ -61,6 +62,7 @@ LS
     assert_equal 'Hello, World', string
   end
 
+  # rubocop:disable Lint/UselessAssignment
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
@@ -83,6 +85,7 @@ LS
     hi += there
     assert_equal 'Hello, ', original_string
   end
+  # rubocop:enable Lint/UselessAssignment
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
@@ -197,3 +200,4 @@ LS
     assert_equal false, a_string.object_id == b_string.object_id
   end
 end
+# rubocop:enable Metrics/ClassLength
