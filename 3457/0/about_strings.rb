@@ -33,9 +33,10 @@ class AboutStrings < Neo::Koan
   end
 
   def test_use_flexible_quoting_to_handle_really_hard_cases
+    # rubocop:disable Style/PercentLiteralDelimiters
     a = %(flexible quotes can handle both ' and " characters)
-    b = %(flexible quotes can handle both ' and " characters)
-    c = %(flexible quotes can handle both ' and " characters)
+    b = %!flexible quotes can handle both ' and " characters!
+    c = %{flexible quotes can handle both ' and " characters}
     assert_equal true, a == b
     assert_equal true, a == c
   end
@@ -47,7 +48,8 @@ It was the worst of times.
 )
     assert_equal 54, long_string.length
     assert_equal 3, long_string.lines.count
-    assert_equal "\n", long_string[0, 1]
+    assert_equal %{\n}, long_string[0, 1]
+    # rubocop:enable Style/PercentLiteralDelimiters
   end
 
   def test_here_documents_can_also_handle_multiple_lines
@@ -118,7 +120,7 @@ It was the worst of times.
   def test_single_quotes_sometimes_interpret_escape_characters
     string = '\\\''
     assert_equal 2, string.size
-    assert_equal "\\'", string
+    assert_equal "\\\'", string
   end
 
   def test_double_quoted_strings_interpolate_variables
@@ -153,10 +155,10 @@ It was the worst of times.
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal __, 'a'
-      assert_equal __, 'a' == 97
+      assert_equal 'a', 'a'
+      assert_equal false, 'a' == 97
 
-      assert_equal __, ('a' + 1) == 'b'
+      assert_equal false, ('a' + 1) == 'b'
     end
   end
 

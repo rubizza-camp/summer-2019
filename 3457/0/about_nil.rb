@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 # :reek:NilCheck
@@ -12,15 +14,13 @@ class AboutNil < Neo::Koan
     # makes some assertions about it.
 
     nil.some_method_nil_doesnt_know_about
-    # rubocop:disable Lint/RescueException
-  rescue Exception => e
+  rescue StandardError => e
     # What exception has been caught?
     assert_equal NoMethodError, e.class
 
     # What message was attached to the exception?
     # (HINT: replace __ with part of the error message.)
     assert_match(/undefined method/, e.message)
-    # rubocop:enable Lint/RescueException
   end
 
   def test_nil_has_a_few_methods_defined_on_it

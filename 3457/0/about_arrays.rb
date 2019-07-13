@@ -38,7 +38,7 @@ class AboutArrays < Neo::Koan
   def test_slicing_arrays
     array = %i[peanut butter and jelly]
 
-    assert_equal [:peanut], array[0, 1]
+    assert_equal %i[peanut], array[0, 1]
     assert_equal %i[peanut butter], array[0, 2]
     assert_equal %i[and jelly], array[2, 2]
     assert_equal %i[and jelly], array[2, 20]
