@@ -22,47 +22,20 @@ class Output
   def create_table(ready_gems)
     table = Terminal::Table.new do |t|
       ready_gems.each do |gem|
-        t.add_row content(gem)
+        gem_stats = gem[2].stats
+        t.add_row content(gem_stats)
       end
     end
     puts ''
     puts table
   end
 
-  def content(gem)
+  def content(stats)
     [
-      name(gem), "used by #{used_by(gem)}",
-      "watched by #{watched_by(gem)}", "#{stars(gem)} stars",
-      "#{forks(gem)} forks", "#{contributors(gem)} contributors",
-      "#{issues(gem)} issues"
+      stats[:name], "used by #{stats[:used_by]}",
+      "watched by #{stats[:watched_by]}", "#{stats[:stars]} stars",
+      "#{stats[:forks]} forks", "#{stats[:contributors]} contributors",
+      "#{stats[:issues]} issues"
     ]
-  end
-
-  def name(gem)
-    gem[2].name.to_s
-  end
-
-  def used_by(gem)
-    gem[2].stats[:used_by]
-  end
-
-  def watched_by(gem)
-    gem[2].stats[:watched_by]
-  end
-
-  def stars(gem)
-    gem[2].stats[:stars]
-  end
-
-  def forks(gem)
-    gem[2].stats[:forks]
-  end
-
-  def contributors(gem)
-    gem[2].stats[:contributors]
-  end
-
-  def issues(gem)
-    gem[2].stats[:issues]
   end
 end

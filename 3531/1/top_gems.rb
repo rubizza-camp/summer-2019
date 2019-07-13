@@ -33,12 +33,10 @@ OptionParser.new do |opts|
 end.parse!
 
 class TopGems
-  def initialize(options)
-    @file = options[:file]
+  def run(options)
     @options = options
-  end
+    @file = options[:file]
 
-  def run
     output = Output.new(@options)
     gem_list = parse_yaml
     sorted_gems = check_and_sort_gems(gem_list)
@@ -83,4 +81,4 @@ class TopGems
   end
 end
 
-TopGems.new(options).run
+TopGems.new.run(options)
