@@ -87,7 +87,7 @@ class AboutSandwichCode < Neo::Koan
       end
     end
   end
-  # rubocop:disable Lint/AssignmentInCondition
+  # rubocop:enable Lint/AssignmentInCondition
   # rubocop:enable Performance/RedundantMatch
 
   def test_finding_lines2
