@@ -5,13 +5,12 @@ class Score
     @gem_array = gem_array
   end
 
-  attr_reader :average_stats
-
+  # :reek:NestedIterators
   def calculate_overall_score
     calculate_score_for_each_stat
     @gem_array.each do |gem|
-      gem.scores.values.each do |x|
-        gem.overall_score += x
+      gem.scores.values.each do |one_stat_score_value|
+        gem.overall_score += one_stat_score_value
       end
     end
   end
@@ -21,12 +20,12 @@ class Score
   def average(key)
     sum = 0
     @gem_array.each do |gem|
-      sum += (gem.stats[key].delete!',').to_f
+      sum += (gem.stats[key].delete! ',').to_f
     end
     sum / @gem_array.size
   end
 
-  def calculate_average_stats
+  def average_stats
     @average_stats ||= {
       average_used:          average(:used),
       average_forks:         average(:forks),
@@ -37,17 +36,17 @@ class Score
     }
   end
 
+  # rubocop:disable Metrics/AbcSize
   def calculate_score_for_each_stat
-    calculate_average_stats
     @gem_array.each do |gem|
       gem.scores = {
-        used_score:         gem.stats[:used].to_f / @average_stats[:average_used],
-        forks_score:        gem.stats[:forks].to_f / @average_stats[:average_forks],
-        stars_score:        gem.stats[:stars].to_f / @average_stats[:average_stars],
-        contributors_score: gem.stats[:contributors].to_f / @average_stats[:average_contributors],
-        # issues_score:       gem.stats[:issues].to_f / @average_stats[:average_issues],
-        watched_score:      gem.stats[:watched].to_f / @average_stats[:average_watched]
+        used_score:         gem.stats[:used].to_f / average_stats[:average_used],
+        forks_score:        gem.stats[:forks].to_f / average_stats[:average_forks],
+        stars_score:        gem.stats[:stars].to_f / average_stats[:average_stars],
+        contributors_score: gem.stats[:contributors].to_f / average_stats[:average_contributors],
+        watched_score:      gem.stats[:watched].to_f / average_stats[:average_watched]
       }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
