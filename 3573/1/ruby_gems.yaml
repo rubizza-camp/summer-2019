@@ -4,3 +4,5 @@ gems:
   - kaminari
   - bundler
   - capistrano
+  - rails
+  - rubocop
