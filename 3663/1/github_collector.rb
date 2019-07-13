@@ -27,7 +27,11 @@ class GitHubCollector
           gem_stars: look_for_gem_stars,
           gem_forks: look_for_gem_forks,
           gem_contributors: look_for_gem_contributors,
-          gem_issues: look_for_gem_issues
+          gem_issues: look_for_gem_issues,
+          gem_score: convert_stat_to_score([look_for_gem_used_by,
+                                            look_for_gem_watched_by,
+                                            look_for_gem_stars, look_for_gem_forks,
+                                            look_for_gem_contributors, look_for_gem_issues])
         }
       }
     end
@@ -55,6 +59,14 @@ class GitHubCollector
 
   def look_for_gem_issues
     gem_github_page.search('span.Counter').first.text.squish!
+  end
+
+  def convert_stat_to_score(stat)
+    score = 0
+    stat.each do |value|
+      score += value.delete(',').to_i / 1000
+    end
+    score
   end
 end
 
