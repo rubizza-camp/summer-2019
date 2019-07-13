@@ -1,25 +1,42 @@
 # frozen_string_literal: true
 
+require 'watir'
+require 'webdrivers'
 require './config'
 class Scraper
   include Config
   FOR_USED_BY = '/network/dependents'
   URL = 'https://rubygems.org/gems/'
-  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d+)\s*\n*\s*(Repositories)/
+  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/
   attr_reader :row
 
   def initialize(link)
     @link = normalize(link)
-    @github_page ||= Nokogiri::HTML(URI.open(@link))
   end
 
   def scrape
     flatten_and_to_natural(Array.new(watches_stars_forks << contributors << issues << used_by))
   end
 
+  def close
+    browser.close
+  end
+
   private
 
-  attr_reader :github_page, :link
+  def browser
+    @browser ||= generate_browser
+  end
+
+  def generate_browser
+    browser = Watir::Browser.new :chrome, headless: true
+    browser.goto @link
+    sleep 1
+    browser
+  end
+
+  attr_reader :link
+
   def normalize(link)
     link.split('/').take(5).join('/')
   end
@@ -29,19 +46,20 @@ class Scraper
   end
 
   def watches_stars_forks
-    github_page.css('.social-count').map { |item| item.text.strip }
-  end
-
-  def used_by
-    page = Nokogiri::HTML(URI.open(link + FOR_USED_BY))
-    page.to_s.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip
+    browser.elements(css: '.social-count').to_a.map { |number| number.text.strip }
   end
 
   def contributors
-    github_page.css('.num.text-emphasized').to_a.last.text.strip
+    browser.elements(css: '.num.text-emphasized').last.text.strip
+  end
+
+  def used_by
+    used_by_browser = browser
+    used_by_browser.goto(link + FOR_USED_BY)
+    used_by_browser.html.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip
   end
 
   def issues
-    github_page.css('.Counter').first.text
+    browser.element(css: '.Counter').text
   end
 end

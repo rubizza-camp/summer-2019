@@ -1,5 +1,4 @@
 require 'yaml'
-require 'nokogiri'
 require 'open-uri'
 require 'optparse'
 require './table_drawer'
@@ -19,14 +18,21 @@ class TopGems
   private
 
   attr_reader :options
+
   def ranking(file, name)
-    ranking = file.each_with_object({}) do |str, hsh|
+    file.each_with_object({}) do |str, hsh|
       next unless str.start_with? name
 
-      transformer = NameToLinkTransformer.new(str)
-      hsh[str] = Scraper.new(transformer.link).scrape if transformer.link != 'no-link'
+      transformer_link = NameToLinkTransformer.new(str).link
+      hsh[str] = scrape_value(transformer_link) unless transformer_link == 'no-link'
     end
-    ranking
+  end
+
+  def scrape_value(link)
+    scraper = Scraper.new(link)
+    info = scraper.scrape
+    scraper.close
+    info
   end
 
   def create_parser
