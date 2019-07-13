@@ -54,8 +54,11 @@ class TopGems
   end
 
   def check_and_sort_gems(gem_list)
-    gem_repos = gem_list.map { |gem_name| RepoBody.new(gem_name) }
-    gems = gem_repos.map { |gem| GemEntity.new(gem.name, gem.doc, gem.used_by_doc) }
+    gems = gem_list.map do |gem_name|  
+      gem = RepoBody.new(gem_name)
+      GemEntity.new(gem.name, gem.doc, gem.used_by_doc)
+    end
+    
     GemSort.new(gems).call
   end
 end

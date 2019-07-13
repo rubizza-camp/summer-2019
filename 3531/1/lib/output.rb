@@ -12,7 +12,7 @@ class Output
     ready_gems = gems[0..@top] if @top
 
     if @name
-      ready_gems.each { |gem| ready_gems.delete(gem) unless gem.dig(1)[@name] }
+      ready_gems = ready_gems.select { |gem| gem.dig(1).include?(@name) }
     end
 
     output_gems(ready_gems)
