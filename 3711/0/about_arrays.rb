@@ -7,6 +7,7 @@ class AboutArrays < Neo::Koan
     assert_equal 0, empty_array.size
   end
 
+  # :reek:TooManyStatements
   def test_array_literals
     array = []
     assert_equal [], array
@@ -21,6 +22,7 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2, 333], array
   end
 
+  # :reek:TooManyStatements
   def test_accessing_array_elements
     array = %i[peanut butter and jelly]
 
@@ -32,6 +34,7 @@ class AboutArrays < Neo::Koan
     assert_equal :butter, array[-3]
   end
 
+  # :reek:TooManyStatements
   def test_slicing_arrays
     array = %i[peanut butter and jelly]
 
@@ -59,6 +62,7 @@ class AboutArrays < Neo::Koan
     assert_equal %i[and jelly], array[2..-1]
   end
 
+  # :reek:TooManyStatements
   def test_pushing_and_popping_arrays
     array = [1, 2]
     array.push(:last)
@@ -70,6 +74,7 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 
+  # :reek:TooManyStatements
   def test_shifting_arrays
     array = [1, 2]
     array.unshift(:first)

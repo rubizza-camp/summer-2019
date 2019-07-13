@@ -11,6 +11,8 @@ class AboutExceptions < Neo::Koan
     assert_equal Object,        MySpecialError.ancestors[4]
   end
 
+  # :reek:TooManyStatements
+  # rubocop: disable Metrics/MethodLength
   def test_rescue_clause
     result = nil
     begin
@@ -24,7 +26,9 @@ class AboutExceptions < Neo::Koan
     assert RuntimeError.ancestors.include?(StandardError), 'RuntimeError is a subclass of StandardError'
     assert_equal 'Oops', ex.message
   end
+  # rubocop: enable Metrics/MethodLength
 
+  # :reek:TooManyStatements
   def test_raising_a_particular_error
     result = nil
     begin
@@ -38,7 +42,9 @@ class AboutExceptions < Neo::Koan
   end
 
   def test_ensure_clause
+    # rubocop:disable Lint/UselessAssignment
     result = nil
+    # rubocop:enable Lint/UselessAssignment
     begin
       raise 'Oops'
     rescue StandardError

@@ -41,6 +41,7 @@ class AboutObjects < Neo::Koan
     # 2 bytes per Integer value?
   end
 
+  # :reek:FeatureEnvy
   def test_clone_creates_a_different_object
     obj = Object.new
     copy = obj.clone

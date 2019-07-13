@@ -7,20 +7,20 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_symbols_can_be_compared
-    symbol1 = :a_symbol
-    symbol2 = :a_symbol
-    symbol3 = :something_else
+    firts_symbol = :a_symbol
+    second_symbol = :a_symbol
+    third_symbol = :something_else
 
-    assert_equal true, symbol1 == symbol2
-    assert_equal false, symbol1 == symbol3
+    assert_equal true, firts_symbol == second_symbol
+    assert_equal false, firts_symbol == third_symbol
   end
 
   def test_identical_symbols_are_a_single_internal_object
-    symbol1 = :a_symbol
-    symbol2 = :a_symbol
+    firts_symbol = :a_symbol
+    second_symbol = :a_symbol
 
-    assert_equal true, symbol1           == symbol2
-    assert_equal true, symbol1.object_id == symbol2.object_id
+    assert_equal true, firts_symbol           == second_symbol
+    assert_equal true, firts_symbol.object_id == second_symbol.object_id
   end
 
   def test_method_names_become_symbols
@@ -73,6 +73,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  # :reek:ManualDispatch
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)

@@ -1,5 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:RepeatedConditional
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
+# :reek:UncommunicativeVariableName
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Lint/LiteralAsCondition
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     result = if true
@@ -127,3 +133,5 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Metrics/ClassLength

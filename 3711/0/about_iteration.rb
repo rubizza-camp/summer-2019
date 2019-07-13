@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:TooManyStatements
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -7,12 +8,14 @@ class AboutIteration < Neo::Koan
   # convert to the right format in the koans. We will use "as_name"
   # whenever comparing to lists of methods.
 
+  # :reek:UtilityFunction
   in_ruby_version('1.8') do
     def as_name(name)
       name.to_s
     end
   end
 
+  # :reek:UtilityFunction
   in_ruby_version('1.9', '2') do
     def as_name(name)
       name.to_sym
@@ -90,6 +93,7 @@ class AboutIteration < Neo::Koan
     # Describe in your own words what inject does.
   end
 
+  # :reek:NestedIterators
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }

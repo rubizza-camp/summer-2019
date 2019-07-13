@@ -1,5 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# :reek:InstanceVariableAssumption
+# :reek:TooManyMethods
+# :reek:UncommunicativeModuleName
+# :reek:FeatureEnvy
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -25,6 +29,7 @@ class AboutClasses < Neo::Koan
     assert_equal [:@name], fido.instance_variables
   end
 
+  # :reek:TooManyStatements
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
     fido.set_name('Fido')
@@ -92,6 +97,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:Attribute
   class Dog5
     attr_accessor :name
   end
