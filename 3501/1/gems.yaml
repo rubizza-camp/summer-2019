@@ -1,0 +1,12 @@
+gems:
+ - sinatra
+ - rspec
+ - cocoon
+ - carrot-top
+ - active_model_serializers
+ - async-io
+ - rubocop-rails
+ - gel
+ - telegram-bot-ruby
+ - tmuxinator
+ 
