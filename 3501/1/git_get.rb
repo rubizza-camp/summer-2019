@@ -1,91 +1,95 @@
-require 'net/http'
-require 'json'
 require 'nokogiri'
+require 'httparty'
 require 'open-uri'
 
-class GitGet
-  attr_reader :rep_hash
-  attr_reader :repository_full_name
-  attr_reader :rep_inf
-  attr_reader :search_html_result
-
-  def load_body_hash(url)
-    Net::HTTP.start(url.host, url.port,
-                    use_ssl: url.scheme == 'https') do |http|
-      request = Net::HTTP::Get.new url
-      response = http.request request
-      return JSON.parse(response.body)
-    end
+#:reek:TooManyStatements
+#:reek:TooManyInstanceVariables
+class GetGemDataFromGit
+  class GetGemDataFromGitException < RuntimeError
   end
 
-  def load_html(url)
-    ::Nokogiri::HTML(::Kernel.open(url))
+  attr_reader :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
+
+  API_URL = 'https://api.github.com/search/repositories?q='.freeze
+  PARAMS = '&sort=stars&order=desc@per_page=1'.freeze
+  CONTRIBUTORS_CSS_SELECTOR = "a span[class='num text-emphasized']".freeze
+  WATCHED_CSS_SELECTOR = '/html/body/div[4]/div/main/div[1]/div/ul/li'.freeze
+  USED_BY_CSS_SELECTOR = 'a.btn-link:nth-child(1)'.freeze
+
+  def initialize(gem_name)
+    @api_response = HTTParty.get("#{API_URL}#{gem_name}#{PARAMS}")
+    @repo = repository
+    @html = use_nokogiri
+  rescue GetGemDataFromGitException => error
+    repository_not_found(gem_name, error.message)
   end
 
-  def number_from_selector(selector)
-    inner_html = @search_html_result.css(selector)[0].text
-    inner_html = inner_html.delete(',')[/[0-9]+/]
-    number = inner_html.to_i
-    number
+  def call(gem_name)
+    call_from_response
+  rescue GetGemDataFromGitException => error
+    repository_not_found(gem_name, error.message)
   end
 
-  def umber_from_selector_class(selector1, selector2)
-    inner_html = @search_html_result.css(selector1).css(selector2)[3].text
-    inner_html = inner_html.delete(',')[/[0-9]+/]
-    number = inner_html.to_i
-    number
+  private
+
+  def call_from_response
+    raise(GetGemDataFromGitException, 'permission denied') if @api_response.include?('message')
+
+    raise(GetGemDataFromGitException, 'not found') if @api_response.to_hash['items'].empty?
+
+    @name = @repo[:name]
+    @stars = @repo[:stargazers_count]
+    @forks = @repo[:forks_count]
+    @issues = @repo[:open_issues_count]
+    @contributors = contributors_count
+    @watched_by = watched_by_count
+    @used_by = used_by_count
   end
 
-  def hash_api_first_item(name_one, name_two)
-    items = @rep_hash[name_one]
-    return 'undefined' if items.nil?
-
-    @rep_hash[name_one].first[name_two]
+  def repository_not_found(gem_name, message)
+    @name = "#{gem_name} - #{message}"
+    @used_by = 0
+    @watched_by = 0
+    @stars = 0
+    @forks = 0
+    @contributors = 0
+    @issues = 0
   end
 
-  def load_from_api(url)
-    @rep_hash = load_body_hash url
-    @repository_full_name = hash_api_first_item('items', 'full_name')
-    @rep_inf[:full_name] = hash_api_first_item('items', 'full_name')
-    @rep_inf[:name] = hash_api_first_item('items', 'name')
-    @rep_inf[:stargazers_count] = hash_api_first_item('items', 'stargazers_count')
-    @rep_inf[:forks_count] = hash_api_first_item('items', 'forks_count')
-    @rep_inf[:open_issues_count] = hash_api_first_item('items', 'open_issues_count')
-    @rep_inf[:score] = hash_api_first_item('items', 'score')
+  def use_nokogiri
+    Nokogiri::HTML(::Kernel.open(@repo[:html_url]))
   end
 
-  def set_default_from_html
-    @rep_inf[:used_by] = 0
-    @rep_inf[:watchers] = 0
-    @rep_inf[:contributors] = 0
+  def repository
+    raise(GetGemDataFromGitException, 'permission denied') if @api_response.include?('message')
+    raise(GetGemDataFromGitException, 'not found') if @api_response.to_hash['items'].empty?
+
+    symbolize @api_response.to_hash['items'].first
   end
 
-  def search_from_html
-    url = URI.parse("#{@rep_hash['items'].first['html_url']}/network/dependents")
-    @search_html_result = load_html url
-    @rep_inf[:used_by] = number_from_selector "a[class='btn-link selected']"
-    @rep_inf[:watchers] = number_from_selector "a[href='/#{@repository_full_name}/watchers']"
-    url = URI.parse(@rep_hash['items'].first['html_url'])
-    @search_html_result = load_html url
-    @rep_inf[:contributors] = umber_from_selector_class('.num', '.text-emphasized')
+  def symbolize(hash)
+    hash.transform_keys(&:to_sym)
   end
 
-  def load_from_html
-    items = @rep_hash['items']
-    if items.nil?
-      set_default_from_html
-    else
-      search_from_html
-    end
+  def contributors_count
+    contributors = @html.css(CONTRIBUTORS_CSS_SELECTOR).last.text
+    to_num(contributors)
   end
 
-  def initialize(repo_name)
-    @rep_inf = {}
-    # Searching date through github api
-    url = URI.parse("https://api.github.com/search/repositories?q=#{repo_name}
-      &sort=stars&order=desc@per_page=1")
-    load_from_api url
-    # Missing data loading through github html
-    load_from_html
+  def watched_by_count
+    stars = @html.xpath(WATCHED_CSS_SELECTOR).select do |el|
+      el.text.include? 'Watch'
+    end.first.text
+    to_num(stars)
+  end
+
+  def used_by_count
+    html = Nokogiri::HTML(::Kernel.open("#{@repo[:html_url]}/network/dependents"))
+    used_by = html.css(USED_BY_CSS_SELECTOR).text
+    to_num(used_by)
+  end
+
+  def to_num(num_string)
+    num_string.gsub(/[^0-9]/, '').to_i
   end
 end

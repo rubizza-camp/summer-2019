@@ -1,113 +1,83 @@
+require_relative 'git_get.rb'
 require 'yaml'
-require './git_get'
+require 'terminal-table'
+require 'optparse'
 
+#:reek:FeatureEnvy
+#:reek:TooManyInstanceVariables
 class TopGems
-  attr_reader :gems_file
-  attr_reader :searching_gems
-  attr_reader :gems_stats
-  attr_reader :settings
+  attr_reader :threads
+  attr_reader :list
 
-  def settings_new(new_settings_args)
-    @settings = {}
-    new_settings_args.each do |set|
-      @settings[set[/\A(-*\w+)/]] = set[/[A-z0-9\.]*\z/]
-    end
+  def initialize
+    @threads = []
+    @list = []
+    @params = load_options
+    @yaml_file = yaml_from_file
+    @gem_list = @params[:name] ? select_name : @yaml_file['gems']
+    @repos = @params[:top] ? sort_top(load_gems) : load_gems
+    show
   end
 
-  def initialize_threads
-    threads = []
-    # Starting searching threads
-    @searching_gems['gems'].each do |gem|
-      threads << Thread.new do
-        @gems_stats << ::GitGet.new(gem).rep_inf
+  #:reek:TooManyStatements
+  #:reek:UtilityFunction
+  def load_options
+    options = {}
+    OptionParser.new do |opts|
+      opts.on('--name[=OPTIONAL]', String, 'pick by name')
+      opts.on('--file[=OPTIONAL]', String, 'gems file name')
+      opts.on('--top[=OPTIONAL]', Integer, 'showing first in raiting')
+    end.parse!(into: options)
+    options
+  end
+
+  def show
+    table_str = @repos.map do |repo|
+      [
+        repo.name.to_s, "used by #{repo.used_by}",
+        "watched by #{repo.watched_by}", "#{repo.stars} stars",
+        "#{repo.forks} forks", "#{repo.contributors} contributors",
+        "#{repo.issues} issues"
+      ]
+    end
+    print_terminal(table_str)
+  end
+
+  def print_terminal(str_table)
+    terminal = Terminal::Table.new do |tab|
+      tab.rows = str_table
+      tab.style = { border_top: false, border_bottom: false }
+    end
+    puts terminal
+  end
+
+  private
+
+  def select_name
+    @yaml_file['gems'].select { |gem| gem.include? @params[:name] }
+  end
+
+  #:reek:TooManyStatements
+  def load_gems
+    @gem_list.map do |gem|
+      @threads << Thread.new do
+        gem_data = GetGemDataFromGit.new(gem)
+        gem_data.call gem
+        @list << gem_data
       end
     end
-    # Waiting for searching threads ends
-    threads.each(&:join)
+    @threads.each(&:join)
+    @list
   end
 
-  def open_file
-    file_name = @settings['--file'].nil? ? 'top_gems.rb' : @settings['--file']
-    if file_name.is_a? String
-      @gems_file = File.open(file_name)
-      @searching_gems = YAML.safe_load(@gems_file)
-    else
-      puts 'wrong file name'
-    end
+  def sort_top(gems)
+    limit_range = [@params[:top], gems.size].min
+    gems.sort_by(&:used_by)[-limit_range..-1].reverse
   end
 
-  def initialize(new_settings_args)
-    settings_new new_settings_args
-    open_file
-    @gems_stats = []
-    initialize_threads
-    output_raiting
-  rescue StandardError => e
-    puts e.message
-  end
-
-  def sorting
-    @gems_stats.sort! { |first, second| first[:score] <=> second[:score] }
-    @gems_stats.reverse!
-  end
-
-  def apply_settings_name
-    new_gems_stats = []
-    @gems_stats.each do |gem_stats|
-      new_gems_stats << gem_stats if gem_stats[:full_name].include?(@settings['--name'])
-    end
-    @gems_stats = new_gems_stats
-  end
-
-  def apply_settings
-    # Settings --top=
-    @gems_stats = @gems_stats[0..(@settings['--top'].to_i - 1)] if @settings['--top']
-    # Settings --name
-    apply_settings_name unless @settings['--name'].nil?
-  end
-
-  def forming_tabs
-    @tabs_length_max = Hash.new { |hash, key| hash[key] = 0 }
-    @gems_stats.each do |gem_stats|
-      gem_stats.keys.each do |key|
-        @tabs_length_max[key] = gem_stats[key].to_s.size if
-          gem_stats[key].to_s.size > @tabs_length_max[key]
-      end
-    end
-  end
-
-  def forming_tabs_at_pos(gem_stats, symbol, where, text = nil)
-    text_col = gem_stats[symbol].to_s.ljust(@tabs_length_max[symbol] + 1)
-    case where
-    when :start
-      "#{text} #{text_col}| "
-    when :end
-      "#{text_col}#{text} | "
-    when :none
-      "#{text_col}| "
-    end
-  end
-
-  def output_result
-    keys = %i[name used_by watchers stargazers_count forks_count contributors open_issues_count]
-    positions = %i[none start start end end end end]
-    names = ['empty', 'used by', 'watched by', 'stars', 'forks', 'contributors', 'issues']
-    @gems_stats.each do |gem_stats|
-      line_str = ''
-      keys.each_with_index do |_item, index|
-        line_str += forming_tabs_at_pos(gem_stats, keys[index], positions[index], names[index])
-      end
-      puts line_str
-    end
-  end
-
-  def output_raiting
-    sorting
-    apply_settings
-    forming_tabs
-    output_result
+  def yaml_from_file
+    YAML.load_file(File.open(@params[:file]))
   end
 end
 
-# Initialization start with ARGV-settings
-TopGems.new ARGV
+TopGems.new
