@@ -33,7 +33,7 @@ class AboutMethods < Neo::Koan
   end
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
-  # runtime error
+  # runtime error.
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
