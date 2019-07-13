@@ -39,7 +39,7 @@ class RepoBody
   end
 
   def get_doc
-    Nokogiri::HTML(open(@git_url))
+    Nokogiri::HTML(Kernel.open(@git_url))
   rescue SocketError
     system('clear')
     puts 'tcp connection error'
@@ -47,6 +47,6 @@ class RepoBody
   end
 
   def get_used_by_doc
-    Nokogiri::HTML(open("#{@git_url}/network/dependents"))
+    Nokogiri::HTML(Kernel.open("#{@git_url}/network/dependents"))
   end
 end

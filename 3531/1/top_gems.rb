@@ -52,6 +52,16 @@ class TopGems
 
     gem_names = YAML.load_file('gem_list.yml')['gems']
     gem_names.uniq
+    check_gem_count(gem_names)
+    gem_names
+  end
+
+  def check_gem_count(gems)
+    if gems.count >= 9
+      system('clear')
+      puts 'too much gems, limit is 9'
+      abort
+    end
   end
 
   def check_and_sort_gems(gem_list)
