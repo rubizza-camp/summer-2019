@@ -1,46 +1,77 @@
 require 'nokogiri'
 require 'json'
 require 'open-uri'
+require 'httparty'
+require 'open_uri_redirections'
 
-url = 'https://github.com/sparklemotion/nokogiri'
-url1 = url+'/network/dependents'
-url2 = url + '/issues'
-html = open(url)
 
-doc = Nokogiri::HTML(html)
-doc1 = Nokogiri::HTML(open(url1))
-doc2 = Nokogiri::HTML(open(url2))
+class GemHendler
+	attr_reader :data_about_gem
 
-# puts doc.css('a.btn-link.selected').text
-array_used_stars_forks = Array.new
-doc.css('.social-count').each do |tt|
-	array_used_stars_forks << tt.text[/[\d*[:punct:]]+/].tr(",", "")
+	def initialize(github_url)
+		@url = github_url
+	end
+
+	def join_all_data
+		@data_about_gem = {}
+		@data_about_gem[:watched_by] = find_watch_stars_forks[0].to_i
+		@data_about_gem[:stars] = find_watch_stars_forks[1].to_i
+		@data_about_gem[:forks] = find_watch_stars_forks[2].to_i
+		@data_about_gem[:used_by] = find_used_by.to_i
+		@data_about_gem[:contributers] = find_contributers.to_i
+		@data_about_gem[:issues] = find_issues.to_i
+	end
+
+	def find_watch_stars_forks
+		array_used_stars_forks = Array.new
+		Nokogiri::HTML(open(@url,  allow_redirections: :safe)).css('.social-count').each do |element|
+			array_used_stars_forks << element.text[/[\d*[:punct:]]+/].tr(",", "")
+		end
+		return array_used_stars_forks
+	end
+
+	def find_contributers
+		contributers = Array.new
+		Nokogiri::HTML(open(@url,  allow_redirections: :safe)).css('ul.numbers-summary li a span.num.text-emphasized').each do |element|
+			contributers << element.text[/[\d*[:punct:]]+/].tr(",", "")
+		end
+		return contributers.last
+	end
+	#smth is wrong:( or now... 
+	def find_used_by
+		used_by = 0
+		Nokogiri::HTML(open(@url + '/network/dependents',  allow_redirections: :safe)).css('a.btn-link.selected').each do |element|
+			used_by = element.text[/[\d*[:punct:]]+/].tr(",", "")
+		end
+		return used_by
+	end
+
+	def find_issues
+		issues = 0
+		Nokogiri::HTML(open(@url + '/issues',  allow_redirections: :safe)).css('a.btn-link.selected').each do |element|
+			issues = element.text[/[\d*[:punct:]]+/].tr(",", "")
+		end
+		return issues
+	end
 end
-puts array_used_stars_forks.inspect
-contributers = Array.new
-doc.css('ul.numbers-summary li a span.num.text-emphasized').each do |tt|
-	contributers << tt.text[/[\d*[:punct:]]+/].tr(",", "")
+
+class GemsApiHendler
+	attr_reader :gem_github
+	attr_accessor :gem_name
+
+	def get_github
+		url = HTTParty.get("https://rubygems.org/api/v1/gems/#{@gem_name}.json")
+		@gem_github = url["source_code_uri"]
+	end
 end
-puts contributers.last.to_i
-used_by = Array.new
-doc1.css('a.btn-link.selected').each do |tt|
-	used_by << tt.text[/[\d*[:punct:]]+/].tr(",", "")
-end
-puts used_by.inspect
-issues = Array.new
-doc2.css('a.btn-link.selected').each do |tt|
-	issues << tt.text[/[\d*[:punct:]]+/].tr(",", "")
-end
-puts issues.inspect
-# puts document.css('a.social-count').text
-# puts doc.search("ul.pagehead-actions").children.text
-# puts doc.xpath("//a[contains(@href,'https://github.com/sparklemotion/nokogiri/watchers')]")
-# puts doc.css('span.num.text-emphasized').text
-# binding.pry
 
 
-# titles   = doc.css('a.btn-link.selected')
+gem = GemsApiHendler.new
+gem.gem_name = "nokogiri"
+gem.get_github
+puts gem.gem_github
+gemh = GemHendler.new(gem.gem_github)
+gemh.join_all_data
+puts gemh.data_about_gem
 
-# titles.each do |title|
-#   puts title.text
-# en
+
