@@ -50,7 +50,7 @@ class TopGems
 
   def check_and_sort_gems(gem_list)
     gems = gem_list.map { |gem_name| RepoBody.new(gem_name) }
-    GemSort.new(gems).sorted_gems
+    GemSort.new(gems).call
   end
 end
 

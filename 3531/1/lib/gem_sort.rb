@@ -1,16 +1,15 @@
 class GemSort
-  attr_reader :sorted_gems
-
   def initialize(gems)
-    @sorted_gems = sort_gems(gems)
+    @gems = gems
+  end
+
+  def call
+    sort_gems
   end
 
   private
 
-  def sort_gems(gems)
-    gem_scores = []
-
-    gems.each { |gem| gem_scores << [gem.score, gem.name, gem] }
-    gem_scores.sort.reverse
+  def sort_gems
+    @gems.map { |gem| [gem.score, gem.name, gem] }.sort.reverse
   end
 end
