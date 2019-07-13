@@ -48,25 +48,25 @@ class TopGems
   private
 
   def parse_yaml
-    begin
-      return YAML.load_file(@file)['gems'] if @file
-    rescue TypeError
-      puts 'file is not found, use default file...'
-    end
+    return load_custom if @file
 
-    gem_names = YAML.load_file('gem_list.yml')['gems']
-    gem_names.uniq!
-    check_gem_count(gem_names)
-    gem_names
+    load_default
   end
 
-  def check_gem_count(gems)
-    exit_with_much_gems if gems.count >= 30
-  end
-
-  def exit_with_much_gems
-    puts 'too much gems, limit is 30'
+  def load_default
+    file = File.expand_path('.', File.dirname(__FILE__) + '/gem_list.yml')
+    YAML.load_file(file)['gems'].uniq
+  rescue Errno::ENOENT
+    puts "file #{file} is not found, please use -f option"
     abort
+  end
+
+  def load_custom
+    file = File.expand_path('.', File.dirname(__FILE__) + "/#{@file}")
+    YAML.load_file(file)['gems'].uniq
+  rescue Errno::ENOENT
+    puts "file #{file} is not found, using default file..."
+    load_default
   end
 
   def check_and_sort_gems(gem_list)
