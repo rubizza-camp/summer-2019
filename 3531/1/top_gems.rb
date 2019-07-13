@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective, Style/GuardClause
+
 require_relative './lib/repo_body.rb'
 require_relative './lib/gem_sort.rb'
 require_relative './lib/output.rb'
@@ -57,7 +59,7 @@ class TopGems
   end
 
   def check_gem_count(gems)
-    if gems.count >= 9
+    if gems.count >= 15
       system('clear')
       puts 'too much gems, limit is 9'
       abort
@@ -67,6 +69,7 @@ class TopGems
   def check_and_sort_gems(gem_list)
     gems = gem_list.map do |gem_name|
       gem = RepoBody.new(gem_name)
+      puts gem
       GemEntity.new(gem.name, gem.doc, gem.used_by_doc)
     end
 
