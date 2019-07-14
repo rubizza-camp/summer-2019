@@ -119,7 +119,7 @@ class AboutMessagePassing < Neo::Koan
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
-  
+ 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
 
