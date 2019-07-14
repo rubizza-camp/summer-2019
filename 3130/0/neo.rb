@@ -9,16 +9,18 @@ end
 # --------------------------------------------------------------------
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
-# :reek:disable
+
 class FillMeInError < StandardError
 end
 
+# :reek:ControlParameter and :reek:UtilityFunction:
 def ruby_version?(version)
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
     (version == 'mri' && ! defined?(JRUBY_VERSION))
 end
 
+# :reek:UncommunicativeVariableName:
 def in_ruby_version(*versions)
   yield if versions.any? { |v| ruby_version?(v) }
 end
@@ -30,6 +32,7 @@ end
 
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
+# :reek:UncommunicativeParameterName: and :reek:UtilityFunction:
 def __(value="FILL ME IN", value19=:mu)
   if RUBY_VERSION < "1.9"
     value
@@ -39,6 +42,7 @@ def __(value="FILL ME IN", value19=:mu)
 end
 
 # Numeric replacement value.
+# :reek:UncommunicativeParameterName: and :reek:UtilityFunction:
 def _n_(value=999999, value19=:mu)
   if RUBY_VERSION < "1.9"
     value
@@ -48,6 +52,7 @@ def _n_(value=999999, value19=:mu)
 end
 
 # Error object replacement value.
+# :reek:UncommunicativeParameterName: and :reek:UtilityFunction:
 def ___(value=FillMeInError, value19=:mu)
   if RUBY_VERSION < "1.9"
     value
@@ -82,6 +87,9 @@ class String
   end
 end
 
+# :reek:ControlParameter and :reek:DataClump and :reek:FeatureEnvy and :reek:InstanceVariableAssumption
+# :reek:NilCheck: and :reek:NestedIterators: and :reek:TooManyInstanceVariables: and :reek:TooManyMethods:
+# :reek:UtilityFunction: and :reek:UncommunicativeVariableName: and :reek:TooManyStatements:
 module Neo
   class << self
     def simple_output
@@ -533,4 +541,3 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
-# rubocop:enable all
