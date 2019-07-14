@@ -6,7 +6,7 @@ class Output
 
   def gems(gems)
     ready_gems = gems
-    ready_gems = gems.take(@top) if @top && @top <= 0
+    ready_gems = gems.take(@top) if @top && @top >= 0
     ready_gems = ready_gems.select { |gem| gem.dig(1).include?(@name) } if @name
 
     output_gems(ready_gems)
