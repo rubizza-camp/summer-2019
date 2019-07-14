@@ -8,7 +8,6 @@ require 'terminal-table'
 require 'optparse'
 require_relative 'filters.rb'
 
-
 # rubocop:disable Style/MixinUsage
 include Filters
 # rubocop:enable Style/MixinUsage
@@ -67,7 +66,7 @@ end
 
 def access_token
   puts 'Enter your Github Personal Access Token'
-  access_token = gets.chomp
+  gets.chomp
 end
 
 # :reek:UtilityFunction
