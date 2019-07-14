@@ -4,7 +4,7 @@ module Scanner
       /^--top=\d+/,
       /^--name=[A-z0-9]+/,
       %r{^--file=(\/?[A-z0-9])+\.yml$}
-    ]
+    ].freeze
 
     def initialize(args)
       @args = args
@@ -20,6 +20,7 @@ module Scanner
 
     private
 
+    # :reek:NestedIterators
     def filter_args
       @args.select do |arg|
         arg if ARG_REGEXPS.any? { |arg_regexp| arg.match(arg_regexp) }

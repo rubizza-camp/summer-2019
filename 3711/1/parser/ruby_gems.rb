@@ -10,6 +10,7 @@ module Parser
       @source_code_urls = {}
     end
 
+    # :reek:TooManyStatements and :reek:NilCheck
     def parse
       @gem_names.each do |gem_name|
         parsed_response = rubygems_response(gem_name)

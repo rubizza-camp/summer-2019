@@ -5,6 +5,7 @@ require 'nokogiri'
 require 'open-uri'
 
 module Parser
+  # :reek:TooManyInstanceVariables
   class GitHub
     def initialize(gem_name, source_url)
       @url = source_url
@@ -28,6 +29,7 @@ module Parser
 
     private
 
+    # :reek:TooManyStatements
     def collect_watchers_stars_and_forks
       uri = URI("https://api.github.com/repos#{@repo}#{@auth_params}")
       response = Net::HTTP.get(uri)
@@ -43,6 +45,7 @@ module Parser
       collect_issues
     end
 
+    # rubocop:disable Security/Open
     def collect_used_by
       url = "https://github.com#{@repo}/network/dependents"
       html_doc = Nokogiri::HTML(open(url).read)
@@ -59,6 +62,7 @@ module Parser
       @gem_data['contributors'] = contributors.delete(',').to_i
     end
 
+    # :reek:TooManyStatements
     def collect_issues
       url = "https://github.com#{@repo}/issues"
       html_doc = Nokogiri::HTML(open(url).read)
@@ -69,5 +73,6 @@ module Parser
       total_issues.each { |iss| issues += iss.text.to_i }
       @gem_data['issues'] = issues.to_i
     end
+    # rubocop:enable Security/Open
   end
 end

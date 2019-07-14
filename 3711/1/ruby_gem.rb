@@ -1,3 +1,6 @@
+# :reek:InstanceVariableAssumption
+# :reek:TooManyConstants
+# :reek:TooManyInstanceVariables
 class RubyGem
   attr_reader :name, :source_url, :score
   attr_reader :used_by, :watched_by, :stars, :forks, :contributors, :issues
@@ -26,6 +29,7 @@ class RubyGem
       @issues * WEIGHT_OF_ISSUES
   end
 
+  # :reek:TooManyStatements
   def fill_attr
     @name         = @gem_date['name']
     @used_by      = @gem_date['used_by']
