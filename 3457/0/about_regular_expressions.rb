@@ -128,9 +128,11 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_variables_can_also_be_used_to_access_captures
+    # rubocop:disable Style/PerlBackrefs
     assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
-    assert_equal 'Gray', Regexp.last_match(1)
-    assert_equal 'James', Regexp.last_match(2)
+    assert_equal 'Gray', $1
+    assert_equal 'James', $2
+    # rubocop:enable Style/PerlBackrefs
   end
 
   # ------------------------------------------------------------------

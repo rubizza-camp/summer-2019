@@ -80,8 +80,10 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash1 = {}
+    # rubocop:disable Style/EmptyLiteral
+    hash1 = Hash.new
     hash1[:one] = 1
+    # rubocop:enable Style/EmptyLiteral
 
     assert_equal 1, hash1[:one]
     assert_equal nil, hash1[:two]
