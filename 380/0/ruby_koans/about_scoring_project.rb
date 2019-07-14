@@ -15,7 +15,6 @@ end
 # rubocop:disable Metrics/AbcSize
 # :reek:FeatureEnvy, :reek:TooManyStatements:, :reek:UtilityFunction
 def claculated_from(freq)
-  points = 0
   points += 1000 if freq[1] >= 3
   points += (freq.keys - [1]).sum { |value| freq[value] >= 3 ? value * 100 : 0 }
   points += 100 * (freq[1] % 3)
