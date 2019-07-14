@@ -1,10 +1,10 @@
 gems: 
   - activeadmin
-  - administrate
-  - annotate_models
-  - better_errors
-  - byebug
-  - cancancan
+  # - administrate
+  # - annotate_models
+  # - better_errors
+  # - byebug
+  # - cancancan
   # - capybara
   # - capybara-screenshot
   # - carrierwave
