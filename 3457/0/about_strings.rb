@@ -61,6 +61,7 @@ It was the worst of times.
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
+    # rubocop:enable all
   end
 
   def test_plus_will_concatenate_two_strings
