@@ -2,3 +2,10 @@ gems:
  - sinatra
  - rails
  - rubocop
+ - rspec
+ - capybara
+ - factory_bot
+ - devise
+ - sidekiq
+ - mocha
+ - hanami

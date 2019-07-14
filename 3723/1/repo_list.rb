@@ -5,11 +5,10 @@ require 'nokogiri'
 require 'open-uri'
 
 class RepoList
-  attr_reader :list, :name
+  attr_reader :list
 
-  def initialize(name)
+  def initialize
     @list = []
-    @name = name
   end
 
   def write_gem(info)
