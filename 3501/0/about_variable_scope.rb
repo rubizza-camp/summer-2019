@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/UselessAssignment, Style/ClassVars
+# rubocop:disable Lint/UselessAssignment, Style/ClassVars
 # rubocop:disable Style/GlobalVars
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -112,3 +112,5 @@ end
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
+# rubocop:enable Lint/UselessAssignment, Style/ClassVars
+# rubocop:enable Style/GlobalVars

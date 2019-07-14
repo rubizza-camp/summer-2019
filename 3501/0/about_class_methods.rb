@@ -1,5 +1,3 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/TrivialAccessors
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UncommunicativeModuleName
@@ -80,7 +78,7 @@ class AboutClassMethods < Neo::Koan
     attr_accessor :name
   end
 
-  def Dog.name
+  def Dog.name # rubocop:disable Style/TrivialAccessors
     @name
   end
 

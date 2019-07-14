@@ -1,6 +1,3 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/UnneededCopDisableDirective
-# rubocop:disable Style/MethodMissing, Style/MethodMissingSuper, Style/MissingRespondToMissing
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UtilityFunction
@@ -116,7 +113,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
   class AllMessageCatcher
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *args) # rubocop:disable Style/MethodMissing
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
@@ -139,8 +136,20 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+<<<<<<< HEAD
+<<<<<<< HEAD
   class WellBehavedFooCatcher
+    def method_missing(method_name, *args, &block) # rubocop:disable Style/MethodMissing
+<<<<<<< HEAD
+=======
+  class WellBehavedFooCatcher # rubocop:disable Style/MethodMissing
+=======
+  class WellBehavedFooCatcher
+>>>>>>> 0015228... Updating ruby stye
     def method_missing(method_name, *args, &block)
+>>>>>>> 08e5fcd... Correcting some ruby statements
+=======
+>>>>>>> a418ce3... Updating ruby style
       if method_name.to_s[0, 3] == 'foo'
         'Foo to you too'
       else

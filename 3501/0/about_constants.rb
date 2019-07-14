@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/ClassAndModuleChildren
+# rubocop:disable Style/ClassAndModuleChildren
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -86,3 +86,5 @@ class AboutConstants < Neo::Koan
   # scope, or the constant from the inheritance hierarchy?  Why is it
   # different than the previous answer?
 end
+
+# rubocop:enable Style/ClassAndModuleChildren

@@ -1,6 +1,3 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Naming/AccessorMethodName, Style/EvalWithLocation
-# rubocop:disable Lint/AmbiguousBlockAssociation)
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:TooManyMethods
@@ -9,6 +6,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This method smells of :reek:Attribute
 # This method smells of :reek:TooManyStatements
 # This method smells of :reek:UncommunicativeModuleName
+
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -21,7 +19,7 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog2
-    def set_name(name)
+    def set_name(name) # rubocop:disable Naming/AccessorMethodName:
       @name = name
     end
   end
@@ -59,14 +57,16 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name('Fido')
 
-    assert_equal 'Fido', fido.instance_eval('@name') # string version
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
+    # rubocop:disable Lint/AmbiguousBlockAssociation, Style/EvalWithLocation
+    assert_equal 'Fido', fido.instance_eval('@name')
+    assert_equal 'Fido', fido.instance_eval { @name }
+    # rubocop:enable Lint/AmbiguousBlockAssociation, Style/EvalWithLocation
   end
 
   # ------------------------------------------------------------------
 
   class Dog3
-    def set_name(name)
+    def set_name(name) # rubocop:disable Naming/AccessorMethodName
       @name = name
     end
 
@@ -85,7 +85,7 @@ class AboutClasses < Neo::Koan
   class Dog4
     attr_reader :name
 
-    def set_name(name)
+    def set_name(name) # rubocop:disable Naming/AccessorMethodName
       @name = name
     end
   end
@@ -148,7 +148,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def get_self
+    def get_self # rubocop:disable Naming/AccessorMethodName
       self
     end
 

@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Lint/LiteralAsCondition, Style/For
+# rubocop:disable Lint/LiteralAsCondition, Style/For
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -126,3 +126,4 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Lint/LiteralAsCondition, Style/For

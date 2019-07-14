@@ -1,7 +1,3 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Metrics/AbcSize
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Layout/IndentationConsistency
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Greed is a dice game where you roll up to five dice to accumulate
@@ -35,15 +31,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:TooManyStatements
 # This method smells of :reek:UtilityFunction
-def score(dice)
+def score(dice) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   dice.uniq.sum do |side|
-    calculate_side(side, dice)
-  end
-end
-
-#:reek:UtilityFunction
-def calculate_side(side, dice)
-  count = dice.count(side)
+    count = dice.count(side)
     case side
     when 1
       side * 1000 * (count / 3) + (count % 3) * 100
@@ -52,6 +42,7 @@ def calculate_side(side, dice)
     else
       side * 100 * (count / 3)
     end
+  end
 end
 
 # This method smells of :reek:TooManyStatements

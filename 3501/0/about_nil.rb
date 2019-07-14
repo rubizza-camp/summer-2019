@@ -1,4 +1,4 @@
-# rubocop:disable Lint/MissingCopEnableDirective, Style/RedundantBegin
+# rubocop:disable Style/RedundantBegin
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -39,3 +39,4 @@ class AboutNil < Neo::Koan
     # Why?
   end
 end
+# rubocop:enable Style/RedundantBegin

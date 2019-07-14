@@ -1,4 +1,4 @@
-# rubocop:disable Naming/AccessorMethodName, Lint/MissingCopEnableDirective
+# rubocop:disable Naming/AccessorMethodName
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -64,3 +64,4 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
+# rubocop:enable Naming/AccessorMethodName
