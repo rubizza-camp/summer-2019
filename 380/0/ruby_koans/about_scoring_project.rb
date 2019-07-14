@@ -4,32 +4,35 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 def score(dice)
   score = 0
   return score if dice.equal?([])
-  score += extra_cases(dice)
-  score += typical_cases(dice)
-  score
+  frequency = times_in(dice)
+  points = claculated_from(frequency)
+  points
 end
 
 # :reek:UtilityFunction
-def typical_cases(dice)
-  score = 0
-  dice.each do |points|
-    score += 100 if points == 1
-    score += 50 if points == 5
-  end
-  score
+def times_in(dice)
+  points = [0, 0, 0, 0, 0, 0]
+  dice.each { |side| points[side - 1] += 1 }
+  points
 end
 
-# :reek:UtilityFunction, :reek:TooManyStatements
-def extra_cases(dice)
-  score = 0
-  dice.each do |points|
-    if dice.count(points) >= 3
-      score += points.equal?(1) ? 1000 : points * 100
-      3.times { dice.delete_at(dice.index(points)) }
+# :reek:FeatureEnvy, :reek:TooManyStatements:, :reek:UtilityFunction
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
+def claculated_from(freq)
+  points = 0
+  0.upto(freq.size - 1) do |iterator|
+    if freq[iterator] / 3 >= 1 && !freq[iterator].zero?
+      points += iterator + 1 == 1 ? 1000 : (iterator + 1) * 100
+      freq[iterator] -= (freq[iterator] / 3).ceil * 3
+    end
+    unless freq[iterator].zero?
+      points += freq[iterator] * 100 if (iterator + 1).equal?(1)
+      points += freq[iterator] * 50 if (iterator + 1).equal?(5)
     end
   end
-  score
+  points
 end
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
