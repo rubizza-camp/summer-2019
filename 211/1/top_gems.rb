@@ -83,13 +83,14 @@ weights = { used_by: 10, watch: 4, star: 8, fork: 6, contrib: 1, issues: 2 }
 
 hash_g = {}
 
-gems_array.each do |g|
-  h = {}
-  hash_g[g.name] = h
-  criteria.each do |c|
-    h[c] = g.send(c)
-  end
-end
+# working on normalization
+# gems_array.each do |g|
+#   h = {}
+#   hash_g[g.name] = h
+#   criteria.each do |c|
+#     h[c] = g.send(c)
+#   end
+# end
 
 # working on normalization
 # def normalise(xcur, xmin, xmax, dif0 = 0, dif1 = 1)
@@ -124,7 +125,7 @@ gems_array.each do |g|
 end
 
 gems_array.sort_by!(&:popularity).reverse!
-gems_array = take_top(gems_array, 2)
+gems_array = take_top(gems_array, options[:top])
 tp gems_array, :name,
    { used_by: { display_name: 'used by' } },
    { watch: { display_name: 'Watched By' } },
