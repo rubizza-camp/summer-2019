@@ -126,7 +126,7 @@ class AboutControlStatements < Neo::Koan # rubocop:disable Metrics/ClassLength
   def test_for_statement
     array = %w[fish and chips]
     result = []
-    array.each do |item|
+    for item in array # rubocop:disable Style/For
       result << item.upcase
     end
     assert_equal %w[FISH AND CHIPS], result

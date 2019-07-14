@@ -8,7 +8,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_array_literals
-    array = []
+    array = Array.new # rubocop:disable Style/EmptyLiteral
     assert_equal [], array
 
     array[0] = 1
