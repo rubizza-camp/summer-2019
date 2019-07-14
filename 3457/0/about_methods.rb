@@ -1,6 +1,3 @@
-# rubocop:enable Style/RedundantSelf
-# rubocop:enable Lint/UnreachableCode, Lint/Void
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UtilityFunction
@@ -112,7 +109,9 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
+  # rubocop:disable Style/AccessModifierDeclarations
   private :my_private_method
+  # rubocop:enable Style/AccessModifierDeclarations
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
@@ -151,5 +150,3 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable Style/RedundantSelf
-# rubocop:enable Lint/UnreachableCode, Lint/Void
