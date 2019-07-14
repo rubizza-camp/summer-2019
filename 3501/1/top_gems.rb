@@ -61,7 +61,7 @@ class TopGems
   def load_gems
     @gem_list.map do |gem|
       @threads << Thread.new do
-        @list << GetGemDataFromGit.new(gem).call(gem)
+        @list << GetGemDataFromGit.call(gem)
       end
     end
     @threads.each(&:join)

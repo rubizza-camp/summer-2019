@@ -14,17 +14,10 @@ class GetGemDataFromGit
   #:reek:Attribute
   attr_accessor :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
 
-  API_URL = 'https://api.github.com/search/repositories?q='
-  PARAMS = '&sort=stars&order=desc@per_page=1'
-  CONTRIBUTORS_CSS_SELECTOR = "a span[class='num text-emphasized']"
-  WATCHED_CSS_SELECTOR = '/html/body/div[4]/div/main/div[1]/div/ul/li'
-  USED_BY_CSS_SELECTOR = 'a.btn-link:nth-child(1)'
-
   def initialize(gem_name)
     @api_response = HTTParty.get("#{API_URL}#{gem_name}#{PARAMS}")
     @repo = repository
     @html = use_nokogiri
-    self
   rescue RepositoryNotFoundError => error
     default_data(gem_name, error.message)
     self
@@ -45,7 +38,17 @@ class GetGemDataFromGit
     self
   end
 
+  def self.call(gem_name)
+    self.new(gem_name).call(gem_name)
+  end
+
   private
+
+  API_URL = 'https://api.github.com/search/repositories?q='
+  PARAMS = '&sort=stars&order=desc@per_page=1'
+  CONTRIBUTORS_CSS_SELECTOR = "a span[class='num text-emphasized']"
+  WATCHED_CSS_SELECTOR = '/html/body/div[4]/div/main/div[1]/div/ul/li'
+  USED_BY_CSS_SELECTOR = 'a.btn-link:nth-child(1)'
 
   def check_for_errors
     message = @api_response.response.inspect
