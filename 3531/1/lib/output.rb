@@ -23,7 +23,8 @@ class Output
     table = Terminal::Table.new do |t|
       ready_gems.each do |gem|
         gem_stats = gem[2].stats
-        t.add_row content(gem[1], gem_stats)
+        gem_name = gem[1]
+        t.add_row content(name, gem_stats)
       end
     end
     puts ''
