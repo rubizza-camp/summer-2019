@@ -4,10 +4,12 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 class AboutHashes < Neo::Koan
   def test_creating_hashes
-    empty_hash = {}
+    # rubocop:disable Style/EmptyLiteral
+    empty_hash = Hash.new
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
+    # rubocop:enable Style/EmptyLiteral
   end
 
   def test_hash_literals
