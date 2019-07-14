@@ -1,7 +1,7 @@
 require_relative 'scraper.rb'
 
 # Class Gem
-class Geme
+class GemOne
   attr_reader :name
   def initialize(name)
     @name = name

@@ -21,7 +21,7 @@ class TerminalParser
         selector[:file] = file_name
       end
     end.parse!
-    ProgramLaunch.play_program(selector)
+    selector.size > 1 ? (puts 'invalid arguments entered') : ProgramLaunch.play_program(selector)
   end
   # rubocop: enable Metrics/MethodLength
 end

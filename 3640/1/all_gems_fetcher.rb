@@ -1,4 +1,4 @@
-require_relative 'geme.rb'
+require_relative 'gem_one.rb'
 
 # Class AllGems
 class AllGemsFetcher
@@ -17,7 +17,7 @@ class AllGemsFetcher
 
   def all_gems_get
     @gems = names.map do |name_gem|
-      Geme.new(name_gem)
+      GemOne.new(name_gem)
     end
   end
 end

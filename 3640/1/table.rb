@@ -1,11 +1,11 @@
 require 'terminal-table'
-require_relative 'all_gems.rb'
+require_relative 'all_gems_fetcher.rb'
 require_relative 'gem_terminal_output.rb'
 require_relative 'parse_file_fetcher.rb'
 # :reek:InstanceVariableAssumption
 class Table
   def table_output(selector)
-    rows = get_all_gems(selector).map { |geme| GemTerminalOutput.get_gem_terminal_output(geme) }
+    rows = get_all_gems(selector).map { |gem| GemTerminalOutput.get_gem_terminal_output(gem) }
     puts Terminal::Table.new(rows: rows)
   end
 
@@ -27,6 +27,6 @@ class Table
   end
 
   def gems_by_name(all_gems, name)
-    all_gems.select { |geme| geme.name.include?(name) ? geme : next }
+    all_gems.select { |gem| gem.name.include?(name) ? gem : next }
   end
 end
