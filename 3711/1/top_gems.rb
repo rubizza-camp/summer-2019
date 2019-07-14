@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby -w
-
 require_relative 'scanner/shell'
 require_relative 'scanner/yaml'
 require_relative 'parser/ruby_gems'
