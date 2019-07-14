@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable all
+
 # :reek:UtilityFunction
 def my_global_method(aaa, bbb)
   aaa + bbb
@@ -20,7 +20,7 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal(5, my_global_method(2, 3))' # ENABLE CHECK
+    assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -109,8 +109,9 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
-
+  # rubocop:disable Style/AccessModifierDeclarations
   private :my_private_method
+  # rubocop:enable Style/AccessModifierDeclarations
 
   def test_calling_private_methods_without_receiver
     assert_equal 'a secret', my_private_method
@@ -118,9 +119,9 @@ class AboutMethods < Neo::Koan
 
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
-      self.my_private_method
+      self.my_private_method # rubocop:disable Style/RedundantSelf
     end
-    assert_match /private method /, exception.message
+    assert_match /private method/, exception.message # rubocop:disable Lint/AmbiguousRegexpLiteral
   end
 
   # ------------------------------------------------------------------

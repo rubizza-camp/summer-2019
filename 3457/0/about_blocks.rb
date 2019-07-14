@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
-# rubocop:disable all
+
 class AboutBlocks < Neo::Koan
   def method_with_block
     result = yield
@@ -13,7 +15,9 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_defined_with_do_end_too
-    yielded_result = method_with_block { 1 + 2 }
+    yielded_result = method_with_block do
+      1 + 2
+    end
     assert_equal 3, yielded_result
   end
 
@@ -55,7 +59,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_methods_can_see_if_they_have_been_called_with_a_block
-    assert_equal :with_block, yield_tester { :with_block }
+    assert_equal :with_block, (yield_tester { :with_block })
     assert_equal :no_block, yield_tester
   end
 
@@ -88,7 +92,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_methods_can_take_an_explicit_block_argument
-    assert_equal 20, method_with_explicit_block { |n| n * 2 }
+    assert_equal 20, (method_with_explicit_block { |n| n * 2 })
 
     add_one = ->(n) { n + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)

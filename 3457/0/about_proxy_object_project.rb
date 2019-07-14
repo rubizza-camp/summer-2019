@@ -11,7 +11,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # The proxy class is started for you.  You will need to add a method
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
-# rubocop:disable all
 
 class Proxy
   attr_reader :messages
@@ -21,17 +20,21 @@ class Proxy
     @messages = []
   end
 
-  def method_missing(method_name, *args, &block)
-    @messages << method_name
-    @object.send(method_name, *args, &block)
+  def respond_to_missing?(name, include_private); end
+
+  def method_missing(sym, *args, &block)
+    @messages << sym
+    return @object.send(sym, *args, &block)
+    super # rubocop:disable Lint/UnreachableCode
   end
 
-  def called?(method_name)
-    @messages.include?(method_name)
+  def called?(method)
+    @messages.include?(method)
   end
 
-  def number_of_times_called(method_name)
-    @messages.count(method_name)
+  def number_of_times_called(method)
+    # :reek:UncommunicativeVariableName
+    @messages.select { |m| m == method }.size
   end
 end
 

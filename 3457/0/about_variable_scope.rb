@@ -1,12 +1,14 @@
-#rubocop:disable all
+# frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 # :reek:UncommunicativeMethodName
 # :reek:InstanceVariableAssumption
 class AboutVariableScope < Neo::Koan
+  # rubocop:disable Lint/UselessAssignment
   def bark
     noise = 'RUFF'
+    # rubocop:enable Lint/UselessAssignment
   end
 
   def test_noise_is_not_available_in_the_current_scope
