@@ -1,3 +1,5 @@
+require 'terminal-table'
+
 class Output
   def initialize(name, top)
     @name = name if name

@@ -10,3 +10,9 @@ gem 'terminal-table'
 
 # instead of net/http
 gem 'faraday'
+
+# make-like build utility
+gem 'rake'
+
+# testing
+gem 'minitest'

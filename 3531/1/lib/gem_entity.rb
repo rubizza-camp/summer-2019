@@ -44,7 +44,7 @@ class GemEntity
   end
 
   def forks
-    @doc.css('a.social-count')[1].text
+    @doc.css('a.social-count')[2].text
   end
 
   def stars

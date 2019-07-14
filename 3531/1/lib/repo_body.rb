@@ -1,10 +1,17 @@
+require 'faraday'
+require 'json'
+require 'nokogiri'
+require 'open-uri'
+
 class NotFoundError < StandardError; end
+class BadGatewayError < StandardError; end
 
 class RepoBody
-  attr_reader :name, :doc, :used_by_doc
+  attr_reader :name, :doc, :used_by_doc, :git_url
 
-  def initialize(gem_name)
+  def initialize(gem_name, internet = Kernel)
     @name = gem_name
+    @internet = internet
   end
 
   def fetch_params
@@ -18,16 +25,23 @@ class RepoBody
   def set_git_url
     gem_url = "https://rubygems.org/api/v1/gems/#{@name}.json"
 
-    begin
-      res = Faraday.get(gem_url)
-      raise NotFoundError if res.status == 404
+    res = Faraday.get(gem_url)
+    handle_errors(res)
 
-      res_params = JSON.parse(res.body)
-    rescue NotFoundError
-      warn '404 gem not found'
-      abort
-    end
+    res_params = JSON.parse(res.body)
     fetch_url(res_params)
+  end
+
+  def handle_errors(res)
+    raise NotFoundError if res.status == 404
+    raise BadGatewayError if res.status == 502
+  rescue NotFoundError
+    warn '404 gem not found'
+    abort
+  rescue BadGatewayError => ex
+    puts ex.message
+    warn 'bad gateway error, please restart the script'
+    abort
   end
 
   def fetch_url(res_params)
@@ -42,7 +56,7 @@ class RepoBody
   end
 
   def fetch_doc
-    Nokogiri::HTML(Kernel.open(@git_url))
+    Nokogiri::HTML(@internet.open(@git_url))
   rescue SocketError
     warn 'tcp connection error'
     abort
@@ -52,6 +66,6 @@ class RepoBody
   end
 
   def fetch_used_by_doc
-    Nokogiri::HTML(Kernel.open("#{@git_url}/network/dependents"))
+    Nokogiri::HTML(@internet.open("#{@git_url}/network/dependents"))
   end
 end

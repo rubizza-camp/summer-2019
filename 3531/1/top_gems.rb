@@ -3,12 +3,7 @@ require_relative './lib/gem_sorter.rb'
 require_relative './lib/output.rb'
 require_relative './lib/gem_entity.rb'
 require 'yaml'
-require 'json'
-require 'nokogiri'
-require 'open-uri'
 require 'optparse'
-require 'terminal-table'
-require 'faraday'
 
 options = {}
 
