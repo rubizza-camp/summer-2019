@@ -10,20 +10,12 @@ list = check_names(list, options) # select gems with --name included (--name)
 gems = []
 list.each { |name| gems << GemData.new(name) }
 gems.each do |gem|
-  gem.call_rubygems_api
+  gem.call_rubygems_api # these should be private and be called within the class(?)
   gem.rating_stat
   gem.github_link
   gem.github_parse
 end
-# -----------last but not the least 
-gems.sort_by! { |gem| gem.rating }.reverse! # sort by number of downloads. Should it be a method?
+# -----------last but not the least
+gems.sort_by!(&:rating).reverse! # sort by number of downloads. Should it be a method?
 gems = check_top(gems, options) # shrink list according to --top flag value
-# print table
-# print_table(gems)
-
-
-gems.each do |gem|
-  puts gem.name
-  puts gem.stats
-  puts gem.rating
-end
+print_table(gems) # print nice looking table

@@ -1,5 +1,7 @@
 require 'optparse'
 
+private
+# :reek:TooManyStatements
 def parse_options
   option_parser = OptionParser.new do |opts|
     opts.on '--top[=NUM]', Integer
@@ -9,6 +11,6 @@ def parse_options
 
   options = {}
   option_parser.parse!(into: options)
-  puts options
+  # puts options
   options
 end
