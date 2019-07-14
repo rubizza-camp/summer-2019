@@ -1,9 +1,7 @@
 gems:
-  -rubygems-update
   -rspec-core
   -rspec-expectations
-  -diff-lcs
   -rspec-mocks
   -rspec-support
-  -multi_json
-  
+  -rspec-dev
+  -rspec-its

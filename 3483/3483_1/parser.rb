@@ -4,13 +4,13 @@ require 'nokogiri'
 
 class Parcer
 	def open_first_url(gem_name)
-		@url = "https://github.com/#{gem_name}"
+		@url = "https://github.com/rspec/#{gem_name}"
         @html = open(@url)
         @doc = Nokogiri::HTML(@html)
 	end
 
 	def open_second_url(gem_name)
-		@url = "https://github.com/#{gem_name}/network/dependents"
+		@url = "https://github.com/rspec/#{gem_name}/network/dependents"
         @html = open(@url)
         @doc = Nokogiri::HTML(@html)
 	end
@@ -36,4 +36,4 @@ end
 
 test_oop = Parcer.new
 
-test_oop.url_info("rspec/rspec-core")
+test_oop.url_info("rspec-core")
