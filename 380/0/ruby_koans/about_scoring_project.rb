@@ -1,33 +1,35 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Metrics/MethodLength, Style/Next
-# :reek:TooManyStatements, :reek:UtilityFunction
+# :reek:UtilityFunction
 def score(dice)
+  score = 0
+  return score if dice.equal?([])
+  score += extra_cases(dice)
+  score += typical_cases(dice)
+  score
+end
+
+# :reek:UtilityFunction
+def typical_cases(dice)
+  score = 0
+  dice.each do |points|
+    score += 100 if points == 1
+    score += 50 if points == 5
+  end
+  score
+end
+
+# :reek:UtilityFunction, :reek:TooManyStatements
+def extra_cases(dice)
   score = 0
   dice.each do |points|
     if dice.count(points) >= 3
-      score += if points.equal?(1)
-                 1000
-               else
-                 points * 100
-               end
+      score += points.equal?(1) ? 1000 : points * 100
       3.times { dice.delete_at(dice.index(points)) }
-      next
-    end
-  end
-  dice.each do |points|
-    if points == 1
-      score += 100
-      next
-    end
-    if points == 5
-      score += 50
-      next
     end
   end
   score
 end
-# rubocop:enable Metrics/MethodLength, Style/Next
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
