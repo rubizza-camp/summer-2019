@@ -5,7 +5,9 @@ require 'open-uri'
 #:reek:TooManyStatements
 #:reek:TooManyInstanceVariables
 class GetGemDataFromGit
-  class GetGemDataFromGitException < RuntimeError
+  class RepoNotFoundError < RuntimeError
+  end
+  class PermissionDeniedError < RuntimeError
   end
 
   attr_reader :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
@@ -20,23 +22,33 @@ class GetGemDataFromGit
     @api_response = HTTParty.get("#{API_URL}#{gem_name}#{PARAMS}")
     @repo = repository
     @html = use_nokogiri
-  rescue GetGemDataFromGitException => error
+  rescue RepoNotFoundError => error
+    repository_not_found(gem_name, error.message)
+  rescue PermissionDeniedError => error
     repository_not_found(gem_name, error.message)
   end
 
   def call(gem_name)
-    call_from_response
-  rescue GetGemDataFromGitException => error
+    check_for_errors
+    pull_from_api
+  rescue RepoNotFoundError => error
+    repository_not_found(gem_name, error.message)
+  rescue PermissionDeniedError => error
     repository_not_found(gem_name, error.message)
   end
 
   private
 
-  def call_from_response
-    raise(GetGemDataFromGitException, 'permission denied') if @api_response.include?('message')
+  def check_for_errors
+    message = @api_response.response.inspect
+    unless message.include?('200')
+      error_message = "error #{message[/[0-9]+/]}"
+      raise(PermissionDeniedError, error_message)
+    end
+    raise(RepoNotFoundError, 'not found') if @api_response.to_hash['items'].empty?
+  end
 
-    raise(GetGemDataFromGitException, 'not found') if @api_response.to_hash['items'].empty?
-
+  def pull_from_api
     @name = @repo[:name]
     @stars = @repo[:stargazers_count]
     @forks = @repo[:forks_count]
@@ -61,9 +73,7 @@ class GetGemDataFromGit
   end
 
   def repository
-    raise(GetGemDataFromGitException, 'permission denied') if @api_response.include?('message')
-    raise(GetGemDataFromGitException, 'not found') if @api_response.to_hash['items'].empty?
-
+    check_for_errors
     symbolize @api_response.to_hash['items'].first
   end
 
