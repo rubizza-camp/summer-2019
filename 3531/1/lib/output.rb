@@ -9,12 +9,12 @@ class Output
     ready_gems = gems.take(@top) if @top
     ready_gems = ready_gems.select { |gem| gem.dig(1).include?(@name) } if @name
 
-    outputs_gems(ready_gems)
+    output_gems(ready_gems)
   end
 
   private
 
-  def outputs_gems(ready_gems)
+  def output_gems(ready_gems)
     warn 'no gems' if ready_gems.empty?
     create_table(ready_gems) unless ready_gems.empty?
   end
