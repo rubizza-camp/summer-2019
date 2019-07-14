@@ -1,5 +1,9 @@
+# frozen_string_literal:true
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# class
+# :reek:ControlParameter
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition
@@ -21,13 +25,13 @@ class AboutTrueAndFalse < Neo::Koan
     assert_equal :false_stuff, truth_value(nil)
   end
 
+  # :reek:TooManyStatements
   def test_everything_else_is_treated_as_true
     assert_equal :true_stuff, truth_value(1)
     assert_equal :true_stuff, truth_value(0)
     assert_equal :true_stuff, truth_value([])
     assert_equal :true_stuff, truth_value({})
-    assert_equal :true_stuff, truth_value("Strings")
-    assert_equal :true_stuff, truth_value("")
+    assert_equal :true_stuff, truth_value('Strings')
+    assert_equal :true_stuff, truth_value('')
   end
-
 end
