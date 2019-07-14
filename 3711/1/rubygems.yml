@@ -1,3 +1,12 @@
 gems:
+  - rails
   - sinatra
   - rspec
+  - reek
+  # - rubocop
+  # - em-net-http
+  # - nokogiri
+  # - activerecord-import
+  # - primary
+  # - rollout
+  # - pry

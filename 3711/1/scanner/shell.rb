@@ -1,7 +1,7 @@
 module Scanner
   class Shell
     ARG_REGEXPS = [
-      /--top=\d+/,
+      /^--top=\d+/,
       /^--name=[A-z0-9]+/,
       %r{^--file=(\/?[A-z0-9])+\.yml$}
     ]
