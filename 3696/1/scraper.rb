@@ -5,59 +5,56 @@ require 'webdrivers'
 class Scraper
   FOR_USED_BY = '/network/dependents'
   URL = 'https://rubygems.org/gems/'
-  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/
+  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/.freeze
   attr_reader :row
 
-  def initialize(link)
+  def initialize(link, browser)
     @link = normalize(link)
+    @browser_page = generate_browser_page(browser)
   end
 
   def scrape
-    flatten_and_to_natural(Array.new(watches_stars_forks << contributors << issues << used_by))
-  end
-
-  def close
-    browser.close
+    to_natural(watches_stars_forks.merge(contributors, issues, used_by))
   end
 
   private
 
-  def browser
-    @browser ||= generate_browser
-  end
+  attr_reader :link, :browser_page
 
-  def generate_browser
-    browser = Watir::Browser.new :chrome, headless: true
-    browser.goto @link
-    sleep 1
+  def generate_browser_page(browser)
+    browser.goto(link)
+    sleep 0.1 until browser.elements(css: '.num.text-emphasized').size == 4
     browser
   end
-
-  attr_reader :link
 
   def normalize(link)
     link.split('/').take(5).join('/')
   end
 
-  def flatten_and_to_natural(arr)
-    arr.flatten.map { |attr| attr.delete(',').to_i }
+  def to_natural(attributes)
+    attributes.transform_values { |attr| attr.delete(',').to_i }
   end
 
   def watches_stars_forks
-    browser.elements(css: '.social-count').to_a.map { |number| number.text.strip }
+    keys = %i[watches stars forks]
+    Hash[keys.product(browser_page.elements(css: '.social-count')
+                          .to_a.map { |number| number.text.strip })]
   end
 
   def contributors
-    browser.elements(css: '.num.text-emphasized').last.text.strip
+    keys = [:contributors]
+    Hash[keys.product([browser_page.elements(css: '.num.text-emphasized').last.text.strip])]
   end
 
   def used_by
-    used_by_browser = browser
+    keys = [:used_by]
+    used_by_browser = browser_page
     used_by_browser.goto(link + FOR_USED_BY)
-    used_by_browser.html.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip
+    Hash[keys.product([used_by_browser.html.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip])]
   end
 
   def issues
-    browser.element(css: '.Counter').text
+    keys = [:issues]
+    Hash[keys.product([browser_page.element(css: '.Counter').text])]
   end
 end

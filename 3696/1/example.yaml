@@ -6,3 +6,5 @@ gems:
  - activestorage
  - s2d
  - spring
+ - as
+ - amazon

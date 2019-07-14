@@ -3,6 +3,9 @@ GEM
   specs:
     childprocess (1.0.1)
       rake (< 13.0)
+    concurrent-ruby (1.1.5)
+    i18n (1.6.0)
+      concurrent-ruby (~> 1.0)
     mini_portile2 (2.4.0)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
@@ -27,6 +30,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  i18n
+  nokogiri
   terminal-table
   watir
   webdrivers
