@@ -3,3 +3,4 @@ gems:
  - rails
  - octokit
  - terminal-table
+ - activesupport

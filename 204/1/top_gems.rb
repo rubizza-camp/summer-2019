@@ -27,13 +27,13 @@ end
 private
 
 DEFAULT_GEM_LIST_FILE = 'gems.yaml'.freeze
-
-# rubocop:disable Metrics/MethodLength
 # :reek:UtilityFunction
 # :reek:NilCheck:
 # :reek:TooManyStatements
 # :reek:NestedIterators:
 # :reek:FeatureEnvy
+# rubocop:disable Metrics/LineLength
+# rubocop:disable Metrics/MethodLength
 def parse_options
   options = {}
   optparse = OptionParser.new do |opts|
@@ -41,12 +41,12 @@ def parse_options
       options[:file] = file
     end
     opts.on('-n', '--name [STRING]', String, 'Enter name to filter gems by name') do |name|
-      raise OptionParser::InvalidOption if name.nil?
+      raise 'You enter invalid option. Option :name can be only letter,number or string' if name.nil?
 
       options[:name_sort] = name
     end
     opts.on('-t', '--top [INTEGER]', Integer, 'Enter number to filter top of gems') do |top|
-      raise OptionParser::InvalidOption if top.nil?
+      raise 'You enter invalid option.Option :top can be only integer number' if top.nil?
 
       options[:top] = top
     end
@@ -55,12 +55,17 @@ def parse_options
   options[:file] ||= DEFAULT_GEM_LIST_FILE
   options
 end
-
+# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/MethodLength
+
 # :reek:UtilityFunction
 def build_client(access_token)
-  client = Octokit::Client.new(access_token: access_token)
-  client.user.login
+  begin
+    client = Octokit::Client.new(access_token: access_token)
+    client.user.login
+  rescue Octokit::Unauthorized
+    raise 'Please enter valid Personal Auth Token'
+  end
   client
 end
 
@@ -70,31 +75,43 @@ def access_token
 end
 
 # :reek:UtilityFunction
+# rubocop:disable Style/GuardClause
 def load_yaml(file)
-  YAML.load_file(file)
+  if File.exist?(file)
+    YAML.load_file(file)
+  else
+    raise 'File not exists'
+  end
 end
+# rubocop:enable Style/GuardClause
 
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Lint/UselessSetterCall
 def info(data, client)
-  data.map { |gem| [gem.to_sym, gem_info(gem, client)] }.to_h
+  data.map { |gem| [gem.to_sym, gem_info(gem, client)] }
 end
 
 # :reek:TooManyStatements
+# rubocop:disable Lint/UselessSetterCall
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
 def gem_info(gem, client)
   gem_data = {}
   gem_description = Gems.info(gem)
   uri = (
     gem_description['source_code_uri'] || gem_description['homepage_uri']).sub!(%r{http.*com/}, '')
-  repo = client.repo uri
+  begin
+    repo = client.repo uri
+  rescue Octokit::InvalidRepository
+    raise gem.to_s + ' didnt have github repo'
+  end
   contributors_count = contributors(uri).css('span.num.text-emphasized').children[2].text.to_i
   used_by_count = dependents(uri).css('.btn-link')[1].text.delete('^0-9').to_i
   gem_data[gem.to_sym] = gem_properties(repo, contributors_count, used_by_count)
 end
 # rubocop:enable Lint/UselessSetterCall
+# rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/AbcSize
 
+# rubocop:disable Metrics/MethodLength
 # :reek:FeatureEnvy
 def gem_properties(repo, contributors_count, used_by_count)
   info = {
@@ -109,15 +126,15 @@ def gem_properties(repo, contributors_count, used_by_count)
   info[:popularity] = popularity(info)
   info
 end
+# rubocop:enable Metrics/MethodLength
 
 # :reek:UtilityFunction
-# rubocop:enable Metrics/MethodLength
 # rubocop:disable Style/CaseEquality
 def popularity(info)
   info.values.select { |value| Numeric === value }.reduce(:+)
 end
-
 # rubocop:enable Style/CaseEquality
+
 def contributors(uri)
   Nokogiri::HTML(open('https://github.com/' + uri))
 end
