@@ -5,7 +5,6 @@ class Score
     @gem_array = gem_array
   end
 
-  # :reek:NestedIterators
   def calculate_overall_score
     calculate_score_for_each_stat
     @gem_array.each do |gem|
@@ -17,22 +16,22 @@ class Score
 
   private
 
-  def average(key)
+  def average_in_float(key)
     sum = 0
     @gem_array.each do |gem|
-      sum += (gem.stats[key].delete! ',').to_f
+      sum += gem.stats[key].scan(/\d/).join('').to_f
     end
     sum / @gem_array.size
   end
 
   def average_stats
     @average_stats ||= {
-      average_used:          average(:used),
-      average_forks:         average(:forks),
-      average_stars:         average(:stars),
-      average_contributors:  average(:contributors),
-      average_watched:       average(:watched),
-      average_issues:        average(:issues)
+      used:          average_in_float(:used),
+      forks:         average_in_float(:forks),
+      stars:         average_in_float(:stars),
+      contributors:  average_in_float(:contributors),
+      watched:       average_in_float(:watched),
+      issues:        average_in_float(:issues)
     }
   end
 
@@ -40,11 +39,11 @@ class Score
   def calculate_score_for_each_stat
     @gem_array.each do |gem|
       gem.scores = {
-        used_score:         gem.stats[:used].to_f / average_stats[:average_used],
-        forks_score:        gem.stats[:forks].to_f / average_stats[:average_forks],
-        stars_score:        gem.stats[:stars].to_f / average_stats[:average_stars],
-        contributors_score: gem.stats[:contributors].to_f / average_stats[:average_contributors],
-        watched_score:      gem.stats[:watched].to_f / average_stats[:average_watched]
+        used_score:         gem.stats[:used].scan(/\d/).join('').to_f / average_stats[:used],
+        forks_score:        gem.stats[:forks].scan(/\d/).join('').to_f / average_stats[:forks],
+        stars_score:        gem.stats[:stars].scan(/\d/).join('').to_f / average_stats[:stars],
+        contributors_score: gem.stats[:contributors].scan(/\d/).join('').to_f / average_stats[:contributors],
+        watched_score:      gem.stats[:watched].scan(/\d/).join('').to_f / average_stats[:watched]
       }
     end
   end
