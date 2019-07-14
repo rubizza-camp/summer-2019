@@ -52,11 +52,12 @@ It was the worst of times.
     # rubocop:enable Style/PercentLiteralDelimiters
   end
 
+# rubocop:disable all
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<~SQL
+    long_string = <<~EOS
       It was the best of times,
       It was the worst of times.
-    SQL
+    EOS
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
