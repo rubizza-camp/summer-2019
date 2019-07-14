@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 # :reek:UncommunicativeMethodName
 # :reek:InstanceVariableAssumption
-# rubocop:disable Lint/UselessAssignment
 class AboutVariableScope < Neo::Koan
   # rubocop:disable Lint/UselessAssignment
   def bark
@@ -39,12 +38,13 @@ class AboutVariableScope < Neo::Koan
   end
 
   def test_block_variables_cannot_be_accessed_outside_scope
+    # rubocop:disable Lint/UselessAssignment
     2.times do
       x = 0
     end
     assert_equal nil, defined? x
+    # rubocop:enable Lint/UselessAssignment
   end
-  # rubocop:enable Lint/UselessAssignment
 
   # ------------------------------------------------------
 
