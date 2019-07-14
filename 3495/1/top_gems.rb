@@ -1,19 +1,29 @@
-require 'gems'
+require './libs/get_gem_url'
+require './libs/get_params'
+require './libs/gem'
+require './libs/print_table'
+require './libs/load_gem_list'
 require 'yaml'
-require 'nokogiri'
-
-def ggWp
-  yaml_data = YAML.load_file('gem_list.yml')
-  gems_arr = yaml_data.values[0]
-  gems_arr.each do |gem_for_search|
-    gem_url = Gems.info(gem_for_search).values_at('source_code_uri').to_s.delete('", \, [, ]').chomp('/issues')
-    if (gem_url == 'nil') or !(gem_url.include? 'https://github.com/') and !(gem_url.include? 'http://github.com/')
-      gem_url = Gems.info(gem_for_search).values_at('homepage_uri').to_s.delete('", \, [, ]').chomp('/issues')
+require 'optparse'
+require 'open-uri'
+require 'bundler'
+Bundler.require
+# Main class
+#:reek:TooManyStatements:
+#:reek:UtilityFunction:
+class TopGems
+  def main
+    gems_arr = GemListLoader.new
+    gems = []
+    gems_arr.gems_arr.each do |gem_name|
+      gem_url = GemUrlGetter.new(gem_name)
+      gem_url.gem_url_with_source_code_uri
+      gem_params = ParamsGetter.new(gem_url.gem_url)
+      gem = MyGem.new(gem_name, *gem_params.params)
+      gems << gem
     end
-    if (gem_url == 'nil') or !(gem_url.include? 'https://github.com/') and !(gem_url.include? 'http://github.com/')
-      gem_url = Gems.info(gem_for_search).values_at('bug_tracker_uri').to_s.delete('", \, [, ]').chomp('/issues')
-    end
-    user = gem_url.split('/', 4).last.split('/').first
-    repo = gem_url.split('/').last
+    TablePrinter.new(gems).output_info
   end
 end
+
+TopGems.new.main
