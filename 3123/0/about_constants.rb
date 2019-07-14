@@ -1,10 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Style/MutableConstant
-C = 'top level'
 
+C = 'top level'.freeze
+
+# :reek:IrresponsibleModule
 class AboutConstants < Neo::Koan
-  C = 'nested'
-  # rubocop:enable Style/MutableConstant
+  C = 'nested'.freeze
+
   def test_nested_constants_may_also_be_referenced_with_relative_paths
     assert_equal 'nested', C
   end
@@ -69,13 +70,15 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-  # rubocop:disable Style/ClassAndModuleChildren
+
+  # rubocop:disable ClassAndModuleChildren
   class MyAnimals::Oyster < Animal
     def legs_in_oyster
       LEGS
     end
   end
-  # rubocop:enable Style/ClassAndModuleChildren
+  # rubocop:enable ClassAndModuleChildren
+
   def test_who_wins_with_explicit_scoping_on_class_definition
     assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
   end

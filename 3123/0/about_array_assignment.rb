@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# Description class
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
     names = %w[John Smith]
@@ -26,7 +27,7 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments_with_too_few_variables
-    first_name, last_name = ['Cher']
+    first_name, last_name = %w[Cher]
     assert_equal 'Cher', first_name
     assert_equal nil, last_name
   end

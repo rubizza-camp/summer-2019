@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# rubocop:disable Metrics/AbcSize
 
 # Greed is a dice game where you roll up to five dice to accumulate
 # points.  The following "score" function will be used to calculate the
@@ -30,26 +29,38 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-# :reek:TooManyStatements
-# :reek:UtilityFunction
+class Rules
+  SET_SCORE = Hash.new do |_, key|
+    if key == 1
+      1000
+    else
+      key * 100
+    end
+  end
+
+  SCORE_MULTIPLIER = Hash.new(0).merge!(1 => 100, 5 => 50)
+end
+
+# This method smells of :reek:DuplicateMethodCall
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UtilityFunction
 def score(dice)
   score = 0
-  dice = dice.sort
-  (1..6).each do |comb|
-    count = dice.count(comb)
-    score += (comb == 1 ? 1000 : comb * 100) if count >= 3
-    score += (count % 3) * 100 if comb == 1
-    score += (count % 3) * 50 if comb == 5
+  freq = dice.each_with_object(Hash.new(0)) { |key, hash| hash[key] += 1 }
+  freq.keys.each do |val|
+    if freq[val] >= 3
+      score += Rules::SET_SCORE[val]
+      freq[val] -= 3
+    end
+
+    score += freq[val] * Rules::SCORE_MULTIPLIER[val]
   end
   score
 end
 
-# :reek:FeatureEnvy
-# :reek:TooManyStatements
-# :reek:TooManyMethods
-# :reek:UncommunicativeVariableName
-# :reek:UncommunicativeMethodName# :reek:Attribute
-
+# :reek:UncommunicativeMethodName
+# :reek:DuplicateMethodCall
+# Description class
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
@@ -64,6 +75,7 @@ class AboutScoringProject < Neo::Koan
   end
 
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
+    puts(score([1, 5, 5, 1]))
     assert_equal 300, score([1, 5, 5, 1])
   end
 
@@ -91,4 +103,3 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# rubocop:enable Metrics/AbcSize

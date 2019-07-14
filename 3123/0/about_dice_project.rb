@@ -1,21 +1,26 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# Implement a DiceSet Class here:
+#
 class DiceSet
   attr_reader :values
 
-  def roll(number)
-    @values = (1..number).to_a.shuffle
+  def roll(size)
+    @values = Array.new(size) { rand(1..6) }
   end
 end
+
 # :reek:FeatureEnvy
 # :reek:TooManyStatements
-# :reek:UncommunicativeMethodName
+# :reek:DuplicateMethodCall
+# Description class
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
     assert_not_nil dice
   end
 
+  # :reek:UncommunicativeMethodName
   def test_rolling_the_dice_returns_a_set_of_integers_between_1_and_6
     dice = DiceSet.new
 

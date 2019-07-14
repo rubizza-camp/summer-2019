@@ -1,17 +1,15 @@
-# rubocop:disable  Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength,  Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:FeatureEnvy
+# :reek:RepeatedConditional
 # :reek:TooManyStatements
 # :reek:UncommunicativeVariableName
-# :reek:RepeatedConditional
+# Description class
 class AboutControlStatements < Neo::Koan
+  # rubocop:disable Lint/LiteralAsCondition
   def test_if_then_else_statements
-    result = if true
-               :true_value
-             else
-               :false_value
-             end
+    result = :true_value if true
+    result = :false_value if false
     assert_equal :true_value, result
   end
 
@@ -29,11 +27,7 @@ class AboutControlStatements < Neo::Koan
             end
     assert_equal :true_value, value
 
-    value = if false
-              :true_value
-            else
-              :false_value
-            end
+    value = false ? :true_value : :false_value
     assert_equal :false_value, value
 
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
@@ -41,7 +35,7 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_if_statements_with_no_else_with_false_condition_return_value
-    value = (:true_value if false)
+    value = :true_value if false
     assert_equal nil, value
   end
 
@@ -75,6 +69,7 @@ class AboutControlStatements < Neo::Koan
 
     assert_equal :false_value, result
   end
+  # rubocop:enable Lint/LiteralAsCondition
 
   def test_while_statement
     i = 1
@@ -83,7 +78,7 @@ class AboutControlStatements < Neo::Koan
       result *= i
       i += 1
     end
-    assert_equal 362_880_0, result
+    assert_equal 3_628_800, result
   end
 
   def test_break_statement
@@ -91,16 +86,18 @@ class AboutControlStatements < Neo::Koan
     result = 1
     loop do
       break unless i <= 10
+
       result *= i
       i += 1
     end
-    assert_equal 362_880_0, result
+    assert_equal 3_628_800, result
   end
 
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
-               break i if i.even?
+               break i if (i % 2).zero?
+
                i += 1
              end
 
@@ -112,7 +109,8 @@ class AboutControlStatements < Neo::Koan
     result = []
     while i < 10
       i += 1
-      next if i.even?
+      next if (i % 2).zero?
+
       result << i
     end
     assert_equal [1, 3, 5, 7, 9], result
@@ -121,9 +119,7 @@ class AboutControlStatements < Neo::Koan
   def test_for_statement
     array = %w[fish and chips]
     result = []
-    array.each do |item|
-      result << item.upcase
-    end
+    array.each { |item| result << item.upcase }
     assert_equal %w[FISH AND CHIPS], result
   end
 
@@ -135,4 +131,3 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
-# rubocop:enable  Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength,  Metrics/LineLength

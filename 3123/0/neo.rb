@@ -17,7 +17,6 @@ end
 # :reek:UtilityFunction
 # :reek:ControlParameter
 def ruby_version?(version)
-  # :reek:ControlParameter
   RUBY_VERSION =~ /^#{version}/ ||
     (version == 'jruby' && defined?(JRUBY_VERSION)) ||
     (version == 'mri' && !defined?(JRUBY_VERSION))
@@ -25,32 +24,30 @@ end
 
 # :reek:UncommunicativeVariableName
 def in_ruby_version(*versions)
-  # :reek:UncommunicativeVariableName
   yield if versions.any? { |v| ruby_version?(v) }
 end
 
 in_ruby_version('1.8') do
+  # :reek:IrresponsibleModule
   class KeyError < StandardError
   end
 end
 
+# :reek:UtilityFunction
+# :reek:UncommunicativeParameterName
 # Standard, generic replacement value.
 # If value19 is given, it is used in place of value for Ruby 1.9.
-# :reek:UncommunicativeVariableName
-# :reek:UncommunicativeParameterName
-# :reek:UtilityFunction
 def __(value = 'FILL ME IN', value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
   else
-    # :reek:UncommunicativeParameterName
     value19 == :mu ? value : value19
   end
 end
 
+# :reek:UtilityFunction
+# :reek:UncommunicativeParameterName
 # Numeric replacement value.
-# :reek:UncommunicativeVariableName
-# :reek:UncommunicativeParameterName and :reek:UtilityFunction
 def _n_(value = 999_999, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -59,10 +56,9 @@ def _n_(value = 999_999, value19 = :mu)
   end
 end
 
-# Error object replacement value.
 # :reek:UtilityFunction
-# :reek:UncommunicativeVariableName
 # :reek:UncommunicativeParameterName
+# Error object replacement value.
 def ___(value = FillMeInError, value19 = :mu)
   if RUBY_VERSION < '1.9'
     value
@@ -82,10 +78,11 @@ class Object
   end
 end
 
+# Description class
 class String
   def side_padding(width)
     extra = width - size
-    if width < 0
+    if width.negative?
       self
     else
       left_padding = extra / 2
@@ -94,13 +91,20 @@ class String
     end
   end
 end
-# :reek:NilCheck
-# :reek:FeatureEnvy
-# :reek:TooManyStatements
+
+# :reek:UncommunicativeVariableName
 # :reek:InstanceVariableAssumption
 # :reek:TooManyInstanceVariables
+# :reek:IrresponsibleModule
+# :reek:DuplicateMethodCall
+# :reek:TooManyStatements
+# :reek:ControlParameter
+# :reek:NestedIterators
+# :reek:UtilityFunction
 # :reek:TooManyMethods
-# :reek:UncommunicativeVariableName
+# :reek:FeatureEnvy
+# :reek:DataClump
+# :reek:NilCheck
 module Neo
   class << self
     def simple_output
@@ -137,6 +141,7 @@ module Neo
 
     def use_colors?
       return false if ENV['NO_COLOR']
+
       if ENV['ANSI_COLOR'].nil?
         if using_windows?
           using_win32console
@@ -156,23 +161,20 @@ module Neo
       defined? Win32::Console
     end
   end
-  # :reek:NilCheck
-  # :reek:FeatureEnvy
-  # :reek:TooManyStatements
-  # :reek:DataClump
+
   module Assertions
     FailedAssertionError = Class.new(StandardError)
 
     def flunk(msg)
       raise FailedAssertionError, msg
     end
-    # :reek:ControlParameter
+
     def assert(condition, msg = nil)
       msg ||= 'Failed assertion.'
       flunk(msg) unless condition
       true
     end
-    # :reek:DataClump
+
     def assert_equal(expected, actual, msg = nil)
       msg ||= "Expected #{expected.inspect} to equal #{actual.inspect}"
       assert(expected == actual, msg)
@@ -182,46 +184,40 @@ module Neo
       msg ||= "Expected #{expected.inspect} to not equal #{actual.inspect}"
       assert(expected != actual, msg)
     end
-    # :reek:NilCheck
+
     def assert_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to be nil"
       assert(actual.nil?, msg)
     end
-    # :reek:FeatureEnvy
-    # :reek:NilCheck
+
     def assert_not_nil(actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to not be nil"
       assert(!actual.nil?, msg)
     end
-    # :reek:FeatureEnvy
+
     def assert_match(pattern, actual, msg = nil)
       msg ||= "Expected #{actual.inspect} to match #{pattern.inspect}"
       assert pattern =~ actual, msg
     end
-    # :reek:TooManyStatements
+
     def assert_raise(exception)
       begin
         yield
-      rescue Exception => ex
-        expected = ex.is_a?(exception)
-        assert(expected, "Exception #{exception.inspect} expected, but #{ex.inspect} was raised")
-        return ex
+      rescue Exception => e
+        expected = e.is_a?(exception)
+        assert(expected, "Exception #{exception.inspect} expected, but #{e.inspect} was raised")
+        return e
       end
       flunk "Exception #{exception.inspect} expected, but nothing raised"
     end
 
     def assert_nothing_raised
       yield
-    rescue Exception => ex
+    rescue Exception => e
       flunk "Expected nothing to be raised, but exception #{exception.inspect} was raised"
     end
   end
- # :reek:InstanceVariableAssumption
- # :reek:TooManyInstanceVariables
- # :reek:TooManyMethods
- # :reek:NilCheck
- # :reek:UncommunicativeVariableName
- # :reek:TooManyStatements
+
   class Sensei
     attr_reader :failure, :failed_test, :pass_count
 
@@ -235,8 +231,7 @@ module Neo
     end
 
     PROGRESS_FILE_NAME = '.path_progress'.freeze
-    # :reek:UncommunicativeVariableName
-    # :reek:NilCheck
+
     def add_progress(prog)
       @_contents = nil
       exists = File.exist?(PROGRESS_FILE_NAME)
@@ -257,13 +252,12 @@ module Neo
       end
       @_contents
     end
-    # :reek:TooManyStatements
-    # :reek:NilCheck
+
     def observe(step)
       if step.passed?
         @pass_count += 1
         if @pass_count > progress.last.to_i
-          @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness.")
+          @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness")
         end
       else
         @failed_test = step
@@ -281,8 +275,7 @@ module Neo
     def assert_failed?
       failure.is_a?(FailedAssertionError)
     end
-    # :reek:NilCheck
-    # :reek:UncommunicativeVariableName
+
     def instruct
       if failed?
         @observations.each { |c| puts c }
@@ -294,14 +287,14 @@ module Neo
         end_screen
       end
     end
-    # :reek:TooManyStatements
+
     def show_progress
       bar_width = 50
       total_tests = Neo::Koan.total_tests
       scale = bar_width.to_f / total_tests
       print Color.green('your path thus far [')
       happy_steps = (pass_count * scale).to_i
-      happy_steps = 1 if happy_steps == 0 && pass_count > 0
+      happy_steps = 1 if happy_steps.zero? && pass_count.positive?
       print Color.green('.' * happy_steps)
       if failed?
         print Color.red('X')
@@ -323,46 +316,46 @@ module Neo
     def boring_end_screen
       puts 'Mountains are again merely mountains'
     end
-    # :reek:TooManyStatements
+
     def artistic_end_screen
       'JRuby 1.9.x Koans'
       ruby_version = "(in #{'J' if defined?(JRUBY_VERSION)}Ruby #{defined?(JRUBY_VERSION) ? JRUBY_VERSION : RUBY_VERSION})"
       ruby_version = ruby_version.side_padding(54)
-      completed = <<-ENDTEXT
-                                  ,,   ,  ,,
-                                :      ::::,    :::,
-                   ,        ,,: :::::::::::::,,  ::::   :  ,
-                 ,       ,,,   ,:::::::::::::::::::,  ,:  ,: ,,
-            :,        ::,  , , :, ,::::::::::::::::::, :::  ,::::
-           :   :    ::,                          ,:::::::: ::, ,::::
-          ,     ,:::::                                  :,:::::::,::::,
-      ,:     , ,:,,:                                       :::::::::::::
-     ::,:   ,,:::,                                           ,::::::::::::,
-    ,:::, :,,:::                                               ::::::::::::,
-   ,::: :::::::,       Mountains are again merely mountains     ,::::::::::::
-   :::,,,::::::                                                   ::::::::::::
- ,:::::::::::,                                                    ::::::::::::,
- :::::::::::,                                                     ,::::::::::::
-:::::::::::::                                                     ,::::::::::::
-::::::::::::                      Ruby Koans                       ::::::::::::
-::::::::::::#{ruby_version},::::::::::::
-:::::::::::,                                                      , :::::::::::
-,:::::::::::::,                brought to you by                 ,,::::::::::::
-::::::::::::::                                                    ,::::::::::::
- ::::::::::::::,                                                 ,:::::::::::::
- ::::::::::::,               Neo Software Artisans              , ::::::::::::
-  :,::::::::: ::::                                               :::::::::::::
-   ,:::::::::::  ,:                                          ,,:::::::::::::,
-     ::::::::::::                                           ,::::::::::::::,
-      :::::::::::::::::,                                  ::::::::::::::::
-       :::::::::::::::::::,                             ::::::::::::::::
-        ::::::::::::::::::::::,                     ,::::,:, , ::::,:::
-          :::::::::::::::::::::::,               ::,: ::,::, ,,: ::::
-              ,::::::::::::::::::::              ::,,  , ,,  ,::::
-                 ,::::::::::::::::              ::,, ,   ,:::,
-                      ,::::                         , ,,
-                                                  ,,,
-ENDTEXT
+      completed = <<~ENDTEXT
+                                          ,,   ,  ,,
+                                        :      ::::,    :::,
+                           ,        ,,: :::::::::::::,,  ::::   :  ,
+                         ,       ,,,   ,:::::::::::::::::::,  ,:  ,: ,,
+                    :,        ::,  , , :, ,::::::::::::::::::, :::  ,::::
+                   :   :    ::,                          ,:::::::: ::, ,::::
+                  ,     ,:::::                                  :,:::::::,::::,
+              ,:     , ,:,,:                                       :::::::::::::
+             ::,:   ,,:::,                                           ,::::::::::::,
+            ,:::, :,,:::                                               ::::::::::::,
+           ,::: :::::::,       Mountains are again merely mountains     ,::::::::::::
+           :::,,,::::::                                                   ::::::::::::
+         ,:::::::::::,                                                    ::::::::::::,
+         :::::::::::,                                                     ,::::::::::::
+        :::::::::::::                                                     ,::::::::::::
+        ::::::::::::                      Ruby Koans                       ::::::::::::
+        ::::::::::::#{ruby_version},::::::::::::
+        :::::::::::,                                                      , :::::::::::
+        ,:::::::::::::,                brought to you by                 ,,::::::::::::
+        ::::::::::::::                                                    ,::::::::::::
+         ::::::::::::::,                                                 ,:::::::::::::
+         ::::::::::::,               Neo Software Artisans              , ::::::::::::
+          :,::::::::: ::::                                               :::::::::::::
+           ,:::::::::::  ,:                                          ,,:::::::::::::,
+             ::::::::::::                                           ,::::::::::::::,
+              :::::::::::::::::,                                  ::::::::::::::::
+               :::::::::::::::::::,                             ::::::::::::::::
+                ::::::::::::::::::::::,                     ,::::,:, , ::::,:::
+                  :::::::::::::::::::::::,               ::,: ::,::, ,,: ::::
+                      ,::::::::::::::::::::              ::,,  , ,,  ,::::
+                         ,::::::::::::::::              ::,, ,   ,:::,
+                              ,::::                         , ,,
+                                                          ,,,
+      ENDTEXT
       puts completed
     end
 
@@ -374,7 +367,7 @@ ENDTEXT
         puts Color.cyan('  I sense frustration. Do not be afraid to ask for help.')
       elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
         puts Color.cyan('  Do not lose hope.')
-      elsif progress.last.to_i > 0
+      elsif progress.last.to_i.positive?
         puts Color.cyan("  You are progressing. Excellent. #{progress.last} completed.")
       end
     end
@@ -389,7 +382,6 @@ ENDTEXT
       puts
     end
 
-    # :reek:UtilityFunction
     def embolden_first_line_only(text)
       first_line = true
       text.collect do |t|
@@ -402,13 +394,11 @@ ENDTEXT
       end
     end
 
-    # :reek:UtilityFunction
     def indent(text)
       text = text.split(/\n/) if text.is_a?(String)
       text.collect { |t| "  #{t}" }
     end
 
-    # :reek:UtilityFunction
     def find_interesting_lines(backtrace)
       backtrace.reject do |line|
         line =~ /neo\.rb/
@@ -418,10 +408,10 @@ ENDTEXT
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
     def a_zenlike_statement
-      zen_statement = if !failed?
-                        'Mountains are again merely mountains'
-                      else
-                        case (@pass_count % 10)
+      if !failed?
+        zen_statement = 'Mountains are again merely mountains'
+      else
+        zen_statement = case (@pass_count % 10)
                         when 0
                           'mountains are merely mountains'
                         when 1, 2
@@ -435,7 +425,7 @@ ENDTEXT
                         else
                           'things are not what they appear to be: nor are they otherwise'
                         end
-                      end
+      end
       puts Color.green(zen_statement)
     end
   end
@@ -469,13 +459,13 @@ ENDTEXT
       setup
       begin
         send(name)
-      rescue StandardError, Neo::Sensei::FailedAssertionError => ex
-        failed(ex)
+      rescue StandardError, Neo::Sensei::FailedAssertionError => e
+        failed(e)
       ensure
         begin
           teardown
-        rescue StandardError, Neo::Sensei::FailedAssertionError => ex
-          failed(ex) if passed?
+        rescue StandardError, Neo::Sensei::FailedAssertionError => e
+          failed(e) if passed?
         end
       end
       self
@@ -499,9 +489,9 @@ ENDTEXT
         args.each do |arg|
           case arg
           when /^-n\/(.*)\/$/
-            @test_pattern = Regexp.new(Regexp.last_match(1))
+            @test_pattern = Regexp.new($1)
           when /^-n(.*)$/
-            @test_pattern = Regexp.new(Regexp.quote(Regexp.last_match(1)))
+            @test_pattern = Regexp.new(Regexp.quote($1))
           else
             if File.exist?(arg)
               load(arg)
@@ -536,7 +526,6 @@ ENDTEXT
     end
   end
 
-  # :reek:NestedIterators
   class ThePath
     def walk
       sensei = Neo::Sensei.new
@@ -564,5 +553,4 @@ END {
   Neo::Koan.command_line(ARGV)
   Neo::ThePath.new.walk
 }
-
-# rubocop: enable all
+# rubocop:enable all

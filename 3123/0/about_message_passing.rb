@@ -1,12 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# :reek:ManualDispatch
-# :reek:TooManyStatements
-# :reek:TooManyMethods
-# :reek:UncommunicativeParameterName
-# :reek:UtilityFunction
-# rubocop:disable all
-
+# :reek:IrresponsibleModule:
 class AboutMessagePassing < Neo::Koan
   class MessageCatcher
     def caught?
@@ -42,12 +36,9 @@ class AboutMessagePassing < Neo::Koan
     # THINK ABOUT IT:
     #
     # Why does Ruby provide both send and __send__ ?
-
-    # Some classes (for example the standard library's socket class) define their own send
-    # method which has nothing to do with Object#send. So if you want to work with
-    # objects of any class, you need to use __send__ to be on the safe side.
   end
 
+  # :reek:ManualDispatch
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
 
@@ -122,11 +113,15 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:ManualDispatch
+  # :reek:UtilityFunction
+  # rubocop:disable Style/MethodMissing
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
+  # rubocop:enable Style/MethodMissing
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
@@ -136,6 +131,7 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
+  # :reek:ManualDispatch
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
 
@@ -147,6 +143,7 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # rubocop:disable Style/MethodMissing
   class WellBehavedFooCatcher
     def method_missing(method_name, *args, &block)
       if method_name.to_s[0, 3] == 'foo'
@@ -156,6 +153,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
+  # rubocop:enable Style/MethodMissing
 
   def test_foo_method_are_caught
     catcher = WellBehavedFooCatcher.new
@@ -185,11 +183,11 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
+  # :reek:ManualDispatch
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
 
     assert_equal true, catcher.respond_to?(:foo_bar)
     assert_equal false, catcher.respond_to?(:something_else)
   end
-  # rubocop:enable all
 end

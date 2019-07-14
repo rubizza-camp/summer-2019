@@ -1,9 +1,7 @@
-# frozen_string_literal:true
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class
 # :reek:ControlParameter
+# Description class
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition

@@ -1,9 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# :reek:FeatureEnvy
-# :reek:TooManyStatements
 # :reek:UncommunicativeVariableName
-
+# :reek:DuplicateMethodCall
+# :reek:TooManyStatements
+# :reek:FeatureEnvy
+# Description class
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -34,12 +35,6 @@ class AboutHashes < Neo::Koan
     # THINK ABOUT IT:
     #
     # Why might you want to use #fetch instead of #[] when accessing hash keys?
-    #
-    # I'll have variative output from it (not nil)
-    # h = { "a" => 100, "b" => 200 }
-    # 1. h.fetch("a")    #-> 100
-    # 2. h.fetch("z", "go fish")  #-> "go fish"
-    # 3. h.fetch("z") { |el| "go fish, #{el}"}   #-> "go fish, z"
   end
 
   def test_changing_hashes
@@ -49,9 +44,8 @@ class AboutHashes < Neo::Koan
     expected = { one: 'eins', two: 'dos' }
     assert_equal expected, hash
 
-    # Bonus Question: Why was "expected" broken out into a variable
+    # Bonus Question: Why was 'expected' broken out into a variable
     # rather than used as a literal?
-    # Better for reading?
   end
 
   def test_hash_is_unordered
@@ -64,16 +58,16 @@ class AboutHashes < Neo::Koan
   def test_hash_keys
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.keys.size
-    assert_equal true, hash.keys.include?(:one)
-    assert_equal true, hash.keys.include?(:two)
+    assert_equal true, hash.key?(:one)
+    assert_equal true, hash.key?(:two)
     assert_equal Array, hash.keys.class
   end
 
   def test_hash_values
     hash = { one: 'uno', two: 'dos' }
     assert_equal 2, hash.values.size
-    assert_equal true, hash.values.include?('uno')
-    assert_equal true, hash.values.include?('dos')
+    assert_equal true, hash.value?('uno')
+    assert_equal true, hash.value?('dos')
     assert_equal Array, hash.values.class
   end
 
@@ -101,8 +95,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  # rubocop:disable Metrics/AbcSize, Lint/ShadowingOuterLocalVariable
-
+  # rubocop:disable Metrics/AbcSize
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -115,16 +108,16 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash[:one].object_id == hash[:two].object_id
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_default_value_with_block
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |val, key| val[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
-    assert_equal ['uno'], hash[:one]
-    assert_equal ['dos'], hash[:two]
+    assert_equal %w[uno], hash[:one]
+    assert_equal %w[dos], hash[:two]
     assert_equal [], hash[:three]
   end
-  # rubocop:enable Metrics/AbcSize, Lint/ShadowingOuterLocalVariable
 end
