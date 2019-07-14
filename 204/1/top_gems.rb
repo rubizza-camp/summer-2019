@@ -14,8 +14,8 @@ include Filters
 
 # :reek:TooManyStatements
 def run
-  client = authentication
   options = options_parse
+  client = build_client
   data = load_yaml(options[:file])
   data = filter_by_name(data, options[:name_sort])
   result = info(data, client)
@@ -30,58 +30,66 @@ private
 # :reek:NilCheck:
 # :reek:TooManyStatements
 # :reek:NestedIterators:
+DEFAULT_GEM_LIST_FILE = 'gems.yaml'.freeze
+
 def options_parse
   options = {}
   optparse = OptionParser.new do |opts|
-    opts.on('-f', '---file [STRING]', String, 'Enter the config file to open.') do |file|
+    opts.on('-f', '--file [STRING]', String, 'Enter the config file to open.') do |file|
       options[:file] = file
     end
     opts.on('-n', '--name [STRING]', String, 'Enter name to filter gems by name') do |name|
+      raise OptionParser::InvalidOption if name.nil?
+
       options[:name_sort] = name
     end
     opts.on('-t', '--top [INTEGER]', Integer, 'Enter number to filter top of gems') do |top|
+      raise OptionParser::InvalidOption if top.nil?
+
       options[:top] = top
     end
   end
   optparse.parse!
-  options[:file].nil? ? options[:file] = 'gems.yaml' : options[:file]
+  options[:file] ||= DEFAULT_GEM_LIST_FILE
   options
 end
-# rubocop:enable Metrics/MethodLength
 
+# rubocop:enable Metrics/MethodLength
 # :reek:UtilityFunction
-def authentication
+def build_client
   client = Octokit::Client.new(access_token: '690ec8ef4bb925fe37f6c8d0b66a9c998726bd4a')
   client.user.login
   client
 end
 
 # :reek:UtilityFunction
-def load_yaml(options)
-  data = YAML.load_file(options)
-  data
+def load_yaml(file)
+  YAML.load_file(file)
 end
 
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Lint/UselessSetterCall
 # :reek:TooManyStatements
 def info(data, client)
-  gem_data = {}
-  data.each do |gem|
-    gem_info = Gems.info(gem)
-    uri = (gem_info['source_code_uri'] || gem_info['homepage_uri']).sub!(%r{http.*com/}, '')
-    repo = client.repo uri
-    contributors_count = contributors(uri).css('span.num.text-emphasized').children[2].text.to_i
-    used_by_count = dependents(uri).css('.btn-link')[1].text.delete('^0-9').to_i
-    info = gem_info(repo, contributors_count, used_by_count)
-    gem_data.merge!("#{gem}": info)
-  end
-  gem_data
+  data.map { |gem| [gem.to_sym, gem_info(gem, client)] }.to_h
 end
 
+def gem_info(gem, client)
+  gem_data = {}
+  gem_description = Gems.info(gem)
+  uri = (
+    gem_description['source_code_uri'] || gem_description['homepage_uri']).sub!(%r{http.*com/}, '')
+  repo = client.repo uri
+  contributors_count = contributors(uri).css('span.num.text-emphasized').children[2].text.to_i
+  used_by_count = dependents(uri).css('.btn-link')[1].text.delete('^0-9').to_i
+  gem_data[gem.to_sym] = gem_properties(repo, contributors_count, used_by_count)
+end
+# rubocop:enable Lint/UselessSetterCall
 # rubocop:enable Metrics/AbcSize
+
 # :reek:FeatureEnvy
-def gem_info(repo, contributors_count, used_by_count)
+def gem_properties(repo, contributors_count, used_by_count)
   info = {
     name: repo[:name],
     stargazers: repo[:stargazers_count],
@@ -89,8 +97,7 @@ def gem_info(repo, contributors_count, used_by_count)
     issues: repo[:open_issues_count],
     subscribers: repo[:subscribers_count],
     contributors: contributors_count,
-    used_by: used_by_count,
-    popularity: 0
+    used_by: used_by_count
   }
   info[:popularity] = popularity(info)
   info
