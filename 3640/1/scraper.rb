@@ -1,10 +1,10 @@
 require 'mechanize'
-
-# Class Scraper
+# :reek:ControlParameter
+# :reek:InstanceVariableAssumption
 class Scraper
-  def self.get_gem_parameters(name_gem)
+  def self.gem_get_parameters(name_gem)
     fetcher = new(name_gem)
-    fetcher.get_gem_parameters
+    fetcher.gem_get_parameters
     fetcher.gem_parameters
   end
 
@@ -22,7 +22,7 @@ class Scraper
     @gem_parameters = {}
   end
 
-  def get_gem_parameters
+  def gem_get_parameters
     @gem_parameters_links.each_key do |key|
       tag = get_page_for_parse(key).links_with(href: @gem_parameters_links[key])
       @gem_parameters[key] = parameter_value(tag)

@@ -1,4 +1,5 @@
 class GemTerminalOutput
+  # rubocop: disable Metrics/AbcSize
   def self.get_gem_terminal_output(geme)
     @row = [geme.name,
             'used by' + geme.parameters[:used_by].to_s,
@@ -8,4 +9,5 @@ class GemTerminalOutput
             geme.parameters[:contributors].to_s + ' contributors',
             geme.parameters[:issues].to_s + ' issues']
   end
+  # rubocop: enable Metrics/AbcSize
 end

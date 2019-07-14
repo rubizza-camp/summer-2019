@@ -2,7 +2,7 @@ require 'terminal-table'
 require_relative 'all_gems.rb'
 require_relative 'gem_terminal_output.rb'
 require_relative 'parse_file_fetcher.rb'
-
+# :reek:InstanceVariableAssumption
 class Table
   def table_output(selector)
     rows = get_all_gems(selector).map { |geme| GemTerminalOutput.get_gem_terminal_output(geme) }
@@ -13,7 +13,7 @@ class Table
 
   def get_all_gems(selector)
     names_all_gems = ParseFileFetcher.get_all_names('gems.yaml')
-    @all_gems = AllGemsFetcher.get_all_gems(names_all_gems).sort_by(&:rating).reverse
+    @all_gems = AllGemsFetcher.all_gems_get(names_all_gems).sort_by(&:rating).reverse
     return @all_gems if selector.empty?
     get_requested_gems(selector)
   end

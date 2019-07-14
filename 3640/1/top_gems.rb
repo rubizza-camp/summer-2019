@@ -3,6 +3,9 @@ require_relative 'program_launch.rb'
 require 'optparse'
 
 class TerminalParser
+  # rubocop: disable Metrics/MethodLength
+  # :reek:TooManyStatements
+  # :reek:NestedIterators
   def self.do_terminal_parse
     selector = {}
     OptionParser.new do |opts|
@@ -20,6 +23,7 @@ class TerminalParser
     end.parse!
     ProgramLaunch.play_program(selector)
   end
+  # rubocop: enable Metrics/MethodLength
 end
 
 TerminalParser.do_terminal_parse

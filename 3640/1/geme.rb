@@ -8,7 +8,7 @@ class Geme
   end
 
   def parameters
-    @parameters ||= Scraper.get_gem_parameters(@name)
+    @parameters ||= Scraper.gem_get_parameters(@name)
   end
 
   def rating

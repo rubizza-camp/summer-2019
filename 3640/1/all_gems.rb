@@ -2,9 +2,9 @@ require_relative 'geme.rb'
 
 # Class AllGems
 class AllGemsFetcher
-  def self.get_all_gems(names)
+  def self.all_gems_get(names)
     fetcher = new(names)
-    fetcher.get_all_gems
+    fetcher.all_gems_get
     fetcher.gems
   end
 
@@ -15,7 +15,7 @@ class AllGemsFetcher
     @names = names
   end
 
-  def get_all_gems
+  def all_gems_get
     @gems = names.map do |name_gem|
       Geme.new(name_gem)
     end
