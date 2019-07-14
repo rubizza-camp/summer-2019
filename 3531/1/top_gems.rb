@@ -57,7 +57,7 @@ class TopGems
   end
 
   def load_custom
-    file = File.join(Dir.pwd, @file)
+    file = File.expand_path('.', @file)
     YAML.load_file(file)['gems'].uniq
   rescue Errno::ENOENT
     warn "file #{file} is not found, using default file..."
