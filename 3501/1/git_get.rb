@@ -39,7 +39,7 @@ class GetGemDataFromGit
   end
 
   def self.call(gem_name)
-    self.new(gem_name).call(gem_name)
+    new(gem_name).call(gem_name)
   end
 
   private
