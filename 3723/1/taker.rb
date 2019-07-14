@@ -8,6 +8,10 @@ module Taker
     end.sum
   end
 
+  def names(rest)
+    rest.css('head > title').text[%r{\/(.*?):}, 1]
+  end
+
   def depen(doc)
     doc.css('.btn-link').css('.selected').text.split(/[^\d]/).join
   end

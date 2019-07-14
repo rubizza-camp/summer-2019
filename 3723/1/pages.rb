@@ -1,11 +1,8 @@
+require_relative 'repo'
+require_relative 'taker'
 require 'terminal-table'
-require 'json'
-require 'yaml'
-require 'faraday'
 require 'nokogiri'
 require 'open-uri'
-require_relative './repo_list'
-require_relative './taker'
 
 class Pages
   include Taker
@@ -34,7 +31,7 @@ class Pages
 
   def rowing(rest, doc)
     rows << [
-      rest.css('a')[43]['href'].split('/').last,
+      names(rest),
       "used by #{depen(doc)}",
       "watched by #{watch(rest)}",
       "stars #{star(rest)}",
