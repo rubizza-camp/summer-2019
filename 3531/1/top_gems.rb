@@ -4,6 +4,8 @@ require_relative './lib/output.rb'
 require_relative './lib/gem_entity.rb'
 require 'yaml'
 require 'optparse'
+require 'nokogiri'
+require 'open-uri'
 
 options = {}
 

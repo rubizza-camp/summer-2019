@@ -29,8 +29,8 @@ class GemEntity
       stars: stars,
       forks: forks,
       issues: issues,
-      used_by: used_by,
-      contributors: contributors
+      used_by: fetch_used_by,
+      contributors: fetch_contributors
     }
     delete_spaces(stats)
   end
@@ -39,8 +39,10 @@ class GemEntity
     @doc.css('span.Counter')[0].text
   end
 
-  def used_by
-    @used_by_doc.css('a.btn-link.selected').text
+  def fetch_used_by
+    return @used_by_doc.css('a.btn-link.selected').text unless @used_by_doc.is_a?(Array)
+
+    @used_by_doc[0].css('a.btn-link.selected').text
   end
 
   def forks
@@ -55,9 +57,10 @@ class GemEntity
     @doc.css('a.social-count')[0].text
   end
 
-  def contributors
-    elem = @doc.css('a span.num.text-emphasized').text.split(' ')
-
+  def fetch_contributors
+    css = 'a span.num.text-emphasized'
+    elem = @doc.css(css).text.split(' ') unless @used_by_doc.is_a?(Array)
+    elem = @used_by_doc[1].css(css).text.split(' ') if @used_by_doc.is_a?(Array)
     return elem[NO_LICENSE_INDEX] unless elem[LICENSE_INDEX]
 
     elem[LICENSE_INDEX]

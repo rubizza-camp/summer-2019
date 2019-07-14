@@ -11,7 +11,7 @@ class RepoBody
 
   def initialize(gem_name, internet = Kernel)
     @name = gem_name
-    @internet = internet
+    @net = internet
   end
 
   def fetch_params
@@ -38,8 +38,7 @@ class RepoBody
   rescue NotFoundError
     warn '404 gem not found'
     abort
-  rescue BadGatewayError => e
-    puts e.message
+  rescue BadGatewayError
     warn 'bad gateway error, please restart the script'
     abort
   end
@@ -56,7 +55,7 @@ class RepoBody
   end
 
   def fetch_doc
-    Nokogiri::HTML(@internet.open(@git_url))
+    Nokogiri::HTML(@net.open(@git_url))
   rescue SocketError
     warn 'tcp connection error'
     abort
@@ -66,6 +65,32 @@ class RepoBody
   end
 
   def fetch_used_by_doc
-    Nokogiri::HTML(@internet.open("#{@git_url}/network/dependents"))
+    case @git_url.count('/')
+    when 0...5
+      Nokogiri::HTML(@net.open("#{@git_url}/network/dependents"))
+    else
+      res = edit_url
+      url = res[0]
+      contributors_doc = res[1]
+      used_by_doc = Nokogiri::HTML(@net.open(url))
+      [used_by_doc, contributors_doc]
+    end
+  end
+
+  def edit_url
+    url = @doc.css("a[data-pjax='#js-repo-pjax-container']").map { |nd| nd['href'] }.join('')
+    base_url = 'http://github.com' + url
+    sub_gem_url(base_url)
+  end
+
+  def sub_gem_url(base_url)
+    url = "#{base_url}/network/dependents"
+    doc = Nokogiri::HTML(@net.open(url))
+    base_doc = Nokogiri::HTML(@net.open(base_url))
+    elem = doc.css('a.select-menu-item.js-navigation-item')
+    used_by_url = elem.map { |nd| nd['href'] if nd.text.delete("'' \n") == name }
+    used_by_url = used_by_url.compact.join('')
+    final_url = 'http://github.com' + used_by_url
+    [final_url, base_doc]
   end
 end

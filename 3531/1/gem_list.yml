@@ -9,3 +9,4 @@ gems:
  - rspec
  - touch_action
  - action_args
+ - activesupport
