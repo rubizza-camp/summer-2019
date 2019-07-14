@@ -5,7 +5,27 @@ class GemScrapper
   def initialize(link)
     @mechanize = Mechanize.new
     @page = @mechanize.get(link)
-    @link = @page.link_with(id: 'code').click
+    @link = self.github_link
+  end
+
+  def github_link
+    if @page.link_with(id: 'code').nil?
+      if @page.link_with(text: 'Homepage').href.match?(/http[s]*:\/\/[w{3}.]*github.com\//)
+        @page.link_with(text: 'Homepage').click
+      else
+        raise 'smth wrong with finding github link'
+      end
+    else
+      if @page.link_with(id: 'code').href.match?(/http[s]*:\/\/[w{3}.]*github.com\//)
+        @page.link_with(id: 'code').click
+      else
+        raise 'there is now link for github from rubygems.org'
+      end
+    end
+  end
+
+  def gem_name(page = @page)
+    page.search('h1.t-display.page__heading').text.split(/\s*\W+[-]*[\d|\W]+/).select { |el| el.size > 1 }[0]
   end
 
   def used_by(link = @link)
