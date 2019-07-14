@@ -14,7 +14,7 @@ include Filters
 
 # :reek:TooManyStatements
 def run
-  options = options_parse
+  options = parse_options
   client = build_client(access_token)
   data = load_yaml(options[:file])
   data = filter_by_name(data, options[:name_sort])
@@ -34,7 +34,7 @@ DEFAULT_GEM_LIST_FILE = 'gems.yaml'.freeze
 # :reek:TooManyStatements
 # :reek:NestedIterators:
 # :reek:FeatureEnvy
-def options_parse
+def parse_options
   options = {}
   optparse = OptionParser.new do |opts|
     opts.on('-f', '--file [STRING]', String, 'Enter the config file to open.') do |file|
