@@ -13,7 +13,6 @@ class Parser
 
   def repo_url
     return @repo_url if @repo_url
-
     json_str = open("https://rubygems.org/api/v1/gems/#{gem_name}.json").read
     @repo_url = JSON(json_str)['source_code_uri']
   end
