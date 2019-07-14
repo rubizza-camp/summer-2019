@@ -37,7 +37,7 @@ class TopGems
     @options = options
     @file = options[:file]
 
-    output = Output.new(@options)
+    output = Output.new(options[:name], options[:top])
     gem_list = parse_yaml
     sorted_gems = check_and_sort_gems(gem_list)
     output.gems(sorted_gems)

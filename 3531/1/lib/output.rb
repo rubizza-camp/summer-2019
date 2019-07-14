@@ -1,7 +1,7 @@
 class Output
-  def initialize(params)
-    @name = params[:name] if params[:name]
-    @top = params[:top] if params[:top]
+  def initialize(name, top)
+    @name = name if name
+    @top = top if top
   end
 
   def gems(gems)
