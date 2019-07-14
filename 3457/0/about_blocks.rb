@@ -87,9 +87,12 @@ class AboutBlocks < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UtilityFunction
+  # rubocop:disable Performance/RedundantBlockCall
+  # explicit block
   def method_with_explicit_block(&block)
     block.call(10)
   end
+  # rubocop:enable Performance/RedundantBlockCall
 
   def test_methods_can_take_an_explicit_block_argument
     assert_equal 20, (method_with_explicit_block { |n| n * 2 })
