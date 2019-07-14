@@ -39,9 +39,9 @@ class AboutSymbols < Neo::Koan
     RubyConstant = 'What is the sound of one hand clapping?'.freeze
     # rubocop: enable Naming/ConstantName
     def test_constants_become_symbols
-      all_symbols_as_strings = Symbol.all_symbols.map { |x| x }
+      all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
-      assert_equal false, all_symbols_as_strings.include?(__)
+      assert_equal true, all_symbols_as_strings.include?('test_method_names_become_symbols')
     end
   end
 
