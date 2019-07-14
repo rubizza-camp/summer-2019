@@ -1,15 +1,14 @@
 require 'optparse'
 
 # :reek:TooManyStatements
-# :reek:NestedIterators
 # rubocop:disable Metrics/MethodLength
+# :reek:NestedIterators
 class Parser
-  attr_reader :flags, :args
+  attr_reader :flags
 
-  def initialize(file_string, args)
+  def initialize(file_string)
     @flags = {}
     @flags[:file_name] = file_string.to_s
-    @args = args
   end
 
   def parse

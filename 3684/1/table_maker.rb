@@ -1,8 +1,5 @@
 require 'terminal-table'
 
-# :reek:FeatureEnvy
-# :reek:NilCheck
-# rubocop:disable Metrics/AbcSize
 class TableMaker
   attr_reader :gems_info, :flags
 
@@ -18,9 +15,13 @@ class TableMaker
 
   private
 
+  def calculate_coefficient(element)
+    (element[1].delete(',').to_i * 0.01 + element[4].delete(',').to_i * 0.3).round
+  end
+
   def make_top
     @info.each do |element|
-      element << (element[1].delete(',').to_i * 0.01 + element[4].delete(',').to_i * 0.3).round
+      element << calculate_coefficient(element)
     end
     @info.sort! { |first, second| second.last <=> first.last }
     @info.each(&:pop)
@@ -35,8 +36,8 @@ class TableMaker
   end
 
   def change_info
-    @info = @info.take(@flags[:number].to_i) unless @flags[:number].nil?
-    check_for_a_word unless @flags[:word].nil?
+    @info = @info.take(@flags[:number].to_i) if @flags[:number]
+    check_for_a_word if @flags[:word]
   end
 
   def build_table
@@ -48,4 +49,3 @@ class TableMaker
     table
   end
 end
-# rubocop:enable Metrics/AbcSize

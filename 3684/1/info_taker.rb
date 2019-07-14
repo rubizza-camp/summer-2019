@@ -1,55 +1,47 @@
 require 'open-uri'
 require 'nokogiri'
 
-# :reek:TooManyStatements
-# :reek:FeatureEnvy
 # rubocop:disable Security/Open
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
 class InfoTaker
-  attr_reader :gem_name, :adress
+  attr_reader :adress
 
-  def initialize(gem_name, adress)
-    @gem_name = gem_name
+  def initialize(adress)
     @adress = adress
+    @document = Nokogiri::HTML(open(adress.to_s))
+    @documnet_for_used_by = Nokogiri::HTML(open("#{adress}/network/dependents"))
+    @info = []
   end
 
-  def info
-    search(@gem_name, @adress)
+  def take_info
+    @info = [gem_name, used_by, contributors, issues, stars, watch, forks]
   end
 
-  private
+  def gem_name
+    adress.split('/').last
+  end
 
-  def search(gem_name, adress)
-    document = Nokogiri::HTML(open(adress.to_s))
+  def used_by
+    @documnet_for_used_by.css("a[class='btn-link selected']")[0].text.split(' ').first
+  end
 
-    documnet_for_used_by = Nokogiri::HTML(open("#{adress}/network/dependents"))
+  def contributors
+    @document.css("span[class='num text-emphasized']")[3].text.split(' ').first
+  end
 
-    info = []
+  def issues
+    @document.css("span[class='Counter']")[0].text.split(' ').first
+  end
 
-    info << gem_name
+  def stars
+    @document.css("a[class='social-count js-social-count']")[0].text.split(' ').first
+  end
 
-    used_by = documnet_for_used_by.css("a[class='btn-link selected']")[0].text.split(' ').first
-    info << used_by
+  def watch
+    @document.css("a[class='social-count']")[0].text.split(' ').first
+  end
 
-    contributors = document.css("span[class='num text-emphasized']")[3].text.split(' ').first
-    info << contributors
-
-    issues = document.css("span[class='Counter']")[0].text.split(' ').first
-    info << issues
-
-    stars = document.css("a[class='social-count js-social-count']")[0].text.split(' ').first
-    info << stars
-
-    watch = document.css("a[class='social-count']")[0].text.split(' ').first
-    info << watch
-
-    forks = document.css("a[class='social-count']")[1].text.split(' ').first
-    info << forks
-
-    info
+  def forks
+    @document.css("a[class='social-count']")[1].text.split(' ').first
   end
 end
 # rubocop:enable Security/Open
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength

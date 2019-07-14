@@ -1,5 +1,5 @@
 require_relative 'gem_searcher'
 
-searcher = GemSearch.new('')
+searcher = GemSearch.new('gems.yaml')
 
-puts searcher.show_info
+puts searcher.search
