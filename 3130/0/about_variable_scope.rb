@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:disable
+
 class AboutVariableScope < Neo::Koan
   # rubocop:disable Lint/UselessAssignment:
   def bark
@@ -35,21 +35,20 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Hey', test
   end
 
-  # rubocop:disable all
-  # :reek:disable
+  # :reek:UncommunicativeVariableName:
+  # rubocop:disable Lint/UselessAssignment:
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
       x = 0
     end
     assert_equal nil, defined? x
   end
-  # :reek:enable
-  # rubocop:enable all
+  # rubocop:enable Lint/UselessAssignment:
 
   # ------------------------------------------------------
 
-  # rubocop:disable all
-  # :reek:disable
+  # rubocop:disable Style/ClassVars:
+  # :reek:ClassVariable:
   class Mouse
     @@total = 0
     # Class variables are prefixed with two '@' characters.
@@ -66,14 +65,14 @@ class AboutVariableScope < Neo::Koan
       @@total
     end
   end
-  # :reek:enable
-  # rubocop:enable all
+  # rubocop:enable Style/ClassVars:
 
   def test_instance_variable
     oscar = Mouse.new('Oscar')
     assert_equal 'Oscar', oscar.name
   end
 
+  # :reek:UncommunicativeVariableName:
   def test_class_variable
     (1..9).each { |i| Mouse.new(i.to_s) }
     # Things may appear easier than they actually are.
@@ -104,6 +103,7 @@ class AboutVariableScope < Neo::Koan
     assert_equal 'Here', $anywhere
   end
 
+  # :reek:UncommunicativeMethodName:
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do
@@ -114,7 +114,6 @@ class AboutVariableScope < Neo::Koan
   end
 end
 # rubocop:enable Style/GlobalVars:
-# :reek:enable
 
 # THINK ABOUT IT:
 #

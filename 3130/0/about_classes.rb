@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:disable
+# :reek:InstanceVariableAssumption:
+# :reek:TooManyMethods:
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -11,6 +12,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UncommunicativeModuleName:
   class Dog2
     # rubocop:disable Naming/AccessorMethodName
     def set_name(a_name)
@@ -19,6 +21,7 @@ class AboutClasses < Neo::Koan
     # rubocop:enable Naming/AccessorMethodName
   end
 
+  # :reek:FeatureEnvy:
   def test_instance_variables_can_be_set_by_assigning_to_them
     fido = Dog2.new
     assert_equal [], fido.instance_variables
@@ -27,6 +30,7 @@ class AboutClasses < Neo::Koan
     assert_equal [:@name], fido.instance_variables
   end
 
+  # :reek:TooManyStatements:
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
     fido.set_name('Fido')
@@ -43,6 +47,7 @@ class AboutClasses < Neo::Koan
     # rubocop:enable Style/EvalWithLocation
   end
 
+  # :reek:FeatureEnvy:
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
     fido.set_name('Fido')
@@ -62,6 +67,8 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:InstanceVariableAssumption:
+  # :reek:UncommunicativeModuleName:
   class Dog3
     # rubocop:disable Naming/AccessorMethodName
     def set_name(a_name)
@@ -76,6 +83,7 @@ class AboutClasses < Neo::Koan
     # rubocop:enable Style/TrivialAccessors
   end
 
+  # :reek:FeatureEnvy:
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
     fido.set_name('Fido')
@@ -85,6 +93,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UncommunicativeModuleName:
   class Dog4
     attr_reader :name
 
@@ -95,6 +104,8 @@ class AboutClasses < Neo::Koan
     # rubocop:enable Naming/AccessorMethodName
   end
 
+  # :reek:FeatureEnvy:
+  # :reek:UncommunicativeModuleName:
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
     fido.set_name('Fido')
@@ -104,10 +115,13 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:Attribute:
+  # :reek:UncommunicativeModuleName:
   class Dog5
     attr_accessor :name
   end
 
+  # :reek:FeatureEnvy:
   def test_attr_accessor_will_automatically_define_both_read_and_write_accessors
     fido = Dog5.new
 
@@ -117,6 +131,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UncommunicativeModuleName:
   class Dog6
     attr_reader :name
     def initialize(initial_name)
@@ -146,6 +161,7 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UncommunicativeModuleName:
   class Dog7
     attr_reader :name
 
@@ -200,4 +216,3 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
-# :reek:enable

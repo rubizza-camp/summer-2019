@@ -1,5 +1,4 @@
-# rubocop:disable all
-#!/usr/bin/env ruby
+# !/usr/bin/env ruby
 # -*- ruby -*-
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -38,4 +37,3 @@ class AboutAsserts < Neo::Koan
     assert_equal 2, 1 + 1
   end
 end
-# rubocop:enable all

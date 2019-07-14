@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:disable
+# :reek:
 # rubocop:disable Metrics/ClassLength
+# :reek:TooManyMethods:
 class AboutStrings < Neo::Koan
   # rubocop:disable Style/StringLiterals
   def test_double_quoted_strings_are_strings
@@ -24,12 +25,14 @@ class AboutStrings < Neo::Koan
     assert_equal "Don't", string
   end
 
+  # :reek:UncommunicativeVariableName:
   def test_use_backslash_for_those_hard_cases
     a = "He said, \"Don't\""
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
 
+  # :reek:UncommunicativeVariableName:
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %(flexible quotes can handle both ' and " characters)
@@ -198,6 +201,7 @@ EOS
     assert_equal 'Now is the time', words.join(' ')
   end
 
+  # :reek:UncommunicativeVariableName:
   def test_strings_are_unique_objects
     a = 'a string'
     b = 'a string'
@@ -207,4 +211,3 @@ EOS
   end
 end
 # rubocop:enable Metrics/ClassLength
-# :reek:enable

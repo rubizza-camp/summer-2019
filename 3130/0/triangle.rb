@@ -13,25 +13,23 @@
 # and
 #   about_triangle_project_2.rb
 #
-# :reek:disable
+
+#:reek:UtilityFunction:
 def check_sides_sums(first, second, third)
   first + second > third && first + third > second && second + third > first
 end
-# :reek:enable
 
-# :reek:disable
+#:reek:UtilityFunction:
 def validate_sides(first, second, third)
   first.positive? && second.positive? && third.positive?
 end
-# :reek:enable
 
-# :reek:disable
+#:reek:UtilityFunction:
+#:reek:ControlParameter:
 def isosceles?(first, second, third)
   first == second || first == third || second == third
 end
-# :reek:enable
 
-# :reek:disable
 def triangle(first, second, third)
   raise TriangleError if !validate_sides(first, second, third) ||
                          !check_sides_sums(first, second, third)
@@ -45,4 +43,3 @@ end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
-# :reek:enable

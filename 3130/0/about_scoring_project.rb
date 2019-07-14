@@ -28,13 +28,13 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-# :reek:disable
+# :reek:UtilityFunction:
 def count_score_without_sets(hash_dice, score)
   score + hash_dice[1] * 100 + hash_dice[5] * 50
 end
-# :reek:enable
 
-# :reek:disable
+# :reek:FeatureEnvy:
+# :reek:TooManyStatements:
 def score(dice)
   result_score = 0
   hash_dice = Hash.new(0)
@@ -47,18 +47,18 @@ def score(dice)
   end
   count_score_without_sets(hash_dice, result_score)
 end
-# :reek:enable
 
-# :reek:disable
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])
   end
 
+  # :reek:UncommunicativeMethodName:
   def test_score_of_a_single_roll_of_5_is_50
     assert_equal 50, score([5])
   end
 
+  # :reek:UncommunicativeMethodName:
   def test_score_of_a_single_roll_of_1_is_100
     assert_equal 100, score([1])
   end
@@ -71,6 +71,7 @@ class AboutScoringProject < Neo::Koan
     assert_equal 0, score([2, 3, 4, 6])
   end
 
+  # :reek:UncommunicativeMethodName:
   def test_score_of_a_triple_1_is_1000
     assert_equal 1000, score([1, 1, 1])
   end
@@ -91,4 +92,3 @@ class AboutScoringProject < Neo::Koan
     assert_equal 1150, score([1, 1, 1, 5, 1])
   end
 end
-# :reek:enable

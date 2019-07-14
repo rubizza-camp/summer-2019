@@ -1,11 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:disable
+
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols
     symbol = :ruby
     assert_equal true, symbol.is_a?(Symbol)
   end
 
+  #:reek:UncommunicativeVariableName:
   def test_symbols_can_be_compared
     symbol1 = :a_symbol
     symbol2 = :a_symbol
@@ -15,6 +16,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol1 == symbol3
   end
 
+  #:reek:UncommunicativeVariableName:
   def test_identical_symbols_are_a_single_internal_object
     symbol1 = :a_symbol
     symbol2 = :a_symbol
@@ -75,6 +77,7 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol.eql?('ruby')
   end
 
+  #:reek:ManualDispatch:
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
     assert_equal false, symbol.respond_to?(:each_char)
@@ -100,4 +103,3 @@ class AboutSymbols < Neo::Koan
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
 end
-# :reek:enable

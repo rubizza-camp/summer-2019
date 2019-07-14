@@ -534,4 +534,3 @@ END {
   Neo::ThePath.new.walk
 }
 # rubocop:enable all
-# :reek:enable

@@ -10,6 +10,7 @@ class AboutArrays < Neo::Koan
   # rubocop:enable Style/EmptyLiteral
 
   # rubocop:disable Style/EmptyLiteral
+  # :reek:TooManyStatements:
   def test_array_literals
     array = Array.new
     assert_equal [], array
@@ -24,7 +25,7 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2, 333], array
   end
   # rubocop:enable  Style/EmptyLiteral
-  # :reek:disable TooManyStatements
+  # :reek:TooManyStatements:
 
   # rubocop:disable  Style/SymbolArray
   def test_accessing_array_elements
@@ -38,8 +39,8 @@ class AboutArrays < Neo::Koan
     assert_equal :butter, array[-3]
   end
   # rubocop:enable  Style/SymbolArray
-  # :reek:enable TooManyStatements
 
+  # :reek:TooManyStatements:
   # rubocop:disable  Style/SymbolArray
   def test_slicing_arrays
     array = [:peanut, :butter, :and, :jelly]
@@ -71,6 +72,7 @@ class AboutArrays < Neo::Koan
   end
   # rubocop:enable  Style/SymbolArray
 
+  # :reek:TooManyStatements:
   def test_pushing_and_popping_arrays
     array = [1, 2]
     array.push(:last)
@@ -82,6 +84,7 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 
+  # :reek:TooManyStatements:
   def test_shifting_arrays
     array = [1, 2]
     array.unshift(:first)

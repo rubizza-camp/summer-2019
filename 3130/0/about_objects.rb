@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:disable
 class AboutObjects < Neo::Koan
   def test_everything_is_an_object
     assert_equal true, 1.is_a?(Object)
@@ -40,6 +39,7 @@ class AboutObjects < Neo::Koan
     # What pattern do the object IDs for small integers follow?
   end
 
+  #:reek:FeatureEnvy:
   def test_clone_creates_a_different_object
     obj = Object.new
     copy = obj.clone
@@ -48,4 +48,3 @@ class AboutObjects < Neo::Koan
     assert_equal true, obj.object_id != copy.object_id
   end
 end
-# :reek:enable

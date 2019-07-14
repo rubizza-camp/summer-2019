@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:disable
+# :reek:
 class AboutModules < Neo::Koan
   module Nameable
     # rubocop:disable  Naming/AccessorMethodName
@@ -51,6 +51,7 @@ class AboutModules < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy:
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal 'Fido', fido.name
@@ -63,4 +64,3 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
-# :reek:enable

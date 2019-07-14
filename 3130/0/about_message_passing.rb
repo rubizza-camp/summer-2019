@@ -36,6 +36,7 @@ class AboutMessagePassing < Neo::Koan
     # Why does Ruby provide both send and __send__ ?
   end
 
+  # :reek:ManualDispatch:
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
 
@@ -110,7 +111,8 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disable Style/MethodMissing
-  # :reek:disable BooleanParameter
+  # :reek:BooleanParameter:
+  # :reek:UtilityFunction:
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
@@ -120,7 +122,7 @@ class AboutMessagePassing < Neo::Koan
       super
     end
   end
-  # :reek:enable BooleanParameter
+
   # rubocop:enable Style/MethodMissing
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
@@ -130,6 +132,7 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Someone called sum with <1, 2, 3, 4, 5, 6>', catcher.sum(1, 2, 3, 4, 5, 6)
   end
 
+  # :reek:ManualDispatch:
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
 
@@ -150,6 +153,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
 
+    # :reek:BooleanParameter:
     def respond_to_missing?(method_name, include_private = false)
       super
     end
@@ -183,6 +187,7 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
+  # :reek:ManualDispatch:
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
 

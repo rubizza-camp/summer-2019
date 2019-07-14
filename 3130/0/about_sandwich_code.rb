@@ -1,7 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
-# :reek:disable
+
+#:reek:RepeatedConditional:
 class AboutSandwichCode < Neo::Koan
-  # rubocop:disable all
+  # rubocop:disable Security/Open
+  #:reek:FeatureEnvy:
   def count_lines(file_name)
     file = open(file_name)
     count = 0
@@ -10,14 +12,15 @@ class AboutSandwichCode < Neo::Koan
   ensure
     file.close if file
   end
-  # rubocop:enable all
+  # rubocop:enable Security/Open
 
   def test_counting_lines
     assert_equal 4, count_lines('example_file.txt')
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable all
+  # rubocop:disable Security/Open
+  #:reek:FeatureEnvy:
   def find_line(file_name)
     file = open(file_name)
     while (line = file.gets)
@@ -26,7 +29,7 @@ class AboutSandwichCode < Neo::Koan
   ensure
     file.close if file
   end
-  # rubocop:enable all
+  # rubocop:enable Security/Open
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -54,17 +57,18 @@ class AboutSandwichCode < Neo::Koan
   # Consider the following code:
   #
 
-  # rubocop:disable all
+  # rubocop:disable Security/Open
   def file_sandwich(file_name)
     file = open(file_name)
     yield(file)
   ensure
     file.close if file
   end
-  # rubocop:enable all
+  # rubocop:enable Security/Open
 
   # Now we write:
 
+  #:reek:UncommunicativeMethodName:
   def count_lines2(file_name)
     file_sandwich(file_name) do |file|
       count = 0
@@ -73,12 +77,14 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
+  #:reek:UncommunicativeMethodName:
   def test_counting_lines2
     assert_equal 4, count_lines2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
+  #:reek:UncommunicativeMethodName:
   def find_line2(file_name)
     file_sandwich(file_name) do |file|
       while (line = file.gets)
@@ -87,12 +93,14 @@ class AboutSandwichCode < Neo::Koan
     end
   end
 
+  #:reek:UncommunicativeMethodName:
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
   end
 
   # ------------------------------------------------------------------
 
+  #:reek:UncommunicativeMethodName:
   # rubocop:disable Security/Open
   def count_lines3(file_name)
     open(file_name) do |file|
@@ -107,4 +115,3 @@ class AboutSandwichCode < Neo::Koan
     assert_equal 4, count_lines3('example_file.txt')
   end
 end
-# :reek:enable
