@@ -42,10 +42,10 @@ def stat_output
     i = 0
     gem_arr.each do |gem_stat|
       space_col = @stat_length[i] - gem_stat.to_s.length
-      gem_string << "#{gem_stat}" + " | " + " " * space_col
+      gem_string << "#{gem_stat}" + " " * space_col + " | "
       i += 1
     end
-    puts gem_string
+    p gem_string
   end
 end
 
