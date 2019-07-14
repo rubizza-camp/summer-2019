@@ -16,24 +16,18 @@ class Parcer
 	end
 
 	def url_info(gem_name)
-		mass = []
+		@mass = []
+		@mass << gem_name
 
 		open_first_url(gem_name)
 
 		link = @doc.search('main div div li')
 
 		(0..6).each do |i|
-     	mass << link[i].content.scan(/[A-Za-z0-9,]+/).join(' ')
+     	@mass << link[i].content.scan(/[A-Za-z0-9,]+/).join(' ')
         end
 
         open_second_url(gem_name)
-        mass << @doc.css('a[class *="btn-link selected"]').text.scan(/[A-Za-z0-9,]+/).join(' ')
-        puts mass.inspect
+        @mass << @doc.css('a[class *="btn-link selected"]').text.scan(/[A-Za-z0-9,]+/).join(' ')
 	end
 end
-
-#plus metod
-
-test_oop = Parcer.new
-
-test_oop.url_info("rspec-core")

@@ -1,9 +1,9 @@
- require 'yaml'
+require 'yaml'
 
 class Gem_File_Open
 	def open_yaml
 		@mass = []
-		@GEMS = YAML.load_file('test.yaml')
+		@GEMS = YAML.load_file('gems_list.yaml')
 		@mass << @GEMS['gems'].split(' ')		
 	end
 
@@ -16,10 +16,11 @@ class Gem_File_Open
 
 	def injek(number)
 		convert_in_new_mass
-		q = @watt[number].scan(/[a-z]+/).join('/')
+	    @watt[number].scan(/[a-z]+/).join('-')
+	end
+
+	def kxm
+		convert_in_new_mass
+		@watt.size		
 	end
 end
-
-
-a = Gem_File_Open.new
- puts a.injek(2)
