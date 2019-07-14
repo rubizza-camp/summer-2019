@@ -1,9 +1,13 @@
 gems:
   - sinatra
-  - rspec-core
+  - rspec-rails
   - bundler
   - multi_json
   - rack
   - diff-lcs
   - nokogiri
   - rails
+  - rspec-expectations
+  - rspec-core
+  - rspec-its
+  - rubocop-rspec
