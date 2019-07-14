@@ -88,9 +88,12 @@ class RepoBody
     doc = Nokogiri::HTML(@net.open(url))
     base_doc = Nokogiri::HTML(@net.open(base_url))
     elem = doc.css('a.select-menu-item.js-navigation-item')
+    [fetch_final_url(elem), base_doc]
+  end
+
+  def fetch_final_url(elem)
     used_by_url = elem.map { |nd| nd['href'] if nd.text.delete("'' \n") == name }
     used_by_url = used_by_url.compact.join('')
-    final_url = 'http://github.com' + used_by_url
-    [final_url, base_doc]
+    'http://github.com' + used_by_url
   end
 end
