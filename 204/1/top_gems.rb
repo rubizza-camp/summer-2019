@@ -8,6 +8,7 @@ require 'terminal-table'
 require 'optparse'
 require_relative 'filters.rb'
 
+
 # rubocop:disable Style/MixinUsage
 include Filters
 # rubocop:enable Style/MixinUsage
@@ -15,7 +16,7 @@ include Filters
 # :reek:TooManyStatements
 def run
   options = options_parse
-  client = build_client
+  client = build_client(access_token)
   data = load_yaml(options[:file])
   data = filter_by_name(data, options[:name_sort])
   result = info(data, client)
@@ -56,10 +57,15 @@ end
 
 # rubocop:enable Metrics/MethodLength
 # :reek:UtilityFunction
-def build_client
-  client = Octokit::Client.new(access_token: '690ec8ef4bb925fe37f6c8d0b66a9c998726bd4a')
+def build_client(access_token)
+  client = Octokit::Client.new(access_token: access_token)
   client.user.login
   client
+end
+
+def access_token
+  puts 'Enter your Github Personal Access Token'
+  access_token = gets.chomp
 end
 
 # :reek:UtilityFunction
