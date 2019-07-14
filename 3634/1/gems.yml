@@ -2,11 +2,10 @@ gems:
   - nokogiri
   - rspec
   - bundler
-  - multi
   - rake
   - rack
-  - json
-  - mime
-  - activesupport
   - thor
   - pry
+  - sinatra
+  - devise
+  - diff-lcs
