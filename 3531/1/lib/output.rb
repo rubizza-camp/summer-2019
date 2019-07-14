@@ -24,7 +24,7 @@ class Output
       ready_gems.each do |gem|
         gem_stats = gem[2].stats
         gem_name = gem[1]
-        t.add_row content(name, gem_stats)
+        t.add_row content(gem_name, gem_stats)
       end
     end
     puts ''
