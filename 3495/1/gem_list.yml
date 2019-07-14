@@ -1,4 +1,5 @@
 gems:
   - sinatra
   - rspec
-  
+  - rails
+  - reek
