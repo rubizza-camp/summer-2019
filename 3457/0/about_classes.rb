@@ -18,8 +18,11 @@ class AboutClasses < Neo::Koan
   # :reek:UncommunicativeVariableName
 
   class Dog2
-    def setname(a_name)
+    # rubocop:disable Naming/AccessorMethodName
+
+    def set_name(a_name)
       @name = a_name
+      # rubocop:enable Naming/AccessorMethodName
     end
   end
 
@@ -27,13 +30,13 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     assert_equal [], fido.instance_variables
 
-    fido.setname('Fido')
+    fido.set_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
 
     assert_raise(NoMethodError) do
       fido.name
@@ -49,14 +52,14 @@ class AboutClasses < Neo::Koan
 
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
     # rubocop:disable Style/EvalWithLocation
     assert_equal 'Fido', fido.instance_eval('@name') # string version
     # rubocop:disable Lint/AmbiguousBlockAssociation
@@ -68,8 +71,11 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog3
-    def setname(a_name)
+    # rubocop:disable Naming/AccessorMethodName
+
+    def set_name(a_name)
       @name = a_name
+      # rubocop:enable Naming/AccessorMethodName
     end
 
     attr_reader :name
@@ -77,7 +83,7 @@ class AboutClasses < Neo::Koan
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -86,15 +92,17 @@ class AboutClasses < Neo::Koan
 
   class Dog4
     attr_reader :name
+    # rubocop:disable Naming/AccessorMethodName
 
-    def setname(a_name)
+    def set_name(a_name)
       @name = a_name
+      # rubocop:enable Naming/AccessorMethodName
     end
   end
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.setname('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
