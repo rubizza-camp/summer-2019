@@ -1,5 +1,9 @@
 class GemEntity
   attr_reader :name, :stats, :score
+
+  LICENSE_INDEX = 3
+  NO_LICENSE_INDEX = 2
+
   def initialize(name, doc, used_by_doc, verbose)
     @name = name
     @doc = doc
@@ -54,10 +58,9 @@ class GemEntity
   def contributors
     elem = @doc.css('a span.num.text-emphasized').text.split(' ')
 
-    return elem[2] unless elem[3]
+    return elem[NO_LICENSE_INDEX] unless elem[LICENSE_INDEX]
 
-    # with license
-    elem[3]
+    elem[LICENSE_INDEX]
   end
 
   def delete_spaces(stats)
