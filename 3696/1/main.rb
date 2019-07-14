@@ -81,4 +81,3 @@ class Main
     options
   end
 end
-

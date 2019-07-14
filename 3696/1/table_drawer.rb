@@ -12,7 +12,8 @@ class TableDrawer
   end
 
   def draw
-    puts Terminal::Table.new headings: [I18n.t('name'), I18n.t('watches'), I18n.t('stars'), I18n.t('forks'), I18n.t('contributors'),
+    puts Terminal::Table.new headings: [I18n.t('name'), I18n.t('watches'), I18n.t('stars'),
+                                        I18n.t('forks'), I18n.t('contributors'),
                                         I18n.t('issues'), I18n.t('used_by')], rows: rows
   end
 
