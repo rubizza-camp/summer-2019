@@ -1,3 +1,6 @@
+# rubocop:disable Style/RedundantSelf
+# rubocop:disable Lint/UnreachableCode, Lint/Void
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 # :reek:Attribute
@@ -74,12 +77,10 @@ class AboutClassMethods < Neo::Koan
   class Dog
     attr_accessor :name
   end
-  # rubocop:disable Style/TrivialAccessors
 
   def Dog.name
     @name
   end
-  # rubocop:enable Style/TrivialAccessors
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
@@ -169,3 +170,5 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
+# rubocop:enable Style/RedundantSelf
+# rubocop:enable Lint/UnreachableCode, Lint/Void
