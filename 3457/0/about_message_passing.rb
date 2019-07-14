@@ -114,7 +114,6 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
   # rubocop:disable all
-
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
