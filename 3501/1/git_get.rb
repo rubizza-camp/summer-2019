@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'httparty'
 require 'open-uri'
@@ -5,36 +7,42 @@ require 'open-uri'
 #:reek:TooManyStatements
 #:reek:TooManyInstanceVariables
 class GetGemDataFromGit
-  class RepoNotFoundError < RuntimeError
+  class RepositoryNotFoundError < RuntimeError
   end
   class PermissionDeniedError < RuntimeError
   end
+  #:reek:Attribute
+  attr_accessor :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
 
-  attr_reader :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
-
-  API_URL = 'https://api.github.com/search/repositories?q='.freeze
-  PARAMS = '&sort=stars&order=desc@per_page=1'.freeze
-  CONTRIBUTORS_CSS_SELECTOR = "a span[class='num text-emphasized']".freeze
-  WATCHED_CSS_SELECTOR = '/html/body/div[4]/div/main/div[1]/div/ul/li'.freeze
-  USED_BY_CSS_SELECTOR = 'a.btn-link:nth-child(1)'.freeze
+  API_URL = 'https://api.github.com/search/repositories?q='
+  PARAMS = '&sort=stars&order=desc@per_page=1'
+  CONTRIBUTORS_CSS_SELECTOR = "a span[class='num text-emphasized']"
+  WATCHED_CSS_SELECTOR = '/html/body/div[4]/div/main/div[1]/div/ul/li'
+  USED_BY_CSS_SELECTOR = 'a.btn-link:nth-child(1)'
 
   def initialize(gem_name)
     @api_response = HTTParty.get("#{API_URL}#{gem_name}#{PARAMS}")
     @repo = repository
     @html = use_nokogiri
-  rescue RepoNotFoundError => error
-    repository_not_found(gem_name, error.message)
+    self
+  rescue RepositoryNotFoundError => error
+    default_data(gem_name, error.message)
+    self
   rescue PermissionDeniedError => error
-    repository_not_found(gem_name, error.message)
+    default_data(gem_name, error.message)
+    self
   end
 
   def call(gem_name)
     check_for_errors
     pull_from_api
-  rescue RepoNotFoundError => error
-    repository_not_found(gem_name, error.message)
+    self
+  rescue RepositoryNotFoundError => error
+    default_data(gem_name, error.message)
+    self
   rescue PermissionDeniedError => error
-    repository_not_found(gem_name, error.message)
+    default_data(gem_name, error.message)
+    self
   end
 
   private
@@ -58,7 +66,7 @@ class GetGemDataFromGit
     @used_by = used_by_count
   end
 
-  def repository_not_found(gem_name, message)
+  def default_data(gem_name, message)
     @name = "#{gem_name} - #{message}"
     @used_by = 0
     @watched_by = 0
@@ -74,7 +82,7 @@ class GetGemDataFromGit
 
   def repository
     check_for_errors
-    symbolize @api_response.to_hash['items'].first
+    symbolize(@api_response.to_hash['items'].first)
   end
 
   def symbolize(hash)

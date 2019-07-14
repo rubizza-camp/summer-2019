@@ -40,10 +40,10 @@ class TopGems
         "#{repo.issues} issues"
       ]
     end
-    print_terminal(table_str)
+    print_table(table_str)
   end
 
-  def print_terminal(str_table)
+  def print_table(str_table)
     terminal = Terminal::Table.new do |tab|
       tab.rows = str_table
       tab.style = { border_top: false, border_bottom: false }
@@ -61,9 +61,7 @@ class TopGems
   def load_gems
     @gem_list.map do |gem|
       @threads << Thread.new do
-        gem_data = GetGemDataFromGit.new(gem)
-        gem_data.call gem
-        @list << gem_data
+        @list << GetGemDataFromGit.new(gem).call(gem)
       end
     end
     @threads.each(&:join)
