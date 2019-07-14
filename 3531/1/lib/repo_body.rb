@@ -34,7 +34,7 @@ class RepoBody
     git_url = res_params['source_code_uri'] if res_params['source_code_uri']
     git_url = res_params['homepage_uri'] if res_params['homepage_uri']&.include?('https://github')
 
-    git_url.delete_suffix!('/') if git_url.end_with?('/')
+    git_url.delete_suffix!('/')
     git_url
   rescue NotFoundError
     warn 'git url is not found'
