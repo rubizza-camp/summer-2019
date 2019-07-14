@@ -18,6 +18,6 @@ class GemSorterSpec < Minitest::Test
   end
 
   def test_call
-    assert_equal 67964, @gem_sorter.dig(0, 0)
+    assert_equal 67_964, @gem_sorter.dig(0, 0)
   end
 end

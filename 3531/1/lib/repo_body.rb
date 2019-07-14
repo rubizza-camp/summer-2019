@@ -38,8 +38,8 @@ class RepoBody
   rescue NotFoundError
     warn '404 gem not found'
     abort
-  rescue BadGatewayError => ex
-    puts ex.message
+  rescue BadGatewayError => e
+    puts e.message
     warn 'bad gateway error, please restart the script'
     abort
   end
