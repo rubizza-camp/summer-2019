@@ -3,7 +3,7 @@
 class Scraper
   FOR_USED_BY = '/network/dependents'
   URL = 'https://rubygems.org/gems/'
-  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/.freeze
+  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/
 
   def initialize(link, browser)
     @link = normalize(link)
