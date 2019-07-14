@@ -12,11 +12,12 @@ def times_in(dice)
   dice.each_with_object(Hash.new(0)) { |side, histogram| histogram[side] += 1 }
 end
 
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/(2..6).sumAbcSize
 # :reek:FeatureEnvy, :reek:TooManyStatements:, :reek:UtilityFunction
 def claculated_from(freq)
+  points = 0
   points += 1000 if freq[1] >= 3
-  points += (freq.keys - [1]).sum { |value| freq[value] >= 3 ? value * 100 : 0 }
+  points += (2..6).sum { |value| freq[value] >= 3 ? value * 100 : 0 }
   points += 100 * (freq[1] % 3)
   points + 50 * (freq[5] % 3)
 end
