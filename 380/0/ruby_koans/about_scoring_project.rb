@@ -2,37 +2,26 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UtilityFunction
 def score(dice)
-  score = 0
-  return score if dice.equal?([])
+  return 0 if dice.empty?
   frequency = times_in(dice)
-  points = claculated_from(frequency)
-  points
+  claculated_from(frequency)
 end
 
 # :reek:UtilityFunction
 def times_in(dice)
-  points = [0, 0, 0, 0, 0, 0]
-  dice.each { |side| points[side - 1] += 1 }
-  points
+  dice.each_with_object(Hash.new(0)) { |side, histogram| histogram[side] += 1 }
 end
 
+# rubocop:disable Metrics/AbcSize
 # :reek:FeatureEnvy, :reek:TooManyStatements:, :reek:UtilityFunction
-# rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
 def claculated_from(freq)
   points = 0
-  0.upto(freq.size - 1) do |iterator|
-    if freq[iterator] / 3 >= 1 && !freq[iterator].zero?
-      points += iterator + 1 == 1 ? 1000 : (iterator + 1) * 100
-      freq[iterator] -= (freq[iterator] / 3).ceil * 3
-    end
-    unless freq[iterator].zero?
-      points += freq[iterator] * 100 if (iterator + 1).equal?(1)
-      points += freq[iterator] * 50 if (iterator + 1).equal?(5)
-    end
-  end
-  points
+  points += 1000 if freq[1] >= 3
+  points += (freq.keys - [1]).sum { |value| freq[value] >= 3 ? value * 100 : 0 }
+  points += 100 * (freq[1] % 3)
+  points + 50 * (freq[5] % 3)
 end
-# rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/AbcSize
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
