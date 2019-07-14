@@ -26,13 +26,15 @@ def run
 end
 
 private
+
+DEFAULT_GEM_LIST_FILE = 'gems.yaml'.freeze
+
 # rubocop:disable Metrics/MethodLength
 # :reek:UtilityFunction
 # :reek:NilCheck:
 # :reek:TooManyStatements
 # :reek:NestedIterators:
-DEFAULT_GEM_LIST_FILE = 'gems.yaml'.freeze
-
+# :reek:FeatureEnvy
 def options_parse
   options = {}
   optparse = OptionParser.new do |opts|
@@ -76,11 +78,11 @@ end
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Lint/UselessSetterCall
-# :reek:TooManyStatements
 def info(data, client)
   data.map { |gem| [gem.to_sym, gem_info(gem, client)] }.to_h
 end
 
+# :reek:TooManyStatements
 def gem_info(gem, client)
   gem_data = {}
   gem_description = Gems.info(gem)
