@@ -2,6 +2,7 @@
 
 require 'yaml'
 
+# :reek:InstanceVariableAssumption
 class YmlParser
   attr_reader :gems_hash, :yml_file
 
@@ -16,6 +17,3 @@ class YmlParser
     @gems_hash[:gems] = gems_hash.delete('gems')
   end
 end
-
-# gems_hash = YmlParser.new('gems.yml').gems_hash
-# p gems_hash

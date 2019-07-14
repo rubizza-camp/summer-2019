@@ -1,8 +1,10 @@
-# This class collect all data about gem from Github repository to hash
+# rubocop:disable Lint/MissingCopEnableDirective
+
+# This class collect all data about gem from Github repository to array of hashes
 
 require 'nokogiri'
 require 'open-uri'
-require_relative 'github_url_finder.rb'
+require 'optparse'
 require_relative 'string_class_expander.rb'
 
 class GitHubCollector
@@ -14,12 +16,23 @@ class GitHubCollector
 
   protected
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Security/Open
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   def collect_data_from_github(gems_github_urls_hash)
     @gems_data_array = gems_github_urls_hash.map do |gem_name, gem_github_url|
-      @gem_github_page = Nokogiri::HTML(open(gem_github_url))
-      @gem_github_page_network = Nokogiri::HTML(open("#{gem_github_url}/network/dependents"))
+      begin
+        @gem_github_page = Nokogiri::HTML(open(gem_github_url))
+        @gem_github_page_network = Nokogiri::HTML(open("#{gem_github_url}/network/dependents"))
+      rescue OpenURI::HTTPError => e
+        e
+      end
 
       @gems_data_hash = {
+        gem_score: convert_stat_to_score([look_for_gem_used_by,
+                                          look_for_gem_watched_by,
+                                          look_for_gem_stars, look_for_gem_forks,
+                                          look_for_gem_contributors, look_for_gem_issues]),
         gem_name =>
         {
           gem_used_by: look_for_gem_used_by,
@@ -27,16 +40,14 @@ class GitHubCollector
           gem_stars: look_for_gem_stars,
           gem_forks: look_for_gem_forks,
           gem_contributors: look_for_gem_contributors,
-          gem_issues: look_for_gem_issues,
-          gem_score: convert_stat_to_score([look_for_gem_used_by,
-                                            look_for_gem_watched_by,
-                                            look_for_gem_stars, look_for_gem_forks,
-                                            look_for_gem_contributors, look_for_gem_issues])
+          gem_issues: look_for_gem_issues
         }
       }
     end
+    sort_gems_data_array(gems_data_array)
   end
 
+  # rubocop:disable Metrics/LineLength
   def look_for_gem_used_by
     gem_github_page_network.search('a.btn-link.selected').first.text.squish!.match(/\d+(\,\d+)+/).to_s
   end
@@ -68,6 +79,12 @@ class GitHubCollector
     end
     score
   end
-end
 
-# p gems_data_array = GitHubCollector.new(GitHubUrlFinder.new(["rubocop", "nokogiri", "mechanize"]).gems_github_urls_hash).gems_data_array
+  # :reek:NestedIterators
+  def sort_gems_data_array(gems_data_array)
+    gems_data_array.sort_by! { |gem_hash| gem_hash[:gem_score] }.reverse!
+    gems_data_array.each do |gem_hash|
+      gem_hash.reject! { |key, _| key == :gem_score }
+    end
+  end
+end

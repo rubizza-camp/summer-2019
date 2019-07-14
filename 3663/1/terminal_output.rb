@@ -1,3 +1,5 @@
+# rubocop:disable Lint/MissingCopEnableDirective
+
 # This class helps to output all gems data in the table
 require 'terminal-table'
 
@@ -10,6 +12,9 @@ class TerminalOutput
 
   protected
 
+  # rubocop:disable Metrics/MethodLength
+  # :reek:FeatureEnvy
+  # :reek:NestedIterators
   def generate_table(gems_data_array)
     table_rows = []
     gems_data_array.each do |hash|

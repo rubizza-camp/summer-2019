@@ -1,7 +1,6 @@
 # This class look for GitHub gem URL by gem name
 
 require 'mechanize'
-require_relative 'yml_parser.rb'
 
 class GitHubUrlFinder
   attr_reader :gems_github_urls_hash
@@ -23,5 +22,3 @@ class GitHubUrlFinder
     end
   end
 end
-
-# p gems_github_urls_hash = GitHubUrlFinder.new(["rubocop", "nokogiri", "mechanize"]).gems_github_urls_hash
