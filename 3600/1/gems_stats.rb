@@ -16,4 +16,4 @@ class Stats
     [gem_name, "used by #{used_by}", "watched by #{watches}", "#{stars} stars",
      "#{forks} forks", "#{contributors} contributors", "#{issues} issues"]
   end
-end 
+end
