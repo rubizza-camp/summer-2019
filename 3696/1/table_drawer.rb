@@ -6,15 +6,11 @@ class TableDrawer
   PATH_TO_WEIGHTS = 'weights.yaml'
   KEYS = %i[name watches stars forks contributors issues used_by].freeze
 
-  def initialize(hash, top)
-    @info_hash = hash
-    @top = top
-  end
-
-  def draw
+  def draw(data_to_display)
+    hash, top = data_to_display
     puts Terminal::Table.new headings: [I18n.t('name'), I18n.t('watches'), I18n.t('stars'),
                                         I18n.t('forks'), I18n.t('contributors'),
-                                        I18n.t('issues'), I18n.t('used_by')], rows: rows
+                                        I18n.t('issues'), I18n.t('used_by')], rows: rows(hash, top)
   end
 
   private
@@ -26,21 +22,19 @@ class TableDrawer
                      .transform_keys(&:to_sym)
   end
 
-  def rows
-    table_rows = append_names_transform.values.sort_by { |value| -popularity(value) }
-                                       .map { |hash_obj| hash_obj.values_at(*KEYS) }
+  def rows(hash, top)
+    table_rows = append_names_transform(hash).values.sort_by { |value| -popularity(value) }
+                                             .map { |hash_obj| hash_obj.values_at(*KEYS) }
     top.zero? ? table_rows : table_rows.take(top)
   end
 
-  def append_names_transform
+  def append_names_transform(info_hash)
     Hash[info_hash.collect { |key, value| [key, value.merge(name: key)] }]
   end
 
   def popularity(info)
-    sum = 0
-    weights.each do |key, weight|
-      sum += weight * info[key]
+    weights.sum do |key, weight|
+      weight * info[key]
     end
-    sum
   end
 end

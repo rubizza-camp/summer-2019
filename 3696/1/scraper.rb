@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require 'watir'
-require 'webdrivers'
 class Scraper
   FOR_USED_BY = '/network/dependents'
   URL = 'https://rubygems.org/gems/'
-  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/
+  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/.freeze
 
   def initialize(link, browser)
     @link = normalize(link)
@@ -36,24 +34,24 @@ class Scraper
 
   def watches_stars_forks
     keys = %i[watches stars forks]
-    Hash[keys.product(browser_page.elements(css: '.social-count')
-                          .to_a.map { |number| number.text.strip })]
+    enumerator = browser_page.elements(css: '.social-count')
+                             .to_a.map { |number| number.text.strip }.each
+    keys.each_with_object({}) do |key, hash|
+      hash[key] = enumerator.next
+    end
   end
 
   def contributors
-    keys = [:contributors]
-    Hash[keys.product([browser_page.elements(css: '.num.text-emphasized').last.text.strip])]
+    { contributors: browser_page.elements(css: '.num.text-emphasized').last.text.strip }
   end
 
   def used_by
-    keys = [:used_by]
     used_by_browser = browser_page
     used_by_browser.goto(link + FOR_USED_BY)
-    Hash[keys.product([used_by_browser.html.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip])]
+    { used_by: used_by_browser.html.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip }
   end
 
   def issues
-    keys = [:issues]
-    Hash[keys.product([browser_page.element(css: '.Counter').text])]
+    { issues: browser_page.element(css: '.Counter').text }
   end
 end
