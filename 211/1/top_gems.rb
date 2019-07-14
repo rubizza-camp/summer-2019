@@ -1,122 +1,134 @@
-require 'yaml'
+# require 'yaml'
 require 'httparty'
 require 'nokogiri'
 require 'optparse'
 require 'json'
 require 'table_print'
+require_relative './github_page.rb'
 
 class GemPopularity
   include HTTParty
   # base_uri 'https://api.github.com/repos/'
-  attr_accessor  :name, :watch, :star, :fork, :contrib, :issues_op, :issues_closed, :used_by, :issues
+  attr_accessor :name, :watch, :star, :fork, :contrib, :used_by, :issues, :popularity
 
   def initialize(gem_name)
     @name = gem_name
-    rubygems_page = HTTParty.get("https://rubygems.org/api/v1/gems/#{gem_name}")
-    @github_link = JSON.parse(rubygems_page.body)['source_code_uri']
-    # @api_github_link = @sgithub_link.gsub(/github.com/, "api.github.com/repos" )
-    # response = HTTParty.get(@api_github_link)
-    # page  = JSON.parse(response.body)
-    # @watch = page['subscribers_count']
-    # @star = page['stargazers_count']
-    # @fork = page['forks']
-    page = HTTParty.get(@github_link)
-    @doc = Nokogiri::HTML(page.body)
-    @watch = @doc.css('.social-count')[0].text.tr('^0-9', '').to_i
-    @star = @doc.css('.social-count')[1].text.tr('^0-9', '').to_i
-    @fork = @doc.css('.social-count')[2].text.tr('^0-9', '').to_i
-  end
+    GithubPage.new(gem_name)
+    file = File.open("#{gem_name}.html", 'r')
 
-  def contrib
-    @contrib = @doc.css('ul.numbers-summary li span')[3].text.tr('^0-9', '').to_i
-  end
+    doc = Nokogiri::HTML(file)
+    @watch = doc.css('.social-count')[0].text.tr('^0-9', '').to_i
+    @star = doc.css('.social-count')[1].text.tr('^0-9', '').to_i
+    @fork = doc.css('.social-count')[2].text.tr('^0-9', '').to_i
+    @issues = doc.css('span.Counter')[0].text.tr('^0-9', '').to_i
+    @used_by = doc.css('a.selected')[3].text.tr('^0-9', '').to_i
+    file.close
 
-  def issues
-    page = HTTParty.get("#{@github_link}/issues")
-    doc = Nokogiri::HTML(page.body)
-    issues = doc.css('div.states')
-    @issues_op = issues.css('a')[0].text.tr('^0-9', '').to_i
-    @issues_closed = issues.css('a')[1].text.tr('^0-9', '').to_i
-    @issues = "Closed issues / opened issues = #{@issues_closed/@issues_op}"
-  end
-
-  def used_by
-    page = HTTParty.get("#{@github_link}/network/dependents")
-    doc = Nokogiri::HTML(page.body)
-    used_by = doc.css('a.selected')[3].text.tr('^0-9', '').to_i
+    main_file = File.open("#{gem_name}_main.html", 'r')
+    main_doc = Nokogiri::HTML(main_file)
+    @contrib = main_doc.css('span.text-emphasized')[3].text.tr('^0-9', '').to_i
+    main_file.close
   end
 end
-
-# sinatra = GemPopularity.new('sinatra')
-
-# puts "#{sinatra.name} | watched by #{sinatra.watch} | #{sinatra.star} stars | #{sinatra.fork} forks "
 
 class OptparseScript
   def self.parse(args)
     options = {}
-      opt_parser = OptionParser.new do |opts|
-  
-        opts.on('--top[=NUM]') do |num|
-          p options[:top] = num.to_i
-        end
-        opts.on('--name[=NAME]') do |name|
-          p options[:name] = name
-        end
-        opts.on('--file[=FILE]') do |file|
-          p options[:file] = file
-        end
-      end 
-  
-      opt_parser.parse!(args)
-      options
-  end
+    opt_parser = OptionParser.new do |opts|
+      opts.on('--top[=NUM]', Integer) do |num|
+        options[:top] = num.to_i
+      end
+      opts.on('--name[=NAME]', String) do |name|
+        options[:name] = name
+      end
+      opts.on('--file[=FILE]', String) do |file|
+        options[:file] = file
+      end
+    end
 
+    opt_parser.parse!(args)
+    options
+  end
 end
 
 options = OptparseScript.parse(ARGV)
-pp options
 
-def load_gemlist(file=nil)
+def load_gemlist(file = nil)
   file ||= 'gem_list.yml'
   @gems = YAML.safe_load(File.read(file))
 end
 
-def find_match(gems, name=nil)
+def find_match(_gems, name = nil)
   name ||= '\w+'
-  @gems_array = @gems['gems'].find_all {|g| g.match(name)}
+  @gem_names = @gems['gems'].find_all { |g| g.match(name) }
 end
 
-def take_top(top=nil)
-  top ||= @gems_array.size
-  @gems_array  = @gems_array.take(top)
+def take_top(arr, top = nil)
+  top ||= arr.size
+  arr.take(top)
 end
 
 load_gemlist(options[:file])
 find_match(@gems, options[:name])
-take_top(options[:top])
 
-gems_done = []
+gems_array = []
 
-@gems_array.each do |gem_n|
-  gem_name = GemPopularity.new(gem_n)
-  gems_done << gem_name
+@gem_names.each do |gem_n|
+  gem_inst = GemPopularity.new(gem_n)
+  gems_array << gem_inst
 end
 
+criteria = %i[watch star fork contrib used_by issues]
+weights = { used_by: 10, watch: 4, star: 8, fork: 6, contrib: 1, issues: 2 }
 
-gems_done.sort_by! {|gem| gem.watch}
+hash_g = {}
 
-gems_done.each do |gem_name|
-  puts gem_name.issues
-  puts "#{gem_name.name}| used by #{gem_name.used_by}  | watched by #{gem_name.watch} | #{gem_name.star} stars | #{gem_name.fork} forks | #{gem_name.contrib} contributors "
+gems_array.each do |g|
+  h = {}
+  hash_g[g.name] = h
+  criteria.each do |c|
+    h[c] = g.send(c)
+  end
 end
 
-tp gems_done,  :name,
-               {:used_by => {:display_name  => 'used by'}},
-               {:watch => {:display_name  => 'Watched By'}},
-               :star,
-               :fork,
-               {:contrib => {:display_name  => 'Contributors'}},
-               {:issues_op => {:display_name  => 'Opend issues'}},
-               {:issues_closed => {:display_name  => 'Closed issues'}}
+# working on normalization
+# def normalise(xcur, xmin, xmax, dif0 = 0, dif1 = 1)
+#   xrange = xmax - xmin
+#   drange = dif1 - dif0
+#   (dif0 + (xcur - xmin) * (drange.to_f / xrange)).round(2)
+# end
 
+# ashn = {}
+# hash_g.each do |_k, vh|
+#   vh.each do |k1, v1|
+#     ashn[k1] ||= []
+#     ashn[k1] << v1
+#   end
+# end
 
+# hash_g.each do |_k, vh|
+#   vh.each do |k1, v1|
+#     vh[k1] = normalise(v1, ashn[k1].min, ashn[k1].max)
+#   end
+# end
+
+hash_g.each do |g, cr|
+  cr.each do |k, v|
+    cr[k] = v * weights[k]
+  end
+  hash_g[g] = cr.values.reduce(:+).round(2)
+end
+
+gems_array.each do |g|
+  g.popularity = hash_g[g.name]
+end
+
+gems_array.sort_by!(&:popularity).reverse!
+gems_array = take_top(gems_array, 2)
+tp gems_array, :name,
+   { used_by: { display_name: 'used by' } },
+   { watch: { display_name: 'Watched By' } },
+   :star,
+   :fork,
+   { contrib: { display_name: 'Contributors' } },
+   :issues
