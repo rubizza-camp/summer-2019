@@ -5,6 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Style/YodaCondition
 # rubocop:disable Lint/InterpolationCheck
 # rubocop:disable Lint/UselessAssignment
+# rubocop:disable Naming/HeredocDelimiterNaming
 # :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
@@ -52,10 +53,10 @@ It was the worst of times.
   end
 
   def test_here_documents_can_also_handle_multiple_lines
-    long_string = <<EOS
-It was the best of times,
-It was the worst of times.
-EOS
+    long_string = <<~EOS
+      It was the best of times,
+      It was the worst of times.
+    EOS
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -200,6 +201,7 @@ EOS
     assert_equal false, aaa.object_id == bbb.object_id
   end
 end
+# rubocop:enable Naming/HeredocDelimiterNaming
 # rubocop:enable Metrics/ClassLength
 # rubocop:enable Style/CharacterLiteral
 # rubocop:enable Style/YodaCondition

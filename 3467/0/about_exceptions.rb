@@ -3,6 +3,7 @@
 # rubocop:disable Naming/RescuedExceptionsVariableName
 # rubocop:disable Style/SignalException
 # rubocop:disable Lint/UselessAssignment
+# rubocop:disable Naming/MethodName
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -11,6 +12,7 @@ class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
 
+  # :reek:UncommunicativeMethodName
   def test_exceptions_inherit_from_Exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
@@ -72,7 +74,7 @@ class AboutExceptions < Neo::Koan
     end
   end
 end
-
+# rubocop:enable Naming/MethodName
 # rubocop:enable Lint/HandleExceptions, Metrics/MethodLength
 # rubocop:enable Naming/RescuedExceptionsVariableName
 # rubocop:enable Style/SignalException

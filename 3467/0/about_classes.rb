@@ -1,6 +1,7 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Style/EvalWithLocation
 # rubocop:disable Style/TrivialAccessors
+# rubocop:disable Style/StringLiterals
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -195,6 +196,7 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Style/StringLiterals
 # rubocop:enable Style/EvalWithLocation
 # rubocop:enable Style/TrivialAccessors
 # rubocop:enable Lint/UnneededCopDisableDirective
