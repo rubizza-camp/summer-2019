@@ -2,10 +2,5 @@ gems:
  - sinatra
  - rspec
  - rubocop
- - bootstrap
- - faraday
- - httparty
  - rails
- - hanami
- - devise
- - webpacker
+ - faraday

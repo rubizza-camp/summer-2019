@@ -11,16 +11,17 @@ doc = if options[:file]
         YAML.load_file('gems.yml')
       end
 
-list = Repo.new
-list.take_repo(doc)
+repo = Repo.new
+repo.take_repo(doc)
 
-html = Pages.new
+page = Pages.new
+page.save_htmls(repo.list)
+page.take_content(page.htmls)
 
 if options[:number]
-  html.save_htmls(list.list.first(options[:number].to_i))
-else
-  html.save_htmls(list.list)
+  page.sort_by_number(options[:number].to_i)
+elsif options[:name]
+  page.sort_by_name(options[:name].to_s)
 end
 
-html.take_content(html.htmls)
-html.represent_info
+page.represent_info
