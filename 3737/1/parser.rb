@@ -1,7 +1,8 @@
-require 'xpath'
 require 'nokogiri'
 require 'open-uri'
+require 'xpath'
 
+# This module is convert string to intger
 module ModifyData
   def modify(str)
     str = str.strip.delete(',').to_i
@@ -49,7 +50,6 @@ class Parser
     used_by = @github_page_usedby.xpath('//div[@class="Box-header clearfix"]//a')[0].content
     @arr[:used_by] = modify(used_by)
   end
-    file = file['gems']
 
   def parse_watch_fork
     watch = @github_page.xpath('//div//ul/li/a[@class="social-count"]')[-2].content
