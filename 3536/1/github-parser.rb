@@ -1,5 +1,5 @@
-rubocop:disable Lint/AmbiguousBlockAssociation
 rubocop:disable all
+rubocop:disable Lint/AmbiguousBlockAssociation
 @token = 'f91c9d872afd22e2f6c92f8e4231f5a37d4baa5c'
 @api_url = 'https://api.github.com/graphql'
 @yml_file = 'top-gems.yml'

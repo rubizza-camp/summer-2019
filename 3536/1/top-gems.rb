@@ -1,5 +1,5 @@
-rubocop:disable Lint/AmbiguousBlockAssociation
 rubocop:disable all
+rubocop:disable Lint/AmbiguousBlockAssociation
 require 'yaml'
 require 'net/http'
 require 'uri'
