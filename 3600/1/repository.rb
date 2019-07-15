@@ -17,6 +17,6 @@ class Repository
 
   def init_contributors_and_issues(opts)
     @contributors = opts[:contributors]
-  	@issues = opts[:issues]
+    @issues = opts[:issues]
   end
 end
