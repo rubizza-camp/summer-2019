@@ -18,17 +18,17 @@ class GetGemDataFromGit
     @repo = repository
     @html = use_nokogiri
   rescue RepositoryNotFoundError => error
-    default_data(gem_name, error.message)
+    default_data_from_api(gem_name, error.message)
   rescue PermissionDeniedError => error
-    default_data(gem_name, error.message)
+    default_data_from_api(gem_name, error.message)
   end
 
   def call(gem_name)
-    pull_from_api
+    data_from_api
   rescue RepositoryNotFoundError => error
-    default_data(gem_name, error.message)
+    default_data_from_api(gem_name, error.message)
   rescue PermissionDeniedError => error
-    default_data(gem_name, error.message)
+    default_data_from_api(gem_name, error.message)
   end
 
   def self.call(gem_name)
@@ -43,21 +43,20 @@ class GetGemDataFromGit
   WATCHED_CSS_SELECTOR = '/html/body/div[4]/div/main/div[1]/div/ul/li'
   USED_BY_CSS_SELECTOR = 'a.btn-link:nth-child(1)'
 
-  def pull_from_api
+  def data_from_api
     check_for_errors
-    pull_from_api_next
+    pull_from_api
   end
 
   def check_for_errors
-    message = @api_response.response.inspect
-    unless message.include?('200')
-      error_message = "error #{message[/[0-9]+/]}"
+    unless @api_response.code == 200
+      error_message = 'permission denied'
       raise(PermissionDeniedError, error_message)
     end
     raise(RepoNotFoundError, 'not found') if @api_response.to_hash['items'].empty?
   end
 
-  def pull_from_api_next
+  def pull_from_api
     @git_data[:name] = @repo[:name]
     @git_data[:stars] = @repo[:stargazers_count]
     @git_data[:forks] = @repo[:forks_count]
@@ -72,7 +71,7 @@ class GetGemDataFromGit
     self
   end
 
-  def default_data(gem_name, message)
+  def default_data_from_api(gem_name, message)
     @git_data[:name] = "#{gem_name} - #{message}"
     @git_data[:issues] = 0
     @git_data[:stars] = 0
