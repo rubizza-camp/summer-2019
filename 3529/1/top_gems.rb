@@ -17,7 +17,10 @@ class UserCommunicator
   def initialize
     @rows = []
     @list = []
-    @file_name = ''
+    ARGV.each do |argument|
+      @file_name = argument.gsub('--file=', '') if argument.include?('file')
+    end
+    @file = YAML.safe_load(File.read(@file_name))
   end
 
   def make_top
@@ -25,13 +28,6 @@ class UserCommunicator
     @list.each do |gem|
       gem.delete(:rate)
     end
-  end
-
-  def load_file
-    ARGV.each do |argument|
-      @file_name = argument.gsub('--file=', '') if argument.include?('file')
-    end
-    @file = YAML.safe_load(File.read(@file_name))
   end
 
   def load_arguments
@@ -60,12 +56,11 @@ class UserCommunicator
 end
 
 user = UserCommunicator.new
-user.load_file
 list = []
 begin
   user.file['gems'].each do |gem_name|
     gem = GemsApiHendler.new(gem_name)
-    next if gem.find_github.nil?
+    next unless gem.find_github
 
     gemh = GemHendler.new(gem.gem_github)
     gemh.join_all_data
