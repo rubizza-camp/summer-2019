@@ -1,0 +1,4 @@
+gems:
+- rubocop
+- Puma
+- CanCan
