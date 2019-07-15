@@ -22,7 +22,7 @@
 def triangle(a_length, b_length, c_length)
   # WRITE THIS CODE
   a_length, b_length, c_length = [a_length, b_length, c_length].sort
-  raise TriangleError if a <= 0 || a + b <= c
+  raise TriangleError if a_length <= 0 || a_length + b_length <= c_length
 
   %i[equilateral isosceles scalene].fetch([a_length, b_length, c_length].uniq.size - 1)
 end
