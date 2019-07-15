@@ -59,8 +59,7 @@ user.load_file
 list = []
 begin
   user.file['gems'].each do |gem_name|
-    gem = GemsApiHendler.new
-    gem.gem_name = gem_name
+    gem = GemsApiHendler.new(gem_name)
     next if gem.find_github.nil?
 
     gemh = GemHendler.new(gem.gem_github)
