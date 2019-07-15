@@ -1,6 +1,11 @@
 gems:
-  - sinatra
+  - asdasdsadasdas
   - rspec
   - rubocop
   - bootstrap
   - faraday
+  - reek
+  - sinatra
+  - a
+  - terminal-table
+  - gems
