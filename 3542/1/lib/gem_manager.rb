@@ -1,16 +1,12 @@
 require 'yaml'
 require 'terminal-table'
 require_relative 'repo'
-require_relative 'file_manager'
+require_relative 'util'
 
 class GemManager
-  include FileManager
-
   def initialize(params)
     @params = params.map { |param| param.split('=') }.to_h
-
     @gem_list = gem_list
-
     @repos = top_gems
   end
 
@@ -21,19 +17,23 @@ class GemManager
   private
 
   def gem_list
-    if @params['--name']
-      parse_file(@params['--file'])['gems'].select { |gem| gem.include? @params['--name'] }
-    else
-      parse_file(@params['--file'])['gems']
+    gem_list = Util.parse_file(@params['--file'])['gems']
+
+    filter_by '--name', gem_list do |gem|
+      gem.include? @params['--name']
     end
   end
 
   def top_gems
-    if @params['--top']
-      gems.sort_by(&:used_by).reverse[0..@params['--top'].to_i - 1]
-    else
-      gems
+    sorted_gems = gems.sort_by(&:used_by).reverse
+
+    filter_by '--top', sorted_gems do |gem|
+      sorted_gems.index(gem) < @params['--top'].to_i
     end
+  end
+
+  def filter_by(flag, obj, &block)
+    @params[flag] ? obj.select(&block) : obj
   end
 
   def gems
