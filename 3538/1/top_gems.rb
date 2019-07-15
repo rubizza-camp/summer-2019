@@ -2,52 +2,72 @@ require 'yaml'
 require 'net/http'
 require 'uri'
 require 'json'
+require 'graphql'
 
-def gems_stat
-  @gems_data = []
-  @stat_length = Array.new(5, 0)
-  gems_names = YAML::load(open('gems-names.yml'))['gems']
+@token = 'e9d88495a0a951db1b9b1b273851be0157a8e7de'
+@api_url = 'https://api.github.com/graphql'
+@yml_file = 'gems-names.yml'
+
+def get_owner(repo)
+
+  uri = URI.parse(@api_url)
+  https = Net::HTTP.new(uri.host, uri.port)
+  https.use_ssl = true
+  request = Net::HTTP::Post.new(uri.path)
+  request['User-Agent'] = '3538-1'
+  request['Authorization'] = "token #{@token}"
+  request.body = "{\"query\":\"{search(query: \\\"#{repo}\\\", type: REPOSITORY, first:1){edges { node { ... on Repository { owner { login }}}}}}\"}"
+
+  response = https.request(request)
+  owner = JSON.parse(response.read_body)['data']['search']['edges'][0]['node']['owner']['login']
+end
+
+def get_data(owner,gem)
+
+  params = 'watchers{totalCount}forks{totalCount}mentionableUsers{totalCount}stargazers{totalCount}issues(states: OPEN){totalCount}'
+  parameters =  "{\"query\":\"{repository(owner: \\\"#{owner}\\\", name: \\\"#{gem}\\\"){#{params}}}\"}"
+
+  uri = URI.parse(@api_url)
+  https = Net::HTTP.new(uri.host, uri.port)
+  https.use_ssl = true
+  request = Net::HTTP::Post.new(uri.path)
+  request['User-Agent'] = '3538-1'
+  request['Authorization'] = "token #{@token}"
+  request.body = parameters
+  res = https.request(request)
+  result = JSON.parse(res.body)['data']['repository']
+
+  case res
+  when Net::HTTPSuccess, Net::HTTPRedirection
+    table = {}
+    table['watchers'] = result['watchers']['totalCount']
+    table['forks'] = result['forks']['totalCount']
+    table['contributors'] = result['mentionableUsers']['totalCount']
+    table['stars'] = result['stargazers']['totalCount']
+    table['issues'] = result['issues']['totalCount']
+    return table
+  else
+
+  end
+end
+
+def print_data(gem,data)
+  string = "#{gem} | watched by #{data['watchers']} | #{data['stars']} stars | #{data['forks']} forks | #{data['contributors']} contributors | #{data['issues']} issues |"
+  puts "#{string}"
+end
+
+def main(file)
+  gems_names = YAML::load(open("#{file}"))['gems']
   gems_names.each do |gem|
-    search_api_url = 'https://api.github.com/search/repositories?q=' + gem.to_s
-
-    uri1 = URI.parse(search_api_url)
-    gems_info1 = Net::HTTP.get(uri1)
-    hh_data = JSON.parse(gems_info1)
-    api_url = hh_data['items'][0]['url']
-    stars = hh_data['items'][0]['stargazers_count']
-    forks = hh_data['items'][0]['forks_count']
-    open_issues = hh_data['items'][0]['open_issues_count']
-
-    uri2 = URI.parse(api_url)
-    gems_info2 = Net::HTTP.get(uri2)
-    hh_watch = JSON.parse(gems_info2)
-    watch = hh_watch['subscribers_count']
-
-    gem_data = []
-    gem_data.push(gem, watch, stars, forks, open_issues)
-    i = 0
-    gem_data.each do |item|
-      if item.to_s.length > @stat_length[i] then @stat_length[i] = item.to_s.length end
-      i += 1
-    end
-    @gems_data.push(gem_data)
-  end
-  p @gems_data
-  p @stat_length
-end
-
-def stat_output
-  @gems_data.each do |gem_arr|
-    gem_string = ""
-    i = 0
-    gem_arr.each do |gem_stat|
-      space_col = @stat_length[i] - gem_stat.to_s.length
-      gem_string << "#{gem_stat}" + " " * space_col + " | "
-      i += 1
-    end
-    p gem_string
+    owner = get_owner(gem)
+    gem_data = get_data(owner,gem)
+    print_data(gem,gem_data)
+    # puts "#{gem_data}"
   end
 end
 
-gems_stat
-stat_output
+input_array = ARGV
+puts input_array.length
+puts input_array.to_s
+
+main(@yml_file)
