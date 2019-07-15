@@ -1,0 +1,12 @@
+gems:
+ - sinatra
+ - rspec
+ - rubocop
+ - reek
+ - grape
+ - nokogiri
+ - daemons
+ - dante
+ - fallen
+ - searchkick
+ - sunspot
