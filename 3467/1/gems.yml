@@ -1,0 +1,6 @@
+gems:
+  - sinatra
+  - rspec
+  - devise
+  - rails
+  - bundler
