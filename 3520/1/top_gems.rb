@@ -12,10 +12,11 @@ link = 'https://rubygems.org/gems/sinatra/'
 
 # add some functional to get links from rubygems by gemname in gems.yaml
 rg = RubyGemsLink.new
-links = rg.get_links
-
+links = rg.yaml_links
+scrap = GemScrapper.new
 links.each do |link|
   p link
-  scrap = GemScrapper.new(link)
-  p "##{scrap.gem_name}  used_by #{scrap.used_by} watch #{scrap.watch} #{scrap.star} stars #{scrap.fork} forks #{scrap.contributors} contributors #{scrap.issues}"
+  scrap.get_page(link)
+  scrap.repo_info
+  # p "##{scrap.gem_name}  used_by #{scrap.used_by} watch #{scrap.watch} #{scrap.star} stars #{scrap.fork} forks #{scrap.contributors} contributors #{scrap.issues}"
 end

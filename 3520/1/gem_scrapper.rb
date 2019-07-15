@@ -1,60 +1,73 @@
 # page = mechanize.get('https://rubygems.org/gems/') # + 'gemname from file'
 require 'mechanize'
-# This class smells of :reek:UtilityFunction
+require 'nokogiri'
+require 'open-uri'
+# This class smells of :reek:UtilityFunction and :reek:InstanceVariableAssumption
 class GemScrapper
-  def initialize(link)
+  def initialize
     @mechanize = Mechanize.new
+    # @next_page = self.double_check(self.github_link)
+  end
+
+  def get_page(link)
+    # link = 'https://rubygems.org/gems/addressable'
     @page = @mechanize.get(link)
-    @link = self.github_link
+    get_github_link
+  end
+
+  def get_github_link
+    @next_page = self.github_link
   end
 
   def github_link
-    if @page.link_with(id: 'code').nil?
-      if @page.link_with(text: 'Homepage').href.match?(/http[s]*:\/\/[w{3}.]*github.com\//)
-        @page.link_with(text: 'Homepage').click
-      else
-        raise 'smth wrong with finding github link'
-      end
+    if @page.link_with(text: 'Homepage').href.match?(/http[s]*:\/\/[w{3}.]*github.com\//)
+      @page.link_with(text: 'Homepage').click
+    elsif @page.link_with(id: 'code').href.match?(/http[s]*:\/\/[\w.]*[w{3}.]*github.com/)
+      @page.link_with(id: 'code').click
     else
-      if @page.link_with(id: 'code').href.match?(/http[s]*:\/\/[w{3}.]*github.com\//)
-        @page.link_with(id: 'code').click
-      else
-        raise 'there is now link for github from rubygems.org'
-      end
+      raise 'there is no link for github from rubygems.org'
     end
   end
 
-  def gem_name(page = @page)
-    page.search('h1.t-display.page__heading').text.split(/\s*\W+[-]*[\d|\W]+/).select { |el| el.size > 1 }[0]
+  # def double_check(page)
+  #   return page if page.title.match?(/GitHub/)
+  #   return page.link_with(text: "Github Repository").click if page.link_with(text: "Github Repository")
+  #   raise 'Double check not pass. Link to GitHub is broken.'
+  # end
+
+  def gem_name
+    @next_page.search('h1 strong').text
   end
 
-  def used_by(link = @link)
-    link.link_with(href: /pulse/).click
+  def used_by
+    @next_page.link_with(href: /pulse/).click
         .link_with(href: %r{network\/dependencies}).click
         .link_with(text: /Dependent/).click
-        .link_with(text: /Repositories/).text.split(/\s/).select { |el| el.size > 1 }.join(' ')
-    # d_cies = pulse.link_with(href: %r{network\/dependencies}).click
-    # d_dents = d_cies.link_with(text: /Dependent/).click
-    # d_dents.link_with(text: /Repositories/).text.split(/\s/).select { |el| el.size > 1 }.join(' ')
+        .link_with(text: /Repositories/).text.split(' ').first
   end
 
-  def watch(link = @link)
-    link.link_with(href: /watchers/).text.split(/\s/).last
+
+  def watch
+    @next_page.link_with(href: /watchers/).text.split(' ').first
   end
 
-  def star(link = @link)
-    link.search('a.social-count.js-social-count').first.text.split(/\s/).last
+  def star
+    @next_page.search('a.social-count.js-social-count').first.text.split(' ').last
   end
 
-  def fork(link = @link)
-    link.link_with(href: %r{network\/members}).text.split(/\s/).last
+  def fork
+    @next_page.link_with(href: %r{network\/members}).text.split(' ').first
   end
 
-  def contributors(link = @link)
-    link.link_with(text: /contributors/).text.split(/\s/).select { |el| el.size > 1 }.join(' ')
+  def issues
+    @next_page.link_with(text: /Issues/).text.split(' ').last
   end
 
-  def issues(link = @link)
-    link.link_with(text: /Issues/).text.split(/\s/).select { |el| el.size > 1 }.join(' ')
+  def contributors
+    @next_page.link_with(text: /contributors/).text.split(' ').first
+  end
+
+  def repo_info
+    p "#{gem_name} |  #{used_by} | #{watch} | #{star} | #{fork} | #{issues} | #{contributors}"
   end
 end

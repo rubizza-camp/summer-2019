@@ -1,133 +1,42 @@
 ---
 gem:
-- json
-- kimurai
-- kwalify
-- less
-- less-rails
-- libv8
-- x86_64-linux,
-- x86_64-linux)
-- listen
-- logger
-- loofah
-- mail
-- marcel
-- matrix
-- mechanize
-- method_source
-- mime-types
-- mime-types-data
-- mimemagic
-- mini_mime
-- mini_portile2
-- minitest
-- msgpack
-- multi_json
-- multipart-post
-- murmurhash3
-- mutex_m
-- net-http-digest_auth
-- net-http-persistent
-- net-scp
-- net-ssh
-- net-telnet
-- nio4r
-- nokogiri
-- ntlm-http
-- octokit
-- openssl
-- orm_adapter
-- ostruct
-- parallel
-- parser
-- pg
-- pmap
-- poltergeist
-- popper_js
-- power_assert
-- powerpack
-- prime
-- pry
-- psych
-- public_suffix
-- puma
-- rack
-- rack-protection
-- rack-test
-- rails-dom-testing
-- rails-html-sanitizer
-- railties
-- rainbow
-- rake
-- rb-fsevent
-- rb-inotify
-- rbcat
-- rdoc
-- redis
-- reek
-- ref
-- regexp_parser
-- responders
-- rexml
-- rss
-- rubocop
-- ruby-progressbar
-- ruby_dep
-- rubygems-bundler
-- rubygems-update
-- rubyzip
-- rvm
-- sass
-- sass-listen
-- sass-rails
-- sassc
-- sassc-rails
-- sawyer
-- scanf
-- sdbm
-- selenium-webdriver
-- shell
-- sidekiq
-- simple_form
-- slim
-- slim-rails
-- spring
-- spring-watcher-listen
-- sprockets
-- sprockets-rails
-- sqlite3
-- sshkit
-- stringio
-- strscan
-- sync
-- temple
-- test-unit
-- therubyracer
-- thor
-- thread_safe
-- thwait
-- tilt
-- tracer
-- turbolinks
-- turbolinks-source
-- twitter-bootstrap-rails
-- tzinfo
-- uglifier
-- unf
-- unf_ext
-- unicode-display_width
-- virtus
-- warden
-- watir
-- web-console
-- webdrivers
-- webrick
-- webrobots
-- websocket-driver
-- websocket-extensions
-- whenever
-- will_paginate
-- xmlrpc
-- xpath
-- zlib
+- rails
+- addressable
+# - airbrussh
+# - arel
+# - ast
+# - bcrypt
+# - bigdecimal
+# - bindex
+# - bootsnap
+# - bootstrap
+# - bootstrap_form
+# - builder
+- bundler
+- byebug
+- capistrano
+- capybara
+- chartkick
+- childprocess
+# - chronic
+# - cliver
+# - cmath
+# - coderay
+# - coercible
+# - commonjs
+# - connection_pool
+# - crass
+# - csv
+# - date
+# - descendants_tracker
+# - devise
+# - did_you_mean
+# - domain_name
+# - e2mmap
+# - equalizer
+# - erubi
+# - etc
+# - execjs
+# - faraday
+# - fcntl
+# - ffi
