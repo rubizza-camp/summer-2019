@@ -1,50 +1,46 @@
-# rubocop:disable Lint/UnneededCopDisableDirective
-# rubocop:disable Metrics/MethodLength
 require 'optparse'
 
-# :reek:TooManyStatements
-# :reek:NestedIterators
 class CommandLineParser
   def self.parse(args)
     options = {}
     opts_p = OptionParser.new do |opts|
-      opts.banner = 'Usage: top_gems.rb'
-
-      opts.on('-tTOP',
-              '--top=INTEGER',
-              Integer,
-              'Shows the number of gems according to the rating') do |ttt|
-        options[:top] = ttt
-      end
-
-      opts.on('-nNAME',
-              '--name=REGEX',
-              'Displays Gems rating which name includes the given regular expression') do |nnn|
-        options[:name] = nnn
-      end
-
-      opts.on('-fFILE',
-              '--file=Path_to_Filename.yml',
-              /([a-zA-Z0-9\s_\\.\-\(\):])+.yml$/,
-              'Path to the .yml file containing the list of gem names') do |fff|
-        options[:file] = fff[0]
-      end
-
-      opts.on('-h', '--help', 'Prints this help') do
-        puts opts
-      end
+      init_parser(opts, options)
     end
-
-    begin
-      opts_p.parse(args)
-    rescue StandardError => err
-      puts "Exception encountered: #{err}"
-      opts_p.parse %w[--help]
-      exit 1
-    end
+    raise_error(opts_p, args)
 
     options
   end
+
+  def self.raise_error(opts_p, args)
+    opts_p.parse(args)
+  rescue StandardError => err
+    puts "Exception encountered: #{err}"
+    opts_p.parse %w[--help]
+    exit 1
+  end
+
+  def self.init_parser(opts, options)
+    opt_on_t(opts, options)
+    opt_on_n(opts, options)
+    opt_on_f(opts, options)
+    opts.on('-h', '--help', 'Prints this help') { puts opts }
+  end
+
+  def self.opt_on_t(opts, options)
+    opts.on('-tTOP', '--top=INTEGER', Integer, 'Number of gems according to the rating') do |ttt|
+      options[:top] = ttt
+    end
+  end
+
+  def self.opt_on_n(opts, options)
+    opts.on('-nNAME', '--name=REGEX', 'Gem name includes the given regular expression') do |nnn|
+      options[:name] = nnn
+    end
+  end
+
+  def self.opt_on_f(opts, options)
+    opts.on('-fFILE', '--file=File.yml', /([a-zA-Z0-9\s_\\.\-\(\):])+.yml$/, '.yml file') do |fff|
+      options[:file] = fff[0]
+    end
+  end
 end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Lint/UnneededCopDisableDirective
