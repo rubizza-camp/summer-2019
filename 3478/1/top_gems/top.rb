@@ -11,7 +11,7 @@ class Top
   end
 
   def create_top
-    load_parametrs
+    load_parameters
     load_to_search_list.each { |name| @gem_top << @github_parser.parse(name) }
     prepare_top
     TerminalOutput.new(@gem_top, @parameters[:top], @parameters[:name]).print_top
@@ -28,7 +28,7 @@ class Top
     YAML.safe_load(File.read(@parameters[:file]))['gems']
   end
 
-  def load_parametrs
+  def load_parameters
     @parameters[:top]  = ARGV.grep(/--top=(\d+)/).to_s[8..-3]
     @parameters[:name] = ARGV.grep(/--name=(.+)/).to_s[9..-3]
     @parameters[:file] = ARGV.grep(/--file=(.+)/).to_s[9..-3]
