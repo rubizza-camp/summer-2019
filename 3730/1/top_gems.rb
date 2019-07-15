@@ -25,10 +25,11 @@ def find_gem(name)
   return unless Repository.a_gem?(name)
   url = Repository.find_github_url(name)
   gem = GemInfo.new(name, url)
-  gem.parse
+  gem.calculate_score
   @gems << gem
 end
 
+# :reek:TooManyStatements
 def find_all_gems(gem_list)
   threads = []
   gem_list.each do |gem|
@@ -40,6 +41,7 @@ def find_all_gems(gem_list)
   threads.each(&:join)
 end
 
+# :reek:UtilityFunction
 def add_row_to_table(gems, row, number)
   gems[0...number].each { |gem| row.add_row gem.output }
 end
