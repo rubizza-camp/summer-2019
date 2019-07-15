@@ -18,7 +18,7 @@ class TopGems
 
   private
 
-  attr_reader :threads, :list, :gem_list, :params, :yaml_file, :repos
+  attr_accessor :threads, :list, :gem_list, :params, :yaml_file, :repos
 
   #:reek:TooManyStatements
   #:reek:UtilityFunction
