@@ -10,15 +10,13 @@ class Repository
   end
 
   def init_stats_and_forks(opts)
-      @stars = opts[:stars]
-      @forks = opts[:forks]
-      init_contributors_and_issues(opts)
-
+    @stars = opts[:stars]
+    @forks = opts[:forks]
+    init_contributors_and_issues(opts)
   end
 
   def init_contributors_and_issues(opts)
-      @contributors = opts[:contributors]
-      @issues = opts[:issues]
+    @contributors = opts[:contributors]
+  	@issues = opts[:issues]
   end
-  	
-  end
+end
