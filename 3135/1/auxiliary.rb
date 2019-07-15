@@ -23,5 +23,5 @@ end
 
 def print_table(gems)
   tp gems, :name, :used_by, :watch, :star, :fork, :issues, :contributors,
-  { rating: { display_name: 'total downloads' } }
+     rating: { display_name: 'total downloads' }
 end
