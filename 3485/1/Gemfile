@@ -1,0 +1,5 @@
+sourse 'https://rubygems.org/'
+gem 'httparty'
+gem 'nokogiri'
+gem 'open-uri'
+gem 'terminal-table'
