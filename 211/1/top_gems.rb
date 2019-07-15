@@ -13,21 +13,26 @@ class GemPopularity
 
   def initialize(gem_name)
     @name = gem_name
-    GithubPage.new(gem_name)
-    file = File.open("#{gem_name}.html", 'r')
+    GithubPage.new(gem_name).write_files
+    @file = File.open("#{gem_name}.html", 'r')
+    @doc = Nokogiri::HTML(@file)
+    @main_file = File.open("#{gem_name}_main.html", 'r')
+    @main_doc = Nokogiri::HTML(@main_file)
+  end
 
-    doc = Nokogiri::HTML(file)
-    @watch = doc.css('.social-count')[0].text.tr('^0-9', '').to_i
-    @star = doc.css('.social-count')[1].text.tr('^0-9', '').to_i
-    @fork = doc.css('.social-count')[2].text.tr('^0-9', '').to_i
-    @issues = doc.css('span.Counter')[0].text.tr('^0-9', '').to_i
-    @used_by = doc.css('a.selected')[3].text.tr('^0-9', '').to_i
-    file.close
+  def find_int(css)
+    css.text.tr('^0-9', '').to_i
+  end
 
-    main_file = File.open("#{gem_name}_main.html", 'r')
-    main_doc = Nokogiri::HTML(main_file)
-    @contrib = main_doc.css('span.text-emphasized')[3].text.tr('^0-9', '').to_i
-    main_file.close
+  def set_criteria
+    @watch = find_int(@doc.css('.social-count')[0])
+    @star = find_int(@doc.css('.social-count')[1])
+    @fork = find_int(@doc.css('.social-count')[2])
+    @issues = find_int(@doc.css('span.Counter')[0])
+    @used_by = find_int(@doc.css('a.selected')[3])
+    @file.close
+    @contrib = find_int(@main_doc.css('span.text-emphasized')[3])
+    @main_file.close
   end
 end
 
@@ -45,8 +50,13 @@ class OptparseScript
         options[:file] = file
       end
     end
-
-    opt_parser.parse!(args)
+    begin
+      opt_parser.parse!(args)
+    rescue OptionParser::InvalidArgument => e
+      puts "#{e}. 'top' must be a number"
+      exit 1
+    end
+    # opt_parser.parse!(args)
     options
   end
 end
@@ -75,43 +85,53 @@ gems_array = []
 
 @gem_names.each do |gem_n|
   gem_inst = GemPopularity.new(gem_n)
+  gem_inst.set_criteria
   gems_array << gem_inst
 end
 
+# working on normalization
 criteria = %i[watch star fork contrib used_by issues]
 weights = { used_by: 10, watch: 4, star: 8, fork: 6, contrib: 1, issues: 2 }
 
+def normalise(xcur, xmin, xmax, dif0 = 1, dif1 = 10)
+  xrange = xmax - xmin
+  drange = dif1 - dif0
+  (dif0 + (xcur - xmin) * (drange.to_f / xrange)).round(2)
+end
+
 hash_g = {}
 
-# working on normalization
-# gems_array.each do |g|
-#   h = {}
-#   hash_g[g.name] = h
-#   criteria.each do |c|
-#     h[c] = g.send(c)
+# hsh_tr = {}
+# criteria.each do |cr|
+#   arr = []
+#   gems_array.each do |gemin|
+#     arr << gemin.send(cr)
 #   end
+#   hsh_tr[cr] = arr
 # end
+# puts hsh_tr
 
-# working on normalization
-# def normalise(xcur, xmin, xmax, dif0 = 0, dif1 = 1)
-#   xrange = xmax - xmin
-#   drange = dif1 - dif0
-#   (dif0 + (xcur - xmin) * (drange.to_f / xrange)).round(2)
-# end
+gems_array.each do |g|
+  h = {}
+  hash_g[g.name] = h
+  criteria.each do |c|
+    h[c] = g.send(c)
+  end
+end
 
-# ashn = {}
-# hash_g.each do |_k, vh|
-#   vh.each do |k1, v1|
-#     ashn[k1] ||= []
-#     ashn[k1] << v1
-#   end
-# end
+hash_transp = {}
+hash_g.each do |_k, vh|
+  vh.each do |k1, v1|
+    hash_transp[k1] ||= []
+    hash_transp[k1] << v1
+  end
+end
 
-# hash_g.each do |_k, vh|
-#   vh.each do |k1, v1|
-#     vh[k1] = normalise(v1, ashn[k1].min, ashn[k1].max)
-#   end
-# end
+hash_g.each do |_k, vh|
+  vh.each do |k1, v1|
+    vh[k1] = normalise(v1, hash_transp[k1].min, hash_transp[k1].max)
+  end
+end
 
 hash_g.each do |g, cr|
   cr.each do |k, v|
@@ -132,4 +152,5 @@ tp gems_array, :name,
    :star,
    :fork,
    { contrib: { display_name: 'Contributors' } },
-   :issues
+   :issues,
+   :popularity
