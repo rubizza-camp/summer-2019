@@ -1,18 +1,27 @@
-module  Functions
-  # :reek:FeatureEnvy:
-  # :reek:TooManyMethods:
-  # :reek:TooManyStatements:
-  # :reek:UtilityFunction:
-  # :reek:ControlParameter:
-  class GemManager
-    attr_reader :gem_hash
-    HIGHEST_COEFFICENT = 3
-    MEDIUM_COEFFICENT = 2
-    LOW_COEFFICENT = 1
+require_relative 'html_method'
 
-    def initialize
+module  Functions
+  class GemManager
+    attr_reader :file_name, :name_gem, :top_count, :gem_hash
+    HIGHEST_COEF = 3
+    MEDIUM_COEF = 2
+    LOW_COEF = 1
+
+    include HtmlMethod
+
+    def initialize(file_name, name_gem, top_count)
       @gem_hash = {}
+      @file_name = file_name
+      @name_gem = name_gem
+      @top_count = top_count
     end
+
+    def call
+      parse_gem_info
+      print_table
+    end
+
+    private
 
     def extract_gems_from_yaml(file_name)
       file = YAML.load_file(file_name)
@@ -27,97 +36,66 @@ module  Functions
       (gem_url == 'nil') || !(gem_url.include? 'https://github.com/') && !(gem_url.include? 'http://github.com/')
     end
 
-    def find_repo_html_url(name)
-      gem_url = gem_uri(name, 'source_code_uri')
-      gem_url = gem_uri(name, 'homepage_uri') if find_uri?(gem_url)
-      gem_url = gem_uri(name, 'bug_tracker_uri') if find_uri?(gem_url)
-      gem_url
-    end
-
-    def response_body_hash(url)
-      Net::HTTP.start(url.host, url.port, use_ssl: url.scheme == 'https') do |http|
-        request = Net::HTTP::Get.new(url)
-        response = http.request(request)
-        return JSON.parse(response.body, symbolize_names: true)
-      end
-    end
-
-    def open_file(url)
-      raise StandardError, 'Not found url' if url == 'nil'
-      Nokogiri::HTML(Kernel.open(url))
-    end
-
-    def css_fork_star_watch(doc)
-      doc.css('.social-count')
-    end
-
-    def css_issues(doc)
-      doc.css('.Counter')[0]
-    end
-
-    def css_contributers(doc)
-      doc.css('.num').css('.text-emphasized')[3]
-    end
-
-    def find_fields(url)
-      result = []
-      doc = open_file(url)
-      css_fork_star_watch(doc).each { |elements| result.push(elements.content.gsub(/[^0-9]/, '')) }
-      result.push(css_issues(doc).content.gsub(/[^0-9]/, ''))
-      result.push(css_contributers(doc).text.gsub(/[^0-9]/, ''))
-    end
-
-    def find_used_by(url)
-      url += '/network/dependents'
-      doc = open_file(url)
-      doc.css('.btn-link').css('.selected').text.gsub(/[^0-9]/, '')
-    end
-
     def print_table
       rows = []
-      @gem_hash.each { |_key, value| rows << value.strings }
-      table = Terminal::Table.new do |tab|
-        tab.rows = rows
-        tab.style = { border_top: false, border_bottom: false }
-      end
+      gem_hash.each { |_key, value| rows << value.strings }
+      table = Terminal::Table.new rows: rows
       puts table
     end
 
     def collect_gem_data(gem)
-      gem_object = Models::GemModel.new(gem)
-      gem_object.url = find_repo_html_url(gem)
-      gem_object.install_fields(find_fields(gem_object.url))
-      gem_object.count_used_by = find_used_by(gem_object.url)
+      url = find_repo_html_url(gem)
+      gem_object = Models::GemModel.new(gem, url)
+      gem_object.install_fields(find_fields(url))
+      gem_object.count_used_by = find_used_by(url)
       gem_object
     end
 
-    def parse_gem_info(file_name: 'gems.yaml', name_gem: nil)
-      parsed_yaml_file = extract_gems_from_yaml(file_name)
+    def valid_gem?(gem)
+      gem =~ /#{name_gem}/
+    end
+
+    def create_thread(gem)
+      Thread.new { @gem_hash[gem] = collect_gem_data(gem) }
+    end
+
+    def collect_thread
       threads = []
-      parsed_yaml_file.each do |gem|
-        next unless gem =~ /#{name_gem}/
-        threads << Thread.new { @gem_hash[gem] = collect_gem_data(gem) }
+      extract_gems_from_yaml(file_name).each do |gem|
+        next unless valid_gem?(gem)
+        threads << create_thread(gem)
       end
-      threads.each(&:join)
+      threads
+    end
+
+    def parse_gem_info
+      collect_thread.each(&:join)
+      choose_top_gem if top_count > 0
     end
 
     def calculate_score(gem_hash)
-      HIGHEST_COEFFICENT * gem_hash[:count_used_by] + MEDIUM_COEFFICENT * gem_hash[:count_watched] *
-      gem_hash[:count_stars]*  gem_hash[:count_forks] + LOW_COEFFICENT * gem_hash[:count_contributors] *
-      gem_hash[:count_issues]
+      HIGHEST_COEF * gem_hash[:count_used_by] +
+        MEDIUM_COEF * gem_hash[:count_watched] * gem_hash[:count_stars] * gem_hash[:count_forks] +
+        LOW_COEF * gem_hash[:count_contributors] * gem_hash[:count_issues]
     end
 
-    def choose_top_gem(top_count)
+    def sort_gem(score)
+      score.sort_by { |_key, value| value }.last(top_count)
+    end
+
+    def group_score
       score = {}
-      hash = {}
-      total_hash = {}
       gem_hash.each do |key, value|
         hash = value.fields
         score[key] = calculate_score(hash.slice(:count_used_by, :count_watched, :count_stars,
-                                                        :count_forks, :count_contributors, :count_issues))
+                                                :count_forks, :count_contributors, :count_issues))
       end
-      score = score.sort_by { |_key, value| value }.last(top_count.to_i)
-      score.each { |elem| total_hash[elem[0]] = @gem_hash[elem[0]] }
+      score
+    end
+
+    def choose_top_gem
+      total_hash = {}
+      sort_gem(group_score).each { |elem| total_hash[elem[0]] = gem_hash[elem[0]] }
       @gem_hash = total_hash
     end
   end
