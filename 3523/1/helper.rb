@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # This is helper module
+# :reek:UtilityFunction
 module Helper
   def gem_name(doc)
     doc.css('.public')[0].text.strip
