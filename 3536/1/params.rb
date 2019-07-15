@@ -1,3 +1,4 @@
+rubocop:disable all
 require 'net/http'
 require 'open-uri'
 def file_main
