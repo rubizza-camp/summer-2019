@@ -1,15 +1,14 @@
 require 'terminal-table'
 
 class Output
-  def initialize(name, top)
-    @name = name if name
-    @top = top if top
+  def initialize(name_filter, top)
+    @name_filter = name_filter || ''
+    @top = top&.positive? ? top : nil
   end
 
   def gems(gems)
-    ready_gems = gems
-    ready_gems = gems.take(@top) if @top && @top >= 0
-    ready_gems = ready_gems.select { |gem| gem.dig(1).include?(@name) } if @name
+    ready_gems = gems[0...@top]
+    ready_gems = ready_gems.select { |gem| gem.dig(1).include?(@name_filter) }
 
     output_gems(ready_gems)
   end
@@ -17,8 +16,11 @@ class Output
   private
 
   def output_gems(ready_gems)
-    warn 'no gems' if ready_gems.empty?
-    create_table(ready_gems) unless ready_gems.empty?
+    if ready_gems.empty?
+      warn 'no gems'
+    else
+      create_table(ready_gems)
+    end
   end
 
   def create_table(ready_gems)

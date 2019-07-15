@@ -54,6 +54,9 @@ class TopGems
   rescue Errno::ENOENT
     warn "file #{file} is not found, please use -f option"
     abort
+  rescue NoMethodError
+    warn 'no gems'
+    abort
   end
 
   def load_custom
@@ -62,6 +65,9 @@ class TopGems
   rescue Errno::ENOENT
     warn "file #{file} is not found, using default file..."
     load_default
+  rescue NoMethodError
+    warn 'no gems'
+    abort
   end
 
   def check_and_sort_gems(gem_list)
