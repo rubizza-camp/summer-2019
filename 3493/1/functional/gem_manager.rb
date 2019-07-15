@@ -1,19 +1,24 @@
 require_relative 'html_method'
 
-module  Functions
+module GemMethod
   class GemManager
-    attr_reader :file_name, :name_gem, :top_count, :gem_hash
-    HIGHEST_COEF = 3
-    MEDIUM_COEF = 2
-    LOW_COEF = 1
-
     include HtmlMethod
 
-    def initialize(file_name, name_gem, top_count)
+    INCREASED_COEF = 3
+    NORMAL_COEF = 2
+    REDUCED_COEF = 1
+
+    attr_reader :file_name, :gem_name, :top_count, :gem_hash
+
+    def initialize(file_name, gem_name, top_count)
       @gem_hash = {}
       @file_name = file_name
-      @name_gem = name_gem
+      @gem_name = gem_name
       @top_count = top_count
+    end
+
+    def self.call(file_name, gem_name, top_count)
+      new(file_name, gem_name, top_count).call
     end
 
     def call
@@ -52,14 +57,14 @@ module  Functions
     end
 
     def valid_gem?(gem)
-      gem =~ /#{name_gem}/
+      gem =~ /#{gem_name}/
     end
 
     def create_thread(gem)
       Thread.new { @gem_hash[gem] = collect_gem_data(gem) }
     end
 
-    def collect_thread
+    def group_thread
       threads = []
       extract_gems_from_yaml(file_name).each do |gem|
         next unless valid_gem?(gem)
@@ -69,14 +74,14 @@ module  Functions
     end
 
     def parse_gem_info
-      collect_thread.each(&:join)
+      group_thread.each(&:join)
       choose_top_gem if top_count.positive?
     end
 
     def calculate_score(gem_hash)
-      HIGHEST_COEF * gem_hash[:count_used_by] +
-        MEDIUM_COEF * gem_hash[:count_watched] * gem_hash[:count_stars] * gem_hash[:count_forks] +
-        LOW_COEF * gem_hash[:count_contributors] * gem_hash[:count_issues]
+      INCREASED_COEF * gem_hash[:count_used_by] +
+        NORMAL_COEF * gem_hash[:count_watched] * gem_hash[:count_stars] * gem_hash[:count_forks] +
+        REDUCED_COEF * gem_hash[:count_contributors] * gem_hash[:count_issues]
     end
 
     def sort_gem(score)
