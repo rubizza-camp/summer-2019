@@ -1,5 +1,5 @@
-# :reek:TooManyInstanceVariables
-class Stats
+# Save gem's data from repos
+class Repository
   attr_reader :gem_name, :used_by, :watches, :stars, :forks, :contributors, :issues
 
   def initialize(opts = {})
@@ -10,10 +10,5 @@ class Stats
     @forks = opts[:forks]
     @contributors = opts[:contributors]
     @issues = opts[:issues]
-  end
-
-  def strings
-    [gem_name, "used by #{used_by}", "watched by #{watches}", "#{stars} stars",
-     "#{forks} forks", "#{contributors} contributors", "#{issues} issues"]
   end
 end
