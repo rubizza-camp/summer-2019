@@ -1,104 +1,40 @@
 require 'yaml'
 require 'httparty'
-require 'nokogiri'
-require 'optparse'
 require 'json'
 require 'table_print'
-require_relative './github_page.rb'
+require_relative './opt.rb'
+require_relative './gem_info.rb'
+require_relative './cli.rb'
 
-class GemPopularity
-  attr_accessor :name, :watch, :star, :fork, :contrib, :used_by, :issues, :popularity
+options = OptparseScript.parse
+@gems_array = GemScorer::Cli.new.call(options)
+# def load_gemlist(file = nil)
+#   file ||= 'gem_list.yml'
+#   begin
+#     @gems = YAML.safe_load(File.read(file))
+#   rescue Errno::ENOENT
+#     puts 'file must exist'
+#     exit
+#   end
+# end
 
-  def initialize(gem_name)
-    @name = gem_name
-    GithubPage.new(gem_name).write_files
-    @file = File.open("#{gem_name}.html", 'r')
-    @doc = Nokogiri::HTML(@file)
-    @main_file = File.open("#{gem_name}_main.html", 'r')
-    @main_doc = Nokogiri::HTML(@main_file)
-  end
+# def find_match(_gems, name = nil)
+#   name ||= '\w+'
+#   @gem_names = @gems['gems'].find_all { |g| g.match(name) }
+# end
 
-  def find_int(css)
-    css.text.tr('^0-9', '').to_i
-  end
+# def take_top(arr, top = nil)
+#   top ||= arr.size
+#   begin
+#     arr.take(top)
+#   rescue ArgumentError
+#     puts 'top must be positive'
+#     exit
+#   end
+# end
 
-  # rubocop:disable Metrics/AbcSize
-  def set_criteria
-    @watch = find_int(@doc.css('.social-count')[0])
-    @star = find_int(@doc.css('.social-count')[1])
-    @fork = find_int(@doc.css('.social-count')[2])
-    @issues = find_int(@doc.css('span.Counter')[0])
-    @used_by = find_int(@doc.css('a.selected')[3])
-    @file.close
-    @contrib = find_int(@main_doc.css('span.text-emphasized')[3])
-    @main_file.close
-  end
-  # rubocop:enable Metrics/AbcSize
-end
 
-# rubocop:disable Metrics/MethodLength
-class OptparseScript
-  def self.parse(args)
-    options = {}
-    opt_parser = OptionParser.new do |opts|
-      opts.on('--top[=NUM]', Integer) do |num|
-        options[:top] = num.to_i
-      end
-      opts.on('--name[=NAME]', String) do |name|
-        options[:name] = name
-      end
-      opts.on('--file[=FILE]', String) do |file|
-        options[:file] = file
-      end
-    end
-    begin
-      opt_parser.parse!(args)
-    rescue OptionParser::InvalidArgument => e
-      puts "#{e}. 'top' must be a number"
-      exit 1
-    end
-    # opt_parser.parse!(args)
-    options
-  end
-end
-# rubocop:enable Metrics/MethodLength
-options = OptparseScript.parse(ARGV)
 
-def load_gemlist(file = nil)
-  file ||= 'gem_list.yml'
-  begin
-    @gems = YAML.safe_load(File.read(file))
-  rescue Errno::ENOENT
-    puts 'file must exist'
-    exit
-  end
-end
-
-def find_match(_gems, name = nil)
-  name ||= '\w+'
-  @gem_names = @gems['gems'].find_all { |g| g.match(name) }
-end
-
-def take_top(arr, top = nil)
-  top ||= arr.size
-  begin
-    arr.take(top)
-  rescue ArgumentError
-    puts 'top must be positive'
-    exit
-  end
-end
-
-load_gemlist(options[:file])
-find_match(@gems, options[:name])
-
-gems_array = []
-
-@gem_names.each do |gem_n|
-  gem_inst = GemPopularity.new(gem_n)
-  gem_inst.set_criteria
-  gems_array << gem_inst
-end
 
 # working on normalization
 criteria = %i[watch star fork contrib used_by issues]
@@ -115,14 +51,14 @@ hash_g = {}
 # hsh_tr = {}
 # criteria.each do |cr|
 #   arr = []
-#   gems_array.each do |gemin|
+#   @gems_array.each do |gemin|
 #     arr << gemin.send(cr)
 #   end
 #   hsh_tr[cr] = arr
 # end
 # puts hsh_tr
 
-gems_array.each do |g|
+@gems_array.each do |g|
   h = {}
   hash_g[g.name] = h
   criteria.each do |c|
@@ -151,13 +87,13 @@ hash_g.each do |g, cr|
   hash_g[g] = cr.values.reduce(:+).round(2)
 end
 
-gems_array.each do |g|
+@gems_array.each do |g|
   g.popularity = hash_g[g.name]
 end
 
-gems_array.sort_by!(&:popularity).reverse!
-gems_array = take_top(gems_array, options[:top])
-tp gems_array, :name,
+@gems_array.sort_by!(&:popularity).reverse!
+# @gems_array = take_top(@gems_array, options[:top])
+tp @gems_array, :name,
    { used_by: { display_name: 'used by' } },
    { watch: { display_name: 'Watched By' } },
    :star,
