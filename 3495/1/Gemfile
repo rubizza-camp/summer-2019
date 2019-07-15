@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'gems'
-gem 'httparty'
-gem 'nokogiri'
-gem 'terminal-table'
+gem 'gems', '1.1.1'
+gem 'httparty', '0.17.0'
+gem 'nokogiri', '1.10.3'
+gem 'pry'
+gem 'terminal-table', '1.8.0'
