@@ -30,7 +30,7 @@ DEPENDENCIES
   gems (= 1.1.1)
   httparty (= 0.17.0)
   nokogiri (= 1.10.3)
-  pry
+  pry (= 0.12.2)
   terminal-table (= 1.8.0)
 
 BUNDLED WITH

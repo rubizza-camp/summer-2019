@@ -1,4 +1,5 @@
 # This class collect all info about gem
+
 class MyGem
   def initialize(gem_name, statistic)
     @gem_name = gem_name
