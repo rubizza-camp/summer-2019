@@ -31,7 +31,7 @@ class Repo
 
   def collect_repository_info_for(gem_name)
     api_response = HTTParty.get(URI, query: { q: gem_name })
-    
+
     api_response.to_hash['items'].first
   end
 
