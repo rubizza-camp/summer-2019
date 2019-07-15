@@ -69,6 +69,7 @@ class AboutStrings < Neo::Koan
     assert_equal 'Hello, World', string
   end
   # rubocop:disable Lint/UselessAssignment
+
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
@@ -76,7 +77,7 @@ class AboutStrings < Neo::Koan
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
-    # rubocop:enable Lint/UselessAssignment
+  # rubocop:enable Lint/UselessAssignment
 
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
