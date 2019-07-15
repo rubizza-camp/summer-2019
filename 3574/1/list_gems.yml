@@ -3,5 +3,3 @@ gems:
   - rspec
   - rails
   - rake
-  - reek
-  - rubocop
