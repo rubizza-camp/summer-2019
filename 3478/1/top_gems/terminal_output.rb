@@ -11,10 +11,6 @@ class TerminalOutput
     @rows = []
   end
 
-  def prepare_top(gem_top)
-    gem_top.sort_by! { |gem| - gem[:total_score] }.take(@top_size)
-  end
-
   def print_top
     @gem_top.each do |gem|
       next unless appropriate_name?(gem)
@@ -24,6 +20,10 @@ class TerminalOutput
   end
 
   private
+
+  def prepare_top(gem_top)
+    gem_top.sort_by! { |gem| - gem[:total_score] }.take(@top_size)
+  end
 
   def create_new_position_in_top(gem)
     all_fields = %i[name used_by watchers stars forks contributors issues].freeze
