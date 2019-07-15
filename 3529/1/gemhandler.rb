@@ -30,9 +30,7 @@ class GemHendler
   def join_all_data
     @data_about_gem = {}
     find_wsf
-    find_used_by
-    find_contributers
-    find_issues
+    find_uci
     make_rate
   end
 
@@ -40,6 +38,12 @@ class GemHendler
     find_watchers
     find_stars
     find_forks
+  end
+
+  def find_uci
+    find_used_by
+    find_contributers
+    find_issues
   end
 
   def make_rate

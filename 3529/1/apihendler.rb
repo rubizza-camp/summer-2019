@@ -6,12 +6,20 @@ class GemsApiHendler
   attr_reader :gem_github
   attr_writer :gem_name
 
+  def gem_name
+    @gem_name
+  end
+
+  def a_url(url)
+    @url = url
+  end
+
   def find_github
-    @url = HTTParty.get("https://rubygems.org/api/v1/gems/#{@gem_name}.json")
+    self.a_url HTTParty.get("https://rubygems.org/api/v1/gems/#{self.gem_name}.json")
     begin
       url_check
     rescue JSON::ParserError => exc
-      puts "ERROR: There is no gem, named #{@gem_name}. Sorry, bro"
+      puts "ERROR: There is no gem, named #{self.gem_name}. Sorry, bro"
       puts exc
     end
   end
@@ -19,7 +27,7 @@ class GemsApiHendler
   def url_check
     if @url['source_code_uri'].nil?
       if @url['homepage_uri'].nil?
-        puts "ERROR: There is no github links on gem, named #{@gem_name}. Sorry, bro"
+        puts "ERROR: There is no github links on gem, named #{self.gem_name}. Sorry, bro"
       else
         @gem_github = @url['homepage_uri']
       end
