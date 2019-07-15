@@ -1,7 +1,7 @@
 # rubocop:disable Lint/LiteralAsCondition
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Style/For
 # This method smells of :reek:TooManyStatements
 # This method smells of :reek:RepeatedConditional
 # This method smells of :reek:FeatureEnvy
@@ -127,7 +127,7 @@ class AboutControlStatements < Neo::Koan
   def test_for_statement
     array = %w[fish and chips]
     result = []
-    array.each do |item|
+    for item in array
       result << item.upcase
     end
     assert_equal %w[FISH AND CHIPS], result
@@ -142,4 +142,4 @@ class AboutControlStatements < Neo::Koan
   end
 end
 
-# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Lint/LiteralAsCondition, Style/For

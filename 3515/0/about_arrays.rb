@@ -11,7 +11,7 @@ class AboutArrays < Neo::Koan
   end
 
   def test_array_literals
-    array = []
+    array = Array.new
     assert_equal [], array
 
     array[0] = 1

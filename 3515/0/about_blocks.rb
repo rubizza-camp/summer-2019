@@ -5,7 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutBlocks < Neo::Koan
   def method_with_block
-    yield # I have to use rubocop:disable here because of koan feature
+    yield 
   end
 
   def test_methods_can_take_blocks
@@ -92,7 +92,7 @@ class AboutBlocks < Neo::Koan
   def test_methods_can_take_an_explicit_block_argument
     assert_equal true, method_with_explicit_block { |num| num * 2 } == 20
 
-    add_one = lambda { |num| num + 1 }
+    add_one = lambda { |num| num + 1  }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end

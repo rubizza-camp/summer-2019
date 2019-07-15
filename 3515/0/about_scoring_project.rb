@@ -33,7 +33,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # This method smells of :reek:TooManyStatements
 
 def score(dice)
-  dice.uniq.map do |side|
+  dice.uniq.sum do |side|
     count = dice.count(side)
     if side == 1
       side * 1000 * (count / 3) + (count % 3) * 100
@@ -42,7 +42,7 @@ def score(dice)
     else
       side * 100 * (count / 3)
     end
-  end.sum
+  end
 end
 
 # rubocop:enable Metrics/AbcSize

@@ -132,8 +132,9 @@ class AboutMethods < Neo::Koan
       # rubocop:enable Style/RedundantSelf
     end
     # rubocop:disable Lint/AmbiguousRegexpLiteral
-    assert_match /\w+/, exception.message
+    assert_match /private_method/, exception.message
     # rubocop:enable Lint/AmbiguousRegexpLiteral
+
   end
 
   # ------------------------------------------------------------------
