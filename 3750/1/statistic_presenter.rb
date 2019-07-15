@@ -9,7 +9,7 @@ class StatisticPresenter
     @rows = []
   end
 
-  def form_table(top_number = array_of_gems.size, name = '')
+  def form_table(top_number, name)
     head
     rows(top_number, name)
     @table.rows = @rows
@@ -33,6 +33,7 @@ class StatisticPresenter
   def stats_to_arr(gem)
     array_of_stats = []
     gem.stats.each_value { |value| array_of_stats << value }
+    array_of_stats
   end
 
   def rows(top_number, name)

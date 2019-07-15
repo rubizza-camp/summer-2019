@@ -9,29 +9,47 @@ class Statistics
     @gem_array = gem_array
   end
 
-  # rubocop:disable Metrics/AbcSize
   def load_stats
     @gem_array.each do |gem|
       gem.stats = {
-        used:           html_file_for_used(gem.gem_name),
-        watched:        html_file(gem.gem_name).css('.social-count')[0].text.strip,
-        stars:          html_file(gem.gem_name).css('.social-count')[1].text.strip,
-        forks:          html_file(gem.gem_name).css('.social-count')[2].text.strip,
-        contributors:   html_file(gem.gem_name).css('.text-emphasized')[3].text.strip,
-        issues:         html_file(gem.gem_name).css('.Counter')[0].text.strip
+        used:           used(gem.gem_name),
+        watched:        watched(gem.gem_name),
+        stars:          stars(gem.gem_name),
+        forks:          forks(gem.gem_name),
+        contributors:   contributors(gem.gem_name),
+        issues:         issues(gem.gem_name)
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize
+
+  def used(gem_name)
+    repository = Link.new(gem_name)
+    find_used(repository.link_to_repo)
+  end
+
+  def watched(gem_name)
+    html_file(gem_name).css('.social-count')[0].text.strip
+  end
+
+  def stars(gem_name)
+    html_file(gem_name).css('.social-count')[1].text.strip
+  end
+
+  def forks(gem_name)
+    html_file(gem_name).css('.social-count')[2].text.strip
+  end
+
+  def contributors(gem_name)
+    html_file(gem_name).css('.text-emphasized')[3].text.strip
+  end
+
+  def issues(gem_name)
+    html_file(gem_name).css('.Counter')[0].text.strip
+  end
 
   def html_file(gem_name)
     repository = Link.new(gem_name)
     main_doc(repository.link_to_repo)
-  end
-
-  def html_file_for_used(gem_name)
-    repository = Link.new(gem_name)
-    find_used(repository.link_to_repo)
   end
 
   def main_doc(link_to_repo)

@@ -1,5 +1,11 @@
 gems:
   - nokogiri
+  - rails
+  - rspec-core
+  - rspec-expectations
+  - diff-lcs
+  - rspec
+  - bundler
   - rack
   - rake
   - thor
