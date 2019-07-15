@@ -47,9 +47,17 @@ class GemHendler
   end
 
   def make_rate
+    rate = find_watch_plus_starts + find_forks_plus_contributors
+    rate += @data_about_gem[:issues] * 0.05 + @data_about_gem[:used_by] * 0.5
+    rate
+  end
+
+  def find_watch_plus_starts
     rate = @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
-    rate += @data_about_gem[:forks] * 0.10 + @data_about_gem[:contributers] * 0.05
-    rate + @data_about_gem[:issues] * 0.05 + @data_about_gem[:used_by] * 0.5
+  end
+
+  def find_forks_plus_contributors
+    rate = @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
   end
 
   def find_forks
