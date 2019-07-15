@@ -4,14 +4,14 @@ require 'open-uri'
 require_relative 'util'
 require 'pry'
 
-#:reek:InstanceVariableAssumption
 class Repo
   URI = 'https://api.github.com/search/repositories'.freeze
 
   attr_reader :used_by
 
   def initialize(gem_name)
-    collect_repository_info_for gem_name
+    @repo = collect_repository_info_for gem_name
+    @html = Util.parse_html @repo['html_url']
     @used_by = used_by_count
   end
 
@@ -31,9 +31,8 @@ class Repo
 
   def collect_repository_info_for(gem_name)
     api_response = HTTParty.get(URI, query: { q: gem_name })
-    @repo = api_response.to_hash['items'].first
-    @html = Util.parse_html @repo['html_url']
-    @repo
+    
+    api_response.to_hash['items'].first
   end
 
   def contributors_count
