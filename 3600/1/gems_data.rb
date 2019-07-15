@@ -13,4 +13,3 @@ class GemsData
      "#{obj.forks} forks", "#{obj.contributors} contributors", "#{obj.issues} issues"]
   end
 end
-
