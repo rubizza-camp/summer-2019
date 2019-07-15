@@ -10,7 +10,6 @@ require_relative 'gemhandler'
 require_relative 'apihendler'
 
 class UserCommunicator
-  attr_reader :file
   attr_reader :rows
   attr_writer :list
 
@@ -21,6 +20,7 @@ class UserCommunicator
       @file_name = argument.gsub('--file=', '') if argument.include?('file')
     end
     @file = YAML.safe_load(File.read(@file_name))
+    find_list
   end
 
   def make_top
@@ -45,6 +45,18 @@ class UserCommunicator
     end
   end
 
+  def find_list
+    @file['gems'].each do |gem_name|
+      gem = GemsApiHendler.new(gem_name)
+      next unless gem.find_github
+
+      gemh = GemHendler.new(gem.gem_github)
+      gemh.join_all_data
+      gemh.data_about_gem[:name] = gem_name
+      @list << gemh.data_about_gem
+    end
+  end
+
   def name_handler(argument)
     # name = argument.gsub('--name=', '')
     new_list = []
@@ -56,18 +68,7 @@ class UserCommunicator
 end
 
 user = UserCommunicator.new
-list = []
 begin
-  user.file['gems'].each do |gem_name|
-    gem = GemsApiHendler.new(gem_name)
-    next unless gem.find_github
-
-    gemh = GemHendler.new(gem.gem_github)
-    gemh.join_all_data
-    gemh.data_about_gem[:name] = gem_name
-    list << gemh.data_about_gem
-  end
-  user.list list
   user.load_arguments
   table = Terminal::Table.new do |t|
     t.headings = ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name']
