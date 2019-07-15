@@ -1,6 +1,5 @@
 # rubocop:disable Lint/UnneededCopDisableDirective
 # rubocop:disable Metrics/MethodLength
-# rubocop:disable Naming/RescuedExceptionsVariableName
 require 'optparse'
 
 # :reek:TooManyStatements
@@ -38,8 +37,8 @@ class CommandLineParser
 
     begin
       opts_p.parse(args)
-    rescue StandardError => err
-      puts "Exception encountered: #{err}"
+    rescue StandardError => e
+      puts "Exception encountered: #{e}"
       opts_p.parse %w[--help]
       exit 1
     end
@@ -48,5 +47,4 @@ class CommandLineParser
   end
 end
 # rubocop:enable Metrics/MethodLength
-# rubocop:enable Naming/RescuedExceptionsVariableName
 # rubocop:enable Lint/UnneededCopDisableDirective
