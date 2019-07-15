@@ -1,4 +1,10 @@
+# rubocop:disable  Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength,  Style/EvenOdd, Style/NumericPredicate, Layout/EndAlignment, Metrics/LineLength
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
+# :reek:RepeatedConditional
 
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
@@ -130,3 +136,4 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable  Metrics/ClassLength, Lint/LiteralAsCondition, Metrics/MethodLength,  Style/EvenOdd, Style/NumericPredicate, Layout/EndAlignment, Metrics/LineLength
