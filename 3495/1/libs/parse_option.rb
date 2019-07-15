@@ -1,14 +1,26 @@
 # This class parse option parameters
-# :reek:NestedIterators
-# :reek:TooManyStatements
 class OptionParse
-  def self.parse
-    @options ||= {}
-    OptionParser.new do |opts|
-      opts.on('--file=', '') { |value| @options[:file_path] = value }
-      opts.on('--top=', '') { |value| @options[:top_gems] = value }
-      opts.on('--name=', '') { |value| @options[:name_of_gem] = value }
-    end.parse!
+  def initialize
+    @options = {}
+    @parser = OptionParser.new
+  end
+
+  def parse
+    call_parser
     @options
+  end
+
+  private
+
+  def call_parser
+    OptionParser.new do |opts|
+      bind_flag(opts, '--file=', :file)
+      bind_flag(opts, '--top=', :top)
+      bind_flag(opts, '--name=', :name)
+    end.parse!
+  end
+
+  def bind_flag(opts, flag, sym)
+    opts.on(flag, '') { |value| @options[sym] = value }
   end
 end

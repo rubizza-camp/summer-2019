@@ -10,9 +10,6 @@ require 'open-uri'
 require 'bundler'
 Bundler.require
 # Main class
-# :reek:DuplicateMethodCall
-# :reek:InstanceVariableAssumption
-# :reek:TooManyStatements
 class TopGems
   attr_reader :gems_arr
   attr_reader :parameters
@@ -20,17 +17,19 @@ class TopGems
 
   def main
     @gems = []
-    @parameters = OptionParse.parse
+    @parameters = OptionParse.new.parse
     @gems_arr = GemListLoader.new
-    @parameters[:file_path] ? @gems_arr.call(@parameters[:file_path]) : @gems_arr.call
-    @parameters[:name_of_gem] ? make_with_custom_name : make_without_custom_name
+    parameters_get
+  end
+
+  def parameters_get
+    @parameters[:file] ? @gems_arr.call(@parameters[:file]) : @gems_arr.call
+    @parameters[:name] ? make_with_custom_name : make_without_custom_name
   end
 
   def make_without_custom_name
     @gems_arr.gems_arr.each do |gem_name|
-      puts gem_name + ' - IN PROGRESS'
-      gem_url = GemUrlGetter.new(gem_name)
-      gem_params = ParamsGetter.new(gem_url.gem_url)
+      gem_params = ParamsGetter.new(gem_url_get(gem_name).url)
       gem = MyGem.new(gem_name, gem_params.params)
       @gems << gem
     end
@@ -38,8 +37,8 @@ class TopGems
   end
 
   def print_table
-    if @parameters[:top_gems]
-      TablePrinter.new(@gems, @parameters[:top_gems]).output_info
+    if @parameters[:top]
+      TablePrinter.new(@gems, @parameters[:top]).output_info
     else
       TablePrinter.new(@gems).output_info
     end
@@ -47,21 +46,14 @@ class TopGems
 
   def make_with_custom_name
     @gems_arr.gems_arr.each do |gem_name|
-      if gem_name.include? @parameters[:name_of_gem].to_s
-        puts gem_name + ' - IN PROGRESS'
-        gem_url = GemUrlGetter.new(gem_name)
-        gem_params = ParamsGetter.new(gem_url.gem_url)
-        gem = MyGem.new(gem_name, gem_params.params)
+      if gem_name.include? @parameters[:name].to_s
+        gem = MyGem.new(gem_name, ParamsGetter.new(gem_url_get(gem_name).url).params)
         @gems << gem
-      end; next; end; print_for_custom_name
+      end; next; end; print_table
   end
 
-  def print_for_custom_name
-    if @parameters[:top_gems]
-      TablePrinter.new(@gems, @parameters[:top_gems]).output_info
-    else
-      TablePrinter.new(@gems).output_info
-    end
+  def gem_url_get(gem_name)
+    GemUrlGetter.new(gem_name)
   end
 end
 

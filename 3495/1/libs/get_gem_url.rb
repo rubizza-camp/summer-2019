@@ -1,37 +1,25 @@
 # This class collect gem url
-# :reek:RepeatedConditional
-# :reek:UtilityFunction
 class GemUrlGetter
-  attr_reader :gem_url
-  attr_reader :gem_for_search
+  attr_reader :url
+  attr_reader :name_to_search
 
   def initialize(gem_name)
-    @gem_for_search = gem_name
-    @gem_url = find_by_source_code_uri
+    @name_to_search = gem_name
+    @url = gem_url
   end
 
   private
 
-  def find_by_source_code_uri
-    url = parse_gem_url('source_code_uri')
-    check_valid_url(url) ? find_by_homepage_uri : url
-  end
-
-  def find_by_homepage_uri
-    url = parse_gem_url('homepage_uri')
-    check_valid_url(url) ? find_by_bug_tracker_uri : url
-  end
-
-  def find_by_bug_tracker_uri
-    url = parse_gem_url('bug_tracker_uri')
-    check_valid_url(url) ? nil : url
+  def gem_url
+    url_from('source_code_uri') || url_from('homepage_uri') || url_from('bug_tracker_uri') || ''
   end
 
   def parse_gem_url(uri)
-    Gems.info(@gem_for_search).values_at(uri).to_s.delete('", \, [, ]').chomp('/issues')
+    Gems.info(@name_to_search).values_at(uri).to_s.delete('", \, [, ]').chomp('/issues')
   end
 
-  def check_valid_url(url)
-    !(url.include? '://github.com/') || (HTTParty.get(url).code != 200)
+  def url_from(uri)
+    url = parse_gem_url(uri)
+    url if url.include? '://github.com/'
   end
 end
