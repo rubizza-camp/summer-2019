@@ -7,7 +7,7 @@ class TableDrawer
   KEYS = %i[name watches stars forks contributors issues used_by].freeze
 
   def draw(data_to_display)
-    hash, top = data_to_display.values_at(:hash, :top)
+    hash, top = data_to_display.values_at(:data, :top)
     puts Terminal::Table.new headings: [I18n.t('name'), I18n.t('watches'), I18n.t('stars'),
                                         I18n.t('forks'), I18n.t('contributors'),
                                         I18n.t('issues'), I18n.t('used_by')], rows: rows(hash, top)
@@ -24,7 +24,7 @@ class TableDrawer
 
   def rows(hash, top)
     table_rows = append_names_transform(hash).values.sort_by { |value| -popularity(value) }
-                                             .map { |hash_obj| hash_obj.values_at(*KEYS) }
+                     .map { |hash_obj| hash_obj.values_at(*KEYS) }
     top.zero? ? table_rows : table_rows.take(top)
   end
 
