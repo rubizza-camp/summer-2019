@@ -1,9 +1,8 @@
-@token = 'b251db3b23c9df93adad0130b40087ecf192bd10'
+@token = 'dcc269193d6eaec1489b958aa28f06a922dfada7'
 @api_url = 'https://api.github.com/graphql'
 @yml_file = 'top-gems.yml'
 
 def get_owner(repo)
-
   uri = URI.parse(@api_url)
   https = Net::HTTP.new(uri.host, uri.port)
   https.use_ssl = true
@@ -16,10 +15,9 @@ def get_owner(repo)
   owner = JSON.parse(response.read_body)['data']['search']['edges'][0]['node']['owner']['login']
 end
 
-def get_data(owner,gem)
-
+def get_data(owner, gem)
   params = 'watchers{totalCount}forks{totalCount}mentionableUsers{totalCount}stargazers{totalCount}issues(states: OPEN){totalCount}'
-  parameters =  "{\"query\":\"{repository(owner: \\\"#{owner}\\\", name: \\\"#{gem}\\\"){#{params}}}\"}"
+  parameters = "{\"query\":\"{repository(owner: \\\"#{owner}\\\", name: \\\"#{gem}\\\"){#{params}}}\"}"
 
   uri = URI.parse(@api_url)
   https = Net::HTTP.new(uri.host, uri.port)
@@ -40,7 +38,5 @@ def get_data(owner,gem)
     table['stars'] = result['stargazers']['totalCount']
     table['issues'] = result['issues']['totalCount']
     return table
-  else
-
   end
 end
