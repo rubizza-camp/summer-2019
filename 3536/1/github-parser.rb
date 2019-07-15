@@ -1,3 +1,4 @@
+# Rubocop: disable all
 @token = 'dcc269193d6eaec1489b958aa28f06a922dfada7'
 @api_url = 'https://api.github.com/graphql'
 @yml_file = 'top-gems.yml'
