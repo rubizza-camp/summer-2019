@@ -43,8 +43,8 @@ module GemScorer
       @gems_array = []
       names.each do |gem_n|
         gem_inst = GemInfo.new(gem_n)
-        gem_inst.set_criteria
-        gem_inst.set_contrib
+        gem_inst.criterias
+        gem_inst.contribs
         @gems_array << gem_inst
       end
       @gems_array

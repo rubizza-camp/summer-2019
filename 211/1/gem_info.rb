@@ -7,9 +7,9 @@ class GemInfo
   def initialize(gem_name)
     @name = gem_name
     GithubPage.new(gem_name).write_files
-    @file = File.open("#{gem_name}.html", 'r')
+    @file = File.read("#{gem_name}.html")
     @doc = Nokogiri::HTML(@file)
-    @main_file = File.open("#{gem_name}_main.html", 'r')
+    @main_file = File.read("#{gem_name}_main.html")
     @main_doc = Nokogiri::HTML(@main_file)
   end
 
@@ -17,17 +17,13 @@ class GemInfo
     css.text.tr('^0-9', '').to_i
   end
 
-  def set_criteria
-    @watch = find_int(@doc.css('.social-count')[0])
-    @star = find_int(@doc.css('.social-count')[1])
-    @fork = find_int(@doc.css('.social-count')[2])
+  def criterias
+    @watch, @star, @fork = @doc.css('.social-count').map { |el| find_int(el) }
     @issues = find_int(@doc.css('span.Counter')[0])
     @used_by = find_int(@doc.css('a.selected')[3])
-    @file.close
   end
 
-  def set_contrib
+  def contribs
     @contrib = find_int(@main_doc.css('span.text-emphasized')[3])
-    @main_file.close
   end
 end
