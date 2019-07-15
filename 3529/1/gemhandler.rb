@@ -29,12 +29,12 @@ class GemHendler
 
   def join_all_data
     @data_about_gem = {}
-    @data_about_gem[:watched_by] = find_watchers
-    @data_about_gem[:stars] = find_stars
-    @data_about_gem[:forks] = find_forks
-    @data_about_gem[:used_by] = find_used_by.to_i
-    @data_about_gem[:contributers] = find_contributers
-    @data_about_gem[:issues] = find_issues.to_i
+    find_watchers
+    find_stars
+    find_forks
+    find_used_by
+    find_contributers
+    find_issues
     make_rate
   end
 
@@ -46,37 +46,37 @@ class GemHendler
 
   def find_forks
     repo = @client.repo @repo_addr
-    return repo[:forks_count]
+    @data_about_gem[:forks] = repo[:forks_count]
   end
 
   def find_stars
     repo = @client.repo @repo_addr
-    return repo[:stargazers_count]
+    @data_about_gem[:stars] = repo[:stargazers_count]
   end
 
   def find_watchers
     repo = @client.repo @repo_addr
-    return repo[:subscribers_count]
+    @data_about_gem[:watched_by] = repo[:subscribers_count]
   end
 
   def find_contributers
     contr = @client.contributors @repo_addr
-    return contr.length
+    @data_about_gem[:contributers] = contr.length
   end
 
   def find_used_by
-    used_by = 0
-    Nokogiri::HTML(open(@url + '/network/dependents',  allow_redirections: :safe)).css('a.btn-link.selected').each do |element|
-      used_by = element.text[/[\d*[:punct:]]+/].tr(",", "")
+    url_use = @url + '/network/dependents'
+    noko_obj = Nokogiri::HTML(open(url_use,  allow_redirections: :safe)).css('a.btn-link.selected')
+    noko_obj.each do |element|
+      @data_about_gem[:used_by] = element.text[/[\d*[:punct:]]+/].tr(',', '').to_i
     end
-    return used_by
   end
 
   def find_issues
-    issues = 0
-    Nokogiri::HTML(open(@url + '/issues',  allow_redirections: :safe)).css('a.btn-link.selected').each do |element|
-      issues = element.text[/[\d*[:punct:]]+/].tr(",", "")
+    url_issue = @url + '/issues'
+    noko_obj = Nokogiri::HTML(open(url_issue,  allow_redirections: :safe)).css('a.btn-link.selected')
+    noko_obj.each do |element|
+      @data_about_gem[:issues] = element.text[/[\d*[:punct:]]+/].tr(',', '').to_i
     end
-    return issues
   end
 end

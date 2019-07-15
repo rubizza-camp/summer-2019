@@ -12,7 +12,7 @@ require_relative 'apihendler'
 class UserCommunicator
   attr_reader :file
   attr_reader :rows
-  attr_accessor :list
+  attr_writer :list
 
   def make_top
     @list.sort_by! { |word| word[:rate] }
@@ -25,16 +25,7 @@ class UserCommunicator
     ARGV.each do |argument|
       @file_name = argument.gsub('--file=', '') if argument.include?('file')
     end
-    open_file
-  end
-
-  def open_file
-    begin
-      @file = YAML.safe_load(File.read(@file_name))
-    rescue StandardError => exc
-      puts "ERROR: There is no file, named #{@file_name}"
-      puts exc
-    end
+    @file = YAML.safe_load(File.read(@file_name))
   end
 
   def load_arguments
@@ -57,9 +48,7 @@ class UserCommunicator
     # name = argument.gsub('--name=', '')
     new_list = []
     @list.collect do |gem|
-      if gem[:name].include? argument.gsub('--name=', '')
-        new_list << @list[@list.index(gem)]
-      end
+      new_list << @list[@list.index(gem)] if gem[:name].include? argument.gsub('--name=', '')
     end
     @list = new_list
   end
@@ -80,12 +69,11 @@ begin
     list << gemh.data_about_gem
   end
   user.list = list
-  # table = Terminal::Table.new :headings => ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name'], :rows => user.load_arguments
-  table = Terminal::Table.new do |t|
-  t.headings = ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name']
   user.load_arguments
-  t.rows = user.rows
-end
+  table = Terminal::Table.new do |t|
+    t.headings = ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name']
+    t.rows = user.rows
+  end
   puts table
 rescue NoMethodError => e
   puts "ERROR: There isn't any gems in your file"
