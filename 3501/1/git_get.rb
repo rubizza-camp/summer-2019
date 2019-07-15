@@ -46,6 +46,7 @@ class GetGemDataFromGithub
   def data_from_api
     check_for_errors
     pull_from_api
+    select_from_site
   end
 
   def check_for_errors
@@ -61,7 +62,6 @@ class GetGemDataFromGithub
     @git_data[:stars] = @repo[:stargazers_count]
     @git_data[:forks] = @repo[:forks_count]
     @git_data[:issues] = @repo[:open_issues_count]
-    select_from_site
   end
 
   def select_from_site
