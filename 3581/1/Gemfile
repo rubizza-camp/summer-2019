@@ -1,0 +1,4 @@
+source 'https://rybugems.org'
+
+gem 'nokogiri'
+gem 'terminal-table'
