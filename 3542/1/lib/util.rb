@@ -6,14 +6,14 @@ module Util
       end
     end
 
-    class YAML
+    class Yaml
       def self.parse(path)
-        YAML.safe_load File.open_file path
+        YAML.safe_load FileManager.open_file path
       end
     end
   end
 
-  class File
+  class FileManager
     def self.open_file(path)
       File.open File.expand_path(path)
     end
