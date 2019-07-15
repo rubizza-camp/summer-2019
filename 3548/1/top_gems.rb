@@ -1,85 +1,33 @@
-# enjoy
+require 'yaml'
+require 'dotenv'
+require_relative 'hard_core.rb'
 
-require 'httparty'
-require 'optparse'
-require 'nokogiri'
-require 'open-uri'
-require 'terminal-table'
+class Top
+  def initialize(life)
+    @github_parser = Parser.new(life)
+    @parameters = load_parameters
+  end
 
-options = {}
-options[:file_name] = 'gems.yaml'
+  def create_top
+    gem_top = []
+    load_to_search_list.each { |name| gem_top << @github_parser.parse(name) }
+    TerminalInformation.new(gem_top, @parameters[:top], @parameters[:name]).print_top
+  end
 
-OptionParser.new do |opt|
-  opt.on('--top NUMBER') { |comand| options[:number] = comand }
-  opt.on('--name EXCERPT') { |comand| options[:exp] = comand }
-  opt.on('--file FILE') { |comand| options[:file_name] = comand }
-end.parse!
+  private
 
-# read file
-names = []
-filename = options[:file_name]
-file_content = File.open(filename)
-file_content.each do |line|
-  clean_line = line[3..-1]
-  names.push clean_line.gsub('\n', '')
-end
+  def load_to_search_list
+    YAML.safe_load(File.read(@parameters[:file] ||= 'gems.yml'))['gems']
+  end
 
-file_content.close
-
-names.shift
-
-main_arr = []
-names.each do |name_id|
-  response = HTTParty.get("https://api.github.com/search/repositories?q=#{name_id}")
-  git_api = response['items'].first
-  array = []
-
-  array << name_id
-
-  nokogiri_object = Nokogiri::HTML(URI.open("#{git_api['html_url']}/network/dependents"))
-  tagcloud_elements = nokogiri_object.css('div.table-list-header-toggle > a.btn-link')
-  array << tagcloud_elements.first.text.delete(',').to_i # used by
-
-  nokogiri_object = Nokogiri::HTML(URI.open(git_api['html_url']))
-  tagcloud_elements = nokogiri_object.css('ul.pagehead-actions > li > a.social-count')
-  array << tagcloud_elements.first.text.delete(',').to_i # watch
-
-  array << git_api['watchers'] # stars
-
-  array << git_api['forks'] # forks
-
-  tagcloud_elements = nokogiri_object.css('ul.numbers-summary > li > a > span.num')
-  array << tagcloud_elements.last.text.delete(',').to_i # contributors
-
-  array << git_api['open_issues_count'] # issuses
-
-  main_arr << array
-end
-
-main_arr.sort! { |first, sekond| sekond[1] <=> first[1] } # sort array by parameter "used by"
-
-exp = options[:exp] # deleting gems that not include name
-unless exp.nil?
-  main_arr.each do |temporary_array|
-    temporary_array.pop(7) if temporary_array[0].include?(exp) == false
+  def load_parameters
+    ARGV.each_with_object({}) do |parameter, hash|
+      split = parameter.delete('-').split('=')
+      hash[split.first.to_sym] = split.last
+    end
   end
 end
 
-main_arr.delete([]).inspect
-main_arr.each do |temporary_array|
-  temporary_array[1] = 'used by ' + temporary_array[1].to_s
-  temporary_array[2] = 'watched by ' + temporary_array[2].to_s
-  temporary_array[3] = temporary_array[3].to_s + ' stars'
-  temporary_array[4] = temporary_array[4].to_s + ' forks'
-  temporary_array[5] = temporary_array[5].to_s + ' contributors'
-  temporary_array[6] = temporary_array[6].to_s + ' issues'
-end
-
-num = options[:number] # display top of some number
-if !num.nil? && !num.empty?
-  puts('')
-  table = Terminal::Table.new rows: main_arr[0...num.to_i]
-else
-  table = Terminal::Table.new rows: main_arr
-end
-puts table
+Dotenv.load
+top_of_tops = Top.new(ENV['GITHUB_TOKEN'])
+top_of_tops.create_top
