@@ -3,7 +3,7 @@
 class Scraper
   FOR_USED_BY = '/network/dependents'
   URL = 'https://rubygems.org/gems/'
-  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/.freeze
+  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/
 
   def initialize(link)
     @link = normalize(link)
@@ -24,7 +24,6 @@ class Scraper
   def browser_page
     @browser_page ||= generate_browser_page
   end
-
 
   def browser
     @browser = self.class.class_browser
@@ -47,7 +46,7 @@ class Scraper
   def watches_stars_forks
     keys = %i[watches stars forks]
     enumerator = browser_page.elements(css: '.social-count')
-                   .to_a.map { |number| number.text.strip }.each
+                             .to_a.map { |number| number.text.strip }.each
     keys.each_with_object({}) do |key, hash|
       hash[key] = enumerator.next
     end
