@@ -47,10 +47,10 @@ module Helper
 
   def result_strings(str)
     str.map! do |res|
-      one = "#{res[0]} | used by #{res[1]} watched by | #{res[2]} |"
-      two = "| #{res[3]} stars | #{res[4]} forks | #{res[5]} "
-      three = "contributors | #{res[6]} issues | "
-      one + two + three
+      part_one = "#{res[0]} | used by #{res[1]} watched by | #{res[2]} |"
+      part_two = "| #{res[3]} stars | #{res[4]} forks | #{res[5]} "
+      part_three = "contributors | #{res[6]} issues | "
+      part_one + part_two + part_three
     end
   end
 end
