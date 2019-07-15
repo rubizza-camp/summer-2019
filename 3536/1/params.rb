@@ -1,5 +1,5 @@
 rubocop:disable all
-rubocop:disable Lint/AmbiguousBlockAssociation
+rubocop:disable Lint/UselessAssignment, Lint/HandleExceptions
 require 'net/http'
 require 'open-uri'
 def file_main

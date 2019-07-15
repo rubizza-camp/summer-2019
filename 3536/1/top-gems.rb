@@ -1,5 +1,5 @@
 rubocop:disable all
-rubocop:disable Lint/AmbiguousBlockAssociation
+rubocop:disable Lint/UselessAssignment, Lint/HandleExceptionsn
 require 'yaml'
 require 'net/http'
 require 'uri'
