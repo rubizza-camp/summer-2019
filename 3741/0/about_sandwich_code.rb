@@ -75,7 +75,6 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Performance/RedundantMatch
   # rubocop:disable Lint/AssignmentInCondition
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
@@ -86,7 +85,6 @@ class AboutSandwichCode < Neo::Koan
     end
   end
   # rubocop:enable Lint/AssignmentInCondition
-  # rubocop:enable Performance/RedundantMatch
 
   def test_finding_lines2
     assert_equal "test\n", find_line2('example_file.txt')
