@@ -1,0 +1,11 @@
+gems:
+ - rspec-core
+ - rspec-expectations
+ - diff-lcs
+ - rspec-mocks
+ - rspec
+ - rspec-support
+ - bundler
+ - sinatra
+ - multi_json
+ - rack
