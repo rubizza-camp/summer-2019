@@ -4,10 +4,12 @@ module Models
   # :reek:TooManyInstanceVariables:
   class GemModel
     attr_accessor :url, :name, :count_contributors, :count_used_by
-    attr_reader :url, :name, :count_watched, :count_stars, :count_forks, :count_issues, :count_used_by
+    attr_reader :count_watched, :count_stars, :count_forks, :count_issues
 
-    def initialize(name)
+    def initialize(name, url)
       @name = name
+      @url = url
+      # @count_used_by = count_used_by
     end
 
     def install_fields(args)
@@ -19,8 +21,9 @@ module Models
     end
 
     def fields
-      {name: name,count_used_by: count_used_by.to_i,count_watched: count_watched.to_i, count_stars: count_stars.to_i,
-       count_forks: count_forks.to_i, count_contributors: count_contributors.to_i, count_issues: count_issues.to_i}
+      { name: name, count_used_by: count_used_by.to_i, count_watched: count_watched.to_i,
+        count_stars: count_stars.to_i, count_forks: count_forks.to_i,
+        count_contributors: count_contributors.to_i, count_issues: count_issues.to_i }
     end
 
     def strings
