@@ -26,7 +26,7 @@ class InfoSource
   end
 
   def print_error_report(info, file)
-    print "#{info.size} #{I18n.t('out')} #{file.size} #{I18n.t('processed')}. #{I18n.t('fail')}:"
+    puts "#{info.size} #{I18n.t('out')} #{file.size} #{I18n.t('processed')}. #{I18n.t('fail')}:"
     error_list.empty? ? puts('none') : puts(error_list)
   end
 
