@@ -31,7 +31,7 @@ class AboutOpenClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  class Integer
+  class::Integer
     def even?
       (self % 2) == 0
     end

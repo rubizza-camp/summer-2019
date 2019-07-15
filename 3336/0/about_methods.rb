@@ -93,8 +93,7 @@ class AboutMethods < Neo::Koan
 
   def method_without_explicit_return
     :a_non_return_value
-    return :return_value
-    :another_non_return_value
+    :return_value
   end
 
   # :reek:UtilityFunction
