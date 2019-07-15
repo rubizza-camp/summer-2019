@@ -1,7 +1,7 @@
 gems:
   - didns
-  - sinatra
   - rspec
-  #- nokogiri
-  #- httparty
-  #- octokit
+  - sinatra
+  - httparty
+  - octokit
+  - terminal-table
