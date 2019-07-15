@@ -1,4 +1,4 @@
-@token = 'c25241cf5f47f8dc5d334c0e08091b30a3ae806c'
+@token = 'b251db3b23c9df93adad0130b40087ecf192bd10'
 @api_url = 'https://api.github.com/graphql'
 @yml_file = 'top-gems.yml'
 
