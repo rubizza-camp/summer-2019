@@ -4,7 +4,7 @@ require 'httparty'
 
 class GemsApiHendler
   attr_reader :gem_github
-  attr_accessor :gem_name
+  attr_writer :gem_name
 
   def find_github
     @url = HTTParty.get("https://rubygems.org/api/v1/gems/#{@gem_name}.json")
@@ -17,8 +17,8 @@ class GemsApiHendler
   end
 
   def url_check
-    if @url['source_code_uri'].nil? || @url['source_code_uri'] == 0
-      if @url['homepage_uri'].nil? || @url['homepage_uri'] ==0
+    if @url['source_code_uri'].nil?
+      if @url['homepage_uri'].nil?
         puts "ERROR: There is no github links on gem, named #{@gem_name}. Sorry, bro"
       else
         @gem_github = @url['homepage_uri']
@@ -28,4 +28,3 @@ class GemsApiHendler
     end
   end
 end
-

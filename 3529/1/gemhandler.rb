@@ -20,27 +20,33 @@ class GemHendler
   end
 
   def adress_handle
-    if @url.include?("https://github.com/")
-      @repo_addr = @url.gsub("https://github.com/", "")
+    if @url.include?('https://github.com/')
+      @repo_addr = @url.gsub('https://github.com/', '')
     else
-      @repo_addr = @url.gsub("http://github.com/", "")
+      @repo_addr = @url.gsub('http://github.com/', '')
     end
   end
 
   def join_all_data
     @data_about_gem = {}
-    find_watchers
-    find_stars
-    find_forks
+    find_wsf
     find_used_by
     find_contributers
     find_issues
     make_rate
   end
 
+  def find_wsf
+    find_watchers
+    find_stars
+    find_forks
+  end
+
   def make_rate
-    rate = @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15 + @data_about_gem[:forks] * 0.10
-    rate += @data_about_gem[:used_by] * 0.5 + @data_about_gem[:contributers] * 0.05 + @data_about_gem[:issues] * 0.05
+    rate = @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
+    rate += @data_about_gem[:forks] * 0.10
+    rate += @data_about_gem[:used_by] * 0.5 + @data_about_gem[:contributers] * 0.05
+    rate += @data_about_gem[:issues] * 0.05
     @data_about_gem[:rate] = rate
   end
 
@@ -66,7 +72,7 @@ class GemHendler
 
   def find_used_by
     url_use = @url + '/network/dependents'
-    noko_obj = Nokogiri::HTML(open(url_use,  allow_redirections: :safe)).css('a.btn-link.selected')
+    noko_obj = Nokogiri::HTML(open(url_use, allow_redirections: :safe)).css('a.btn-link.selected')
     noko_obj.each do |element|
       @data_about_gem[:used_by] = element.text[/[\d*[:punct:]]+/].tr(',', '').to_i
     end
@@ -74,7 +80,7 @@ class GemHendler
 
   def find_issues
     url_issue = @url + '/issues'
-    noko_obj = Nokogiri::HTML(open(url_issue,  allow_redirections: :safe)).css('a.btn-link.selected')
+    noko_obj = Nokogiri::HTML(open(url_issue, allow_redirections: :safe)).css('a.btn-link.selected')
     noko_obj.each do |element|
       @data_about_gem[:issues] = element.text[/[\d*[:punct:]]+/].tr(',', '').to_i
     end
