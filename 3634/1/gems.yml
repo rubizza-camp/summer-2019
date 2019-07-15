@@ -9,3 +9,6 @@ gems:
   - sinatra
   - devise
   - diff-lcs
+  - rubocop
+  - rack
+  - thin
