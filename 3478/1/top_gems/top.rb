@@ -13,16 +13,10 @@ class Top
   def create_top
     load_parameters
     load_to_search_list.each { |name| @gem_top << @github_parser.parse(name) }
-    prepare_top
     TerminalOutput.new(@gem_top, @parameters[:top], @parameters[:name]).print_top
   end
 
   private
-
-  def prepare_top
-    @gem_top.sort_by! { |gem| gem[:total_score] }
-    @gem_top.reverse!
-  end
 
   def load_to_search_list
     YAML.safe_load(File.read(@parameters[:file]))['gems']

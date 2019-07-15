@@ -3,6 +3,9 @@ require 'open-uri'
 require 'nokogiri'
 
 class GitHubParser
+  REQUEST_CONTRIBUTORS = 'a span[class=\'num text-emphasized\']'.freeze
+  REQUEST_USED_BY = 'a[class=\'btn-link selected\']'.freeze
+
   def initialize(token)
     @client = Octokit::Client.new(access_token: token)
     @gem = {}
@@ -36,11 +39,11 @@ class GitHubParser
   end
 
   def search_dependency(page)
-    @gem[:used_by]      = search_in_page('a[class=\'btn-link selected\']', page)
+    @gem[:used_by]      = search_in_page(REQUEST_USED_BY, page)
   end
 
   def search_main(page, full_name)
-    @gem[:contributors] = search_in_page('a span[class=\'num text-emphasized\']', page)
+    @gem[:contributors] = search_in_page(REQUEST_CONTRIBUTORS, page)
     @gem[:watchers]     = search_in_page("li a[href=\"/#{full_name}/watchers\"]", page)
     @gem[:issues]       = search_in_page("span a[href=\"/#{full_name}/issues\"]", page)
   end

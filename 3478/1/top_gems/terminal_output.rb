@@ -4,7 +4,7 @@ class TerminalOutput
   HEADER = %w[Name Used_by Watchers Stars Forks Contributors Issues].freeze
 
   def initialize(gem_top, top_size, contains_in_name)
-    @gem_top = gem_top
+    @gem_top = gem_top.sort_by { |gem| gem[:total_score] }
     @contains_in_name = contains_in_name
     top_size ||= @gem_top.size
     @top_size = top_size.to_i
@@ -12,7 +12,7 @@ class TerminalOutput
   end
 
   def print_top
-    @gem_top.each do |gem|
+    @gem_top.reverse.each do |gem|
       next unless appropriate_name?(gem)
       break if @rows.size >= @top_size
       create_new_position_in_top(gem)
