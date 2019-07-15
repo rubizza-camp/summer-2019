@@ -15,7 +15,7 @@ class FileReader
   def find_links
     read.each do |name|
       link = "https://rubygems.org/api/v1/gems/#{name.strip}"
-      @gem_links << JSON.parse(open(link).read)['source_code_uri']
+      @gem_links << JSON.parse(URI.open(link).read)['source_code_uri']
     end
     gem_links
   end
