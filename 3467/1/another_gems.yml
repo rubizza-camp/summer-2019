@@ -4,3 +4,4 @@ gems:
   - rack
   - concurrent-ruby
   - ruby-graphviz
+  - multi_json
