@@ -10,16 +10,14 @@ def get_owner(repo)
   request = Net::HTTP::Post.new(uri.path)
   request['User-Agent'] = 'Volovenko'
   request['Authorization'] = "token #{@token}"
-  request.body =
-    "{\"query\":\"{search(query:\\\"#{repo}\\\",type:REPOSITORY,first:1){edges{ node{ ... on Repository {owner{login}}}}}}\"}"
+  request.body = "{\"query\":\"{search(query:\\\"#{repo}\\\",type:REPOSITORY,first:1){edges{ node{ ... on Repository {owner{login}}}}}}\"}"
 
   response = https.request(request)
   owner = JSON.parse(response.read_body)['data']['search']['edges'][0]['node']['owner']['login']
 end
 
 def get_data(owner, gem)
-  params = 'watchers{totalCount}forks{totalCount}mentionableUsers{totalCount}' \
-           'stargazers{totalCount}issues(states: OPEN){totalCount}'
+  params = 'watchers{totalCount}forks{totalCount}mentionableUsers{totalCount}stargazers{totalCount}issues(states: OPEN){totalCount}'
   parameters = "{\"query\":\"{repository(owner:\\\"#{owner}\\\",name:\\\"#{gem}\\\"){#{params}}}\"}"
   uri = URI.parse(@api_url)
   https = Net::HTTP.new(uri.host, uri.port)
