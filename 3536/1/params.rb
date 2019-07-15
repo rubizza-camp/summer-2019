@@ -1,4 +1,5 @@
-rubocop:disable all
+rubocop:disable Style/ParallelAssignment
+rubocop:disable Style/ParallelAssignmentrubocop:disable all
 require 'net/http'
 require 'open-uri'
 def file_main
