@@ -20,10 +20,8 @@ class GetGemDataFromGit
     @html = use_nokogiri
   rescue RepositoryNotFoundError => error
     default_data(gem_name, error.message)
-    self
   rescue PermissionDeniedError => error
     default_data(gem_name, error.message)
-    self
   end
 
   def call(gem_name)
