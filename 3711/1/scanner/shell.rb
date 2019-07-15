@@ -20,11 +20,14 @@ module Scanner
 
     private
 
-    # :reek:NestedIterators
     def filter_args
       @args.select do |arg|
-        arg if ARG_REGEXPS.any? { |arg_regexp| arg.match(arg_regexp) }
+        arg if arg_match_check(arg)
       end
+    end
+
+    def arg_match_check(arg)
+      ARG_REGEXPS.any? { |arg_regexp| arg.match(arg_regexp) }
     end
   end
 end

@@ -10,8 +10,8 @@ module Scanner
 
     def scan
       load_yaml
-    rescue Errno::ENOENT => error
-      puts error.message
+    rescue Errno::ENOENT => er
+      puts er.message
       []
     end
 

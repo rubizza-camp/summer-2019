@@ -23,12 +23,12 @@ unless gem_names.size.zero?
     gem_arr << Parser::GitHub.new(gem_name, source_url).parse
   end
 
-  # puts 'before sort'
+  # Sort gems by score desc
   gem_arr = Rating.sort_gems_arr_by_score(gem_arr)
 
   # Get top N gems, if
   gem_arr = gem_arr.first(rating_args['top'].to_i) unless rating_args['top'].nil?
 
   # Print sorted arr
-  Printer.print_it(gem_arr)
+  Printer.print_gems(gem_arr)
 end
