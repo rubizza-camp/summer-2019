@@ -92,7 +92,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def self.a_class_method
+    def Dog.a_class_method
       :dogs_class_method
     end
   end
