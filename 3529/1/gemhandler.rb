@@ -1,5 +1,7 @@
 require 'nokogiri'
 require 'json'
+require 'net/http'
+require 'uri'
 require 'open-uri'
 require 'httparty'
 require 'open_uri_redirections'

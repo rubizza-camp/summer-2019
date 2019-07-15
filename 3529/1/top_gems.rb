@@ -12,7 +12,7 @@ require_relative 'apihendler'
 class UserCommunicator
   attr_reader :file
   attr_reader :rows
-  attr_writer :list
+  attr_reader :list
 
   def initialize
     @rows = []
@@ -21,6 +21,10 @@ class UserCommunicator
       @file_name = argument.gsub('--file=', '') if argument.include?('file')
     end
     @file = YAML.safe_load(File.read(@file_name))
+  end
+
+  def list(list)
+    @list = list
   end
 
   def make_top
@@ -67,7 +71,7 @@ begin
     gemh.data_about_gem[:name] = gem_name
     list << gemh.data_about_gem
   end
-  user.list = list
+  user.list list
   user.load_arguments
   table = Terminal::Table.new do |t|
     t.headings = ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name']
