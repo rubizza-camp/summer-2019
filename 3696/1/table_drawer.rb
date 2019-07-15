@@ -7,7 +7,7 @@ class TableDrawer
   KEYS = %i[name watches stars forks contributors issues used_by].freeze
 
   def draw(data_to_display)
-    hash, top = data_to_display
+    hash, top = data_to_display.values_at(:hash, :top)
     puts Terminal::Table.new headings: [I18n.t('name'), I18n.t('watches'), I18n.t('stars'),
                                         I18n.t('forks'), I18n.t('contributors'),
                                         I18n.t('issues'), I18n.t('used_by')], rows: rows(hash, top)
