@@ -11,7 +11,7 @@ class AboutExceptions < Neo::Koan
   class MySpecialError < RuntimeError
   end
 
-  def test_exceptions_inherit_from_exception
+  def test_exceptions_inherit_from_Exception
     assert_equal RuntimeError, MySpecialError.ancestors[1]
     assert_equal StandardError, MySpecialError.ancestors[2]
     assert_equal Exception, MySpecialError.ancestors[3]
