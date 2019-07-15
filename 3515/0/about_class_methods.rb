@@ -73,9 +73,9 @@ class AboutClassMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # rubocop:disable Style/TrivialAccessors
   class Dog
-    attr_reader :name
+    attr_accessor :name
   end
 
   def Dog.name
@@ -88,7 +88,7 @@ class AboutClassMethods < Neo::Koan
     assert_equal 'Fido', fido.name
     assert_equal nil, Dog.name
   end
-
+  # rubocop:enable Style/TrivialAccessors
   # ------------------------------------------------------------------
 
   class Dog
