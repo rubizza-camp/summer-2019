@@ -24,7 +24,7 @@ class TableDrawer
 
   def rows(hash, top)
     table_rows = append_names_transform(hash).values.sort_by { |value| -popularity(value) }
-                     .map { |hash_obj| hash_obj.values_at(*KEYS) }
+                                             .map { |hash_obj| hash_obj.values_at(*KEYS) }
     top.zero? ? table_rows : table_rows.take(top)
   end
 

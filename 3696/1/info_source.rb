@@ -9,7 +9,7 @@ class InfoSource
 
   def data(init_data)
     file, name_pattern = init_data.values_at(:gems, :name)
-    {data: scrape_session(file, name_pattern), top: init_data[:top_n]}
+    { data: scrape_session(file, name_pattern), top: init_data[:top_n] }
   rescue NoMethodError
     puts I18n.t('gem_key_error')
     exit
