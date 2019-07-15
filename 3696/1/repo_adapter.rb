@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'singleton'
 require 'watir'
 require 'webdrivers'
@@ -22,7 +24,7 @@ class RepoAdapter
 
   attr_reader :file, :name_pattern, :top
 
-  PATH_TO_WEIGHTS = 'weights.yaml'.freeze
+  PATH_TO_WEIGHTS = 'weights.yaml'
 
   def source_walker
     @source_walker ||= Watir::Browser.new(:firefox, headless: true)
@@ -38,7 +40,7 @@ class RepoAdapter
   end
 
   def source_scrape
-    file.filter {|str| str.start_with?(name_pattern)}.each_with_object({}) do |str, hsh|
+    file.filter { |str| str.start_with?(name_pattern) }.each_with_object({}) do |str, hsh|
       add_gem_info(hsh, str)
     rescue ParseException => parsing_error
       error_list << parsing_error.message
@@ -79,8 +81,8 @@ class RepoAdapter
   end
 
   def add_names_and_sort(info_hash)
-    hash_values = info_hash.map {|key, value| [key, value.merge(name: key)]}.map(&:last)
-    hash_values.sort_by {|value| -popularity(value)}
+    hash_values = info_hash.map { |key, value| [key, value.merge(name: key)] }.map(&:last)
+    hash_values.sort_by { |value| -popularity(value) }
   end
 
   def popularity(info)
