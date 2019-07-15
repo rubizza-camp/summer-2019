@@ -34,13 +34,15 @@ class GitHubParser
   end
 
   def fill_the_data_from_html(gem, full_name)
-    gem = search_main(gem, Nokogiri::HTML(open("https://github.com/#{full_name}")), full_name)
-    gem = search_dependency(gem, Nokogiri::HTML(open("https://github.com/#{full_name}/network/dependents")))
+    github_main_page = Nokogiri::HTML(open("https://github.com/#{full_name}"))
+    github_dependents = Nokogiri::HTML(open("https://github.com/#{full_name}/network/dependents"))
+    gem = search_main(gem, github_main_page, full_name)
+    gem = search_dependency(gem, github_dependents)
     gem
   end
 
   def search_dependency(gem, page)
-    gem[:used_by]      = search_in_page(REQUEST_USED_BY, page)
+    gem[:used_by] = search_in_page(REQUEST_USED_BY, page)
     gem
   end
 
