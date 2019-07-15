@@ -35,6 +35,13 @@ class GemHendler
     @data_about_gem[:used_by] = find_used_by.to_i
     @data_about_gem[:contributers] = find_contributers
     @data_about_gem[:issues] = find_issues.to_i
+    make_rate
+  end
+
+  def make_rate
+    rate = @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15 + @data_about_gem[:forks] * 0.10
+    rate += @data_about_gem[:used_by] * 0.5 + @data_about_gem[:contributers] * 0.05 + @data_about_gem[:issues] * 0.05
+    @data_about_gem[:rate] = rate
   end
 
   def find_forks
@@ -73,4 +80,3 @@ class GemHendler
     return issues
   end
 end
-

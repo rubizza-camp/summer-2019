@@ -11,21 +11,13 @@ require_relative 'apihendler'
 
 class UserCommunicator
   attr_reader :file
+  attr_reader :rows
   attr_accessor :list
 
   def make_top
-    make_rate
     @list.sort_by! { |word| word[:rate] }
     @list.each do |gem|
       gem.delete(:rate)
-    end
-  end
-
-  def make_rate
-    @list.each do |gem|
-      rate = gem[:watched_by] * 0.15 + gem[:stars] * 0.15 + gem[:forks] * 0.10
-      rate += gem[:used_by] * 0.5 + gem[:contributers] * 0.05 + gem[:issues] * 0.05
-      gem[:rate] = rate
     end
   end
 
@@ -33,6 +25,10 @@ class UserCommunicator
     ARGV.each do |argument|
       @file_name = argument.gsub('--file=', '') if argument.include?('file')
     end
+    open_file
+  end
+
+  def open_file
     begin
       @file = YAML.safe_load(File.read(@file_name))
     rescue StandardError => exc
@@ -44,26 +40,26 @@ class UserCommunicator
   def load_arguments
     ARGV.each do |argument|
       @rows = []
-      if argument.include?('top')
-         @list = @list.slice(0, argument[/[0-9]+/].to_i)
-      end
+      @list = @list.slice(0, argument[/[0-9]+/].to_i) if argument.include?('top')
       name_handler(argument) if argument.include?('name')
       make_top
-      @list.each do |gem|
-        @rows << gem.values
-      end
+      update_row
     end
-    return @rows
+  end
+
+  def update_row
+    @list.each do |gem|
+      @rows << gem.values
+    end
   end
 
   def name_handler(argument)
-    name = argument.gsub('--name=', "")
+    # name = argument.gsub('--name=', '')
     new_list = []
     @list.collect do |gem|
-     if gem[:name].include? name
-        ind = @list.index(gem)
-        new_list << @list[ind]
-     end
+      if gem[:name].include? argument.gsub('--name=', '')
+        new_list << @list[@list.index(gem)]
+      end
     end
     @list = new_list
   end
@@ -84,11 +80,14 @@ begin
     list << gemh.data_about_gem
   end
   user.list = list
-  #puts user.list.inspect
-  table = Terminal::Table.new :headings => ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name'], :rows => user.load_arguments
+  # table = Terminal::Table.new :headings => ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name'], :rows => user.load_arguments
+  table = Terminal::Table.new do |t|
+  t.headings = ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name']
+  user.load_arguments
+  t.rows = user.rows
+end
   puts table
 rescue NoMethodError => e
   puts "ERROR: There isn't any gems in your file"
   puts e.backtrace
 end
-
