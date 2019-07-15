@@ -1,3 +1,4 @@
+# :reek:FeatureEnvy
 # create table
 class CreateTable
   def create(obj)
