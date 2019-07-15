@@ -1,5 +1,5 @@
 gems:
-  - didns
+  - rails
   - rspec
   - sinatra
   - httparty

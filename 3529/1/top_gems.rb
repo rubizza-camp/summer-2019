@@ -42,23 +42,30 @@ class UserCommunicator
   end
 
   def load_arguments
-    rows = []
     ARGV.each do |argument|
-      @list = @list.slice(0, a[/[0-9]+/].to_i) if argument.include?('top')
+      @rows = []
+      if argument.include?('top')
+         @list = @list.slice(0, argument[/[0-9]+/].to_i)
+      end
       name_handler(argument) if argument.include?('name')
       make_top
       @list.each do |gem|
-        rows << gem.values
+        @rows << gem.values
       end
     end
-    return rows
+    return @rows
   end
 
   def name_handler(argument)
-    name = argument.gsub('--name=', '')
-    @list.each do |gem|
-      @list.delete(gem) unless gem[:name].include?(name)
+    name = argument.gsub('--name=', "")
+    new_list = []
+    @list.collect do |gem|
+     if gem[:name].include? name
+        ind = @list.index(gem)
+        new_list << @list[ind]
+     end
     end
+    @list = new_list
   end
 end
 
@@ -69,15 +76,15 @@ begin
   user.file['gems'].each do |gem_name|
     gem = GemsApiHendler.new
     gem.gem_name = gem_name
-    puts gem_name
     next if gem.find_github.nil?
 
     gemh = GemHendler.new(gem.gem_github)
     gemh.join_all_data
-    gemh.data_about_gem[:name] = gem.gem_name
+    gemh.data_about_gem[:name] = gem_name
     list << gemh.data_about_gem
   end
   user.list = list
+  #puts user.list.inspect
   table = Terminal::Table.new :headings => ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name'], :rows => user.load_arguments
   puts table
 rescue NoMethodError => e
