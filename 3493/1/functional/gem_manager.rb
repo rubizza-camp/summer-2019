@@ -70,7 +70,7 @@ module  Functions
 
     def parse_gem_info
       collect_thread.each(&:join)
-      choose_top_gem if top_count > 0
+      choose_top_gem if top_count.positive?
     end
 
     def calculate_score(gem_hash)
