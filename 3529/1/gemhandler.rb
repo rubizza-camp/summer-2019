@@ -14,18 +14,18 @@ class GemHendler
     @data_about_gem = {}
     puts "Didn't find repository on github" if @url.nil?
     @repo_addr = adress_handle
-    @client = Octokit::Client.new(:login => 'gannagoodkevich', :password => 'Pusivill1999')
+    @client = Octokit::Client.new(login: 'gannagoodkevich', password: 'Pusivill1999')
     user = @client.user
     user.login
     @client.auto_paginate = true
   end
 
   def adress_handle
-    if @url.include?('https://github.com/')
-      @repo_addr = @url.gsub('https://github.com/', '')
-    else
-      @repo_addr = @url.gsub('http://github.com/', '')
-    end
+    @repo_addr = if @url.include?('https://github.com/')
+                   @url.gsub('https://github.com/', '')
+                 else
+                   @url.gsub('http://github.com/', '')
+                 end
   end
 
   def join_all_data
@@ -50,7 +50,7 @@ class GemHendler
     rate = @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
     rate += @data_about_gem[:forks] * 0.10
     rate += @data_about_gem[:used_by] * 0.5 + @data_about_gem[:contributers] * 0.05
-    rate += @data_about_gem[:issues] * 0.05
+    rate + @data_about_gem[:issues] * 0.05
   end
 
   def find_forks
