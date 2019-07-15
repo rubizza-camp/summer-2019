@@ -31,7 +31,7 @@ class Setuper
                    rescue YamlSyntaxError
                      put I18n.t('yaml_error')
                      exit
-    end
+                   end
   end
 
   def name_pattern
