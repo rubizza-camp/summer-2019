@@ -1,4 +1,4 @@
-rubocop:disable Style/ParallelAssignment
+rubocop:disable Lint/AmbiguousBlockAssociation
 rubocop:disable all
 require 'yaml'
 require 'net/http'
