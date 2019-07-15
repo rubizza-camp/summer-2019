@@ -36,33 +36,25 @@ class GemPopularity
   # rubocop:enable Metrics/AbcSize
 end
 
-# rubocop:disable Metrics/MethodLength
 class OptparseScript
   def self.parse(args)
     options = {}
     opt_parser = OptionParser.new do |opts|
-      opts.on('--top[=NUM]', Integer) do |num|
-        options[:top] = num.to_i
-      end
-      opts.on('--name[=NAME]', String) do |name|
-        options[:name] = name
-      end
-      opts.on('--file[=FILE]', String) do |file|
-        options[:file] = file
-      end
+      opts.on('--top[=NUM]', Integer)
+      opts.on('--name[=NAME]', String)
+      opts.on('--file[=FILE]', String)
     end
-    begin
-      opt_parser.parse!(args)
-    rescue OptionParser::InvalidArgument => e
-      puts "#{e}. 'top' must be a number"
-      exit 1
-    end
-    # opt_parser.parse!(args)
+    opt_parser.parse!(args)
     options
   end
 end
-# rubocop:enable Metrics/MethodLength
-options = OptparseScript.parse(ARGV)
+
+begin
+  options = OptparseScript.parse(ARGV)
+rescue OptionParser::InvalidArgument => e
+  puts "#{e}. 'top' must be a number"
+  exit 1
+end
 
 def load_gemlist(file = nil)
   file ||= 'gem_list.yml'
