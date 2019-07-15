@@ -1,36 +1,24 @@
 # class for create rating
 class CreateRating
+  attr_reader :array_gems
+
+  ARRAY_COEFFICIENT = [1, 0.5, 1, 0.7, 0.5, 0.1].freeze
+
   def initialize(array_gems)
     @array_gems = array_gems
-    @array_coefficient = [1, 0.5, 1, 0.7, 0.5, 0.1]
   end
 
-  def create_rating
-    priority_counting
-    sort_by_value
-    @array_gems
+  def rating_of_gems
+    array_gems.sort_by { |gem| - gem_rating(gem, gem.size) }
   end
 
   private
 
-  def priority_counting
-    @array_gems.each do |arr|
-      array_size = arr.size
-      arr << sum(arr, array_size)
-    end
-  end
-
-  def sum(array, array_size)
+  def gem_rating(array, array_size)
     sum = 0
     (array_size - 1).times do |iter|
-      sum += array[iter + 1].gsub(/[^0-9]/, '').to_i * @array_coefficient[iter]
+      sum += array[iter + 1].gsub(/[,]/, '').to_i * ARRAY_COEFFICIENT[iter]
     end
     sum
-  end
-
-  def sort_by_value
-    @array_gems.sort_by!(&:last)
-    @array_gems.reverse!
-    @array_gems.each(&:pop)
   end
 end
