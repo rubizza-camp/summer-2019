@@ -6,8 +6,6 @@ require 'optparse'
 #:reek:FeatureEnvy
 #:reek:TooManyInstanceVariables
 class TopGems
-  attr_reader :threads, :list, :gem_list, :params, :yaml_file, :repos
-
   def initialize
     @threads = []
     @list = []
@@ -17,6 +15,10 @@ class TopGems
     @repos = @params[:top] ? sort_top(load_gems) : load_gems
     show
   end
+
+  private
+
+  attr_reader :threads, :list, :gem_list, :params, :yaml_file, :repos
 
   #:reek:TooManyStatements
   #:reek:UtilityFunction
@@ -49,8 +51,6 @@ class TopGems
     end
     puts terminal
   end
-
-  private
 
   def select_name
     @yaml_file['gems'].select { |gem| gem.include? @params[:name] }
