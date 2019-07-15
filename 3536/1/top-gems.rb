@@ -6,7 +6,9 @@ require_relative 'github-parser'
 require_relative 'params'
 
 def print_data(gem, data)
-  result = "#{gem} \s  \t| watched by #{data['watchers']} \t| #{data['stars']} stars \t| #{data['forks']} forks \t| #{data['contributors']} contributors \t| #{data['issues']} issues \t|"
+  result = "#{gem} \s  \t| watched by #{data['watchers']} \t| #{data['stars']}" \
+           "stars \t| #{data['forks']} forks \t| #{data['contributors']}" \
+           "contributors \t| #{data['issues']} issues \t|"
   puts result
 end
 
