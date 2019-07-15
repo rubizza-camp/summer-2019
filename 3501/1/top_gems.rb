@@ -8,7 +8,6 @@ require 'optparse'
 class TopGems
   def initialize
     @threads = []
-    @list = []
     @params = load_options
     @yaml_file = yaml_from_file
     @gem_list = @params[:name] ? select_name : @yaml_file['gems']
@@ -18,7 +17,7 @@ class TopGems
 
   private
 
-  attr_accessor :threads, :list, :gem_list, :params, :yaml_file, :repos
+  attr_accessor :threads, :gem_list, :params, :yaml_file, :repos
 
   #:reek:TooManyStatements
   #:reek:UtilityFunction
@@ -58,13 +57,14 @@ class TopGems
 
   #:reek:TooManyStatements
   def load_gems
+    list = []
     @gem_list.map do |gem|
       @threads << Thread.new do
-        @list << GetGemDataFromGit.call(gem)
+        list << GetGemDataFromGit.call(gem)
       end
     end
     @threads.each(&:join)
-    @list
+    list
   end
 
   def sort_top(gems)

@@ -11,8 +11,8 @@ class GetGemDataFromGit
   end
   class PermissionDeniedError < RuntimeError
   end
-  #:reek:Attribute
-  attr_accessor :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
+
+  attr_reader :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
 
   def initialize(gem_name)
     @api_response = HTTParty.get("#{API_URL}#{gem_name}#{PARAMS}")
