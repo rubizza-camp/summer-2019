@@ -86,6 +86,6 @@ class RepoAdapter
   end
 
   def popularity(info)
-    weights.sum {|key, weight| weight * info[key]}
+    weights.sum { |key, weight| weight * info[key] }
   end
 end
