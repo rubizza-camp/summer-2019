@@ -12,7 +12,7 @@ class GemHendler
   def initialize(github_url)
     @url = github_url
     @data_about_gem = {}
-    puts "Didn't find repository on github" if @url.nil?
+    puts "Didn't find repository on github" unless @url
     @repo_addr = adress_handle
     @client = Octokit::Client.new(login: 'gannagoodkevich', password: 'Pusivill1999')
     user = @client.user
@@ -48,16 +48,15 @@ class GemHendler
 
   def make_rate
     rate = find_watch_plus_starts + find_forks_plus_contributors
-    rate += @data_about_gem[:issues] * 0.05 + @data_about_gem[:used_by] * 0.5
-    rate
+    rate + @data_about_gem[:issues] * 0.05 + @data_about_gem[:used_by] * 0.5
   end
 
   def find_watch_plus_starts
-    rate = @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
+    @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
   end
 
   def find_forks_plus_contributors
-    rate = @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
+    @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
   end
 
   def find_forks

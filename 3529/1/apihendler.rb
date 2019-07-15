@@ -18,6 +18,7 @@ class GemsApiHendler
     unless @url['source_code_uri'] && @url['homepage_uri']
       puts "ERROR: There is no github links on gem, named #{@gem_name}. Sorry, bro"
       return
+    end
     @gem_github = if @url['source_code_uri']
                     @url['source_code_uri']
                   else
