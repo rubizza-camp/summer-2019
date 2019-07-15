@@ -1,6 +1,6 @@
 class GemTerminalOutput
   # rubocop: disable Metrics/AbcSize
-  def self.get_gem_terminal_output(gem)
+  def self.fetch_gem_terminal_output(gem)
     @row = [gem.name,
             'used by' + gem.parameters[:used_by].to_s,
             'watched by ' + gem.parameters[:watch].to_s,

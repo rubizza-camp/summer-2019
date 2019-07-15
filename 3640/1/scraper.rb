@@ -1,10 +1,16 @@
 require 'mechanize'
-# :reek:ControlParameter
-# :reek:InstanceVariableAssumption
+
 class Scraper
-  def self.gem_get_parameters(name_gem)
+  GEM_PARAMETERS_LINKS = { used_by: /REPOSITORY/,
+                           watch: /watchers/,
+                           star: /stargazers/,
+                           forks: /members/,
+                           contributors: /contributors/,
+                           issues: /issues/ }.freeze
+
+  def self.fetch_gem_parameters(name_gem)
     fetcher = new(name_gem)
-    fetcher.gem_get_parameters
+    fetcher.fetch_gem_parameters
     fetcher.gem_parameters
   end
 
@@ -13,21 +19,15 @@ class Scraper
   def initialize(name_gem)
     @name_gem = name_gem
     @link_search = 'https://github.com/search?q='
-    @gem_parameters_links = { used_by: /REPOSITORY/,
-                              watch: /watchers/,
-                              star: /stargazers/,
-                              forks: /members/,
-                              contributors: /contributors/,
-                              issues: /issues/ }
     @gem_parameters = {}
   end
 
-  def gem_get_parameters
-    @gem_parameters_links.each_key do |key|
-      tag = get_page_for_parse(key).links_with(href: @gem_parameters_links[key])
+  def fetch_gem_parameters
+    GEM_PARAMETERS_LINKS.each do |key, value|
+      page = (key == :used_by ? used_by_repository : repository)
+      tag = page.links_with(href: value)
       @gem_parameters[key] = parameter_value(tag)
     end
-    @gem_parameters
   end
 
   private
@@ -40,13 +40,12 @@ class Scraper
     @mechanize ||= Mechanize.new
   end
 
-  def get_page_for_parse(parameter)
-    return repository if parameter != :used_by
+  def used_by_repository
     mechanize.get(repository.uri.to_s + '/network/dependents')
   end
 
   def search_page
-    @mechanize.get(@link_search + @name_gem)
+    mechanize.get(@link_search + @name_gem)
   end
 
   def link_repository
@@ -54,6 +53,6 @@ class Scraper
   end
 
   def repository
-    @repository ||= @mechanize.get(link_repository)
+    @repository ||= mechanize.get(link_repository)
   end
 end
