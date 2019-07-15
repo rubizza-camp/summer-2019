@@ -1,7 +1,6 @@
 module Parser
   DEFAULT_GEM_LIST_FILE = 'gems.yaml'.freeze
 
-
   # :reek:TooManyStatements
   def parse_options
     options = {}
