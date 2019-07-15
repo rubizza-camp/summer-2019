@@ -8,6 +8,5 @@ gems:
   - rspec
   - rspec-support
   - bundler
-  - rubygems-update
   - multi_json
   - rack
