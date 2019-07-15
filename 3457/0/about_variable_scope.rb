@@ -80,33 +80,34 @@ class AboutVariableScope < Neo::Koan
   # What is the difference between a class variable and instance variable?
 
   # ------------------------------------------------------
-
-  @anywhere = 'Anywhere'
+  # rubocop:disable Style/GlobalVars
+  $anywhere = 'Anywhere'
   # Global variables are prefixed with the '$' character.
 
   def test_global_variables_can_be_accessed_from_any_scope
-    assert_equal 'Anywhere', @anywhere
+    assert_equal 'Anywhere', $anywhere
   end
 
   def test_global_variables_can_be_changed_from_any_scope
     # From within a method
-    @anywhere = 'Here'
-    assert_equal 'Here', @anywhere
+    $anywhere = 'Here'
+    assert_equal 'Here', $anywhere
   end
 
   def test_global_variables_retain_value_from_last_change
     # What is $anywhere?
-    assert_equal 'Here', @anywhere
+    assert_equal 'Here', $anywhere
   end
 
   def test_global_variables_can_be_changed_from_any_scope_2
     # From within a block
     2.times do
-      @anywhere = 'Hey'
+      $anywhere = 'Hey'
     end
 
-    assert_equal 'Hey', @anywhere
+    assert_equal 'Hey', $anywhere
   end
+  # rubocop:enable Style/GlobalVars
 end
 # THINK ABOUT IT:
 #
