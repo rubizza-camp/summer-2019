@@ -1,82 +1,68 @@
 # frozen_string_literal: true
 
+require_relative 'tableterminal.rb'
 require_relative 'findgem.rb'
 require 'yaml'
-require 'terminal-table'
 require 'optparse'
 
-# :reek:UtilityFunction
-# :reek:FeatureEnvy
-# :reek:TooManyStatements
-# :reek:TooManyInstanceVariables
 class TopGems
-  HEADING_TABLE = ['name', 'used by', 'watcheds', 'stars', 'forks', 'contributors', 'issues']
-  STYLES_FOR_TABLE = {
-    border_top: true, border_bottom: true, border_x: '<', border_i: '>'
-  }
-
-  attr_reader :threads, :list
-
+  include Table
   def initialize
+    parameters = {}
     @threads = []
-    @list = []
-    @params = load_options
-    @yaml_file = load_yml
-    @gem_list = @params[:name] ? select_name : @yaml_file['gems']
-    @repos = @params[:top] ? sort_top(load_gems) : load_gems
+    load_parameters(parameters)
+    @yml_file = yml_from_file(parameters)
+    @gem_list = parameters[:name] ? select_name(parameters) : @yml_file['gems']
+    @repos = parameters[:top] ? sort_top(load_gems, parameters) : load_gems
     show
   end
 
-  def sort_top(gems)
-    range = [@params[:top], gems.size].min
-    gems.sort_by(&:stars)[-range..-1].reverse
-  end
+  private
 
-  def load_yml
-    YAML.load_file(File.open(@params[:file]))
-  end
+  attr_accessor :threads, :gem_list, :yaml_file, :repos
 
-  def load_options
-    options = {}
+  def load_parameters(parameters)
     OptionParser.new do |opts|
       opts.on('--name[=OPTIONAL]', String, 'gem name')
       opts.on('--file[=OPTIONAL]', String, 'name file')
       opts.on('--top[=OPTIONAL]', Integer, 'show top')
-    end.parse!(into: options)
-    options
+    end.parse!(into: parameters)
   end
 
   def show
-    tb_stats = @repos.map do |repo|
-      [
-        repo.name, repo.used_by_stat,
-        repo.watched_by, repo.stars,
-        repo.forks, repo.contributors_stat,
-        repo.issues
-      ]
+    table_str = @repos.map do |repo|
+      create_string_table(repo)
     end
-    print_table(tb_stats)
+    print_table(table_str)
   end
 
-  def print_table(tb_data)
-    table = Terminal::Table.new headings: HEADING_TABLE, rows: tb_data, style: STYLES_FOR_TABLE
-    puts table
-  end
-
-  def select_name
-    @yaml_file['gems'].select { |gem| gem.include? @params[:name] }
+  def select_name(parameters)
+    @yml_file['gems'].select { |gem| gem.include? parameters[:name] }
   end
 
   def load_gems
+    list = []
     @gem_list.map do |gem|
       @threads << Thread.new do
-        gem_data = GemsAddres.new(gem)
-        gem_data.call gem
-        @list << gem_data
+        list << ParseGemStatsFromGitHub.call(gem)
       end
     end
+    wait_for_threads(list)
+  end
+
+  def wait_for_threads(list)
     @threads.each(&:join)
-    @list
+    list
+  end
+
+  def sort_top(gems, parameters)
+    range = [parameters[:top], gems.size].min
+    gems.sort_by { |element| element.stats_from_git[:stars] }[-range..-1].reverse
+  end
+
+  def yml_from_file(parameters)
+    parameters[:file] = 'gems.yml' unless parameters[:file]
+    YAML.load_file(File.open(parameters[:file]))
   end
 end
 
