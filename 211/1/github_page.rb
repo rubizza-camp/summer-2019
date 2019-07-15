@@ -22,5 +22,4 @@ class GithubPage
     file_main.puts main_page.to_s
     file_main.close
   end
-
 end

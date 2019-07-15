@@ -1,4 +1,4 @@
-# require 'yaml'
+require 'yaml'
 require 'httparty'
 require 'nokogiri'
 require 'optparse'
@@ -7,8 +7,6 @@ require 'table_print'
 require_relative './github_page.rb'
 
 class GemPopularity
-  include HTTParty
-  # base_uri 'https://api.github.com/repos/'
   attr_accessor :name, :watch, :star, :fork, :contrib, :used_by, :issues, :popularity
 
   def initialize(gem_name)
@@ -24,6 +22,7 @@ class GemPopularity
     css.text.tr('^0-9', '').to_i
   end
 
+  # rubocop:disable Metrics/AbcSize
   def set_criteria
     @watch = find_int(@doc.css('.social-count')[0])
     @star = find_int(@doc.css('.social-count')[1])
@@ -34,8 +33,10 @@ class GemPopularity
     @contrib = find_int(@main_doc.css('span.text-emphasized')[3])
     @main_file.close
   end
+  # rubocop:enable Metrics/AbcSize
 end
 
+# rubocop:disable Metrics/MethodLength
 class OptparseScript
   def self.parse(args)
     options = {}
@@ -60,7 +61,7 @@ class OptparseScript
     options
   end
 end
-
+# rubocop:enable Metrics/MethodLength
 options = OptparseScript.parse(ARGV)
 
 def load_gemlist(file = nil)
