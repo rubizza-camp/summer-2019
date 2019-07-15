@@ -1,8 +1,9 @@
 require 'nokogiri'
-require_relative 'gem_statictic'
+require_relative 'repository'
 require 'open-uri'
 require 'json'
 
+# Task: parsers gem repository and create repository statistic
 # :reek:InstanceVariableAssumption
 class Parser
   attr_reader :gem_name
@@ -11,11 +12,13 @@ class Parser
     @gem_name = gem_name
   end
 
-  def repo_url
-    return @repo_url if @repo_url
+  JSON_URL = 'https://rubygems.org/api/v1/gems/'.freeze
 
-    json_str = open("https://rubygems.org/api/v1/gems/#{gem_name}.json").read
-    @repo_url = JSON(json_str)['source_code_uri']
+  def repo_url
+    return @repo_url if defined? @repo_url
+
+    json_str = ::Kernel.open(JSON_URL + "#{gem_name}.json").read
+    @repo_url ||= JSON(json_str)['source_code_uri']
   end
 
   def repo_dependents_url
@@ -70,7 +73,7 @@ class Parser
   end
 
   def create_statistic
-    RubyGemStatistic.new(
+    Repository.new(
       gem_name: gem_name,
       used_by: parse_used_by,
       watches: parse_watch,
