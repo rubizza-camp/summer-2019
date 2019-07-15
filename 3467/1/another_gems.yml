@@ -1,0 +1,6 @@
+gems:
+  - rspec-core
+  - diff-lcs
+  - rack
+  - concurrent-ruby
+  - ruby-graphviz
