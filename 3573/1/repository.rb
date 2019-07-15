@@ -13,5 +13,3 @@ class Repository
     @issues = opts[:issues]
   end
 end
-
-
