@@ -2,8 +2,8 @@ require 'nokogiri'
 require_relative './github_page.rb'
 
 class GemInfo
-  attr_accessor :name, :watch, :star, :fork, :contrib, :used_by, :issues, :popularity
-
+  attr_reader :name, :watch, :star, :fork, :contrib, :used_by, :issues, :popularity
+  attr_writer :popularity
   def initialize(gem_name)
     @name = gem_name
     GithubPage.new(gem_name).write_files
@@ -17,7 +17,6 @@ class GemInfo
     css.text.tr('^0-9', '').to_i
   end
 
-  # rubocop:disable Metrics/AbcSize
   def set_criteria
     @watch = find_int(@doc.css('.social-count')[0])
     @star = find_int(@doc.css('.social-count')[1])
@@ -25,8 +24,10 @@ class GemInfo
     @issues = find_int(@doc.css('span.Counter')[0])
     @used_by = find_int(@doc.css('a.selected')[3])
     @file.close
+  end
+
+  def set_contrib
     @contrib = find_int(@main_doc.css('span.text-emphasized')[3])
     @main_file.close
   end
-  # rubocop:enable Metrics/AbcSize
 end

@@ -14,9 +14,7 @@ class OptparseScript
     #   puts "#{e}. 'top' must be a number"
     #   exit 1
     # end
-    opt_parser.parse!
+    opt_parser.parse!(into: options)
     options
   end
 end
-
-
