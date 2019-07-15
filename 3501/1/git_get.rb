@@ -61,10 +61,10 @@ class GetGemDataFromGithub
     @git_data[:stars] = @repo[:stargazers_count]
     @git_data[:forks] = @repo[:forks_count]
     @git_data[:issues] = @repo[:open_issues_count]
-    pull_from_site
+    select_from_site
   end
 
-  def pull_from_site
+  def select_from_site
     @git_data[:contributors] = contributors_count
     @git_data[:watched_by] = watched_by_count
     @git_data[:used_by] = used_by_count

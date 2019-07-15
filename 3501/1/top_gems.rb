@@ -16,7 +16,8 @@ class TopGems
 
   private
 
-  attr_reader :threads, :gem_list, :params, :yaml_file, :repos
+  attr_reader :threads, :params, :yaml_file, :repos
+  attr_accessor :gem_list
 
   def load_options(options)
     OptionParser.new do |opts|
