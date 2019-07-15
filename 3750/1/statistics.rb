@@ -2,6 +2,7 @@ require 'rubygems'
 require 'mechanize'
 require 'nokogiri'
 require 'open-uri'
+require_relative 'link'
 
 class Statistics
   def initialize(gem_array)
@@ -12,34 +13,33 @@ class Statistics
   def load_stats
     @gem_array.each do |gem|
       gem.stats = {
+        used:           html_file_for_used(gem.gem_name),
         watched:        html_file(gem.gem_name).css('.social-count')[0].text.strip,
         stars:          html_file(gem.gem_name).css('.social-count')[1].text.strip,
         forks:          html_file(gem.gem_name).css('.social-count')[2].text.strip,
         contributors:   html_file(gem.gem_name).css('.text-emphasized')[3].text.strip,
-        issues:         html_file(gem.gem_name).css('.Counter')[0].text.strip,
-        used:           html_file(gem.gem_name, 'used')
+        issues:         html_file(gem.gem_name).css('.Counter')[0].text.strip
       }
     end
   end
   # rubocop:enable Metrics/AbcSize
 
-  def html_file(gem_name, flag = '')
-    return find_used(link_to_repo(gem_name)) if flag == 'used'
-    main_doc(link_to_repo(gem_name))
+  def html_file(gem_name)
+    repository = Link.new(gem_name)
+    main_doc(repository.link_to_repo)
   end
 
-  def link_to_repo(gem_name)
-    agent = Mechanize.new
-    page = agent.get("https://rubygems.org/gems/#{gem_name}")
-    (page.links.find { |link| link.text == 'Source Code' }).href
+  def html_file_for_used(gem_name)
+    repository = Link.new(gem_name)
+    find_used(repository.link_to_repo)
   end
 
   def main_doc(link_to_repo)
-    @main_doc = Nokogiri::HTML(open(link_to_repo.to_s))
+    @main_doc = Nokogiri::HTML(URI.open(link_to_repo.to_s))
   end
 
   def doc_for_used_by(link_to_repo)
-    @doc_for_used_by = Nokogiri::HTML(open("#{link_to_repo}/network/dependents"))
+    @doc_for_used_by = Nokogiri::HTML(URI.open("#{link_to_repo}/network/dependents"))
   end
 
   def find_used(link_to_repo)

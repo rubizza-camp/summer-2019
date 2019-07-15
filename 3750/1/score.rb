@@ -5,12 +5,10 @@ class Score
     @gem_array = gem_array
   end
 
-  def calculate_overall_score
+  def calculate_scores
     calculate_score_for_each_stat
     @gem_array.each do |gem|
-      gem.scores.values.each do |one_stat_score_value|
-        gem.overall_score += one_stat_score_value
-      end
+      calculate_overall_score(gem)
     end
   end
 
@@ -39,13 +37,19 @@ class Score
   def calculate_score_for_each_stat
     @gem_array.each do |gem|
       gem.scores = {
-        used_score:         gem.stats[:used].scan(/\d/).join('').to_f / average_stats[:used],
-        forks_score:        gem.stats[:forks].scan(/\d/).join('').to_f / average_stats[:forks],
-        stars_score:        gem.stats[:stars].scan(/\d/).join('').to_f / average_stats[:stars],
-        contributors_score: gem.stats[:contributors].scan(/\d/).join('').to_f / average_stats[:contributors],
-        watched_score:      gem.stats[:watched].scan(/\d/).join('').to_f / average_stats[:watched]
+        used:         gem.stats[:used].scan(/\d/).join('').to_f / average_stats[:used],
+        forks:        gem.stats[:forks].scan(/\d/).join('').to_f / average_stats[:forks],
+        stars:        gem.stats[:stars].scan(/\d/).join('').to_f / average_stats[:stars],
+        contributors: gem.stats[:contributors].scan(/\d/).join('').to_f / average_stats[:contributors],
+        watched:      gem.stats[:watched].scan(/\d/).join('').to_f / average_stats[:watched]
       }
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def calculate_overall_score(gem)
+    gem.scores.values.each do |value|
+      gem.overall_score += value
+    end
+  end
 end
