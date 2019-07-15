@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'httparty'
 require 'open-uri'
 
-class GetGemDataFromGit
+class GetGemDataFromGithub
   class RepositoryNotFoundError < RuntimeError
   end
   class PermissionDeniedError < RuntimeError

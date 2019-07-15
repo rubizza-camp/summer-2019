@@ -62,7 +62,7 @@ class TopGems
     list = []
     @gem_list.map do |gem|
       @threads << Thread.new do
-        list << GetGemDataFromGit.call(gem)
+        list << GetGemDataFromGithub.call(gem)
       end
     end
     wait_for_threads(list)
