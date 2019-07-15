@@ -1,8 +1,7 @@
 require 'terminal-table'
+require_relative 'gemy'
 
 class StatisticPresenter
-  attr_reader :array_of_gems
-
   def initialize(array_of_gems)
     @array_of_gems = array_of_gems
     @table = Terminal::Table.new
@@ -11,11 +10,11 @@ class StatisticPresenter
 
   def form_table(top_number, name)
     head
-    rows(top_number, name)
-    @table.rows = @rows
+    rows(name)
+    @table.rows = @rows[0..(top_number - 1)]
   end
 
-  def show_gems_statistics(top_number = array_of_gems.size, name = '')
+  def show_gems_statistics(top_number, name)
     form_table(top_number, name)
     puts "Top gems with word '#{name}' in it:" unless name.empty?
     puts "Top #{top_number} gems:" if name.empty?
@@ -36,11 +35,10 @@ class StatisticPresenter
     array_of_stats
   end
 
-  def rows(top_number, name)
-    top_number.times do |count|
-      next unless array_of_gems[count].gem_name.include? name
-      @rows[count] = [array_of_gems[count].gem_name]
-      @rows[count] += stats_to_arr(array_of_gems[count])
+  def rows(name)
+    @array_of_gems.each do |gem|
+      next unless gem.gem_name.include? name
+      @rows << [gem.gem_name] + stats_to_arr(gem)
     end
   end
 end

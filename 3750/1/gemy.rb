@@ -4,6 +4,8 @@ require 'nokogiri'
 require 'open-uri'
 require_relative 'statistics'
 
+# :reek:Attribute
+# im working on this right now
 class Gemy
   def initialize(gem_name)
     @gem_name = gem_name
