@@ -6,8 +6,7 @@ require 'optparse'
 #:reek:FeatureEnvy
 #:reek:TooManyInstanceVariables
 class TopGems
-  attr_reader :threads
-  attr_reader :list
+  attr_reader :threads, :list, :gem_list, :params, :yaml_file, :repos
 
   def initialize
     @threads = []
