@@ -27,6 +27,7 @@ class UserCommunicator
     @list.each do |gem|
       gem.delete(:rate)
     end
+    update_row
   end
 
   def load_arguments
@@ -35,7 +36,6 @@ class UserCommunicator
       @list = @list.slice(0, argument[/[0-9]+/].to_i) if argument.include?('top')
       name_handler(argument) if argument.include?('name')
       make_top
-      update_row
     end
   end
 
@@ -51,7 +51,6 @@ class UserCommunicator
       next unless gem.find_github
 
       gemh = GemHendler.new(gem.gem_github, gem_name)
-      gemh.join_all_data
       @list << gemh.data_about_gem
     end
   end

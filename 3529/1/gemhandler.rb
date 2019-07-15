@@ -16,11 +16,16 @@ class GemHendler
     @data_about_gem = {}
     puts "Didn't find repository on github" unless @url
     @repo_addr = adress_handle
+    login
+    @data_about_gem[:name] = gem_name
+    join_all_data
+  end
+
+  def login
     @client = Octokit::Client.new(login: 'gannagoodkevich', password: 'Pusivill1999')
     user = @client.user
     user.login
     @client.auto_paginate = true
-    @data_about_gem[:name] = gem_name
   end
 
   def adress_handle
