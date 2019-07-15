@@ -2,7 +2,6 @@ require 'yaml'
 require 'net/http'
 require 'uri'
 require 'json'
-require 'graphql'
 
 @token = 'e9d88495a0a951db1b9b1b273851be0157a8e7de'
 @api_url = 'https://api.github.com/graphql'
@@ -20,6 +19,7 @@ def get_owner(repo)
 
   response = https.request(request)
   owner = JSON.parse(response.read_body)['data']['search']['edges'][0]['node']['owner']['login']
+  return owner
 end
 
 def get_data(owner,gem)
@@ -52,22 +52,26 @@ def get_data(owner,gem)
 end
 
 def print_data(gem,data)
-  string = "#{gem} | watched by #{data['watchers']} | #{data['stars']} stars | #{data['forks']} forks | #{data['contributors']} contributors | #{data['issues']} issues |"
+  string = "#{gem}\s\s\s\s\t| watched by #{data['watchers']}\s\t| #{data['stars']} stars\t| #{data['forks']} forks\t| #{data['contributors']} contributors\t| #{data['issues']} issues\t|"
   puts "#{string}"
 end
 
-def main(file)
-  gems_names = YAML::load(open("#{file}"))['gems']
+def main
+  gems_names = YAML::load(open("#{@yml_file}"))['gems']
   gems_names.each do |gem|
     owner = get_owner(gem)
     gem_data = get_data(owner,gem)
     print_data(gem,gem_data)
-    # puts "#{gem_data}"
   end
 end
 
-input_array = ARGV
-puts input_array.length
-puts input_array.to_s
+def pars_param
+  input_array = ARGV
+  if input_array.length > 0 && input_array.select {|par| par.include?"--file"}
+    param_file = input_array.select {|par| par.include?"--file"}.to_s.delete '[]"'
+    @yml_file = param_file.delete_prefix!('--file=')
+  end
+end
 
-main(@yml_file)
+pars_param
+main
