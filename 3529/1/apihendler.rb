@@ -8,15 +8,10 @@ class GemsApiHendler
   def initialize(gem_name)
     @gem_name = gem_name
     @url = HTTParty.get("https://rubygems.org/api/v1/gems/#{@gem_name}.json")
-  end 
+  end
 
   def find_github
-    begin
-      url_check
-    rescue JSON::ParserError => exc
-      puts "ERROR: There is no gem, named #{@gem_name}. Sorry, bro"
-      puts exc
-    end
+    url_check
   end
 
   def url_check
