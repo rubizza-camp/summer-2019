@@ -1,4 +1,4 @@
-def main
+def file_main
   gems_names = YAML::load(open("#{@yml_file}"))['gems']
   gems_names.each do |gem|
     owner = get_owner(gem)

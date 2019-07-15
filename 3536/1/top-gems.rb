@@ -11,4 +11,4 @@ def print_data(gem,data)
 end
 
 params_file
-main
+file_main

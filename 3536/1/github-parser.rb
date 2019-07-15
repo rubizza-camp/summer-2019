@@ -1,4 +1,4 @@
-@token = 'c501c09d054a3b93ca223e8c28ef2e458598a742'
+@token = 'adacb0b3610b461da954584d9b4939330d3915b2'
 @api_url = 'https://api.github.com/graphql'
 @yml_file = 'top-gems.yml'
 
@@ -8,7 +8,7 @@ def get_owner(repo)
   https = Net::HTTP.new(uri.host, uri.port)
   https.use_ssl = true
   request = Net::HTTP::Post.new(uri.path)
-  request['User-Agent'] = '3538-1'
+  request['User-Agent'] = '3536-1'
   request['Authorization'] = "token #{@token}"
   request.body = "{\"query\":\"{search(query: \\\"#{repo}\\\", type: REPOSITORY, first:1){edges { node { ... on Repository { owner { login }}}}}}\"}"
 
