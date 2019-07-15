@@ -7,7 +7,12 @@ class GithubPage
   base_uri 'https://rubygems.org/api/v1/gems'
   def initialize(gem_name)
     @name = gem_name
-    rubygems_page = HTTParty.get("https://rubygems.org/api/v1/gems/#{gem_name}")
+    begin
+      rubygems_page = HTTParty.get("https://rubygems.org/api/v1/gems/#{gem_name}")
+    rescue SocketError
+      puts 'check your internet connection'
+      exit
+    end
     parsed = JSON.parse(rubygems_page.body)
     @github_link = parsed['source_code_uri'] || parsed['homepage_uri']
   end

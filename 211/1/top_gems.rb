@@ -66,7 +66,12 @@ options = OptparseScript.parse(ARGV)
 
 def load_gemlist(file = nil)
   file ||= 'gem_list.yml'
-  @gems = YAML.safe_load(File.read(file))
+  begin
+    @gems = YAML.safe_load(File.read(file))
+  rescue Errno::ENOENT
+    puts 'file must exist'
+    exit
+  end
 end
 
 def find_match(_gems, name = nil)
@@ -76,7 +81,12 @@ end
 
 def take_top(arr, top = nil)
   top ||= arr.size
-  arr.take(top)
+  begin
+    arr.take(top)
+  rescue ArgumentError
+    puts 'top must be positive'
+    exit
+  end
 end
 
 load_gemlist(options[:file])
