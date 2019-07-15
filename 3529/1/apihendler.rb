@@ -15,7 +15,7 @@ class GemsApiHendler
   end
 
   def url_check
-    if @url['source_code_uri'] && @url['homepage_uri']
+    if @url['source_code_uri'] || @url['homepage_uri']
       @gem_github = if @url['source_code_uri']
                       @url['source_code_uri']
                     else

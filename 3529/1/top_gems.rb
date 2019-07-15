@@ -12,7 +12,6 @@ require_relative 'apihendler'
 class UserCommunicator
   attr_reader :file
   attr_reader :rows
-  attr_reader :list
 
   def initialize
     @rows = []
