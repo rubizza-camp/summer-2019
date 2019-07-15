@@ -1,7 +1,7 @@
 require 'octokit'
 require 'open-uri'
 require 'nokogiri'
-require 'pry'
+
 class GitHubParser
   REQUEST_CONTRIBUTORS = 'a span[class=\'num text-emphasized\']'.freeze
   REQUEST_USED_BY = 'a[class=\'btn-link selected\']'.freeze
