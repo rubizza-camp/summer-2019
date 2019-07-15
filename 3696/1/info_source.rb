@@ -9,7 +9,7 @@ class InfoSource
 
   def data(init_data)
     file, name_pattern = init_data.values_at(:gems, :name)
-    return [scrape_session(file, name_pattern), init_data[:top_n]]
+    [scrape_session(file, name_pattern), init_data[:top_n]]
   rescue NoMethodError
     puts I18n.t('gem_key_error')
     exit
@@ -34,10 +34,10 @@ class InfoSource
   def source_scrape(file, name_pattern)
     file.each_with_object({}) do |str, hsh|
       next unless str.start_with?(name_pattern)
+
       add_gem_info(hsh, str)
     rescue ParseException => e
       error_list << e.message
-
     end
   end
 
@@ -51,15 +51,11 @@ class InfoSource
   def add_gem_info(hsh, str)
     transformer_link = source_link(str)
     transformer_link == 'no-link' ? error_list << str : hsh[str] = gem_info(transformer_link)
-
   end
 
   def source_link(str)
     NameToLinkTransformer.new(str).link
-
-
   end
-
 
   def gem_info(link)
     scraper = Scraper.new(link, source)
