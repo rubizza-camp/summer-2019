@@ -2,7 +2,6 @@ require 'httparty'
 require 'nokogiri'
 require 'open-uri'
 require_relative 'util'
-require 'pry'
 
 class Repo
   URI = 'https://api.github.com/search/repositories'.freeze
@@ -11,7 +10,7 @@ class Repo
 
   def initialize(gem_name)
     @repo = collect_repository_info_for gem_name
-    @html = Util.parse_html @repo['html_url']
+    @html = Util::Parse::HTML.parse @repo['html_url']
     @used_by = used_by_count
   end
 
@@ -48,7 +47,7 @@ class Repo
   end
 
   def used_by_count
-    html = Util.parse_html "#{@repo['html_url']}/network/dependents"
+    html = Util::Parse::HTML.parse "#{@repo['html_url']}/network/dependents"
     used_by = html.css('a.btn-link:nth-child(1)').text
     parse_int(used_by)
   end
