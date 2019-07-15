@@ -1,10 +1,7 @@
 class Setuper
   def initialize
+    prepare
     @options = parse
-  end
-
-  def prepare
-    locale_routine
   end
 
   def init_options
@@ -15,13 +12,25 @@ class Setuper
 
   attr_reader :options
 
+  def prepare
+    locale_routine
+  end
+
   def locale_routine
     I18n.load_path = Dir['./locales.yml']
     I18n.locale = YAML.load_file('default_locale.yaml')['locale'].to_sym
   end
 
   def gem_names
-    @gem_names ||= YAML.load_file(options[:file] || 'example.yaml')['gems']
+    @gem_names ||= begin
+      YAML.load_file(options[:file] || 'example.yaml')['gems']
+                   rescue Errno::ENOENT
+                     puts I18n.t('no_file')
+                     exit
+                   rescue YamlSyntaxError
+                     put I18n.t('yaml_error')
+                     exit
+    end
   end
 
   def name_pattern
@@ -44,5 +53,8 @@ class Setuper
     options = {}
     create_parser.parse!(into: options)
     options
+  rescue OptionParser::ParseError
+    puts I18n.t('parse_error')
+    exit
   end
 end

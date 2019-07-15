@@ -10,6 +10,12 @@ en:
   out: "out of"
   processed: "processed"
   fail: "Failed to process"
+  parse_error: "Something went wrong with options parsing. Try again later"
+  no_file: "The file with gem list wasn't found"
+  yaml_error: "The file doesn't suit YAML format"
+  gem_key_error: "The file doesn't start with 'gem' key. Can't locate gems"
+  not_a_gem: "is not a gem"
+  browser_error: "Something is wrong with ypur connection. Try later"
 ru:
   name: "Имя"
   watches: "Просмотры"
@@ -22,4 +28,10 @@ ru:
   out: "из"
   processed: "обработано"
   fail: "Не получилось обработать"
+  parse_error: "Произошла ошибка при обработке аргументов командной строки, попробуйте ещё раз"
+  no_file: "Файл со списком гемов не был найден"
+  yaml_error: "Предоставленный файл не соответствует формату YAML"
+  gem_key_error: "В файле отсутствует ключ 'gems'. Файл не может быть обработан"
+  not_a_gem: "не является гемом"
+  browser_error: "Произошла ошибка, проверьте ваше соединение с Интернетом, повторите позже"
 

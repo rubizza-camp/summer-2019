@@ -13,7 +13,6 @@ class Main
 
   def run
     starter = setuper.new
-    starter.prepare
     presenter.new.draw(source_parser.instance.data(starter.init_options))
   end
 

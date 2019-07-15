@@ -9,8 +9,14 @@ class NameToLinkTransformer
 
   private
 
+  attr_reader :name
+
+  #:reek:UncommunicativeVariableName for exception
   def doc
     @doc ||= Nokogiri::HTML(URI.open("https://rubygems.org/gems/#{@name}"))
+  rescue OpenURI::HTTPError => e
+    puts "#{name} #{I18n.t('not_a_gem')}" if e.message == '404 Not Found'
+    raise ParseException.new, name
   end
 
   def github_in_code_link

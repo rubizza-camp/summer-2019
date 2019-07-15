@@ -8,6 +8,9 @@ class Scraper
   def initialize(link, browser)
     @link = normalize(link)
     @browser_page = generate_browser_page(browser)
+  rescue Watir::Exception::NavigationException
+    puts I18n.t('browser_error')
+    exit
   end
 
   def scrape
@@ -49,6 +52,9 @@ class Scraper
     used_by_browser = browser_page
     used_by_browser.goto(link + FOR_USED_BY)
     { used_by: used_by_browser.html.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip }
+  rescue Watir::Exception::NavigationException
+    puts I18n.t('browser_error')
+    exit
   end
 
   def issues
