@@ -1,7 +1,8 @@
 gems:
 - rubocop
-- cowsay
-- capybara
+- Puma
 - yard
-- nyancat
+- Rolify
 - rspec
+- cowsay
+- CanCan
