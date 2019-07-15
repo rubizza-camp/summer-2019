@@ -1,5 +1,5 @@
 require_relative 'yaml_reader'
-require_relative 'options'
+require_relative 'options_parser'
 require_relative 'info_taker'
 require_relative 'table_maker'
 
@@ -11,12 +11,12 @@ class GemSearch
   end
 
   def search
-    flags = Parser.new(@file).parse
+    flags = OptionsParser.new(@file).parse
     infos = []
-    YamlReader.new(flags[:file_name]).parse.each do |adress|
+    YamlReader.new(flags[:file_name]).parse.map do |adress|
       infos << InfoTaker.new(adress).take_info
     end
 
-    TableMaker.new(infos, flags).table
+    TableMaker.new(infos, flags).make
   end
 end

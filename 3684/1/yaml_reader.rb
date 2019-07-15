@@ -9,10 +9,15 @@ class YamlReader
   end
 
   def parse
+    check_file(@file)
     adress_of_source_code(read_yaml)
   end
 
   private
+
+  def check_file(file)
+    raise ArgumentError if file.split('.').last != 'yaml'
+  end
 
   def read_yaml
     begin
@@ -43,7 +48,7 @@ class YamlReader
 
   def adress_of_source_code(gems)
     adresses = []
-    gems.each do |item|
+    gems.select do |item|
       github_url = Gems.info item
       adresses << github_url['source_code_uri']
     end

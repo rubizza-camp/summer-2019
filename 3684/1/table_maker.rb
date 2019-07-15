@@ -8,7 +8,7 @@ class TableMaker
     @flags = flags
   end
 
-  def table
+  def make
     make_top
     build_table
   end
@@ -29,7 +29,7 @@ class TableMaker
 
   def check_for_a_word
     new_info = []
-    @info.each do |element|
+    @info.select do |element|
       new_info << element if element.first.include?(@flags[:word])
     end
     @info = new_info
@@ -42,10 +42,9 @@ class TableMaker
 
   def build_table
     change_info
-    table = Terminal::Table.new do |model|
+    Terminal::Table.new do |model|
       model.headings = ['gem name', 'used by', 'contributors', 'issues', 'stars', 'watch', 'forks']
       model.rows = @info
     end
-    table
   end
 end

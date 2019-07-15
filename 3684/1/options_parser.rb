@@ -1,6 +1,6 @@
 require 'optparse'
 
-class Parser
+class OptionsParser
   attr_reader :flags
 
   def initialize(file_string)
