@@ -4,17 +4,16 @@ require 'nokogiri'
 require 'httparty'
 require 'open-uri'
 
-#:reek:TooManyStatements
-#:reek:TooManyInstanceVariables
 class GetGemDataFromGit
   class RepositoryNotFoundError < RuntimeError
   end
   class PermissionDeniedError < RuntimeError
   end
 
-  attr_reader :name, :used_by, :watched_by, :stars, :forks, :contributors, :issues
+  attr_reader :git_data, :api_response, :repo, :html
 
   def initialize(gem_name)
+    @git_data = {}
     @api_response = HTTParty.get("#{API_URL}#{gem_name}#{PARAMS}")
     @repo = repository
     @html = use_nokogiri
@@ -25,15 +24,11 @@ class GetGemDataFromGit
   end
 
   def call(gem_name)
-    check_for_errors
     pull_from_api
-    self
   rescue RepositoryNotFoundError => error
     default_data(gem_name, error.message)
-    self
   rescue PermissionDeniedError => error
     default_data(gem_name, error.message)
-    self
   end
 
   def self.call(gem_name)
@@ -48,6 +43,11 @@ class GetGemDataFromGit
   WATCHED_CSS_SELECTOR = '/html/body/div[4]/div/main/div[1]/div/ul/li'
   USED_BY_CSS_SELECTOR = 'a.btn-link:nth-child(1)'
 
+  def pull_from_api
+    check_for_errors
+    pull_from_api_next
+  end
+
   def check_for_errors
     message = @api_response.response.inspect
     unless message.include?('200')
@@ -57,24 +57,34 @@ class GetGemDataFromGit
     raise(RepoNotFoundError, 'not found') if @api_response.to_hash['items'].empty?
   end
 
-  def pull_from_api
-    @name = @repo[:name]
-    @stars = @repo[:stargazers_count]
-    @forks = @repo[:forks_count]
-    @issues = @repo[:open_issues_count]
-    @contributors = contributors_count
-    @watched_by = watched_by_count
-    @used_by = used_by_count
+  def pull_from_api_next
+    @git_data[:name] = @repo[:name]
+    @git_data[:stars] = @repo[:stargazers_count]
+    @git_data[:forks] = @repo[:forks_count]
+    @git_data[:issues] = @repo[:open_issues_count]
+    pull_from_site
+  end
+
+  def pull_from_site
+    @git_data[:contributors] = contributors_count
+    @git_data[:watched_by] = watched_by_count
+    @git_data[:used_by] = used_by_count
+    self
   end
 
   def default_data(gem_name, message)
-    @name = "#{gem_name} - #{message}"
-    @used_by = 0
-    @watched_by = 0
-    @stars = 0
-    @forks = 0
-    @contributors = 0
-    @issues = 0
+    @git_data[:name] = "#{gem_name} - #{message}"
+    @git_data[:issues] = 0
+    @git_data[:stars] = 0
+    @git_data[:forks] = 0
+    default_data_from_site
+  end
+
+  def default_data_from_site
+    @git_data[:contributors] = 0
+    @git_data[:used_by] = 0
+    @git_data[:watched_by] = 0
+    self
   end
 
   def use_nokogiri
