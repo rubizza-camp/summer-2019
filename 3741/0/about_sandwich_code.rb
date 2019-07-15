@@ -19,16 +19,14 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable RedundantMatch
   def find_line(file_name)
     file = File.open(file_name)
     while (line = file.gets)
-      return line if line.match(/e/)
+      return line if line =~ /e/
     end
   ensure
     file&.close
   end
-  # rubocop:enable RedundantMatch
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -83,7 +81,7 @@ class AboutSandwichCode < Neo::Koan
     # Rewrite find_line using the file_sandwich library function.
     file_sandwich(file_name) do |file|
       while line = file.gets
-        return line if line.match(/e/)
+        return line if line =~ /e/
       end
     end
   end
@@ -95,15 +93,13 @@ class AboutSandwichCode < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-  # rubocop:disable Security/Open
   def count_lines3(file_name)
-    open(file_name) do |file|
+    File.open(file_name) do |file|
       count = 0
       count += 1 while file.gets
       count
     end
   end
-  # rubocop:enable Security/Open
 
   def test_open_handles_the_file_sandwich_when_given_a_block
     assert_equal 4, count_lines3('example_file.txt')
