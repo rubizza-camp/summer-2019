@@ -34,7 +34,7 @@ def find_all_gems(gem_list)
   threads = []
   gem_list.each do |gem|
     if (gem_name = @command_line[:name])
-      next unless i.include?(gem_name)
+      next unless gem.include?(gem_name)
     end
     threads << Thread.new { find_gem(gem) }
   end
