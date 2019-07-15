@@ -17,10 +17,10 @@ class GemsApiHendler
   def url_check
     if @url['source_code_uri'] && @url['homepage_uri']
       @gem_github = if @url['source_code_uri']
-                    @url['source_code_uri']
-                  else
-                    @url['homepage_uri']
-                  end
+                      @url['source_code_uri']
+                    else
+                      @url['homepage_uri']
+                    end
     else
       puts "ERROR: There is no github links on gem, named #{@gem_name}. Sorry, bro"
     end
