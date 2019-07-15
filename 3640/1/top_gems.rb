@@ -1,29 +1,18 @@
 require_relative 'table.rb'
 require_relative 'program_launch.rb'
 require 'optparse'
-
+# :reek:NestedIterators
+# :reek:TooManyStatements
 class TerminalParser
-  # rubocop: disable Metrics/MethodLength
-  # :reek:TooManyStatements
-  # :reek:NestedIterators
   def self.do_terminal_parse
     selector = {}
     OptionParser.new do |opts|
-      opts.on('--top=') do |top|
-        selector[:top] = top.to_i
-      end
-
-      opts.on('--name=') do |name|
-        selector[:name] = name
-      end
-
-      opts.on('--file=') do |file_name|
-        selector[:file] = file_name
-      end
+      opts.on('--top=') { |top| selector[:top] = top.to_i }
+      opts.on('--name=') { |name| selector[:name] = name }
+      opts.on('--file=') { |file_name| selector[:file] = file_name }
     end.parse!
     selector.size > 1 ? (puts 'invalid arguments entered') : ProgramLaunch.play_program(selector)
   end
-  # rubocop: enable Metrics/MethodLength
 end
 
 TerminalParser.do_terminal_parse
