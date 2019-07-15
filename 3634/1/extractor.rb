@@ -5,18 +5,15 @@ module Extractor
 
   private
 
-  # :reek:NilCheck
-  # rubocop:disable Security/Open
   def extractor(link)
-    html = open(link)
+    html = File.open(link)
     document = Nokogiri::HTML(html)
-    if (link =~ %r{/network/dependents}).nil?
-      helper_one(document)
-    else
+    if link.match?(%r{/network/dependents})
       helper_two(document)
+    else
+      helper_one(document)
     end
   end
-  # rubocop:enable Security/Open
 
   def helper_one(document)
     {

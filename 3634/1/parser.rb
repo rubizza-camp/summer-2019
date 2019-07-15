@@ -21,24 +21,20 @@ class Parser
     helper(one_part, second_part, names)
   end
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
-  # :reek:NestedIterators
-  # :reek:TooManyStatements
   def helper(one_part, second_part, names)
     data = one_part.map.with_index { |hash, item| hash.merge(second_part[item]) }
-    data.each_with_index do |value, item|
-      row = []
-      value.each_value { |gem_data| row << gem_data }
-      row.unshift(names[item])
-      row.unshift(item + 1)
-      @rows << row
-      if @header.empty?
-        value.each_key { |key| @header << key.to_s.capitalize.gsub(/_/, ' ') }
-        @header.unshift(' ', 'Gem')
-      end
-    end
+    data.each_with_index { |value, item| output_data_preparation(value, item, names) }
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
+
+  def output_data_preparation(value, item, names)
+    row = []
+    value.each_value { |data| row << data }
+    @rows << row.unshift(item + 1, names[item])
+    header_preparation(value) if @header.empty?
+  end
+
+  def header_preparation(value)
+    value.each_key { |key| @header << key.to_s.capitalize.tr('_', ' ') }
+    @header.unshift(' ', 'Gem')
+  end
 end
