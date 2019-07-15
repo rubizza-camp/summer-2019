@@ -9,19 +9,14 @@ class YamlReader
   end
 
   def parse
-    check_file(@file)
     adress_of_source_code(read_yaml)
   end
 
   private
 
-  def check_file(file)
-    raise ArgumentError if file.split('.').last != 'yaml'
-  end
-
   def read_yaml
     begin
-      file = YAML.load_file(@file)
+      file = YAML.load_file("#{@file}.yaml")
     rescue StandardError
       puts 'File doesn\'t exist'
       abort

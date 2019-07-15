@@ -19,7 +19,9 @@ class OptionsParser
   end
 
   def add_file_and_help_options(options)
-    options.on('-f', '--file FILE', 'Enable desired FILE') { |file| flags[:file_name] = file }
+    options.on('-f', '--file FILE', 'Enable desired FILE') do |file|
+      flags[:file_name] = file.split('.').first
+    end
 
     options.on('-h', '--help', 'Shows this information') do
       puts options
