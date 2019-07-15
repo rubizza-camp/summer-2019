@@ -37,8 +37,8 @@ class CommandLineParser
 
     begin
       opts_p.parse(args)
-    rescue StandardError => e
-      puts "Exception encountered: #{e}"
+    rescue StandardError => err
+      puts "Exception encountered: #{err}"
       opts_p.parse %w[--help]
       exit 1
     end
