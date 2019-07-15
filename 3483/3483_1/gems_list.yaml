@@ -1,6 +1,7 @@
 gems:
-  -rspec-core
-  -rspec-rails
-  -rspec-support
-  -rspec-dev
-  -doc-site
+   -rspec-core
+   -rspec-rails
+   -rspec-support
+   -rspec-dev
+   -rspec-expectations
+   
