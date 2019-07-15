@@ -1,0 +1,4 @@
+gems:
+  - rails
+  - sinatra
+  - nokogiri
