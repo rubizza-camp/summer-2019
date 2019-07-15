@@ -111,5 +111,5 @@ class AboutVariableScope < Neo::Koan
 end
 # THINK ABOUT IT:
 #
-# What will $anywhere be down here, outside of the scope of the
+# What will $anywhere be down here outside of the scope of the
 # AboutVariableScope class?
