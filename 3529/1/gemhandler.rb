@@ -11,6 +11,7 @@ class GemHendler
 
   def initialize(github_url)
     @url = github_url
+    @data_about_gem = {}
     puts "Didn't find repository on github" if @url.nil?
     @repo_addr = adress_handle
     @client = Octokit::Client.new(:login => 'gannagoodkevich', :password => 'Pusivill1999')
@@ -28,10 +29,9 @@ class GemHendler
   end
 
   def join_all_data
-    @data_about_gem = {}
     find_wsf
     find_uci
-    make_rate
+    @data_about_gem[:rate] = make_rate
   end
 
   def find_wsf
@@ -51,7 +51,6 @@ class GemHendler
     rate += @data_about_gem[:forks] * 0.10
     rate += @data_about_gem[:used_by] * 0.5 + @data_about_gem[:contributers] * 0.05
     rate += @data_about_gem[:issues] * 0.05
-    @data_about_gem[:rate] = rate
   end
 
   def find_forks
