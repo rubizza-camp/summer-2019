@@ -28,4 +28,5 @@ class Sorter
         temp[5] + "\t contributors | " + temp[6] + "\t issues |"
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
