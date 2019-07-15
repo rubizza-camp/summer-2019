@@ -4,8 +4,6 @@ gems:
   - rubocop
   - bootstrap
   - faraday
-  - reek
-  - sinatra
   - a
-  - terminal-table
-  - gems
+  - sinatra
+  - nokogiri
