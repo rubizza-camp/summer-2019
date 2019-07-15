@@ -10,7 +10,6 @@ def get_owner(repo)
   request = Net::HTTP::Post.new(uri.path)
   request['User-Agent'] = 'Volovenko'
   request['Authorization'] = "token #{@token}"
-  :reek:TooManyStatements:
   request.body =
     "{\"query\":\"{search(query:\\\"#{repo}\\\",type:REPOSITORY,first:1){edges{ node{ ... on Repository {owner{login}}}}}}\"}"
 

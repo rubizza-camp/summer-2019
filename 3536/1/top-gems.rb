@@ -1,3 +1,4 @@
+rubocop:disable all
 require 'yaml'
 require 'net/http'
 require 'uri'
