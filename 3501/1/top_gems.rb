@@ -79,6 +79,7 @@ class TopGems
   end
 
   def yaml_from_file(options)
+    options[:file] = 'gems.yaml' unless options[:file]
     YAML.load_file(File.open(options[:file]))
   end
 end
