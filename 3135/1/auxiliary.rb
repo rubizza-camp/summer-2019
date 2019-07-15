@@ -3,20 +3,18 @@ require 'table_print'
 
 private
 
-def load_list(file = nil)
+def load_list(file)
   YAML.load_file(file || 'gem_list.yml')['gems']
 end
 
-def check_names(list, name = nil)
-  seq = options[:name]
-  return list.select! { |name| name.include? seq } if seq
+def check_names(list, sequence)
+  return list.select! { |name| name.include? sequence } if sequence
 
   list
 end
 
-def check_top(gems, options)
-  num = options[:top]
-  return gems[1..num] if num && gems.length > num
+def check_top(gems, num = nil)
+  return gems.first(num) if num
 
   gems
 end

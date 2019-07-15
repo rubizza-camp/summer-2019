@@ -5,60 +5,83 @@ require 'JSON'
 # The GemData class
 # :reek:InstanceVariableAssumption, :reek:TooManyInstanceVariables, :reek:TooManyStatements
 class GemData
-  attr_reader :name, :rating, :watch, :star, :fork, :issues, :contributors, :used_by, :github_link
-
-  def self.call(name)
-    new(name).call
-  end
-
-  private
-
-  def call(name)
-    response = call_rubygems_api # these should be private and be called within the class(?)
-    @rating = rating_stat(response)
-    @github_link = fetch_github_link(response)
-    github_stats = GithubStats.call(github_link)
-    @used_by = github_stats.used_by
-    github_parse(@github_link)    
-  end
+  attr_reader :name, :rating, :watches, :stars, :forks, :issues, :contributors, :used_by, :github_link
 
   def initialize(name)
     @name = name
   end
 
-  def call_rubygems_api
-    uri = "https://rubygems.org/api/v1/gems/#{@name}.json"
-    JSON.parse(Net::HTTP.get(URI(uri)))
+  def populate(link)
+    #response = call_rubygems_api(@name)
+    #@rating = fetch_rating_stat(response)
+    #@github_link = fetch_github_link(response)
+    puts GithubStats.call(link)
+    ##puts [@watches, @stars, @forks, @issues, @contributors, @used_by]
+    #github_parse(@github_link)
+  end
+end
+
+class RubyGemsStats
+
+  def self.call(gem_name)
+    new(gem_name).call
   end
 
-  def rating_stat(data)
-    data['downloads']
+  # def call
+  # end
+
+  def initialize(name)
+    @name = name
   end
 
-  def fetch_github_link(data)
-    [data['source_code_uri'], data['homepage_uri']].find { |link| link.to_s.include? 'github.com' }
+  #def call_rubygems_api(name)
+  #  uri = "https://rubygems.org/api/v1/gems/#{name}.json"
+  #  JSON.parse(Net::HTTP.get(URI(uri)))
+  #end
+
+  #def fetch_rating_stat(data)
+  #  data['downloads']
+  #end
+
+  #def fetch_github_link(data)
+  #  [data['source_code_uri'], data['homepage_uri']].find { |link| link.to_s.include? 'github.com' }
+  #end
+end
+
+class GithubStats
+
+  def self.call(github_uri)
+    new(github_uri).call
   end
 
-  # rubocop:disable Metrics/AbcSize, Security/Open
-  # :reek:DuplicateMethodCall
-  def github_parse(link)
-    github_stats(link)
-    github_used_by(link)
+  def call
+    stats.merge(used_by).transform_values{ |value| value.text.gsub(/\D/, '').to_i }
   end
-  # rubocop:enable Metrics/AbcSize, Security/Open
-  def github_stats(link)
-    doc = Nokogiri::HTML(open(link))
+
+  private
+
+  def initialize(uri)
+    @uri = uri
+  end
+
+  def fetch_html(uri)
+    Nokogiri::HTML(open(uri))
+  end
+
+  def stats
+    doc = fetch_html(@uri)
     tag = doc.css('.social-count')
-    watch, star, forks, _ = tag.map { |el| el.text.gsub(/\D/, '').to_i }
-
-    issues = doc.css('.Counter')[0].text.gsub(/\D/, '')
-    contributors = doc.css("span[class='num text-emphasized']")[3].text.gsub(/\D/, '')
-    [watch, star, forks, issues,contributors]
+    {
+      watches: tag[0],
+      stars: tag[1],
+      forks: tag[2],
+      issues: doc.css('.Counter')[0],
+      contributors: doc.css("span[class='num text-emphasized']")[3]
+    }
   end
 
-  def github_used_by(link)
-    doc = Nokogiri::HTML(open("#{link}/network/dependents"))
-    doc.css("a[class='btn-link selected']").text.gsub(/\D/, '')
+  def used_by
+    doc = fetch_html(@uri << '/network/dependents')
+    { used_by: doc.css("a[class='btn-link selected']") }
   end
-
 end

@@ -2,8 +2,3 @@ gems:
   - sinatra
   - rspec-core
   - bundler
-  - multi_json
-  - rack
-  - diff-lcs
-  - nokogiri
-  - rails
