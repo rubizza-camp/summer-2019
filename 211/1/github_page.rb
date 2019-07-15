@@ -9,7 +9,7 @@ class GithubPage
     @name = gem_name
     rubygems_page = HTTParty.get("https://rubygems.org/api/v1/gems/#{gem_name}")
     parsed = JSON.parse(rubygems_page.body)
-    @github_link = parsed['source_code_uri'] || parsed['home_page_uri']
+    @github_link = parsed['source_code_uri'] || parsed['homepage_uri']
   end
 
   def write_files
@@ -22,4 +22,5 @@ class GithubPage
     file_main.puts main_page.to_s
     file_main.close
   end
+
 end
