@@ -51,7 +51,6 @@ class RepoAdapter
   end
 
   def add_gem_info(hsh, str)
-
     transformer_result = transformer_data(str)
     transformer_result == 'error' ? error_list << str : hsh[str] = gem_info(transformer_result)
   end

@@ -13,6 +13,10 @@ class Scraper
     to_natural(watches_stars_forks.merge(contributors, issues, used_by))
   end
 
+  def self.class_browser
+    @class_browser ||= Watir::Browser.new(:firefox, headless: true)
+  end
+
   private
 
   attr_reader :link
@@ -21,9 +25,6 @@ class Scraper
     @browser_page ||= generate_browser_page
   end
 
-  def self.class_browser
-    @class_browser ||= Watir::Browser.new(:firefox, headless: true)
-  end
 
   def browser
     @browser = self.class.class_browser
@@ -46,7 +47,7 @@ class Scraper
   def watches_stars_forks
     keys = %i[watches stars forks]
     enumerator = browser_page.elements(css: '.social-count')
-                             .to_a.map { |number| number.text.strip }.each
+                   .to_a.map { |number| number.text.strip }.each
     keys.each_with_object({}) do |key, hash|
       hash[key] = enumerator.next
     end
