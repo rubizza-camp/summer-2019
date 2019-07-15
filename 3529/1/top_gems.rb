@@ -20,7 +20,6 @@ class UserCommunicator
       @file_name = argument.gsub('--file=', '') if argument.include?('file')
     end
     @file = YAML.safe_load(File.read(@file_name))
-    find_list
   end
 
   def make_top
@@ -31,6 +30,7 @@ class UserCommunicator
   end
 
   def load_arguments
+    find_list
     ARGV.each do |argument|
       @list = @list.slice(0, argument[/[0-9]+/].to_i) if argument.include?('top')
       name_handler(argument) if argument.include?('name')
@@ -50,9 +50,8 @@ class UserCommunicator
       gem = GemsApiHendler.new(gem_name)
       next unless gem.find_github
 
-      gemh = GemHendler.new(gem.gem_github)
+      gemh = GemHendler.new(gem.gem_github, gem_name)
       gemh.join_all_data
-      gemh.data_about_gem[:name] = gem_name
       @list << gemh.data_about_gem
     end
   end
@@ -71,7 +70,7 @@ user = UserCommunicator.new
 begin
   user.load_arguments
   table = Terminal::Table.new do |t|
-    t.headings = ['watched by', 'stars', 'forks', 'used by', 'contributors', 'issues', 'gem name']
+    t.headings = ['gem name', 'watched by', 'stars', 'forks', 'used by', 'contributors', 'issues']
     t.rows = user.rows
   end
   puts table

@@ -11,7 +11,7 @@ require 'octokit'
 class GemHendler
   attr_reader :data_about_gem
 
-  def initialize(github_url)
+  def initialize(github_url, gem_name)
     @url = github_url
     @data_about_gem = {}
     puts "Didn't find repository on github" unless @url
@@ -20,6 +20,7 @@ class GemHendler
     user = @client.user
     user.login
     @client.auto_paginate = true
+    @data_about_gem[:name] = gem_name
   end
 
   def adress_handle
