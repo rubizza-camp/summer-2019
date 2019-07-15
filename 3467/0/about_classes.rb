@@ -43,7 +43,7 @@ class AboutClasses < Neo::Koan
     end
 
     assert_raise(NoMethodError) do
-      eval "fido.@name"
+      eval "fido.name"
       # NOTE: Using eval because the above line is a syntax error.
     end
   end
