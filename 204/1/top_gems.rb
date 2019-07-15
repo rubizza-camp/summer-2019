@@ -60,18 +60,20 @@ class GemsTop
   end
 
   # rubocop: disable Lint/UselessSetterCall
+  # rubocop: disable Metrics/AbcSize
+  # disable AbcSize, because i will get 429 error if will split more Nokogiri requests
   # :reek:TooManyStatements
   def gem_info(gem, client)
     gem_data = {}
-    description = Gems.info(gem)
     uri = (
-      description['source_code_uri'] || description['homepage_uri']).sub!(%r{http.*com/}, '')
+      Gems.info(gem)['source_code_uri'] || Gems.info(gem)['homepage_uri']).sub!(%r{http.*com/}, '')
     repo = repository(uri, client)
-    contributors_count = contributors(uri)
-    used_by_count = dependents(uri)
+    contributors_count = contributors(uri).css('span.num.text-emphasized').children[2].text.to_i
+    used_by_count = dependents(uri).css('.btn-link')[1].text.delete('^0-9').to_i
     gem_data[gem.to_sym] = gem_properties(repo, contributors_count, used_by_count)
   end
   # rubocop: enable Lint/UselessSetterCall
+  # rubocop: enable Metrics/AbcSize
 
   def repository(uri, client)
     repo = client.repo uri
@@ -98,13 +100,11 @@ class GemsTop
   end
 
   def contributors(uri)
-    Nokogiri::HTML(open('https://github.com/' + uri, 'User-Agent' => 'Noo'))
-    contributors(uri).css('span.num.text-emphasized').children[2].text.to_i
+    Nokogiri::HTML(open('https://github.com/' + uri))
   end
 
   def dependents(uri)
-    Nokogiri::HTML(open('https://github.com/' + uri + '/network/dependents', 'User-Agent' => 'Noo'))
-    dependents(uri).css('.btn-link')[1].text.delete('^0-9').to_i
+    Nokogiri::HTML(open('https://github.com/' + uri + '/network/dependents'))
   end
 
   # :reek:UtilityFunction
