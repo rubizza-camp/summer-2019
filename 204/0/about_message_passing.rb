@@ -158,6 +158,7 @@ class AboutMessagePassing < Neo::Koan
       end
     end
   end
+
   # rubocop: enable Style/MethodMissing
 
   def test_foo_method_are_caught
