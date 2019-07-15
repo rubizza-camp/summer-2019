@@ -42,3 +42,4 @@ def get_data(owner, gem)
     return table
   end
 end
+rubocop:enable Metrics/LineLength

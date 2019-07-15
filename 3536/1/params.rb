@@ -1,8 +1,8 @@
-:nodoc:
+
 require 'net/http'
 require 'open-uri'
 def file_main
-  gems_names = YAML.safe_load(open(@yml_file.to_s))['gems']
+  gems_names = YAML.safe_load(open(@yml_file.to_s))['gems']  :nodoc:
   gems_names.each do |gem|
     owner = get_owner(gem)
     gem_data = get_data(owner, gem)
