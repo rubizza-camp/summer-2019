@@ -7,18 +7,10 @@ require 'nokogiri'
 require 'terminal-table'
 require_relative 'gems'
 require_relative 'parser'
+require_relative 'printer'
 
 gems = Gems.new('gems.yml')
-parser = Parser.new(gems.links, gems.names)
-p parser.data
-
-# github_data = Parser.new(github_paths.uri)
-
-# uri = github_paths.fetch('gems.yml')
-# github_data.extraction(github_paths.paths)
-
-# html = open(github_paths.fetch('gems.yml'))[:others][1]
-#    document = Nokogiri::HTML(html)
-#    document.css("a[class='social-count']")[0].text
-
-# /network/dependents
+parser = Parser.new
+parser.scrap(gems.links, gems.names)
+printer = Printer.new
+puts printer.output(parser.header, parser.rows)
