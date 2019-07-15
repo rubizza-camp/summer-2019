@@ -11,7 +11,7 @@ class AboutClasses < Neo::Koan
 
   def test_instances_of_classes_can_be_created_with_new
     fido = Dog.new
-    assert_equal AboutClasses::Dog, fido.class
+    assert_equal Dog, fido.class
   end
 
   # ------------------------------------------------------------------
@@ -38,10 +38,12 @@ class AboutClasses < Neo::Koan
       fido.name
     end
 
+    # rubocop:disable Style/EvalWithLocation
     assert_raise(SyntaxError) do
-      eval 'fido.@name', binding, __FILE__, __LINE__
+      eval 'fido.@name'
       # NOTE: Using eval because the above line is a syntax error.
     end
+    # rubocop:enable Style/EvalWithLocation
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
@@ -57,13 +59,10 @@ class AboutClasses < Neo::Koan
     fido.se_name('Fido')
 
     # rubocop:disable Style/EvalWithLocation
-
     assert_equal 'Fido', fido.instance_eval('@name') # string version
 
     # rubocop:enable Style/EvalWithLocation
-    # rubocop:disable Lint/AmbiguousBlockAssociation
-    assert_equal 'Fido', fido.instance_eval { @name } # block version
-    # rubocop:enable Lint/AmbiguousBlockAssociation
+    assert_equal 'Fido', (fido.instance_eval { @name }) # block version
   end
 
   # ------------------------------------------------------------------

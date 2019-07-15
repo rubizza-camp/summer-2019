@@ -41,7 +41,6 @@ class AboutExceptions < Neo::Koan
   def test_raising_a_particular_error
     result = nil
     begin
-      # 'raise' and 'fail' are synonyms
       raise MySpecialError, 'My Message'
     rescue MySpecialError => e
       result = :exception_handled

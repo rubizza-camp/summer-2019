@@ -79,7 +79,6 @@ class AboutClassMethods < Neo::Koan
   end
 
   def Dog.name
-    attr_reader :name
     @name
   end
 

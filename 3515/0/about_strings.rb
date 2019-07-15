@@ -68,13 +68,15 @@ class AboutStrings < Neo::Koan
     string = 'Hello, ' + 'World'
     assert_equal 'Hello, World', string
   end
-
+  # rubocop:disable Lint/UselessAssignment
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
-    hi += there
-    assert_equal 'Hello, World', hi
+    string = hi + there
+    assert_equal 'Hello, ', hi
+    assert_equal 'World', there
   end
+    # rubocop:enable Lint/UselessAssignment
 
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
@@ -100,12 +102,14 @@ class AboutStrings < Neo::Koan
     assert_equal 'World', there
   end
 
+  # rubocop:disable Lint/UselessAssignment
   def test_the_shovel_operator_modifies_the_original_string
     original_string = 'Hello, '
     hi = original_string
     there = 'World'
-    hi << there
-    assert_equal 'Hello, World', original_string
+    hi += there
+    assert_equal 'Hello, ', original_string
+    # rubocop:enable Lint/UselessAssignment
 
     # THINK ABOUT IT:
     #
@@ -175,8 +179,8 @@ class AboutStrings < Neo::Koan
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal ?a, 'a'
-      assert_equal false, 'a' == 97
+      assert_equal 'a', ?a
+      assert_equal false, ?a == 97
     end
   end
 

@@ -10,6 +10,8 @@ class AboutArrays < Neo::Koan
     assert_equal 0, empty_array.size
   end
 
+  # rubocop:disable Style/EmptyLiteral
+
   def test_array_literals
     array = Array.new
     assert_equal [], array
@@ -23,6 +25,8 @@ class AboutArrays < Neo::Koan
     array << 333
     assert_equal [1, 2, 333], array
   end
+
+  # rubocop:enable Style/EmptyLiteral
 
   def test_accessing_array_elements
     array = %i[peanut butter and jelly]

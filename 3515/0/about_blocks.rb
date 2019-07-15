@@ -2,10 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:UtilityFunction
 # rubocop:disable Style/BlockDelimiters, Style/Lambda
-
 class AboutBlocks < Neo::Koan
   def method_with_block
-    yield 
+    yield
   end
 
   def test_methods_can_take_blocks
@@ -56,7 +55,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_methods_can_see_if_they_have_been_called_with_a_block
-    assert_equal true, yield_tester { :with_block } == :with_block
+    assert_equal :with_block, (yield_tester { :with_block })
     assert_equal :no_block, yield_tester
   end
 
@@ -90,9 +89,9 @@ class AboutBlocks < Neo::Koan
   # rubocop:enable Performance/RedundantBlockCall
 
   def test_methods_can_take_an_explicit_block_argument
-    assert_equal true, method_with_explicit_block { |num| num * 2 } == 20
+    assert_equal 20, (method_with_explicit_block { |num| num * 2 })
 
-    add_one = lambda { |num| num + 1  }
+    add_one = lambda { |num| num + 1 }
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end

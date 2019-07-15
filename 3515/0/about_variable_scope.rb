@@ -1,16 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:ClassVariable
-# rubocop:disable Style/GlobalVars,Style/ClassVars
+# rubocop:disable Style/GlobalVars,Style/ClassVars, Lint/UselessAssignment
 
 class AboutVariableScope < Neo::Koan
   def bark
-    'RUFF'
+    noise = 'RUFF'
   end
 
   def test_noise_is_not_available_in_the_current_scope
     assert_raise(NameError) do
-      bark
+      noise
     end
   end
 
@@ -36,6 +36,7 @@ class AboutVariableScope < Neo::Koan
 
   def test_block_variables_cannot_be_accessed_outside_scope
     2.times do
+      variable = 0
     end
     assert_equal nil, defined? variable
   end
@@ -105,4 +106,4 @@ end
 #
 # What will $anywhere be down here, outside of the scope of the
 # AboutVariableScope class?
-# rubocop:enable Style/GlobalVars,Style/ClassVars
+# rubocop:enable Style/GlobalVars,Style/ClassVars, Lint/UselessAssignment
