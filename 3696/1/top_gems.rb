@@ -1,5 +1,5 @@
 require './main'
 require './setuper'
-require './info_source'
+require './repo_adapter'
 require './table_drawer'
-Main.new(Setuper, InfoSource, TableDrawer).run
+Main.new(Setuper, RepoAdapter, TableDrawer).run

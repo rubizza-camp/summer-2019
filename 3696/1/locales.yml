@@ -15,7 +15,7 @@ en:
   yaml_error: "The file doesn't suit YAML format"
   gem_key_error: "The file doesn't start with 'gem' key. Can't locate gems"
   not_a_gem: "is not a gem"
-  browser_error: "Something is wrong with ypur connection. Try later"
+  browser_error: "A browser error occured on"
 ru:
   name: "Имя"
   watches: "Просмотры"
@@ -33,5 +33,5 @@ ru:
   yaml_error: "Предоставленный файл не соответствует формату YAML"
   gem_key_error: "В файле отсутствует ключ 'gems'. Файл не может быть обработан"
   not_a_gem: "не является гемом"
-  browser_error: "Произошла ошибка, проверьте ваше соединение с Интернетом, повторите позже"
+  browser_error: "Произошла ошибка сети на обработке"
 

@@ -23,15 +23,16 @@ class Setuper
   end
 
   def gem_names
-    @gem_names ||= begin
-                     YAML.load_file(options[:file] || 'example.yaml')['gems']
-                   rescue Errno::ENOENT
-                     puts I18n.t('no_file')
-                     exit
-                   rescue YamlSyntaxError
-                     put I18n.t('yaml_error')
-                     exit
-                   end
+    @gem_names ||=
+      begin
+        YAML.load_file(options[:file] || 'example.yaml')['gems']
+      rescue Errno::ENOENT
+        puts I18n.t('no_file')
+        exit
+      rescue YamlSyntaxError
+        put I18n.t('yaml_error')
+        exit
+      end
   end
 
   def name_pattern

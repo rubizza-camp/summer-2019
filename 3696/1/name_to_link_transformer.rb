@@ -11,7 +11,7 @@ class NameToLinkTransformer
 
   attr_reader :name
 
-  #:reek:UncommunicativeVariableName for exception
+  # :reek:UncommunicativeVariableName
   def doc
     @doc ||= Nokogiri::HTML(URI.open("https://rubygems.org/gems/#{@name}"))
   rescue OpenURI::HTTPError => e

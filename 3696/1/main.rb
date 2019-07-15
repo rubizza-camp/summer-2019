@@ -3,7 +3,7 @@ require 'open-uri'
 require 'optparse'
 require './table_drawer'
 require 'i18n'
-require './info_source'
+require './repo_adapter'
 class Main
   def initialize(setup_class, source_parser_class, presenter_class)
     @setuper = setup_class
@@ -13,7 +13,7 @@ class Main
 
   def run
     starter = setuper.new
-    presenter.new.draw(source_parser.instance.data(starter.init_options))
+    presenter.new.draw(source_parser.new(starter.init_options).data)
   end
 
   private

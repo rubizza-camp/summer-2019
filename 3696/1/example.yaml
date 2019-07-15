@@ -3,11 +3,4 @@ gems:
  - sinatra
  - rspec
  - rails
- - activerecord
- - activestorage
- - s2d
- - spring
- - as
- - amazon
- - atogen
- - no_such_gem_i_think
+

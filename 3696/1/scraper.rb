@@ -3,14 +3,11 @@
 class Scraper
   FOR_USED_BY = '/network/dependents'
   URL = 'https://rubygems.org/gems/'
-  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/
+  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/.freeze
 
   def initialize(link, browser)
     @link = normalize(link)
-    @browser_page = generate_browser_page(browser)
-  rescue Watir::Exception::NavigationException
-    puts I18n.t('browser_error')
-    exit
+    @browser = browser
   end
 
   def scrape
@@ -19,7 +16,11 @@ class Scraper
 
   private
 
-  attr_reader :link, :browser_page
+  attr_reader :link, :browser
+
+  def browser_page
+    @browser_page ||= generate_browser_page(browser)
+  end
 
   def generate_browser_page(browser)
     browser.goto(link)
@@ -52,9 +53,6 @@ class Scraper
     used_by_browser = browser_page
     used_by_browser.goto(link + FOR_USED_BY)
     { used_by: used_by_browser.html.match(USED_BY_COUNT_GRAB_REGEXP).captures.first.strip }
-  rescue Watir::Exception::NavigationException
-    puts I18n.t('browser_error')
-    exit
   end
 
   def issues
