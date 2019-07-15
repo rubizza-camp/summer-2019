@@ -12,6 +12,7 @@ require_relative 'apihendler'
 class UserCommunicator
   attr_reader :file
   attr_reader :rows
+  attr_writer :list
 
   def initialize
     @rows = []
@@ -20,10 +21,6 @@ class UserCommunicator
       @file_name = argument.gsub('--file=', '') if argument.include?('file')
     end
     @file = YAML.safe_load(File.read(@file_name))
-  end
-
-  def list(list)
-    @list = list
   end
 
   def make_top
