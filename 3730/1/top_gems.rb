@@ -1,0 +1,70 @@
+require 'yaml'
+require 'terminal-table'
+require 'optparse'
+require_relative './repository'
+require_relative './gem_info'
+
+@command_line = {}
+
+OptionParser.new do |option|
+  option.on('--top NUMBER') { |i| @command_line[:number] = i }
+  option.on('--name NAME') { |i| @command_line[:name] = i }
+  option.on('--file FILE') { |i| @command_line[:file_name] = i }
+end.parse!
+
+filename = if @command_line[:file_name]
+             @command_line[:file_name]
+           else
+             'gems.yml'
+           end
+
+gem_list = YAML.load_file(filename).dig('gems')
+@gems = []
+
+def find_gem(name)
+  return unless Repository.a_gem?(name)
+  url = Repository.find_github_url(name)
+  gem = GemInfo.new(name, url)
+  gem.parse
+  @gems << gem
+end
+
+def find_all_gems(gem_list)
+  threads = []
+  gem_list.each do |gem|
+    if (gem_name = @command_line[:name])
+      next unless i.include?(gem_name)
+    end
+    threads << Thread.new { find_gem(gem) }
+  end
+  threads.each(&:join)
+end
+
+def add_row_to_table(gems, row, number)
+  gems[0...number].each { |gem| row.add_row gem.output }
+end
+
+def print_table(gems, number)
+  table = Terminal::Table.new do |row|
+    add_row_to_table(gems, row, number)
+  end
+
+  table.title = 'Gems statistics'
+  table.headings = ['Name', 'Used by', 'Watched by', 'Star', 'Forks', 'Contributors', 'Issues']
+  puts table
+end
+
+def sorted_gems(gems)
+  gems.sort! { |first, second| second.score <=> first.score }
+
+  number = if @command_line[:number]
+             @command_line[:number].to_i
+           else
+             gems.length
+           end
+
+  print_table(gems, number)
+end
+
+find_all_gems(gem_list)
+sorted_gems(@gems)
