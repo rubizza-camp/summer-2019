@@ -8,13 +8,15 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     # rubocop:disable Lint/LiteralAsCondition
+    # rubocop:disable Style/ConditionalAssignment
     if true
-      result = :true_value if true
+      result = :true_value
     else
       result = :false_value
     end
     assert_equal :true_value, result
     # rubocop:enable Lint/LiteralAsCondition
+    # rubocop:enable Style/ConditionalAssignment
   end
 
   def test_if_then_statements
