@@ -3,11 +3,10 @@
 class Scraper
   FOR_USED_BY = '/network/dependents'
   URL = 'https://rubygems.org/gems/'
-  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/
+  USED_BY_COUNT_GRAB_REGEXP = /(\d*,?\d*,?\d+)\s*\n*\s*(Repositories)/.freeze
 
-  def initialize(link, browser)
+  def initialize(link)
     @link = normalize(link)
-    @browser = browser
   end
 
   def scrape
@@ -16,13 +15,21 @@ class Scraper
 
   private
 
-  attr_reader :link, :browser
+  attr_reader :link
 
   def browser_page
-    @browser_page ||= generate_browser_page(browser)
+    @browser_page ||= generate_browser_page
   end
 
-  def generate_browser_page(browser)
+  def self.class_browser
+    @class_browser ||= Watir::Browser.new(:firefox, headless: true)
+  end
+
+  def browser
+    @browser = self.class.class_browser
+  end
+
+  def generate_browser_page
     browser.goto(link)
     sleep 0.1 until browser.elements(css: '.num.text-emphasized').size == 4
     browser

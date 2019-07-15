@@ -5,8 +5,10 @@ class NameToLinkTransformer
     @name = name
   end
 
-  def link
+  def data
     github_in_code_link || github_in_home_link || 'no-link'
+  rescue Watir::Exception
+    puts "#{I18n.t('browser_error')} #{str}"
   end
 
   private
