@@ -1,4 +1,5 @@
 # This class parse option parameters
+
 class OptionParse
   def initialize
     @options = {}

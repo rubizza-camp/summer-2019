@@ -10,6 +10,7 @@ require 'open-uri'
 require 'bundler'
 Bundler.require
 # Main class
+
 class TopGems
   attr_reader :gems_arr
   attr_reader :parameters
@@ -29,8 +30,8 @@ class TopGems
 
   def make_without_custom_name
     @gems_arr.gems_arr.each do |gem_name|
-      gem_params = ParamsGetter.new(gem_url_get(gem_name).url)
-      gem = MyGem.new(gem_name, gem_params.params)
+      gem_stats = StatsGetter.new(gem_url_get(gem_name).url)
+      gem = MyGem.new(gem_name, gem_stats.stats)
       @gems << gem
     end
     print_table
@@ -47,7 +48,7 @@ class TopGems
   def make_with_custom_name
     @gems_arr.gems_arr.each do |gem_name|
       if gem_name.include? @parameters[:name].to_s
-        gem = MyGem.new(gem_name, ParamsGetter.new(gem_url_get(gem_name).url).params)
+        gem = MyGem.new(gem_name, StatsGetter.new(gem_url_get(gem_name).url).stats)
         @gems << gem
       end; next; end; print_table
   end

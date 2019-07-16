@@ -1,4 +1,5 @@
 # This class print all gems with params
+
 class TablePrinter
   def initialize(gems, count = 0)
     @count = count.to_i
