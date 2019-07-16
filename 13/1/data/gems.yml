@@ -1,0 +1,8 @@
+gems:
+  - rspec
+  - Sinatra
+  - rspec
+  - Rails
+  - pry
+  - mechanize
+  - nokogiri
