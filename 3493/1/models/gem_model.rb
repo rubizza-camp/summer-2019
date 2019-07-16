@@ -1,34 +1,22 @@
 module Models
-  # :reek:InstanceVariableAssumption
-  # :reek:Attribute
-  # :reek:TooManyInstanceVariables:
   class GemModel
-    attr_accessor :url, :name, :count_contributors, :count_used_by
-    attr_reader :count_watched, :count_stars, :count_forks, :count_issues
+    attr_reader :gem_hash
 
     def initialize(name, url)
-      @name = name
-      @url = url
-      # @count_used_by = count_used_by
+      @gem_hash = { name: name, url: url, count_watched: 0, count_stars: 0, count_forks: 0,
+                    count_issues: 0, count_contributors: 0 }
+    end
+
+    def save_count_used_by(count_used_by)
+      @gem_hash[:count_used_by] = count_used_by.to_i
     end
 
     def install_fields(args)
-      @count_watched = args[0]
-      @count_stars = args[1]
-      @count_forks = args[2]
-      @count_issues = args[3]
-      @count_contributors = args[4]
-    end
-
-    def fields
-      { name: name, count_used_by: count_used_by.to_i, count_watched: count_watched.to_i,
-        count_stars: count_stars.to_i, count_forks: count_forks.to_i,
-        count_contributors: count_contributors.to_i, count_issues: count_issues.to_i }
-    end
-
-    def strings
-      [name, "used by #{count_used_by}", "watched by #{count_watched}", "#{count_stars} stars",
-       "#{count_forks} forks", "#{count_contributors} contibutors", "#{count_issues} issues"]
+      @gem_hash[:count_watched] = args[0].to_i
+      @gem_hash[:count_stars] = args[1].to_i
+      @gem_hash[:count_forks] = args[2].to_i
+      @gem_hash[:count_issues] = args[3].to_i
+      @gem_hash[:count_contributors] = args[4].to_i
     end
   end
 end
