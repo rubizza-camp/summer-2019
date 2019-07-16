@@ -1,14 +1,20 @@
 # This class parse option parameters
 
 class OptionParse
+  attr_reader :options
+
   def initialize
     @options = {}
     @parser = OptionParser.new
   end
 
-  def parse
+  def call
     call_parser
     @options
+  end
+
+  def self.call
+    new.call
   end
 
   private
@@ -22,6 +28,6 @@ class OptionParse
   end
 
   def bind_flag(opts, flag, sym)
-    opts.on(flag, '') { |value| @options[sym] = value }
+    opts.on(flag, '') { |value| options[sym] = value }
   end
 end

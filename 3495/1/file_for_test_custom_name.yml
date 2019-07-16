@@ -6,9 +6,3 @@ gems:
   - json
   - a
   - bootstrap
-  - devise
-  - pry
-  - httparty
-  - rubocop
-  - resque
-  - sidekiq

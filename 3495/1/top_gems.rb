@@ -1,9 +1,9 @@
-require_relative './libs/get_gem_url'
-require_relative './libs/get_params'
-require_relative './libs/gem'
-require_relative './libs/print_table'
-require_relative './libs/parse_option'
-require_relative './libs/load_gem_list'
+require_relative './libs/gem_url_getter'
+require_relative './libs/stats_getter'
+require_relative './libs/my_gem'
+require_relative './libs/table_printer'
+require_relative './libs/option_parse'
+require_relative './libs/gem_list_loader'
 require 'yaml'
 require 'optparse'
 require 'open-uri'
@@ -18,7 +18,7 @@ class TopGems
 
   def main
     @gems = []
-    @parameters = OptionParse.new.parse
+    @parameters = OptionParse.call
     @gems_arr = GemListLoader.new
     parameters_get
   end

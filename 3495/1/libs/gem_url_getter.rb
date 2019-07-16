@@ -16,7 +16,7 @@ class GemUrlGetter
 
   def url_from(uri)
     url = parse_gem_url(uri)
-    url if url.include? '://github.com/'
+    url if (url.to_s.include? '://github.com/') && (HTTParty.get(url).code == 200)
   end
 
   def parse_gem_url(uri)
