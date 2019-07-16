@@ -12,13 +12,13 @@ class Coordinator
   # :reek:ToManyStatements
   def run
     @options = parse_options
-    @gem_list = @options[:sort_name] ? [@options[:sort_name]] : gem_names
-    @repos = @options[:top] ? top_gems : order_repositories
+    @gem_list = options[:sort_name] ? [options[:sort_name]] : gem_names
+    @repos = options[:top] ? top_gems : order_repositories
     print_table
   end
 
   def gem_names
-    YAML.load_file(@options[:file])['gems']
+    YAML.load_file(options[:file])['gems']
   end
   # :reek:FeatureEnvy
 
@@ -37,7 +37,7 @@ class Coordinator
   end
 
   def top_gems
-    top_number = (@options[:top].to_i - 1)
+    top_number = (options[:top].to_i - 1)
     order_repositories[0..top_number]
   end
 
