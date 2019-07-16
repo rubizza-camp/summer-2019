@@ -1,0 +1,11 @@
+gems:
+ - sinatra
+ - rspec
+#  - devise
+#  - rails
+#  - colorize
+#  - tmuxinator
+#  - rake
+#  - reek
+#  - rubocop
+#  - jquery-rails
