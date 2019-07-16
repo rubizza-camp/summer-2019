@@ -23,7 +23,7 @@ class TableOutput
   end
 
   def how_many_names_need_to_display?(count_gems_in_argv, count_gems)
-    if count_gems_in_argv.to_i > 0 && count_gems_in_argv.to_i < count_gems
+    if count_gems_in_argv.to_i.positive? && count_gems_in_argv.to_i < count_gems
       count_gems_in_argv.to_i
     else
       count_gems
