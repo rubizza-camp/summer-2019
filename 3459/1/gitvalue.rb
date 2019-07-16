@@ -6,11 +6,10 @@ require 'json'
 require 'terminal-table'
 require_relative 'link'
 
-# This class using the Nokogiri gem opens and parses gem pages on the github
-# and inserts values ​​into the array of strings git value.
+# This class gets all the info from the gem githab page.
 class GitValue
   attr_reader :git_value
-
+  # git value this is an array of strings to which we enter values.
   def initialize(links)
     @links = links
     @git_value = []
