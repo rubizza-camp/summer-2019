@@ -2,7 +2,7 @@ require_relative 'html_method'
 require_relative 'score_methods'
 require_relative 'print_table'
 
-module GemMethod
+module GemManager
   class GemManager
     include HtmlMethod
     include ScoreMethod
@@ -22,7 +22,7 @@ module GemMethod
 
     def call
       parse_gem_info
-      PrintTable.print_table(gem_hash)
+      PrintTable.call(gem_hash)
     end
 
     private
