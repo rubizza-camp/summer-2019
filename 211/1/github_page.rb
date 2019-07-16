@@ -3,8 +3,9 @@ require 'json'
 
 class GithubPage
   include HTTParty
-  attr_accessor :main_page, :page
+  attr_accessor :contrib_page, :page
   base_uri 'https://rubygems.org/api/v1/gems'
+
   def initialize(gem_name)
     @name = gem_name
     begin
@@ -22,9 +23,9 @@ class GithubPage
     page = HTTParty.get("#{@github_link}/network/dependents")
     file.puts page.to_s
     file.close
-    file_main = File.open("#{@name}_main.html", 'w')
-    main_page = HTTParty.get(@github_link.to_s)
-    file_main.puts main_page.to_s
+    file_main = File.open("#{@name}_contrib.html", 'w')
+    contrib_page = HTTParty.get(@github_link.to_s)
+    file_main.puts contrib_page.to_s
     file_main.close
   end
 end

@@ -1,10 +1,10 @@
-require 'yaml'
-require 'httparty'
-require 'json'
-require 'table_print'
-require_relative './opt.rb'
-require_relative './gem_info.rb'
-require_relative './cli.rb'
+require_relative './optparse_script.rb'
+require_relative './gem_scorer.rb'
 
-options = OptparseScript.parse
-@gems_array = GemScorer::Cli.new.call(options)
+begin
+  options = OptparseScript.parse
+rescue OptionParser::InvalidArgument => e
+  puts "#{e}. 'top' must be a number"
+  exit 1
+end
+GemScorer.new.call(options)
