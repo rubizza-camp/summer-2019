@@ -7,7 +7,7 @@ require 'gems'
 require 'terminal-table'
 require 'optparse'
 
-@options = {:top_gem => nil, :name_gem => nil}
+@options = {:top_gem => nil, :name_gem => nil, :file => nil}
 
 OptionParser.new do |parser|
   parser.on('--top=', Integer) do |top|
@@ -18,7 +18,10 @@ OptionParser.new do |parser|
     puts "Searching for #{name}"
     @options[:name_gem] = name
   end
-  parser.on('--file')
+  parser.on('--file=') do |file|
+    puts "Take info from #{file}"
+    @options[:file] = file
+  end
 end.parse!
 
 def initialize
@@ -36,25 +39,23 @@ end
 def yaml_parse
   initialize
   data = YAML.safe_load(File.read('gems.yaml'))
-  @arr_of_gems = Array.new(data['gems'].delete('-').split(' '))
-
-  if @options[:name_gem] = nil
-    @arr_of_gems.each do |item|
-      unless item.include?(@options[:name_gem])
-        @arr_of_gems.delete(item)
-      end
-    end
+  unless @options[:file] == nil
+    data = YAML.safe_load(File.read(@options[:file]))
   end
+  @arr_of_gems = Array.new(data['gems'].delete('-').split(' '))
   p @arr_of_gems
+  unless @options[:name_gem] == nil
+    @arr_of_gems.each do |i|
+      @arr_of_gems.delete_if { |i| !(i.include?(@options[:name_gem])) }
+    end
+    p "find #{@arr_of_gems.length} gems with name #{@options[:name_gem]}" 
+  end
 end
 
 def check_for_optparse
   if @options[:top_gem] == nil
     @options[:top_gem] = @arr_of_gems.length
   end 
-  if @options[:name_gem] == nil
-    @options[:top_gem] = @arr_of_gems.length
-  end
 end
 
 def takin_sources
@@ -100,9 +101,7 @@ def arr_to_hash
   p @arr_n
 end
 
-
-
-def rating 
+def rating
     arr_to_hash
     check_for_optparse
     arr_rate = []
