@@ -1,12 +1,11 @@
 require_relative 'html_method'
+require_relative 'score_methods'
+require_relative 'print_table'
 
 module GemMethod
   class GemManager
     include HtmlMethod
-
-    INCREASED_COEF = 3
-    NORMAL_COEF = 2
-    REDUCED_COEF = 1
+    include ScoreMethod
 
     attr_reader :file_name, :gem_name, :top_count, :gem_hash
 
@@ -23,7 +22,7 @@ module GemMethod
 
     def call
       parse_gem_info
-      print_table
+      PrintTable.print_table(gem_hash)
     end
 
     private
@@ -41,19 +40,12 @@ module GemMethod
       (gem_url == 'nil') || !(gem_url.include? 'https://github.com/') && !(gem_url.include? 'http://github.com/')
     end
 
-    def print_table
-      rows = []
-      gem_hash.each { |_key, value| rows << value.strings }
-      table = Terminal::Table.new rows: rows
-      puts table
-    end
-
     def collect_gem_data(gem)
       url = find_repo_html_url(gem)
       gem_object = Models::GemModel.new(gem, url)
       gem_object.install_fields(find_fields(url))
-      gem_object.count_used_by = find_used_by(url)
-      gem_object
+      gem_object.save_count_used_by(find_used_by(url))
+      gem_object.gem_hash
     end
 
     def valid_gem?(gem)
@@ -78,29 +70,13 @@ module GemMethod
       choose_top_gem if top_count.positive?
     end
 
-    def calculate_score(gem_hash)
-      INCREASED_COEF * gem_hash[:count_used_by] +
-        NORMAL_COEF * gem_hash[:count_watched] * gem_hash[:count_stars] * gem_hash[:count_forks] +
-        REDUCED_COEF * gem_hash[:count_contributors] * gem_hash[:count_issues]
-    end
-
     def sort_gem(score)
       score.sort_by { |_key, value| value }.last(top_count)
     end
 
-    def group_score
-      score = {}
-      gem_hash.each do |key, value|
-        hash = value.fields
-        score[key] = calculate_score(hash.slice(:count_used_by, :count_watched, :count_stars,
-                                                :count_forks, :count_contributors, :count_issues))
-      end
-      score
-    end
-
     def choose_top_gem
       total_hash = {}
-      sort_gem(group_score).each { |elem| total_hash[elem[0]] = gem_hash[elem[0]] }
+      sort_gem(group_score(gem_hash)).each { |elem| total_hash[elem[0]] = gem_hash[elem[0]] }
       @gem_hash = total_hash
     end
   end
