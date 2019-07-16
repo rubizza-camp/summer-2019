@@ -21,31 +21,36 @@ class GemData
   end
 end
 
+# RubyGemsStats fetches data grom rubygems.org by api
 class RubyGemsStats
 
   def self.call(gem_name)
     new(gem_name).call
   end
 
-  # def call
-  # end
+  def call
+    @data = call_rubygems_api
+    github_link.merge(downloads_stat)
+  end
+
+  private
 
   def initialize(name)
     @name = name
   end
 
-  #def call_rubygems_api(name)
-  #  uri = "https://rubygems.org/api/v1/gems/#{name}.json"
-  #  JSON.parse(Net::HTTP.get(URI(uri)))
-  #end
+  def call_rubygems_api
+    uri = "https://rubygems.org/api/v1/gems/#{@name}.json"
+    JSON.parse(Net::HTTP.get(URI(uri)))
+  end
 
-  #def fetch_rating_stat(data)
-  #  data['downloads']
-  #end
+  def downloads_stat
+    { downloads: @data['downloads'] }
+  end
 
-  #def fetch_github_link(data)
-  #  [data['source_code_uri'], data['homepage_uri']].find { |link| link.to_s.include? 'github.com' }
-  #end
+  def github_link
+    { github_uri: ([@data['source_code_uri'], @data['homepage_uri']].find { |link| link.to_s.include? 'github.com' }) }
+  end
 end
 
 class GithubStats

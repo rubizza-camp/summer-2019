@@ -19,8 +19,7 @@ list = check_names(list, options[:name]) # select gems with --name included (--n
 
 
 #puts GithubParseService.call('https://github.com/sinatra/sinatra')
-a = GemData.new('sinatra')
-puts a.populate('https://github.com/sinatra/sinatra')
+puts RubyGemsStats.call('sinatra')
 
 
 # -----------last but not the least
