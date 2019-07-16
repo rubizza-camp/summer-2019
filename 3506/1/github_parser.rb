@@ -13,8 +13,10 @@ class GithubParser
   end
 
   def parse
-    page = Nokogiri::HTML(URI.open(github_link))
-    combine_parsing(page)
+    parse_watches_stars_forks
+    parse_issues
+    parse_contributors
+    parse_dependents_page
     info
   end
 
@@ -24,15 +26,8 @@ class GithubParser
     label.text.tr(',', '').to_i
   end
 
-  def combine_parsing(page)
-    parse_watches_stars_forks(page)
-    parse_issues(page)
-    parse_contributors(page)
-    parse_dependents_page
-  end
-
-  def parse_watches_stars_forks(page)
-    page.css('.pagehead-actions a.social-count').each do |tag_a|
+  def parse_watches_stars_forks
+    github_show_page.css('.pagehead-actions a.social-count').each do |tag_a|
       case tag_a['aria-label']
       when /watching/
         info[:watches] = label_to_i(tag_a)
@@ -44,22 +39,34 @@ class GithubParser
     end
   end
 
-  def parse_issues(page)
-    issue = page.css("a[data-selected-links*='repo_issues'] span.Counter")
+  def parse_issues
+    issue = github_show_page.css("a[data-selected-links*='repo_issues'] span.Counter")
     info[:issues] = label_to_i(issue)
   end
 
-  def parse_contributors(page)
-    contributor = page.css("a[href*='contributors'] span.num")
+  def parse_contributors
+    contributor = github_show_page.css("a[href*='contributors'] span.num")
     info[:contributors] = label_to_i(contributor)
   end
 
   def parse_dependents_page
+    info[:used_by] = label_to_i(github_dependents_page.css('a.btn-link')[0])
+  end
+
+  def github_show_page
+    @github_show_page ||= begin
+      Nokogiri::HTML(URI.open(github_link))
+    rescue OpenURI::HTTPError
+      puts "Page #{github_link} not found"
+    end
+  end
+
+  def github_dependents_page
     dependents_url = "#{github_link}/network/dependents"
-    page = Nokogiri::HTML(URI.open(dependents_url))
-    info[:used_by] = label_to_i(page.css('a.btn-link')[0])
-    info
-  rescue OpenURI::HTTPError
-    puts "Github page #{dependents_url} not found"
+    @github_dependents_page ||= begin
+      Nokogiri::HTML(URI.open(dependents_url))
+    rescue OpenURI::HTTPError
+      puts "Page #{dependents_url} not found"
+    end
   end
 end

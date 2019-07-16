@@ -1,4 +1,4 @@
-require_relative 'ruby_gems_parser.rb'
+require_relative 'ruby_gems_parse.rb'
 require_relative 'github_parser.rb'
 
 # Class for calling RubyGemsParser and GithubParser,
@@ -13,10 +13,11 @@ class GemInfo
 
   def call
     puts gem_name
-    github_link = RubyGemsParser.new.parse(gem_name)
+    github_link = RubyGemsParse.new.call(gem_name)
+    return {} unless github_link
+
     info = GithubParser.new(github_link).parse
     add_rating(info)
-    info
   end
 
   private
@@ -25,5 +26,6 @@ class GemInfo
     rating =
       info.slice(:stars, :watches, :forks, :contributors).values.sum
     info[:rating] = rating - info[:issues]
+    info
   end
 end
