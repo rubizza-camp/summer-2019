@@ -1,5 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # rubocop:disable Metrics/ClassLength
+# rubocop:disable Style/IfUnlessModifier
+# rubocop:disable Lint/LiteralAsCondition
+# rubocop:disable Style/For
 
 # :reek:FeatureEnvy
 # :reek:RepeatedConditional
@@ -7,7 +10,6 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
-    # rubocop:disable Lint/LiteralAsCondition
     # rubocop:disable Style/ConditionalAssignment
     if true
       result = :true_value
@@ -15,35 +17,30 @@ class AboutControlStatements < Neo::Koan
       result = :false_value
     end
     assert_equal :true_value, result
-    # rubocop:enable Lint/LiteralAsCondition
     # rubocop:enable Style/ConditionalAssignment
   end
 
   def test_if_then_statements
     result = :default_value
-    # rubocop:disable Lint/LiteralAsCondition
-    result = :true_value if true
+    if true
+      result = :true_value
+    end
     assert_equal :true_value, result
-    # rubocop:enable Lint/LiteralAsCondition
   end
   # rubocop:disable Metrics/MethodLength
 
   def test_if_statements_return_values
-    # rubocop:disable Lint/LiteralAsCondition
     value = if true
               :true_value
             else
               :false_value
             end
     assert_equal :true_value, value
-    # rubocop:enable Lint/LiteralAsCondition
-    # rubocop:disable Lint/LiteralAsCondition
     value = if false
               :true_value
             else
               :false_value
             end
-    # rubocop:enable Lint/LiteralAsCondition
     assert_equal :false_value, value
 
     # NOTE: Actually, EVERY statement in Ruby will return a value, not
@@ -52,51 +49,45 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_if_statements_with_no_else_with_false_condition_return_value
-    # rubocop:disable Lint/LiteralAsCondition
-    value = (:true_value if false)
+    value = if false
+              :true_value
+            end
     assert_equal nil, value
-    # rubocop:enable Lint/LiteralAsCondition
   end
 
   def test_condition_operators
-    # rubocop:disable Lint/LiteralAsCondition
     assert_equal :true_value, (true ? :true_value : :false_value)
     assert_equal :false_value, (false ? :true_value : :false_value)
-    # rubocop:enable Lint/LiteralAsCondition
   end
 
   def test_if_statement_modifiers
     result = :default_value
-    # rubocop:disable Lint/LiteralAsCondition
     result = :true_value if true
 
     assert_equal :true_value, result
-    # rubocop:enable Lint/LiteralAsCondition
   end
 
   def test_unless_statement
     result = :default_value
-    # rubocop:disable Lint/LiteralAsCondition
-    result = :false_value unless false # same as saying 'if !false', which evaluates as 'if true'
+    unless false # same as saying 'if !false', which evaluates as 'if true'
+      result = :false_value
+    end
     assert_equal :false_value, result
-    # rubocop:enable Lint/LiteralAsCondition
   end
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    # rubocop:disable Lint/LiteralAsCondition
-    result = :true_value unless true # same as saying 'if !true', which evaluates as 'if false'
+    unless true # same as saying 'if !true', which evaluates as 'if false'
+      result = :true_value
+    end
     assert_equal :default_value, result
-    # rubocop:enable Lint/LiteralAsCondition
   end
 
   def test_unless_statement_modifier
-    # rubocop:disable Lint/UselessAssignment
     result = :default_value
-    result = :false_value
+    result = :false_value unless false
 
     assert_equal :false_value, result
-    # rubocop:enable Lint/UselessAssignment
   end
 
   def test_while_statement
@@ -147,7 +138,7 @@ class AboutControlStatements < Neo::Koan
   def test_for_statement
     array = %w[fish and chips]
     result = []
-    array.each do |item|
+    for item in array
       result << item.upcase
     end
     assert_equal %w[FISH AND CHIPS], result
@@ -162,3 +153,6 @@ class AboutControlStatements < Neo::Koan
   end
   # rubocop:enable Metrics/ClassLength
 end
+# rubocop:enable Style/IfUnlessModifier
+# rubocop:enable Lint/LiteralAsCondition
+# rubocop:enable Style/For
