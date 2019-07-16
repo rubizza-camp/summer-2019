@@ -23,29 +23,28 @@ class UserCommunicator
   end
 
   def make_top
-    @rows = []
     @list.sort_by! { |word| word[:rate] }
     @list.each do |gem|
       gem.delete(:rate)
     end
-    update_row
   end
 
   def load_arguments
-    find_list
     ARGV.each do |argument|
       top_check argument if argument.include?('top')
       name_handler(argument) if argument.include?('name')
       make_top
+      update_row
     end
   end
 
   def top_check(argument)
-    end_index = argument[/[0-9]+/].to_i-1
+    end_index = argument[/[0-9]+/].to_i - 1
     @list = @list[0..end_index]
   end
 
   def update_row
+    @rows = []
     @list.each do |gem|
       @rows << gem.values
     end
@@ -77,6 +76,7 @@ end
 
 user = UserCommunicator.new
 begin
+  user.find_list
   user.load_arguments
   table = Terminal::Table.new do |t|
     t.headings = ['gem name', 'watched by', 'stars', 'forks', 'used by', 'contributors', 'issues']

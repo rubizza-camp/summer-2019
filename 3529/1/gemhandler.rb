@@ -17,6 +17,7 @@ class GemHendler
     puts "Didn't find repository on github" unless @url
     @repo_addr = adress_handle
     @client = Octokit::Client.new(login: 'gannagoodkevich', password: 'Pusivill1999')
+    @client.auto_paginate = true
     login
     @data_about_gem[:name] = gem_name
     join_all_data
@@ -25,7 +26,6 @@ class GemHendler
   def login
     user = @client.user
     user.login
-    @client.auto_paginate = true
   end
 
   def adress_handle
