@@ -1,5 +1,6 @@
-# :reek:TooManyInstanceVariables
 # Task class: save ruby gem repository statistic
+
+# :reek:ToManyInstanceVariables
 class Repository
   attr_reader :gem_name, :used_by, :watches, :stars, :forks, :contributors, :issues
 

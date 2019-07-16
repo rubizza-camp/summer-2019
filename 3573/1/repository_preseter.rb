@@ -1,5 +1,3 @@
-require 'terminal-table'
-
 # Task: save in strings
 class RepositoryPreseter
   attr_reader :obj
@@ -9,7 +7,7 @@ class RepositoryPreseter
   end
 
   def strings
-    [obj.gem_name, "used by #{obj.used_by}", "watched by #{obj.watches}", "#{obj.stars} stars",
-     "#{obj.forks} forks", "#{obj.contributors} contributors", "#{obj.issues} issues"]
+    [obj.gem_name, obj.used_by, obj.watches, obj.stars,
+     obj.forks, obj.contributors, obj.issues]
   end
 end
