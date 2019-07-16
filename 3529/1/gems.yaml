@@ -2,6 +2,6 @@ gems:
   - rails
   - rspec
   - sinatra
-  #- httparty
-  #- octokit
-  #- terminal-table
+  - httparty
+  - octokit
+  - terminal-table
