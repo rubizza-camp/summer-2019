@@ -89,23 +89,21 @@ class GemHendler
   end
 
   def find_used_by
-    url_use = @url + '/network/dependents'
-    noko_obj = Nokogiri::HTML(create_req(url_use))
+    request = Typhoeus::Request.new(@url + '/network/dependents', followlocation: true)
+    request.run
+    response = request.response
+    response.body
+    noko_obj = Nokogiri::HTML(response.body)
     noko_obj.css('a.btn-link.selected').each do |element|
       @data_about_gem[:used_by] = element.text[/[\d*[:punct:]]+/].tr(',', '').to_i
     end
   end
 
-  def create_req(url)
-    request = Typhoeus::Request.new(url, followlocation: true)
+  def find_issues
+    request = Typhoeus::Request.new(@url + '/issues', followlocation: true)
     request.run
     response = request.response
-    response.body
-  end
-
-  def find_issues
-    url_issue = @url + '/issues'
-    noko_obj = Nokogiri::HTML(create_req(url_issue))
+    noko_obj = Nokogiri::HTML(response.body)
     noko_obj.css('a.btn-link.selected').each do |element|
       @data_about_gem[:issues] = element.text[/[\d*[:punct:]]+/].tr(',', '').to_i
     end
