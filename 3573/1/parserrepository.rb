@@ -5,7 +5,7 @@ require 'json'
 
 # Task: parsers gem repository and create repository statistic
 class ParserRepository
-  JSON_URL = 'https://rubygems.org/api/v1/gems/'.freeze
+  RUBYGEMS_API_URL = 'https://rubygems.org/api/v1/gems/'.freeze
 
   attr_reader :gem_name
 
@@ -14,7 +14,7 @@ class ParserRepository
   end
 
   def repo_url
-    json_str = ::Kernel.open(JSON_URL + "#{gem_name}.json").read
+    json_str = ::Kernel.open(RUBYGEMS_API_URL + "#{gem_name}.json").read
     @repo_url ||= JSON(json_str)['source_code_uri']
   end
 
