@@ -5,6 +5,12 @@ require 'optparse'
 
 DEFAULT_GEMS_FILE = 'gems.yml'.freeze
 
+OPTIONS_MAP = {
+  top:  ['-t', '--top=top',   Integer],
+  name: ['-t', '--name=name', String],
+  file: ['-f', '--file=file', String]
+}.freeze
+
 # Main class, which open file with gems,
 # call GemInfo class to get information about gems,
 # check options and print all information on console.
@@ -24,13 +30,16 @@ class TopGems
 
   private
 
-  # :reek:TooManyStatements and :reek:NestedIterators
   def parse_options
-    OptionParser.new do |opts|
-      opts.on('-t', '--top=top', Integer) { |top| @options[:top] = top }
-      opts.on('-n', '--name=name', String) { |name| @options[:name] = name }
-      opts.on('-f', '--file=file', String) { |file| @options[:file] = file }
-    end.parse!
+    option_parser = OptionParser.new
+    OPTIONS_MAP.map do |option_name, match_pattern|
+      parse_option(option_parser, match_pattern, option_name)
+    end
+    option_parser.parse!
+  end
+
+  def parse_option(option_parser, match_pattern, option_name)
+    option_parser.on(*match_pattern) { |value| @options[option_name] = value }
   end
 
   def open_file
