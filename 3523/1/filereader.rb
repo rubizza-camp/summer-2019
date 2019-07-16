@@ -1,28 +1,16 @@
 # frozen_string_literal: true
 
-require 'open-uri'
-require 'json'
 require 'yaml'
-# class FileRader
+# This is  FileReader class. This class read yaml files and get gem names
 class FileReader
-  attr_reader :document, :gem_links
+  attr_reader :document, :gem_names
 
   def initialize(file_name)
     @document = file_name
-    @gem_links = []
+    @gem_names = []
   end
-
-  def find_links
-    read.each do |name|
-      link = "https://rubygems.org/api/v1/gems/#{name.strip}"
-      @gem_links << JSON.parse(URI.open(link).read)['source_code_uri']
-    end
-    gem_links
-  end
-
-  private
 
   def read
-    YAML.load_file(@document)['gems']
+    @gem_names = YAML.load_file(@document)['gems']
   end
 end
