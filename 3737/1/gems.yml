@@ -1,4 +1,5 @@
 gems:
+  - rubygems-update
   - sinatra
   - rails
   - rspec-core

@@ -10,16 +10,23 @@ class TopGems
   end
 
   def gems_file
-    options_for_gems
-    file = YAML.load_file(@optn[:file])
-    file['gems'].each do |lib|
-      values = Parser.new.repository(lib)
-      next if values.nil?
-      @gems[lib] = values
-    end
-    options_select
+    optn = options_for_gems
+    file = YAML.load_file(optn[:file])
+    takegems(file['gems'])
+    options_select(optn)
   end
 
+  private
+
+  def takegems(file)
+    file.each do |lib|
+      values = Parser.new.repository(lib)
+      next unless values
+      @gems[lib] = values
+    end
+  end
+
+  # :reek:FeatureEnvy and :reek:NestedIterators
   def tableshow
     Terminal::Table.new do |tab|
       @gems.each do |key, val|
@@ -32,31 +39,33 @@ class TopGems
     end
   end
 
+  #:reek:NestedIterators and :reek:TooManyStatements
   def options_for_gems
-    @optn = {}
-    @optn[:file] = 'gems.yml'
+    optn = {}
+    optn[:file] = 'gems.yml'
     OptionParser.new do |opt|
-      opt.on('-t', '--top = top', Integer) { |top| @optn[:top] = top }
-      opt.on('-n', '--name = nam', String) { |nam| @optn[:name] = nam }
-      opt.on('-f', '--file = file', String) { |file| @optn[:file] = file }
+      opt.on('-t', '--top = top', Integer) { |top| optn[:top] = top }
+      opt.on('-n', '--name = nam', String) { |nam| optn[:name] = nam }
+      opt.on('-f', '--file = file', String) { |file| optn[:file] = file }
     end.parse!
+    optn
   end
 
-  def options_select
-    same_gem_name
-    top
+  def options_select(opt)
+    same_gem_name(opt)
+    top(opt)
     puts tableshow
   end
 
-  def same_gem_name
-    return unless @optn[:name]
-    @gems.select! { |key, _| key.include?(@optn[:name]) }
+  def same_gem_name(opt)
+    nm = opt[:name]
+    return unless nm
+    @gems.select! { |key, _| key.include?(nm) }
   end
 
-  def top
-    puts @gems
-    return @gems = @gems.sort_by { |_, arr| -arr[:sum] }[0..@optn[:top] - 1].to_h if @optn[:top]
-    @gems = @gems.sort_by { |_, arr| puts arr; -arr[:sum] }.to_h
+  def top(opt)
+    return @gems = @gems.sort_by { |_, arr| -arr[:sum] }[0..opt[:top] - 1].to_h if opt[:top]
+    @gems = @gems.sort_by { |_, arr| -arr[:sum] }.to_h
   end
 end
 

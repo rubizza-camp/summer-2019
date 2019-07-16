@@ -8,19 +8,24 @@ class Parser
     @arr = {}
   end
 
+  def repository(gname)
+    link = search_repo(gname)
+    return unless link
+    gethash(link)
+  end
+
+  private
+
   def search_repo(gname)
-    page = Nokogiri::HTML(URI.open("http://rubygems.org/gems/#{gname}"))
-    homepage = page.xpath('//a[@id="home"]').attr('href')
-    sourcepage = page.xpath('//a[@id="code"]').attr('href')
+    url = "http://rubygems.org/gems/#{gname}"
+    homepage = Nokogiri::HTML(URI.open(url)).xpath('//a[@id="home"]').attr('href')
+    sourcepage = Nokogiri::HTML(URI.open(url)).xpath('//a[@id="code"]').attr('href')
     check_page(sourcepage, homepage)
   end
 
   def check_page(sourcepage, homepage)
-    if sourcepage
-      sourcepage.value if sourcepage.value.include?('github')
-    elsif homepage.value.include?('github')
-      homepage.value
-    end
+    return sourcepage.value if sourcepage && sourcepage.value.include?('github')
+    return homepage.value if homepage.value.include?('github')
   end
 
   def git_repo(link)
@@ -80,17 +85,15 @@ class Parser
 
   def gethash(link)
     parse_usedby(link)
-    parse_watch_fork(link)
-    parse_star(link)
-    parse_issue(link)
-    parse_contributor(link)
+    get_watch_fork_star_issue_contrib(link)
     total
     @arr
   end
 
-  def repository(gname)
-    link = search_repo(gname)
-    return "There is no github repo for #{gname}" unless link
-    gethash(link)
+  def get_watch_fork_star_issue_contrib(link)
+    parse_watch_fork(link)
+    parse_star(link)
+    parse_issue(link)
+    parse_contributor(link)
   end
 end
