@@ -31,4 +31,6 @@ if options[:number]
   represent.call(options[:number].to_i)
 elsif options[:name]
   represent.call(options[:name].to_s)
+else
+  represent.call
 end

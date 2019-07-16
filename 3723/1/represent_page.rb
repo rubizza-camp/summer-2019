@@ -7,13 +7,14 @@ class RepresentPages
     @rows = rows
   end
 
-  def call(option)
-    if option.is_a? Integer
-      sort_by_number(option)
-    elsif option.is_a? String
-      sort_by_name(option)
+  def call(option = nil)
+    if option
+      sort_by_number(option) if option.is_a? Integer 
+      sort_by_name(option) if option.is_a? String
+      represent_info
+    else
+      represent_info
     end
-    represent_info
   end
 
   private
