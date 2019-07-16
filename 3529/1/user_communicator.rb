@@ -46,8 +46,8 @@ class UserCommunicator
       gem = GemsApiHandler.new(gem_name)
       next unless gem.find_github
 
-      gemh = GemHandler.new(gem.gem_github, gem_name)
-      add_to_list gemh.data_about_gem
+      gemh = GemHandler.new(gem_name)
+      add_to_list gemh.data_about_gem(gem.find_github)
     end
   end
 
