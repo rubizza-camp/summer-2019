@@ -9,27 +9,22 @@ require 'yaml'
 require 'octokit'
 require 'typhoeus'
 
-class GemHendler
+class GemHandler
   attr_reader :data_about_gem
 
   def initialize(github_url, gem_name)
     @url = github_url
     @data_about_gem = {}
-    puts "Didn't find repository on github" unless @url
-    @repo_addr = adress_handle
-    @client = Octokit::Client.new(login: 'gannagoodkevich', password: 'Pusivill1999')
-    @client.auto_paginate = true
+    adress_handle
     login
     @data_about_gem[:name] = gem_name
     join_all_data
   end
 
-  def login
-    user = @client.user
-    user.login
-  end
+  private
 
   def adress_handle
+    puts "Didn't find repository on github" unless @url
     @repo_addr = if @url.include?('https://github.com/')
                    @url.gsub('https://github.com/', '')
                  else
@@ -38,18 +33,26 @@ class GemHendler
   end
 
   def join_all_data
-    find_wsf
-    find_uci
+    find_watchers_stars_forks
+    find_used_by_contributors_issues
     @data_about_gem[:rate] = make_rate
   end
 
-  def find_wsf
+  def login
+    file = YAML.safe_load(File.read('login.yaml'))
+    @client = Octokit::Client.new(login: file['login'], password: file['password'])
+    @client.auto_paginate = true
+    user = @client.user
+    user.login
+  end
+
+  def find_watchers_stars_forks
     find_watchers
     find_stars
     find_forks
   end
 
-  def find_uci
+  def find_used_by_contributors_issues
     find_used_by
     find_contributers
     find_issues
@@ -69,22 +72,22 @@ class GemHendler
   end
 
   def find_forks
-    repo = @client.repo @repo_addr
+    repo = @client.repo(@repo_addr)
     @data_about_gem[:forks] = repo[:forks_count]
   end
 
   def find_stars
-    repo = @client.repo @repo_addr
+    repo = @client.repo(@repo_addr)
     @data_about_gem[:stars] = repo[:stargazers_count]
   end
 
   def find_watchers
-    repo = @client.repo @repo_addr
+    repo = @client.repo(@repo_addr)
     @data_about_gem[:watched_by] = repo[:subscribers_count]
   end
 
   def find_contributers
-    contr = @client.contributors @repo_addr
+    contr = @client.contributors(@repo_addr)
     @data_about_gem[:contributers] = contr.length
   end
 

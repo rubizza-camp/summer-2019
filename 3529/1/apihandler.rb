@@ -2,7 +2,7 @@ require 'json'
 require 'open-uri'
 require 'httparty'
 
-class GemsApiHendler
+class GemsApiHandler
   attr_reader :gem_github
 
   def initialize(gem_name)
@@ -13,6 +13,8 @@ class GemsApiHendler
   def find_github
     url_check
   end
+
+  private
 
   def url_check
     if @url['source_code_uri'] || @url['homepage_uri']

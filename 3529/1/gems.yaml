@@ -1,7 +1,4 @@
 gems:
-  - rails
-  - rspec
-  - sinatra
   - httparty
   - octokit
   - terminal-table
