@@ -45,6 +45,4 @@ class Manager
   def default_gem_names
     @default_gem_names ||= YAML.load_file('gems.yaml')['gems']
   end
-  
 end
-
