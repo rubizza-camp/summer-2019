@@ -1,0 +1,7 @@
+gems:
+  - rails
+  - h
+  - mechanize
+  - sinatra
+  - a
+  - h2ocube_rails_assets
