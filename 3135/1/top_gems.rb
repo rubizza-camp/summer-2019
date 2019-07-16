@@ -1,6 +1,9 @@
+require_relative 'gemdata_class'
+require_relative 'rubygemsstats_class'
+require_relative 'githubstats_class'
 require_relative 'options'
-require_relative 'gem_class'
-require_relative 'auxiliary'
+require_relative 'utils'
+
 
 # -----------first things first
 options = parse_options # check option flags
