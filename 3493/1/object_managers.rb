@@ -1,10 +1,10 @@
-require_relative 'html_method'
+require_relative 'parse_html_page_methods'
 require_relative 'score_methods'
 require_relative 'print_table'
 
-module GemManager
+module ObjectManagers
   class GemManager
-    include HtmlMethod
+    include ParseHtmlPageMethods
     include ScoreMethod
 
     attr_reader :file_name, :gem_name, :top_count, :gem_hash
@@ -42,7 +42,7 @@ module GemManager
 
     def collect_gem_data(gem)
       url = find_repo_html_url(gem)
-      gem_object = Models::GemModel.new(gem, url)
+      gem_object = Models::GemInfo.new(gem, url)
       gem_object.install_fields(find_fields(url))
       gem_object.save_count_used_by(find_used_by(url))
       gem_object.gem_hash
@@ -70,13 +70,13 @@ module GemManager
       choose_top_gem if top_count.positive?
     end
 
-    def sort_gem(score)
+    def sort_gems(score)
       score.sort_by { |_key, value| value }.last(top_count)
     end
 
     def choose_top_gem
       total_hash = {}
-      sort_gem(group_score(gem_hash)).each { |elem| total_hash[elem[0]] = gem_hash[elem[0]] }
+      sort_gems(group_score(gem_hash)).each { |elem| total_hash[elem[0]] = gem_hash[elem[0]] }
       @gem_hash = total_hash
     end
   end

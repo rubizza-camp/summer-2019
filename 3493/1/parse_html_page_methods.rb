@@ -1,4 +1,4 @@
-module HtmlMethod
+module ParseHtmlPageMethods
   def find_repo_html_url(name)
     gem_url = gem_uri(name, 'source_code_uri')
     gem_url = gem_uri(name, 'homepage_uri') if find_uri?(gem_url)

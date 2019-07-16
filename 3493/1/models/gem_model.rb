@@ -1,5 +1,5 @@
 module Models
-  class GemModel
+  class GemInfo
     attr_reader :gem_hash
 
     def initialize(name, url)
