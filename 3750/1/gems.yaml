@@ -1,5 +1,4 @@
 gems:
-<<<<<<< HEAD
   - nokogiri
   - rails
   - rspec-core
@@ -10,9 +9,3 @@ gems:
   - rack
   - rake
   - thor
-=======
-  - rails
-  - sinatra
-  - nokogiri
-  - arel
->>>>>>> feature getting to github repos from links at rubygems.org

@@ -36,11 +36,10 @@ exit if !options[:file_name].nil? && options[:top_number].nil? && options[:name]
 
 GemFetcher.fill_array_of_gems(gems)
 
-statistic = Statistics.new(gems)
-statistic.load_stats
+gems.each(&:scrap_stats)
 
-scores = Score.new(gems)
-scores.calculate_scores
+average_stats = Average.calculate_average_stats(gems)
+gems.each { |gem| gem.scrap_overall_score(gem, average_stats) }
 
 gems.sort! { |a_gem, b_gem| b_gem.overall_score <=> a_gem.overall_score }
 
