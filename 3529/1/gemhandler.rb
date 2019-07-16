@@ -8,10 +8,9 @@ require 'open_uri_redirections'
 require 'yaml'
 require 'octokit'
 require 'typhoeus'
-require_relative 'DataFinder'
+require_relative 'data_finder'
 
 class GemHandler
-  attr_reader :data_about_gem
 
   def initialize(gem_name)
     @gem_name = gem_name
