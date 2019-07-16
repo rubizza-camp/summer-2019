@@ -1,9 +1,9 @@
 require 'yaml'
 require 'optparse'
-require_relative 'parserrepository.rb'
-require_relative 'repository_preseter.rb'
-require_relative 'create_table.rb'
-require_relative 'optparse.rb'
+require_relative 'parserrepository'
+require_relative 'repository_preseter'
+require_relative 'create_table'
+require_relative 'optparse'
 # :reek:InstanceVariableAssumption
 class Coordinator
   include OptParser
