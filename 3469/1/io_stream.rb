@@ -42,9 +42,7 @@ module IoStream
 
   def create_new_position_in_top(gem)
     all_fields = %i[name used_by watchers stars forks contributors issues]
-    item = []
-    all_fields.each { |field| item << gem[field] }
-    @rows << item
+    @rows << all_fields.each_with_object([]) { |field, row| row << gem[field] }
   end
 
   def appropriate_name?(gem)

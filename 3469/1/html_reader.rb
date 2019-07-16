@@ -4,8 +4,8 @@ class HtmlReader
   end
 
   def call
-    contibuters_page = Nokogiri::HTML(open("https://github.com/#{@name}" + '/network/dependents'))
+    contributes_page = Nokogiri::HTML(open("https://github.com/#{@name}" + '/network/dependents'))
     page = Nokogiri::HTML(open("https://github.com/#{@name}"))
-    { name: @name, page: page, page_for_contibuters: contibuters_page }
+    { name: @name, page: page, page_for_contributors: contributes_page }
   end
 end
