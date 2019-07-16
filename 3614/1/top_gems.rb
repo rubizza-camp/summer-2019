@@ -3,6 +3,8 @@ require 'gems'
 require 'pry'
 require 'net/http'
 require 'json'
+require 'nokogiri'
+require 'open-uri'
 
 class Parse
   attr_accessor :arr, :gem_parameters
@@ -33,54 +35,48 @@ class Parse
       response = Net::HTTP.get(URI("https://api.github.com/repos/" + "#{link}"))
       gem_data = JSON.parse(response)
       @gem_parameters << {
+        used_by: [nil],
         watchers_count: gem_data['watchers_count'],
         stargazers_count: gem_data['stargazers_count'],
         forks_count: gem_data['forks_count'],
+        contributors: [nil],
         open_issues_count: gem_data['open_issues_count']
+        
+
         }     
     end
-    puts @gem_parameters
   end
-  # def uri_check
+  
+  def  acquisition_data(gem_name, github_link)
+    parsed_github_html = Nokogiri::HTML(URI.parse(github_link + '/contributors_size').open)
+    contributors = parsed_github_html.css('span').text.delete('^0-9').to_i
 
-  # end
+    parsed_github_html = Nokogiri::HTML(URI.parse(github_link + '/network/dependents').open)
+    used_by = parsed_github_html.css('div.table-list-header-toggle a')[0].text.delete('^0-9').to_i
+
+    @gems_parameters << [used_by, contributors]
+  end
+
+  #
+
+
+  def sorting(data)
+    @gem_parameters = data
+    return sorted_data = data.sort! { |a, b| b[1] <=> a[1] }
+  end
+
+  def rewrite_final_array(array)
+    @arr = array
+  end
+
+  def console_output
+    table = Terminal::Table.new :headings => ['Gem', 'Used by', 'Watched by', 'Stars', 'Forks', 'Contributors', 'Issues'], :rows => @arr
+    puts table
+  end
+  #
 end
 
 parser = Parse.new
 parser.yml_gems
 parser.link_parse
 
-
-# attr_accessor :parse_page
-
-#   def initialize
-#     doc = HTTParty.get(https://rubygems.org/gems/"#{yml_gems}")
-#     @parse_page ||= Nokogiri::HTML(doc)
-#   end
-#   values += 1
-# end
-
-# end
-
-
-
-
-
-
-# yaml_data = YAML.load_file('gems.yml')
-# p yaml_data.values
-
-# gems_info = Gems.info 'rails'
-# p gems_info
-
-# page = Nokogiri::HTML(open("http://en.wikipedia.org/"))   
-# puts page.class   # => Nokogiri::HTML::Document
-# end
-
-
-
-# yml_gem_list = YAML.load_file('gems.yml')
-#     yml_gem_list['gems'].each do |gem_name|
-#       url = 'https://rubygems.org/gems/' + gem_name
-#       puts url
-#     end
