@@ -10,11 +10,11 @@ require 'optparse'
 @options = {:top_gem => nil, :name_gem => nil, :file => nil}
 
 OptionParser.new do |parser|
-  parser.on('--top=', Integer) do |top|
+  parser.on('--top=','--t=', Integer) do |top|
     puts "I give you #{top} gems"
     @options[:top_gem] = top
-  end
-  parser.on('--name=', String) do |name|
+  end 
+  parser.on('--name=','--n=', String) do |name|
     puts "Searching for #{name}"
     @options[:name_gem] = name
   end
@@ -48,7 +48,7 @@ def yaml_parse
     @arr_of_gems.each do |i|
       @arr_of_gems.delete_if { |i| !(i.include?(@options[:name_gem])) }
     end
-    p "find #{@arr_of_gems.length} gems with name #{@options[:name_gem]}" 
+    p "find #{@arr_of_gems.length} gems with name #{@options[:name_gem]}"
   end
 end
 
@@ -61,18 +61,23 @@ end
 def takin_sources
   yaml_parse
   @arr_of_gems.each do |url|
-    @gem_hash << Gems.info(url)['source_code_uri']
+    # p Gems.info(url)
+    unless (Gems.info(url)['source_code_uri']) == nil
+      @gem_hash << Gems.info(url)['source_code_uri']
+    else
+      @gem_hash << Gems.info(url)['homepage_uri']
+    end
   end
   # p @gem_hash
   @gem_hash.each do |el|
     @doc << Nokogiri::HTML(open(el))
     @second_doc << Nokogiri::HTML(open(el + '/network/dependents'))
   end
+  # p @gem_hash
 end
 
 def parsing_url
   takin_sources
-
   @doc.each do |el|
     @stats << el.css('a.social-count').text.delete(' ').delete(',').split("\n").reject(&:empty?).map(&:to_i)
     @contributers << el.css('span.num.text-emphasized')[3].text.delete(' ').delete(',').split("\n").reject(&:empty?).map(&:to_i)
@@ -80,7 +85,13 @@ def parsing_url
   end
 
   @second_doc.each do |el|
-    @used_by << [el.css('.btn-link')[1].text.delete(' ').delete("\n").delete(',').to_i]
+      @used_by << [el.css('.btn-link')[1].text.delete(' ').delete("\n").delete(',').to_i]
+  end
+
+  @contributers.each_index do |i|
+    if @contributers[i].empty?
+      @contributers[i] = [0]
+    end
   end
 end
 
@@ -98,7 +109,7 @@ def arr_to_hash
   @arr_of_gems.each_with_index do |val, i|
     @hash_stat[val.to_sym] = Hash[@arr_of_stats.zip(@arr_n[i])]
   end
-  p @arr_n
+  # p @arr_n
 end
 
 def rating
@@ -108,7 +119,7 @@ def rating
     rows =[]
 
     @arr_of_gems.each_index do |i|
-      p arr_rate[i] = @arr_n[i].sum
+      arr_rate[i] = @arr_n[i].sum
     end
 
     @arr_of_gems.each_index do |i|
@@ -122,11 +133,13 @@ def rating
         item.last
       end
     end
-    p rows.reverse!
+    # p rows.reverse!
     num_g = @options[:top_gem] - 1
     table = Terminal::Table.new :rows => rows[0..num_g], :headings => @arr_of_stats.unshift('GEM').push('Rating')
     puts table
-    p @options
+    # p @options
 end
 
 rating
+# takin_sources
+# parsing_url
