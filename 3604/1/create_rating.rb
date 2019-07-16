@@ -1,23 +1,24 @@
 # class for create rating
 class CreateRating
-  attr_reader :array_gems
+  ARRAY_COEFFICIENT = {
+    used_by: 1,
+    watched_by: 0.5,
+    stars: 1,
+    forks: 0.7,
+    contributors: 0.5,
+    issues: 0.1
+  }.freeze
 
-  ARRAY_COEFFICIENT = [1, 0.5, 1, 0.7, 0.5, 0.1].freeze
-
-  def initialize(array_gems)
-    @array_gems = array_gems
-  end
-
-  def rating_of_gems
-    array_gems.sort_by { |gem| - gem_rating(gem, gem.size) }
+  def array_of_rating_gems(array_of_all_gems)
+    array_of_all_gems.sort_by { |hash_of_one_gem| -sum_of_gem(hash_of_one_gem) }
   end
 
   private
 
-  def gem_rating(array, array_size)
+  def sum_of_gem(hash_of_one_gem)
     sum = 0
-    (array_size - 1).times do |iter|
-      sum += array[iter + 1].gsub(/[,]/, '').to_i * ARRAY_COEFFICIENT[iter]
+    hash_of_one_gem.each do |key, value|
+      sum += value.gsub(/[,]/, '').to_i * ARRAY_COEFFICIENT[key] if ARRAY_COEFFICIENT[key]
     end
     sum
   end
