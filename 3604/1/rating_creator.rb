@@ -10,16 +10,15 @@ class RatingCreator
   }.freeze
 
   def array_of_rating_gems(array_of_all_gems)
-    array_of_all_gems.sort_by { |hash_of_one_gem| -sum_of_gem(hash_of_one_gem) }
+    array_of_all_gems.sort_by { |hash_of_one_gem| -rating_of_gem(hash_of_one_gem) }
   end
 
   private
 
-  def sum_of_gem(hash_of_one_gem)
-    hash_of_one_gem = hash_of_one_gem.map do |key, value|
-      value.gsub(/[,]/, '').to_i * HASH_COEFFICIENTS[key] if HASH_COEFFICIENTS[key]
+  def rating_of_gem(hash_of_one_gem)
+    array_of_gem = HASH_COEFFICIENTS.map do |key, value|
+      value * hash_of_one_gem[key].gsub(/[,]/, '').to_i
     end
-    hash_of_one_gem.shift # first value nil, because it's gem_name
-    hash_of_one_gem.sum
+    array_of_gem.sum
   end
 end
