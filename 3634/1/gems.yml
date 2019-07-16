@@ -10,5 +10,4 @@ gems:
   - devise
   - diff-lcs
   - rubocop
-  - rack
   - thin
