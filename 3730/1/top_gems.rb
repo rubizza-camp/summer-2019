@@ -1,8 +1,10 @@
 require 'yaml'
 require 'terminal-table'
 require 'optparse'
-require_relative './repository'
-require_relative './gem_info'
+require_relative 'repository'
+require_relative 'gem_info'
+
+HEADINGS = %w[Name Used\ by Watched\ by Star Forks Contributors Issues].freeze
 
 @command_line = {}
 
@@ -12,11 +14,13 @@ OptionParser.new do |option|
   option.on('--file FILE') { |i| @command_line[:file_name] = i }
 end.parse!
 
-filename = if @command_line[:file_name]
-             @command_line[:file_name]
-           else
-             'gems.yml'
-           end
+# filename = if @command_line[:file_name]
+#              @command_line[:file_name]
+#            else
+#              'gems.yml'
+#            end
+
+filename = @command_line[:file_name] || 'gems.yml'
 
 gem_list = YAML.load_file(filename).dig('gems')
 @gems = []
@@ -52,18 +56,21 @@ def print_table(gems, number)
   end
 
   table.title = 'Gems statistics'
-  table.headings = ['Name', 'Used by', 'Watched by', 'Star', 'Forks', 'Contributors', 'Issues']
+  # table.headings = ['Name', 'Used by', 'Watched by', 'Star', 'Forks', 'Contributors', 'Issues']
+  table.headings = HEADINGS
   puts table
 end
 
 def sorted_gems(gems)
   gems.sort! { |first, second| second.score <=> first.score }
 
-  number = if @command_line[:number]
-             @command_line[:number].to_i
-           else
-             gems.length
-           end
+  # number = if @command_line[:number]
+  #            @command_line[:number].to_i
+  #          else
+  #            gems.length
+  #          end
+
+  number = @command_line[:number] ? @command_line[:number].to_i : gems.length
 
   print_table(gems, number)
 end
