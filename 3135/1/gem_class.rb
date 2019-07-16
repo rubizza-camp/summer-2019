@@ -2,28 +2,34 @@ require 'open-uri'
 require 'nokogiri'
 require 'net/http'
 require 'JSON'
-# The GemData class
+
+# The GemData class creates objects with gem data
 # :reek:InstanceVariableAssumption, :reek:TooManyInstanceVariables, :reek:TooManyStatements
 class GemData
-  attr_reader :name, :rating, :watches, :stars, :forks, :issues, :contributors, :used_by, :github_link
+  attr_reader :name, :github_uri,
+              :downloads, :watches, :stars, :forks, :issues, :contributors, :used_by
 
-  def initialize(name)
-    @name = name
+  def initialize(gem_name)
+    @name = gem_name
   end
 
-  def populate(link)
-    #response = call_rubygems_api(@name)
-    #@rating = fetch_rating_stat(response)
-    #@github_link = fetch_github_link(response)
-    puts GithubStats.call(link)
-    ##puts [@watches, @stars, @forks, @issues, @contributors, @used_by]
-    #github_parse(@github_link)
+  def populate
+    rubygems_stats = RubyGemsStats.call(@name)
+    @github_uri = rubygems_stats[:github_uri]
+    @downloads = rubygems_stats[:downloads]
+
+    github_stats = GithubStats.call(@github_uri)
+    @watches = github_stats[:watches]
+    @stars = github_stats[:stars]
+    @forks = github_stats[:forks]
+    @issues = github_stats[:issues]
+    @contributors = github_stats[:contributors]
+    @used_by = github_stats[:used_by]
   end
 end
 
-# RubyGemsStats fetches data grom rubygems.org by api
+# RubyGemsStats fetches data from rubygems.org by api
 class RubyGemsStats
-
   def self.call(gem_name)
     new(gem_name).call
   end
@@ -49,18 +55,19 @@ class RubyGemsStats
   end
 
   def github_link
-    { github_uri: ([@data['source_code_uri'], @data['homepage_uri']].find { |link| link.to_s.include? 'github.com' }) }
+    { github_uri: [@data['source_code_uri'], @data['homepage_uri']]
+      .find { |link| link.to_s.include? 'github.com' } }
   end
 end
 
+# GithubStats class fetches data from github page by html parsing
 class GithubStats
-
   def self.call(github_uri)
     new(github_uri).call
   end
 
   def call
-    stats.merge(used_by).transform_values{ |value| value.text.gsub(/\D/, '').to_i }
+    stats.merge(used_by).transform_values { |value| value.text.gsub(/\D/, '').to_i }
   end
 
   private
@@ -69,10 +76,13 @@ class GithubStats
     @uri = uri
   end
 
+  # rubocop:disable Security/Open
   def fetch_html(uri)
     Nokogiri::HTML(open(uri))
   end
+  # rubocop:enable Security/Open
 
+  # :reek:FeatureEnvy:
   def stats
     doc = fetch_html(@uri)
     tag = doc.css('.social-count')

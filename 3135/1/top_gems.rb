@@ -7,22 +7,10 @@ options = parse_options # check option flags
 list = load_list(options[:file]) # read yml. file into array (--file)
 list = check_names(list, options[:name]) # select gems with --name included (--name)
 # -----------gemdata population
-#gems = list.map { |name| GemData.call(name) }
-
-
-#a = GemData.new('sinatra')
-#a.populate
-#puts [a.rating, a.github_link, a.watch, a.star, a.forks, a.issues, a.contributors]
-
-#puts a.name
-# list.each { |name| gems << GemData.new(name) }
-
-
-#puts GithubParseService.call('https://github.com/sinatra/sinatra')
-puts RubyGemsStats.call('sinatra')
-
-
+list.map! { |name| GemData.new(name) }
+list.each(&:populate)
 # -----------last but not the least
-# gems.sort_by!(&:rating).reverse! # sort by number of downloads. Should it be a method?
-# gems = check_top(gems, options) # shrink list according to --top flag value
-# print_table(gems) # print nice looking table
+list.sort_by!(&:downloads).reverse! # sort by number of downloads. Should it be a method?
+list = check_top(list, options[:top]) # take first --top flag value elements of the list
+print_table(list) # print nice looking table
+#-------------

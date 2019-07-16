@@ -1,25 +1,25 @@
 require 'YAML'
 require 'table_print'
 
-private
-
+# :reek:UtilityFunction
 def load_list(file)
-  YAML.load_file(file || 'gem_list.yml')['gems']
+  YAML.load_file(file)['gems']
 end
 
+# :reek:UtilityFunction
 def check_names(list, sequence)
   return list.select! { |name| name.include? sequence } if sequence
 
   list
 end
 
-def check_top(gems, num = nil)
-  return gems.first(num) if num
+# :reek:UtilityFunction
+def check_top(list, num)
+  return list.first(num) if num
 
-  gems
+  list
 end
 
 def print_table(gems)
-  tp(gems, :name, :used_by, :watch, :star, :fork, :issues, :contributors,
-     rating: { display_name: 'total downloads' })
+  tp(gems, :name, :used_by, :watches, :stars, :forks, :issues, :contributors, :downloads)
 end

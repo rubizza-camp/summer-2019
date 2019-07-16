@@ -1,16 +1,14 @@
 require 'optparse'
 
-private
-# :reek:TooManyStatements
+# :reek:TooManyStatements, :reek:UtilityFunction
 def parse_options
   option_parser = OptionParser.new do |opts|
-    opts.on '--top[=NUM]', Integer
-    opts.on '--name[=NAME]'
     opts.on '--file[=FILE]'
+    opts.on '--name[=NAME]'
+    opts.on '--top[=NUM]', Integer
   end
 
-  options = {}
+  options = { top: nil, name: nil, file: 'gem_list.yml' }
   option_parser.parse!(into: options)
-  # puts options
   options
 end
