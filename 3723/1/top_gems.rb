@@ -1,9 +1,20 @@
 require_relative 'repo'
 require_relative 'pages'
-require_relative 'cli'
 require 'optparse'
 
-options = Cli.parse(ARGV)
+options = {}
+
+OptionParser.new do |parser|
+  parser.on('-t', '--top=NUMBER') do |number|
+    options[:number] = number
+  end
+  parser.on('-n', '--name=NAME') do |name|
+    options[:name] = name
+  end
+  parser.on('-f', '--file=FILE') do |file|
+    options[:file] = file
+  end
+end.parse!
 
 doc = if options[:file]
         YAML.load_file(options[:file])

@@ -1,7 +1,8 @@
 require 'nokogiri'
 
-# :reek:UtilityFunction
 module Taker
+  private
+
   def score(row)
     row.map do |str|
       str.split(/[^\d]/).join.to_i
