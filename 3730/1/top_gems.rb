@@ -1,10 +1,8 @@
 require 'yaml'
-require 'terminal-table'
 require 'optparse'
 require_relative 'repository'
 require_relative 'gem_info'
-
-HEADINGS = %w[Name Used\ by Watched\ by Star Forks Contributors Issues].freeze
+require_relative 'table'
 
 @command_line = {}
 
@@ -27,31 +25,19 @@ def find_gem(name)
   @gems << gem
 end
 
-# :reek:TooManyStatements
+def create_thread(gem)
+  Thread.new { find_gem(gem) }
+end
+
 def find_all_gems(gem_list)
   threads = []
   gem_list.each do |gem|
     if (gem_name = @command_line[:name])
       next unless gem.include?(gem_name)
     end
-    threads << Thread.new { find_gem(gem) }
+    threads << create_thread(gem)
   end
   threads.each(&:join)
-end
-
-# :reek:UtilityFunction
-def add_row_to_table(gems, row, number)
-  gems[0...number].each { |gem| row.add_row gem.output }
-end
-
-def print_table(gems, number)
-  table = Terminal::Table.new do |row|
-    add_row_to_table(gems, row, number)
-  end
-
-  table.title = 'Gems statistics'
-  table.headings = HEADINGS
-  puts table
 end
 
 def sorted_gems(gems)
@@ -59,7 +45,7 @@ def sorted_gems(gems)
 
   number = @command_line[:number] ? @command_line[:number].to_i : gems.length
 
-  print_table(gems, number)
+  Table.print_table(gems, number)
 end
 
 find_all_gems(gem_list)
