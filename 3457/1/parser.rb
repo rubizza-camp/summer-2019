@@ -1,0 +1,43 @@
+require 'optparse'
+# Class CommandLineParser is responsible for parsing
+class CommandLineParser
+  def self.parse(args)
+    options = {}
+    opts = OptionParser.new do |option|
+      option.banner = 'Usage: top_gems.rb'
+    end
+    except(opts, args)
+    options
+  end
+
+  def self.top(option)
+    option.on('-tTOP', '--top=INTEGER', Integer,
+              'Shows the number of gems according
+               to the rating') do |tt|
+      options[:top] = tt
+    end
+  end
+
+  def self.name(option)
+    option.on('-nNAME', '--name=WORD', 'Displays all the Gems according to the rating in
+              the name of which includes the given word') do |nn|
+      options[:name] = nn
+    end
+  end
+
+  def self.file(option)
+    option.on('-fFILE',
+              '--file=Path_to_Filename.yml', /([a-zA-Z0-9\s_\\.\-\(\):])+.yml$/,
+              'Path to the .yml file containing the list of gem names') do |ff|
+      options[:file] = ff[0]
+    end
+  end
+
+  def self.except(opts, args)
+    opts.parse(args)
+  rescue StandardError
+    puts "Exception encountered: #{StandardError}"
+    opts.parse %w[--help]
+    exit 1
+  end
+end
