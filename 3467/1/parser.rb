@@ -27,7 +27,7 @@ class CommandLineParser
   end
 
   def self.opt_on_t(opts, options)
-    opts.on('-tTOP', '--top=INTEGER > 0', /[1-9]+/, 'Number of gems according to the rating') do |ttt|
+    opts.on('-tTOP', '--top=INTEGER>0', /[1-9]+/, 'Number of gems according to the rating') do |ttt|
       options[:top] = ttt
     end
   end

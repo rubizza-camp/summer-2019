@@ -23,7 +23,7 @@ rescue StandardError => err
   exit 1
 end
 
-gems['gems'].select!{ |gem| gem.match?(/#{options[:name]}/) }
+gems['gems'].select! { |gem| gem.match?(/#{options[:name]}/) }
 
 raise "There is no gem whith \'#{options[:name]}\' in name." if gems['gems'].empty?
 
