@@ -23,14 +23,10 @@ class Parser
 
   def helper(one_part, second_part, names)
     data = one_part.map.with_index { |hash, item| hash.merge(second_part[item]) }
-    data.each_with_index { |value, item| output_data_preparation(value, item, names) }
-  end
-
-  def output_data_preparation(value, item, names)
-    row = []
-    value.each_value { |data| row << data }
-    @rows << row.unshift(item + 1, names[item])
-    header_preparation(value) if @header.empty?
+    data.each_with_index do |value, item|
+      @rows << value.values.unshift(item + 1, names[item])
+      header_preparation(value) if @header.empty?
+    end
   end
 
   def header_preparation(value)
