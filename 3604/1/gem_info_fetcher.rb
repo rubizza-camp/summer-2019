@@ -2,18 +2,18 @@ require 'mechanize'
 
 # class for get github url something gem and get information about this gem
 class GemInfoFetcher
-  attr_reader :temporary_array
-
   URL = 'https://rubygems.org/'.freeze
+  SHOT_URL_USED_BY = '/network/dependents'.freeze
+  USED_BY_CSS_CLASS = "a[class='btn-link selected']".freeze
+  CONTRIBUTORS_CSS_CLASS = "span[class='num text-emphasized']".freeze
+  WATCH_STAR_FOEK_CSS_CLASS = '.social-count'.freeze
 
   def initialize(name_gem)
     @name_gem = name_gem
-    @temporary_array = []
   end
 
   def information_about_gem
-    all_values if such_gem?
-    temporary_array
+    hash_with_info_about_gem if such_gem?
   end
 
   private
@@ -22,44 +22,44 @@ class GemInfoFetcher
     begin
       page_gems
     rescue Mechanize::ResponseCodeError
-      puts "Тo such gem #{@name_gem}"
+      puts "No such gem #{@name_gem}"
       return false
     end
     github_url
   end
 
-  def all_values
-    value_name_gem
-    value_used_by
-    value_watch_star_fork
-    value_contributors
-    value_issues
-  end
-
-  def value_name_gem
-    temporary_array << @name_gem
+  def hash_with_info_about_gem
+    @hash_with_info_about_gem ||= {
+      name: @name_gem,
+      used_by: value_used_by,
+      watched_by: hash_include_watched_stars_forks[:watched_by],
+      stars: hash_include_watched_stars_forks[:stars],
+      forks: hash_include_watched_stars_forks[:forks],
+      contributors: value_contributors,
+      issues: github.at('.Counter').text
+    }
   end
 
   def value_used_by
-    github_used_by = agent.get(github_url + '/network/dependents')
-    temporary_array << github_used_by.css("a[class='btn-link selected']").text.gsub(/[^\d,]/, '')
+    github_used_by = agent.get(github_url + SHOT_URL_USED_BY)
+    github_used_by.css(USED_BY_CSS_CLASS).text.gsub(/[^\d,]/, '')
   end
 
-  def value_watch_star_fork
-    array_include_watched_stars_forks.each { |iter| temporary_array << iter.text.strip }
-  end
-
-  def value_contributors
-    arr_conributors = github.css("span[class='num text-emphasized']")
-    temporary_array << arr_conributors[3].text.strip
-  end
-
-  def value_issues
-    temporary_array << github.at('.Counter').text
+  def hash_include_watched_stars_forks
+    @hash_include_watched_stars_forks ||= {
+      watched_by: array_include_watched_stars_forks[0].text.strip,
+      stars: array_include_watched_stars_forks[1].text.strip,
+      forks: array_include_watched_stars_forks[2].text.strip
+    }
   end
 
   def array_include_watched_stars_forks
-    @array_include_watched_stars_forks ||= github.css('.social-count')
+    @array_include_watched_stars_forks ||= github.css(WATCH_STAR_FOEK_CSS_CLASS)
+  end
+
+  def value_contributors
+    arr_conributors = github.css(CONTRIBUTORS_CSS_CLASS)
+    arr_conributors[3].text.strip
   end
 
   def page_gems
@@ -68,7 +68,7 @@ class GemInfoFetcher
 
   def github_url
     return @github_url ||= page_gems.at('#code')['href'] if page_gems.at('#code')
-    return @github_url ||= page_gems.at('#home')['href'] unless page_gems.at('#code')
+    @github_url ||= page_gems.at('#home')['href'] unless page_gems.at('#code')
   end
 
   def github
