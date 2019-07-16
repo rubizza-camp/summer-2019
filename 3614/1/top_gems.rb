@@ -4,7 +4,10 @@ require 'pry'
 require 'net/http'
 require 'json'
 require 'nokogiri'
+require 'mechanize'
 require 'open-uri'
+require 'io/console'
+require 'terminal-table'
 
 class Parse
   attr_accessor :arr, :gem_parameters
@@ -19,6 +22,7 @@ class Parse
     yml_gem_list['gems'].each do |gem_name|
       gem_info = Gems.info(gem_name)
       gem_request = {
+        gem_name: gem_name,
         homepage: gem_info['homepage_uri']&.gsub('http:', 'https:'),
         source: gem_info['source_code_uri']&.gsub('http:', 'https:')
       }
@@ -27,56 +31,86 @@ class Parse
   end
 
   def link_parse
+    agent = authorization
+
+    threads = []
     @arr.each do |hash|
-      if hash[:source] == nil
-        next
-      end
-      link = hash[:source].gsub('https://github.com/', '')
-      response = Net::HTTP.get(URI("https://api.github.com/repos/" + "#{link}"))
-      gem_data = JSON.parse(response)
-      @gem_parameters << {
-        used_by: [nil],
-        watchers_count: gem_data['watchers_count'],
-        stargazers_count: gem_data['stargazers_count'],
-        forks_count: gem_data['forks_count'],
-        contributors: [nil],
-        open_issues_count: gem_data['open_issues_count']
+      threads << Thread.new do
+        next if hash[:source] == nil
         
-
-        }     
+        page = agent.get(hash[:source])
+        html = Nokogiri::HTML(page.content.toutf8)
+        data = xpath_html(html)
+        add_data_to_gem_parameters(data.unshift(hash[:gem_name]))
+      end
     end
-  end
-  
-  def  acquisition_data(gem_name, github_link)
-    parsed_github_html = Nokogiri::HTML(URI.parse(github_link + '/contributors_size').open)
-    contributors = parsed_github_html.css('span').text.delete('^0-9').to_i
-
-    parsed_github_html = Nokogiri::HTML(URI.parse(github_link + '/network/dependents').open)
-    used_by = parsed_github_html.css('div.table-list-header-toggle a')[0].text.delete('^0-9').to_i
-
-    @gems_parameters << [used_by, contributors]
+    threads.each(&:join)
   end
 
-  #
+  private
 
+  def authorization
+    username = get_data_from_console("username")
+    password = get_data_from_console("password")
 
-  def sorting(data)
-    @gem_parameters = data
-    return sorted_data = data.sort! { |a, b| b[1] <=> a[1] }
+    agent = Mechanize.new
+    agent.get('https://github.com/login')
+    agent.page.forms[0]['login'] = username
+    agent.page.forms[0]['password'] = password
+    agent.page.forms[0].submit
+
+    agent
   end
 
-  def rewrite_final_array(array)
-    @arr = array
+  def get_data_from_console(text)
+    puts "Write #{text}"
+    STDIN.noecho(&:gets).chomp
   end
+
+  def get_social_info(html)
+    data = html.xpath("//a[starts-with(@class, 'social-count')]")
+    data.map {|d| d.text.delete('^0-9').to_i }.uniq
+  end
+
+  def get_contributors(html)
+    data = html.xpath("//ul[@class='numbers-summary']/li/a/span").last
+    data.text.delete('^0-9').to_i
+  end
+
+  def get_open_issues(html)
+    html.xpath("//span[@class='Counter']")[0].text.to_i
+  end
+
+  def xpath_html(html)
+    result = get_social_info(html)
+    result.push(get_contributors(html))
+    result.push(get_open_issues(html))
+
+    result
+  end
+
+  def add_data_to_gem_parameters(data)
+    @gem_parameters << {
+      gem_name: data[0],
+      used_by: data[1],
+      watchers_count: data[2],
+      stargazers_count: data[3],
+      forks_count: data[4],
+      contributors: data[5],
+      open_issues_count: data[6]
+    }
+  end
+
+  public
 
   def console_output
-    table = Terminal::Table.new :headings => ['Gem', 'Used by', 'Watched by', 'Stars', 'Forks', 'Contributors', 'Issues'], :rows => @arr
+    table = Terminal::Table.new headings: ['Gem', 'Used by', 'Watched by', 'Stars',
+                                           'Forks', 'Contributors', 'Issues'], rows: @gem_parameters
     puts table
   end
-  #
 end
 
 parser = Parse.new
 parser.yml_gems
 parser.link_parse
-
+parser.console_output
