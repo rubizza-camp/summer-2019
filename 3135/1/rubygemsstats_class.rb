@@ -2,6 +2,7 @@ require 'net/http'
 require 'JSON'
 
 # RubyGemsStats fetches data from rubygems.org by api
+# :reek:UtilityFunction:
 class RubyGemsStats
   def self.call(gem_name)
     new(gem_name).call
@@ -28,6 +29,6 @@ class RubyGemsStats
 
   def github_link(data)
     [data['source_code_uri'], data['homepage_uri']]
-      .find { |link| link.to_s.include? 'github.com' } 
+      .find { |link| link.to_s.include? 'github.com' }
   end
 end

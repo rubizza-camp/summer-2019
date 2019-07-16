@@ -4,7 +4,6 @@ require_relative 'githubstats_class'
 require_relative 'options'
 require_relative 'utils'
 
-
 # -----------first things first
 options = parse_options # check option flags
 list = load_list(options[:file]) # read yml. file into array (--file)
