@@ -9,28 +9,27 @@ class YamlReader
   end
 
   def parse
-    adress_of_source_code(read_yaml)
+    correct(adress_of_source_code(read_yaml))
   end
 
   private
 
   def read_yaml
-    file = YAML.load_file("#{@filepath}.yaml")
-    file['gems'].to_s.split(' ').each do |item|
-      item.delete!('-')
-    end
-  rescue IncorrectFileError
-    puts 'File doesn\'t exist'
-    abort
+    file = YAML.load_file(@filepath)
+    file['gems'].delete('-').split(' ')
+  rescue Errno::ENOENT
+    puts 'File doesn\'t exist. \n Enter correct file\'s adress'
+    @filepath = gets.chomp
+    retry
   end
 
   def correct(adresses)
     adresses.map do |adress|
-      make_redirection(adress)
+      redirect(adress)
     end
   end
 
-  def make_redirection(adress)
+  def redirect(adress)
     if adress[0..4].include?('s')
       adress
     else
@@ -40,13 +39,8 @@ class YamlReader
   end
 
   def adress_of_source_code(gems)
-    adresses = []
-    gems.each do |item|
-      adresses << Gems.info(item)['source_code_uri']
+    gems.map do |item|
+      Gems.info(item)['source_code_uri']
     end
-    correct(adresses)
   end
-end
-
-class IncorrectFileError < StandardError
 end

@@ -4,18 +4,17 @@ require_relative 'info_taker'
 require_relative 'table_maker'
 require_relative 'gems_selector'
 
-class TopGemsFinder
+class TopGemsCreator
   def initialize(file_name)
     @file = file_name
   end
 
-  def search
+  def create
     flags = OptionsParser.new(@file).parse
-    infos = []
-    YamlReader.new(flags[:file_name]).parse.map do |adress|
-      infos << InfoTaker.new(adress).take_info
+    infos = YamlReader.new(flags[:file_name]).parse.map do |adress|
+      InfoTaker.new(adress).take_info
     end
 
-    TableMaker.new(GemsSelector.new(infos, flags).select_gems).make_table
+    TableMaker.new(GemsSelector.new(infos, flags).select_gems).make
   end
 end

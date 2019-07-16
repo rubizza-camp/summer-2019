@@ -1,5 +1,5 @@
-require_relative 'top_gems_finder'
+require_relative 'top_gems_creator'
 
-searcher = TopGemsFinder.new('gems')
+searcher = TopGemsCreator.new('gems.yml')
 
-puts searcher.search
+puts searcher.create
