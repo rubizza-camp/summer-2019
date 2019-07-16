@@ -11,7 +11,6 @@ require_relative 'apihendler'
 
 class UserCommunicator
   attr_reader :rows
-  attr_writer :list
 
   def initialize
     @rows = []
