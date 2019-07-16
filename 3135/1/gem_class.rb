@@ -35,8 +35,11 @@ class RubyGemsStats
   end
 
   def call
-    @data = call_rubygems_api
-    github_link.merge(downloads_stat)
+    data = call_rubygems_api
+    {
+      github_uri: github_link(data),
+      downloads: data['downloads']
+    }
   end
 
   private
@@ -50,13 +53,9 @@ class RubyGemsStats
     JSON.parse(Net::HTTP.get(URI(uri)))
   end
 
-  def downloads_stat
-    { downloads: @data['downloads'] }
-  end
-
-  def github_link
-    { github_uri: [@data['source_code_uri'], @data['homepage_uri']]
-      .find { |link| link.to_s.include? 'github.com' } }
+  def github_link(data)
+    [data['source_code_uri'], data['homepage_uri']]
+      .find { |link| link.to_s.include? 'github.com' } 
   end
 end
 
