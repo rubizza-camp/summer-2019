@@ -8,7 +8,6 @@ options = TGParse.parse(ARGV)
 p "top is #{options[:top]}" if options.has_key?('top'.to_sym)
 p "name is #{options[:name]}" if options.has_key?('name'.to_sym)
 # rubocop:enable Style/PreferredHashMethods
-link = 'https://rubygems.org/gems/sinatra/'
 
 # add some functional to get links from rubygems by gemname in gems.yaml
 rg = RubyGemsLink.new

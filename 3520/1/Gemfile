@@ -1,11 +1,13 @@
-# frozen_string_literal: true
+# rubocop:disable Style/StringLiterals
 
 source "https://rubygems.org"
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'optparse'
 gem 'mechanize'
-gem 'watir'
+gem 'optparse'
 gem 'terminal-table'
+gem 'watir'
+gem 'webdrivers/geckodriver'
 gem 'yaml'
+# rubocop:enable Style/StringLiterals
