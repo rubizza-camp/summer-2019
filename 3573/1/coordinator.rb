@@ -26,7 +26,7 @@ class Coordinator
     parsers = @gem_list.map do |name|
       ParserRepository.new(gem_name: name)
     end
-    parsers.map(&:create_statistic)
+    parsers.map(&:fetch_gem_info)
   end
 
   def order_repository
@@ -37,8 +37,8 @@ class Coordinator
   end
 
   def top_gems
-    filter = (@options[:top].to_i - 1)
-    order_repository[0..filter]
+    top_number = (@options[:top].to_i - 1)
+    order_repository[0..top_number]
   end
 
   def print_table

@@ -69,7 +69,7 @@ class ParserRepository
     repo_nodes_by_xpath(:issues).first.text.strip.delete(' ').gsub(/\D/, '').to_i
   end
 
-  def create_statistic
+  def fetch_gem_info
     Repository.new(
       gem_name: gem_name,
       used_by: parse_used_by,
