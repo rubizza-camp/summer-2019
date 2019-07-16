@@ -18,14 +18,13 @@ class Parser
 
   def search_repo(gname)
     url = "http://rubygems.org/gems/#{gname}"
-    homepage = Nokogiri::HTML(URI.open(url)).xpath('//a[@id="home"]').attr('href')
-    sourcepage = Nokogiri::HTML(URI.open(url)).xpath('//a[@id="code"]').attr('href')
-    check_page(sourcepage, homepage)
+    check_page('code', url) || check_page('home', url)
   end
 
-  def check_page(sourcepage, homepage)
-    return sourcepage.value if sourcepage && sourcepage.value.include?('github')
-    return homepage.value if homepage.value.include?('github')
+  def check_page(linkid, url)
+    link = Nokogiri::HTML(URI.open(url)).css("//a[@id=#{linkid}]").attr('href')
+    return unless link
+    link.text if link.text.include?('github')
   end
 
   def git_repo(link)
