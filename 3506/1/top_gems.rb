@@ -12,10 +12,10 @@ class TopGems
   def initialize
     @gems = {}
     @options = {}
-    parse_options
   end
 
   def run
+    parse_options
     gem_names = open_file
     check_name_option(gem_names)
 
