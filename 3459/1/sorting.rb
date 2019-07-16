@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# class Sorting
+# This class sort gems by populatity and gives result
 class Sorting
   attr_reader :result
 
@@ -16,7 +16,6 @@ class Sorting
 
   private
 
-  # :reek:UtilityFunctio
   def remove_spaces_and_commas(strings)
     strings.map! do |item|
       item.delete(',').split(' ')
@@ -30,11 +29,10 @@ class Sorting
 
   def last_string(new_strings)
     new_strings.map! do |item|
-      first_add_string = "|#{item[0]} | used by #{item[1]} \t |"
-      second_add_string = "watched by  #{item[2]} \t |  stars #{item[3]} \t |"
-      third_add_string = "forks #{item[4]} \t | contributors #{item[5]} \t |"
-      four_add_string = "issues #{item[6]} \t |"
-      first_add_string + second_add_string + third_add_string + four_add_string
+      first = "|#{item[0]} \t |used by #{item[1]} \t |watched by  #{item[2]} \t |"
+      second = "stars #{item[3]} \t |forks #{item[4]} \t |"
+      third = "contributors #{item[5]} \t |issues #{item[6]} \t |"
+      first + second + third
     end
   end
 end

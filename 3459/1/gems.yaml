@@ -4,3 +4,5 @@ gems:
   - rubocop
   - rake
   - pry
+  - bullet
+  - devise

@@ -3,7 +3,8 @@
 require 'open-uri'
 require 'json'
 
-# class Link
+# This class reads the file and gets the names of the gems
+# and then gets their links to the github.
 class Link
   attr_reader :json_file, :gem_links
 
@@ -20,7 +21,7 @@ class Link
 
   def reception_link
     remove_commas(read_file).each do |name|
-      link = JSON.parse(open("https://rubygems.org/api/v1/gems/#{name}").read)
+      link = JSON.parse(URI.open("https://rubygems.org/api/v1/gems/#{name}").read)
       @gem_links << link['source_code_uri']
     end
     gem_links
@@ -28,7 +29,6 @@ class Link
 
   private
 
-  # :reek:UtilityFunction
   def remove_commas(gems)
     gems.map! do |gem|
       gem.delete('-').delete("\n").delete(' ')
