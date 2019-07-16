@@ -1,9 +1,8 @@
 require 'terminal-table'
 require 'octokit'
-require 'open-uri'
-require 'nokogiri'
+require_relative 'parser.rb'
 
-class TerminalInformation
+class HardCore
   def initialize(all_gems_top, top_size, contains_in_name)
     top_size ||= all_gems_top.size
     @top_size = top_size.to_i
@@ -14,7 +13,7 @@ class TerminalInformation
 
   def print_top
     sort_and_customise_top
-    puts Terminal::Table.new rows: @table, style: { border_top: false, border_bottom: false }
+    puts Terminal::Table.new(rows: @table, style: { border_top: false, border_bottom: false })
   end
 
   private
@@ -60,63 +59,5 @@ class TerminalInformation
 
   def appropriate_name?(all_gems)
     all_gems[:name] =~ /#{@contains_in_name}/
-  end
-end
-
-# parse all content
-class Parser
-  def initialize(life)
-    @client = Octokit::Client.new(access_token: life)
-  end
-
-  def parse(name)
-    all_gems = {}
-    top_search = search_api(name)
-    all_gems = filling_the_data_from_api(all_gems, top_search)
-    all_gems = filling_the_data(all_gems, top_search[:full_name])
-    all_gems
-  end
-
-  REQUEST_CONTRIBUTORS = 'a span[class=\'num text-emphasized\']'.freeze
-  REQUEST_USED_BY = 'a[class=\'btn-link selected\']'.freeze
-
-  private
-
-  def filling_the_data_from_api(all_gems, top_search)
-    all_gems[:name] = top_search[:name]
-    all_gems[:stars] = top_search[:watchers_count]
-    all_gems[:forks] = top_search[:forks]
-    all_gems
-  end
-
-  def search_in_html(request, page)
-    raw_text = page.search(request).text
-    match = raw_text.match(/(\d+)((,\d+)?)*/)
-    match[0].delete(',').to_i unless match.to_s.empty?
-  end
-
-  def search_main(all_gems, page, full_name)
-    all_gems[:contributors] = search_in_html(REQUEST_CONTRIBUTORS, page)
-    all_gems[:watchers] = search_in_html("li a[href=\"/#{full_name}/watchers\"]", page)
-    all_gems[:issues] = search_in_html("span a[href=\"/#{full_name}/issues\"]", page)
-    all_gems
-  end
-
-  def search_api(name)
-    search = @client.search_repositories(name)
-    search.items.first
-  end
-
-  def filling_the_data(all_gems, full_name)
-    github_page = Nokogiri::HTML(open("https://github.com/#{full_name}"))
-    github_dep = Nokogiri::HTML(open("https://github.com/#{full_name}/network/dependents"))
-    all_gems = search_main(all_gems, github_page, full_name)
-    all_gems = search_subjection(all_gems, github_dep)
-    all_gems
-  end
-
-  def search_subjection(all_gems, page)
-    all_gems[:used_by] = search_in_html(REQUEST_USED_BY, page)
-    all_gems
   end
 end

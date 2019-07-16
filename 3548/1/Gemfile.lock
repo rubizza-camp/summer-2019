@@ -24,10 +24,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  dotenv (~> 2.7.4)
-  nokogiri (~> 1.10.0)
-  octokit (~> 4.14.0)
-  terminal-table (~> 1.8.0)
+  dotenv
+  nokogiri
+  octokit
+  terminal-table
 
 BUNDLED WITH
    1.17.1

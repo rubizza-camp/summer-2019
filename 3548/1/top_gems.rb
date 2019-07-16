@@ -11,7 +11,7 @@ class Top
   def create_top
     gem_top = []
     load_to_search_list.each { |name| gem_top << @github_parser.parse(name) }
-    TerminalInformation.new(gem_top, @parameters[:top], @parameters[:name]).print_top
+    HardCore.new(gem_top, @parameters[:top], @parameters[:name]).print_top
   end
 
   private
