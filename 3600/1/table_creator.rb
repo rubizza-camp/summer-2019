@@ -1,4 +1,4 @@
-# Create table
+# :nodoc:
 class TableCreator
   def create(obj)
     table = Terminal::Table.new do |tab|
