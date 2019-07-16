@@ -1,34 +1,30 @@
 require_relative 'scanner/shell'
 require_relative 'scanner/yaml'
-require_relative 'parser/ruby_gems'
-require_relative 'parser/git_hub'
+require_relative 'parser/repo'
 require_relative 'rating'
 require_relative 'printer'
 
 # Scan input atributes from shell
-rating_args = Scanner::Shell.new(ARGV).scan
-
+args = Scanner::Shell.new(ARGV).scan
 # Get gem list from local file by input attributes
-gem_names = Scanner::Yaml.new(rating_args).scan
-puts "Can't find any gems" if gem_names.size.zero?
+gem_names = Scanner::Yaml.new(args[:file]).scan
+return puts "Can't find any gems" if gem_names.empty?
 
-unless gem_names.size.zero?
-  # Get gem source_code link from RubyGems.org
-  source_code_urls = Parser::RubyGems.new(gem_names).parse
+# Filter gem names from file by --name value from shell
+names_to_parse = args[:name] ? gem_names.select { |name| name.include?(args[:name]) } : gem_names
 
-  gem_arr = []
-  # Collect information about each repository
-  source_code_urls.each do |gem_name, source_url|
-    # Get gem stats from GitHub repo and write it to RubyGem object instance
-    gem_arr << Parser::GitHub.new(gem_name, source_url).parse
-  end
+# Collect array of gem repo data that we could find
+parse_result = names_to_parse.map { |name| Parser::Repo.new(name).parse }.compact
 
-  # Sort gems by score desc
-  gem_arr = Rating.sort_gems_arr_by_score(gem_arr)
+puts('Nothing found') && exit if parse_result.empty?
 
-  # Get top N gems, if
-  gem_arr = gem_arr.first(rating_args['top'].to_i) unless rating_args['top'].nil?
+parsed_gems = parse_result.map { |data| RubyGem.new(data) }
 
-  # Print sorted arr
-  Printer.print_gems(gem_arr)
-end
+# Sort gems by score desc
+rated_gems = Rating.new(parsed_gems).rate
+
+# Get top N gems, if
+gems_to_print = args['top'] ? rated_gems.first(args['top']) : rated_gems
+
+# Print sorted arr
+Printer.print_gems(gems_to_print)

@@ -14,7 +14,7 @@ module Scanner
       filter_args.each_with_object({}) do |arg, obj|
         flag, value = arg.split('=')
         arg_name = flag.tr('--', '')
-        obj[arg_name] = value
+        obj[arg_name.to_sym] = value
       end
     end
 

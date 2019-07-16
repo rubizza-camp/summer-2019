@@ -1,5 +1,9 @@
 class Rating
-  def self.sort_gems_arr_by_score(gem_arr)
-    gem_arr.sort { |fgem, sgem| -1 * (fgem.score <=> sgem.score) }
+  def initialize(gems)
+    @gems = gems
+  end
+
+  def rate
+    @gems.sort { |fgem, sgem| sgem.score <=> fgem.score }
   end
 end
