@@ -1,5 +1,5 @@
-require_relative 'gem_searcher'
+require_relative 'top_gems_finder'
 
-searcher = GemSearch.new('gems')
+searcher = TopGemsFinder.new('gems')
 
 puts searcher.search

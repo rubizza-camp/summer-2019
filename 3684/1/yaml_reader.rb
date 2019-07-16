@@ -4,8 +4,8 @@ require 'gems'
 class YamlReader
   attr_reader :file
 
-  def initialize(file)
-    @file = file
+  def initialize(filepath)
+    @filepath = filepath
   end
 
   def parse
@@ -15,15 +15,13 @@ class YamlReader
   private
 
   def read_yaml
-    begin
-      file = YAML.load_file("#{@file}.yaml")
-    rescue StandardError
-      puts 'File doesn\'t exist'
-      abort
-    end
+    file = YAML.load_file("#{@filepath}.yaml")
     file['gems'].to_s.split(' ').each do |item|
       item.delete!('-')
     end
+  rescue IncorrectFileError
+    puts 'File doesn\'t exist'
+    abort
   end
 
   def correct(adresses)
@@ -43,10 +41,12 @@ class YamlReader
 
   def adress_of_source_code(gems)
     adresses = []
-    gems.select do |item|
-      github_url = Gems.info item
-      adresses << github_url['source_code_uri']
+    gems.each do |item|
+      adresses << Gems.info(item)['source_code_uri']
     end
     correct(adresses)
   end
+end
+
+class IncorrectFileError < StandardError
 end
