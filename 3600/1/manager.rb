@@ -15,7 +15,6 @@ class Manager
     YAML.load_file(@params['--file'])['gems']
   end
 
-  #:reek:UtilityFunction
   def default_gem_names
     YAML.load_file('gems.yaml')['gems']
   end
@@ -24,7 +23,6 @@ class Manager
     @yml_file_name.select { |gem_name| gem_name.include? @params['--name'] }
   end
 
-  #:reek:FeatureEnvy
   def repository_objects
     parsers = @gem_list.map do |name|
       Parser.new(gem_name: name)
