@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'gets_value'
-require_relative 'sorting_value'
-require_relative 'gets_link'
+require_relative 'gitvalue'
+require_relative 'sorting'
+require_relative 'link'
 
-gets_value = GetLink.new('gems.yaml')
-pars = GitValue.new(gets_value.gets_links)
-sorting = Sorting.new(pars.gets_value)
+reception_value = Link.new('gems.yaml')
+pars = GitValue.new(reception_value.reception_link)
+sorting = Sorting.new(pars.reception_value)
 
 if ARGV.empty?
   puts sorting.result_sorting

@@ -4,7 +4,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 require 'terminal-table'
-require_relative 'gets_link'
+require_relative 'link'
 
 # :reek:UtilityFunction
 # class GitValue
@@ -16,11 +16,11 @@ class GitValue
     @git_value = []
   end
 
-  def gets_value
+  def reception_value
     @links.each do |git_link|
       parse = Nokogiri::HTML(URI.open(git_link))
       used_by_parse = Nokogiri::HTML(URI.open("#{git_link}/network/dependents"))
-      @git_value << "#{name(parse)}
+      @git_value << "#{gem_name(parse)}
       #{used_by(used_by_parse)}
       #{watched_by(parse)}
       #{stars(parse)}
@@ -33,7 +33,7 @@ class GitValue
 
   private
 
-  def name(parse)
+  def gem_name(parse)
     parse.css("a[data-pjax='#js-repo-pjax-container']")[0].text.strip
   end
 

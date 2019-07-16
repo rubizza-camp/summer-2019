@@ -3,8 +3,8 @@
 require 'open-uri'
 require 'json'
 
-# class GetLink
-class GetLink
+# class Link
+class Link
   attr_reader :json_file, :gem_links
 
   def initialize(file_name)
@@ -18,7 +18,7 @@ class GetLink
     gems
   end
 
-  def gets_links
+  def reception_link
     remove_commas(read_file).each do |name|
       link = JSON.parse(open("https://rubygems.org/api/v1/gems/#{name}").read)
       @gem_links << link['source_code_uri']
