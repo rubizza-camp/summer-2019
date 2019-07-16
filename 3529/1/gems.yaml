@@ -1,0 +1,7 @@
+gems:
+  - didns
+  - sinatra
+  - rspec
+  #- nokogiri
+  #- httparty
+  #- octokit
