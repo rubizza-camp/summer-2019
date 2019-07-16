@@ -18,10 +18,7 @@ class TopGems
     parse_options
     gem_names = open_file
     check_name_option(gem_names)
-
-    gem_names.each do |gem_name|
-      @gems[gem_name] = GemInfo.new(gem_name).call
-    end
+    fill_hash(gem_names)
     sort_and_print
   end
 
@@ -47,6 +44,12 @@ class TopGems
 
     gem_names.select! { |name| name.include?(@options[:name]) }
     puts "No gems with name #{@options[:name]} found" if gem_names.empty?
+  end
+
+  def fill_hash(gem_names)
+    gem_names.each do |gem_name|
+      @gems[gem_name] = GemInfo.new(gem_name).call
+    end
   end
 
   def sort_and_print
