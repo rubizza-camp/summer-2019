@@ -23,6 +23,7 @@ class UserCommunicator
   end
 
   def make_top
+    @rows = []
     @list.sort_by! { |word| word[:rate] }
     @list.each do |gem|
       gem.delete(:rate)
@@ -33,10 +34,15 @@ class UserCommunicator
   def load_arguments
     find_list
     ARGV.each do |argument|
-      @list = @list.slice(0, argument[/[0-9]+/].to_i) if argument.include?('top')
+      top_check argument if argument.include?('top')
       name_handler(argument) if argument.include?('name')
       make_top
     end
+  end
+
+  def top_check(argument)
+    end_index = argument[/[0-9]+/].to_i-1
+    @list = @list[0..end_index]
   end
 
   def update_row
@@ -51,8 +57,12 @@ class UserCommunicator
       next unless gem.find_github
 
       gemh = GemHendler.new(gem.gem_github, gem_name)
-      @list << gemh.data_about_gem
+      add_to_list gemh.data_about_gem
     end
+  end
+
+  def add_to_list(data)
+    @list << data
   end
 
   def name_handler(argument)
