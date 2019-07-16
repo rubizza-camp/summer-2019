@@ -2,6 +2,6 @@ gems:
    -rspec-core
    -rspec-rails
    -rspec-support
-   -rspec-dev
+   -diff-lcs
    -rspec-expectations
    

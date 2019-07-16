@@ -1,25 +1,22 @@
 require 'yaml'
-#:reek:InstanceVariableAssumption xa
-class GemFileOpen
-  def open_yaml
-    @mass = []
-    @gems = YAML.load_file('gems_list.yaml')
-    @mass << @gems['gems'].split(' ')
-  end
-
-  def convert_in_new_mass
-    @watt = []
+#:reek:InstanceVariableAssumption
+class GemFileListOpen
+  def inject(number)
     open_yaml
-    @watt = @mass.flatten
+    @array[number].scan(/[a-z]+/).join('-')
   end
 
-  def injek(number)
-    convert_in_new_mass
-    @watt[number].scan(/[a-z]+/).join('-')
+  def yaml_size
+    open_yaml
+    @array.size
   end
 
-  def kxm
-    convert_in_new_mass
-    @watt.size
+  private
+
+  def open_yaml
+    @array = []
+    gems = YAML.load_file('gems_list.yaml')
+    @array << gems['gems'].split(' ')
+    @array.flatten!
   end
 end

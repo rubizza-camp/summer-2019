@@ -1,15 +1,15 @@
 require_relative 'algorim'
-require_relative 'parser'
 require_relative 'gems_reader'
+require_relative 'parser'
 
-mass = []
+main_array = []
 
-parcer = Parcer.new
-oppen = GemFileOpen.new
-algoritm = Algoritm.new
+info = GemInfo.new
+list_gems = GemFileListOpen.new
+best = TheBestGem.new
 
-(0...oppen.kxm).each do |i|
-  mass << parcer.url_info(oppen.injek(i))
+(0...list_gems.yaml_size).each do |i|
+  main_array << info.get_array(list_gems.inject(i))
 end
 
-algoritm.get_top(mass)
+best.get_top(main_array)
