@@ -22,7 +22,7 @@ class UserCommunicator
 
   def load_arguments
     ARGV.each do |argument|
-      top_check (argument) if argument.include?('top')
+      top_check(argument) if argument.include?('top')
       name_handler(argument) if argument.include?('name')
       make_top
       update_row
@@ -57,8 +57,9 @@ class UserCommunicator
 
   def name_handler(argument)
     new_list = []
+    name_of_gem = argument.gsub('--name=', '')
     @gem_list.collect do |gem|
-      new_list << @gem_list[@gem_list.index(gem)] if gem[:name].include? argument.gsub('--name=', '')
+      new_list << @gem_list[@gem_list.index(gem)] if gem[:name].include?(name_of_gem)
     end
     @gem_list = new_list
   end

@@ -15,7 +15,9 @@ class GemHandler
   def initialize(github_url, gem_name)
     @url = github_url
     @data_about_gem = {}
-    adress_handle
+    @repo_addr = adress_handle
+    file = YAML.safe_load(File.read('login.yaml'))
+    @client = Octokit::Client.new(login: file['login'], password: file['password'])
     login
     @data_about_gem[:name] = gem_name
     join_all_data
@@ -39,8 +41,6 @@ class GemHandler
   end
 
   def login
-    file = YAML.safe_load(File.read('login.yaml'))
-    @client = Octokit::Client.new(login: file['login'], password: file['password'])
     @client.auto_paginate = true
     user = @client.user
     user.login
