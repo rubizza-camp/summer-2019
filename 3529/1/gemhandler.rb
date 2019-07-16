@@ -11,7 +11,6 @@ require 'typhoeus'
 require_relative 'data_finder'
 
 class GemHandler
-
   def initialize(gem_name)
     @gem_name = gem_name
     file = YAML.safe_load(File.read('login.yaml'))
