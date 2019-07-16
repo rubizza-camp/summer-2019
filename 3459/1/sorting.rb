@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This class sort gems by populatity and gives result
+# This class sort gems by populatity and gives result.
 class Sorting
   attr_reader :result
 
