@@ -9,7 +9,7 @@ class GemInfo
 
   def initialize(gem_name)
     @name = gem_name
-    GithubPage.new(@name).write_files
+    @files = GithubPage.new(@name).fetch
   end
 
   def call
@@ -20,10 +20,8 @@ class GemInfo
   end
 
   def read_files
-    file = File.read("#{@name}.html")
-    @doc = Nokogiri::HTML(file)
-    contrib_file = File.read("#{@name}_contrib.html")
-    @contrib_doc = Nokogiri::HTML(contrib_file)
+    @doc = Nokogiri::HTML(@files[:criterias])
+    @contrib_doc = Nokogiri::HTML(@files[:contrib])
   end
 
   def find_int(css)

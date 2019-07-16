@@ -18,14 +18,11 @@ class GithubPage
     @github_link = parsed['source_code_uri'] || parsed['homepage_uri']
   end
 
-  def write_files
-    file = File.open("#{@name}.html", 'w')
-    page = HTTParty.get("#{@github_link}/network/dependents")
-    file.puts page.to_s
-    file.close
-    file_main = File.open("#{@name}_contrib.html", 'w')
-    contrib_page = HTTParty.get(@github_link.to_s)
-    file_main.puts contrib_page.to_s
-    file_main.close
+  def fetch
+    page = HTTParty.get("#{@github_link}/network/dependents").to_s
+    File.write("#{@name}.html", page)
+    contrib_page = HTTParty.get(@github_link).to_s
+    File.write("#{@name}_contrib.html", contrib_page)
+    { criterias: page, contrib: contrib_page }
   end
 end
