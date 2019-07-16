@@ -6,7 +6,7 @@ class GemInfoFetcher
   SHOT_URL_USED_BY = '/network/dependents'.freeze
   USED_BY_CSS_CLASS = "a[class='btn-link selected']".freeze
   CONTRIBUTORS_CSS_CLASS = "span[class='num text-emphasized']".freeze
-  WATCH_STAR_FOEK_CSS_CLASS = '.social-count'.freeze
+  WATCH_STAR_FORK_CSS_CLASS = '.social-count'.freeze
 
   def initialize(name_gem)
     @name_gem = name_gem
@@ -54,7 +54,7 @@ class GemInfoFetcher
   end
 
   def array_include_watched_stars_forks
-    @array_include_watched_stars_forks ||= github.css(WATCH_STAR_FOEK_CSS_CLASS)
+    @array_include_watched_stars_forks ||= github.css(WATCH_STAR_FORK_CSS_CLASS)
   end
 
   def value_contributors
