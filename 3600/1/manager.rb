@@ -15,10 +15,6 @@ class Manager
     YAML.load_file(@params['--file'])['gems']
   end
 
-  def default_gem_names
-    YAML.load_file('gems.yaml')['gems']
-  end
-
   def select_gem_name
     @yml_file_name.select { |gem_name| gem_name.include? @params['--name'] }
   end
@@ -43,4 +39,12 @@ class Manager
   def top
     repository_objects[0..(@params['--top'].to_i - 1)]
   end
+
+  private
+
+  def default_gem_names
+    @default_gem_names ||= YAML.load_file('gems.yaml')['gems']
+  end
+  
 end
+
