@@ -18,7 +18,7 @@ OptionParser.new do |parser|
     puts "Searching for #{name}"
     @options[:name_gem] = name
   end
-  parser.on('--file=') do |file|
+  parser.on('--file=','--f=') do |file|
     puts "Take info from #{file}"
     @options[:file] = file
   end
@@ -141,5 +141,3 @@ def rating
 end
 
 rating
-# takin_sources
-# parsing_url
