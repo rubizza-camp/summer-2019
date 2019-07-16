@@ -1,5 +1,5 @@
 # class for create rating
-class CreateRating
+class RatingCreator
   ARRAY_COEFFICIENT = {
     used_by: 1,
     watched_by: 0.5,

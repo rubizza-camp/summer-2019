@@ -1,6 +1,6 @@
 require './array_names_gems_creator.rb'
 require './gem_info_fetcher.rb'
-require './create_rating.rb'
+require './rating_creator.rb'
 require './table_output.rb'
 require './oprions_creator.rb'
 
@@ -10,7 +10,7 @@ class TopGems
     hash_options = OptionsCreator.new.hash_options
     array_name_gems = ArrayNamesGemsCreator.new.array_names_of_gems(hash_options)
     array_of_all_gems = create_array_with_all_information_about_gems(array_name_gems)
-    array_of_all_gems = CreateRating.new.array_of_rating_gems(array_of_all_gems)
+    array_of_all_gems = RatingCreator.new.array_of_rating_gems(array_of_all_gems)
     TableOutput.new.table_output(array_of_all_gems, hash_options[:top])
   end
 
