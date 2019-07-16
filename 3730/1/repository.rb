@@ -1,14 +1,15 @@
 require 'rest-client'
 require 'json'
+require 'gems'
 
 class Repository
   def self.a_gem?(name)
-    url = "https://rubygems.org/api/v1/gems/#{name}.json"
-    RestClient.get(url)
-    true
-  rescue RestClient::NotFound
-    puts "No such gem #{name}"
-    false
+    if Gems.info(name).empty?
+      puts "No such gem #{name}"
+      false
+    else
+      true
+    end
   end
 
   def self.find_github_url(name)
