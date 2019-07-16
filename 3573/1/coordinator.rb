@@ -8,7 +8,7 @@ require_relative 'optparse'
 class Coordinator
   include OptParser
 
-  attr_reader :options, :gem_list, :repos
+  attr_reader :options, :gem_list, :repos, :order_rep
   # :reek:ToManyStatements
   def run
     @options = parse_options
@@ -30,7 +30,7 @@ class Coordinator
   end
 
   def order_repositories
-    order_rep ||= repository_objects.sort_by do |obj|
+    @order_rep ||= repository_objects.sort_by do |obj|
       obj.used_by + (obj.stars * 2)
     end
     order_rep.reverse
