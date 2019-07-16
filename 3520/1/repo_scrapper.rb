@@ -2,9 +2,22 @@ require 'mechanize'
 require 'webdrivers/geckodriver'
 require 'watir'
 # This class smells of :reek:UtilityFunction and :reek:InstanceVariableAssumption
-class GemScrapper
+class RepoScrapper
+  attr_reader :repo_info
+
   def initialize
     @browser = Watir::Browser.new :firefox, headless: true
+    @repo_info = {}
+  end
+
+  def repo_info_parse
+    repo_used_by
+    repo_watch
+    repo_star
+    repo_forks
+    repo_issues
+    repo_contributors
+    p repo_info
   end
 
   def github_link
@@ -17,7 +30,7 @@ class GemScrapper
     end
   end
 
-  def get_page(link)
+  def get_repo_page(link)
     @browser.goto(link)
     sleep 2
     @browser.goto(github_link)
@@ -31,35 +44,29 @@ class GemScrapper
     @browser.h1.text.split('/').last
   end
 
-  def used_by
+  def repo_used_by
     @browser.goto(@browser.url + '/network/dependents')
-    used = @browser.link(href: /dependent_type=REPOSITORY/).text.split(' ').first
+    repo_info[:used_by] = @browser.link(href: /dependent_type=REPOSITORY/).text.split(' ').first
     @browser.goto(@browser.link(text: 'Code').href)
-    used
   end
 
-  def watch
-    @browser.link(href: /watchers/).text
+  def repo_watch
+    repo_info[:watchers] = @browser.link(href: /watchers/).text.to_i
   end
 
-  def star
-    @browser.link(href: /stargazers/).text
+  def repo_star
+    repo_info[:stars] = @browser.link(href: /stargazers/).text
   end
 
-  def fork
-    @browser.link(href: %r{network\/members}).text
+  def repo_forks
+    repo_info[:forks] = @browser.link(href: %r{network\/members}).text
   end
 
-  def issues
-    @browser.link(text: /Issues/).text.split(' ').last
+  def repo_issues
+    repo_info[:issues] = @browser.link(text: /Issues/).text.split(' ').last
   end
 
-  def contributors
-    @browser.link(href: /contributors/).text.split(' ').first
-  end
-
-  def repo_info
-    p "#{gem_name} |  #{used_by} | #{watch} |" +
-      + " #{star} | #{fork} | #{issues} | #{contributors}"
+  def repo_contributors
+    repo_info[:contributors] = @browser.link(href: /contributors/).text.split(' ').first
   end
 end
