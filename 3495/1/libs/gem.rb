@@ -5,7 +5,7 @@ class MyGem
 
   def initialize(gem_name, statistic)
     @gem_name = gem_name
-    self.call(statistic)
+    call(statistic)
   end
 
   def call(statistic)
