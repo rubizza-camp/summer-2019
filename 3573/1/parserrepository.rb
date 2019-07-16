@@ -4,19 +4,16 @@ require 'open-uri'
 require 'json'
 
 # Task: parsers gem repository and create repository statistic
-# :reek:InstanceVariableAssumption
-class Parser
+class ParserRepository
+  JSON_URL = 'https://rubygems.org/api/v1/gems/'.freeze
+
   attr_reader :gem_name
 
   def initialize(gem_name:)
     @gem_name = gem_name
   end
 
-  JSON_URL = 'https://rubygems.org/api/v1/gems/'.freeze
-
   def repo_url
-    return @repo_url if defined? @repo_url
-
     json_str = ::Kernel.open(JSON_URL + "#{gem_name}.json").read
     @repo_url ||= JSON(json_str)['source_code_uri']
   end
@@ -53,7 +50,7 @@ class Parser
   end
 
   def parse_watch
-    repo_nodes_by_xpath(:watches).text.strip.delete(' ').gsub(/\D/, '').to_i
+    repo_nodes_by_xpath(:watches).first.text.strip.delete(' ').gsub(/\D/, '').to_i
   end
 
   def parse_stars
