@@ -20,10 +20,8 @@ class GemInfoFetcher
 
   def gem_exists?
     gem_page
-    true
   rescue Mechanize::ResponseCodeError
     puts "No such gem #{@name_gem}"
-    false
   end
 
   def hash_with_info_about_gem

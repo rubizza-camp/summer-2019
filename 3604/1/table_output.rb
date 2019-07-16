@@ -15,7 +15,7 @@ class TableOutput
   def table_output(array_gems, count_gems_in_argv)
     table = Terminal::Table.new
     table.style = { border_top: false, border_bottom: false }
-    how_many_names_need_to_display(count_gems_in_argv, array_gems.size).times do |iter|
+    how_many_names_need_to_display(count_gems_in_argv.to_i, array_gems.size).times do |iter|
       table.add_row transformation_into_a_nice_view(array_gems[iter])
     end
     puts table
@@ -24,16 +24,14 @@ class TableOutput
   private
 
   def transformation_into_a_nice_view(hash)
-    arr_for_table = []
-    hash.each_key do |key|
-      arr_for_table << HASH_FOR_TABLE[key] + hash[key]
+    hash.map do |object|
+      HASH_FOR_TABLE[object[0]] + object[1]
     end
-    arr_for_table
   end
 
   def how_many_names_need_to_display(count_gems_in_argv, count_gems)
-    if count_gems_in_argv.to_i.positive? && count_gems_in_argv.to_i < count_gems
-      count_gems_in_argv.to_i
+    if count_gems_in_argv.positive? && count_gems_in_argv < count_gems
+      count_gems_in_argv
     else
       count_gems
     end
