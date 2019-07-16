@@ -20,7 +20,7 @@ class GemInfo
   end
 
   def read_files
-    @doc = Nokogiri::HTML(@files[:criterias])
+    @criterias_doc = Nokogiri::HTML(@files[:criterias])
     @contrib_doc = Nokogiri::HTML(@files[:contrib])
   end
 
@@ -29,9 +29,9 @@ class GemInfo
   end
 
   def criterias
-    @watch, @star, @fork = @doc.css('.social-count').map { |el| find_int(el) }
-    @issues = find_int(@doc.css('span.Counter')[0])
-    @used_by = find_int(@doc.css('a.selected')[3])
+    @watch, @star, @fork = @criterias_doc.css('.social-count').map { |el| find_int(el) }
+    @issues = find_int(@criterias_doc.css('span.Counter')[0])
+    @used_by = find_int(@criterias_doc.css('a.selected')[3])
     @contrib = find_int(@contrib_doc.css('span.text-emphasized')[3])
   end
 
