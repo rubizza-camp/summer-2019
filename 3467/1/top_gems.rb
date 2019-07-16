@@ -16,7 +16,16 @@ options[:file] ||= 'gems.yml'
 gems = YAML.load_file(options[:file])
 
 # preparing gem hash according command line parameter -n
-gems['gems'].select! { |gem| gem.match?(/#{options[:name]}/) }
+begin
+  gems['gems'].uniq!
+rescue StandardError => err
+  puts "File #{options[:file]} is empty. Exception encountered: #{err}"
+  exit 1
+end
+
+gems['gems'].select!{ |gem| gem.match?(/#{options[:name]}/) }
+
+raise "There is no gem whith \'#{options[:name]}\' in name." if gems['gems'].empty?
 
 # getting repo adresses
 gems['gems'].each do |gem|
@@ -54,11 +63,9 @@ gem_repo_url.each do |key, value|
 end
 
 # preparing array of gems with params whith top algoritm & command line param -t
-top_gems.sort_by! do |arr|
-  arr[1] + arr[2] * 10 + arr[3] * 3 + arr[4] * 5 + arr[5] * 10 + arr[6] * 2
-end.reverse!
+top_gems.sort_by! { |arr| arr[1, 6].sum }.reverse!
 
-top_gems = top_gems[0, options[:top]] unless options[:top].nil?
+top_gems = top_gems[0, options[:top].to_i] unless options[:top].nil?
 
 # ouput top gems
 table = Terminal::Table.new(title: "Top #{options[:top]} gems whith \'#{options[:name]}\' in name",

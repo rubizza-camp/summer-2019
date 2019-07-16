@@ -3,4 +3,5 @@ gems:
   - rspec
   - devise
   - rails
+  - rspec
   - bundler
