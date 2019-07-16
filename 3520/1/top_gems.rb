@@ -17,6 +17,7 @@ scrap = GemScrapper.new
 links.each do |link|
   p link
   scrap.get_page(link)
+  sleep 0.5
   scrap.repo_info
   # p "##{scrap.gem_name}  used_by #{scrap.used_by} watch #{scrap.watch} #{scrap.star} stars #{scrap.fork} forks #{scrap.contributors} contributors #{scrap.issues}"
 end

@@ -1,12 +1,21 @@
 # page = mechanize.get('https://rubygems.org/gems/') # + 'gemname from file'
 require 'mechanize'
-require 'nokogiri'
-require 'open-uri'
+require 'watir'
 # This class smells of :reek:UtilityFunction and :reek:InstanceVariableAssumption
 class GemScrapper
   def initialize
     @mechanize = Mechanize.new
+    @mechanize.user_agent_alias= 'Mac Safari 4'
     # @next_page = self.double_check(self.github_link)
+  end
+
+  def watir_patch(link)
+    browser = Watir::Browser.new
+    browser.goto(link)
+    sleep 2
+    contrib_s = browser.link(href: /contributors/).text.split(' ').first
+    browser.close
+    contrib_s
   end
 
   def get_page(link)
@@ -28,12 +37,6 @@ class GemScrapper
       raise 'there is no link for github from rubygems.org'
     end
   end
-
-  # def double_check(page)
-  #   return page if page.title.match?(/GitHub/)
-  #   return page.link_with(text: "Github Repository").click if page.link_with(text: "Github Repository")
-  #   raise 'Double check not pass. Link to GitHub is broken.'
-  # end
 
   def gem_name
     @next_page.search('h1 strong').text
@@ -64,7 +67,11 @@ class GemScrapper
   end
 
   def contributors
-    @next_page.link_with(text: /contributors/).text.split(' ').first
+    if @next_page.link_with(text: /contributors/).text.split(' ').first == 'Fetching'
+      watir_patch(@next_page.uri.to_s)
+    else
+      @next_page.link_with(text: /contributors/).text.split(' ').first
+    end
   end
 
   def repo_info
