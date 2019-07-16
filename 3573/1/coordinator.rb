@@ -1,48 +1,44 @@
 require 'yaml'
-require_relative 'parser'
-require_relative 'repository_preseter'
-require_relative 'create_table'
-
+require 'optparse'
+require_relative 'parserrepository.rb'
+require_relative 'repository_preseter.rb'
+require_relative 'create_table.rb'
+require_relative 'optparse.rb'
+# :reek:InstanceVariableAssumption
 class Coordinator
-  def initialize(params)
-    @params = params.map { |param| param.split('=') }.to_h
-    @yml_file_name = @params['--file'] ? gem_names : default_gem_names
-    @gem_list = @params['--name'] ? select_gem_name : @yml_file_name
-    @repos = @params['--top'] ? top : repository_objects
+  include OptParser
+  # :reek:ToManyStatements
+  def run
+    @options = parse_options
+    @gem_list = @options[:sort_name] ? select_gem_name : gem_names
+    @repos = @options[:top] ? top_gems : repository_objects
+    out_in_command
   end
 
   def gem_names
-    YAML.load_file(@params['--file'])['gems']
-  end
-
-  #:reek:UtilityFunction
-  def default_gem_names
-    YAML.load_file('ruby_gems.yaml')['gems']
+    YAML.load_file(@options[:file])['gems']
   end
 
   def select_gem_name
-    @yml_file_name.select { |gem_name| gem_name.include? @params['--name'] }
+    gem_names.select { |gem_name| gem_name.include? @options[:sort_name] }
   end
 
-  #:reek:FeatureEnvy
+  # :reek:FeatureEnvy
   def repository_objects
     parsers = @gem_list.map do |name|
-      Parser.new(gem_name: name)
+      ParserRepository.new(gem_name: name)
     end
     parsers.map(&:create_statistic).sort_by { |obj| obj.used_by / obj.stars }.reverse
   end
 
-  def save_in_strings
-    @repos.map do |obj|
+  def top_gems
+    repository_objects[0..(@options[:top].to_i - 1)]
+  end
+
+  def out_in_command
+    save_in_strings = @repos.map do |obj|
       RepositoryPreseter.new(obj: obj).strings
     end
-  end
-
-  def out_in_command_line
-    CreateTable.new.create(save_in_strings)
-  end
-
-  def top
-    repository_objects[0..(@params['--top'].to_i - 1)]
+    PrintTable.new.create(save_in_strings)
   end
 end
