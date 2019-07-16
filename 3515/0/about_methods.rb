@@ -22,7 +22,7 @@ class AboutMethods < Neo::Koan
   # considered to be syntactically invalid).
   # rubocop:disable Style/EvalWithLocation
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval 'assert_equal(5, my_global_method(2, 3))'
+    eval 'assert_equal 5, my_global_method(2, 3)'
     # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
@@ -124,7 +124,14 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_private_methods_without_receiver
-    assert_equal 'a secret', my_private_method
+    exception = assert_raise(NoMethodError) do
+      # rubocop:disable Style/RedundantSelf
+      self.my_private_method
+      # rubocop:enable Style/RedundantSelf
+    end
+    # rubocop:disable Lint/AmbiguousRegexpLiteral
+    assert_match /private method/, exception.message
+    # rubocop:enable Lint/AmbiguousRegexpLiteral
   end
 
   def test_calling_private_methods_with_an_explicit_receiver

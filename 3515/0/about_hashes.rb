@@ -2,14 +2,15 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # This method smells of :reek:TooManyStatements
 # This method smells of :reek:FeatureEnvy
-
 class AboutHashes < Neo::Koan
+  # rubocop:disable Style/EmptyLiteral
   def test_creating_hashes
-    empty_hash = {}
+    empty_hash = Hash.new
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
   end
+  # rubocop:enable Style/EmptyLiteral
 
   def test_hash_literals
     hash = { one: 'uno', two: 'dos' }
