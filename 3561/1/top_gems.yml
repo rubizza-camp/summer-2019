@@ -1,0 +1,5 @@
+gems:
+ - sinatra
+ - rspec
+ - rails
+ - devise
