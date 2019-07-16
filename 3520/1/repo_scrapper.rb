@@ -12,9 +12,7 @@ class RepoScrapper
 
   def repo_info_parse
     repo_used_by
-    repo_watch
-    repo_star
-    repo_forks
+    repo_watch_star_forks
     repo_issues
     repo_contributors
     p repo_info
@@ -50,15 +48,9 @@ class RepoScrapper
     @browser.goto(@browser.link(text: 'Code').href)
   end
 
-  def repo_watch
+  def repo_watch_star_forks
     repo_info[:watchers] = @browser.link(href: /watchers/).text.to_i
-  end
-
-  def repo_star
     repo_info[:stars] = @browser.link(href: /stargazers/).text
-  end
-
-  def repo_forks
     repo_info[:forks] = @browser.link(href: %r{network\/members}).text
   end
 
