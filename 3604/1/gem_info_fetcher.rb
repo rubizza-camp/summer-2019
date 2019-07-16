@@ -2,7 +2,7 @@ require 'mechanize'
 
 # class for get github url something gem and get information about this gem
 class GemInfoFetcher
-  URL = 'https://rubygems.org/'.freeze
+  RUBYGEMS_URL = 'https://rubygems.org/'.freeze
   SHOT_URL_USED_BY = '/network/dependents'.freeze
   USED_BY_CSS_CLASS = "a[class='btn-link selected']".freeze
   CONTRIBUTORS_CSS_CLASS = "span[class='num text-emphasized']".freeze
@@ -13,19 +13,17 @@ class GemInfoFetcher
   end
 
   def information_about_gem
-    hash_with_info_about_gem if such_gem?
+    hash_with_info_about_gem if gem_exists?
   end
 
   private
 
-  def such_gem?
-    begin
-      page_gems
-    rescue Mechanize::ResponseCodeError
-      puts "No such gem #{@name_gem}"
-      return false
-    end
-    github_url
+  def gem_exists?
+    gem_page
+    true
+  rescue Mechanize::ResponseCodeError
+    puts "No such gem #{@name_gem}"
+    false
   end
 
   def hash_with_info_about_gem
@@ -62,13 +60,13 @@ class GemInfoFetcher
     arr_conributors[3].text.strip
   end
 
-  def page_gems
-    @page_gems ||= agent.get(URL + 'gems/' + @name_gem)
+  def gem_page
+    @gem_page ||= agent.get(RUBYGEMS_URL + 'gems/' + @name_gem)
   end
 
   def github_url
-    return @github_url ||= page_gems.at('#code')['href'] if page_gems.at('#code')
-    @github_url ||= page_gems.at('#home')['href'] unless page_gems.at('#code')
+    return @github_url ||= gem_page.at('#code')['href'] if gem_page.at('#code')
+    @github_url ||= gem_page.at('#home')['href'] unless gem_page.at('#code')
   end
 
   def github

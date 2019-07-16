@@ -8,18 +8,14 @@ class OptionsCreator
       name: nil,
       file: 'gems.yml'
     }
+  end
 
+  def hash_options
     @parser = OptionParser.new do |opt|
       opt.on('--top TOP')
       opt.on('--name NAME')
       opt.on('--file FILE')
-    end.parse!(into: hash_options)
-  end
-
-  def hash_options
-    @options[:top]
-    @options[:name]
-    @options[:file]
+    end.parse!(into: @options)
     @options
   end
 end

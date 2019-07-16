@@ -2,7 +2,7 @@ require './array_names_gems_creator.rb'
 require './gem_info_fetcher.rb'
 require './rating_creator.rb'
 require './table_output.rb'
-require './oprions_creator.rb'
+require './options_creator.rb'
 
 # class for main task: start project
 class TopGems

@@ -1,6 +1,6 @@
 # class for create rating
 class RatingCreator
-  ARRAY_COEFFICIENT = {
+  HASH_COEFFICIENTS = {
     used_by: 1,
     watched_by: 0.5,
     stars: 1,
@@ -16,10 +16,10 @@ class RatingCreator
   private
 
   def sum_of_gem(hash_of_one_gem)
-    sum = 0
-    hash_of_one_gem.each do |key, value|
-      sum += value.gsub(/[,]/, '').to_i * ARRAY_COEFFICIENT[key] if ARRAY_COEFFICIENT[key]
+    hash_of_one_gem = hash_of_one_gem.map do |key, value|
+      value.gsub(/[,]/, '').to_i * HASH_COEFFICIENTS[key] if HASH_COEFFICIENTS[key]
     end
-    sum
+    hash_of_one_gem.shift # first value nil, because it's gem_name
+    hash_of_one_gem.sum
   end
 end
