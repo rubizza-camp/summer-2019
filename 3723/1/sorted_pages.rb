@@ -1,11 +1,11 @@
-require_relative 'repo'
-require_relative 'taker'
+require_relative 'repo_info_loader'
+require_relative 'html_parser'
 require 'terminal-table'
 require 'nokogiri'
 require 'open-uri'
 
-class Pages
-  include Taker
+class SortedPages
+  include HtmlParser
   attr_reader :htmls, :rows
 
   def initialize
@@ -13,22 +13,12 @@ class Pages
     @rows = []
   end
 
-  def sort_by_number(number)
-    @rows = @rows.first(number) if number.positive?
+  def call(list)
+    save_htmls(list)
+    take_content(@htmls)
   end
 
-  def sort_by_name(name)
-    @rows.map do |row|
-      if row.first.include?(name)
-        @rows = []
-        @rows << row
-      end
-    end
-  end
-
-  def represent_info
-    puts Terminal::Table.new rows: rows
-  end
+  private
 
   def rating
     @rows.sort_by! { |row| score(row) }.reverse!

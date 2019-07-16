@@ -1,5 +1,6 @@
-require_relative 'repo'
-require_relative 'pages'
+require_relative 'sorted_pages'
+require_relative 'repo_info_loader'
+require_relative 'represent_page'
 require 'optparse'
 
 options = {}
@@ -16,23 +17,18 @@ OptionParser.new do |parser|
   end
 end.parse!
 
-doc = if options[:file]
-        YAML.load_file(options[:file])
-      else
-        YAML.load_file('gems.yml')
-      end
+doc = YAML.load_file(options[:file] || 'gems.yml')
 
-repo = Repo.new
-repo.take_repo(doc)
+repo = RepoInfoLoader.new
+repo.call(doc)
 
-page = Pages.new
-page.save_htmls(repo.list)
-page.take_content(page.htmls)
+page = SortedPages.new
+page.call(repo.list)
+
+represent = RepresentPages.new(page.rows)
 
 if options[:number]
-  page.sort_by_number(options[:number].to_i)
+  represent.call(options[:number].to_i)
 elsif options[:name]
-  page.sort_by_name(options[:name].to_s)
+  represent.call(options[:name].to_s)
 end
-
-page.represent_info

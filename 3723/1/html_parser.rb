@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-module Taker
+module HtmlParser
   private
 
   def score(row)
