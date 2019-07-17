@@ -1,0 +1,16 @@
+gems:
+  - rspec-core
+  - rspec-expectations
+  - diff-lcs
+  - rspec-mocks
+  - rspec
+  - rspec-support
+  - multi_json
+  - rack
+  - rubygems-update
+  - rake
+  - i18n
+  - thor
+  - tzinfo
+  - builder
+  - sinatra
