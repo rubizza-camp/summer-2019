@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'open-uri'
 
-# parse all content
+# parsing all information from github api
 class Parser
-  def initialize(life)
-    @client = Octokit::Client.new(access_token: life)
+  REQUEST_CONTRIBUTORS = 'a span[class=\'num text-emphasized\']'
+  REQUEST_USED_BY = 'a[class=\'btn-link selected\']'
+
+  def initialize(gem)
+    @client = Octokit::Client.new(access_token: gem)
   end
 
   def parse(name)
@@ -14,9 +19,6 @@ class Parser
     all_gems = filling_the_data(all_gems, top_search[:full_name])
     all_gems
   end
-
-  REQUEST_CONTRIBUTORS = 'a span[class=\'num text-emphasized\']'.freeze
-  REQUEST_USED_BY = 'a[class=\'btn-link selected\']'.freeze
 
   private
 
