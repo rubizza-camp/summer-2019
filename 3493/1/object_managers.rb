@@ -37,7 +37,7 @@ module ObjectManagers
     end
 
     def find_uri?(gem_url)
-      (gem_url == 'nil') || !(gem_url.include? 'https://github.com/') && !(gem_url.include? 'http://github.com/')
+      !(gem_url.include? 'https://github.com/') && !(gem_url.include? 'http://github.com/')
     end
 
     def collect_gem_data(gem)
