@@ -24,7 +24,7 @@ end
 
 def get_data(owner,gem)
 
-  params = 'watchers{totalCount}forks{totalCount}mentionableUsers{totalCount}stargazers{totalCount}issues(states: OPEN){totalCount}'
+  params = 'watchers{totalCount}forks{totalCount}mentionableUsers{totalCount}stargazers{totalCount}issues(states: OPEN){totalCount}releases{totalCount}'
   parameters =  "{\"query\":\"{repository(owner: \\\"#{owner}\\\", name: \\\"#{gem}\\\"){#{params}}}\"}"
 
   uri = URI.parse(@api_url)
@@ -33,6 +33,7 @@ def get_data(owner,gem)
   request = Net::HTTP::Post.new(uri.path)
   request['User-Agent'] = '3538-1'
   request['Authorization'] = "token #{@token}"
+  request['Accept'] = 'application/vnd.github.hawkgirl-preview+json'
   request.body = parameters
   res = https.request(request)
   result = JSON.parse(res.body)['data']['repository']
@@ -45,6 +46,7 @@ def get_data(owner,gem)
     table['contributors'] = result['mentionableUsers']['totalCount']
     table['stars'] = result['stargazers']['totalCount']
     table['issues'] = result['issues']['totalCount']
+    table['usedby'] = result['releases']['totalCount']
     return table
   else
 
@@ -52,7 +54,7 @@ def get_data(owner,gem)
 end
 
 def print_data(gem,data)
-  string = "#{gem}\s\s\s\s\t| watched by #{data['watchers']}\s\t| #{data['stars']} stars\t| #{data['forks']} forks\t| #{data['contributors']} contributors\t| #{data['issues']} issues\t|"
+  string = "#{gem}\s\s\s\s\t| used by #{data['usedby']}\t| watched by #{data['watchers']}\s\t| #{data['stars']} stars\t| #{data['forks']} forks\t| #{data['contributors']} contributors\t| #{data['issues']} issues\t|"
   puts "#{string}"
 end
 
