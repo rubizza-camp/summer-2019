@@ -9,16 +9,15 @@ class RatingCreator
     issues: 0.1
   }.freeze
 
-  def array_of_rating_gems(array_of_all_gems)
+  def reoder_gems_by_rating(array_of_all_gems)
     array_of_all_gems.sort_by { |hash_of_one_gem| -rating_of_gem(hash_of_one_gem) }
   end
 
   private
 
   def rating_of_gem(hash_of_one_gem)
-    array_of_gem = HASH_COEFFICIENTS.map do |key, value|
+    HASH_COEFFICIENTS.map do |key, value|
       value * hash_of_one_gem[key].gsub(/[,]/, '').to_i
-    end
-    array_of_gem.sum
+    end.sum
   end
 end

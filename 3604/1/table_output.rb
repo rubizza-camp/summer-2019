@@ -12,7 +12,7 @@ class TableOutput
     issues: 'issues '
   }.freeze
 
-  def table_output(array_gems, count_gems_in_argv)
+  def print(array_gems, count_gems_in_argv)
     table = Terminal::Table.new
     table.style = { border_top: false, border_bottom: false }
     how_many_names_need_to_display(count_gems_in_argv.to_i, array_gems.size).times do |iter|
@@ -24,8 +24,8 @@ class TableOutput
   private
 
   def transformation_into_a_nice_view(hash)
-    hash.map do |object|
-      HASH_FOR_TABLE[object[0]] + object[1]
+    hash.map do |key, string_with_value|
+      HASH_FOR_TABLE[key] + string_with_value
     end
   end
 

@@ -10,8 +10,8 @@ class TopGems
     hash_options = OptionsCreator.new.hash_options
     array_name_gems = ArrayNamesGemsCreator.new.array_names_of_gems(hash_options)
     array_of_all_gems = create_array_with_all_information_about_gems(array_name_gems)
-    array_of_all_gems = RatingCreator.new.array_of_rating_gems(array_of_all_gems)
-    TableOutput.new.table_output(array_of_all_gems, hash_options[:top])
+    reordered_gems = RatingCreator.new.reoder_gems_by_rating(array_of_all_gems)
+    TableOutput.new.print(reordered_gems, hash_options[:top])
   end
 
   private
