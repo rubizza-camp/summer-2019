@@ -10,8 +10,7 @@ RSpec.describe PagePrinter do
       expect { subject.call(2) }.to change { subject.rows.count }.by(-3)
     end
     it 'can filter by part of name' do
-      subject.call('far')
-      expect(subject.rows.first.first).to eq('faraday')
+      expect { subject.call('far') }.to change { subject.named_rows.count }.by(3)
     end
   end
 end

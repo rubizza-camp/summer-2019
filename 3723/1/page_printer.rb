@@ -1,7 +1,7 @@
 require_relative 'sorted_pages'
 
 class PagePrinter
-  attr_reader :rows
+  attr_reader :rows, :named_rows
 
   def initialize(rows)
     @rows = rows
