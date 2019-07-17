@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yaml'
 require 'gems'
 require 'pry'
@@ -9,16 +11,25 @@ require 'open-uri'
 require 'io/console'
 require 'terminal-table'
 
+HEADERS = ['Gem', 'Used by', 'Watched by', 'Stars', 'Forks', 'Contributors', 'Issues'].freeze
+LOGIN_URL = 'https://github.com/login'
+DEFAULT_FILE = 'gems.yml'
+
 class Parse
   attr_accessor :arr, :gem_parameters
 
   def initialize
     @arr = []
     @gem_parameters = []
+    @params = ARGV.empty? ? [] : ARGV.first.split('=')
   end
 
   def yml_gems
-    yml_gem_list = YAML.load_file('gems.yml')
+    if @params[0] == '--file'
+      yml_gem_list = YAML.load_file(@params[1])
+    else
+      yml_gem_list = YAML.load_file(DEFAULT_FILE)
+    end
     yml_gem_list['gems'].each do |gem_name|
       gem_info = Gems.info(gem_name)
       gem_request = {
@@ -36,28 +47,45 @@ class Parse
     threads = []
     @arr.each do |hash|
       threads << Thread.new do
-        next if hash[:source] == nil
-        
+        hash[:source] = hash[:homepage] if hash[:source] == nil || hash[:source] == ''
+
         page = agent.get(hash[:source])
         html = Nokogiri::HTML(page.content.toutf8)
         data = xpath_html(html)
-        add_data_to_gem_parameters(data.unshift(hash[:gem_name]))
+        @gem_parameters << data.unshift(hash[:gem_name])
       end
     end
     threads.each(&:join)
   end
 
+  def sort
+    popularization_sort
+    case @params[0]
+    when '--top'
+      @gem_parameters = @gem_parameters[0..@params[1]]
+    when '--name'
+      @gem_parameters = @gem_parameters.map { |element| element[0].include?(@params[1]) ? element : nil }.compact
+    end
+  end
+
+  def console_output
+    table = Terminal::Table.new headings: HEADERS, rows: @gem_parameters
+    puts table
+  end
+
   private
 
   def authorization
-    username = get_data_from_console("username")
-    password = get_data_from_console("password")
-
     agent = Mechanize.new
-    agent.get('https://github.com/login')
-    agent.page.forms[0]['login'] = username
-    agent.page.forms[0]['password'] = password
-    agent.page.forms[0].submit
+    agent.get(LOGIN_URL)
+    result = nil
+    loop do
+      puts "Wrong username or password, please ty again" if result
+      agent.page.forms[0]['login'] =  get_data_from_console("username")
+      agent.page.forms[0]['password'] = get_data_from_console("password")
+      result = agent.page.forms[0].submit
+      break if result.title.eql?('GitHub')
+    end
 
     agent
   end
@@ -89,28 +117,15 @@ class Parse
     result
   end
 
-  def add_data_to_gem_parameters(data)
-    @gem_parameters << {
-      gem_name: data[0],
-      used_by: data[1],
-      watchers_count: data[2],
-      stargazers_count: data[3],
-      forks_count: data[4],
-      contributors: data[5],
-      open_issues_count: data[6]
-    }
-  end
-
-  public
-
-  def console_output
-    table = Terminal::Table.new headings: ['Gem', 'Used by', 'Watched by', 'Stars',
-                                           'Forks', 'Contributors', 'Issues'], rows: @gem_parameters
-    puts table
+  def popularization_sort
+    @gem_parameters.sort_by! do |element|
+      element[3] * 2 + element[4] * 2 + element[2] + element[1] - element[6] * 1000
+    end.reverse!
   end
 end
 
 parser = Parse.new
 parser.yml_gems
 parser.link_parse
+parser.sort
 parser.console_output
