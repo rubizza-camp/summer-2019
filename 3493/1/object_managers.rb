@@ -1,6 +1,6 @@
-require './parse_html_page_methods'
-require './score_methods'
-require './print_table'
+require_relative 'parse_html_page_methods'
+require_relative 'score_methods'
+require_relative 'print_table'
 
 module ObjectManagers
   class GemControl
