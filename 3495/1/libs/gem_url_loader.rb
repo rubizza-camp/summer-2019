@@ -3,14 +3,17 @@
 class GemUrlLoader
   attr_reader :url, :name_to_search
 
-  def call(gem_name)
+  def initialize(gem_name)
     @name_to_search = gem_name
+  end
+
+  def call
     @url = gem_url
     self
   end
 
   def self.call(gem_name)
-    new.call(gem_name)
+    new(gem_name).call
   end
 
   private

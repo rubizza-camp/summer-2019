@@ -1,7 +1,7 @@
 # This class loads gem parameters
 
 class StatsLoader
-  attr_reader :stats, :html
+  attr_reader :stats, :html, :gem_url
 
   def initialize(gem_url)
     @gem_url = gem_url
@@ -36,7 +36,7 @@ class StatsLoader
 
   def used_by_stat
     @gem_url += '/network/dependents'
-    html = Nokogiri::HTML(URI.parse(@gem_url).open)
+    html = Nokogiri::HTML(URI.parse(gem_url).open)
     html.css('div.table-list-header-toggle a')[0].text.delete('^0-9').to_i
   end
 end

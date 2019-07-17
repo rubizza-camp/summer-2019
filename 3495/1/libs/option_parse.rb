@@ -10,7 +10,7 @@ class OptionParse
 
   def call
     call_parser
-    @options
+    options
   end
 
   def self.call

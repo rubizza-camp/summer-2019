@@ -6,7 +6,7 @@ class GemStats
   def call(gem_name, statistic)
     @gem_name = gem_name
     @statistic = statistic
-    @coolness = coolness_calc
+    @coolness = calc_coolness
     self
   end
 
@@ -18,7 +18,7 @@ class GemStats
     [gem_name, *statistic.values, coolness]
   end
 
-  def coolness_calc
+  def calc_coolness
     statistic[:watch] + statistic[:stars] + statistic[:forks] + statistic[:contributors] +
       used_by_divide_by_issues
   end
