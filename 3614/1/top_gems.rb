@@ -25,11 +25,11 @@ class Parse
   end
 
   def yml_gems
-    if @params[0] == '--file'
-      yml_gem_list = YAML.load_file(@params[1])
-    else
-      yml_gem_list = YAML.load_file(DEFAULT_FILE)
-    end
+    yml_gem_list = if @params[0] == '--file'
+                     YAML.load_file(@params[1])
+                   else
+                     YAML.load_file(DEFAULT_FILE)
+                   end
     yml_gem_list['gems'].each do |gem_name|
       gem_info = Gems.info(gem_name)
       gem_request = {
@@ -47,7 +47,7 @@ class Parse
     threads = []
     @arr.each do |hash|
       threads << Thread.new do
-        hash[:source] = hash[:homepage] if hash[:source] == nil || hash[:source] == ''
+        hash[:source] = hash[:homepage] if hash[:source].nil? || hash[:source] == ''
 
         page = agent.get(hash[:source])
         html = Nokogiri::HTML(page.content.toutf8)
@@ -80,9 +80,9 @@ class Parse
     agent.get(LOGIN_URL)
     result = nil
     loop do
-      puts "Wrong username or password, please ty again" if result
-      agent.page.forms[0]['login'] =  get_data_from_console("username")
-      agent.page.forms[0]['password'] = get_data_from_console("password")
+      puts 'Wrong username or password, please ty again' if result
+      agent.page.forms[0]['login'] =  get_data_from_console('username')
+      agent.page.forms[0]['password'] = get_data_from_console('password')
       result = agent.page.forms[0].submit
       break if result.title.eql?('GitHub')
     end
@@ -97,7 +97,7 @@ class Parse
 
   def get_social_info(html)
     data = html.xpath("//a[starts-with(@class, 'social-count')]")
-    data.map {|d| d.text.delete('^0-9').to_i }.uniq
+    data.map { |d| d.text.delete('^0-9').to_i }.uniq
   end
 
   def get_contributors(html)
