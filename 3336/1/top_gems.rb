@@ -1,4 +1,5 @@
-#ruboop:disable Metrics/AbcSize, Metrics/LineLength, Security/Open, Lint/UselessAssiment
+# rubocop:disable Metrics/AbcSize, Metrics/LineLength, Security/Open
+# rubocop:disable Lint/UselessAssignment, Metrics/MethodLength, Lint/AmbiguousOperator
 
 require 'open-uri'
 require 'nokogiri'
@@ -26,24 +27,26 @@ OptionParser.new do |parser|
   end
 end.parse!
 
+# :reek:TooManyStatements
 def runner
-  g = gems
-  p "1.Execute gems: #{g}"
-  check_for_optparse(g)
-  urls = get_url(g)
-  p "2.Turn them into url's: #{urls}"
+  gems = gem_list
+  # p "1.Execute gems: #{gems}"
+  check_for_optparse(gems)
+  urls = get_url(gems)
+  # p "2.Turn them into url's: #{urls}"
   html_result_first = nokogiri_parse_first(urls)
   html_result_second = nokogiri_parse_second(urls)
   gems_stats = main_stats(html_result_first, html_result_second)
-  gems_stats = polish_main_stats(g, gems_stats)
-  p "3.Takin all stats: #{gems_stats}"
-  stat_rows = rating_rows(g, gems_stats)
-  p '4.Calculate rating'
-  p '5.Draw table:'
+  gems_stats = polish_main_stats(gems, gems_stats)
+  # p "3.Takin all stats: #{gems_stats}"
+  stat_rows = rating_rows(gems, gems_stats)
+  # p '4.Calculate rating'
+  # p '5.Draw table:'
   table(stat_rows)
 end
 
-def gems
+# :reek:NilCheck
+def gem_list
   data = if @options[:file].nil?
            YAML.safe_load(File.read('gems.yaml'))
          else
@@ -54,10 +57,12 @@ def gems
   gems
 end
 
+# :reek:NilCheck
+# :reek:TooManyStatements
 def check_for_optparse(gem_list)
   unless @options[:name_gem].nil?
     gem_list.each do
-      gem_list.delete_if { |x| !x.include?(@options[:name_gem]) }
+      gem_list.delete_if { |item| !item.include?(@options[:name_gem]) }
     end
     p "find #{gem_list.length} gems with name #{@options[:name_gem]}"
   end
@@ -65,6 +70,8 @@ def check_for_optparse(gem_list)
   @options[:top_gem] = gem_list.length if @options[:top_gem].nil?
 end
 
+# :reek:NilCheck
+# :reek:UtilityFunction
 def get_url(gem_list)
   arr_url = []
   gem_list.each do |url|
@@ -92,6 +99,8 @@ def nokogiri_parse_second(url_list)
   second_doc
 end
 
+# :reek:TooManyStatements
+# :reek:UtilityFunction
 def main_stats(main_html, sub_html)
   watch_star_fork = []
   contributers = []
@@ -102,13 +111,16 @@ def main_stats(main_html, sub_html)
     contributers << el.css('span.num.text-emphasized')[3].text.delete(' ').delete(',').split("\n").reject(&:empty?).map(&:to_i)
     issues << [el.css('span.Counter')[0].text.to_i]
   end
-  contributers.each_index { |i| (contributers[i] = [0] if contributers[i].empty?) }
+  contributers.each_index { |index| (contributers[index] = [0] if contributers[index].empty?) }
   sub_html.each do |el|
     used_by << [el.css('.btn-link')[1].text.delete(' ').delete("\n").delete(',').to_i]
   end
   stats_arr = Array.new(watch_star_fork.concat(contributers).concat(issues).concat(used_by))
 end
 
+# :reek:TooManyStatements
+# :reek:UncommunicativeVariableName
+# :reek:UtilityFunction
 def polish_main_stats(gems, stats)
   l = gems.length
   gems.each_index do |i|
@@ -119,6 +131,8 @@ def polish_main_stats(gems, stats)
   stats
 end
 
+# :reek:TooManyStatements
+# :reek:UtilityFunction
 def rating_rows(gems, stats)
   arr_rate = []
   rows = []
@@ -141,4 +155,5 @@ def table(rows)
 end
 runner
 
-#ruboop:enable Metrics/AbcSize, Metrics/LineLength, Security/Open
+# rubocop:enable Metrics/AbcSize, Metrics/LineLength, Security/Open
+# rubocop:enable Lint/UselessAssignment, Metrics/MethodLength, Lint/AmbiguousOperator
