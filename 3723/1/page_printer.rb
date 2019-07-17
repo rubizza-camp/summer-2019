@@ -1,6 +1,6 @@
 require_relative 'sorted_pages'
 
-class RepresentPages
+class PagePrinter
   attr_reader :rows
 
   def initialize(rows)
@@ -10,9 +10,9 @@ class RepresentPages
   def call(option = nil)
     if option
       sort_by_number(option) if option.is_a? Integer
-      sort_by_name(option) if option.is_a? String
+      filter_by_name(option) if option.is_a? String
     end
-    represent_info
+    print_info
   end
 
   private
@@ -21,7 +21,7 @@ class RepresentPages
     @rows = @rows.first(number) if number.positive?
   end
 
-  def sort_by_name(name)
+  def filter_by_name(name)
     @rows.map do |row|
       if row.first.include?(name)
         @rows = []
@@ -30,7 +30,7 @@ class RepresentPages
     end
   end
 
-  def represent_info
+  def print_info
     puts Terminal::Table.new rows: rows
   end
 end

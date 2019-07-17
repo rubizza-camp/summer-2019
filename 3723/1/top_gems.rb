@@ -1,6 +1,6 @@
 require_relative 'sorted_pages'
 require_relative 'repo_info_loader'
-require_relative 'represent_page'
+require_relative 'page_printer'
 require 'optparse'
 
 options = {}
@@ -25,7 +25,7 @@ repo.call(doc)
 page = SortedPages.new
 page.call(repo.list)
 
-represent = RepresentPages.new(page.rows)
+represent = PagePrinter.new(page.rows)
 
 if options[:number]
   represent.call(options[:number].to_i)
