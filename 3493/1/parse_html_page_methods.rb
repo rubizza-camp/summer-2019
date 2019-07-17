@@ -12,13 +12,14 @@ module ParseHtmlPageMethods
     css_fork_star_watch(open_file(url)).each do |elements|
       result.push(elements.content.gsub(/[^0-9]/, ''))
     end
-    result
+    convert_to_hash_fork_star_watch(result)
   end
 
   def find_fields(url)
     result = find_fork_star_watch(url)
-    result.push(css_issues(open_file(url)).content.gsub(/[^0-9]/, ''))
-    result.push(css_contributers(open_file(url)).text.gsub(/[^0-9]/, ''))
+    result[:issues] = css_issues(open_file(url)).content.gsub(/[^0-9]/, '')
+    result[:contributers] = css_contributers(open_file(url)).text.gsub(/[^0-9]/, '')
+    result
   end
 
   def find_used_by(url)
@@ -28,6 +29,10 @@ module ParseHtmlPageMethods
   end
 
   private
+
+  def convert_to_hash_fork_star_watch(array)
+    { fork: array[0], star: array[1], watch: array[2] }
+  end
 
   def open_file(url)
     Nokogiri::HTML(Kernel.open(url))

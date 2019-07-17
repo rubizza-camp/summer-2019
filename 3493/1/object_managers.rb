@@ -1,11 +1,11 @@
-require_relative 'parse_html_page_methods'
-require_relative 'score_methods'
-require_relative 'print_table'
+require './parse_html_page_methods'
+require './score_methods'
+require './print_table'
 
 module ObjectManagers
-  class GemManager
+  class GemControl
     include ParseHtmlPageMethods
-    include ScoreMethod
+    include ScoreMethods
 
     attr_reader :file_name, :gem_name, :top_count, :gem_hash
 

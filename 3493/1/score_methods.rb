@@ -1,4 +1,4 @@
-module ScoreMethod
+module ScoreMethods
   INCREASED_COEF = 3
   NORMAL_COEF = 2
   REDUCED_COEF = 1
