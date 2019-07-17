@@ -5,9 +5,9 @@ require 'nokogiri'
 require 'mechanize'
 require 'json'
 require_relative 'linker'
-require_relative 'githubinfo'
-require_relative 'sorter'
-require_relative 'filereader'
+require_relative 'gemrepoparser'
+require_relative 'order'
+require_relative 'yamlreader'
 
 options = {}
 
@@ -23,23 +23,23 @@ OptionParser.new do |opts|
   end
 
   opts.on('--file=PATH') do |path|
-    options[:gems] = YAML.load_file(path)['gems']
+    options[:file] = YAML.load_file(path)['gems']
   end
 end.parse!
 
-filereader = FileReader.new('gems.yaml')
-linker = Linker.new(filereader.read)
-githubinfo = GitHubInfo.new(linker.find_links)
-sorter = Sorter.new(githubinfo.info)
+yamlreader = YamlReader.new('gems.yaml').read
+linker = Linker.new(yamlreader).find_links
+gemrepoparser = GemRepoParser.new(linker).info
+order = Order.new(gemrepoparser)
 
 if options.key? :top
-  puts sorter.result_sort[0..options[:top] - 1]
+  puts order.result_sort[0..options[:top] - 1]
 elsif options.key? :name
-  sorter.result_sort.each do |i|
+  order.result_sort.each do |i|
     puts i if i.include? options[:name]
   end
-elsif options.key? :gems
-  puts options[:gems]
+elsif options.key? :file
+  puts options[:file]
 else
-  puts sorter.result_sort
+  puts order.result_sort
 end

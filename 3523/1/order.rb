@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
+require 'pry'
 # This is Sorter class. This class sort gems by populatity and gives result
-class Sorter
+class Order
   attr_reader :result
   def initialize(strings)
     @strings = strings
@@ -9,8 +10,7 @@ class Sorter
   end
 
   def result_sort
-    result = result_strings(sort(@strings))
-    result.reverse!
+    result_strings(sort(@strings))
   end
 
   private
@@ -21,9 +21,13 @@ class Sorter
     end
   end
 
+  def used_by_num(strings)
+    strings[1].split(' ').last.to_i
+  end
+
   def sort(strings)
-    str = delete_comma(strings)
-    str.sort_by! { |string| string[3].to_i }
+    str_without_comma = delete_comma(strings)
+    str_without_comma.sort_by! { |param_a| -used_by_num(param_a) }
   end
 
   def result_strings(str)

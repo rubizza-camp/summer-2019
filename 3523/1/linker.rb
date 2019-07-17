@@ -10,7 +10,8 @@ class Linker
   def find_links
     @gem_names.map do |name|
       link = "https://rubygems.org/api/v1/gems/#{name.strip}"
-      JSON.parse(URI.open(link).read)['source_code_uri']
+      buffer = URI.open(link).read
+      JSON.parse(buffer)['source_code_uri']
     end
   end
 end
