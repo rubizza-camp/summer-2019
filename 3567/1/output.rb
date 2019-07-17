@@ -1,8 +1,7 @@
 require 'terminal-table'
 
 class Output
-  ARR_OF_HEADERS = %w[repos Watch Star Fork Issues Used_by Contributors].freeze
-  ARR_OF_SYMBOLS = %i[repos Watch Star Fork Issues Used_by Contributors].freeze
+  DATA_STOCK = %i[repos Watch Star Fork Issues Used_by Contributors].freeze
   attr_reader :gemstorage
 
   def initialize(gemstorage:)
@@ -10,9 +9,8 @@ class Output
   end
 
   def create_table
-    rows = []
-    gemstorage.each { |gem| rows << gem.values_at(*ARR_OF_SYMBOLS) }
-    puts Terminal::Table.new headings: ARR_OF_HEADERS, rows: rows unless gemstorage.empty?
+    rows = gemstorage.each_with_object([]) { |gem, stock| stock << gem.values_at(*DATA_STOCK) }
+    puts Terminal::Table.new headings: DATA_STOCK, rows: rows unless gemstorage.empty?
   end
 
   private

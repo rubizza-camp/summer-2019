@@ -1,7 +1,7 @@
 class ApiParser
   attr_reader :uri_repo, :parsed_git_uri
 
-  def inicialize
+  def initialize
     @uri_repo = uri_repo
     @parsed_git_uri = parsed_git_uri
   end
