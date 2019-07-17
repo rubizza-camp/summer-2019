@@ -38,9 +38,9 @@ class TopGems
 
   def print_table
     if parameters[:top]
-      TablePrinter.new(@gems, parameters[:top]).output_info
+      TablePrinter.new(gems, parameters[:top]).output_info
     else
-      TablePrinter.new(@gems).output_info
+      TablePrinter.new(gems).output_info
     end
   end
 
