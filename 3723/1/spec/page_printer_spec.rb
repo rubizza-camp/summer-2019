@@ -3,11 +3,11 @@ require './sorted_pages'
 
 RSpec.describe PagePrinter do
   subject { PagePrinter.new(row) }
-  let(:row) { [['rails', 'forks 111'], %w[faraday 13], %w[rspec 1]] }
+  let(:row) { [%w[faraday 1], %w[rspec 1], %w[faraday 3], %w[rails 5], %w[faraday 7]] }
 
   describe '#call' do
     it 'can sort by number from top' do
-      expect { subject.call(2) }.to change { subject.rows.count }.by(-1)
+      expect { subject.call(2) }.to change { subject.rows.count }.by(-3)
     end
     it 'can filter by part of name' do
       subject.call('far')
