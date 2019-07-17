@@ -5,5 +5,10 @@ class GemListLoader
 
   def call(path = 'gem_list.yml')
     @gems_arr = YAML.load_file(path).values[0]
+    self
+  end
+
+  def self.call
+    new.call
   end
 end

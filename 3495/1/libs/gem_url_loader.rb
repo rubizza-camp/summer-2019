@@ -1,11 +1,16 @@
 # This class collect gem url
 
-class GemUrlGetter
+class GemUrlLoader
   attr_reader :url, :name_to_search
 
-  def initialize(gem_name)
+  def call(gem_name)
     @name_to_search = gem_name
     @url = gem_url
+    self
+  end
+
+  def self.call(gem_name)
+    new.call(gem_name)
   end
 
   private

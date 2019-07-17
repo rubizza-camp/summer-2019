@@ -1,16 +1,17 @@
 # This class collects all info about gem
 
-class MyGem
+class GemStats
   attr_reader :gem_name, :statistic, :coolness
 
-  def initialize(gem_name, statistic)
+  def call(gem_name, statistic)
     @gem_name = gem_name
-    call(statistic)
-  end
-
-  def call(statistic)
     @statistic = statistic
     @coolness = coolness_calc
+    self
+  end
+
+  def self.call(gem_name, statistic)
+    new.call(gem_name, statistic)
   end
 
   def insert_params

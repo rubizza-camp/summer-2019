@@ -1,6 +1,6 @@
-# This class getting gem params
+# This class loads gem parameters
 
-class StatsGetter
+class StatsLoader
   attr_reader :stats, :html
 
   def initialize(gem_url)
