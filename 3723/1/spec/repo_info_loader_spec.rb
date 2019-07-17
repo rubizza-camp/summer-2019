@@ -2,8 +2,8 @@ require './repo_info_loader'
 
 RSpec.describe RepoInfoLoader do
   subject { RepoInfoLoader.new }
-  let(:doc) { { 'gems' => ['rails', 'faraday'] } }
-  let(:one_wrong) { { 'gems' => ['rails', 'topkek'] } }
+  let(:doc) { { 'gems' => %w[rails faraday] } }
+  let(:one_wrong) { { 'gems' => %w[rails topkek] } }
 
   describe '#call' do
     it 'write only gems links in list' do
