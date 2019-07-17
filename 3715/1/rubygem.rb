@@ -3,9 +3,11 @@ require_relative 'github_repository_parser.rb'
 # Collecting info about gem
 class RubyGem
   attr_reader :name
+  attr_reader :parser
 
   def initialize(name)
     @name = name
+    @parser = GitHubRepositoryParser.new(name)
   end
 
   def used_by
@@ -14,22 +16,22 @@ class RubyGem
   end
 
   def watch
-    GitHubRepositoryParser.new(name).github_repository_title.css('a.social-count').first.text.to_i
+    parser.github_repository_title.css('a.social-count').first.text.to_i
   end
 
   def star
-    GitHubRepositoryParser.new(name).github_api['watchers']
+    parser.github_api['watchers']
   end
 
   def fork
-    GitHubRepositoryParser.new(name).github_api['forks']
+    parser.github_api['forks']
   end
 
   def contributors
-    GitHubRepositoryParser.new(name).github_repository_title.css('span.num').last.text.to_i
+    parser.github_repository_title.css('span.num').last.text.to_i
   end
 
   def issues
-    GitHubRepositoryParser.new(name).github_repository_title.css('span.Counter').first.text.to_i
+    parser.github_repository_title.css('span.Counter').first.text.to_i
   end
 end

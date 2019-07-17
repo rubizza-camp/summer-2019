@@ -3,7 +3,7 @@ require_relative 'gemlist.rb'
 # Prepare gemlist for display
 class TopRubyGems < GemList
   def self.pick_names(text)
-    matched_name = make_gemlist.map { |ruby_gem| ruby_gem if ruby_gem.name.include?(text) }.compact!
+    matched_name = make_gemlist.select { |gem| gem.name.include?(text) }
     sort_gems(matched_name)
   end
 
@@ -12,6 +12,6 @@ class TopRubyGems < GemList
   end
 
   def self.sort_gems(list)
-    list.sort_by { |ruby_gem| - ruby_gem.star }
+    list.sort_by(&:star).reverse!
   end
 end

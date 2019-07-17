@@ -21,15 +21,15 @@ class CreateTable
     }
   end
 
-  def self.table_row(ruby_gem)
+  def self.table_row(gem)
     [
-      ruby_gem.name,
-      "used by #{ruby_gem.used_by}",
-      "watched by #{ruby_gem.watch}",
-      "#{ruby_gem.star} stars",
-      "#{ruby_gem.fork} forks",
-      "#{ruby_gem.contributors} contributors",
-      "#{ruby_gem.issues} issues"
+      gem.name,
+      "used by #{gem.used_by}",
+      "watched by #{gem.watch}",
+      "#{gem.star} stars",
+      "#{gem.fork} forks",
+      "#{gem.contributors} contributors",
+      "#{gem.issues} issues"
     ]
   end
 end
