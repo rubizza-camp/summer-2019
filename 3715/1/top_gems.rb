@@ -5,8 +5,8 @@ require 'json'
 require 'nokogiri'
 require 'terminal-table'
 
-URL_API = 'https://api.github.com/search/repositories?q='.freeze
-URL_ND = '/network/dependents'.freeze
+GITHUB_REPOSITORIES_API_URL = 'https://api.github.com/search/repositories?q='.freeze
+GITHUB_NETWORK_DEPENDENTS = '/network/dependents'.freeze
 
 # File interaction
 class Files
@@ -23,26 +23,28 @@ class Files
 end
 
 # Scraping info about gems from github
-class Parser
+class GitHubRepositoryParser
+  attr_reader :name_gem
+
   def initialize(name_gem)
     @name_gem = name_gem
   end
 
-  def git_api
-    JSON.parse(URI.open(URL_API + @name_gem).read)['items'].first
+  def github_api
+    JSON.parse(URI.open(GITHUB_REPOSITORIES_API_URL + name_gem).read)['items'].first
   end
 
-  def git_title
-    git_parse(git_api['html_url'])
+  def github_repository_title
+    github_parse(github_api['html_url'])
   end
 
-  def git_nd
-    git_parse(git_api['html_url'] + URL_ND)
+  def github_network_dependents
+    github_parse(github_api['html_url'] + GITHUB_NETWORK_DEPENDENTS)
   end
 
   private
 
-  def git_parse(page)
+  def github_parse(page)
     Nokogiri::HTML(URI.open(page))
   end
 end
@@ -56,27 +58,28 @@ class RubyGem
   end
 
   def used_by
-    Parser.new(@name).git_nd.css('a.btn-link').first.text.delete(',').to_i
+    page = GitHubRepositoryParser.new(name).github_network_dependents
+    page.css('a.btn-link').first.text.delete(',').to_i
   end
 
   def watch
-    Parser.new(@name).git_title.css('a.social-count').first.text.to_i
+    GitHubRepositoryParser.new(name).github_repository_title.css('a.social-count').first.text.to_i
   end
 
   def star
-    Parser.new(@name).git_api['watchers']
+    GitHubRepositoryParser.new(name).github_api['watchers']
   end
 
   def fork
-    Parser.new(@name).git_api['forks']
+    GitHubRepositoryParser.new(name).github_api['forks']
   end
 
   def contributors
-    Parser.new(@name).git_title.css('span.num').last.text.to_i
+    GitHubRepositoryParser.new(name).github_repository_title.css('span.num').last.text.to_i
   end
 
   def issues
-    Parser.new(@name).git_title.css('span.Counter').first.text.to_i
+    GitHubRepositoryParser.new(name).github_repository_title.css('span.Counter').first.text.to_i
   end
 end
 
@@ -139,7 +142,8 @@ class CreateTable
 end
 
 def show_top(top)
-  puts Terminal::Table.new CreateTable.table(top)
+  new_table = CreateTable.table(top)
+  puts Terminal::Table.new(new_table)
 end
 
 (show_top(TopRubyGems.top_gems) if ARGV.empty?)
@@ -159,7 +163,6 @@ OptionParser.new do |options|
     another_name_gem = Files.new.name_gem(file)
     make_another_gemlist = another_name_gem.map { |title| RubyGem.new(title) }
     show_top(TopRubyGems.sort_gems(make_another_gemlist))
-    # show_top(va2)
   end
 
   options.on('-h', '--help',
