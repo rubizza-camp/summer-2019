@@ -3,7 +3,7 @@ require_relative 'user_communicator'
 
 user = UserCommunicator.new
 begin
-  file_name = ""
+  file_name = ''
   ARGV.each do |argument|
     file_name = argument.gsub('--file=', '') if argument.include?('file')
   end

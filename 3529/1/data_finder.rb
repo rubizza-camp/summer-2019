@@ -11,7 +11,7 @@ class DataFinder
 
   def make_rate
     rate = find_watch_plus_starts + find_forks_plus_contributors
-    rate + find_issues_plus_used
+    rate += find_issues_plus_used
     @data_about_gem[:rate] = rate
   end
 
