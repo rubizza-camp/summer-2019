@@ -34,5 +34,3 @@ elsif options[:name]
 else
   represent.call
 end
-
-p repo.list
