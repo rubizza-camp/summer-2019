@@ -3,22 +3,24 @@
 require 'mechanize'
 
 class GitHubUrlFinder
-  attr_reader :gems_github_urls_hash
+  attr_reader :gems_github_urls_hash, :mechanize
 
-  def initialize(gem_names_array)
-    @gems_github_urls_hash = {}
-    look_for_gem_github_url(gem_names_array)
-  end
-
-  protected
+  RBGM_PAGE = 'https://rubygems.org/gems/'.freeze
 
   def look_for_gem_github_url(gem_names_array)
-    mechanize = Mechanize.new
+    set_mechanize
 
     gem_names_array.each do |gem_name|
-      gem_rubygems_page = mechanize.get("https://rubygems.org/gems/#{gem_name}")
-      gem_github_url = gem_rubygems_page.link_with(text: 'Source Code').uri.to_s
-      @gems_github_urls_hash[gem_name.to_sym] = gem_github_url
+      gem_github_url = mechanize.get(RBGM_PAGE + gem_name).link_with(text: 'Source Code').uri.to_s
+      @gems_github_urls_hash[gem_name.to_sym] ||= gem_github_url
     end
+    gems_github_urls_hash
+  end
+
+  private
+
+  def set_mechanize
+    @gems_github_urls_hash ||= {}
+    @mechanize = Mechanize.new
   end
 end

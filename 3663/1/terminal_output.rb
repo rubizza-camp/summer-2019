@@ -1,33 +1,23 @@
-# rubocop:disable Lint/MissingCopEnableDirective
-
 # This class helps to output all gems data in the table
+
 require 'terminal-table'
 
 class TerminalOutput
-  attr_reader :output
+  attr_reader :output, :rows
 
-  def initialize(gems_data_array)
-    generate_table(gems_data_array)
+  def generate_table(gems_data_array)
+    @rows = gems_data_array.each_with_object([]) { |hash, array| array << collect(hash).flatten }
+    @output = Terminal::Table.new rows: rows
   end
 
-  protected
+  private
 
-  # rubocop:disable Metrics/MethodLength
-  # :reek:FeatureEnvy
-  # :reek:NestedIterators
-  def generate_table(gems_data_array)
-    table_rows = []
-    gems_data_array.each do |hash|
-      hash.each do |gem_name, data_hash|
-        table_rows << [gem_name.to_s,
-                       "used by #{data_hash[:gem_used_by]}",
-                       "watched by #{data_hash[:gem_watched_by]}",
-                       "#{data_hash[:gem_stars]} stars",
-                       "#{data_hash[:gem_forks]} forks",
-                       "#{data_hash[:gem_contributors]} contributors",
-                       "#{data_hash[:gem_issues]} issues"]
-      end
+  def collect(hash)
+    hash.map do |gem_name, data_hash|
+      [gem_name.to_s,
+       "used by #{data_hash[:gem_used_by]}", "watched by #{data_hash[:gem_watched_by]}",
+       "#{data_hash[:gem_stars]} stars", "#{data_hash[:gem_forks]} forks",
+       "#{data_hash[:gem_contributors]} contributors", "#{data_hash[:gem_issues]} issues"]
     end
-    @output = Terminal::Table.new rows: table_rows
   end
 end

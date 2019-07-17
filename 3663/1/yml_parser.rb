@@ -2,18 +2,12 @@
 
 require 'yaml'
 
-# :reek:InstanceVariableAssumption
 class YmlParser
-  attr_reader :gems_hash, :yml_file
-
-  def initialize(yml_file)
-    parse_yml(yml_file)
-  end
-
-  protected
+  attr_reader :gems_hash
 
   def parse_yml(yml_file)
     @gems_hash = YAML.load_file(yml_file)
-    @gems_hash[:gems] = gems_hash.delete('gems')
+    @gems_hash[:gems] ||= gems_hash.delete('gems')
+    gems_hash
   end
 end
