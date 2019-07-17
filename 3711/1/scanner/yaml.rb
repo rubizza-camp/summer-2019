@@ -5,7 +5,7 @@ module Scanner
     attr_reader :parsed_data
 
     def initialize(path)
-      @path = path || ''
+      @path = path.to_s
       @parsed_data = []
     end
 

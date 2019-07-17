@@ -5,7 +5,8 @@ require_relative 'rating'
 require_relative 'printer'
 
 # Scan input atributes from shell
-args = Scanner::Shell.new(ARGV).scan
+args = Scanner::Shell.new.scan
+
 # Get gem list from local file by input attributes
 gem_names = Scanner::Yaml.new(args[:file]).scan
 return puts "Can't find any gems" if gem_names.empty?
@@ -24,7 +25,7 @@ parsed_gems = parse_result.map { |data| RubyGem.new(data) }
 rated_gems = Rating.new(parsed_gems).rate
 
 # Get top N gems, if
-gems_to_print = args['top'] ? rated_gems.first(args['top']) : rated_gems
+gems_to_print = args[:top] ? rated_gems.first(args[:top].to_i) : rated_gems
 
 # Print sorted arr
 Printer.print_gems(gems_to_print)

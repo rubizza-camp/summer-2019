@@ -1,5 +1,5 @@
 class RubyGem
-  attr_reader :score, :gem_data, :name, :used_by, :watched_by, :stars, :forks, :contribs, :issues
+  attr_reader :score, :gem_data
 
   ATTR_WEIGTHS = {
     used_by: 10,
@@ -13,7 +13,6 @@ class RubyGem
   def initialize(gem_data)
     @gem_data = gem_data
     @score = score_rating
-    fill_attrs
   end
 
   def to_s
@@ -29,16 +28,6 @@ class RubyGem
   end
 
   private
-
-  def fill_attrs
-    @name = @gem_data[:name]
-    @used_by = @gem_data[:used_by]
-    @watched_by = @gem_data[:watched_by]
-    @stars = @gem_data[:stars]
-    @forks = @gem_data[:forks]
-    @contribs = @gem_data[:contributors]
-    @issues = @gem_data[:issues]
-  end
 
   def score_rating
     ATTR_WEIGTHS.each_pair.map do |key, value|

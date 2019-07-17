@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem "optparse"
+gem "table_print"
+gem "nokogiri"
+gem "open-uri"

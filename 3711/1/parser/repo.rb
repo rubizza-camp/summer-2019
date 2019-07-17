@@ -22,8 +22,9 @@ module Parser
 
     def search_gem
       search_params = { q: "#{@name}+language:ruby", sort: 'stars' }
-      @response = connect_github_api('/search/repositories', search_params)
-      collect_gem_repo_data_from_response
+      response = connect_github_api('/search/repositories', search_params)
+      json = JSON.parse(response)
+      fill_gem_attrs(json['items'].first) if json['total_count'].positive?
     end
 
     def connect_github_api(path, params)
@@ -38,14 +39,9 @@ module Parser
       uri.query = URI.encode_www_form(params)
     end
 
-    def collect_gem_repo_data_from_response
-      response = JSON.parse(@response)
-      fill_gem_attrs(response['items'].first) if response['total_count'].positive?
-    end
-
     def fill_gem_attrs(gem_data)
-      @html_url = gem_data['html_url']
       @data[:name] = gem_data['name']
+      @data[:html_url] = gem_data['html_url']
       @data[:watched_by] = gem_data['watchers'].to_i
       @data[:stars] = gem_data['stargazers_count'].to_i
       @data[:forks] = gem_data['forks'].to_i
@@ -78,7 +74,7 @@ module Parser
     end
 
     def open_github_html(method)
-      uri = URI(@html_url + method)
+      uri = URI(@data[:html_url] + method)
       fill_uri_params(uri)
       Nokogiri::HTML(uri.open.read)
     end
