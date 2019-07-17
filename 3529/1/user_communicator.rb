@@ -7,10 +7,6 @@ class UserCommunicator
   def initialize
     @rows = []
     @gem_list = []
-    ARGV.each do |argument|
-      @file_name = argument.gsub('--file=', '') if argument.include?('file')
-    end
-    @file = YAML.safe_load(File.read(@file_name))
   end
 
   def make_top
@@ -23,7 +19,7 @@ class UserCommunicator
   def load_arguments
     ARGV.each do |argument|
       top_check(argument) if argument.include?('top')
-      name_handler(argument) if argument.include?('name')
+      @gem_list = name_handler(argument) if argument.include?('name')
       make_top
       update_row
     end
@@ -41,26 +37,20 @@ class UserCommunicator
     end
   end
 
-  def find_list
-    @file['gems'].each do |gem_name|
+  def find_list(file)
+    file['gems'].each do |gem_name|
       gem = GemsApiHandler.new(gem_name)
-      next unless gem.find_github
+      next unless gem.find_github_link
 
-      gemh = GemHandler.new(gem_name)
-      add_to_list gemh.data_about_gem(gem.find_github)
+      gem_handling = GemHandler.new(gem)
+      @gem_list << gem_handling.data_about_gem
     end
-  end
-
-  def add_to_list(data)
-    @gem_list << data
   end
 
   def name_handler(argument)
-    new_list = []
     name_of_gem = argument.gsub('--name=', '')
-    @gem_list.collect do |gem|
-      new_list << @gem_list[@gem_list.index(gem)] if gem[:name].include?(name_of_gem)
+    @gem_list.each_with_object([]) do |gem, gem_list|
+      gem_list << gem if gem[:name].include?(name_of_gem)
     end
-    @gem_list = new_list
   end
 end

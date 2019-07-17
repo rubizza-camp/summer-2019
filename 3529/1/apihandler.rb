@@ -4,13 +4,14 @@ require 'httparty'
 
 class GemsApiHandler
   attr_reader :gem_github
+  attr_reader :gem_name
 
   def initialize(gem_name)
     @gem_name = gem_name
     @url = HTTParty.get("https://rubygems.org/api/v1/gems/#{@gem_name}.json")
   end
 
-  def find_github
+  def find_github_link
     url_check
   end
 

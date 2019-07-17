@@ -9,18 +9,19 @@ require 'yaml'
 require 'octokit'
 require 'typhoeus'
 require_relative 'data_finder'
+require_relative 'apihandler'
 
 class GemHandler
-  def initialize(gem_name)
-    @gem_name = gem_name
+  def initialize(gem)
+    @gem = gem
     file = YAML.safe_load(File.read('login.yaml'))
     @client = Octokit::Client.new(login: file['login'], password: file['password'])
-    login
   end
 
-  def data_about_gem(url)
-    data_finder = DataFinder.new(@gem_name, url, @client)
-    data_finder.join_all_data
+  def data_about_gem
+    login
+    data_finder = DataFinder.new(@gem.gem_name, @gem.find_github_link, @client)
+    data_finder.make_rate
     data_finder.data_about_gem
   end
 

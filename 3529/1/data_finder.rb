@@ -6,18 +6,18 @@ class DataFinder
     @data_about_gem[:name] = gem_name
     @url = url
     @client = client
-    @repo_addr = adress_handle
+    @repo_addr = adress_handler
   end
 
-  def join_all_data
-    find_watchers_stars_forks
-    find_used_by_contributors_issues
-    @data_about_gem[:rate] = make_rate
+  def make_rate
+    rate = find_watch_plus_starts + find_forks_plus_contributors
+    rate + find_issues_plus_used
+    @data_about_gem[:rate] = rate
   end
 
   private
 
-  def adress_handle
+  def adress_handler
     puts "Didn't find repository on github" unless @url
     @repo_addr = if @url.include?('https://github.com/')
                    @url.gsub('https://github.com/', '')
@@ -26,44 +26,38 @@ class DataFinder
                  end
   end
 
-  def find_watchers_stars_forks
+  def find_watch_plus_starts
     find_watchers
     find_stars
-    find_forks
-  end
-
-  def find_used_by_contributors_issues
-    find_used_by
-    find_contributers
-    find_issues
-  end
-
-  def make_rate
-    rate = find_watch_plus_starts + find_forks_plus_contributors
-    rate + @data_about_gem[:issues] * 0.05 + @data_about_gem[:used_by] * 0.5
-  end
-
-  def find_watch_plus_starts
     @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
+  end
+
+  def find_issues_plus_used
+    find_used_by
+    find_issues
+    @data_about_gem[:issues] * 0.05 + @data_about_gem[:used_by] * 0.5
   end
 
   def find_forks_plus_contributors
+    find_forks
+    find_contributers
     @data_about_gem[:watched_by] * 0.15 + @data_about_gem[:stars] * 0.15
   end
 
+  def find_repository
+    @client.repo(@repo_addr)
+  end
+
   def find_forks
-    repo = @client.repo(@repo_addr)
-    @data_about_gem[:forks] = repo[:forks_count]
+    @data_about_gem[:forks] = find_repository[:forks_count]
   end
 
   def find_stars
-    repo = @client.repo(@repo_addr)
-    @data_about_gem[:stars] = repo[:stargazers_count]
+    @data_about_gem[:stars] = find_repository[:stargazers_count]
   end
 
   def find_watchers
-    repo = @client.repo(@repo_addr)
-    @data_about_gem[:watched_by] = repo[:subscribers_count]
+    @data_about_gem[:watched_by] = find_repository[:subscribers_count]
   end
 
   def find_contributers

@@ -3,7 +3,12 @@ require_relative 'user_communicator'
 
 user = UserCommunicator.new
 begin
-  user.find_list
+  file_name = ""
+  ARGV.each do |argument|
+    file_name = argument.gsub('--file=', '') if argument.include?('file')
+  end
+  file = YAML.safe_load(File.read(file_name))
+  user.find_list(file)
   user.load_arguments
   table = Terminal::Table.new do |t|
     t.headings = ['gem name', 'watched by', 'stars', 'forks', 'used by', 'contributors', 'issues']
