@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Util
   module Parse
     class HTML
@@ -6,15 +8,15 @@ module Util
       end
     end
 
-    class Yaml
+    class YAML
       def self.parse(path)
-        YAML.safe_load FileManager.open_file path
+        Psych.safe_load FileManager.open path
       end
     end
   end
 
   class FileManager
-    def self.open_file(path)
+    def self.open(path)
       File.open File.expand_path(path)
     end
   end
