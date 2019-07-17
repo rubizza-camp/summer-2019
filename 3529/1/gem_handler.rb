@@ -9,7 +9,7 @@ require 'yaml'
 require 'octokit'
 require 'typhoeus'
 require_relative 'data_finder'
-require_relative 'apihandler'
+require_relative 'api_handler'
 
 class GemHandler
   def initialize(gem)

@@ -1,5 +1,5 @@
-require_relative 'gemhandler'
-require_relative 'apihandler'
+require_relative 'gem_handler'
+require_relative 'api_handler'
 
 class UserCommunicator
   attr_reader :rows
@@ -9,19 +9,31 @@ class UserCommunicator
     @gem_list = []
   end
 
-  def make_top
-    @gem_list.sort_by! { |word| word[:rate] }
-    @gem_list.each do |gem|
-      gem.delete(:rate)
-    end
-  end
-
   def load_arguments
     ARGV.each do |argument|
       top_check(argument) if argument.include?('top')
       @gem_list = name_handler(argument) if argument.include?('name')
       make_top
       update_row
+    end
+  end
+
+  def find_list(file)
+    file['gems'].each do |gem_name|
+      gem = GemsApiHandler.new(gem_name)
+      next unless gem.find_github_link
+
+      gem_handling = GemHandler.new(gem)
+      @gem_list << gem_handling.data_about_gem
+    end
+  end
+
+  private
+
+  def make_top
+    @gem_list.sort_by! { |word| word[:rate] }
+    @gem_list.each do |gem|
+      gem.delete(:rate)
     end
   end
 
@@ -34,16 +46,6 @@ class UserCommunicator
     @rows = []
     @gem_list.each do |gem|
       @rows << gem.values
-    end
-  end
-
-  def find_list(file)
-    file['gems'].each do |gem_name|
-      gem = GemsApiHandler.new(gem_name)
-      next unless gem.find_github_link
-
-      gem_handling = GemHandler.new(gem)
-      @gem_list << gem_handling.data_about_gem
     end
   end
 

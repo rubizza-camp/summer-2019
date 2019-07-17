@@ -6,7 +6,6 @@ class DataFinder
     @data_about_gem[:name] = gem_name
     @url = url
     @client = client
-    @repo_addr = adress_handler
   end
 
   def make_rate
@@ -17,13 +16,11 @@ class DataFinder
 
   private
 
-  def adress_handler
+  def address_handler
     puts "Didn't find repository on github" unless @url
-    @repo_addr = if @url.include?('https://github.com/')
-                   @url.gsub('https://github.com/', '')
-                 else
-                   @url.gsub('http://github.com/', '')
-                 end
+    return @url.gsub('https://github.com/', '') if @url.include?('https://github.com/')
+
+    @url.gsub('http://github.com/', '')
   end
 
   def find_watch_plus_starts
@@ -45,7 +42,7 @@ class DataFinder
   end
 
   def find_repository
-    @client.repo(@repo_addr)
+    @client.repo(address_handler)
   end
 
   def find_forks
@@ -61,7 +58,7 @@ class DataFinder
   end
 
   def find_contributers
-    contr = @client.contributors(@repo_addr)
+    contr = @client.contributors(address_handler)
     @data_about_gem[:contributers] = contr.length
   end
 
