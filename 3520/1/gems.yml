@@ -1,6 +1,6 @@
 ---
 gem:
-- rails
+# - rails
 - addressable
 # - airbrussh
 # - arel
@@ -14,10 +14,10 @@ gem:
 # - builder
 - bundler
 - byebug
-- capistrano
-- capybara
-- chartkick
-- childprocess
+# - capistrano
+# - capybara
+# - chartkick
+# - childprocess
 # - chronic
 # - cliver
 # - cmath

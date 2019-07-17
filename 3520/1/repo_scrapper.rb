@@ -6,16 +6,18 @@ class RepoScrapper
   attr_reader :repo_info
 
   def initialize
+    #add check of internet connection Selenium::WebDriver::Error::UnknownError
     @browser = Watir::Browser.new :firefox, headless: true
     @repo_info = {}
   end
 
   def repo_info_parse
+    repo_gem_name
     repo_used_by
     repo_watch_star_forks
     repo_issues
     repo_contributors
-    p repo_info
+    repo_info
   end
 
   def github_link
@@ -30,7 +32,7 @@ class RepoScrapper
 
   def get_repo_page(link)
     @browser.goto(link)
-    sleep 2
+    sleep 0.5
     @browser.goto(github_link)
   end
 
@@ -38,8 +40,8 @@ class RepoScrapper
     link.match?(%r{http[s]*:\/\/[w{3}.]*github.com\/})
   end
 
-  def gem_name
-    @browser.h1.text.split('/').last
+  def repo_gem_name
+    repo_info[:name] = @browser.h1.text.split('/').last
   end
 
   def repo_used_by
