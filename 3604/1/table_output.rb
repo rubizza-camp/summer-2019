@@ -16,7 +16,7 @@ class TableOutput
     table = Terminal::Table.new
     table.style = { border_top: false, border_bottom: false }
     how_many_names_need_to_display(count_gems_in_argv.to_i, array_gems.size).times do |iter|
-      table.add_row transformation_into_a_nice_view(array_gems[iter])
+      table.add_row(transformation_into_a_nice_view(array_gems[iter]))
     end
     puts table
   end
@@ -24,8 +24,8 @@ class TableOutput
   private
 
   def transformation_into_a_nice_view(hash)
-    hash.map do |key, string_with_value|
-      HASH_FOR_TABLE[key] + string_with_value
+    hash.map do |key, value|
+      HASH_FOR_TABLE[key] + value
     end
   end
 
