@@ -29,8 +29,7 @@ class Parser
     end
     if terminal_opts[:name]
       @rows.select! { |item| item[1][/#{terminal_opts[:name]}/] }
-      @rows.map(&:shift)
-      @rows.map { |item| item.unshift(@rows.index(item) + 1) }
+      @rows.map(&:shift).map { |item| item.unshift(@rows.index(item) + 1) }
     end
     top_score(terminal_opts[:top]) if terminal_opts[:top]
   end
