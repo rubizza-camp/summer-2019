@@ -10,16 +10,25 @@ require 'terminal-table'
 require_relative 'gems_fetch'
 require_relative 'data_builder'
 require_relative 'printer'
-require_relative 'user_terminal'
 
-terminal = UserTerminal.new
-terminal.run
+terminal_input = {}
 
-gems_fetch = GemsFetch.new
-gems_fetch.fetch(terminal.input[:file] || 'gems.yml')
+OptionParser.new do |parser|
+  parser.on('-t', '--top=NUMBER') do |top|
+    terminal_input[:top] = top
+  end
+  parser.on('-n', '--name=NAME') do |name|
+    terminal_input[:name] = name
+  end
+  parser.on('-f', '--file=FILE') do |file|
+    terminal_input[:file] = file
+  end
+end.parse!
+
+gems_fetch = GemsFetch.new(terminal_input[:file] || 'gems.yml')
 
 data_builder = DataBuilder.new
-data_builder.construct(gems_fetch.links, gems_fetch.names, terminal.input)
+data_builder.construct(gems_fetch.links, gems_fetch.names, terminal_input)
 
 printer = Printer.new
 puts printer.output(data_builder.header, data_builder.rows)

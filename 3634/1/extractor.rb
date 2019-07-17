@@ -9,32 +9,29 @@ module Extractor
     html = URI.parse(link).open
     document = Nokogiri::HTML(html)
     if link.match?(%r{/network/dependents})
-      helper_one(document)
+      others(document)
     else
-      helper_two(document)
+      contributors(document)
     end
   end
 
-  def helper_one(document)
-    {
-      stars: document.css('a.social-count.js-social-count').text.gsub(/\D/, ''),
-      forks: document.css('a.social-count')[2].text.gsub(/\D/, ''),
-      watch: document.css('a.social-count')[0].text.gsub(/\D/, ''),
-      used_by: document.css('a.btn-link.selected').text.gsub(/\D/, '')
+  def others(document)
+    others = {
+      stars: ['a.social-count.js-social-count', 0],
+      forks: ['a.social-count', 2],
+      watch: ['a.social-count', 0],
+      used_by: ['a.btn-link.selected', 0],
+      issues: ['span.Counter', 0]
     }
-  end
-
-  def helper_two(document)
-    {
-      issues: document.css('span.Counter')[0].text.gsub(/\D/, ''),
-      contributors: contributors(document)
-    }
+    others.each_pair.with_object({}) do |(column_name, (path, index)), obj|
+      obj[column_name] = document.css(path)[index].text.gsub(/\D/, '').to_i
+    end
   end
 
   def contributors(document)
     contributors = document.css('a span.num.text-emphasized').text.split(' ')
-    return contributors[2] unless contributors[3]
+    return { contributors: contributors[2].to_i } unless contributors[3]
 
-    contributors[3]
+    { contributors: contributors[3].to_i }
   end
 end
