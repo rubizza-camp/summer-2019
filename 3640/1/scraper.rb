@@ -1,58 +1,100 @@
-require 'mechanize'
-
+require 'gems'
+require 'octokit'
+require 'nokogiri'
+require 'terminal-table'
+require 'optparse'
+# :reek:TooManyStatements
+# :reek:UtilityFunction
 class Scraper
-  GEM_PARAMETERS_LINKS = { used_by: /REPOSITORY/,
-                           watch: /watchers/,
-                           star: /stargazers/,
-                           forks: /members/,
-                           contributors: /contributors/,
-                           issues: /issues/ }.freeze
+  TOKEN = 'feca2a0c59517bb3fca4d9d64d9b658f7856'.freeze
 
-  def self.fetch_gem_parameters(name_gem)
-    fetcher = new(name_gem)
-    fetcher.fetch_gem_parameters
-    fetcher.gem_parameters
+  def self.fetch_gem_parameters(gems_names)
+    fetcher = new(gems_names)
+    token = fetcher.access_token
+    client = fetcher.build_client(token)
+    fetcher.all_gems_info(client)
+    fetcher.all_gems
   end
 
-  attr_reader :gem_parameters
+  attr_reader :gem_parameters, :all_gems
 
-  def initialize(name_gem)
-    @name_gem = name_gem
-    @link_search = 'https://github.com/search?q='
-    @gem_parameters = {}
+  def initialize(gems_names)
+    @gems_names = gems_names
   end
 
-  def fetch_gem_parameters
-    GEM_PARAMETERS_LINKS.each do |key, value|
-      page = (key == :used_by ? used_by_repository : repository)
-      tag = page.links_with(href: value)
-      @gem_parameters[key] = parameter_value(tag)
+  def build_client(token)
+    begin
+      client = Octokit::Client.new(access_token: token)
+      client.user.login
+    rescue Octokit::Unauthorized
+      raise 'Please enter valid Personal Auth Token'
+    end
+    client
+  end
+
+  def access_token
+    puts 'Enter your Github Personal Access Token:'
+    gets.chomp
+  end
+
+  def all_gems_info(client)
+    @all_gems = @gems_names.map do |name_gem|
+      parameters = gem_info(name_gem, client)
+      GemOne.new(name_gem, parameters)
     end
   end
 
   private
 
-  def parameter_value(tag)
-    tag.first.to_s.gsub(/[^0-9]/, '').to_i
+  def gem_info_one(gem)
+    Gems.info(gem)['source_code_uri']
   end
 
-  def mechanize
-    @mechanize ||= Mechanize.new
+  def gem_info_two(gem)
+    Gems.info(gem)['homepage_uri']
   end
 
-  def used_by_repository
-    mechanize.get(repository.uri.to_s + '/network/dependents')
+  def gem_info(gem, client)
+    begin
+      uri = (gem_info_one(gem) || gem_info_two(gem)).sub!(%r{http.*com/}, '')
+      repo = repository(uri, client)
+    rescue NoMethodError
+      raise 'Invalid gem in file gems.yaml'
+    end
+    gem_properties(repo, contributors_count(uri), used_by_count(uri))
   end
 
-  def search_page
-    mechanize.get(@link_search + @name_gem)
+  def contributors_count(uri)
+    contributors(uri).css('span.num.text-emphasized').children[2].text.to_i
   end
 
-  def link_repository
-    @link_repository ||= search_page.links_with(dom_class: 'v-align-middle').first
+  def used_by_count(uri)
+    dependents(uri).css('.btn-link')[1].text.delete('^0-9').to_i
   end
 
-  def repository
-    @repository ||= mechanize.get(link_repository)
+  def contributors(uri)
+    Nokogiri::HTML(open('https://github.com/' + uri))
+  end
+
+  def dependents(uri)
+    Nokogiri::HTML(open('https://github.com/' + uri + '/network/dependents'))
+  end
+
+  def repository(uri, client)
+    repo = client.repo uri
+    repo
+  rescue Octokit::InvalidRepository
+    raise gem.to_s + ' didnt have github repo'
+  end
+
+  def gem_properties(repo, contributors_count, used_by_count)
+    gem_parameters = {}
+    gem_parameters[:star] = repo[:stargazers_count].to_i
+    gem_parameters[:forks] = repo[:forks_count].to_i
+    gem_parameters[:issues] = repo[:open_issues_count].to_i
+    gem_parameters[:watch] = repo[:subscribers_count].to_i
+    gem_parameters[:contributors] = contributors_count.to_i
+    gem_parameters[:used_by] = used_by_count.to_i
+    gem_parameters
   end
 end

@@ -1,4 +1,6 @@
 gems:
   - sinatra
-  - rspec
   - rails
+  - nokogiri
+  - rspec
+  - octokit

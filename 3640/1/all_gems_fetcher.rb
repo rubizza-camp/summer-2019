@@ -1,10 +1,9 @@
 require_relative 'gem_one.rb'
 
-# Class AllGems
 class AllGemsFetcher
   def self.fetch_all_gems(names)
     fetcher = new(names)
-    fetcher.fetch_all_gems
+    fetcher.fetch_all_gems(names)
     fetcher.gems
   end
 
@@ -15,9 +14,7 @@ class AllGemsFetcher
     @names = names
   end
 
-  def fetch_all_gems
-    @gems = names.map do |name_gem|
-      GemOne.new(name_gem)
-    end
+  def fetch_all_gems(names)
+    @gems = Scraper.fetch_gem_parameters(names)
   end
 end

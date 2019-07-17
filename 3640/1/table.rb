@@ -2,33 +2,49 @@ require 'terminal-table'
 require_relative 'all_gems_fetcher.rb'
 require_relative 'gem_terminal_output.rb'
 require_relative 'parse_file_fetcher.rb'
-
+# :reek:TooManyStatements
 class Table
-  def table_output(selector)
-    rows = get_all_gems(selector).map { |gem| GemTerminalOutput.fetch_gem_terminal_output(gem) }
+  MESSAGE = "The entered name doesn't match the gems in the file gems.yaml".freeze
+  def self.fetch_table_output(selector)
+    fetcher = new
+    fetcher.fetch_table_output(selector)
+  end
+
+  def fetch_table_output(param)
+    rows = get_requested_gems(param).map { |gem| GemTerminalOutput.fetch_gem_terminal_output(gem) }
     puts Terminal::Table.new(rows: rows)
   end
 
   private
 
-  attr_reader :all_gems
-
-  def get_all_gems(selector)
+  def all_gems
     names_all_gems = ParseFileFetcher.fetch_all_names('gems.yaml')
-    @all_gems = AllGemsFetcher.fetch_all_gems(names_all_gems).sort_by(&:rating).reverse
+    @all_gems ||= AllGemsFetcher.fetch_all_gems(names_all_gems).sort_by(&:rating).reverse
+  end
+
+  def get_requested_gems(selector)
+    selector.key?(:file) ? get_path_file(selector[:file]) : continue
     return all_gems if selector.empty?
-    get_requested_gems(selector)
+    gems_by_name = fetch_gems_by_name(all_gems, selector)
+    gems_by_name == [] ? (puts MESSAGE) : fetch_gems_by_amount(gems_by_name, selector)
   end
 
-  def get_requested_gems(tag)
-    tag.key?(:top) ? amount_gems(all_gems, tag[:top]) : gems_by_name(all_gems, tag[:name])
+  def fetch_gems_by_amount(all_gems, selector)
+    selector.key?(:top) ? all_gems.first(selector[:top]) : all_gems
   end
 
-  def amount_gems(all_gems, amount)
-    all_gems.first(amount)
+  def fetch_gems_by_name(all_gems, selector)
+    if selector.key?(:name) == true
+      return all_gems.select { |gem| gem.name.include?(selector[:name]) ? gem : next }
+    end
+    all_gems
   end
 
-  def gems_by_name(all_gems, name)
-    all_gems.select { |gem| gem.name.include?(name) ? gem : next }
+  def get_path_file(file_name)
+    if file_name == 'gems.yaml'
+      puts "Path to directory of gems list is:\n" + Dir.pwd + "/#{file_name}"
+    else
+      puts 'Invalid file name entered'
+    end
   end
 end

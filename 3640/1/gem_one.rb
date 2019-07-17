@@ -1,17 +1,13 @@
 require_relative 'scraper.rb'
 
-# Class Gem
 class GemOne
-  attr_reader :name
-  def initialize(name)
+  attr_reader :name, :parameters
+  def initialize(name, parameters)
     @name = name
-  end
-
-  def parameters
-    @parameters ||= Scraper.fetch_gem_parameters(@name)
+    @parameters = parameters
   end
 
   def rating
-    @rating ||= parameters.values.sum
+    @rating ||= @parameters.values.sum
   end
 end
