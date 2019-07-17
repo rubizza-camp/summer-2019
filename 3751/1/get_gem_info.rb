@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Get info from github
+# :reek:InstanceVariableAssumption
 class GetGemInfo
   attr_reader :gem
 
@@ -57,7 +58,8 @@ class GetGemInfo
     @github_link = gem_hash['source_code_uri'] || gem_hash['homepage_uri']
   end
 
+  # :reek:UtilityFunction
   def to_integer(text)
-    text.gsub(',', '').to_i
+    text.delete(',', '').to_i
   end
 end

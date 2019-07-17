@@ -11,7 +11,9 @@ require 'nokogiri'
 require 'yaml'
 
 # output table
+# :reek:InstanceVariableAssumption
 class GemAnalyze
+  # :reek:TooManyStatements
   def call
     gems = ListingGems.new(parameters).load
 
@@ -23,6 +25,7 @@ class GemAnalyze
     puts table
   end
 
+  # :reek:TooManyStatements
   def parameters
     return @parameters if defined?(@parameters)
 

@@ -3,6 +3,7 @@
 # Gem info
 class GemEntity
   attr_reader :name
+  # :reek:Attribute
   attr_accessor :options
   def initialize(name)
     @name = name
