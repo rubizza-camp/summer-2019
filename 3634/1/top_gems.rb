@@ -4,28 +4,22 @@ require 'open-uri'
 require 'net/http'
 require 'nokogiri'
 require 'optparse'
+require 'psych'
 require 'pry'
 require 'terminal-table'
-require_relative 'gems'
-require_relative 'parser'
+require_relative 'gems_fetch'
+require_relative 'data_builder'
 require_relative 'printer'
+require_relative 'user_terminal'
 
-terminal_opts = {}
+terminal = UserTerminal.new
+terminal.run
 
-OptionParser.new do |parser|
-  parser.on('-t', '--top=NUMBER') do |top|
-    terminal_opts[:top] = top
-  end
-  parser.on('-n', '--name=NAME') do |name|
-    terminal_opts[:name] = name
-  end
-  parser.on('-f', '--file=FILE') do |file|
-    terminal_opts[:file_name] = file
-  end
-end.parse!
+gems_fetch = GemsFetch.new
+gems_fetch.fetch(terminal.input[:file] || 'gems.yml')
 
-gems = Gems.new(terminal_opts[:file_name] ||= 'gems.yml')
-parser = Parser.new
-parser.scrap(gems.links, gems.names, terminal_opts)
+data_builder = DataBuilder.new
+data_builder.construct(gems_fetch.links, gems_fetch.names, terminal.input)
+
 printer = Printer.new
-puts printer.output(parser.header, parser.rows)
+puts printer.output(data_builder.header, data_builder.rows)

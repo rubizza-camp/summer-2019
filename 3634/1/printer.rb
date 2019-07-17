@@ -6,6 +6,7 @@ class Printer
   private
 
   def show(header, rows)
-    Terminal::Table.new title: 'TOP GEMS', headings: header, rows: rows
+    Terminal::Table.new title: 'TOP GEMS', headings: header, rows: rows,
+                        style: { alignment: :center }
   end
 end
