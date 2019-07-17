@@ -23,7 +23,7 @@ class Manager
     parsers = @gem_list.map do |name|
       Parser.new(gem_name: name)
     end
-    parsers.map(&:create_statistic).sort_by { |obj| obj.used_by / obj.stars }.reverse
+    parsers.map(&:create_statistic).sort_by(&:used_by).reverse
   end
 
   def save_in_strings
@@ -44,5 +44,5 @@ class Manager
 
   def default_gem_names
     @default_gem_names ||= YAML.load_file('gems.yaml')['gems']
-  end
+  end  
 end
