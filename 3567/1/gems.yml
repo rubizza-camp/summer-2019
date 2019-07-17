@@ -1,0 +1,6 @@
+gems:
+  - rails
+  - devise
+  - rubocop
+  - rspec
+  - rake
