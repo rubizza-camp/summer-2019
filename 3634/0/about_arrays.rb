@@ -7,20 +7,22 @@ class AboutArrays < Neo::Koan
     assert_equal 0, empty_array.size
   end
 
+  # rubocop:disable Style/EmptyLiteral
   # :reek:TooManyStatements
   def test_array_literals
-    array = []
+    array = Array.new
     assert_equal [], array
 
     array[0] = 1
-    assert_equal [1], array
+    assert_equal Array.new(1, 1), array
 
     array[1] = 2
-    assert_equal [1, 2], array
+    assert_equal Array.new(1, 1) << 2, array
 
     array << 333
     assert_equal [1, 2, 333], array
   end
+  # rubocop:enable Style/EmptyLiteral
 
   # :reek:TooManyStatements
   def test_accessing_array_elements

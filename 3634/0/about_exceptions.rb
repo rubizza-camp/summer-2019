@@ -46,9 +46,11 @@ class AboutExceptions < Neo::Koan
     assert_equal 'My Message', error.message
   end
 
+  # rubocop:disable Style/SignalException, Lint/UselessAssignment
   def test_ensure_clause
+    result = nil
     begin
-      raise 'Oops'
+      fail 'Oops'
     rescue StandardError
       # no code here
     ensure
@@ -57,6 +59,7 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :always_run, result
   end
+  # rubocop:enable Style/SignalException, Lint/UselessAssignment
 
   # Sometimes, we must know about the unknown
   def test_asserting_an_error_is_raised

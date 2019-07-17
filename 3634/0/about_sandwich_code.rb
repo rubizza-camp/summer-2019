@@ -2,15 +2,19 @@
 # rubocop:disable Performance/RedundantMatch, Lint/UnneededCopDisableDirective
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:NilCheck
+# :reek:RepeatedConditional
+# :reek:FeatureEnvy
 class AboutSandwichCode < Neo::Koan
+  # rubocop:disable Style/SafeNavigation
   def count_lines(file_name)
     file = open(file_name)
     count = 0
     count += 1 while file.gets
     count
   ensure
-    file&.close
+    file.close if file
   end
+  # rubocop:enable Style/SafeNavigation
 
   def test_counting_lines
     assert_equal 4, count_lines('example_file.txt')
@@ -18,14 +22,17 @@ class AboutSandwichCode < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:NilCheck
+  # :reek:FeatureEnvy
+  # rubocop:disable Style/SafeNavigation
   def find_line(file_name)
     file = open(file_name)
     while line = file.gets
       return line if line =~ /e/
     end
   ensure
-    file&.close
+    file.close if file
   end
+  # rubocop:enable Style/SafeNavigation
 
   def test_finding_lines
     assert_equal "test\n", find_line('example_file.txt')
@@ -53,12 +60,14 @@ class AboutSandwichCode < Neo::Koan
   # Consider the following code:
   #
   # :reek:NilCheck
+  # rubocop:disable Style/SafeNavigation
   def file_sandwich(file_name)
     file = open(file_name)
     yield(file)
   ensure
-    file&.close
+    file.close if file
   end
+  # rubocop:enable Style/SafeNavigation
 
   # Now we write:
 

@@ -65,16 +65,19 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], another_array
   end
 
+  # :reek:TooManyStatements
+  # rubocop:disable Style/EvenOdd, Style/NumericPredicate
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
-    even_numbers = array.select(&:even?)
+    even_numbers = array.select { |item| (item % 2) == 0 }
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all(&:even?)
+    more_even_numbers = array.find_all { |item| (item % 2) == 0 }
     assert_equal [2, 4, 6], more_even_numbers
   end
+  # rubocop:enable Style/EvenOdd, Style/NumericPredicate
 
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
@@ -87,8 +90,8 @@ class AboutIteration < Neo::Koan
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
 
-    result_one = [2, 3, 4].inject(1) { |product, item| product * item }
-    assert_equal 24, result_one
+    result_two = [2, 3, 4].inject(1) { |product, item| product * item }
+    assert_equal 24, result_two
 
     # Extra Credit:
     # Describe in your own words what inject does.

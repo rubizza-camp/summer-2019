@@ -1,4 +1,4 @@
-# rubocop:disable Style/EvalWithLocation
+# rubocop:disable Style/EvalWithLocation, Naming/AccessorMethodName
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 # :reek:InstanceVariableAssumption
@@ -13,7 +13,7 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
   # :reek:UncommunicativeModuleName
   class Dog2
-    def naming(a_name)
+    def set_name(a_name)
       @name = a_name
     end
   end
@@ -22,14 +22,14 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     assert_equal [], fido.instance_variables
 
-    fido.naming('Fido')
+    fido.set_name('Fido')
     assert_equal [:@name], fido.instance_variables
   end
 
   # :reek:TooManyStatements
   def test_instance_variables_cannot_be_accessed_outside_the_class
     fido = Dog2.new
-    fido.naming('Fido')
+    fido.set_name('Fido')
 
     assert_raise(NoMethodError) do
       fido.name
@@ -44,14 +44,14 @@ class AboutClasses < Neo::Koan
   # :reek:FeatureEnvy
   def test_you_can_politely_ask_for_instance_variable_values
     fido = Dog2.new
-    fido.naming('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.instance_variable_get('@name')
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
-    fido.naming('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.instance_eval('@name') # string version
     assert_equal 'Fido', (fido.instance_eval { @name }) # block version
@@ -60,16 +60,20 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
   # :reek:UncommunicativeModuleName
   class Dog3
-    def naming(a_name)
+    def set_name(a_name)
       @name = a_name
     end
 
-    attr_reader :name
+    # rubocop:disable Style/TrivialAccessors
+    def name
+      @name
+    end
+    # rubocop:enable Style/TrivialAccessors
   end
   # :reek:FeatureEnvy
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.naming('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -79,14 +83,14 @@ class AboutClasses < Neo::Koan
   class Dog4
     attr_reader :name
 
-    def naming(a_name)
+    def set_name(a_name)
       @name = a_name
     end
   end
   # :reek:FeatureEnvy
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new
-    fido.naming('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -143,7 +147,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def selfing
+    def get_self
       self
     end
 
@@ -159,7 +163,7 @@ class AboutClasses < Neo::Koan
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new('Fido')
 
-    fidos_self = fido.selfing
+    fidos_self = fido.get_self
     assert_equal fido, fidos_self
   end
 
@@ -178,14 +182,16 @@ class AboutClasses < Neo::Koan
     assert_equal "<Dog named 'Fido'>", fido.inspect
   end
 
+  # rubocop:disable Style/StringLiterals
   def test_all_objects_support_to_s_and_inspect
     array = [1, 2, 3]
 
-    assert_equal '[1, 2, 3]', array.to_s
-    assert_equal '[1, 2, 3]', array.inspect
+    assert_equal "[1, 2, 3]", array.to_s
+    assert_equal "[1, 2, 3]", array.inspect
 
-    assert_equal 'STRING', 'STRING'.to_s
-    assert_equal '"STRING"', 'STRING'.inspect
+    assert_equal 'STRING', "STRING".to_s
+    assert_equal "\"STRING\"", "STRING".inspect
   end
+  # rubocop:enable Style/StringLiterals
 end
-# rubocop:enable Style/EvalWithLocation
+# rubocop:enable Style/EvalWithLocation, Naming/AccessorMethodName

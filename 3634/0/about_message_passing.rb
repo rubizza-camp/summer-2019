@@ -114,11 +114,13 @@ class AboutMessagePassing < Neo::Koan
 
   # ------------------------------------------------------------------
   # :reek:UtilityFunction
+  # rubocop:disable Lint/UnusedMethodArgument
   class AllMessageCatcher
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *args, &block)
       "Someone called #{method_name} with <#{args.join(', ')}>"
     end
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 
   def test_all_messages_are_caught
     catcher = AllMessageCatcher.new
@@ -170,9 +172,14 @@ class AboutMessagePassing < Neo::Koan
   # (note: just reopening class from above)
   class WellBehavedFooCatcher
     def respond_to?(method_name)
-      method_name.to_s[0, 3] == 'foo' || super(method_name)
+      if method_name.to_s[0, 3] == 'foo'
+        true
+      else
+        super(method_name)
+      end
     end
   end
+
   # :reek:ManualDispatch
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new

@@ -3,24 +3,28 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:FeatureEnvy
 class AboutHashes < Neo::Koan
+  # rubocop:disable Style/EmptyLiteral
   def test_creating_hashes
-    empty_hash = {}
+    empty_hash = Hash.new
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
   end
+  # rubocop:enable Style/EmptyLiteral
 
+  # rubocop:disable Style/HashSyntax, Style/StringLiterals
   def test_hash_literals
-    hash = { one: 'uno', two: 'dos' }
+    hash = { :one => "uno", :two => "dos" }
     assert_equal 2, hash.size
   end
 
   def test_accessing_hashes
-    hash = { one: 'uno', two: 'dos' }
+    hash = { :one => "uno", :two => "dos" }
     assert_equal 'uno', hash[:one]
     assert_equal 'dos', hash[:two]
     assert_equal nil, hash[:doesnt_exist]
   end
+  # rubocop:enable Style/HashSyntax, Style/StringLiterals
 
   def test_accessing_hashes_with_fetch
     hash = { one: 'uno' }

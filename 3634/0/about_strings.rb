@@ -63,12 +63,15 @@ It was the worst of times.
     assert_equal 'Hello, World', string
   end
 
+  # rubocop:disable Lint/UselessAssignment
   def test_plus_concatenation_will_leave_the_original_strings_unmodified
     hi = 'Hello, '
     there = 'World'
+    string = hi + there
     assert_equal 'Hello, ', hi
     assert_equal 'World', there
   end
+  # rubocop:enable Lint/UselessAssignment
 
   def test_plus_equals_will_concatenate_to_the_end_of_a_string
     hi = 'Hello, '
@@ -77,10 +80,15 @@ It was the worst of times.
     assert_equal 'Hello, World', hi
   end
 
+  # rubocop:disable Lint/UselessAssignment
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
+    hi = original_string
+    there = 'World'
+    hi += there
     assert_equal 'Hello, ', original_string
   end
+  # rubocop:enable Lint/UselessAssignment
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
@@ -125,11 +133,13 @@ It was the worst of times.
     assert_equal 'The value is 123', string
   end
 
+  # rubocop:disable Lint/UselessAssignment, Lint/InterpolationCheck
   def test_single_quoted_strings_do_not_interpolate
     value = 123
-    string = "The value is #{value}"
-    assert_equal 'The value is 123', string
+    string = 'The value is #{value}'
+    assert_equal 'The value is #{value}', string
   end
+  # rubocop:enable Lint/UselessAssignment, Lint/InterpolationCheck
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
@@ -149,21 +159,23 @@ It was the worst of times.
     # Surprised?
   end
 
+  # rubocop:disable Style/CharacterLiteral, Style/YodaCondition
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 'first', 'first'
-      assert_equal true, 'first' == 97
+      assert_equal 97, ?a
+      assert_equal true, ?a == 97
 
-      assert_equal true, ('first' + 1) == 'second'
+      assert_equal true, ?b == (?a + 1)
     end
   end
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal 'first', 'first'
-      assert_equal false, 'first' == 97
+      assert_equal 'a', ?a
+      assert_equal false, ?a == 97
     end
   end
+  # rubocop:enable Style/CharacterLiteral, Style/YodaCondition
 
   def test_strings_can_be_split
     string = 'Sausage Egg Cheese'
