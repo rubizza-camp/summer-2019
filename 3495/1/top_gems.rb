@@ -49,12 +49,23 @@ class TopGems
       if gem_name.include? parameters[:name].to_s
         gem = GemStats.call(gem_name, StatsLoader.new(gem_url_load(gem_name).url).stats)
         @gems << gem
-      end; next; end; print_table
+      end
+      next
+    end
+    print_table
   end
 
   def gem_url_load(gem_name)
     GemUrlLoader.call(gem_name)
   end
+
+  def call
+    init_gems_array
+  end
+
+  def self.call
+    new.call
+  end
 end
 
-TopGems.new.init_gems_array
+TopGems.call
