@@ -1,0 +1,21 @@
+source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+# ruby '2.5.3'
+
+  group :development do
+
+    gem 'mechanize'
+    gem 'nokogiri'
+    gem 'octokit'
+    gem 'httparty'
+    gem 'terminal-table'
+    gem 'rubocop'
+    gem 'reek'
+    gem 'pry'
+
+  end
+
+  group :test do
+
+  end

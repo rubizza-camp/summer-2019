@@ -1,0 +1,6 @@
+gems:
+  - rspec
+  - sinatra
+  - nokogiri
+  - reek
+  - rubocop
