@@ -13,7 +13,6 @@ require 'yaml'
 # output table
 # :reek:InstanceVariableAssumption
 class GemAnalyze
-  # :reek:TooManyStatements
   def call
     gems = ListingGems.new(parameters).load
 
@@ -21,6 +20,10 @@ class GemAnalyze
 
     gems = gems.first(parameters[:top]) if parameters[:top]
 
+    print_table(gems)
+  end
+
+  def print_table(gems)
     table = Terminal::Table.new rows: gems.map(&:row)
     puts table
   end

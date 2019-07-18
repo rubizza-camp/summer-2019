@@ -9,17 +9,19 @@ class GetGemInfo
     @gem = gem
   end
 
-  def call # rubocop:disable Metrics/AbcSize
-    open_issues = to_integer(issues[0].text.split[0])
-    closed_issues = to_integer(issues[1].text.split[0])
+  def to_integer(text)
+    text.gsub(',', '').to_i
+  end
 
-    gem.options = {
-      watchers: to_integer(social_counters[0].text) * 2,
-      stars: to_integer(social_counters[1].text) * 3,
+  def call
+    {
+      watchers: to_integer(social_counters[0].text),
+      stars: to_integer(social_counters[1].text),
       forks: to_integer(social_counters[2].text),
-      contributors: to_integer(contributors[3].text) * 10,
-      users: to_integer(users[1].text.split[0]) / 100,
-      issues: (closed_issues / 4) - (open_issues * 2)
+      contributors: to_integer(contributors[3].text),
+      users: to_integer(users[1].text.split[0]),
+      issues: to_integer(issues[0].text.split[0]),
+      closed_issues: to_integer(issues[1].text.split[0])
     }
   end
 
@@ -56,10 +58,5 @@ class GetGemInfo
 
     gem_hash = Gems.info(gem.name)
     @github_link = gem_hash['source_code_uri'] || gem_hash['homepage_uri']
-  end
-
-  # :reek:UtilityFunction
-  def to_integer(text)
-    text.delete(',', '').to_i
   end
 end
