@@ -1,7 +1,6 @@
 require 'octokit'
 require 'optparse'
 require 'mechanize'
-# rubocop:disable Security/Open
 module Repo
   class Parser
     REQUEST_CONTRIBUTORS = 'a span[class=\'num text-emphasized\']'.freeze
@@ -28,8 +27,9 @@ module Repo
     end
 
     def find_html_params(hash)
-      github_main_page = Nokogiri::HTML(open("https://github.com/#{@repo[:full_name]}"))
-      github_dependents = Nokogiri::HTML(open('https://github.com/' + @repo[:full_name] + '/network/dependents')) # rubocop:disable Metrics/LineLength
+      github_main_page = Nokogiri::HTML(Kernel.open("https://github.com/#{@repo[:full_name]}"))
+      github_dependents = Nokogiri::HTML(Kernel.open('https://github.com/' +
+        @repo[:full_name] + '/network/dependents'))
       hash = search_main(hash, github_main_page)
       hash = search_dependency(hash, github_dependents)
       hash
@@ -54,4 +54,3 @@ module Repo
     end
   end
 end
-# rubocop:enable Security/Open

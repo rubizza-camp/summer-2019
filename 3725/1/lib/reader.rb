@@ -15,10 +15,10 @@ module Reader
 
   class Shell
     def load_parameters
-        ARGV.each_with_object({}) do |parameters, hash| # rubocop:disable Layout/IndentationWidth
-          split = parameters.delete('-').split('=')
-          hash[split.first.to_sym] = split.last
-        end
+      ARGV.each_with_object({}) do |parameters, hash|
+        split = parameters.delete('-').split('=')
+        hash[split.first.to_sym] = split.last
+      end
     end
   end
 end
