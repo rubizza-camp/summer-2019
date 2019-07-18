@@ -1,5 +1,5 @@
 require 'nokogiri'
-require_relative '../lib/check_html'
+require 'json'
 require_relative '../lib/gem_data'
 
 # parsing data from web page of gem
@@ -21,7 +21,7 @@ class GemDataReader
 
   # :reek:NilCheck
   def parse_by
-    @html = CheckHtml.new.call(@gem_name)
+    @html = open_url(@gem_name)
     return create_empty_gem_info if html.nil?
     parse_gem_info(nokogiri_parse, nokogiri_parse_used_by).merge(name: @gem_name)
   end
@@ -59,5 +59,10 @@ class GemDataReader
 
   def nokogiri_parse_used_by
     Nokogiri::HTML(Kernel.open(@html + '/network/dependents'))
+  end
+
+  def open_url(gem_name)
+    source_url = Kernel.open("https://rubygems.org/api/v1/gems/#{gem_name}.json").read
+    JSON.parse(source_url)['source_code_uri']
   end
 end
