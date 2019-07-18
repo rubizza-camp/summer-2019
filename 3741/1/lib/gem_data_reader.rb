@@ -3,22 +3,25 @@ require_relative '../lib/check_html'
 require_relative '../lib/gem_data'
 
 # parsing data from web page of gem
-class ParseGemData
-  def call(gem_name)
-    gem_info = parse_by(gem_name)
-    gem_info = create_empty_gem_info(gem_name) if gem_info == 'bad'
+class GemDataReader
+  def initialize(gem_name)
+    @gem_name = gem_name
+  end
+
+  def read
+    gem_info = parse_by
+    gem_info = create_empty_gem_info if gem_info == 'bad'
     GemData.new(gem_info)
   end
 
   private
 
-  def parse_by(gem_name)
-    html = CheckHtml.new.call(gem_name)
-    return create_empty_gem_info(gem_name) if html.nil?
-    source_page = Nokogiri::HTML(Kernel.open(html))
-    used_by_page = Nokogiri::HTML(Kernel.open(html + '/network/dependents'))
-    gem_info = parse_gem_info(source_page, used_by_page)
-    gem_info[:name] = gem_name
+  # :reek:NilCheck
+  def parse_by
+    html = CheckHtml.new.call(@gem_name)
+    return create_empty_gem_info if html.nil?
+    gem_info = parse_gem_info(nokogiri_parse(html), nokogiri_parse(html + '/network/dependents'))
+    gem_info[:name] = @gem_name
     gem_info
   end
 
@@ -33,7 +36,7 @@ class ParseGemData
     }
   end
 
-  def create_empty_gem_info(gem_name)
+  def create_empty_gem_info
     {
       used_by:        0,
       watcher_count:      0,
@@ -41,11 +44,15 @@ class ParseGemData
       forks_count:        0,
       contributors_count: 0,
       issues_count:       0,
-      name:               gem_name
+      name:               @gem_name
     }
   end
 
   def receive_info(page, element, number_element)
     page.css(element)[number_element].text.gsub(/\D/, '').to_i
+  end
+
+  def nokogiri_parse(html)
+    Nokogiri::HTML(Kernel.open(html))
   end
 end

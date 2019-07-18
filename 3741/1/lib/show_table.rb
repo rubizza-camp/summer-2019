@@ -2,8 +2,12 @@ require 'terminal-table'
 
 # create table based on terminal-table gem
 class GemsView
-  def call(gems)
-    table_info = gems.map { |gem_info| gem_to_row(gem_info) }
+  def initialize(gems)
+    @gems = gems
+  end
+
+  def render(top_n:)
+    table_info = @gems.sort.first(top_n).map { |gem_info| gem_to_row(gem_info) }
     table_to_view = Terminal::Table.new rows: table_info
     puts table_to_view
   end
