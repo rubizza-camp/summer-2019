@@ -9,6 +9,7 @@ require 'gems'
 require 'open-uri'
 require 'nokogiri'
 require 'yaml'
+require 'pry'
 
 # output table
 # :reek:InstanceVariableAssumption

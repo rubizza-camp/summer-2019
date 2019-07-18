@@ -9,9 +9,16 @@ class GemEntity
     @options = GetGemInfo.new(self).call
   end
 
-  def rating
-    options[:users] / 100 + options[:watchers] * 2 + options[:stars] * 2 + options[:forks] * 3 +
-      options[:contributors] * 5 - options[:issues] * 4 - options[:closed_issues]
+  def rating # rubocop:disable Metrics/AbcSize
+    [
+      options[:users] / 100,
+      options[:watchers] * 2,
+      options[:stars] * 2,
+      options[:forks] * 3,
+      options[:contributors] * 5,
+      options[:issues] * -4,
+      options[:closed_issues]
+    ].sum
   end
 
   def row
