@@ -13,8 +13,8 @@ class CommandLineParser
 
   def self.raise_error(opts_p, args)
     opts_p.parse(args)
-  rescue StandardError => err
-    puts "Exception encountered: #{err}"
+  rescue OptionParser::InvalidOption => err
+    puts "Exception encountered: #{err} (#{err.class})"
     opts_p.parse %w[--help]
     exit 1
   end
