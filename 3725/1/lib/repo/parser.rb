@@ -47,6 +47,8 @@ module Repo
       hash
     end
 
+    private
+
     def search_in_page(request, page)
       raw_text = page.search(request).text
       match = raw_text.match(/(\d+)((,\d+)?)*/)

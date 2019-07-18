@@ -5,7 +5,7 @@ require 'mechanize'
 module Reader
   class File
     def initialize(file_path)
-      @file_path = file_path || 'gemlist.yml'
+      @file_path = file_path
     end
 
     def read

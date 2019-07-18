@@ -7,7 +7,7 @@ require_relative 'lib/table'
 
 options = Reader::Shell.load_parameters
 
-gem_names = Reader::File.new(options[:file]).read
+gem_names = Reader::File.new(options[:file] || 'gemlist.yml').read
 
 client = Octokit::Client.new(access_token: ENV['KEY_TOKEN'])
 
