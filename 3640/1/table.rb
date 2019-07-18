@@ -4,13 +4,14 @@ require_relative 'gem_terminal_output.rb'
 require 'yaml'
 
 class Table
+  include CreateGemRow
   def self.fetch_table_output(selector)
     fetcher = new
     fetcher.fetch_table_output(selector)
   end
 
   def fetch_table_output(param)
-    rows = get_requested_gems(param).map { |gem| GemTerminalOutput.fetch_gem_terminal_output(gem) }
+    rows = get_requested_gems(param).map { |gem| create_gem_row_terminal_output(gem) }
     puts Terminal::Table.new(rows: rows)
   end
 
@@ -45,7 +46,7 @@ class Table
 
   def get_path_file(file_name)
     if file_name == 'gems.yaml'
-      puts "Path to directory of gems list is:\n#{Dir.pwd}/#{file_name}"
+      puts %(Path to directory of gems list is:\n#{Dir.pwd}/#{file_name})
     else
       puts %(Invalid file name entered)
     end
