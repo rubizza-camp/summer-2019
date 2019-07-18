@@ -47,7 +47,7 @@ class Parser
   end
 
   def github_api_info
-    @info_from_api ||= HTTParty.get(URI, query: { q: @gem_name }).to_hash['items'].first
+    @github_api_info ||= HTTParty.get(URI, query: { q: @gem_name }).to_hash['items'].first
   end
 
   def contributors_count
