@@ -60,4 +60,3 @@ class ParseGithub
     parse_light_params
   end
 end
-
