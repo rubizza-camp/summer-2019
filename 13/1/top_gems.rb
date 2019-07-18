@@ -39,7 +39,6 @@ class TopGems
     rows = rows.take(options[:input_qty]) if options[:input_qty]
     Terminal::Table.new(headings: header, rows: rows)
   end
-
 end
 
 top_gems = TopGems.new
