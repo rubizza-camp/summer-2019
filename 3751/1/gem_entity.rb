@@ -9,6 +9,7 @@ class GemEntity
     @options = GetGemInfo.new(self).call
   end
 
+  # :reek:Metrics/AbcSize
   def rating
     options[:users] / 100 + options[:watchers] * 2 + options[:stars] * 2 + options[:forks] * 3 +
       options[:contributors] * 5 - options[:issues] * 4 - options[:closed_issues]
