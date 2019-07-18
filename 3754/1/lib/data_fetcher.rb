@@ -12,9 +12,7 @@ class DataFetcher
 
   def collect_all_data
     list_of_urls.each do |gems|
-      gem_url = gems[1]
-      parsed_html = Nokogiri::HTML(URI.parse(gem_url).open)
-      stats << DataParser.new(parsed_html, gem_url).only_stats.insert(0, gems[0])
+      stats << DataParser.new(gems[1]).only_stats.insert(0, gems[0])
     end
     DataCollector.new(stats).sort_stats
   end

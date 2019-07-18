@@ -1,8 +1,8 @@
 require 'open-uri'
 # Class for parsing github url of gem
 class DataParser
-  def initialize(parsed_html, github_url)
-    @parsed_html = parsed_html
+  def initialize(github_url)
+    @parsed_html = Nokogiri::HTML(URI.parse(github_url).open)
     @github_url = github_url
   end
 

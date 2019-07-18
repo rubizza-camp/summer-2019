@@ -13,8 +13,8 @@ class StatsOutput
     @final_stats = ObjectSpace.each_object(DataCollector).to_a[0].stats
     sort_by_word unless @word.empty?
     sort_by_top unless @top.empty?
-    puts (table = Terminal::Table.new headings: ['Gem', 'Used by', 'Watched by', 'Stars', 'Forks',
-                                                'Contributors', 'Issues'], rows: @final_stats)
+    puts Terminal::Table.new headings: ['Gem', 'Used by', 'Watched by', 'Stars', 'Forks',
+                                        'Contributors', 'Issues'], rows: @final_stats
   end
 
   private
