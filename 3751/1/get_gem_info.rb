@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 # Get info from github
-# :reek:InstanceVariableAssumption
-# :reek:Performance/StringReplacement
 class GetGemInfo
   attr_reader :gem
 
@@ -10,6 +8,7 @@ class GetGemInfo
     @gem = gem
   end
 
+  # :reek:TooManyStatements
   def call
     {
       watchers: social_counters[0],
@@ -50,6 +49,7 @@ class GetGemInfo
     user_page.css('.btn-link').text.split.map { |arg| arg.tr(',', '').to_i }
   end
 
+  # :reek:InstanceVariableAssumption
   def github_link
     return @github_link if defined?(@github_link)
 
