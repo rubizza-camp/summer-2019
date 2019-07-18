@@ -18,7 +18,7 @@ class Parser
 
   def initialize(gem_name)
     @gem_name = gem_name
-    @html = Util::Parse::HTML.parse github_api_info['html_url']
+    @html = parse_html github_api_info['html_url']
     @info = collect_info
   end
 
@@ -63,12 +63,16 @@ class Parser
   end
 
   def used_by_count
-    html = Util::Parse::HTML.parse "#{github_api_info['html_url']}/network/dependents"
+    html = parse_html "#{github_api_info['html_url']}/network/dependents"
     used_by = html.css('a.btn-link:nth-child(1)').text
     parse_int(used_by)
   end
 
   def parse_int(num_string)
     num_string.gsub(/[^0-9]/, '').to_i
+  end
+
+  def parse_html(url)
+    Nokogiri::HTML(HTTParty.get(url))
   end
 end

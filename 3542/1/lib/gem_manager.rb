@@ -16,7 +16,7 @@ class GemManager
   private
 
   def gem_list
-    gem_list = Util::Parse::YAML.parse(@params['--file'])['gems']
+    gem_list = Util::YAML.parse(@params['--file'])['gems']
 
     filter_by '--name', gem_list do |gem|
       gem.include? @params['--name']
