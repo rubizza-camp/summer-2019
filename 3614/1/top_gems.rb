@@ -25,8 +25,6 @@ LOGIN_URL = 'https://github.com/login'
 DEFAULT_FILE = 'gems.yml'
 
 class Parse
-  attr_reader :gems_data, :gems_stat
-
   def initialize
     @gems_data = []
     @gems_stat = []
@@ -47,9 +45,18 @@ class Parse
     end
   end
 
-  def pars_data
-    auth
+  def auth
+    @agent.get(LOGIN_URL)
 
+    loop do
+      result = set_form
+      break if result.title.eql?('GitHub')
+
+      puts 'Wrong username or password, please ty again'
+    end
+  end
+
+  def parse_gem_data
     threads = []
     @gems_data.each do |gem_data|
       threads << Thread.new do
@@ -60,15 +67,9 @@ class Parse
   end
 
   def sort
-    # stat_sort
-    case @params[0]
-    when '--top'
-      @gems_stat = @gems_stat[0..@params[1].to_i]
-    when '--name'
-      @gems_stat = @gems_stat.map do |gem_stat|
-        gem_stat[0].include?(@params[1]) ? gem_stat : nil
-      end.compact
-    end
+    @gems_stat.sort_by! { |gem_stat| gem_stat[1] - gem_stat[6] * 1000 }.reverse!
+
+    sort_by_params
   end
 
   def console_output
@@ -87,7 +88,7 @@ class Parse
   def source_set(info)
     source = info['source_code_uri']
 
-    return info['homepage_uri'] if source.nil?
+    return info['homepage_uri'] unless source
 
     source
   end
@@ -98,24 +99,15 @@ class Parse
   end
 
   def set_form
-    @agent.page.forms[0]['login'] =  get_data_from_console('username')
-    @agent.page.forms[0]['password'] = get_data_from_console('password')
-    @agent.page.forms[0].submit
-  end
-
-  def auth
-    @agent.get(LOGIN_URL)
-    result = nil
-    loop do
-      puts 'Wrong username or password, please ty again' if result
-      result = set_form
-      break if result.title.eql?('GitHub')
-    end
+    form = @agent.page.forms[0]
+    form['login'] =  get_data_from_console('username')
+    form['password'] = get_data_from_console('password')
+    form.submit
   end
 
   def get_social_info(html)
     data = html.xpath("//a[starts-with(@class, 'social-count')]")
-    data.map { |d| d.text.delete('^0-9').to_i }.uniq
+    data.map! { |info| info.text.delete('^0-9').to_i }.uniq!
   end
 
   def get_contributors(html)
@@ -123,16 +115,12 @@ class Parse
     data.text.delete('^0-9').to_i
   end
 
-  def get_open_issues(html)
-    html.xpath("//span[@class='Counter']")[0].text.to_i
-  end
-
   def xpath_html(html)
-    result = get_social_info(html)
-    result.push(get_contributors(html))
-    result.push(get_open_issues(html))
+    social_info = get_social_info(html)
+    contributors = get_contributors(html)
+    open_issues = html.xpath("//span[@class='Counter']")[0].text.to_i
 
-    result
+    social_info << contributors << open_issues
   end
 
   def link_parse(gem_data)
@@ -142,15 +130,23 @@ class Parse
     @gems_stat << data.unshift(gem_data[:gem_name])
   end
 
-  def stat_sort
-    @gems_stat.sort_by! do |gem_stat|
-      gem_stat[3] * 10 + gem_stat[4] * 5 + gem_stat[1] - gem_stat[6] * 1000
-    end.reverse!
+  def sort_by_key
+    key, value = @params
+
+    case key
+    when '--top'
+      @gems_stat = @gems_stat[0..value.to_i]
+    when '--name'
+      @gems_stat = @gems_stat.map do |gem_stat|
+        gem_stat[0].include?(value) ? gem_stat : nil
+      end.compact
+    end
   end
 end
 
 parser = Parse.new
 parser.yml_gems
-parser.pars_data
+parser.auth
+parser.parse_gem_data
 parser.sort
 parser.console_output
