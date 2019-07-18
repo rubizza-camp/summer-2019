@@ -25,13 +25,13 @@ class Scraper
       client = Octokit::Client.new(access_token: token)
       client.user.login
     rescue Octokit::Unauthorized
-      raise 'Please enter valid Personal Auth Token'
+      raise %(Please enter valid Personal Auth Token)
     end
     client
   end
 
   def access_token
-    puts 'Enter your Github Personal Access Token:'
+    puts %(Enter your Github Personal Access Token:)
     gets.chomp
   end
 
@@ -57,7 +57,7 @@ class Scraper
       uri = (gem_info_source_code(gem) || gem_info_homepage(gem)).sub!(%r{http.*com/}, '')
       repo = repository(uri, client)
     rescue NoMethodError
-      raise 'Invalid gem in file gems.yaml'
+      raise %(Invalid gem in file gems.yaml)
     end
     gem_properties(repo, contributors_count(uri), used_by_count(uri))
   end
@@ -71,18 +71,15 @@ class Scraper
   end
 
   def contributors(uri)
-    Nokogiri::HTML(open('https://github.com/' + uri))
+    Nokogiri::HTML(open("https://github.com/#{uri}"))
   end
 
   def dependents(uri)
-    Nokogiri::HTML(open('https://github.com/' + uri + '/network/dependents'))
+    Nokogiri::HTML(open("https://github.com/#{uri}/network/dependents"))
   end
 
   def repository(uri, client)
-    repo = client.repo uri
-    repo
-  rescue Octokit::InvalidRepository
-    raise gem.to_s + ' didnt have github repo'
+    client.repo uri
   end
 
   def gem_properties(repo, contributors_count, used_by_count)

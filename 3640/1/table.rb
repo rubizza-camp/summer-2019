@@ -26,7 +26,7 @@ class Table
     return all_gems if selector.empty?
     gems_by_name = fetch_gems_by_name(all_gems, selector)
     if gems_by_name == []
-      puts "The entered name doesn't match the gems in the file gems.yaml"
+      puts %(The entered name doesn't match the gems in the file gems.yaml)
     else
       fetch_gems_by_amount(gems_by_name, selector)
     end
@@ -45,9 +45,9 @@ class Table
 
   def get_path_file(file_name)
     if file_name == 'gems.yaml'
-      puts "Path to directory of gems list is:\n" + Dir.pwd + "/#{file_name}"
+      puts "Path to directory of gems list is:\n#{Dir.pwd}/#{file_name}"
     else
-      puts 'Invalid file name entered'
+      puts %(Invalid file name entered)
     end
   end
 end
