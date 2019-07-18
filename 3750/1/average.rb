@@ -1,5 +1,3 @@
-require_relative 'gemy'
-
 class Average
   class << self
     def calculate_average_stats(gem_array)
@@ -16,10 +14,7 @@ class Average
     private
 
     def average_in_float(gem_array, key)
-      sum = 0
-      gem_array.each do |gem|
-        sum += gem.stats[key].scan(/\d/).join('').to_f
-      end
+      sum = (gem_array.map { |gem| gem.stats[key].scan(/\d/).join('').to_f }).sum
       sum / gem_array.size
     end
   end

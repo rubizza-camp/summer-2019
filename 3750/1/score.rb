@@ -1,30 +1,23 @@
-require_relative 'gemy'
-require_relative 'average'
-
 class Score
   class << self
-    def calculate_overall_score(gem)
-      overall_score = 0
-      gem.scores.values.each do |value|
-        overall_score += value
-      end
-      overall_score
+    def calculate_overall_score(scores)
+      scores.values.sum
     end
 
-    def calculate_score_for_each_stat(gem, average)
+    def calculate_score_for_each_stat(average, stats)
       {
-        used:         stat_score(:used, gem, average),
-        forks:        stat_score(:forks, gem, average),
-        stars:        stat_score(:stars, gem, average),
-        contributors: stat_score(:contributors, gem, average),
-        watched:      stat_score(:watched, gem, average)
+        used:         stat_score(:used, average, stats),
+        forks:        stat_score(:forks, average, stats),
+        stars:        stat_score(:stars, average, stats),
+        contributors: stat_score(:contributors, average, stats),
+        watched:      stat_score(:watched, average, stats)
       }
     end
 
     private
 
-    def stat_score(key, gem, average)
-      gem.stats[key].scan(/\d/).join('').to_f / average[key]
+    def stat_score(key, average, stats)
+      stats[key].scan(/\d/).join('').to_f / average[key]
     end
   end
 end

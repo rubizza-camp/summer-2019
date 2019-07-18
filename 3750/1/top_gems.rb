@@ -3,13 +3,15 @@ require 'nokogiri'
 require 'open-uri'
 require 'optparse'
 require 'terminal-table'
+require 'mechanize'
+require 'yaml'
 require_relative 'gemy'
 require_relative 'score'
 require_relative 'statistics'
 require_relative 'statistic_presenter'
 require_relative 'gem_fetcher'
-
-gems = []
+require_relative 'link'
+require_relative 'average'
 
 options = {
   file_name:   nil,
@@ -34,14 +36,14 @@ end.parse!
 
 exit if !options[:file_name].nil? && options[:top_number].nil? && options[:name].nil?
 
-GemFetcher.fill_array_of_gems(gems)
+gems = GemFetcher.read_file_of_gems
 
 gems.each(&:scrap_stats)
 
 average_stats = Average.calculate_average_stats(gems)
-gems.each { |gem| gem.scrap_overall_score(gem, average_stats) }
+gems.each { |gem| gem.scrap_overall_score(average_stats) }
 
-gems.sort! { |a_gem, b_gem| b_gem.overall_score <=> a_gem.overall_score }
+gems.sort_by! { |gem| -gem.overall_score }
 
 options[:top_number] = gems.size if options[:top_number].nil?
 options[:name] = '' if options[:name].nil?

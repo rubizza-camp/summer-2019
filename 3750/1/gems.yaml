@@ -9,3 +9,4 @@ gems:
   - rack
   - rake
   - thor
+  - minitest
