@@ -8,7 +8,7 @@ RSpec.describe PagePrinter do
   let(:expected_rows) { [%w[faraday 1], %w[rspec 1]] }
 
   describe '#call' do
-    it 'can sort by number from top' do
+    it 'can print exact number of gems from argument' do
       expect(subject.call(2)).to eq(expected.call)
     end
     it 'can filter by part of name' do
