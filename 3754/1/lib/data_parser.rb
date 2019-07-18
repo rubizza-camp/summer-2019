@@ -1,10 +1,16 @@
 require 'open-uri'
-# class for taking data about gem
-class TakeData
-  def initialize(github_url)
+# Class for parsing github url of gem
+class DataParser
+  def initialize(parsed_html, github_url)
+    @parsed_html = parsed_html
     @github_url = github_url
-    @parsed_html = Nokogiri::HTML(URI.parse(github_url).open)
   end
+
+  def only_stats
+    [take_used_by, take_watched_by, take_stars, take_forks, take_contributors, take_issues]
+  end
+
+  private
 
   def take_used_by
     parsed_html = Nokogiri::HTML(URI.parse(@github_url + '/network/dependents').open)
@@ -30,9 +36,5 @@ class TakeData
 
   def take_issues
     @parsed_html.css('nav.hx_reponav span')[4].text.to_i
-  end
-
-  def collecting_all_data
-    [take_used_by, take_watched_by, take_stars, take_forks, take_contributors, take_issues]
   end
 end

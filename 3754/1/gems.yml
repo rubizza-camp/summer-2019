@@ -2,6 +2,7 @@ gems:
   - rails
   - h
   - mechanize
+  - json
   - sinatra
   - a
   - h2ocube_rails_assets
