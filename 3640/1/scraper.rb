@@ -6,8 +6,6 @@ require 'optparse'
 # :reek:TooManyStatements
 # :reek:UtilityFunction
 class Scraper
-  TOKEN = 'feca2a0c59517bb3fca4d9d64d9b658f7856'.freeze
-
   def self.fetch_gem_parameters(gems_names)
     fetcher = new(gems_names)
     token = fetcher.access_token
