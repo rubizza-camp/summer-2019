@@ -1,2 +1,4 @@
 gems:
   - sinatra
+  - reek
+  - nokogiri
