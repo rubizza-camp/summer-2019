@@ -38,7 +38,7 @@ class ParseGithub
   def parse_api(location, selector)
     location.slice! 'https://github.com/'
     headers = {
-      'Authorization' => 'token 88cd131ae9b1155f131a59f701f6df8e1fe2c696',
+      'Authorization' => 'token 3971e05e04427279b97998b37a2fcefaac5ffda8',
       'User-Agent' => 'Httparty'
     }
     response = HTTParty.get([@api[:github], location].join, headers: headers)
@@ -61,4 +61,3 @@ class ParseGithub
   end
 end
 
-ParseGithub.new('sinatra').fun
