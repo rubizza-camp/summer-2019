@@ -1,9 +1,15 @@
 gems:
+  - reek
+  - rake
+  - rubocop
   - rails
   - sinatra
   - rspec
   - devise
   - jquery-rails
-  - rake
-  - reek
-  - rubocop
+score_params:
+  watchers_count: 0.5
+  used_by: 1
+  stargazers_count: 0.7
+  close_issues: 0.9
+  open_issues: -0.3
