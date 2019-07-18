@@ -1,3 +1,4 @@
+# rubocop:disable Style/RedundantSelf, Lint/Void
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UtilityFunction
@@ -83,6 +84,7 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
+    :a_non_return_value
     :return_value
   end
 
@@ -101,7 +103,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, my_method_in_the_same_class(3, 4)
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -148,3 +150,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable Style/RedundantSelf, Lint/Void
