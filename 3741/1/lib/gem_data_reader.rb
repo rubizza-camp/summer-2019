@@ -4,7 +4,7 @@ require_relative '../lib/gem_data'
 
 # parsing data from web page of gem
 class GemDataReader
-  attr_reader :html
+  attr_reader :html, :gem_name
 
   def initialize(gem_name)
     @gem_name = gem_name
@@ -19,11 +19,10 @@ class GemDataReader
 
   private
 
-  # :reek:NilCheck
   def parse_by
-    @html = open_url(@gem_name)
-    return create_empty_gem_info if html.nil?
-    parse_gem_info(nokogiri_parse, nokogiri_parse_used_by).merge(name: @gem_name)
+    @html = open_url(gem_name)
+    return create_empty_gem_info unless html
+    parse_gem_info(nokogiri_parse, nokogiri_parse_used_by).merge(name: gem_name)
   end
 
   def parse_gem_info(source_page, used_by_page)
@@ -45,7 +44,7 @@ class GemDataReader
       forks_count:        0,
       contributors_count: 0,
       issues_count:       0,
-      name:               @gem_name
+      name:               gem_name
     }
   end
 
@@ -54,11 +53,11 @@ class GemDataReader
   end
 
   def nokogiri_parse
-    Nokogiri::HTML(Kernel.open(@html))
+    Nokogiri::HTML(Kernel.open(html))
   end
 
   def nokogiri_parse_used_by
-    Nokogiri::HTML(Kernel.open(@html + '/network/dependents'))
+    Nokogiri::HTML(Kernel.open(html + '/network/dependents'))
   end
 
   def open_url(gem_name)

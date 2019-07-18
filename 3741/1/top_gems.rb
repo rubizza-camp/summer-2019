@@ -6,12 +6,13 @@ require_relative 'lib/gems_view'
 
 # main run class
 class TopGems
+  FILE_NAME = 'gems.yml'.freeze
+  # :reek:FeatureEnvy
   def initialize
-    @file_name = 'gems.yml'
     option_parser = OptionParser.new
     option_parser.on('--top=', '--top') { |value| @option_top = value.to_i }
     option_parser.on('--name=', '--name') { |value| @option_name = value }
-    option_parser.on('--file=', '--file') { |value| @file_name = value }
+    option_parser.on('--file=', '--file') { |value| @option_file = value }
     option_parser.parse!
   end
 
@@ -23,7 +24,7 @@ class TopGems
   private
 
   def read_file
-    YamlReader.call(@file_name, @option_name)
+    YamlReader.call(@option_file || FILE_NAME, @option_name)
   end
 end
 
