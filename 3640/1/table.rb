@@ -1,7 +1,7 @@
 require 'terminal-table'
 require_relative 'all_gems_fetcher.rb'
 require_relative 'gem_terminal_output.rb'
-require_relative 'parse_file_fetcher.rb'
+require 'yaml'
 
 class Table
   def self.fetch_table_output(selector)
@@ -17,7 +17,7 @@ class Table
   private
 
   def all_gems
-    names_all_gems = ParseFileFetcher.fetch_all_names('gems.yaml')
+    names_all_gems = YAML.load_file('gems.yaml')['gems']
     @all_gems ||= AllGemsFetcher.fetch_all_gems(names_all_gems).sort_by(&:rating).reverse
   end
 
