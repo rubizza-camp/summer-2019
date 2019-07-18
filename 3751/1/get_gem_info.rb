@@ -9,19 +9,15 @@ class GetGemInfo
     @gem = gem
   end
 
-  def to_integer(text)
-    text.gsub(',', '').to_i
-  end
-
   def call
     {
-      watchers: to_integer(social_counters[0].text),
-      stars: to_integer(social_counters[1].text),
-      forks: to_integer(social_counters[2].text),
-      contributors: to_integer(contributors[3].text),
-      users: to_integer(users[1].text.split[0]),
-      issues: to_integer(issues[0].text.split[0]),
-      closed_issues: to_integer(issues[1].text.split[0])
+      watchers: social_counters[0],
+      stars: social_counters[1],
+      forks: social_counters[2],
+      contributors: contributors[2],
+      users: users[0],
+      issues: issues[0],
+      closed_issues: issues[2]
     }
   end
 
@@ -38,19 +34,19 @@ class GetGemInfo
   end
 
   def social_counters
-    main_page.css('.social-count')
+    main_page.css('.social-count').text.split.map { |arg| arg.tr(',', '').to_i }
   end
 
   def contributors
-    main_page.css('span.text-emphasized')
+    main_page.css('span.text-emphasized').text.split.map { |arg| arg.tr(',', '').to_i }
   end
 
   def issues
-    issues_page.css('.states .btn-link')
+    issues_page.css('.states .btn-link').text.split.map { |arg| arg.tr(',', '').to_i }
   end
 
   def users
-    user_page.css('.btn-link')
+    user_page.css('.btn-link').text.split.map { |arg| arg.tr(',', '').to_i }
   end
 
   def github_link
