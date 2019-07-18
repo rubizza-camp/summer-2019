@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'gems', '1.1.0'
+gem 'gems', '1.1.1'
 gem 'io-console', '0.4.8'
 gem 'mechanize', '2.7.6'
 gem 'nokogiri', '1.10.3'

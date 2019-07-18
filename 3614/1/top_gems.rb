@@ -11,88 +11,106 @@ require 'open-uri'
 require 'io/console'
 require 'terminal-table'
 
-HEADERS = ['Gem', 'Used by', 'Watched by', 'Stars', 'Forks', 'Contributors', 'Issues'].freeze
-LOGIN_URL = 'https://github.com/login'
-DEFAULT_FILE = 'gems.yml'
+HEADERS = [
+  'Gem',
+  'Used by',
+  'Watched by',
+  'Stars',
+  'Forks',
+  'Contributors',
+  'Issues'
+].freeze
+
+LOGIN_URL = 'https://github.com/login'.freeze
+DEFAULT_FILE = 'gems.yml'.freeze
 
 class Parse
-  attr_accessor :arr, :gem_parameters
+  attr_reader :gems_data, :gems_stat
 
   def initialize
-    @arr = []
-    @gem_parameters = []
+    @gems_data = []
+    @gems_stat = []
     @params = ARGV.empty? ? [] : ARGV.first.split('=')
+    @agent = Mechanize.new
   end
 
   def yml_gems
-    yml_gem_list = if @params[0] == '--file'
-                     YAML.load_file(@params[1])
-                   else
-                     YAML.load_file(DEFAULT_FILE)
-                   end
+    yml_gem_list = get_gem_list
+
     yml_gem_list['gems'].each do |gem_name|
       gem_info = Gems.info(gem_name)
-      gem_request = {
+
+      @gems_data << {
         gem_name: gem_name,
-        homepage: gem_info['homepage_uri']&.gsub('http:', 'https:'),
-        source: gem_info['source_code_uri']&.gsub('http:', 'https:')
+        source: set_source(gem_info)
       }
-      @arr << gem_request
     end
   end
 
-  def link_parse
-    agent = authorization
+  def pars_data
+    auth
 
     threads = []
-    @arr.each do |hash|
+    @gems_data.each do |gem_data|
       threads << Thread.new do
-        hash[:source] = hash[:homepage] if hash[:source].nil? || hash[:source] == ''
-
-        page = agent.get(hash[:source])
-        html = Nokogiri::HTML(page.content.toutf8)
-        data = xpath_html(html)
-        @gem_parameters << data.unshift(hash[:gem_name])
+        link_parse(gem_data)
       end
     end
     threads.each(&:join)
   end
 
   def sort
-    popularization_sort
+    # stat_sort
     case @params[0]
     when '--top'
-      @gem_parameters = @gem_parameters[0..@params[1]]
+      @gems_stat = @gems_stat[0..@params[1].to_i]
     when '--name'
-      @gem_parameters = @gem_parameters.map { |element| element[0].include?(@params[1]) ? element : nil }.compact
+      @gems_stat = @gems_stat.map do |gem_stat|
+        gem_stat[0].include?(@params[1]) ? gem_stat : nil
+      end.compact
     end
   end
 
   def console_output
-    table = Terminal::Table.new headings: HEADERS, rows: @gem_parameters
+    table = Terminal::Table.new headings: HEADERS, rows: @gems_stat
     puts table
   end
 
   private
 
-  def authorization
-    agent = Mechanize.new
-    agent.get(LOGIN_URL)
-    result = nil
-    loop do
-      puts 'Wrong username or password, please ty again' if result
-      agent.page.forms[0]['login'] =  get_data_from_console('username')
-      agent.page.forms[0]['password'] = get_data_from_console('password')
-      result = agent.page.forms[0].submit
-      break if result.title.eql?('GitHub')
-    end
+  def get_gem_list
+    return YAML.load_file(@params[1]) if @params[0] == '--file'
 
-    agent
+    YAML.load_file(DEFAULT_FILE)
+  end
+
+  def set_source(info)
+    source = info['source_code_uri']
+
+    return info['homepage_uri'] if source.nil?
+
+    source
   end
 
   def get_data_from_console(text)
     puts "Write #{text}"
     STDIN.noecho(&:gets).chomp
+  end
+
+  def set_form
+    @agent.page.forms[0]['login'] =  get_data_from_console('username')
+    @agent.page.forms[0]['password'] = get_data_from_console('password')
+    @agent.page.forms[0].submit
+  end
+
+  def auth
+    @agent.get(LOGIN_URL)
+    result = nil
+    loop do
+      puts 'Wrong username or password, please ty again' if result
+      result = set_form
+      break if result.title.eql?('GitHub')
+    end
   end
 
   def get_social_info(html)
@@ -117,15 +135,22 @@ class Parse
     result
   end
 
-  def popularization_sort
-    @gem_parameters.sort_by! do |element|
-      element[3] * 2 + element[4] * 2 + element[2] + element[1] - element[6] * 1000
+  def link_parse(gem_data)
+    page = @agent.get(gem_data[:source])
+    html = Nokogiri::HTML(page.content.toutf8)
+    data = xpath_html(html)
+    @gems_stat << data.unshift(gem_data[:gem_name])
+  end
+
+  def stat_sort
+    @gems_stat.sort_by! do |gem_stat|
+      gem_stat[3] * 10 + gem_stat[4] * 5 + gem_stat[1] - gem_stat[6] * 1000
     end.reverse!
   end
 end
 
 parser = Parse.new
 parser.yml_gems
-parser.link_parse
+parser.pars_data
 parser.sort
 parser.console_output
