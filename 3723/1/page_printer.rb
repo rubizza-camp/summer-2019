@@ -8,7 +8,7 @@ class PagePrinter
 
   def call(option = nil)
     if option
-      sort_by_number(option) if option.is_a? Integer
+      count_of_gems(option) if option.is_a? Integer
       filter_by_name(option) if option.is_a? String
     else
       print_info(@rows)
@@ -17,7 +17,7 @@ class PagePrinter
 
   private
 
-  def sort_by_number(number)
+  def count_of_gems(number)
     @rows = @rows.first(number) if number.positive?
     print_info(@rows)
   end
