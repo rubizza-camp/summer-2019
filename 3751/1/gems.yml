@@ -1,0 +1,6 @@
+gems:
+  - rspec
+  - rails
+  - nokogiri
+  - sinatra
+  - terminal-table
