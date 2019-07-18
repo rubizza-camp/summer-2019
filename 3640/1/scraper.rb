@@ -44,17 +44,17 @@ class Scraper
 
   private
 
-  def gem_info_one(gem)
+  def gem_info_source_code(gem)
     Gems.info(gem)['source_code_uri']
   end
 
-  def gem_info_two(gem)
+  def gem_info_homepage(gem)
     Gems.info(gem)['homepage_uri']
   end
 
   def gem_info(gem, client)
     begin
-      uri = (gem_info_one(gem) || gem_info_two(gem)).sub!(%r{http.*com/}, '')
+      uri = (gem_info_source_code(gem) || gem_info_homepage(gem)).sub!(%r{http.*com/}, '')
       repo = repository(uri, client)
     rescue NoMethodError
       raise 'Invalid gem in file gems.yaml'

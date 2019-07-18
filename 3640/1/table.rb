@@ -4,7 +4,6 @@ require_relative 'gem_terminal_output.rb'
 require_relative 'parse_file_fetcher.rb'
 
 class Table
-  MESSAGE = "The entered name doesn't match the gems in the file gems.yaml".freeze
   def self.fetch_table_output(selector)
     fetcher = new
     fetcher.fetch_table_output(selector)
@@ -26,7 +25,11 @@ class Table
     get_path_file(selector[:file]) if selector.key?(:file)
     return all_gems if selector.empty?
     gems_by_name = fetch_gems_by_name(all_gems, selector)
-    gems_by_name == [] ? (puts MESSAGE) : fetch_gems_by_amount(gems_by_name, selector)
+    if gems_by_name == []
+      puts "The entered name doesn't match the gems in the file gems.yaml"
+    else
+      fetch_gems_by_amount(gems_by_name, selector)
+    end
   end
 
   def fetch_gems_by_amount(all_gems, selector)
