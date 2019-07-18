@@ -8,7 +8,7 @@ class GetGemInfo
     @gem = gem
   end
 
-  # :reek:TooManyStatements
+  # :reek:Metrics/AbcSize
   def call
     {
       watchers: social_counters[0],

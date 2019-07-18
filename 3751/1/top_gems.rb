@@ -14,7 +14,6 @@ require 'pry'
 # output table
 # :reek:InstanceVariableAssumption
 class GemAnalyze
-  # :reek:TooManyStatements
   def call
     gems = ListingGems.new(parameters).load
 
