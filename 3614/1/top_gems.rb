@@ -21,8 +21,8 @@ HEADERS = [
   'Issues'
 ].freeze
 
-LOGIN_URL = 'https://github.com/login'.freeze
-DEFAULT_FILE = 'gems.yml'.freeze
+LOGIN_URL = 'https://github.com/login'
+DEFAULT_FILE = 'gems.yml'
 
 class Parse
   attr_reader :gems_data, :gems_stat
@@ -35,14 +35,14 @@ class Parse
   end
 
   def yml_gems
-    yml_gem_list = get_gem_list
+    yml_gem_list = take_gem_list
 
     yml_gem_list['gems'].each do |gem_name|
       gem_info = Gems.info(gem_name)
 
       @gems_data << {
         gem_name: gem_name,
-        source: set_source(gem_info)
+        source: source_set(gem_info)
       }
     end
   end
@@ -78,13 +78,13 @@ class Parse
 
   private
 
-  def get_gem_list
+  def take_gem_list
     return YAML.load_file(@params[1]) if @params[0] == '--file'
 
     YAML.load_file(DEFAULT_FILE)
   end
 
-  def set_source(info)
+  def source_set(info)
     source = info['source_code_uri']
 
     return info['homepage_uri'] if source.nil?
