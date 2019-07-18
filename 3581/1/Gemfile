@@ -1,4 +1,4 @@
-source 'https://rybugems.org'
+source 'https://rubygems.org'
 
 gem 'nokogiri'
 gem 'terminal-table'

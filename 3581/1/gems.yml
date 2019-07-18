@@ -1,8 +1,10 @@
 gems:
  - rspec-core
  - rspec-expectations
+ - rubygems-update
  - diff-lcs
- - rspec-mocks
+ - shved
+ - rspec-mocks 
  - rspec
  - rspec-support
  - bundler
