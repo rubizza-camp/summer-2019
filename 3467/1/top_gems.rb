@@ -73,8 +73,8 @@ top_gems.sort_by! { |arr| arr[1, 6].sum }.reverse!
 top_gems = top_gems[0, options[:top].to_i] unless options[:top].nil?
 
 # ouput top gems
-gems_quantity = options[:name] ? "with '#{options[:name]}' in name" : ''
-table = Terminal::Table.new(title: "Top #{options[:top]} gems #{gems_quantity} from #{options[:file]}",
+gems_quant = options[:name] ? "with '#{options[:name]}' in name" : ''
+table = Terminal::Table.new(title: "Top #{options[:top]} gems #{gems_quant} from #{options[:file]}",
                             headings: %w[Gem Used_by Watched Stars Forks Contributors Issues],
                             rows: top_gems)
 puts table
