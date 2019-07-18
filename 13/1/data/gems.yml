@@ -6,3 +6,14 @@ gems:
   - pry
   - mechanize
   - nokogiri
+  - capybara
+  - devise
+  - capybara
+  - factory_girl
+  - cancancan
+  - sidekiq
+  - russian
+  - jazz_hands
+  - rails
+  - xyeger
+  - fake-ruby-gem
