@@ -1,1 +1,4 @@
-https://www.youtube.com/watch?v=Q625vJE4_g8&feature=share новое видио
+https://www.youtube.com/watch?v=_I6ZV9f2mgU&feature=share ещё более новое видио
+я ускорил приложение но не полностью 
+не могу понять как использовать мемоизацию что бы всё работало
+а то получатся быстро но не корректно 

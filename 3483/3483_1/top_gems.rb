@@ -1,15 +1,16 @@
-require_relative 'algorim'
-require_relative 'gems_reader'
-require_relative 'parser'
+require_relative 'the_best_gem'
+require_relative 'gem_file_list_open'
+require_relative 'git_hub_repository_parser'
 
 main_array = []
 
-info = GemInfo.new
-list_gems = GemFileListOpen.new
+info = GitHubRepositoryParser.new
+list_gems = GemFileListOpen.new('gems_list.yaml')
 best = TheBestGem.new
 
-(0...list_gems.yaml_size).each do |i|
-  main_array << info.get_array(list_gems.inject(i))
+(0...list_gems.fetch_gems_list.size).each do |i|
+  info.gem_name = list_gems.fetch_gems_list[i]
+  main_array << info.fetch_gem_info
 end
 
-best.get_top(main_array)
+best.call(main_array)
