@@ -17,8 +17,8 @@ class Parser
   attr_reader :info
 
   def initialize(gem_name)
-    @info_from_api = collect_repository_info_for gem_name
-    @html = Util::Parse::HTML.parse @info_from_api['html_url']
+    @gem_name = gem_name
+    @html = Util::Parse::HTML.parse github_api_info['html_url']
     @info = collect_info
   end
 
@@ -41,15 +41,13 @@ class Parser
   def fields_from_api
     fields = {}
     FIELDS_FROM_API.each do |field, field_key|
-      fields[field] = @info_from_api[field_key]
+      fields[field] = github_api_info[field_key]
     end
     fields
   end
 
-  def collect_repository_info_for(gem_name)
-    api_response = HTTParty.get(URI, query: { q: gem_name })
-
-    api_response.to_hash['items'].first
+  def github_api_info
+    @info_from_api ||= HTTParty.get(URI, query: { q: @gem_name }).to_hash['items'].first
   end
 
   def contributors_count
@@ -65,7 +63,7 @@ class Parser
   end
 
   def used_by_count
-    html = Util::Parse::HTML.parse "#{@info_from_api['html_url']}/network/dependents"
+    html = Util::Parse::HTML.parse "#{github_api_info['html_url']}/network/dependents"
     used_by = html.css('a.btn-link:nth-child(1)').text
     parse_int(used_by)
   end
