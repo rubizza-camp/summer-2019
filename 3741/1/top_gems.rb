@@ -10,7 +10,7 @@ class TopGems
   def initialize
     @file_name = 'gems.yml'
     OptionParser.new do |opts|
-      opts.on('--top=', '--top') { |value| @option_top = value }
+      opts.on('--top=', '--top') { |value| @option_top = value.to_i }
       opts.on('--name=', '--name') { |value| @option_name = value }
       opts.on('--file=', '--file') { |value| @file_name = value }
     end.parse!
