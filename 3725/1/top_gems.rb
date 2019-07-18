@@ -5,7 +5,7 @@ require_relative 'lib/repo/searcher'
 require_relative 'lib/reader'
 require_relative 'lib/table'
 
-options = Reader::Shell.new.load_parameters
+options = Reader::Shell.load_parameters
 
 gem_names = Reader::File.new(options[:file]).read
 

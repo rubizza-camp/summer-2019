@@ -14,7 +14,7 @@ module Reader
   end
 
   class Shell
-    def load_parameters
+    def self.load_parameters
       ARGV.each_with_object({}) do |parameters, hash|
         split = parameters.delete('-').split('=')
         hash[split.first.to_sym] = split.last
