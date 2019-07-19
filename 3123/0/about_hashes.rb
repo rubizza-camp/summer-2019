@@ -6,12 +6,14 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:FeatureEnvy
 # Description class
 class AboutHashes < Neo::Koan
+  # rubocop:disable Style/EmptyLiteral
   def test_creating_hashes
-    empty_hash = {}
+    empty_hash = Hash.new
     assert_equal Hash, empty_hash.class
     assert_equal({}, empty_hash)
     assert_equal 0, empty_hash.size
   end
+  # rubocop:enable Style/EmptyLiteral
 
   def test_hash_literals
     hash = { one: 'uno', two: 'dos' }
@@ -57,17 +59,17 @@ class AboutHashes < Neo::Koan
 
   def test_hash_keys
     hash = { one: 'uno', two: 'dos' }
-    assert_equal 2, hash.keys.size
-    assert_equal true, hash.key?(:one)
-    assert_equal true, hash.key?(:two)
+    assert_equal 2,     hash.keys.size
+    assert_equal true,  hash.keys.include?(:one)
+    assert_equal true,  hash.keys.include?(:two)
     assert_equal Array, hash.keys.class
   end
 
   def test_hash_values
     hash = { one: 'uno', two: 'dos' }
-    assert_equal 2, hash.values.size
-    assert_equal true, hash.value?('uno')
-    assert_equal true, hash.value?('dos')
+    assert_equal 2,     hash.values.size
+    assert_equal true,  hash.values.include?('uno')
+    assert_equal true,  hash.values.include?('dos')
     assert_equal Array, hash.values.class
   end
 
@@ -82,7 +84,8 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value
-    hash1 = {}
+    # rubocop:disable Style/EmptyLiteral
+    hash1 = Hash.new
     hash1[:one] = 1
 
     assert_equal 1, hash1[:one]
@@ -94,8 +97,9 @@ class AboutHashes < Neo::Koan
     assert_equal 1, hash2[:one]
     assert_equal 'dos', hash2[:two]
   end
-
+  # rubocop:enable Style/EmptyLiteral
   # rubocop:disable Metrics/AbcSize
+
   def test_default_value_is_the_same_object
     hash = Hash.new([])
 
@@ -116,8 +120,8 @@ class AboutHashes < Neo::Koan
     hash[:one] << 'uno'
     hash[:two] << 'dos'
 
-    assert_equal %w[uno], hash[:one]
-    assert_equal %w[dos], hash[:two]
+    assert_equal ['uno'], hash[:one]
+    assert_equal ['dos'], hash[:two]
     assert_equal [], hash[:three]
   end
 end

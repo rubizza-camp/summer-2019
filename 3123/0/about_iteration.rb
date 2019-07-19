@@ -67,21 +67,24 @@ class AboutIteration < Neo::Koan
     another_array = array.map { |item| item + 10 }
     assert_equal [11, 12, 13], another_array
   end
+  # rubocop:disable Style/EvenOdd
+  # rubocop:disable Style/NumericPredicate:
 
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
-    even_numbers = array.select(&:even?)
+    even_numbers = array.select { |item| (item % 2) == 0 }
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all(&:even?)
+    more_even_numbers = array.find_all { |item| (item % 2) == 0 }
     assert_equal [2, 4, 6], more_even_numbers
   end
+  # rubocop:enable Style/NumericPredicate:
+  # rubocop:enable Style/EvenOdd
 
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
-
     assert_equal('Clarence', array.find { |item| item.size > 4 })
   end
 
