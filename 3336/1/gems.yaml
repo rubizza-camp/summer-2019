@@ -1,4 +1,4 @@
 gems: 
-  -sinatra
-  -rails
-  -rspec
+  - sinatra
+  - rails
+  - rspec

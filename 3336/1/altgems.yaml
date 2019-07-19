@@ -1,4 +1,4 @@
 gems: 
-  -f2b
-  -b2b_center_api
-  -a
+  - f2b
+  - b2b_center_api
+  - a
