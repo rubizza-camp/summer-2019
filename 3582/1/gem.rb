@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './parse_github'
+require './github_parser'
 
 # This class contains info about single gem
 class Gemi
@@ -8,7 +8,7 @@ class Gemi
 
   def initialize(gem_name)
     @gem_name = gem_name
-    @params = parser.fun
+    @params = parser.execute
     stringify_params
     @rank = count_rank
   end
@@ -20,7 +20,7 @@ class Gemi
   end
 
   def parser
-    ParseGithub.new(gem_name)
+    GithubParser.new(gem_name)
   end
 
   def count_rank

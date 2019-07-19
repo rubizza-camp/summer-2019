@@ -7,7 +7,7 @@ require 'pry'
 require 'uri'
 
 # Parse
-class ParseGithub
+class GithubParser
   attr_reader :params, :api, :gem_name
 
   def initialize(gem_name)
@@ -17,7 +17,7 @@ class ParseGithub
     @uri = ''
   end
 
-  def fun
+  def execute
     fetch_uri
     @params[:forks] = parse_api(@uri, 'forks_count')
     @params[:watchers] = parse_api(@uri, 'subscribers_count')
@@ -38,7 +38,7 @@ class ParseGithub
   def parse_api(location, selector)
     location.slice! 'https://github.com/'
     headers = {
-      'Authorization' => 'token 3971e05e04427279b97998b37a2fcefaac5ffda8',
+      'Authorization' => "token #{ENV['API_TOKEN']}",
       'User-Agent' => 'Httparty'
     }
     response = HTTParty.get([@api[:github], location].join, headers: headers)
