@@ -22,7 +22,7 @@ class Order
   end
 
   def used_by_num(strings)
-    strings[1].split(' ').last.to_i
+    strings.last.split(' ').last.to_i
   end
 
   def sort(strings)

@@ -29,7 +29,7 @@ end.parse!
 
 yamlreader = YamlReader.new('gems.yaml').read
 linker = Linker.new(yamlreader).find_links
-gemrepoparser = GemRepoParser.new(linker).info
+gemrepoparser = GemRepoParser.new(linker).result_strings
 order = Order.new(gemrepoparser)
 
 if options.key? :top
