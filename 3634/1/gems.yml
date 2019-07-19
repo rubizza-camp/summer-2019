@@ -1,0 +1,13 @@
+gems:
+  - thor
+  - nokogiri
+  - rspec
+  - bundler
+  - pry
+  - sinatra
+  - rake
+  - devise
+  - diff-lcs
+  - rubocop
+  - thin
+  - rack
