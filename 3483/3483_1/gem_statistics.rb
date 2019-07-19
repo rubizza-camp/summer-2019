@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'open-uri'
 require 'nokogiri'
-#:reek:InstanceVariableAssumption
+
 class GemStatistics
   attr_reader :gem_name, :gem_info
 
@@ -21,16 +21,18 @@ class GemStatistics
   BRANCH_OF_GEM_REPOSITORY = '/network/dependents'.freeze
 
   def fetch_gem
-    doc = Nokogiri::HTML(URI.open("#{URL_GEM_SEARCH}""#{gem_name}"))
-    @github_url = doc.xpath('//a[@id="code"]/@href')
+    @fetch_gem ||= begin
+      doc = Nokogiri::HTML(URI.open("#{URL_GEM_SEARCH}""#{gem_name}"))
+      doc.xpath('//a[@id="code"]/@href')
+    end
   end
 
   def parse_github_page
-    @parse_github_page ||= Nokogiri::HTML(URI.open(@github_url.to_s))
+    @parse_github_page ||= Nokogiri::HTML(URI.open(fetch_gem.to_s))
   end
 
   def parse_gem_dependencies
-    Nokogiri::HTML(URI.open("#{@github_url}#{BRANCH_OF_GEM_REPOSITORY}"))
+    Nokogiri::HTML(URI.open("#{fetch_gem}#{BRANCH_OF_GEM_REPOSITORY}"))
   end
 
   def fetch_used_by
