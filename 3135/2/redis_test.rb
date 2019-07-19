@@ -1,9 +1,11 @@
 require 'redis'
 
-redis = Redis.new(host: 'localhost')
+#redis = Redis.new(host: 'localhost')
 
 redis.set('a', 1)
 
-b = redis.get('a')
-puts b.class
-puts b
+a = redis.get('a')
+b = redis.get('b')
+
+puts a
+puts b.inspect

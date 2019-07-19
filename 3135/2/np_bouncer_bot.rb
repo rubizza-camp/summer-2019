@@ -1,22 +1,32 @@
 require 'telegram/bot'
-require 'open-uri'
+require 'redis'
+#require 'open-uri'
+require_relative 'UserData_class'
+
+Redis0 = Redis.new(host: 'localhost')
 
 token = '984354340:AAH8gSW85nD8cNX8JXPA5osPrbHYfZWdv6Q'
 
 Telegram::Bot::Client.run(token) do |bot|
     bot.listen do |message|
-      #puts message.inspect
-      #puts message.methods
 
       case message.text
       when '/start'
-        bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
-        puts '/start message received'
+        user = UserData.new(message.from.id)
+        user.resident?
+
+        #bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
+        #puts '/start message received'
       when '/stop'
-        bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
-        puts '/stop message received'
+        user = UserData.new(message.from.id)
+        puts a.residence_status
+        puts a.action_status
+
+        #bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
+        #puts '/stop message received'
       end
 
+=begin
       case
       when message.photo != []
         puts "photomessage received"
@@ -33,6 +43,7 @@ Telegram::Bot::Client.run(token) do |bot|
       when message.location 
         puts "locationmessage received"
       end
+=end
 
     end
 end
