@@ -4,16 +4,16 @@ require_relative '../lib/gem_data'
 
 # parsing data from web page of gem
 class GemDataReader
-  attr_reader :html, :gem_name
+  attr_reader :gem_name
 
   def initialize(gem_name)
-    @gem_name = gem_name
     @html = ''
+    @gem_name = gem_name
   end
 
   def read
     gem_info = parse_by
-    gem_info = create_empty_gem_info if gem_info == 'bad'
+    gem_info = empty_gem if gem_info == 'bad'
     GemData.new(gem_info)
   end
 
@@ -21,11 +21,11 @@ class GemDataReader
 
   def parse_by
     @html = open_url(gem_name)
-    return create_empty_gem_info unless html
-    parse_gem_info(nokogiri_parse, nokogiri_parse_used_by).merge(name: gem_name)
+    return empty_gem unless @html
+    gem_data(nokogiri_parse, nokogiri_parse_used_by).merge(name: gem_name)
   end
 
-  def parse_gem_info(source_page, used_by_page)
+  def gem_data(source_page, used_by_page)
     {
       used_by:            receive_info(used_by_page, '.btn-link',        1),
       watcher_count:      receive_info(source_page,  '.social-count',    0),
@@ -36,7 +36,7 @@ class GemDataReader
     }
   end
 
-  def create_empty_gem_info
+  def empty_gem
     {
       used_by:            0,
       watcher_count:      0,
@@ -53,11 +53,11 @@ class GemDataReader
   end
 
   def nokogiri_parse
-    Nokogiri::HTML(Kernel.open(html))
+    Nokogiri::HTML(Kernel.open(@html))
   end
 
   def nokogiri_parse_used_by
-    Nokogiri::HTML(Kernel.open(html + '/network/dependents'))
+    Nokogiri::HTML(Kernel.open(@html + '/network/dependents'))
   end
 
   def open_url(gem_name)
