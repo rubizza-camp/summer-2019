@@ -92,7 +92,7 @@ end
 
 # :reek:FeatureEnvy
 def table(rows, options)
-  stats_id = %i[Gem Watch Star Fork Contributers Issues Used_by Rating]
+  stats_id = %i[Gem Contributers Issues Used_by Watch Star Fork Rating]
   (rows.sort_by! &:last).reverse!
   table = Terminal::Table.new rows: rows[0..(options - 1)], headings: stats_id
   puts table
