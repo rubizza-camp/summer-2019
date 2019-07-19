@@ -6,6 +6,7 @@ require './comands/checkin'
 require './comands/checkout'
 require 'date'
 require 'logger'
+
 class WebhooksController < Telegram::Bot::UpdatesController
   include StartCommand
   include CheckinCommand

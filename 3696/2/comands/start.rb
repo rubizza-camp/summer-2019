@@ -3,6 +3,7 @@
 require 'redis'
 require 'yaml'
 require './helpers/base_comand_helpers'
+
 module StartCommand
   include BaseComandHelpers
 

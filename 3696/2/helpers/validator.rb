@@ -4,6 +4,7 @@ require 'haversine'
 require './helpers/download_helpers'
 require 'face_detect'
 require 'face_detect/adapter/google'
+
 module Validator
   include DownloadHelpers
 

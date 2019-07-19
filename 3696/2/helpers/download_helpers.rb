@@ -3,6 +3,7 @@
 require 'fileutils'
 require 'open-uri'
 require 'json'
+
 module DownloadHelpers
   private
 

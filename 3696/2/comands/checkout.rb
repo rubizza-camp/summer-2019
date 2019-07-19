@@ -2,6 +2,7 @@
 
 require './helpers/base_comand_helpers'
 require './helpers/validator'
+
 module CheckoutCommand
   include BaseComandHelpers
   include Validator
