@@ -1,5 +1,5 @@
 # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Security/Open
-# rubocop:disable Lint/UselessAssignment, Metrics/MethodLength, Lint/AmbiguousOperator
+# rubocop:disable Lint/UselessAssignment, Lint/AmbiguousOperator, Style/UnneededCondition
 
 require 'open-uri'
 require 'nokogiri'
@@ -12,22 +12,14 @@ require 'optparse'
 
 # :reek:TooManyStatements
 # :reek:NestedIterators
+# :reek:UtilityFunction
 def options_get
   options = { top_gem: nil, name_gem: nil, file: 'gems.yaml' }
 
   OptionParser.new do |parser|
-    parser.on('--top=', '--t=', Integer) do |top|
-      puts "I give you #{top} gems"
-      options[:top_gem] = top
-    end
-    parser.on('--name=', '--n=', String) do |name|
-      puts "Searching for #{name}"
-      options[:name_gem] = name
-    end
-    parser.on('--file=', '--f=') do |file|
-      puts "Take info from #{file}"
-      options[:file] = file
-    end
+    parser.on('--top=', '--t=', Integer) { |args| options[:top_gem] = args }
+    parser.on('--name=', '--n=', String) { |args| options[:name_gem] = args }
+    parser.on('--file=', '--f=') { |args| options[:file] = args }
   end.parse!
   options
 end
@@ -35,16 +27,20 @@ end
 # :reek:TooManyStatements
 def runner
   options = options_get
-  gems = YAML.load_file(options[:file])
-  gems = gems['gems'].split(' ')
+  gems = yaml_parse(options)
   gems = options_check(gems, options)
   gems = gems.map { |item| item.delete '-' }
-  urls = gems.map { |item| Gems.info(item)['source_code_uri'] }
-  html_result = nokogiri_parse_first(urls)
+  urls = url_check(gems)
+  html_result = nokogiri_parse(urls)
   stats = main_stats(html_result)
   stats = polish_main_stats(gems, stats)
   rows = rating_rows(gems, stats)
   table(rows, options)
+end
+
+# :reek:UtilityFunction
+def yaml_parse(options)
+  gem_name = YAML.load_file(options[:file]).values[0].split(' ')
 end
 
 # :reek:NilCheck
@@ -58,10 +54,16 @@ def options_check(gem_list, options)
   gem_list
 end
 
-def nokogiri_parse_first(url_list)
+# :reek:UtilityFunction
+def url_check(gem_list)
+  gem_list.map { |item| Gems.info(item)['source_code_uri'] || Gems.info(item)['homepage_uri'] }
+  # gems = gems.map { |item| Gems.info(item)['homepage_uri'] if item.nil?}
+end
+
+def nokogiri_parse(url_list)
   doc = url_list.map { |item| Nokogiri::HTML(open(item)) }
   second_doc = url_list.map { |item| Nokogiri::HTML(open(item + '/network/dependents')) }
-  docs = [doc, second_doc]
+  main_html = [doc, second_doc]
 end
 
 # :reek:TooManyStatements
@@ -85,9 +87,8 @@ end
 def polish_main_stats(gems, stats)
   l = gems.length
   hash = {}
-  stat_values = stats.values
   gems.each_with_index do |item, index|
-    hash[item] = stat_values.map { |value| value = value[index] }
+    hash[item] = stats.values.map { |value| value = value[index] }
   end
   hash
 end
@@ -101,12 +102,12 @@ def rating_rows(gems, stats)
   gems.each_with_index do |item, index|
     rows[index] = stats[item]
   end
+  rows = rows.map { |arr| arr.map { |item| item ? item : 0 } }
   stats = stats.each_value { |value| value.each { |item| item = 0 if item.nil? } }
   rows.map { |item| item.push(item.sum) }
   rows = rows.map { |item| item.unshift(gems[rows.index(item)]) }
   rows.sort_by! &:last
   rows.reverse!
-  rows
 end
 
 def table(rows, options)
@@ -118,4 +119,4 @@ end
 runner
 
 # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Security/Open
-# rubocop:enable Lint/UselessAssignment, Metrics/MethodLength, Lint/AmbiguousOperator
+# rubocop:enable Lint/UselessAssignment, Lint/AmbiguousOperator, Style/UnneededCondition
