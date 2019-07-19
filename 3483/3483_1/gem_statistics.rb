@@ -29,15 +29,15 @@ class GemStatistics
 
   def fetch_gem
     doc = Nokogiri::HTML(URI.open("#{URL_GEM_SEARCH}""#{gem_name}"))
-    @git_path = doc.xpath('//a[@id="code"]/@href')
+    @github_url = doc.xpath('//a[@id="code"]/@href')
   end
 
   def open_url_with_all_without_used_by
-    Nokogiri::HTML(URI.open(@git_path.to_s))
+    Nokogiri::HTML(URI.open(@github_url.to_s))
   end
 
   def open_url_with_used_by
-    Nokogiri::HTML(URI.open("#{@git_path}#{BRANCH_OF_GEM_REPOSITORY}"))
+    Nokogiri::HTML(URI.open("#{@github_url}#{BRANCH_OF_GEM_REPOSITORY}"))
   end
 
   def fetch_used_by
