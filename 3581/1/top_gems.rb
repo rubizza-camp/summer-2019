@@ -8,7 +8,7 @@ require_relative 'file_reader.rb'
 class TopGems
   class << self
     def run
-      add_args = CommandLineParser.get_args
+      add_args = CommandLineParser.read_args
       arr_names = FileReader.new.read_yml_file(add_args['file'])
       gems_data = fetch_gems(arr_names)
       DataOutput.draw_table(gems_data, add_args)

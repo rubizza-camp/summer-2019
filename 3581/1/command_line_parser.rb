@@ -2,7 +2,7 @@ require 'optparse'
 
 class CommandLineParser
   class << self
-    def get_args
+    def read_args
       add_args = { 'file' => 'gems.yml' }
       OptionParser.new do |arg|
         pass_params(arg, add_args)
