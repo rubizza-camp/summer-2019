@@ -3,8 +3,7 @@ require 'octokit'
 require 'nokogiri'
 require 'terminal-table'
 require 'optparse'
-# :reek:TooManyStatements
-# :reek:UtilityFunction
+
 class Scraper
   def self.fetch_gem_parameters(gems_names)
     fetcher = new(gems_names)
@@ -18,6 +17,9 @@ class Scraper
 
   def initialize(gems_names)
     @gems_names = gems_names
+    @gem_parameters_key_value = { star: :stargazers_count, forks: :forks_count,
+                                  issues: :open_issues_count, watch: :subscribers_count }
+    @gem_parameters = {}
   end
 
   def build_client(token)
@@ -38,7 +40,7 @@ class Scraper
   def all_gems_info(client)
     @all_gems = @gems_names.map do |name_gem|
       parameters = gem_info(name_gem, client)
-      parameters ? GemOne.new(name_gem, parameters) : (puts "invalid gem: '#{name_gem}'")
+      parameters ? GemOne.new(name_gem, @gem_parameters) : (puts "invalid gem: '#{name_gem}'")
     end
     all_gems.compact!
   end
@@ -61,11 +63,11 @@ class Scraper
   end
 
   def contributors_count(path)
-    contributors(path).css('span.num.text-emphasized').children[2].text.to_i
+    contributors(path).css('span.num.text-emphasized').children[2].text
   end
 
   def used_by_count(path)
-    dependents(path).css('.btn-link')[1].text.delete('^0-9').to_i
+    dependents(path).css('.btn-link')[1].text.delete('^0-9')
   end
 
   def contributors(path)
@@ -81,13 +83,8 @@ class Scraper
   end
 
   def gem_properties(repo, contributors_count, used_by_count)
-    gem_parameters = {}
-    gem_parameters[:star] = repo[:stargazers_count].to_i
-    gem_parameters[:forks] = repo[:forks_count].to_i
-    gem_parameters[:issues] = repo[:open_issues_count].to_i
-    gem_parameters[:watch] = repo[:subscribers_count].to_i
-    gem_parameters[:contributors] = contributors_count.to_i
-    gem_parameters[:used_by] = used_by_count.to_i
-    gem_parameters
+    @gem_parameters_key_value.each { |key, value| gem_parameters[key] = repo[value].to_i }
+    @gem_parameters[:contributors] = contributors_count.to_i
+    @gem_parameters[:used_by] = used_by_count.to_i
   end
 end
