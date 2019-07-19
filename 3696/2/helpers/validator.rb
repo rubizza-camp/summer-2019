@@ -15,6 +15,13 @@ module Validator
     Haversine.distance(RUBIZZA_MINSK_LOCATION, geo_parse.values).to_kilometers < 0.3
   end
 
+  def validate_number(number)
+    valid = numbers.include?(number)
+    save_context :register_message unless valid
+
+    valid
+  end
+
   def validate_face_checkin(photo)
     if face?(photo)
       save_context :ask_for_geo_checkin

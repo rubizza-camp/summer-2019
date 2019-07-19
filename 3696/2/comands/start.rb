@@ -31,17 +31,17 @@ module StartCommand
   def registration_check_text(redis, number)
     if redis.get(number) || session.key?(:number)
       'You are registered already, stop it'
-    else
-      return 'No such number!' unless validate_number(number)
-
-      session[:number] = number
-      redis.set(number, user_id)
+    elsif validate_number(number)
+      register_user(redis, number)
       'Registration done!'
+    else
+      'No such number! Input another'
     end
   end
 
-  def validate_number(number)
-    numbers.include?(number)
+  def register_user(redis, number)
+    session[:number] = number
+    redis.set(number, user_id)
   end
 
   def numbers
