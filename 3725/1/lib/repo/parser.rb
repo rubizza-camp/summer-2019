@@ -20,7 +20,6 @@ module Repo
 
     def find_api_params(hash)
       hash[:name] = @repo[:name]
-      hash[:total_score] = @repo[:score]
       hash[:stars] = @repo[:watchers_count]
       hash[:forks] = @repo[:forks]
       hash

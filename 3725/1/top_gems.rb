@@ -15,7 +15,7 @@ parsed_data = repos.map do |repo|
   Repo::Parser.new(repo: repo).parse
 end
 filter_repos = parsed_data.select { |hash| hash[:name] =~ /#{options[:name]}/ }
-sorted_repos = filter_repos.sort_by { |a| a[:used_by] }
+sorted_repos = filter_repos.sort_by { |a| a[:used_by] }.reverse
 sorted_repos = sorted_repos.take(options[:top].to_i) if options[:top]
-table = Table::Printer.create(sorted_repos: sorted_repos)
+table = Table::TableCreating.create(sorted_repos: sorted_repos)
 puts table
