@@ -1,4 +1,5 @@
 gems:
+  - sfhalkjh
   - sinatra
   - rails
   - nokogiri

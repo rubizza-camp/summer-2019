@@ -25,21 +25,22 @@ class Scraper
       client = Octokit::Client.new(access_token: token)
       client.user.login
     rescue Octokit::Unauthorized
-      raise %(Please enter valid Personal Auth Token)
+      raise 'Please enter valid Personal Auth Token'
     end
     client
   end
 
   def access_token
-    puts %(Enter your Github Personal Access Token:)
+    puts 'Enter your Github Personal Access Token:'
     gets.chomp
   end
 
   def all_gems_info(client)
     @all_gems = @gems_names.map do |name_gem|
       parameters = gem_info(name_gem, client)
-      GemOne.new(name_gem, parameters)
+      parameters ? GemOne.new(name_gem, parameters) : (puts "invalid gem: '#{name_gem}'")
     end
+    all_gems.compact!
   end
 
   private
@@ -53,33 +54,30 @@ class Scraper
   end
 
   def gem_info(gem, client)
-    begin
-      uri = (gem_info_source_code(gem) || gem_info_homepage(gem)).sub!(%r{http.*com/}, '')
-      repo = repository(uri, client)
-    rescue NoMethodError
-      raise %(Invalid gem in file gems.yaml)
-    end
-    gem_properties(repo, contributors_count(uri), used_by_count(uri))
+    path = (gem_info_source_code(gem) || gem_info_homepage(gem))
+    path ? path.sub!(%r{http.*com/}, '') : (return nil)
+    repo = repository(path, client)
+    gem_properties(repo, contributors_count(path), used_by_count(path))
   end
 
-  def contributors_count(uri)
-    contributors(uri).css('span.num.text-emphasized').children[2].text.to_i
+  def contributors_count(path)
+    contributors(path).css('span.num.text-emphasized').children[2].text.to_i
   end
 
-  def used_by_count(uri)
-    dependents(uri).css('.btn-link')[1].text.delete('^0-9').to_i
+  def used_by_count(path)
+    dependents(path).css('.btn-link')[1].text.delete('^0-9').to_i
   end
 
-  def contributors(uri)
-    Nokogiri::HTML(open("https://github.com/#{uri}"))
+  def contributors(path)
+    Nokogiri::HTML(open("https://github.com/#{path}"))
   end
 
-  def dependents(uri)
-    Nokogiri::HTML(open("https://github.com/#{uri}/network/dependents"))
+  def dependents(path)
+    Nokogiri::HTML(open("https://github.com/#{path}/network/dependents"))
   end
 
-  def repository(uri, client)
-    client.repo uri
+  def repository(path, client)
+    client.repo path
   end
 
   def gem_properties(repo, contributors_count, used_by_count)
