@@ -56,8 +56,12 @@ class Scraper
   end
 
   def gem_info(gem, client)
-    path = (gem_info_source_code(gem) || gem_info_homepage(gem))
-    path ? path.sub!(%r{http.*com/}, '') : (return nil)
+    path = gem_info_source_code(gem) || gem_info_homepage(gem)
+    fetch_gem_properties(path, client) if path
+  end
+
+  def fetch_gem_properties(path, client)
+    path.sub!(%r{http.*com/}, '')
     repo = repository(path, client)
     gem_properties(repo, contributors_count(path), used_by_count(path))
   end
