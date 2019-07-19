@@ -7,7 +7,7 @@ class RepoScrapper
 
   def initialize
     #add check of internet connection Selenium::WebDriver::Error::UnknownError
-    @browser = Watir::Browser.new :firefox, headless: true
+    @browser = Watir::Browser.new :firefox#, headless: true
     @repo_info = {}
   end
 
@@ -52,15 +52,15 @@ class RepoScrapper
 
   def repo_watch_star_forks
     repo_info[:watchers] = @browser.link(href: /watchers/).text.to_i
-    repo_info[:stars] = @browser.link(href: /stargazers/).text
-    repo_info[:forks] = @browser.link(href: %r{network\/members}).text
+    repo_info[:stars] = @browser.link(href: /stargazers/).text.to_i
+    repo_info[:forks] = @browser.link(href: %r{network\/members}).text.to_i
   end
 
   def repo_issues
-    repo_info[:issues] = @browser.link(text: /Issues/).text.split(' ').last
+    repo_info[:issues] = @browser.link(text: /Issues/).text.split(' ').last.to_i
   end
 
   def repo_contributors
-    repo_info[:contributors] = @browser.link(href: /contributors/).text.split(' ').first
+    repo_info[:contributors] = @browser.link(href: /contributors/).text.split(' ').first.to_i
   end
 end

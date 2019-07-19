@@ -5,45 +5,69 @@ require './tg_parse.rb'
 require './output_table.rb'
 require 'yaml'
 
-options = TGParse.parse(ARGV)
-
-p "top is #{options[:top]}" if options.has_key?('top'.to_sym)
-p "name is #{options[:name]}" if options.has_key?('name'.to_sym)
-# rubocop:enable Style/PreferredHashMethods
-
-def backup_file_create(file)
-  File.write("./YAML/#{file[:name]}.yml", file.to_yaml) unless File.exist?("./YAML/#{file[:name]}.yml")
-  p 'backup_file created'
-end
-
-def backup_file_load(file)
-  # return YAML.load text
-  YAML.load File.read "./YAML/#{file}.yml"
-end
-
-test_hash = {}
-# add some functional to get links from rubygems by gemname in gems.yaml
-rg = RubyGemsLink.new
-ot = OutPutTable.new
-links = rg.yaml_links
-scrap = RepoScrapper.new
-info = {}
-links.each do |link|
-  p link
-  scrap.get_repo_page(link)
-  info = scrap.repo_info_parse
-  # File.write("./YAML/#{info[:name]}.yml", info.to_yaml) unless File.exist?('./YAML/#{info[:name]}.yml')
-  if Dir.empty?('YAML')
-    backup_file_create(info)
-    ot.add_value(info)
-  else
-    'try load backup_file'
-    ot.add_value backup_file_load(info[:name])
+class TopGems
+  def initialize
+    @rg_links = RubyGemsLink.new
+    @output_table = OutPutTable.new
+    @links = @rg_links.yaml_links
+    @scraper = RepoScrapper.new
   end
-  # p "#{info[:name].to_sym} name?"
-  # test_hash.store(info[:name], info)
+
+  def backup_check
+    if backup_dir_check
+      Dir["./yaml/tmp/*.yml"].each { |s| s.slice!('./yaml/tmp/') } == @rg_links.gems_name.each { |s| s.insert(-1, '.yml') }
+    end
+  end
+
+  def backup_dir_check
+      Dir.exist?('yaml/tmp')
+  end
+
+  def backup_path_regexp(gem_name)
+    "./yaml/tmp/#{gem_name}.yml"
+  end
+
+  def backup_create(gem_name, gem_info)
+    if backup_dir_check
+      File.write(backup_path_regexp(gem_name), gem_info.to_yaml) # unless File.exist?(backup_path_regexp(gem_info))
+    else
+      Dir.mkdir('yaml/tmp') unless Dir.exist?('yaml/tmp')
+      p 'dir created'
+      backup_create(gem_name, gem_info)
+    end
+  end
+
+  def backup_load(filename)
+    if backup_dir_check && File.exist?(backup_path_regexp(filename))
+      YAML.load File.read backup_path_regexp(filename)
+    else
+      raise 'smth wrong with backup'
+    end
+  end
+
+  def parse_all_links
+    p 'here we go'
+    @links.each do |link|
+      p link
+      @scraper.get_repo_page(link)
+      @info = @scraper.repo_info_parse
+      backup_create(@info[:name], @info)
+    end
+  end
+
+  def run
+    parse_all_links unless backup_check
+    @rg_links.gems_name.each do |name|
+      p name
+      @output_table.add_value(backup_load(name))
+    end
+    puts @output_table.show_table
+  end
 end
 
-puts ot.show_table
+top = TopGems.new
 
-# puts test_hash
+top.run
+
+
+# rubocop:enable Style/PreferredHashMethods

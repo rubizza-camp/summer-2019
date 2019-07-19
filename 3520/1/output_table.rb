@@ -11,6 +11,6 @@ class OutPutTable
   end
 
   def show_table
-    @table.render :ascii, alignments: [:center], width: 80, resize: true
+    @table.render :ascii, alignment: [:center], width: 80, resize: true
   end
 end
