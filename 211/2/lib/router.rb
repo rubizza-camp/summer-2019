@@ -12,18 +12,10 @@ class Router
       puts 'its a photo'
       @photo = PhotoHelper.new(message, bot, TOKEN, message.from.id)
       @photo.call(RRRRedis.get("#{@user.user_id}_status"))
-      # photo_helper = PhotoHelper.new(bot, TOKEN, message.from.id).call
-      # url = photo_helper.image_url
-      # # создать объект фото с id и сказать, что есть сегодняшнее
-      # puts url 
-      # puts RRRRedis.get(:time)
-      # bot.api.send_message(chat_id: message.chat.id, text: "#{message.from.first_name}, where are you?")
-      # {chat_id: message.chat.id, text: "#{message.from.first_name}, where are you?"}
+
     elsif message_helper.is_location?
       LocationHelper.new(bot, message, message.from.id, @photo).call(RRRRedis.get("#{@user.user_id}_status"))
-      # puts location = LocationHelper.new(bot, message, message.from.id).call
-      # p lat = location.latitude
-      # p lon = location.longitude
+
       { chat_id: message.chat.id, text: "nice"}
     elsif message_helper
       case message.text

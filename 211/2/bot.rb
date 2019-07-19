@@ -3,7 +3,7 @@ require './lib/router'
 require 'redis'
 require_relative './lib/user.rb'
 
-TOKEN = '768080309:AAHjV0X2XuU4H75uHt1cJ59w62jTrj5L_UQ'
+TOKEN = 
 RRRRedis = Redis.new
 
 Telegram::Bot::Client.run(TOKEN) do |bot|
