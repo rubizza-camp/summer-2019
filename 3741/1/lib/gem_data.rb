@@ -3,14 +3,10 @@ require 'json'
 
 # description params of gem and create comparator by count rank
 class GemData
+  attr_reader :args
+
   def initialize(args)
-    @attrs = args.slice(:name,
-                        :used_by,
-                        :contributors_count,
-                        :issues_count,
-                        :watcher_count,
-                        :stars_count,
-                        :forks_count)
+    @args = args
   end
 
   def <=>(other)
@@ -28,31 +24,41 @@ class GemData
     ].sum / 100
   end
 
+  def attrs
+    @attrs ||= args.slice(:name,
+                          :used_by,
+                          :contributors_count,
+                          :issues_count,
+                          :watcher_count,
+                          :stars_count,
+                          :forks_count)
+  end
+
   def name
-    @attrs[:name]
+    attrs[:name]
   end
 
   def stars_count
-    @attrs[:stars_count]
+    attrs[:stars_count]
   end
 
   def issues_count
-    @attrs[:issues_count]
+    attrs[:issues_count]
   end
 
   def watcher_count
-    @attrs[:watcher_count]
+    attrs[:watcher_count]
   end
 
   def forks_count
-    @attrs[:forks_count]
+    attrs[:forks_count]
   end
 
   def contributors_count
-    @attrs[:contributors_count]
+    attrs[:contributors_count]
   end
 
   def used_by
-    @attrs[:used_by]
+    attrs[:used_by]
   end
 end
