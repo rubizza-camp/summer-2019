@@ -11,7 +11,7 @@ module Confirmation
 
   def geo(*)
     if geo?
-      session[session_key]['checkin'] = !session[session_key]['checkin']
+      chat_session[session_key]['checkin'] = !chat_session[session_key]['checkin']
       respond_with :message, text: 'Success!'
     else
       save_context :geo

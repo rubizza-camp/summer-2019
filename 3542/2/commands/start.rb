@@ -14,8 +14,8 @@ module Start
 
   def number_set(number)
     if valid_number? number
-      session[session_key] ||= {}
-      session[session_key]['number'] ||= number
+      chat_session[session_key] ||= {}
+      chat_session[session_key]['number'] ||= number
       respond_with :message, text: 'Success! Registration completed.'
     else
       save_context :number_set

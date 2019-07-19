@@ -11,7 +11,8 @@ module Validation
   end
 
   def used?(number)
-    session.each { |_, user| return true if user['number'] == number}
+    require 'pry'; binding.pry
+    chat_session.each { |_, user| return true if user['number'] == number}
     false
   end
 
@@ -20,7 +21,7 @@ module Validation
   end
 
   def registered?
-    session[session_key]
+    chat_session[session_key]
   end
 
   def selfie?
@@ -41,7 +42,7 @@ module Validation
   end
 
   def checkin?
-    session[session_key]['checkin']
+    chat_session[session_key]['checkin']
   end
 
   def not_checkin?

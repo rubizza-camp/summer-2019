@@ -13,6 +13,16 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include Checkout
 
   self.session_store = :redis_store, {expires_in: 1.month}
+
+  def chat_session
+    @_chat_session ||= self.class.build_session('bot_session')
+  end
+
+  def process_action(*)
+    super
+  ensure
+    chat_session.commit if @_chat_session
+  end
 end
 
 TOKEN = ENV['BOT_TOKEN']
