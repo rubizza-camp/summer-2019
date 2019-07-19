@@ -2,6 +2,7 @@ require 'yaml'
 
 class GemfileLoader
   attr_reader :gemfile_path
+  
   def initialize(gemfile_path)
     @gemfile_path = gemfile_path
   end
