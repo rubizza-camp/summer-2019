@@ -1,9 +1,9 @@
 require 'telegram/bot'
-require 'redis'
+#require 'redis'
 #require 'open-uri'
 require_relative 'UserData_class'
 
-Redis0 = Redis.new(host: 'localhost')
+#RedisDB0 = Redis.new(host: 'localhost')
 
 token = '984354340:AAH8gSW85nD8cNX8JXPA5osPrbHYfZWdv6Q'
 
@@ -13,14 +13,18 @@ Telegram::Bot::Client.run(token) do |bot|
       case message.text
       when '/start'
         user = UserData.new(message.from.id)
-        user.resident?
-
-        #bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
-        #puts '/start message received'
+        if user.resident?
+          bot.api.send_message(chat_id: message.chat.id, text: "you're already registered")
+        else
+          user.assign_action_status('register')
+          user.assign_request_status('camp_num')
+          bot.api.send_message(chat_id: message.chat.id, text: 'provide camp num')
+        end
       when '/stop'
         user = UserData.new(message.from.id)
-        puts a.residence_status
-        puts a.action_status
+        puts user.action_status
+        puts user.request_status
+
 
         #bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
         #puts '/stop message received'

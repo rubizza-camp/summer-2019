@@ -1,11 +1,9 @@
 require 'redis'
 
-#redis = Redis.new(host: 'localhost')
+redis = Redis.new(host: 'localhost')
 
 redis.set('a', 1)
+redis.del('d')
 
-a = redis.get('a')
-b = redis.get('b')
-
-puts a
-puts b.inspect
+puts redis.exists('a')
+puts redis.exists('b')
