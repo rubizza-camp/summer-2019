@@ -1,3 +1,6 @@
+# rubocop:disable Style/TrivialAccessors
+# rubocop:disable Naming/AccessorMethodName
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyStatements
 # :reek:TooManyMethods
@@ -18,11 +21,8 @@ class AboutClasses < Neo::Koan
   # :reek:UncommunicativeVariableName
 
   class Dog2
-    # rubocop:disable Naming/AccessorMethodName
-
     def set_name(a_name)
       @name = a_name
-      # rubocop:enable Naming/AccessorMethodName
     end
   end
 
@@ -71,14 +71,13 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog3
-    # rubocop:disable Naming/AccessorMethodName
-
     def set_name(a_name)
       @name = a_name
-      # rubocop:enable Naming/AccessorMethodName
     end
 
-    attr_reader :name
+    def name
+      @name
+    end
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
@@ -90,19 +89,17 @@ class AboutClasses < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  class Dog4
+  class DogFour
     attr_reader :name
-    # rubocop:disable Naming/AccessorMethodName
 
-    def set_name(a_name)
+    def put_name(a_name)
       @name = a_name
-      # rubocop:enable Naming/AccessorMethodName
     end
   end
 
   def test_attr_reader_will_automatically_define_an_accessor
-    fido = Dog4.new
-    fido.set_name('Fido')
+    fido = DogFour.new
+    fido.put_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
@@ -158,7 +155,7 @@ class AboutClasses < Neo::Koan
       @name = initial_name
     end
 
-    def getself
+    def get_self
       self
     end
 
@@ -174,8 +171,8 @@ class AboutClasses < Neo::Koan
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new('Fido')
 
-    fidos_self = fido.getself
-    assert_equal "<Dog named 'Fido'>", fidos_self.inspect
+    fidos_self = fido.get_self
+    assert_equal fido, fidos_self
   end
 
   def test_to_s_provides_a_string_version_of_the_object
@@ -203,3 +200,5 @@ class AboutClasses < Neo::Koan
     assert_equal '"STRING"', 'STRING'.inspect
   end
 end
+# rubocop:enable Style/TrivialAccessors
+# rubocop:enable Naming/AccessorMethodName
