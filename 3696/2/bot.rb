@@ -12,6 +12,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckinCommand
   include CheckoutCommand
   include Telegram::Bot::UpdatesController::MessageContext
+
   def initialize(*)
     super
     Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_592_000 }
