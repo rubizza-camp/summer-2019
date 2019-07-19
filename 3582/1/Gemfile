@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source 'https://rubygems.org' do
+  gem 'httparty', '0.17.0'
+  gem 'nokogiri', '1.10.3'
+  gem 'terminal-table', '1.8.0'
 
-gem 'httparty', '0.17.0'
-gem 'nokogiri', '1.10.3'
+  group :development do
+    gem 'pry'
+  end
+end

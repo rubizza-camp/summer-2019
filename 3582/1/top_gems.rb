@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'optparse'
-require 'pry'
 require './gem_factory'
 require './table_output'
 require './gem_reader'
