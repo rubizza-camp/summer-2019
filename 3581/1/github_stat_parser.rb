@@ -16,7 +16,7 @@ class GithubStatParser
       used_by = get_used_by(url)
       arr_watch_star_fork = get_watch_star_fork(doc)
       issues = doc.css('.hx_reponav span a .Counter')[0].text.strip.to_i
-      contrib = doc.css('.numbers-summary li')[3].css('a span')
+      contrib = doc.css('.numbers-summary li')[3].css('a span').text.strip.to_i
       GithubHtmlParser.perform(arr_watch_star_fork, contrib, issues, used_by)
     end
 

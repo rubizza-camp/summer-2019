@@ -14,6 +14,6 @@ class FileReader
   private
 
   def check_empty(list_gems)
-    true unless list_gems.empty?
+    !list_gems.empty?
   end
 end

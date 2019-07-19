@@ -7,7 +7,7 @@ class GithubHtmlParser
       fill_arr_watch_star_fork(gems_param, arr_watch_star_fork)
       gems_param['used_by'] = used_by
       gems_param['issues'] = issues
-      gems_param['contrib'] = contrib.text.strip.to_i
+      gems_param['contrib'] = contrib
       gems_param
     end
 
