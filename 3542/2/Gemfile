@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'telegram-bot', '~> 0.14.2'
 gem 'redis-activesupport'
+gem 'telegram-bot', '~> 0.14.2'
 
 group :development do
   gem 'pry'
