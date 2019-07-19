@@ -13,7 +13,7 @@ module CheckoutCommand
     respond_with :message, text: 'Send me photo'
   end
 
-  def ask_for_photo_checkout(_context = nil, *)
+  def ask_for_photo_checkout(*)
     session[:timestamp] = Time.now.getutc
     path = generate_checkout_path(session[:timestamp])
     FileUtils.mkdir_p(path) unless File.exist?(path)
@@ -22,7 +22,7 @@ module CheckoutCommand
     rescue_photo_checkout
   end
 
-  def ask_for_geo_checkout(_context = nil, *)
+  def ask_for_geo_checkout(*)
     path = generate_checkout_path(session[:timestamp])
     FileUtils.mkdir_p(path) unless File.exist?(path)
     validate_geo_checkout(path)

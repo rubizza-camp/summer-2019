@@ -6,7 +6,7 @@ require 'json'
 module DownloadHelpers
   private
 
-  TOKEN = ENV.fetch('RUBIZZA_TOKEN')
+  TOKEN = ENV.fetch('ACCESS_BOT_TOKEN')
   BOT_API_URL = "https://api.telegram.org/bot#{TOKEN}/"
   BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{TOKEN}/"
   GET_PATH_URL = 'getFile?file_id='

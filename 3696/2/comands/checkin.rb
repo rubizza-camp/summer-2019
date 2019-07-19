@@ -2,6 +2,7 @@
 
 require './helpers/base_comand_helpers'
 require './helpers/validator'
+
 module CheckinCommand
   include BaseComandHelpers
   include Validator
@@ -13,7 +14,7 @@ module CheckinCommand
     respond_with :message, text: 'Send me photo'
   end
 
-  def ask_for_photo_checkin(_context = nil, *)
+  def ask_for_photo_checkin(*)
     session[:timestamp] = Time.now.getutc
     path = generate_checkin_path(session[:timestamp])
     FileUtils.mkdir_p(path) unless File.exist?(path)
@@ -22,7 +23,7 @@ module CheckinCommand
     rescue_photo_checkin
   end
 
-  def ask_for_geo_checkin(_context = nil, *)
+  def ask_for_geo_checkin(*)
     path = generate_checkin_path(session[:timestamp])
     FileUtils.mkdir_p(path) unless File.exist?(path)
     validate_geo_checkin(path)

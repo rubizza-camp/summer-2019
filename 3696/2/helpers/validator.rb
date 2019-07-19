@@ -10,9 +10,11 @@ module Validator
   private
 
   RUBIZZA_MINSK_LOCATION = [53.915451, 27.568789].freeze
+  MAX_DISTANCE_FROM_CAMP = 0.3
 
   def near_rubizza?
-    Haversine.distance(RUBIZZA_MINSK_LOCATION, geo_parse.values).to_kilometers < 0.3
+    Haversine.distance(RUBIZZA_MINSK_LOCATION, geo_parse.values)
+             .to_kilometers < MAX_DISTANCE_FROM_CAMP
   end
 
   def validate_number(number)
