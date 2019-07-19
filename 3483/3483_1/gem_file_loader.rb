@@ -1,5 +1,5 @@
 require 'yaml'
-# rubocop:disable Layout/TrailingWhitespace
+
 class GemfileLoader
   attr_reader :gemfile_path
 
@@ -14,4 +14,3 @@ class GemfileLoader
     end
   end
 end
-# rubocop:enable Layout/TrailingWhitespace
