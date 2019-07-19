@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a37d7e91-a197-4bf9-9d0e-e2ed3c0f439f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/gem_data.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/gem_info_decorator.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gem_data_reader.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/gem_data_reader.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/top_gems.rb" beforeDir="false" afterPath="$PROJECT_DIR$/top_gems.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/gems_view.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/gems_view.rb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,11 +21,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/gem_data_reader.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="387">
               <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/gems_view.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -71,6 +78,7 @@
         <option value="$PROJECT_DIR$/top_gems.rb" />
         <option value="$PROJECT_DIR$/lib/gem_info_decorator.rb" />
         <option value="$PROJECT_DIR$/lib/gem_data_reader.rb" />
+        <option value="$PROJECT_DIR$/lib/gems_view.rb" />
       </list>
     </option>
   </component>
@@ -159,12 +167,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563458415649</updated>
-      <workItem from="1563458419016" duration="10965000" />
+      <workItem from="1563458419016" duration="11222000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10965000" />
+    <option name="totallyTimeSpent" value="11222000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="27" width="1859" height="1053" extended-state="6" />
@@ -205,7 +213,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/1@top_gems.rcov" NAME="top_gems Coverage Results" MODIFIED="1563526331220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="1" />
+    <SUITE FILE_PATH="coverage/1@top_gems.rcov" NAME="top_gems Coverage Results" MODIFIED="1563526601833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/my_option_parser.rb">
@@ -233,6 +241,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
           <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/gems_view.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>

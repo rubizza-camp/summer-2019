@@ -2,14 +2,24 @@ require 'terminal-table'
 
 # create table based on terminal-table gem
 class GemsView
+  HEAD_TEXT = %w[
+    GEM_NAME
+    USED_BY
+    WATCH
+    STARS
+    FORKS
+    CONTRIBUTORS
+    ISSUES
+    POPULARITY
+  ].freeze
+
   def initialize(gems)
     @gems = gems
   end
 
   def render(top_n:)
     table_info = @gems.sort.first(top_n).map { |gem_info| gem_to_row(gem_info) }
-    head_text = %w[Gem_name USED_BY WATCH STARS FORKS CONTRIBUTORS ISSUES POPULARITY]
-    table_to_view = Terminal::Table.new(headings: head_text, rows: table_info)
+    table_to_view = Terminal::Table.new(headings: HEAD_TEXT, rows: table_info)
     puts table_to_view
   end
 
