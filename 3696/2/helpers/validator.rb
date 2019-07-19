@@ -73,5 +73,3 @@ module Validator
     !detector.run.empty?
   end
 end
-
-# AIzaSyA - RuM94P5ILZY1eU6vwcJvN3wX0b7tXg0
