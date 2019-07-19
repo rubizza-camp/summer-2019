@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+group :development do
+  gem 'httparty', '~> 0.17.0'
+  gem 'mechanize', '~> 2.7.6'
+  gem 'nokogiri', '~> 1.10.3'
+  gem 'octokit', '~> 4.14'
+  gem 'reek', '~> 5.4'
+  gem 'rubocop', '~> 0.73.0'
+  gem 'terminal-table', '~> 1.8'
+end
