@@ -1,5 +1,5 @@
 # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Security/Open
-# rubocop:disable Lint/UselessAssignment, Lint/AmbiguousOperator, Style/UnneededCondition
+# rubocop:disable Lint/UselessAssignment, Lint/AmbiguousOperator
 
 require 'open-uri'
 require 'nokogiri'
@@ -102,7 +102,7 @@ def rating_rows(gems, stats)
   gems.each_with_index do |item, index|
     rows[index] = stats[item]
   end
-  rows = rows.map { |arr| arr.map { |item| item ? item : 0 } }
+  rows = rows.map { |arr| arr.map { |item| item || 0 } }
   stats = stats.each_value { |value| value.each { |item| item = 0 if item.nil? } }
   rows.map { |item| item.push(item.sum) }
   rows = rows.map { |item| item.unshift(gems[rows.index(item)]) }
@@ -119,4 +119,4 @@ end
 runner
 
 # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Security/Open
-# rubocop:enable Lint/UselessAssignment, Lint/AmbiguousOperator, Style/UnneededCondition
+# rubocop:enable Lint/UselessAssignment, Lint/AmbiguousOperator
