@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'haversine'
-require './comands/download_helpers'
+require './helpers/download_helpers'
 require 'face_detect'
 require 'face_detect/adapter/google'
 module Validator

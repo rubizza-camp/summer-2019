@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require './comands/base_comand_helpers'
-require './comands/validator'
+require './helpers/base_comand_helpers'
+require './helpers/validator'
 module CheckinCommand
   include BaseComandHelpers
   include Validator

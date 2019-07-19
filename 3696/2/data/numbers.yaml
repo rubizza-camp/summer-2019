@@ -37,4 +37,3 @@ numbers:
   - 3750
   - 3696
   - 3567
-  {"message_id"=>319, "from"=>{"id"=>317134094, "is_bot"=>false, "first_name"=>"Valentin", "last_name"=>"Kopotchel", "username"=>"valkovik", "language_code"=>"ru"}, "chat"=>{"id"=>317134094, "first_name"=>"Valentin", "last_name"=>"Kopotchel", "username"=>"valkovik", "type"=>"private"}, "date"=>1563354378, "photo"=>[{"file_id"=>"AgADAgADlqwxG2NAeEmCvKORZ0m91d_ttw8ABFat9HFSa-PiAykBAAEC", "file_size"=>1070, "width"=>90, "height"=>67}, {"file_id"=>"AgADAgADlqwxG2NAeEmCvKORZ0m91d_ttw8ABLqWeuF-fZweBCkBAAEC", "file_size"=>13348, "width"=>320, "height"=>238}, {"file_id"=>"AgADAgADlqwxG2NAeEmCvKORZ0m91d_ttw8ABIbw2w1I5onNBSkBAAEC", "file_size"=>43024, "width"=>800, "height"=>595}, {"file_id"=>"AgADAgADlqwxG2NAeEmCvKORZ0m91d_ttw8ABFe5PdzUa0ulAikBAAEC", "file_size"=>54296, "width"=>1080, "height"=>803}]}
