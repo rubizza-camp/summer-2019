@@ -7,8 +7,7 @@ module Parse
     options = {}
     OptionParser.new do |parse|
       parse.on('-t', '--top [top]', Integer, 'Enter count of gems in top:') do |top|
-        puts "asdasdasd #{top.class}"
-        options[:top] = top if top
+        options[:count] = top if top
       end
       parse.on('-f', '--file [file]', String, 'Enter your yml file:') do |file|
         options[:file] = file if file
@@ -20,9 +19,11 @@ module Parse
     options
   end
 
-  def parse_file(file = 'gems.yml')
-    puts file
-    YAML.load_file(file)['gems']
+  def parse_file(file, name)
+    file = 'gems.yml' if file.nil?
+    gem_list = YAML.load_file(file)['gems']
+    gem_list.each { |item| gem_list.pop(gem_list.index(item)) unless item.include?(name) } unless name.nil?
+    gem_list
   rescue Errno::ENOENT
     raise "No file '#{file}' in such derictory!"
   end
@@ -33,7 +34,6 @@ module Parse
       url = info['source_code_uri'] || info['homepage_uri'] # .sub!(%r{http.*com/}, '')
       url.sub!(/https\:\/\/github.com\//, '') if url.include? 'https://github.com/'
       url.sub!(/http\:\/\/github.com\//, '')  if url.include? 'http://github.com/'
-      puts url
       url = url.split('/')
       {
         user: url[0],
@@ -70,7 +70,12 @@ module Parse
       issues: api_info[:open_issues_count],
       subscribers: api_info[:subscribers_count],
       contributors: page_info[:contributors],
-      used_by: page_info[:used_by]
+      used_by: page_info[:used_by],
+      popularity: [api_info[:stargazers_count],
+                   api_info[:open_issues_count],
+                   api_info[:subscribers_count],
+                   page_info[:contributors],
+                   page_info[:used_by]].inject(:+)
     }
   end
 end

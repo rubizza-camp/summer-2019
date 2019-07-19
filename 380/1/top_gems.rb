@@ -9,7 +9,7 @@ class TopGems
 
   def run
     opts = parse_options
-    gem_list = parse_file
+    gem_list = parse_file(opts[:file], opts[:name])
     result = {}
     gem_list.each do |gem|
       repo_id = parse_uri_of(gem)
@@ -32,31 +32,27 @@ class TopGems
     puts 'Enter Valid access_token'
   end
 
-  def print(result, count)
+  def print(gem_hash, count)
     Terminal::Table.new do |table|
       table.headings = [
         'Gem', 'Used By', 'Watched By', 'Stars', 'Forks', 'Contributors', 'Issues'
       ]
-      # result.sort_by { |_key, gem_info| sum_parameters_from(gem_info) }
-      result.keys.each do |gem|
-        table << result_parse(result, gem)
+      sorted = sort_result(gem_hash, count)
+      sorted.each do |gem|
+        table << result_parse(gem)
       end
     end
   end
 
-  def sum_parameters_from(gem_info)
-    puts gem_info.values_at(
-      :used_by,
-      :subscribers,
-      :stargazers,
-      :forks_count,
-      :contributors,
-      :issues
-    ).inject(0) { |a, e| a + e }
+  def sort_result(result, count = nil)
+    result_array = result.sort_by { |_key, gem_info| gem_info[:popularity] }
+    result_array.reverse!
+    result_array = result_array[0, count] if count && count.is_a?(Integer) && count > 0 && count < result.size
+    result_array
   end
 
-  def result_parse(result, gem)
-    result[gem].values_at(
+  def result_parse(gem)
+    gem[1].values_at(
       :name,
       :used_by,
       :subscribers,
