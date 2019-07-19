@@ -1,4 +1,4 @@
-class SortGems
+class GemSorter
   class << self
     def sort_top(hash_gems, add_args)
       summ(hash_gems)

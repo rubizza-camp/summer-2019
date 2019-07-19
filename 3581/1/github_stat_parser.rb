@@ -14,18 +14,18 @@ class GithubStatParser
 
     def get_stats_from_html(doc, url)
       used_by = get_used_by(url)
-      first_part = get_watch_star_fork(doc)
+      arr_watch_star_fork = get_watch_star_fork(doc)
       issues = doc.css('.hx_reponav span a .Counter')[0].text.strip.to_i
       contrib = doc.css('.numbers-summary li')[3].css('a span')
-      GithubHtmlParser.perform(first_part, contrib, issues, used_by)
+      GithubHtmlParser.perform(arr_watch_star_fork, contrib, issues, used_by)
     end
 
     def get_watch_star_fork(doc)
-      first_part = []
+      arr_watch_star_fork = []
       doc.css('.pagehead-actions li').each do |li|
         unless li.css('a').empty?
           data = li.css('a')[1]
-          first_part << data
+          arr_watch_star_fork << data
         end
       end
     end

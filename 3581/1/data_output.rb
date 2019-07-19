@@ -1,11 +1,11 @@
 require 'terminal-table'
-require_relative 'sort_gems.rb'
+require_relative 'gem_sorter.rb'
 
 class DataOutput
   class << self
     def draw_table(hash_gems, add_args)
       CommandLineParser.find_gem_by_name(hash_gems, add_args) if add_args['name']
-      sorte_gems = SortGems.sort_top(hash_gems, add_args)
+      sorte_gems = GemSorter.sort_top(hash_gems, add_args)
       puts fill_table(sorte_gems)
     end
 
