@@ -1,10 +1,10 @@
-require_relative 'gemlist.rb'
+require_relative 'gem_list.rb'
 require 'terminal-table'
 
 # Configuration of the table with the results
-class CreateTable
+class ShowTopTable
   HEADER = [
-    'Title gem',
+    'Gem title',
     'Depend on',
     'Are watching',
     'Has stars',
@@ -13,15 +13,32 @@ class CreateTable
     'Has issues'
   ].freeze
 
-  def self.table(top_gems)
+  attr_reader :table_data, :top_gems
+
+  def initialize(top_gems)
+    @top_gems = top_gems
+  end
+
+  def call
+    @table_data = prepare_table_data
+    output_table
+  end
+
+  private
+
+  def prepare_table_data
     {
       headings: HEADER,
-      rows: top_gems.map(&method(:table_row)),
+      rows: top_gems.map(&method(:present_table_row)),
       style: { alignment: :center, all_separators: true }
     }
   end
 
-  def self.table_row(gem)
+  def output_table
+    puts Terminal::Table.new(table_data)
+  end
+
+  def present_table_row(gem)
     [
       gem.name,
       "used by #{gem.used_by}",
@@ -32,9 +49,4 @@ class CreateTable
       "#{gem.issues} issues"
     ]
   end
-end
-
-def show_top(top)
-  new_table = CreateTable.table(top)
-  puts Terminal::Table.new(new_table)
 end

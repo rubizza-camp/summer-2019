@@ -2,8 +2,7 @@ require_relative 'github_repository_parser.rb'
 
 # Collecting info about gem
 class RubyGem
-  attr_reader :name
-  attr_reader :parser
+  attr_reader :name, :parser
 
   def initialize(name)
     @name = name
@@ -11,12 +10,12 @@ class RubyGem
   end
 
   def used_by
-    page = GitHubRepositoryParser.new(name).github_network_dependents
+    page = parser.github_network_dependents
     page.css('a.btn-link').first.text.delete(',').to_i
   end
 
   def watch
-    parser.github_repository_title.css('a.social-count').first.text.to_i
+    parser.github_repository_title.css('a.social-count').first.text.delete(',').to_i
   end
 
   def star

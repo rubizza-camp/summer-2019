@@ -1,26 +1,26 @@
 require 'optparse'
-require_relative 'table.rb'
-require_relative 'gemlist.rb'
+require_relative 'show_top_table.rb'
+require_relative 'gem_list.rb'
 require_relative 'top_ruby_gems.rb'
-require_relative 'file_interaction.rb'
+require_relative 'gem_list_fetcher.rb'
 
-(show_top(TopRubyGems.top_gems) if ARGV.empty?)
+ShowTopTable.new(TopRubyGems.top_gems).call if ARGV.empty?
 OptionParser.new do |options|
   options.on('-t', '--top NUMBER', Integer,
              'Top of Ruby gems from gems.yml file') do |max_num_gems|
-    show_top(TopRubyGems.top_gems.first(max_num_gems))
+    ShowTopTable.new(TopRubyGems.top_gems.first(max_num_gems)).call
   end
 
   options.on('-n', '--name NAME', String,
              'Shows all the gems from gems.yml, whose name contains the specified word') do |text|
-    show_top(TopRubyGems.pick_names(text))
+    ShowTopTable.new(TopRubyGems.pick_names(text)).call
   end
 
   options.on('-f', '--file FILE', String,
              'Specify gems.yml containing a list of gem names') do |file|
-    another_name_gem = Files.new.name_gem(file)
+    another_name_gem = GemListFetcher.new.read_from_file(file)
     make_another_gemlist = another_name_gem.map { |title| RubyGem.new(title) }
-    show_top(TopRubyGems.sort_gems(make_another_gemlist))
+    ShowTopTable.new(TopRubyGems.sort_gems(make_another_gemlist)).call
   end
 
   options.on('-h', '--help',
