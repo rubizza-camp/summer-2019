@@ -7,21 +7,25 @@ require_relative 'lib/my_option_parser'
 
 # main run class
 class TopGems
+  def self.render_table
+    top_gems = TopGems.new
+    top_gems.show
+  end
+
   FILE_NAME = 'gems.yml'.freeze
+
   def initialize
-    @in_args = MyOptionParser.new.options
+    @options = MyOptionParser.parse_options
   end
-
-  def render_table
-    gems = read_file.map { |gem_name| GemDataReader.read(gem_name) }
-    GemsView.new(gems).render(top_n: @in_args[:top] || 1_000)
-  end
-
-  private
 
   def read_file
-    YamlReader.call(@in_args[:file] || FILE_NAME, @in_args[:name])
+    YamlReader.read(@options[:file] || FILE_NAME, @options[:name])
+  end
+
+  def show
+    gems = read_file.map { |gem_name| GemDataReader.read(gem_name) }
+    GemsView.new(gems).render(top_n: @options[:top] || 1_000)
   end
 end
 
-TopGems.new.render_table
+TopGems.render_table

@@ -5,9 +5,9 @@ require_relative '../lib/gem_info_decorator'
 # parsing data from web page of gem
 class GemDataReader
   def self.read(gem_name)
-    reader = GemDataReader.new(gem_name)
-    reader.read
-    reader.gem_info
+    gem_data_reader = GemDataReader.new(gem_name)
+    gem_data_reader.read
+    gem_data_reader.gem_info
   end
 
   attr_reader :gem_name
