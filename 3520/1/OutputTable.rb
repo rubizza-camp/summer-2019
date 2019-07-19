@@ -1,9 +1,9 @@
 # require 'terminal-table'
 require 'tty-table'
 
-class OutPutTable
+class OutputTable
   def initialize
-    @table = TTY::Table.new header: ['name', 'used_by', 'watchers', 'stars', 'forks', 'issues', 'contributors']
+    @table = TTY::Table.new header: ['name', 'used by', 'watched by', 'stars', 'forks', 'contributors', 'issues']
   end
 
   def add_value(value)

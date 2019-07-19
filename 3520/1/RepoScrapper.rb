@@ -15,8 +15,8 @@ class RepoScrapper
     repo_gem_name
     repo_used_by
     repo_watch_star_forks
-    repo_issues
     repo_contributors
+    repo_issues
     repo_info
   end
 
@@ -51,16 +51,16 @@ class RepoScrapper
   end
 
   def repo_watch_star_forks
-    repo_info[:watchers] = @browser.link(href: /watchers/).text.to_i
-    repo_info[:stars] = @browser.link(href: /stargazers/).text.to_i
-    repo_info[:forks] = @browser.link(href: %r{network\/members}).text.to_i
+    repo_info[:watchers] = @browser.link(href: /watchers/).text
+    repo_info[:stars] = @browser.link(href: /stargazers/).text
+    repo_info[:forks] = @browser.link(href: %r{network\/members}).text
   end
 
   def repo_issues
-    repo_info[:issues] = @browser.link(text: /Issues/).text.split(' ').last.to_i
+    repo_info[:issues] = @browser.link(text: /Issues/).text.split(' ').last
   end
 
   def repo_contributors
-    repo_info[:contributors] = @browser.link(href: /contributors/).text.split(' ').first.to_i
+    repo_info[:contributors] = @browser.link(href: /contributors/).text.split(' ').first
   end
 end

@@ -1,6 +1,8 @@
 require 'yaml'
 
 class RubyGemsLink
+  attr_reader :file
+  
   def initialize
     @file = './yaml/gems.yml'
     @link = 'https://rubygems.org/gems/'

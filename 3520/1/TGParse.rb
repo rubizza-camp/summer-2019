@@ -9,17 +9,17 @@ class TGParse
     opts = OptionParser.new do |opt|
       opt.banner = 'Usage: top_gems.rb [options]'
 
-      opt.on('-top', '--top=TOP', 'Show toplist of gems.') do |top|
+      opt.on('-top', '--top=TOP', Integer, 'Show toplist of gems.') do |top|
         # Here we can call our function for top with number TOP
         options[:top] = top
       end
 
-      opt.on('-n', '--name=NAME', 'Show list of gems with name is.') do |name|
+      opt.on('-n', '--name=NAME',String, 'Show list of gems with name is.') do |name|
         # Same for list of gems which contains Name
         options[:name] = name
       end
 
-      opt.on('-f', '--file', 'Show path for gems.yml.') do |file|
+      opt.on('-f', '--file=FILE', String, 'Show path for gems.yml.') do |file|
         # Same for list of gems which contains Name
         options[:file] = file
       end
