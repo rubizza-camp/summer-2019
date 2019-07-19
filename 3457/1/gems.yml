@@ -1,8 +1,0 @@
-gems:
-  - rails
-  - sinatra
-  - devise
-  - bundler
-  - rack
-  - hanami
-

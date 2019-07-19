@@ -68,19 +68,17 @@ class AboutIteration < Neo::Koan
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
-    even_numbers = array.select(&:even?)
+    even_numbers = array.select { |item| (item % 2).zero? }
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all(&:even?)
+    more_even_numbers = array.find_all { |item| (item % 2).zero? }
     assert_equal [2, 4, 6], more_even_numbers
   end
 
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
-    # rubocop:disable Lint/AmbiguousBlockAssociation
-    assert_equal 'Clarence', array.find { |item| item.size > 4 }
-    # rubocop:enable Lint/AmbiguousBlockAssociation
+    assert_equal 'Clarence', (array.find { |item| item.size > 4 })
   end
 
   # :reek:UncommunicativeVariableName

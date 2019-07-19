@@ -2,6 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UncommunicativeVariableName
+# rubocop:disable Style/BlockDelimiters
 
 class AboutBlocks < Neo::Koan
   def method_with_block
@@ -15,9 +16,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_defined_with_do_end_too
-    yielded_result = method_with_block do
-      1 + 2
-    end
+    yielded_result = method_with_block do 1 + 2 end
     assert_equal 3, yielded_result
   end
 
@@ -101,3 +100,4 @@ class AboutBlocks < Neo::Koan
     assert_equal 11, method_with_explicit_block(&add_one)
   end
 end
+# rubocop:enable Style/BlockDelimiters
