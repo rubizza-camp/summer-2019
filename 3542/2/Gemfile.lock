@@ -65,7 +65,7 @@ PLATFORMS
 
 DEPENDENCIES
   pry
-  redis-activesupport
+  redis-activesupport (~> 5.0, >= 5.0.7)
   telegram-bot (~> 0.14.2)
 
 BUNDLED WITH

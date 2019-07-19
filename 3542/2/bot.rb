@@ -1,5 +1,6 @@
 require 'telegram/bot'
 require 'active_support/time'
+require 'logger'
 require_relative 'commands/start'
 require_relative 'commands/checkin'
 require_relative 'commands/checkout'
@@ -28,7 +29,6 @@ end
 TOKEN = ENV['BOT_TOKEN']
 bot = Telegram::Bot::Client.new(TOKEN)
 
-require 'logger'
 logger = Logger.new(STDOUT)
 poller = Telegram::Bot::UpdatesPoller.new(bot, WebhooksController, logger: logger)
 poller.start
