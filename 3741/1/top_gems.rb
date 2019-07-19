@@ -15,15 +15,16 @@ class TopGems
   FILE_NAME = 'gems.yml'.freeze
 
   def initialize
-    @options = MyOptionParser.parse_options
+    @options ||= MyOptionParser.parse_options
   end
 
-  def read_file
-    YamlReader.read(@options[:file] || FILE_NAME, @options[:name])
+  def gem_names
+    return YamlReader.read(@options[:file], @options[:name]) if @options[:file]
+    YamlReader.read(FILE_NAME, @options[:name])
   end
 
   def show
-    gems = read_file.map { |gem_name| GemDataReader.read(gem_name) }
+    gems = gem_names.map { |gem_name| GemDataReader.read(gem_name) }
     GemsView.new(gems).render(top_n: @options[:top] || 1_000)
   end
 end

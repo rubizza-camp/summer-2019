@@ -16,7 +16,7 @@ class MyOptionParser
   end
 
   def parse_options
-    parser = OptionParser.new
+    parser ||= OptionParser.new
     parse_top_option(parser)
     parse_name_option(parser)
     parse_file_option(parser)
