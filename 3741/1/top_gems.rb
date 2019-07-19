@@ -13,7 +13,7 @@ class TopGems
   end
 
   def render_table
-    gems = read_file.map { |gem_name| GemDataReader.new(gem_name).read }
+    gems = read_file.map { |gem_name| GemDataReader.read(gem_name) }
     GemsView.new(gems).render(top_n: @in_args[:top] || 1_000)
   end
 

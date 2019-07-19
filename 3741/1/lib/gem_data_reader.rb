@@ -1,27 +1,32 @@
 require 'nokogiri'
 require 'json'
-require_relative '../lib/gem_data'
+require_relative '../lib/gem_info_decorator'
 
 # parsing data from web page of gem
 class GemDataReader
+  def self.read(gem_name)
+    reader = GemDataReader.new(gem_name)
+    reader.read
+    reader.gem_info
+  end
+
   attr_reader :gem_name
+  attr_reader :gem_info
 
   def initialize(gem_name)
-    @html = ''
     @gem_name = gem_name
   end
 
   def read
     gem_info = parse_by
     gem_info = empty_gem if gem_info == 'bad'
-    GemData.new(gem_info)
+    @gem_info = GemInfoDecorator.new(gem_info)
   end
 
   private
 
   def parse_by
-    @html = open_url(gem_name)
-    return empty_gem unless @html
+    return empty_gem unless html
     gem_data(nokogiri_parse, nokogiri_parse_used_by).merge(name: gem_name)
   end
 
@@ -53,15 +58,18 @@ class GemDataReader
   end
 
   def nokogiri_parse
-    Nokogiri::HTML(Kernel.open(@html))
+    Nokogiri::HTML(Kernel.open(html))
   end
 
   def nokogiri_parse_used_by
-    Nokogiri::HTML(Kernel.open(@html + '/network/dependents'))
+    Nokogiri::HTML(Kernel.open(html + '/network/dependents'))
   end
 
-  def open_url(gem_name)
-    source_url = Kernel.open("https://rubygems.org/api/v1/gems/#{gem_name}.json").read
-    JSON.parse(source_url)['source_code_uri']
+  def html
+    @html ||= JSON.parse(source_url)['source_code_uri']
+  end
+
+  def source_url
+    @source_url ||= Kernel.open("https://rubygems.org/api/v1/gems/#{gem_name}.json").read
   end
 end

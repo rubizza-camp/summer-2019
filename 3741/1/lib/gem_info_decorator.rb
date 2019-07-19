@@ -2,7 +2,7 @@ require 'open-uri'
 require 'json'
 
 # description params of gem and create comparator by count rank
-class GemData
+class GemInfoDecorator
   attr_reader :args
 
   def initialize(args)
@@ -14,7 +14,7 @@ class GemData
   end
 
   def rank
-    [
+    @rank ||= [
       used_by,
       stars_count * 30,
       issues_count * -30,
