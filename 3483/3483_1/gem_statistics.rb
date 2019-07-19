@@ -3,11 +3,11 @@ require 'open-uri'
 require 'nokogiri'
 #:reek:InstanceVariableAssumption
 class GemStatistics
-  attr_reader :gem_name, :fetch_gem_info
+  attr_reader :gem_name, :gem_info
 
   def initialize(gem_name)
     @gem_name = gem_name
-    @fetch_gem_info = { gem_name: gem_name }
+    @gem_info = { gem_name: gem_name }
     fetch_gem
     fetch_used_by
     fetch_watch_star_fork
@@ -36,27 +36,27 @@ class GemStatistics
   def fetch_used_by
     used_by =
       parse_gem_dependencies.css('a[class *="btn-link selected"]').text.scan(/[0-9,]+/)
-    fetch_gem_info[:used_by] = used_by[0]
+    gem_info[:used_by] = used_by[0]
   end
 
   def fetch_watch_star_fork
     watch_star_fork =
       parse_github_page.css('a[class *="social-count"]').text.scan(/[0-9,]+/)
-    fetch_gem_info[:watch] = watch_star_fork[0]
-    fetch_gem_info[:star] = watch_star_fork[1]
-    fetch_gem_info[:fork] = watch_star_fork[2]
+    gem_info[:watch] = watch_star_fork[0]
+    gem_info[:star] = watch_star_fork[1]
+    gem_info[:fork] = watch_star_fork[2]
   end
 
   def fetch_issues
     issues =
       parse_github_page.at_css('span[class *="Counter"]').text.scan(/[0-9,]+/)
-    fetch_gem_info[:issues] = issues[0]
+    gem_info[:issues] = issues[0]
   end
 
   def fetch_contributors
     contributors =
       parse_github_page
       .css('span[class *="num text-emphasized"]').text.scan(/[0-9,]+/)
-    fetch_gem_info[:contributors] = contributors.last
+    gem_info[:contributors] = contributors.last
   end
 end

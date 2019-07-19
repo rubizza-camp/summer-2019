@@ -1,14 +1,14 @@
 class Output
   def self.call(rankings)
-    rankings.each_with_index do |elem, index|
-      puts "#{index} place with #{elem[:points]} have #{elem[:gem_name]}"
+    rankings.each_with_index do |gem_, index|
+      puts "#{index} place with #{gem_[:points]} have #{gem_[:gem_name]}"
       puts "
-            #{elem[:used_by]} Used by
-            #{elem[:watch]} Watch
-            #{elem[:star]} Star
-            #{elem[:fork]} Fork
-            #{elem[:issues]} Issues
-            #{elem[:contributors]} Contributors
+            #{gem_[:used_by]} Used by
+            #{gem_[:watch]} Watch
+            #{gem_[:star]} Star
+            #{gem_[:fork]} Fork
+            #{gem_[:issues]} Issues
+            #{gem_[:contributors]} Contributors
             "
     end
   end
