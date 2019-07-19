@@ -34,11 +34,12 @@ class GemRepoParser
   end
 
   private
+
   # :reek:FeatureEnvy
   def info(doc)
     param_value = {}
     CSS_SELECTOR.each_pair do |param, selector|
-      param_value[param] = doc.css(selector[:css_path])[selector  [:index]].text.strip
+      param_value[param] = doc.css(selector[:css_path])[selector [:index]].text.strip
     end
     strings(param_value)
   end
