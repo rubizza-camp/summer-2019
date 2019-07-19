@@ -8,7 +8,6 @@ class GemStatistics
   def initialize(gem_name)
     @gem_name = gem_name
     @gem_info = { gem_name: gem_name }
-    fetch_gem
     fetch_used_by
     fetch_watch_star_fork
     fetch_issues
