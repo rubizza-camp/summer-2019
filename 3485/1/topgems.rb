@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'tableterminal.rb'
-require_relative 'findgem.rb'
+require_relative 'table.rb'
+require_relative 'parse_gem_stats.rb'
 require 'yaml'
 require 'optparse'
 

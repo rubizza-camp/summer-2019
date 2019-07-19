@@ -1,4 +1,4 @@
-require_relative 'findgem.rb'
+require_relative 'parse_gem_stats.rb'
 require 'terminal-table'
 
 module Table
