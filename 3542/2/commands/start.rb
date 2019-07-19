@@ -1,7 +1,8 @@
-require_relative 'validation'
+require_relative 'validation/validation'
 
 module Start
   include Validation
+  include Validation::Registration
 
   def start!(*)
     if registered?

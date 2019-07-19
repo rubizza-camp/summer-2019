@@ -1,8 +1,11 @@
-require_relative 'validation'
-require_relative 'confirmation'
+require_relative 'validation/validation'
+require_relative 'confirmation/confirmation'
 
 module Checkin
-  include Validation
+  include Validation::Registration
+  include Validation::CheckinHelper
+  include Validation::Selfie
+  include Validation::Geo
   include Confirmation
 
   def checkin!(*)
