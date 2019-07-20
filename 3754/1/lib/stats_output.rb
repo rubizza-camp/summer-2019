@@ -1,16 +1,13 @@
-require './lib/github_links_collector.rb'
 # Class for showing gems stats
 class StatsOutput
-  def initialize(file, word, top)
-    @file = file.to_s
+  def initialize(word, top)
     @word = word.to_s
     @top = top.to_s
     @final_stats = []
   end
 
-  def show_output
-    GithubLinksCollector.new(@file)
-    @final_stats = ObjectSpace.each_object(DataCollector).to_a[0].stats
+  def show_output(data)
+    @final_stats = data
     sort_by_word unless @word.empty?
     sort_by_top unless @top.empty?
     puts Terminal::Table.new headings: ['Gem', 'Used by', 'Watched by', 'Stars', 'Forks',

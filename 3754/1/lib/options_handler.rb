@@ -1,26 +1,31 @@
+require './lib/data_fetcher.rb'
 require './lib/stats_output.rb'
 require 'optparse'
 # Class for console parameters handling
 class OptionsHandler
-  attr_reader :final_stats, :file, :word, :top
+  attr_reader :file, :word, :top
 
   def initialize
     @file = ''
     @word = ''
     @top = ''
-    check_options
   end
 
-  private
+  def self.start_data_collecting
+    new.start_data_collecting
+  end
 
-  def check_options
+  def start_data_collecting
     OptionParser.new do |opts|
       check_file(opts)
       check_name(opts)
       check_top(opts)
     end.parse!
-    StatsOutput.new(@file, @word, @top).show_output
+    all_data = DataFetcher.collect_all_data(@file)
+    StatsOutput.new(@word, @top).show_output(all_data)
   end
+
+  private
 
   def check_file(option)
     option.on('--file[=FILE]') do |file|

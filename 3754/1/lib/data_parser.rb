@@ -1,19 +1,32 @@
 require 'open-uri'
 # Class for parsing github url of gem
 class DataParser
-  def initialize(github_url)
-    @parsed_html = Nokogiri::HTML(URI.parse(github_url).open)
-    @github_url = github_url
+  attr_reader :parsed_html, :data
+
+  def initialize
+    @parsed_html = ''
+    @data = []
   end
 
-  def only_stats
-    [take_used_by, take_watched_by, take_stars, take_forks, take_contributors, take_issues]
+  def self.collect_data(github_urls_list)
+    new.collect_data(github_urls_list)
+  end
+
+  def collect_data(github_urls_list)
+    github_urls_list.each do |gem_name, github_url|
+      @parsed_html = Nokogiri::HTML(URI.parse(github_url).open)
+      data << [gem_name,
+               take_used_by(github_url), take_watched_by,
+               take_stars, take_forks,
+               take_contributors(github_url), take_issues]
+    end
+    data
   end
 
   private
 
-  def take_used_by
-    parsed_html = Nokogiri::HTML(URI.parse(@github_url + '/network/dependents').open)
+  def take_used_by(github_url)
+    parsed_html = Nokogiri::HTML(URI.parse(github_url + '/network/dependents').open)
     parsed_html.css('div.table-list-header-toggle a')[0].text.delete('^0-9').to_i
   end
 
@@ -29,8 +42,8 @@ class DataParser
     @parsed_html.css('ul.pagehead-actions a')[5].text.delete('^0-9').to_i
   end
 
-  def take_contributors
-    parsed_html = Nokogiri::HTML(URI.parse(@github_url + '/contributors_size').open)
+  def take_contributors(github_url)
+    parsed_html = Nokogiri::HTML(URI.parse(github_url + '/contributors_size').open)
     parsed_html.css('span').text.delete('^0-9').to_i
   end
 
