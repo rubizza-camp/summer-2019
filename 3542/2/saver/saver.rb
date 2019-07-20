@@ -42,7 +42,7 @@ class Saver
   end
 
   def photo(path)
-    File.open("#{path}/selfie.png", 'wb') do |file|
+    File.open("#{path}/selfie.jpg", 'wb') do |file|
       file << Parser.new(chat_session, session_key).download_file
     end
   end

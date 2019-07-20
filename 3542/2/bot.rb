@@ -22,7 +22,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   def process_action(*)
     super
   ensure
-    chat_session.commit if chat_session
+    chat_session&.commit
   end
 end
 
