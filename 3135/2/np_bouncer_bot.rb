@@ -5,6 +5,7 @@ require_relative 'UserData_class'
 require_relative 'event_handler.rb'
 
 #RedisDB0 = Redis.new(host: 'localhost')
+#List = [3135, 111]
 
 token = '984354340:AAH8gSW85nD8cNX8JXPA5osPrbHYfZWdv6Q'
 
@@ -15,18 +16,13 @@ Telegram::Bot::Client.run(token) do |bot|
 
       case message.text
       when '/start'
-        start(bot, message,user)
+        start(bot, message, user)
       when '/stop'
-        puts user.action_status
-        puts user.request_status
-
-
+        puts user.resident?
         #bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
         #puts '/stop message received'
       when /^\d+$/
-        if user.action_status == 'register' && user.request_status == 'camp_num'
-          puts 'good'
-        end
+        save_camp_num(bot, message, user)
       end
 
 =begin

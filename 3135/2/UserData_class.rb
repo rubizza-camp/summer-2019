@@ -11,6 +11,10 @@ class UserData
     @request_status = @r.get("tgid_#{@id}_request_status")
   end
 
+  def register(num_as_str)
+    @r.set("tgid_#{@id}_camp_num", num_as_str)
+  end
+
   def resident?
     @r.exists("tgid_#{@id}_camp_num")
   end
