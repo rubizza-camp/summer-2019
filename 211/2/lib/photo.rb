@@ -18,7 +18,7 @@ class PhotoHelper
 
   def image_url
     # file_id = bot.api.get_updates.dig('result',0,'message','photo',-1,'file_id')
-    file_id = message.photo[0].file_id
+    file_id = message.photo[-1].file_id
     file = bot.api.get_file(file_id: file_id)
     file_path = file.dig('result', 'file_path')
     @path =  "https://api.telegram.org/file/bot#{token}/#{file_path}"
