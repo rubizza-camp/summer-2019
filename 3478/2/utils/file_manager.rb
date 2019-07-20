@@ -3,7 +3,7 @@ require 'io/console'
 require 'fileutils'
 require_relative 'photo_downloader'
 
-module FileManager
+#module FileManager
   include PhotoDownloader
 
   def save_check_file
