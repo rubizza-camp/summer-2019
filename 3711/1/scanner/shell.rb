@@ -10,7 +10,7 @@ module Scanner
 
     def initialize
       @args = {}
-      args_handling
+      handle_args
     end
 
     def scan
@@ -23,16 +23,15 @@ module Scanner
 
     private
 
-    def args_handling
+    def handle_args
       OptionParser.new do |option|
-        define_avail_args(option)
+        define_available_args(option)
       end.parse!
     rescue OptionParser::InvalidOption => err
       abort("You used #{err.message}. Try again without it.")
     end
 
-    # reek is a reason of these all
-    def define_avail_args(option)
+    def define_available_args(option)
       define_top_arg(option)
       define_name_arg(option)
       define_file_arg(option)

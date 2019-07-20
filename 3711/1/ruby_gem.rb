@@ -2,12 +2,12 @@ class RubyGem
   attr_reader :score, :gem_data
 
   ATTR_WEIGTHS = {
-    used_by: 10,
-    watched_by: 10,
+    used_by: 5,
+    watched_by: 7,
     stars: 10,
-    forks: 10,
-    contributors: 10,
-    issues: 10
+    forks: 3,
+    contributors: 6,
+    issues: 4
   }.freeze
 
   def initialize(gem_data)

@@ -6,16 +6,17 @@ require 'open-uri'
 
 module Parser
   class Repo
-    CLIENT_ID = '26b9a6fc285e836c9f7a'.freeze
-    CLIENT_SECRET = '7ca0b9c0e86047afbac0951d3d505bf7801a5603'.freeze
+    CLIENT_ID = ENV['CLIENT_ID'].freeze
+    CLIENT_SECRET = ENV['CLIENT_SECRET'].freeze
 
     def initialize(name)
       @name = name
       @data = {}
+      search_gem
     end
 
     def parse
-      search_gem && parse_gem_page
+      parse_gem_page
     end
 
     private
@@ -28,21 +29,12 @@ module Parser
     end
 
     def connect_github_api(path, params)
-      uri = URI("https://api.github.com#{path}")
-      fill_uri_params(uri, params)
-      Net::HTTP.get(uri)
-    end
-
-    def fill_uri_params(uri, params = {})
-      params[:client_id] = CLIENT_ID
-      params[:client_secret] = CLIENT_SECRET
-      uri.query = URI.encode_www_form(params)
+      send_get_request("https://api.github.com#{path}", params)
     end
 
     def fill_gem_attrs(gem_data)
       @data[:name] = gem_data['name']
       @data[:html_url] = gem_data['html_url']
-      @data[:watched_by] = gem_data['watchers'].to_i
       @data[:stars] = gem_data['stargazers_count'].to_i
       @data[:forks] = gem_data['forks'].to_i
     end
@@ -51,32 +43,52 @@ module Parser
       collect_used_by
       collect_contributors
       collect_issues
+      collect_watched_by
       @data
     end
 
     def collect_used_by
-      used_by = open_github_html('/network/dependents').search('a').select do |element|
+      used_by = search_tag_on_github_repo('/network/dependents', 'a').select do |element|
         element.text =~ /Repositories/
       end[0].text
       @data[:used_by] = used_by.delete(',').to_i
     end
 
     def collect_contributors
-      contributors = open_github_html('/contributors_size').search('span').text
+      contributors = search_tag_on_github_repo('/contributors_size', 'span').text
       @data[:contributors] = contributors.delete(',').to_i
     end
 
     def collect_issues
-      total_issues = open_github_html('/issues').search('a').select do |element|
+      total_issues = search_tag_on_github_repo('/issues', 'a').select do |element|
         element.text =~ /\d+ [Open|Close]/
       end
       @data[:issues] = total_issues.map { |issue| issue.text.to_i }.sum
     end
 
+    def collect_watched_by
+      dom = open_github_html('')
+      @data[:watched_by] = dom.css('ul.pagehead-actions a')[1].text.delete(',').to_i
+    end
+
     def open_github_html(method)
-      uri = URI(@data[:html_url] + method)
-      fill_uri_params(uri)
-      Nokogiri::HTML(uri.open.read)
+      Nokogiri::HTML(send_get_request(@data[:html_url] + method))
+    end
+
+    def search_tag_on_github_repo(method, tag)
+      open_github_html(method).search(tag)
+    end
+
+    def send_get_request(url, params = {})
+      uri = URI(url)
+      fill_uri_params(uri, params)
+      Net::HTTP.get(uri)
+    end
+
+    def fill_uri_params(uri, params = {})
+      params[:client_id] = CLIENT_ID if CLIENT_ID
+      params[:client_secret] = CLIENT_SECRET if CLIENT_SECRET
+      uri.query = URI.encode_www_form(params)
     end
   end
 end
