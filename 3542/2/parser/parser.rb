@@ -12,10 +12,14 @@ class Parser
   end
 
   def download_file
-    URI.open("#{API_URI_FOR_DOWNLOADING}/#{api_response['result']['file_path']}").read
+    URI.open(image_uri).read
   end
 
-  def api_response
+  def image_uri
+    "#{API_URI_FOR_DOWNLOADING}/#{telegram_api_response['result']['file_path']}"
+  end
+
+  def telegram_api_response
     HTTParty.get(API_URI_FOR_FILE_PATH, query: { file_id: file_identifier }).to_h
   end
 

@@ -14,6 +14,9 @@ module Validation
   end
 
   module Geo
+    VALID_LATITUDE = 53.914264..53.916233
+    VALID_LONGITUDE = 27.565941..27.571306
+
     def geo?
       return false unless payload['location']
 
@@ -21,11 +24,11 @@ module Validation
     end
 
     def valid_latitude?
-      (53.914264..53.916233).cover? payload['location']['latitude']
+      VALID_LATITUDE.cover? payload['location']['latitude']
     end
 
     def valid_longitude?
-      (27.565941..27.571306).cover? payload['location']['longitude']
+      VALID_LONGITUDE.cover? payload['location']['longitude']
     end
   end
 
