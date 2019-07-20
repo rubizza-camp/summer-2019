@@ -5,7 +5,7 @@ require_relative 'gem_statistics'
 loader = GemfileLoader.new('gems_list.yaml')
 best = TopGem.new
 
-(0...loader.gem_list.size).each do |i|
+(0...loader.gem_list.size).map do |i|
   loader.gem_list[i] = GemStatistics.new(loader.gem_list[i]).gem_info
 end
 

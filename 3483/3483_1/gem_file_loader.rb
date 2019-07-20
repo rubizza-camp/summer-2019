@@ -8,9 +8,6 @@ class GemfileLoader
   end
 
   def gem_list
-    @gem_list ||= begin
-      gems = YAML.load_file(gemfile_path.to_s)
-      gems['gems']
-    end
+    @gem_list ||= YAML.load_file(gemfile_path.to_s)['gems']
   end
 end
