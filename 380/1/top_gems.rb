@@ -8,16 +8,16 @@ class TopGems
   include Parse
 
   def run
-    opts = parse_options
-    gem_list = parse_file(opts[:file], opts[:name])
+    selected = parse_options
+    gem_list = parse_file_with(selected[:file], selected[:name])
     result = {}
+    client = check_token
     gem_list.each do |gem|
-      repo_id = parse_uri_of(gem)
-      api_info = parse_api_info(repo_id) if repo_id
-      page_info = parse_page_info(repo_id) if repo_id
-      result[gem] = parse_from(api_info, page_info) if api_info && page_info
+      gem_hash = rubygems_response(gem)
+      info = gem_info(gem_hash, client) unless gem_hash.nil?
+      result[gem] = parse_from(info) unless info.nil?
     end
-    puts print(result, opts[:count])
+    puts table_of(result, selected[:count])
   end
 
   private
@@ -26,20 +26,23 @@ class TopGems
     info.values.select { |value| value.is_a?(Numeric) }.reduce(:+)
   end
 
-  def client(access_token = 'b52dd1e5572b8797d4d94e57b3094bcd4a574235')
-    Octokit::Client.new(access_token: access_token)
+  def check_token
+    puts 'Enter Github API Access Token'
+    token = gets.chomp.to_s
+    Octokit::Client.new(access_token: token)
   rescue Octokit::Unauthorized
-    puts 'Enter Valid access_token'
+    puts 'Wrong Access Token, '
+    client(token)
   end
 
-  def print(gem_hash, count)
+  def table_of(gem_hash, count)
     Terminal::Table.new do |table|
       table.headings = [
         'Gem', 'Used By', 'Watched By', 'Stars', 'Forks', 'Contributors', 'Issues'
       ]
       sorted = sort_result(gem_hash, count)
       sorted.each do |gem|
-        table << result_parse(gem)
+        table << result(gem)
       end
     end
   end
@@ -47,11 +50,30 @@ class TopGems
   def sort_result(result, count = nil)
     result_array = result.sort_by { |_key, gem_info| gem_info[:popularity] }
     result_array.reverse!
-    result_array = result_array[0, count] if count && count.is_a?(Integer) && count > 0 && count < result.size
+    result_array = result_array.first(count) if count
     result_array
   end
 
-  def result_parse(gem)
+  def parse_from(info)
+    api_info = info[:api]
+    page_info = info[:page]
+    {
+      name: api_info[:name],
+      stargazers: api_info[:stargazers_count],
+      forks_count: api_info[:forks_count],
+      issues: api_info[:open_issues_count],
+      subscribers: api_info[:subscribers_count],
+      contributors: page_info[:contributors],
+      used_by: page_info[:used_by],
+      popularity: [api_info[:stargazers_count],
+                   api_info[:open_issues_count],
+                   api_info[:subscribers_count],
+                   page_info[:contributors],
+                   page_info[:used_by]].inject(:+)
+    }
+  end
+
+  def result(gem)
     gem[1].values_at(
       :name,
       :used_by,

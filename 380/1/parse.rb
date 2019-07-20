@@ -19,63 +19,47 @@ module Parse
     options
   end
 
-  def parse_file(file, name)
+  def parse_file_with(file, name)
     file = 'gems.yml' if file.nil?
     gem_list = YAML.load_file(file)['gems']
-    gem_list.each { |item| gem_list.pop(gem_list.index(item)) unless item.include?(name) } unless name.nil?
+    unless name.nil?
+      gem_list.select.with_index { |item, index| gem_list.pop(index) unless item.include?(name) }
+    end
     gem_list
   rescue Errno::ENOENT
     raise "No file '#{file}' in such derictory!"
   end
 
-  def parse_uri_of(gem)
-    info = Gems.info(gem)
-    if info != {}
-      url = info['source_code_uri'] || info['homepage_uri'] # .sub!(%r{http.*com/}, '')
-      url.sub!(/https\:\/\/github.com\//, '') if url.include? 'https://github.com/'
-      url.sub!(/http\:\/\/github.com\//, '')  if url.include? 'http://github.com/'
-      url = url.split('/')
-      {
-        user: url[0],
-        repo: url[1]
-      }
-    else
+  def rubygems_response(gem)
+    if Gems.info(gem) == {}
       puts "No information about <#{gem}> on rubygems."
-      nil
+    else
+      Gems.info(gem)
     end
   end
 
-  def parse_page_info(uri)
-    url = 'https://github.com/' + uri[:user] + '/' + uri[:repo]
+  def gem_info(gem_hash, client)
+    repo_id = parse_uri_of(gem_hash)
+    { page: parse_page_info(repo_id), api: api_info(client, repo_id) }
+  end
+
+  def parse_page_info(repo_id)
+    url = 'https://github.com/' + repo_id[:user] + '/' + repo_id[:repo]
     cons = Nokogiri::HTML(open(url)).css('span.num.text-emphasized').children[2].text.to_i
     url += '/network/dependents'
     used_by = Nokogiri::HTML(open(url)).css('.btn-link')[1].text.delete('^0-9').to_i
-    {
-      contributors: cons,
-      used_by: used_by
-    }
+    { contributors: cons, used_by: used_by }
   end
 
-  def parse_api_info(gem_link)
-    client.repo gem_link
+  def api_info(client, repo_id)
+    client.repo repo_id
   rescue Octokit::InvalidRepository
     raise 'Invalid as a repository identifier.'
   end
 
-  def parse_from(api_info, page_info)
-    {
-      name: api_info[:name],
-      stargazers: api_info[:stargazers_count],
-      forks_count: api_info[:forks_count],
-      issues: api_info[:open_issues_count],
-      subscribers: api_info[:subscribers_count],
-      contributors: page_info[:contributors],
-      used_by: page_info[:used_by],
-      popularity: [api_info[:stargazers_count],
-                   api_info[:open_issues_count],
-                   api_info[:subscribers_count],
-                   page_info[:contributors],
-                   page_info[:used_by]].inject(:+)
-    }
+  def parse_uri_of(info)
+    return nil unless info != {}
+    url = (info['source_code_uri'] || info['homepage_uri']).split('/')
+    { user: url[3], repo: url[4] }
   end
 end

@@ -1,0 +1,5 @@
+gems:
+  - reek
+  - optparse
+  - pry
+  - terminal-table
