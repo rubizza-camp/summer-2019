@@ -14,10 +14,9 @@ class GithubLinksCollector
 
   def take_urls(gems_list)
     YAML.load_file(gems_list)['gems'].each do |gem_name|
-      info = Gems.info gem_name
-      checked_url = UrlChecker.new(info['homepage_uri'],
-                                   info['source_code_uri'],
-                                   info['bug_tracker_uri']).check_url
+      checked_url = UrlChecker.new((Gems.info gem_name)['homepage_uri'],
+                                   (Gems.info gem_name)['source_code_uri'],
+                                   (Gems.info gem_name)['bug_tracker_uri']).check_url
       urls_list[gem_name] = checked_url
     end
     urls_list

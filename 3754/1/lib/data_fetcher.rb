@@ -18,6 +18,6 @@ class DataFetcher
   def collect_all_data(gems_list)
     @github_urls_list = GithubLinksCollector.take_urls(gems_list)
     @data = DataParser.collect_data(@github_urls_list)
-    Sorter.sort_data(@data)
+    Sorter.new(@data).sort_data
   end
 end

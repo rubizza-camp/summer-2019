@@ -18,8 +18,7 @@ class OptionsHandler
   def start_data_collecting
     OptionParser.new do |opts|
       check_file(opts)
-      check_name(opts)
-      check_top(opts)
+      check_name_and_top(opts)
     end.parse!
     all_data = DataFetcher.collect_all_data(@file)
     StatsOutput.new(@word, @top).show_output(all_data)
@@ -33,13 +32,10 @@ class OptionsHandler
     end
   end
 
-  def check_name(option)
+  def check_name_and_top(option)
     option.on('--name[=NAME]') do |word|
       @word = word
     end
-  end
-
-  def check_top(option)
     option.on('--top[=TOP]', Integer) do |top|
       @top = top
     end

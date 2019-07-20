@@ -1,10 +1,12 @@
 # Class for storing stats about gems
 class Sorter
-  def self.sort_data(data)
-    new.sort_data(data)
+  attr_reader :data
+
+  def initialize(data)
+    @data = data
   end
 
-  def sort_data(data)
+  def sort_data
     data.sort_by! { |element| element[1] }.reverse!
   end
 end
