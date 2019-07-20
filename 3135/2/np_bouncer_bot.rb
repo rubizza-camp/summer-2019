@@ -2,6 +2,7 @@ require 'telegram/bot'
 #require 'redis'
 #require 'open-uri'
 require_relative 'UserData_class'
+require_relative 'event_handler.rb'
 
 #RedisDB0 = Redis.new(host: 'localhost')
 
@@ -10,24 +11,22 @@ token = '984354340:AAH8gSW85nD8cNX8JXPA5osPrbHYfZWdv6Q'
 Telegram::Bot::Client.run(token) do |bot|
     bot.listen do |message|
 
+      user = UserData.new(message.from.id)
+
       case message.text
       when '/start'
-        user = UserData.new(message.from.id)
-        if user.resident?
-          bot.api.send_message(chat_id: message.chat.id, text: "you're already registered")
-        else
-          user.assign_action_status('register')
-          user.assign_request_status('camp_num')
-          bot.api.send_message(chat_id: message.chat.id, text: 'provide camp num')
-        end
+        start(bot, message,user)
       when '/stop'
-        user = UserData.new(message.from.id)
         puts user.action_status
         puts user.request_status
 
 
         #bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
         #puts '/stop message received'
+      when /^\d+$/
+        if user.action_status == 'register' && user.request_status == 'camp_num'
+          puts 'good'
+        end
       end
 
 =begin
