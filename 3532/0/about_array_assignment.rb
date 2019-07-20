@@ -31,7 +31,7 @@ class AboutArrayAssignment < Neo::Koan
   end
 
   def test_parallel_assignments_with_subarrays
-    first_name, last_name = [['Willie', 'Rae'], 'Johnson']
+    first_name, last_name = %w[[Willie Rae] Johnson]
     assert_equal %w[Willie Rae], first_name
     assert_equal 'Johnson', last_name
   end
