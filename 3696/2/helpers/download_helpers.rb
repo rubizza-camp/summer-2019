@@ -7,9 +7,8 @@ require 'json'
 module DownloadHelpers
   private
 
-  TOKEN = ENV.fetch('ACCESS_BOT_TOKEN')
-  BOT_API_URL = "https://api.telegram.org/bot#{TOKEN}/"
-  BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{TOKEN}/"
+  BOT_API_URL = "https://api.telegram.org/bot#{ENV.fetch('ACCESS_BOT_TOKEN')}/"
+  BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{ENV.fetch('ACCESS_BOT_TOKEN')}/"
   GET_PATH_URL = 'getFile?file_id='
 
   def download_last_photo(path)
@@ -34,8 +33,23 @@ module DownloadHelpers
   end
 
   def photo_file_path
-    JSON.parse(URI.open(BOT_API_URL + GET_PATH_URL + payload['photo'].last['file_id'])
-                 .read, symbolize_names: true)[:result][:file_path]
+    JSON.parse(URI.open(create_path_request_url).read, symbolize_names: true)[:result][:file_path]
+  end
+
+  def create_path_request_url
+    BOT_API_URL + GET_PATH_URL + payload['photo'].last['file_id']
+  end
+
+  def create_checkin_path
+    path = generate_checkin_path(Time.at(session[:timestamp]).utc)
+    FileUtils.mkdir_p(path) unless File.exist?(path)
+    path
+  end
+
+  def create_checkout_path
+    path = generate_checkout_path(Time.at(session[:timestamp]).utc)
+    FileUtils.mkdir_p(path) unless File.exist?(path)
+    path
   end
 
   def geo_parse

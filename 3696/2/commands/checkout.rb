@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require './helpers/base_comand_helpers'
+require './helpers/base_command_helpers'
 require './helpers/validator'
 
 module CheckoutCommand
-  include BaseComandHelpers
+  include BaseCommandHelpers
   include Validator
 
   def checkout!(*)
@@ -15,18 +15,14 @@ module CheckoutCommand
   end
 
   def ask_for_photo_checkout(*)
-    session[:timestamp] = Time.now.getutc
-    path = generate_checkout_path(session[:timestamp])
-    FileUtils.mkdir_p(path) unless File.exist?(path)
-    validate_face_checkout(download_last_photo(path))
+    session[:timestamp] = Time.now.to_i
+    validate_face_checkout(download_last_photo(create_checkout_path))
   rescue NoMethodError
     rescue_photo_checkout
   end
 
   def ask_for_geo_checkout(*)
-    path = generate_checkout_path(session[:timestamp])
-    FileUtils.mkdir_p(path) unless File.exist?(path)
-    validate_geo_checkout(path)
+    validate_geo_checkout(create_checkout_path)
   rescue NoMethodError
     rescue_geo_checkout
   end

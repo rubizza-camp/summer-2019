@@ -95,12 +95,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  face_detect (= 0.1.1)
-  google-api-client (= 0.30.6)
-  googleauth (= 0.8.1)
-  haversine (= 0.3.2)
-  redis (= 4.1.2)
-  telegram-bot (= 0.14.2)
+  face_detect (~> 0.1.1)
+  google-api-client (~> 0.30.6)
+  googleauth (~> 0.8.1)
+  haversine (~> 0.3.2)
+  redis (~> 4.1.2)
+  telegram-bot (~> 0.14.2)
 
 BUNDLED WITH
    2.0.2

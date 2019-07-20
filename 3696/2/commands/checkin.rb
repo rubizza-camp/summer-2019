@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require './helpers/base_comand_helpers'
+require './helpers/base_command_helpers'
 require './helpers/validator'
 
 module CheckinCommand
-  include BaseComandHelpers
+  include BaseCommandHelpers
   include Validator
 
   def checkin!(*)
@@ -15,18 +15,14 @@ module CheckinCommand
   end
 
   def ask_for_photo_checkin(*)
-    session[:timestamp] = Time.now.getutc
-    path = generate_checkin_path(session[:timestamp])
-    FileUtils.mkdir_p(path) unless File.exist?(path)
-    validate_face_checkin(download_last_photo(path))
+    session[:timestamp] = Time.now.to_i
+    validate_face_checkin(download_last_photo(create_checkin_path))
   rescue NoMethodError
     rescue_photo_checkin
   end
 
   def ask_for_geo_checkin(*)
-    path = generate_checkin_path(session[:timestamp])
-    FileUtils.mkdir_p(path) unless File.exist?(path)
-    validate_geo_checkin(path)
+    validate_geo_checkin(create_checkin_path)
   rescue NoMethodError
     rescue_geo_checkin
   end

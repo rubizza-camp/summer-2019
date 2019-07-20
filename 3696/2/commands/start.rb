@@ -2,10 +2,10 @@
 
 require 'redis'
 require 'yaml'
-require './helpers/base_comand_helpers'
+require './helpers/base_command_helpers'
 
 module StartCommand
-  include BaseComandHelpers
+  include BaseCommandHelpers
 
   def start!(*)
     return if already_registered?
@@ -34,7 +34,7 @@ module StartCommand
 
   def registration_check_text(redis, number)
     if redis.get(number) || session.key?(:number)
-      'You are registered already, stop it'
+      'You have already registered, stop it'
     elsif validate_number(number)
       register_user(redis, number)
       'Registration done!'
