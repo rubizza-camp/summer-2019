@@ -7,7 +7,7 @@ class RepoScrapper
 
   def initialize
     #add check of internet connection Selenium::WebDriver::Error::UnknownError
-    @browser = Watir::Browser.new :firefox#, headless: true
+    @browser = Watir::Browser.new :firefox, headless: true
     @repo_info = {}
   end
 

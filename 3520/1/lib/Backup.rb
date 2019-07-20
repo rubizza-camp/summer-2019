@@ -1,8 +1,8 @@
+require 'fileutils'
 require 'yaml'
 
 module Backup
   def self.backup_check(rg_links)
-    # p rg_links
     if backup_dir_check
       Dir["./yaml/tmp/*.yml"].each { |s| s.slice!('./yaml/tmp/') }.sort == rg_links
     end
@@ -21,7 +21,6 @@ module Backup
       File.write(backup_path_regexp(gem_name), gem_info.to_yaml) # unless File.exist?(backup_path_regexp(gem_info))
     else
       Dir.mkdir('./yaml/tmp') unless Dir.exist?('./yaml/tmp')
-      p 'dir created'
       backup_create(gem_name, gem_info)
     end
   end
@@ -32,5 +31,9 @@ module Backup
     else
       raise 'smth wrong with backup'
     end
+  end
+
+  def self.delete_backup
+    FileUtils.rm_r './yaml/tmp' if backup_dir_check
   end
 end
