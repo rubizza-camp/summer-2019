@@ -7,9 +7,7 @@ module CheckinCommand
 
   def photo_check(*)
     if !payload['photo'].nil?
-      session[:timestamp] = Time.now.getutc.to_i
-      path = generate_checkin_path(session[:timestamp])
-      FileUtils.mkdir_p(path) unless File.exist?(path)
+      photo_save
       save_context :geo_check
       reply_with :message, text: 'You looking pretty good'
       respond_with :message, text: 'Now i need your geolocation'
@@ -22,6 +20,7 @@ module CheckinCommand
 
   def geo_check(*)
     if !payload['location'].nil?
+      geo_save
       reply_with :message, text: 'I see you'
       respond_with :message, text: 'Your shift have successfully begun :DDD:'
     else
@@ -30,9 +29,4 @@ module CheckinCommand
       respond_with :message, text: 'Show me yourself on map'
     end
   end
-
-  # def photo_file_path
-  #   JSON.parse(URI.open(BOT_API_URL + GET_PATH_URL + payload['photo'].last['file_id'])
-  #                  .read, symbolize_names: true)[:result][:file_path]
-  # end
 end
