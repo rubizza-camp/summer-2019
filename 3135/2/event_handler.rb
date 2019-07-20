@@ -34,3 +34,5 @@ def checkin(bot, message, user)
     bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (checkin)')
   end
 end
+
+# =========================
