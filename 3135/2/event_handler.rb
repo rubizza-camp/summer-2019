@@ -35,6 +35,16 @@ def checkin(bot, message, user)
   end
 end
 
+def checkout(bot, message, user)
+  if user.resident? && user.present?
+    user.assign_action_status('checkout')
+    user.assign_request_status('photo')    
+    bot.api.send_message(chat_id: message.chat.id, text: 'give me photo')
+  else
+    bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (checkout)')
+  end
+end
+
 # =========================
 
 def photo(bot, message, user, token)
@@ -50,5 +60,30 @@ def photo(bot, message, user, token)
     bot.api.send_message(chat_id: message.chat.id, text: 'photo received. send location')
   else
     bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (photo)')
+  end  
+end
+
+# ======================
+
+def location(bot, message, user)
+  if user.request_status == 'location'
+
+    latitude = message.location.latitude
+    longitude = message.location.longitude
+    user.store_location(latitude, longitude)
+    
+    action = user.action_status
+    if action == 'checkin'
+      user.assign_presence_status('onsite')
+    else
+      user.assign_presence_status('offsite')
+    end
+
+    user.delete_request_status
+    user.delete_action_status
+    bot.api.send_message(chat_id: message.chat.id, text: "#{action} successful")
+
+  else
+    bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (location)')
   end  
 end

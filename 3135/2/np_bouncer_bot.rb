@@ -21,10 +21,14 @@ Telegram::Bot::Client.run(token) do |bot|
       save_camp_num(bot, message, user)
     when '/checkin'
       checkin(bot, message, user)
-    when '/stop'
+    when '/checkout'
+      checkout(bot, message, user)
+    when '/status'
       puts user.presence_status
       puts user.action_status
       puts user.request_status
+      puts user.photo_uri
+      puts user.location
       #bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
       #puts '/stop message received'
     else
@@ -41,9 +45,8 @@ Telegram::Bot::Client.run(token) do |bot|
         # File.open('photo.jpeg', 'wb') do |file|
         #   file.write(open(uri).read)
 
-      #when message.location 
-      #  puts "locationmessage received"
-
+      when message.location 
+        location(bot, message, user)
       else
         bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (main switch)')   
       end
