@@ -1,0 +1,6 @@
+{"message_id"=>216, "from"=>{"id"=>313528695, "is_bot"=>false, "first_name"=>"Ganna", "last_name"=>"Goodkevich", "username"=>"gannagood", "language_code"=>"ru"}, "chat"=>{"id"=>313528695, "first_name"=>"Ganna", "last_name"=>"Goodkevich", "username"=>"gannagood", "type"=>"private"}, "date"=>1563646789, "photo"=>[{"file_id"=>"AgADAgADuqwxG-XUmEn_C8NMsB4Nyvfetw8ABDXpUpKaAAGHKkZPAQABAg", "file_size"=>531, "width"=>90, "height"=>67}, {"file_id"=>"AgADAgADuqwxG-XUmEn_C8NMsB4Nyvfetw8ABCsG3PU6ShPSR08BAAEC", "file_size"=>2932, "width"=>320, "height"=>240}, {"file_id"=>"AgADAgADuqwxG-XUmEn_C8NMsB4Nyvfetw8ABH_39aKtfPWRSE8BAAEC", "file_size"=>10118, "width"=>800, "height"=>600}, {"file_id"=>"AgADAgADuqwxG-XUmEn_C8NMsB4Nyvfetw8ABBX-aLJjgoizSU8BAAEC", "file_size"=>20712, "width"=>1280, "height"=>960}]}
+
+
+
+
+ https://api.telegram.org/bot<bot_token>/getFile?file_id=the_file_id
