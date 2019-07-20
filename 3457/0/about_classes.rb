@@ -92,14 +92,14 @@ class AboutClasses < Neo::Koan
   class DogFour
     attr_reader :name
 
-    def put_name(a_name)
+    def set_name(a_name)
       @name = a_name
     end
   end
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = DogFour.new
-    fido.put_name('Fido')
+    fido.set_name('Fido')
 
     assert_equal 'Fido', fido.name
   end
