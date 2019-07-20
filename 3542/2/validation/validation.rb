@@ -1,6 +1,6 @@
-module Validation
-  autoload :Number, './number.rb'
+require './number/number'
 
+module Validation
   module Registration
     def registered?
       chat_session[session_key]

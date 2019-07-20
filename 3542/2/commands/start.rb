@@ -1,4 +1,4 @@
-require_relative 'validation/validation'
+require './validation/validation'
 
 module Start
   include Validation

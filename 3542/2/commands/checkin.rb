@@ -1,5 +1,5 @@
-require_relative 'validation/validation'
-require_relative 'confirmation/confirmation'
+require './validation/validation'
+require './confirmation/confirmation'
 
 module Checkin
   include Validation::Registration
