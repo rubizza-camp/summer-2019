@@ -13,16 +13,17 @@ class GitHubRepositoryParser
     @name_gem = name_gem
   end
 
-  def github_api
-    @github_api ||= JSON.parse(URI.open(GITHUB_REPOSITORIES_API_URL + name_gem).read)['items'].first
+  def github_general_repository_data
+    @cache_gem_github_repository ||= URI.open(GITHUB_REPOSITORIES_API_URL + name_gem).read
+    @github_general_repository_data ||= JSON.parse(@cache_gem_github_repository)['items'].first
   end
 
   def github_repository_title
-    @github_repository_title ||= github_parse(github_api['html_url'])
+    @github_repository_title ||= github_parse(github_general_repository_data['html_url'])
   end
 
   def github_network_dependents
-    github_parse(github_api['html_url'] + GITHUB_NETWORK_DEPENDENTS)
+    github_parse(github_general_repository_data['html_url'] + GITHUB_NETWORK_DEPENDENTS)
   end
 
   private

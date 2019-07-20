@@ -1,6 +1,5 @@
 require 'optparse'
 require_relative 'show_top_table.rb'
-require_relative 'gem_list.rb'
 require_relative 'top_ruby_gems.rb'
 require_relative 'gem_list_fetcher.rb'
 
@@ -18,9 +17,9 @@ OptionParser.new do |options|
 
   options.on('-f', '--file FILE', String,
              'Specify gems.yml containing a list of gem names') do |file|
-    another_name_gem = GemListFetcher.new.read_from_file(file)
-    make_another_gemlist = another_name_gem.map { |title| RubyGem.new(title) }
-    ShowTopTable.new(TopRubyGems.sort_gems(make_another_gemlist)).call
+    gem_names = GemListFetcher.read_from_file(file)
+    make_custom_gemlist = gem_names.map { |title| RubyGem.new(title) }
+    ShowTopTable.new(TopRubyGems.sort_gems(make_custom_gemlist)).call
   end
 
   options.on('-h', '--help',

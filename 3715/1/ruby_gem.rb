@@ -19,11 +19,11 @@ class RubyGem
   end
 
   def star
-    parser.github_api['watchers']
+    parser.github_general_repository_data['watchers']
   end
 
   def fork
-    parser.github_api['forks']
+    parser.github_general_repository_data['forks']
   end
 
   def contributors

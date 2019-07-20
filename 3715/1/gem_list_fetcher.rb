@@ -4,7 +4,7 @@ DEFAULT_FILE = 'gems.yml'.freeze
 
 # File interaction
 class GemListFetcher
-  def read_from_file(file = DEFAULT_FILE)
+  def self.read_from_file(file = DEFAULT_FILE)
     YAML.load_file(file)['gems']
   rescue Errno::ENOENT
     puts "'#{file}': The file is missing or has an incorrect name."

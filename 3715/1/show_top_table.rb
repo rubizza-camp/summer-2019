@@ -1,4 +1,3 @@
-require_relative 'gem_list.rb'
 require 'terminal-table'
 
 # Configuration of the table with the results

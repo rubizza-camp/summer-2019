@@ -1,8 +1,13 @@
-require_relative 'gem_list.rb'
+require_relative 'gem_list_fetcher.rb'
+require_relative 'ruby_gem.rb'
 
 # Prepare gemlist for display
-class TopRubyGems < GemList
+class TopRubyGems
   class << self
+    def make_gemlist
+      GemListFetcher.read_from_file.map { |title| RubyGem.new(title) }
+    end
+
     def pick_names(text)
       matched_name = make_gemlist.select { |gem| gem.name.include?(text) }
       sort_gems(matched_name)
