@@ -1,0 +1,7 @@
+
+source 'https://rubygems.org'
+
+gem 'nokogiri'
+gem 'httparty'
+gem 'redis'
+gem 'telegram-bot-ruby'
