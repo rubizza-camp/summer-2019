@@ -1,9 +1,10 @@
 require 'telegram/bot'
+require_relative 'commands/start'
+require_relative 'commands/check_in'
 
 class WebhooksController < Telegram::Bot::UpdatesController
-  def start!(*)
-    respond_with :message, text: 'Hello!'
-  end
+  extend StartCommand
+  extend CheckInCommand
 end
 
 TOKEN = '947084823:AAHdYR3Rkz_J1Ne2q4iTnRnRd5PPYTjPp-M'
