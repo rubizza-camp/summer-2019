@@ -2,10 +2,11 @@
 
 require_relative 'table.rb'
 require_relative 'parse_gem_stats.rb'
+require_relative 'runtable.rb'
 require 'yaml'
 require 'optparse'
 
-class TopGems
+class ShowTopgemsTable
   include Table
   def initialize
     parameters = {}
@@ -65,5 +66,3 @@ class TopGems
     YAML.load_file(File.open(parameters[:file]))
   end
 end
-
-TopGems.new

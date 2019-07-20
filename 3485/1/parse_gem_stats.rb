@@ -17,7 +17,7 @@ class ParseGemStatsFromGitHub
   attr_reader :stats_from_git, :sourse_api, :repo, :html
 
   def initialize(gems)
-    @stats_from_git = {}
+    @stats_from_git = Hash.new(0)
     @sourse_api = HTTParty.get("#{URL}#{gems}#{END_URL}")
     @repo = repository
     @html = nokogiri
@@ -71,16 +71,16 @@ class ParseGemStatsFromGitHub
 
   def default_data_from_api(gems, message)
     @stats_from_git[:name] = "#{gems} - #{message}"
-    @stats_from_git[:issues] = 0
-    @stats_from_git[:stars] = 0
-    @stats_from_git[:forks] = 0
+    @stats_from_git[:issues]
+    @stats_from_git[:stars]
+    @stats_from_git[:forks]
     default_data_from_site
   end
 
   def default_data_from_site
-    @stats_from_git[:contributors] = 0
-    @stats_from_git[:used_by] = 0
-    @stats_from_git[:watched_by] = 0
+    @stats_from_git[:contributors]
+    @stats_from_git[:used_by]
+    @stats_from_git[:watched_by]
     self
   end
 
