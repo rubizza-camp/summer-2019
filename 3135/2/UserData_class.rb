@@ -7,6 +7,7 @@ class UserData
     @r = Redis.new(host: 'localhost')
     @id = id
     @camp_num = @r.get("tgid_#{@id}_camp_num")
+    @photo_uri = @r.get("tgid_#{@id}_photo_uri")
 
     @presence_status = @r.get("tgid_#{@id}_presence_status")
     @action_status = @r.get("tgid_#{@id}_action_status")
@@ -53,4 +54,7 @@ class UserData
 
   # ========================
 
+  def store_photo_uri(uri)
+    @r.set("tgid_#{@id}_photo_uri", uri)
+  end
 end

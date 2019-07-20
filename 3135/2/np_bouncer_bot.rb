@@ -30,7 +30,7 @@ Telegram::Bot::Client.run(token) do |bot|
     else
       case
       when message.photo.any?
-        puts "photomessage received"
+        photo(bot, message, user, token)
 
         # large_file_id = message.photo.last.file_id
 

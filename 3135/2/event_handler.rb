@@ -36,3 +36,19 @@ def checkin(bot, message, user)
 end
 
 # =========================
+
+def photo(bot, message, user, token)
+  if user.request_status == 'photo'
+
+    large_file_id = message.photo.last.file_id
+    file = bot.api.get_file(file_id: large_file_id)
+    file_path = file.dig('result', 'file_path')
+    uri = "https://api.telegram.org/file/bot#{token}/#{file_path}"
+
+    user.store_photo_uri(uri)
+    user.assign_request_status('location')   
+    bot.api.send_message(chat_id: message.chat.id, text: 'photo received. send location')
+  else
+    bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (photo)')
+  end  
+end
