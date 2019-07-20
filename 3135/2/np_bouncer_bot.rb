@@ -17,13 +17,16 @@ Telegram::Bot::Client.run(token) do |bot|
       case message.text
       when '/start'
         start(bot, message, user)
-      when '/stop'
-        puts user.resident?
-        #bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
-        #puts '/stop message received'
       when /^\d+$/
         save_camp_num(bot, message, user)
-      end
+      when '/checkin'
+        checkin(bot, message, user)
+      when '/stop'
+        puts user.action_status
+        puts user.request_status
+        puts user.presence_status
+        #bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
+        #puts '/stop message received'
 
 =begin
       case
@@ -43,6 +46,8 @@ Telegram::Bot::Client.run(token) do |bot|
         puts "locationmessage received"
       end
 =end
-
+    else
+      bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (main_else)')
     end
+  end
 end
