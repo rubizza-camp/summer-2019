@@ -1,16 +1,15 @@
 module CheckinCommand
-  TOKEN = '755628942:AAHKAUSeCE6vr3e2ROE-0d_q8UthD8wtrNE'
-  BOT_API_URL = "https://api.telegram.org/bot#{TOKEN}/"
-  BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{TOKEN}/"
-  GET_PATH_URL = 'getFile?file_id='
-
   def checkin!(*)
+    return unless registered?
     save_context :photo_check
     respond_with :message, text: 'Show me yourself first'
   end
 
   def photo_check(*)
     if !payload['photo'].nil?
+      session[:timestamp] = Time.now.getutc.to_i
+      path = generate_checkin_path(session[:timestamp])
+      FileUtils.mkdir_p(path) unless File.exist?(path)
       save_context :geo_check
       reply_with :message, text: 'You looking pretty good'
       respond_with :message, text: 'Now i need your geolocation'

@@ -9,6 +9,7 @@ require 'time'
 require_relative 'commands/start_command'
 require_relative 'commands/checkin_command'
 require_relative 'commands/checkout_command'
+require_relative 'commands/helpers'
 require_relative 'file_reader'
 
 
@@ -22,6 +23,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckinCommand
   include CheckoutCommand
   include FileAccessor
+  include Helpers
   include Telegram::Bot::UpdatesController::MessageContext
 
   def id!
@@ -37,6 +39,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
+    binding.pry
     p message
   end
 end
