@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassMethods
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:TooManyMethods
 # :reek:Attribute
@@ -91,7 +92,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def self.a_class_method
+    def Dog.a_class_method
       :dogs_class_method
     end
   end
@@ -169,3 +170,4 @@ class AboutClassMethods < Neo::Koan
     assert_equal :still_another_way, fido.class.another_class_method
   end
 end
+# rubocop:enable Style/ClassMethods

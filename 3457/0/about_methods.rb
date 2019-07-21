@@ -1,4 +1,7 @@
 # rubocop:disable Style/RedundantSelf, Lint/Void
+# rubocop:disable Style/EvalWithLocation
+# rubocop:disable Lint/UnreachableCode
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:UtilityFunction
@@ -21,7 +24,7 @@ class AboutMethods < Neo::Koan
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
+    eval 'assert_equal 5, my_global_method(2, 3)' # ENABLE CHECK
     #
     # Ruby doesn't know if you mean:
     #
@@ -74,7 +77,9 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :return_value
+    :a_non_return_value
+    return :return_value
+    :another_non_return_value
   end
 
   def test_method_with_explicit_return
@@ -151,3 +156,5 @@ class AboutMethods < Neo::Koan
   end
 end
 # rubocop:enable Style/RedundantSelf, Lint/Void
+# rubocop:enable Style/EvalWithLocation
+# rubocop:enable Lint/UnreachableCode
