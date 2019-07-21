@@ -3,8 +3,26 @@
 require 'fileutils'
 require 'open-uri'
 require 'json'
-
+require_relative 'parse_hash_exception'
+require_relative 'telegram_exception'
 module DownloadHelpers
+  def ask_for_photo(*)
+    session[:utc] = Time.now.utc
+    validate_face(download_last_photo(create_path(session[:command])))
+  rescue ParseHashException
+    rescue_photo
+  rescue TelegramException
+    rescue_telegram
+  end
+
+  def ask_for_geo(*)
+    validate_geo(create_path(session[:command]))
+  rescue ParseHashException
+    rescue_geo
+  rescue TelegramException
+    rescue_telegram
+  end
+
   private
 
   BOT_API_URL = "https://api.telegram.org/bot#{ENV.fetch('ACCESS_BOT_TOKEN')}/"
@@ -24,35 +42,53 @@ module DownloadHelpers
     end
   end
 
-  def generate_checkin_path(timestamp)
-    "./public/#{user_id}/checkins/#{timestamp}/"
-  end
-
-  def generate_checkout_path(timestamp)
-    "./public/#{user_id}/checkouts/#{timestamp}/"
+  def generate_path(name)
+    "./public/#{user_id}/#{name}s/#{session[:utc]}/"
   end
 
   def photo_file_path
-    JSON.parse(URI.open(create_path_request_url).read, symbolize_names: true)[:result][:file_path]
-  end
+    path = JSON.parse(URI.open(create_path_request_url).read, symbolize_names: true)
+               .fetch(:result, {}).fetch(:file_path, TelegramException::ERR_MSG)
+    raise TelegramException if path == TelegramException::ERR_MSG
 
-  def create_path_request_url
-    BOT_API_URL + GET_PATH_URL + payload['photo'].last['file_id']
-  end
-
-  def create_checkin_path
-    path = generate_checkin_path(Time.at(session[:timestamp]).utc)
-    FileUtils.mkdir_p(path) unless File.exist?(path)
     path
   end
 
-  def create_checkout_path
-    path = generate_checkout_path(Time.at(session[:timestamp]).utc)
+  def create_path_request_url
+    BOT_API_URL + GET_PATH_URL + photo_id
+  end
+
+  def create_path(name)
+    path = generate_path(name)
     FileUtils.mkdir_p(path) unless File.exist?(path)
     path
   end
 
   def geo_parse
-    payload['location']
+    location = payload.fetch('location', ParseHashException::ERR_MSG)
+    raise ParseHashException if location == ParseHashException::ERR_MSG
+
+    location
+  end
+
+  def photo_id
+    id = payload.fetch('photo', [{}]).last.fetch('file_id', ParseHashException::ERR_MSG)
+    raise ParseHashException if id == ParseHashException::ERR_MSG
+
+    id
+  end
+
+  def rescue_photo
+    save_context :ask_for_photo
+    respond_with :message, text: 'Are you sure you sent a photo?'
+  end
+
+  def rescue_geo
+    save_context :ask_for_geo
+    respond_with :message, text: 'Are you sure you sent a location?'
+  end
+
+  def rescue_telegram
+    respond_with :message, text: 'Oh no! Looks like Telegram servers are broken. Try again later'
   end
 end

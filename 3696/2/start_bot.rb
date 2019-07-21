@@ -1,6 +1,6 @@
 require 'logger'
 require 'telegram/bot'
-require './bot.rb'
+require_relative 'bot.rb'
 
 bot = Telegram::Bot::Client.new(ENV.fetch('ACCESS_BOT_TOKEN'))
 logger = Logger.new(STDOUT)

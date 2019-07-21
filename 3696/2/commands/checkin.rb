@@ -1,41 +1,25 @@
 # frozen_string_literal: true
 
-require './helpers/base_command_helpers'
-require './helpers/validator'
+require_relative '../helpers/base_command_helpers'
+require_relative '../helpers/validator'
 
 module CheckinCommand
   include BaseCommandHelpers
   include Validator
 
   def checkin!(*)
-    return if need_to_register? || need_to_checkout?
+    handle_checkin_errors
+    return if checked_in? || not_registered?
 
-    save_context :ask_for_photo_checkin
-    respond_with :message, text: 'Send me photo'
-  end
-
-  def ask_for_photo_checkin(*)
-    session[:timestamp] = Time.now.to_i
-    validate_face_checkin(download_last_photo(create_checkin_path))
-  rescue NoMethodError
-    rescue_photo_checkin
-  end
-
-  def ask_for_geo_checkin(*)
-    validate_geo_checkin(create_checkin_path)
-  rescue NoMethodError
-    rescue_geo_checkin
+    session[:command] = 'checkin'
+    save_context :ask_for_photo
+    respond_with :message, text: 'Send me a photo'
   end
 
   private
 
-  def rescue_photo_checkin
-    save_context :ask_for_photo_checkin
-    respond_with :message, text: 'Are you sure you sent a photo?'
-  end
-
-  def rescue_geo_checkin
-    save_context :ask_for_geo_checkin
-    respond_with :message, text: 'Are you sure you sent a location?'
+  def handle_checkin_errors
+    checkin_message if not_registered?
+    checkout_message if checked_in?
   end
 end
