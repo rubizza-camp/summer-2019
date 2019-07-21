@@ -1,13 +1,30 @@
 class UserMethods
-  def self.update_user_chekout_date(id)
-    User[id].update(checkout_datetime: Time.now, is_checkin: false)
+  def self.registered?(id)
+    User[id]
   end
 
-  def self.registered?(telegram_id)
-    User[telegram_id]
+  def self.checkin?(id)
+    User[id].is_checkin
   end
 
-  def self.checkin?(telegram_id)
-    User[telegram_id].is_checkin
+  def self.find_users_by_person_number(person_number)
+    users = []
+    User.all.each do |user|
+      users.push(user) if user.person_number == person_number
+    end
+    users
+  end
+
+  def self.update_user_date(id, status)
+    case status
+    when 'checkins'
+      User[id].update(checkin_datetime: Time.now, is_checkin: true)
+    else
+      User[id].update(checkout_datetime: Time.now, is_checkin: false)
+    end
+  end
+
+  def self.create_user(id, name, person_number)
+    User.create(id: id, name: name, person_number: person_number)
   end
 end
