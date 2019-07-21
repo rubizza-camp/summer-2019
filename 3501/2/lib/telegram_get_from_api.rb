@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 require 'open-uri'
@@ -5,8 +7,13 @@ require 'securerandom'
 require 'fileutils'
 
 class TelegramGetFromApi
-  API_URL = 'https://api.telegram.org/'.freeze
-  TEMP_FILES_PATH = 'public/tempData/'.freeze
+  class << self
+    def photo_from_file_id(bot_token, bot_webhook)
+      new(bot_token, bot_webhook).call
+    end
+  end
+  API_URL = 'https://api.telegram.org/'
+  TEMP_FILES_PATH = 'public/tempData/'
   # https://api.telegram.org/bot<bot_token>/getFile?file_id=the_file_id
   # https://api.telegram.org/file/bot<token>/<file_path>
 
@@ -19,10 +26,6 @@ class TelegramGetFromApi
     request_file_path(@bot_webhook.payload['photo'].last['file_id'])
   rescue NoMethodError
     nil
-  end
-
-  def self.photo_from_file_id(bot_token, bot_webhook)
-    new(bot_token, bot_webhook).call
   end
 
   def request_file_path(file_id)

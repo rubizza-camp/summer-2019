@@ -3,6 +3,11 @@ require_relative 'redis_storage_controller'
 require_relative 'course_controller'
 
 class UserSessionsController
+  class << self
+    def send_message(message, bot_webhook)
+      bot_webhook.respond_with(:message, text: message)
+    end
+  end
   attr_reader :user_sessions, :course, :bot_token
 
   def initialize(user_sessions, bot_token, bot_webhook)
@@ -10,10 +15,6 @@ class UserSessionsController
     @user_sessions = user_sessions
     @bot_token = bot_token
     find_user(bot_webhook)
-  end
-
-  def self.send_message(message, bot_webhook)
-    bot_webhook.respond_with(:message, text: message)
   end
 
   def recieve_command(command, bot_webhook)
