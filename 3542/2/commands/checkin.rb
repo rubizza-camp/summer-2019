@@ -1,4 +1,4 @@
-require './validation/validation'
+require './validations/validation'
 require './confirmation/confirmation'
 
 module Checkin

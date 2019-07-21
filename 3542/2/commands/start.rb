@@ -1,4 +1,4 @@
-require './validation/validation'
+require './validations/validation'
 
 module Start
   include Validation
