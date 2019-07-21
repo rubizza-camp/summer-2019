@@ -42,4 +42,8 @@ module BaseCommandHelpers
   def checkout_message
     respond_with :message, text: 'You should checkout first!' if session[:checkin]
   end
+
+  def rescue_telegram
+    respond_with :message, text: 'Oh no! Looks like Telegram servers are broken. Try again later'
+  end
 end

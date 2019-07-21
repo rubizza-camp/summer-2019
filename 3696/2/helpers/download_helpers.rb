@@ -5,7 +5,10 @@ require 'open-uri'
 require 'json'
 require_relative 'parse_hash_exception'
 require_relative 'telegram_exception'
+require_relative 'base_command_helpers'
 module DownloadHelpers
+  include BaseCommandHelpers
+
   def ask_for_photo(*)
     session[:utc] = Time.now.utc
     validate_face(download_last_photo(create_path(session[:command])))
@@ -48,7 +51,7 @@ module DownloadHelpers
 
   def photo_file_path
     path = JSON.parse(URI.open(create_path_request_url).read, symbolize_names: true)
-               .fetch(:result, {}).fetch(:file_path, TelegramException::ERR_MSG)
+             .fetch(:result, {}).fetch(:file_path, TelegramException::ERR_MSG)
     raise TelegramException if path == TelegramException::ERR_MSG
 
     path
@@ -86,9 +89,5 @@ module DownloadHelpers
   def rescue_geo
     save_context :ask_for_geo
     respond_with :message, text: 'Are you sure you sent a location?'
-  end
-
-  def rescue_telegram
-    respond_with :message, text: 'Oh no! Looks like Telegram servers are broken. Try again later'
   end
 end
