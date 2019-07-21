@@ -20,7 +20,7 @@ module Telegram
     include CheckoutCommand
     include MessageCommand
     # for debug purposes
-    # include ClearCommand
+    include ClearCommand
 
     private
 
@@ -36,7 +36,10 @@ module Telegram
   end
 end
 
-TOKEN = OptionController.options[:bot_token]
+RedisStorageController.initialize_redis
+StrContainer.initialize_strings
+
+TOKEN = OptionController.options[:bot_token] || ENV['BOT_TOKEN']
 
 bot = Telegram::Bot::Client.new(TOKEN)
 
