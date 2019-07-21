@@ -14,10 +14,10 @@ class User
   end
 
   def registration(rubizza_id)
-    if id = REDIS.get(@message.chat.id)
-      { chat_id: @message.chat.id, text: "We already know each other, #{id}"}
+    if (id = REDIS.get(@message.chat.id))
+      { chat_id: @message.chat.id, text: "We already know each other, #{id}" }
     else
-      numbers = YAML.load_file('data/rubizza_numbers.yml')["numbers"]
+      numbers = YAML.load_file('data/rubizza_numbers.yml')['numbers']
       numbers.any?(rubizza_id) ? wellcome : try_again
     end
   end
