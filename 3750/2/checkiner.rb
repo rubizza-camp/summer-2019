@@ -10,23 +10,27 @@ require_relative 'commands/start_command'
 require_relative 'commands/checkin_command'
 require_relative 'commands/checkout_command'
 require_relative 'helpers'
-require_relative 'verifier'
+require_relative 'data_check_conversation'
 require_relative 'file_reader'
+require_relative 'path_generator'
+require_relative 'saver'
 
 
 class WebhooksController < Telegram::Bot::UpdatesController
-  def initialize(*)
-    super
-    Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.month }
-  end
-
+  include Telegram::Bot::UpdatesController::MessageContext
   include StartCommand
   include CheckinCommand
   include CheckoutCommand
   include FileAccessor
   include Helpers
-  include Verifier
-  include Telegram::Bot::UpdatesController::MessageContext
+  include DataCheckConversation
+  include PathGenerator
+  include Saver
+
+  def initialize(*)
+    super
+    Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.month }
+  end
 
   def id!
     respond_with :message, text: from['id']

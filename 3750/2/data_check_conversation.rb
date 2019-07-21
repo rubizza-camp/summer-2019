@@ -1,4 +1,4 @@
-module Verifier
+module DataCheckConversation
   def photo_check(*)
     if !payload['photo'].nil?
       photo_save
@@ -16,8 +16,7 @@ module Verifier
     if !payload['location'].nil?
       geo_save
       reply_with :message, text: 'I see you'
-      checkin_session_ending if session[:command] == 'checkin'
-      checkout_session_ending if session[:command] == 'checkout'
+      session_ending
     else
       save_context :geo_check
       reply_with :message, text: 'That is not location at all'
@@ -25,15 +24,23 @@ module Verifier
     end
   end
 
+  def session_ending
+    checkin_session_ending if session[:command] == 'checkin'
+    checkout_session_ending if session[:command] == 'checkout'
+  end
+
   def checkin_session_ending
     respond_with :message, text: 'Your shift have successfully begun :DDD:'
+    session[:checkin?] = true
+    session[:checkout?] = false
   end
 
   def checkout_session_ending
-    respond_with :message, text: 'I hope today you got some things working'
+    respond_with :message, text: 'I hope today you worked well'
     respond_with :message, text: 'Have a nice day'
     respond_with :sticker, sticker: 'CAADAgADJgADwnaQBi5vOvKDgdd8Ag'
     session[:command] = nil
     session[:checkin?] = false
+    session[:checkout?] = true
   end
 end
