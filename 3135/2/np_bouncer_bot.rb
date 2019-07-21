@@ -5,6 +5,7 @@ require 'redis'
 require_relative 'EventHandler_class'
 require_relative 'UserInfo_class'
 require_relative 'Status_class_set'
+require_relative 'DataSaver_class'
 
 
 R = Redis.new

@@ -3,7 +3,10 @@ class EventHandler
   def initialize(bot, message)
     @bot = bot
     @message = message
-    @user = User.new(@message.from.id)
+
+    tg_id = @message.from.id
+    @user = User.new(tg_id)
+    @save = DataSaver.new(tg_id)
   end
 
   # -respond to user
@@ -12,27 +15,28 @@ class EventHandler
   end
 
   def send_negative(line)
-    @bot.api.send_message(chat_id: @message.chat.id, text: "Unexpected input (#{line.to_str})")
+    @bot.api.send_message(chat_id: @message.chat.id, text: "Unexpected input (#{line.to_str}).")
   end
   # -----------------
 
   def start
     if @user.resident?
-      send_message('You are already registered')
+      send_message('You are already registered.')
     else
       @user.action.registration
       @user.request.camp_num
-      send_message('Provide camp number')
+      send_message('Provide camp number.')
     end
   end
 
   def camp_num
     if @user.action.registration? && @user.request.camp_num?
-      @user.give_residency(@message.text)
+      @save.camp_num(@message.text)
+      @user.give_residency
       @user.presence_init
       @user.action.flush
       @user.request.flush
-      send_message("You have been registered with camp number #{@message.text}")
+      send_message("You have been registered with camp number #{@message.text}.")
     else
       send_negative(__method__)
     end
@@ -43,7 +47,7 @@ class EventHandler
     if @user.resident? && !@user.present?
       @user.action.checkin
       @user.request.photo   
-      send_message('Send photo')
+      send_message('Send photo.')
     else
       send_negative(__method__)
     end
@@ -53,7 +57,7 @@ class EventHandler
     if @user.resident? && @user.present?
       @user.action.checkout
       @user.request.photo    
-      send_message('Send photo')
+      send_message('Send photo.')
     else
       send_negative(__method__)
     end
@@ -69,7 +73,7 @@ class EventHandler
       uri = "https://api.telegram.org/file/bot#{TOKEN}/#{file_path}"
       # -
 
-      @user.save_photo_uri(uri)
+      @save.photo_uri(uri)
       @user.request.location
       send_message('Photo received. Send location.')
     else
@@ -87,13 +91,13 @@ class EventHandler
       long = @message.location.longitude.to_s
       # -
   
-      @user.save_location(lat, long)
+      @save.location(lat, long)
       @user.presence_switch
 
       action = @user.action.what?
       @user.action.flush
       @user.request.flush
-      send_message("#{action.capitalize} successful")
+      send_message("#{action.capitalize} successful.")
     else
       send_negative(__method__)
     end  

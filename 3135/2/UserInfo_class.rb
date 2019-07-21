@@ -1,4 +1,4 @@
-# User class provides access to user info and manages immediate settings
+# User class provides access to user info and manages immediate properties
 class User
   attr_reader :id, :camp_num, :action, :request
 
@@ -12,11 +12,11 @@ class User
 
   # -residency
   def resident?
-    R.exists("tgid_#{@id}_camp_num")
+    R.get("tgid_#{@id}_rank") == 'resident'
   end
 
-  def give_residency(num_as_str)
-    R.set("tgid_#{@id}_camp_num", num_as_str)
+  def give_residency
+    R.set("tgid_#{@id}_rank", 'resident')
   end
 
   # -presence
@@ -37,13 +37,12 @@ class User
   end
 
   # -photo uri
-  def save_photo_uri(uri)
-    R.set("tgid_#{@id}_photo_uri", uri)
+  def photo_uri(uri)
+    R.get("tgid_#{@id}_photo_uri")
   end
 
   # -location
-  def save_location(lat_as_str,long_as_str)
-    R.set("tgid_#{@id}_latitude", lat_as_str)
-    R.set("tgid_#{@id}_longitude", long_as_str)
+  def location(lat_as_str,long_as_str)
+    R.get("tgid_#{@id}_location")
   end
 end
