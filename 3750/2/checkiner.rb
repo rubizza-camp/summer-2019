@@ -14,6 +14,7 @@ require_relative 'data_check_conversation'
 require_relative 'file_reader'
 require_relative 'path_generator'
 require_relative 'saver'
+require_relative 'geo_validator'
 
 
 class WebhooksController < Telegram::Bot::UpdatesController
@@ -26,6 +27,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include DataCheckConversation
   include PathGenerator
   include Saver
+  include GeoValidator
 
   def initialize(*)
     super
