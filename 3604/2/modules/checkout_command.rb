@@ -1,9 +1,8 @@
 module CheckoutCommand
   def checkout!(*)
     session[:time_checkout] = Time.now.to_i
-    unless redis.get(user_id_telegram)
-      return respond_with :message, text: 'You are not registered'
-    end
+    respond = 'You are not registered'
+    return respond_with :message, text: respond unless redis.get(user_id_telegram)
     diolog_about_photo_checkout
   end
 

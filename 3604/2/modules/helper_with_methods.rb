@@ -28,7 +28,7 @@ module HelperWithMethods
   end
 
   def photo_file_path
-    @photo_file_path ||= JSON.parse(URI.open(url_json_about_file).read, symbolize_names: true)[:result][:file_path]
+    JSON.parse(URI.open(url_json_about_file).read, symbolize_names: true)[:result][:file_path]
   end
 
   def url_json_about_file
