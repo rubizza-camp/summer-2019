@@ -9,8 +9,8 @@ class TopRubyGems
     end
 
     def pick_names(text)
-      matched_name = make_gemlist.select { |gem| gem.name.include?(text) }
-      sort_gems(matched_name)
+      matched_name = GemListFetcher.read_from_file.select { |name| name.include?(text) }
+      sort_gems(matched_name.map { |title| RubyGem.new(title) })
     end
 
     def top_gems
