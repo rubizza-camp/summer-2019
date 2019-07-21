@@ -1,5 +1,4 @@
 require 'open-uri'
-require 'fileutils'
 require 'yaml'
 
 class User
@@ -31,7 +30,7 @@ class User
     when '/checkin'
       @status = 'checkins'
     when '/checkout'
-      @status = 'chekouts'
+      @status = 'checkouts'
     end
     REDIS.set("#{@user_id}_status", @status)
     ask_selfie

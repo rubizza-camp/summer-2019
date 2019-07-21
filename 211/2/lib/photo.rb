@@ -12,6 +12,9 @@ class PhotoHelper
   end
 
   def call
+    if check_status == 'checkined' || check_status == 'checkouted'
+      return { chat_id: message.chat.id, text: 'Stop Spam at me' }
+    end
     image_url
     ask_location
   end
@@ -26,6 +29,10 @@ class PhotoHelper
   def save_img(status, timestamp)
     data = RestClient.get(@path).body
     File.write("#{user_id}/#{status}/#{timestamp}/selfie.jpg", data, mode: 'wb')
+  end
+
+  def check_status
+    current_status = REDIS.get("#{@user_id}_status")
   end
 
   def ask_location

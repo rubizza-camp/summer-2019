@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class LocationHelper
   attr_reader :bot, :message, :user_id, :latitude, :longitude, :photo
 
@@ -11,25 +13,35 @@ class LocationHelper
   end
 
   def call(status)
+    if check_status == 'checkined' || check_status == 'checkouted'
+      return { chat_id: message.chat.id, text: 'Stop Spam at me' }
+    end
     create_folder(status)
 
     begin @photo.save_img(status, @timestamp)
           save_location(status)
+          puts  REDIS.get("#{@user_id}_status")
           REDIS.set("#{@user_id}_status", status.gsub(/s$/, 'ed'))
+          puts  REDIS.get("#{@user_id}_status")
           { chat_id: message.chat.id, text: 'Nice to see you in right place' }
     rescue NoMethodError
+      FileUtils.rm_rf("#{user_id}/#{status}/#{@timestamp}")
       ask_photo
     end
   end
 
   def create_folder(status)
-    @timestamp = Time.now.getlocal('+03:00').to_i
+    puts @timestamp = Time.now.getlocal('+03:00').to_i
     FileUtils.mkdir_p("#{user_id}/#{status}/#{@timestamp}")
   end
 
   def save_location(status)
     loc = "#{@latitude}, #{@longitude}"
     File.write("#{user_id}/#{status}/#{@timestamp}/location.txt", loc)
+  end
+
+  def check_status
+    current_status = REDIS.get("#{@user_id}_status")
   end
 
   def ask_photo
