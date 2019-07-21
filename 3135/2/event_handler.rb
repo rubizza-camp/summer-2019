@@ -45,19 +45,20 @@ def checkout(bot, message, user)
   end
 end
 
-=begin
 # =========================
 
 def photo(bot, message, user, token)
-  if user.request_status == 'photo'
-
+  if user.request.photo?
+    
+    # -prep photo uri
     large_file_id = message.photo.last.file_id
     file = bot.api.get_file(file_id: large_file_id)
     file_path = file.dig('result', 'file_path')
     uri = "https://api.telegram.org/file/bot#{token}/#{file_path}"
+    # -
 
-    user.store_photo_uri(uri)
-    user.assign_request_status('location')   
+    user.save_photo_uri(uri)
+    user.request.location
     bot.api.send_message(chat_id: message.chat.id, text: 'photo received. send location')
   else
     bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (photo)')
@@ -67,25 +68,21 @@ end
 # ======================
 
 def location(bot, message, user)
-  if user.request_status == 'location'
+  if user.request.location?
 
-    latitude = message.location.latitude
-    longitude = message.location.longitude
-    user.store_location(latitude, longitude)
+    # -prep location 
+    lat = message.location.latitude.to_s
+    long = message.location.longitude.to_s
+    # -
     
-    action = user.action_status
-    if action == 'checkin'
-      user.assign_presence_status('onsite')
-    else
-      user.assign_presence_status('offsite')
-    end
+    user.save_location(lat, long)
+    user.presence_switch
 
-    user.delete_request_status
-    user.delete_action_status
+    action = user.action.what?
+    user.action.flush
+    user.request.flush
     bot.api.send_message(chat_id: message.chat.id, text: "#{action} successful")
-
   else
     bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (location)')
   end  
 end
-=end

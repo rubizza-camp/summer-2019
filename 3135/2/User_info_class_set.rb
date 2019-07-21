@@ -3,8 +3,8 @@ class UserInfo
 
   def initialize(redis, tg_id)
     @r = redis
-    
     @id = tg_id
+
     @camp_num = @r.get("tgid_#{@id}_camp_num")
 
     @action = ActionStatus.new(@r, @id)
@@ -28,11 +28,31 @@ class UserInfo
   def present?
     @r.get("tgid_#{@id}_presence") == 'onsite'
   end
-    
+
+  def presence_switch
+    if present? 
+      @r.set("tgid_#{@id}_presence", 'offsite')
+    else
+      @r.set("tgid_#{@id}_presence", 'onsite')
+    end
+  end
+
+  # -photo uri
+  def save_photo_uri(uri)
+    @r.set("tgid_#{@id}_photo_uri", uri)
+    puts @r.get("tgid_#{@id}_photo_uri")
+  end
+
+  # -location
+  def save_location(lat_as_str,long_as_str)
+    @r.set("tgid_#{@id}_latitude", lat_as_str)
+    @r.set("tgid_#{@id}_longitude", long_as_str)
+    puts @r.get("tgid_#{@id}_latitude")
+    puts @r.get("tgid_#{@id}_longitude")
+  end
 end
 
-#=============1act
-
+# ActionStatus class stores currently ongoing action to redis
 class ActionStatus
   def initialize(redis, tg_id)
     @r = redis
@@ -75,8 +95,7 @@ class ActionStatus
   end
 end
 
-#=============2req
-
+# RequestStatus class stores current requested to redis
 class RequestStatus
   def initialize(redis, tg_id)
     @r = redis
@@ -103,5 +122,18 @@ class RequestStatus
   # -photo
   def photo
     @r.set(@key, 'photo')
+  end
+
+  def photo?
+    @r.get(@key) == 'photo'
+  end
+
+  # -location
+  def location
+    @r.set(@key, 'location')
+  end
+
+  def location?
+    @r.get(@key) == 'location'
   end
 end
