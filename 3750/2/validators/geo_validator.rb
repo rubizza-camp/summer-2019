@@ -3,6 +3,7 @@ module GeoValidator
   ALLOWED_LONGITUDE = 27.565940..27.571310
 
   def geo?
+    return false unless payload['location']
     latitude? && longitude?
   end
 

@@ -2,6 +2,5 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'pry'
-gem 'redis-rails'
+gem 'redis'
 gem 'telegram-bot'

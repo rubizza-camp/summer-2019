@@ -1,7 +1,6 @@
 module StartCommand
   def start!(*)
     if registered?
-      respond_with :message, text: 'I already know who you are'
       respond_with :message, text: 'No need to register again'
       return
     end
@@ -23,7 +22,7 @@ module StartCommand
   def registration_check(redis, number)
     if redis.get(number) && session.key?(:number)
       respond_with :message, text: "Greetings #{number}!"
-    elsif read_file_into_arr.include? number
+    elsif FileAccessor.personal_numbers.include? number
       registration(redis, number)
       respond_with :message, text: 'Registration done!'
     else
