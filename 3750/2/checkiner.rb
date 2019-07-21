@@ -9,7 +9,8 @@ require 'time'
 require_relative 'commands/start_command'
 require_relative 'commands/checkin_command'
 require_relative 'commands/checkout_command'
-require_relative 'commands/helpers'
+require_relative 'helpers'
+require_relative 'verifier'
 require_relative 'file_reader'
 
 
@@ -24,6 +25,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckoutCommand
   include FileAccessor
   include Helpers
+  include Verifier
   include Telegram::Bot::UpdatesController::MessageContext
 
   def id!
@@ -44,10 +46,10 @@ class WebhooksController < Telegram::Bot::UpdatesController
   end
 end
 
-TOKEN = '755628942:AAHKAUSeCE6vr3e2ROE-0d_q8UthD8wtrNE'
+TOKEN = ENV['BOT_TOKEN']
+
 bot = Telegram::Bot::Client.new(TOKEN)
 
-# poller-mode
 require 'logger'
 
 logger = Logger.new(STDOUT)
