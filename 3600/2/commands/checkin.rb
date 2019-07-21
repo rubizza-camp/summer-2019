@@ -19,7 +19,7 @@ module Checkin
   end
 
   def photo_checkin(_context = nil, *)
-    session[:time] = DateTime.now.strftime('%d%m%Y-%H%M%S')
+    session[:time] = Time.now.strftime('%d%m%Y-%H%M%S')
     FileUtils.mkdir_p("public/#{user_id}/checkins/#{session[:time]}")
     download_photo("public/#{user_id}/checkins/#{session[:time]}/")
     save_context :geo_checkin

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
 require 'open-uri'
 require 'json'
 
@@ -11,7 +10,7 @@ module DownloadHelper
 
   def photo_file_path
     p "#{PATH_LINK}#{payload['photo'].last['file_id']}"
-    JSON.parse(URI.open("https://api.telegram.org/bot#{ENV['TOKEN']}/getFile?file_id=#{payload['photo'].last['file_id']}").read)['result']['file_path']
+    JSON.parse(URI.open("#{PATH_LINK}#{payload['photo'].last['file_id']}").read)['result']['file_path']
   end
 
   def download_photo(dir_path)
@@ -28,4 +27,3 @@ module DownloadHelper
     end
   end
 end
-# rubocop:enable Metrics/LineLength

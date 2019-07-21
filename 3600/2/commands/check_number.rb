@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
 require 'redis'
 require './identifiers'
 
@@ -48,4 +47,3 @@ module CheckNumber
     members.include?(number)
   end
 end
-# rubocop:enable Metrics/LineLength
