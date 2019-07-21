@@ -21,6 +21,8 @@ class WebhooksController < Telegram::Bot::UpdatesController
 
   def process_action(*)
     super
+  ensure
+    chat_session.commit
   end
 end
 
