@@ -11,25 +11,25 @@ class CommandLineParser
   end
 
   def self.top(option)
-    option.on('-tTOP', '--top=INTEGER > 0', /[1-9]+/,
+    option.on('-TOP', '--top=INTEGER > 0', /[1-9]+/,
               'Shows the number of gems according
-               to the rating') do |tt|
-      options[:top] = tt
+               to the rating') do |top|
+      options[:top] = top
     end
   end
 
   def self.name(option)
-    option.on('-nNAME', '--name=WORD', 'Displays all the Gems according to the rating in
-              the name of which includes the given word') do |nn|
-      options[:name] = nn
+    option.on('-NAME', '--name=WORD', 'Displays all the Gems according to the rating in
+              the name of which includes the given word') do |name|
+      options[:name] = name
     end
   end
 
   def self.file(option)
-    option.on('-fFILE',
+    option.on('-FILE',
               '--file=Path_to_Filename.yml', /([a-zA-Z0-9\s_\\.\-\(\):])+.yml$/,
-              'Path to the .yml file containing the list of gem names') do |ff|
-      options[:file] = ff[0]
+              'Path to the .yml file containing the list of gem names') do |file|
+      options[:file] = file
     end
   end
 
