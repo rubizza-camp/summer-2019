@@ -30,5 +30,6 @@ module CheckinCommand
 
   def is_camp?(location)
     (53.914264.. 53.916233).include?(location['latitude'].to_f) && (27.565941..27.571306).include?(location['longitude'].to_f)
+    true
   end
 end
