@@ -6,7 +6,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include Start
   include DownloadPhoto
   include FileManager
-  include PhotoLocation
+  include ReceivePhotoAndLocation
 
   Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_250_000 }
 

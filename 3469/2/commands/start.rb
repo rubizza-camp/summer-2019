@@ -4,10 +4,10 @@ module Start
   def start!(number = nil, *)
     return unless new_user?
     if number
-      register_user(number)
+      verification_of_information(number)
     else
       save_context :start!
-      respond_with :message, text: 'Введите свой номер'
+      respond_with :message, text: 'Введите свой номер rubizza!'
     end
   end
 
@@ -17,33 +17,25 @@ module Start
     if session[:rubizza_num].to_s.empty?
       true
     else
-      respond_with :message, text: 'Нельзя работать за двоих!!!'
+      respond_with :message, text: 'Ты уже зарегистрирован!!!'
       false
     end
   end
 
-  def register_user(number)
+  def verification_of_information(number)
     redis = Redis.new
-    register_new_user(redis, number) if rubizza_num?(number) && number_free?(redis, number)
+    register_new_user(redis, number) if rubizza_number?(number) && !num_is_used?(redis, number)
   end
 
-  def number_free?(redis, number)
-    if redis.get(number)
-      respond_with :message, text: 'Этот номер закреплен за другим челом!!'
-      false
-    else
-      true
-    end
+  def rubizza_number?(number)
+    rubizza_numbers = YAML.load_file(FILE_WITH_NUMBERS)['numbers']
+    return true if rubizza_numbers.include?(number)
+    respond_with :message, text: 'Нет такого номера!'
+    false
   end
 
-  def rubizza_num?(number)
-    all_rubizza_nums = YAML.load_file(FILE_WITH_NUMBERS)['numbers']
-    if all_rubizza_nums.include?(number)
-      true
-    else
-      respond_with :message, text: 'Нет такого номера!'
-      false
-    end
+  def num_is_used?(redis, number)
+    respond_with :message, text: 'Этот номер закреплен за другим человеком!' if redis.get(number)
   end
 
   def register_new_user(redis, number)

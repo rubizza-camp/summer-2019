@@ -3,7 +3,7 @@ module DownloadPhoto
 
   private
 
-  def user_photo
+  def download_user_photo
     token = ENV['TELEGRAM_TOKEN']
     file_path = URI.open(PHOTO_URI + "#{token}/getFile?file_id=#{session[:photo]}").read
     link = JSON.parse(file_path)['result']['file_path']
