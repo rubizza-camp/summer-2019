@@ -11,11 +11,6 @@ class GemfileLoader
     @gem_list ||= YAML.load_file(gemfile_path.to_s)['gems']
   end
 
-  def gem_list_range(col)
-    @gem_list_range ||=
-      YAML.load_file(gemfile_path.to_s)['gems'][0...col]
-  end
-
   def gem_list_text(text)
     @gem_list_text ||=
       YAML.load_file(gemfile_path.to_s)['gems'].select { |gem_| gem_.include?(text) }
