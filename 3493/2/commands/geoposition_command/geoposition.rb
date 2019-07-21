@@ -4,13 +4,19 @@ require_relative '../../support_methods/user_methods/user_methods.rb'
 module GeopositionCommand
   include LocationValidation
   include LocationMethods
-  def geoposition!(*)
+  def geoposition(*)
     if location?
-      location_condition(payload['location'], User[from['id']].person_number, 'checkouts')
-      UserMethods.update_user_chekout_date(from['id'])
+      location_condition(payload['location'], User[from['id']].person_number, session['status'])
+      update_user_date
     else
       respond_with :message, text: 'Мне нужна геопозиция!!!!'
-      save_context :geoposition!
+      save_context :geoposition
     end
+  end
+
+  private
+
+  def update_user_date
+    UserMethods.update_user_date(from['id'], session['status'])
   end
 end
