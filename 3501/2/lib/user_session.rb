@@ -77,14 +77,14 @@ class UserSession
   def complete_user_checkin(bot_webhook)
     message = StrContainer.god_luck + StrContainer.check_out_help
     @session_controller.class.send_message(message, bot_webhook)
-    @session_data[:check_in_date] = DateTime.now
+    @session_data[:check_in_date] = Time.now
     generate_check_files('in')
   end
 
   def complete_user_checkout(bot_webhook)
     message = StrContainer.good_rest
     @session_controller.class.send_message(message, bot_webhook)
-    @session_data[:check_out_date] = DateTime.now
+    @session_data[:check_out_date] = Time.now
     generate_check_files('out')
   end
 
@@ -106,6 +106,4 @@ class UserSession
     end
     request_next_operation(bot_webhook)
   end
-
-  # Additional methods
 end
