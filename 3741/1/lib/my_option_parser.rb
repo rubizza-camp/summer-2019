@@ -1,8 +1,6 @@
 require 'optparse'
 
 class MyOptionParser
-  AVAILABLE_OPT = %w[--top= --name= --file=].freeze
-
   def self.parse_options
     my_options_parser = MyOptionParser.new
     my_options_parser.parse_options

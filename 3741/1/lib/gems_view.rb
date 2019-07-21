@@ -18,12 +18,15 @@ class GemsView
   end
 
   def render(top_n:)
-    table_info = @gems.sort.first(top_n).map { |gem_info| gem_to_row(gem_info) }
-    table_to_view = Terminal::Table.new(headings: HEAD_TEXT, rows: table_info)
+    table_to_view = Terminal::Table.new(headings: HEAD_TEXT, rows: table_info(top_n))
     puts table_to_view
   end
 
   private
+
+  def table_info(top_n)
+    @table_info ||= @gems.sort.first(top_n).map(&method(:gem_to_row))
+  end
 
   def gem_to_row(gem_info)
     [

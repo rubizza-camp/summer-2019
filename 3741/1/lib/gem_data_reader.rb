@@ -18,19 +18,13 @@ class GemDataReader
   end
 
   def read
-    gem_info = parse_by
-    gem_info = empty_gem if gem_info == 'bad'
-    @gem_info = GemInfoDecorator.new(gem_info)
+    return GemInfoDecorator.new(empty_gem) unless html
+    @gem_info = GemInfoDecorator.new(gem_data.merge(name: gem_name))
   end
 
   private
 
-  def parse_by
-    return empty_gem unless html
-    gem_data(nokogiri_parse, nokogiri_parse_used_by).merge(name: gem_name)
-  end
-
-  def gem_data(source_page, used_by_page)
+  def gem_data
     {
       used_by:            receive_info(used_by_page, '.btn-link',        1),
       watcher_count:      receive_info(source_page,  '.social-count',    0),
@@ -57,12 +51,12 @@ class GemDataReader
     page.css(element)[number_element].text.gsub(/\D/, '').to_i
   end
 
-  def nokogiri_parse
-    Nokogiri::HTML(Kernel.open(html))
+  def source_page
+    @source_page ||= Nokogiri::HTML(Kernel.open(html))
   end
 
-  def nokogiri_parse_used_by
-    Nokogiri::HTML(Kernel.open(html + '/network/dependents'))
+  def used_by_page
+    @used_by_page ||= Nokogiri::HTML(Kernel.open(html + '/network/dependents'))
   end
 
   def html
