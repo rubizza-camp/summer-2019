@@ -21,12 +21,10 @@ Telegram::Bot::Client.run(token) do |bot|
       start(bot, message, user)
     when /^\d+$/
       save_camp_num(bot, message, user)
-=begin
     when '/checkin'
       checkin(bot, message, user)
     when '/checkout'
       checkout(bot, message, user)
-=end
     when '/status'
       puts user.action.what?
       puts user.request.what?

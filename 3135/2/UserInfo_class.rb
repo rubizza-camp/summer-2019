@@ -1,5 +1,5 @@
 class UserInfo
-  attr_reader :id, :action, :request
+  attr_reader :id, :camp_num, :action, :request
 
   def initialize(redis, tg_id)
     @r = redis
@@ -19,9 +19,14 @@ class UserInfo
   def give_residency(num_as_str)
     @r.set("tgid_#{@id}_camp_num", num_as_str)
   end
+
   # -presence
   def presence_init
     @r.set("tgid_#{@id}_presence", 'offsite')
+  end
+
+  def present?
+    @r.get("tgid_#{@id}_presence") == 'onsite'
   end
     
 end
@@ -50,6 +55,24 @@ class ActionStatus
   def registration?
     @r.get(@key) == 'registration'
   end
+
+  # -checkin
+  def checkin
+    @r.set(@key, 'checkin')
+  end
+
+  def checkin?
+    @r.get(@key) == 'checkin'
+  end
+
+  # -checkout
+  def checkout
+    @r.set(@key, 'checkout')
+  end
+
+  def checkout?
+    @r.get(@key) == 'checkout'
+  end
 end
 
 #=============2req
@@ -75,5 +98,10 @@ class RequestStatus
 
   def camp_num?
     @r.get(@key) == 'camp_num'
+  end
+
+  # -photo
+  def photo
+    @r.set(@key, 'photo')
   end
 end

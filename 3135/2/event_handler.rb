@@ -23,14 +23,12 @@ def save_camp_num(bot, message, user)
   end
 end
 
-=begin
-
 # ========================
 
 def checkin(bot, message, user)
   if user.resident? && !user.present?
-    user.assign_action_status('checkin')
-    user.assign_request_status('photo')    
+    user.action.checkin
+    user.request.photo   
     bot.api.send_message(chat_id: message.chat.id, text: 'give me photo')
   else
     bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (checkin)')
@@ -39,14 +37,15 @@ end
 
 def checkout(bot, message, user)
   if user.resident? && user.present?
-    user.assign_action_status('checkout')
-    user.assign_request_status('photo')    
+    user.action.checkout
+    user.request.photo    
     bot.api.send_message(chat_id: message.chat.id, text: 'give me photo')
   else
     bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (checkout)')
   end
 end
 
+=begin
 # =========================
 
 def photo(bot, message, user, token)
