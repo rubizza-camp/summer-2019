@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../helpers/base_command_helpers'
 require_relative '../helpers/validator'
 
 module CheckinCommand
-  include BaseCommandHelpers
   include Validator
 
   def checkin!(*)

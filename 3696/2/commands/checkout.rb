@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require_relative '../helpers/base_command_helpers'
 require_relative '../helpers/validator'
 
 module CheckoutCommand
-  include BaseCommandHelpers
   include Validator
 
   def checkout!(*)
+    handle_checkout_errors
     return if not_registered? || checked_out?
 
     session[:command] = 'checkout'

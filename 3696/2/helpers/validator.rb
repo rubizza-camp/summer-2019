@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require 'haversine'
-require_relative 'download_helpers'
 require 'face_detect'
 require 'face_detect/adapter/google'
+require_relative 'geo_helpers'
+require_relative 'photo_helpers'
 
 module Validator
-  include DownloadHelpers
+  include GeoHelpers
+  include PhotoHelpers
 
   private
 
@@ -38,7 +40,7 @@ module Validator
   def validate_geo(path)
     if near_rubizza?
       download_last_geo(path)
-      session[:checkin] = true
+      session[:checkin] = path.include?('checkin')
       respond_with :message, text: 'OK, you can go now'
     else
       save_context :ask_for_geo
