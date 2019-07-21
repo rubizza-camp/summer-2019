@@ -8,10 +8,12 @@ module DownloadHelper
   PATH_LINK = "https://api.telegram.org/bot#{ENV['TOKEN']}/getFile?file_id="
   PHOTO_LINK = "https://api.telegram.org/file/bot#{ENV['TOKEN']}/"
 
+  # rubocop:disable Metrics/LineLength
   def photo_file_path
     p "#{PATH_LINK}#{payload['photo'].last['file_id']}"
     JSON.parse(URI.open("#{PATH_LINK}#{payload['photo'].last['file_id']}").read)['result']['file_path']
   end
+  # rubocop:enable Metrics/LineLength
 
   def download_photo(dir_path)
     p photo_file_path

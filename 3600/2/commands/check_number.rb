@@ -8,7 +8,7 @@ module CheckNumber
   include Identifiers
   def start!(*)
     if registred?
-      respond_with :message, text: "You have already registered as: #{session[:number]}! Enter /checkin to continue"
+      respond_with :message, text: "You have already registered! Enter /checkin to continue"
     else
       save_context :register_from_message
       respond_with :message, text: 'Please, enter your own Rubizza-number'
@@ -26,6 +26,7 @@ module CheckNumber
     check_registaration(redis, number.first.to_i)
   end
 
+  # :reek:TooManyStatements
   def check_registaration(redis, number)
     p redis.get(number)
     if redis.get(number) || session.key?(:number)
