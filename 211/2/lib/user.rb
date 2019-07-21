@@ -1,10 +1,28 @@
 require 'open-uri'
 require 'fileutils'
+require 'yaml'
 
 class User
   attr_accessor :rubizza_number, :status, :user_id
-  def initialize(user_id)
-    @user_id = user_id
+  def initialize(message)
+    @message = message
+    @user_id = message.chat.id
+  end
+
+  def ask_registration
+    REDIS.get(@message.chat.id) ? { chat_id: @message.chat.id, text: "Hi, #{@message.from.first_name}. Time to /checkin" } : gimme_id
+  end
+  def registration(rubizza_id)
+    numbers = YAML.load_file('data/rubizza_numbers.yml')["numbers"]
+    numbers.any?(rubizza_id) ? wellcome : try_again
+  end
+
+  def wellcome
+    REDIS.set(@message.chat.id, @message.text)
+    { chat_id: @message.chat.id, text: "Hi, #{@message.text}. Time to /checkin" }
+  end
+  def try_again
+    { chat_id: @message.chat.id, text: 'Try another number' }
   end
 
   def change_status(message)

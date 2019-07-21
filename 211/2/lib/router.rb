@@ -6,7 +6,7 @@ require_relative './user.rb'
 class Router
   def self.evaluate(message, bot)
     message_helper = MessageHelper.new(bot, message)
-    @user = User.new(message.chat.id)
+    @user = User.new(message)
 
     if message_helper.photo?
       puts 'its a photo'
@@ -20,10 +20,11 @@ class Router
     elsif message_helper
       case message.text
       when '/start'
-        puts message.from.first_name
-        # bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
+        # puts message.from.first_name
+        # # bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
 
-        { chat_id: message.chat.id, text: "Hello, #{message.from.first_name}" }
+        # { chat_id: message.chat.id, text: "Hello, #{message.from.first_name}" }
+        @user.ask_registration
       when '/checkin'
         @user.change_status(message)
       when '/checkout'
@@ -31,11 +32,7 @@ class Router
         @user.change_status(message)
       when /\d/
         puts 'maybe its id'
-        REDIS.set(message.chat.id, message.text)
-        @user.rubizza_number = message.text
-
-        { chat_id: message.chat.id, text: "Hi, #{@user.rubizza_number} " }
-        # {chat_id: message.chat.id, text: "Hi "}
+        @user.registration(message.text.to_i)
       else
         message_helper.ask_something
       end
