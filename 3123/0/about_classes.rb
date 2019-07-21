@@ -68,11 +68,15 @@ class AboutClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog3
+    # rubocop: disable Style/TrivialAccessors
     def name_set(a_name)
       @name = a_name
     end
 
-    attr_reader :name
+    def name
+      @name
+    end
+    # rubocop: enable Style/TrivialAccessors
   end
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
