@@ -20,18 +20,12 @@ class Router
     elsif message_helper
       case message.text
       when '/start'
-        # puts message.from.first_name
-        # # bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
-
-        # { chat_id: message.chat.id, text: "Hello, #{message.from.first_name}" }
-        @user.ask_registration
+        @user.check_registration
       when '/checkin'
         @user.change_status(message)
       when '/checkout'
-        # bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
         @user.change_status(message)
       when /\d/
-        puts 'maybe its id'
         @user.registration(message.text.to_i)
       else
         message_helper.ask_something
