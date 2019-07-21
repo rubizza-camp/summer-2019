@@ -81,7 +81,7 @@ class AboutClasses < Neo::Koan
 
   def test_you_can_create_accessor_methods_to_return_instance_variables
     fido = Dog3.new
-    fido.name_set('Fido')
+    fido.set_name("Fido")
 
     assert_equal 'Fido', fido.name
   end
