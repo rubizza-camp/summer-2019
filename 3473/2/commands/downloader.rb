@@ -8,10 +8,10 @@ require './commands/util'
 module Downloader
   include Util
 
-  API = 'https://api.telegram.org/file/bot'.freeze
+  API = 'https://api.telegram.org/file/bot'
   CAMP = [53.9149767, 27.5690494].freeze
-  FAR_AWAY = 'You are too far away. Come a little closer and try again'.freeze
-  BAD_PHOTO = 'It looks like the photo didn\'t come out very well. Try again'.freeze
+  FAR_AWAY = 'You are too far away. Come a little closer and try again'
+  BAD_PHOTO = 'It looks like the photo didn\'t come out very well. Try again'
 
   def download_photo
     photo = Down.download file
@@ -23,6 +23,7 @@ module Downloader
   def file
     file_id = payload['photo']
     raise Telegram::Bot::Error, 'Send photo!' unless file_id
+
     file_id = file_id.last['file_id']
     "#{API}#{token}/#{Telegram.bot.get_file(file_id: file_id)['result']['file_path']}"
   end
