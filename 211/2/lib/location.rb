@@ -11,19 +11,28 @@ class LocationHelper
   end
 
   def call(status)
-    save_location(status)
-    @photo ? @photo.save_img(status) : ask_photo
+    create_folder(status)
+
+    begin @photo.save_img(status, @timestamp)
+          save_location(status)
+          REDIS.set("#{@user_id}_status", status.gsub(/s$/, 'ed'))
+          { chat_id: message.chat.id, text: 'Nice to see you in right place' }
+    rescue NoMethodError
+      ask_photo
+    end
+  end
+
+  def create_folder(status)
+    @timestamp = Time.now.getlocal('+03:00').to_i
+    FileUtils.mkdir_p("#{user_id}/#{status}/#{@timestamp}")
   end
 
   def save_location(status)
-    timestamp = Time.now.getlocal('+03:00').to_i
-    puts timestamp
     loc = "#{@latitude}, #{@longitude}"
-    FileUtils.mkdir_p("#{user_id}/#{status}/#{timestamp}")
-    File.write("#{user_id}/#{status}/#{timestamp}/location.txt", loc)
+    File.write("#{user_id}/#{status}/#{@timestamp}/location.txt", loc)
   end
 
   def ask_photo
-    { chat_id: message.chat.id, text: "#{message.from.first_name}, I really want to see you. gimme photo, pls" }
+    { chat_id: message.chat.id, text: 'Need to see your photo first' }
   end
 end

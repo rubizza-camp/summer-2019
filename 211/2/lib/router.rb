@@ -9,14 +9,10 @@ class Router
     @user = User.new(message)
 
     if message_helper.photo?
-      puts 'its a photo'
       @photo = PhotoHelper.new(message, bot, TOKEN, message.from.id)
-      @photo.call(REDIS.get("#{@user.user_id}_status"))
-
+      @photo.call
     elsif message_helper.location?
       LocationHelper.new(bot, message, message.from.id, @photo).call(REDIS.get("#{@user.user_id}_status"))
-
-      { chat_id: message.chat.id, text: 'nice' }
     elsif message_helper
       case message.text
       when '/start'

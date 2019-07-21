@@ -11,7 +11,7 @@ class PhotoHelper
     @message = message
   end
 
-  def call(_status)
+  def call
     image_url
     ask_location
   end
@@ -23,8 +23,7 @@ class PhotoHelper
     @path = "https://api.telegram.org/file/bot#{token}/#{file_path}"
   end
 
-  def save_img(status)
-    timestamp = Time.now.getlocal('+03:00').to_i
+  def save_img(status, timestamp)
     data = RestClient.get(@path).body
     File.write("#{user_id}/#{status}/#{timestamp}/selfie.jpg", data, mode: 'wb')
   end

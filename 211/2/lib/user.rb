@@ -4,6 +4,7 @@ require 'yaml'
 
 class User
   attr_accessor :rubizza_number, :status, :user_id
+
   def initialize(message)
     @message = message
     @user_id = message.chat.id
@@ -22,6 +23,30 @@ class User
     end
   end
 
+  def change_status(message)
+    check_status
+    case message.text
+    when @current
+      return { chat_id: @user_id, text: "you already did your #{@current}" }
+    when '/checkin'
+      @status = 'checkins'
+    when '/checkout'
+      @status = 'chekouts'
+    end
+    REDIS.set("#{@user_id}_status", @status)
+    ask_selfie
+  end
+
+  def check_status
+    current_status = REDIS.get("#{@user_id}_status")
+    @current = case current_status
+               when 'checkined'
+                 '/checkin'
+               when 'checkouted'
+                 '/checkout'
+               end
+  end
+
   def wellcome
     REDIS.set(@message.chat.id, @message.text)
     { chat_id: @message.chat.id, text: "Hi, #{@message.text}. Time to /checkin" }
@@ -29,19 +54,6 @@ class User
 
   def try_again
     { chat_id: @message.chat.id, text: 'Try another number' }
-  end
-
-  def change_status(message)
-    case message.text
-    when '/checkin'
-      return gimme_id unless REDIS.get(message.chat.id)
-
-      @status = 'checkins'
-    when '/checkout'
-      puts @status = 'chekouts'
-    end
-    REDIS.set("#{@user_id}_status", @status)
-    ask_selfie
   end
 
   def gimme_id
