@@ -51,7 +51,7 @@ module DownloadHelpers
 
   def photo_file_path
     path = JSON.parse(URI.open(create_path_request_url).read, symbolize_names: true)
-             .fetch(:result, {}).fetch(:file_path, TelegramException::ERR_MSG)
+               .fetch(:result, {}).fetch(:file_path, TelegramException::ERR_MSG)
     raise TelegramException if path == TelegramException::ERR_MSG
 
     path
