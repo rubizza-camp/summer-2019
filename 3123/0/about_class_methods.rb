@@ -94,9 +94,11 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def self.a_class_method
+    # rubocop:disable Style/ClassMethods
+    def Dog.a_class_method
       :dogs_class_method
     end
+    # rubocop:enable Style/ClassMethods
   end
 
   def test_you_can_define_class_methods_inside_the_class
