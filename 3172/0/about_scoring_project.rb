@@ -33,9 +33,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # :reek:UtilityFunction
 # :reek:UncommunicativeVariableName
 def score(dice)
-  grouped_dices = dice.group_by { |d| d }
-  grouped_dices.transform_values!(&:size)
-
+  grouped_dices = dice.group_by { |d| d }.transform_values(&:size)
   summ_score = 0
   grouped_dices.each do |key, value|
     summ_score += value / 3 * (key == 1 ? 1000 : 100) * key

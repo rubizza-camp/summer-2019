@@ -29,12 +29,21 @@ class Proxy
     @messages.count(method_name)
   end
 
-  # rubocop:disable Style/MethodMissing
+  # :reek:ManualDispatch
   def method_missing(method_name, *args, &block)
-    @messages << method_name
-    @object.send(method_name, *args, &block)
+    if @object.respond_to?(method_name)
+      messages << method_name
+      @object.send(method_name, *args, &block)
+    else
+      super
+    end
   end
-  # rubocop:enable Style/MethodMissing
+
+  # :reek:BooleanParameter
+  # :reek:ManualDispatch
+  def respond_to_missing?(method_name, include_all = false)
+    @object.respond_to?(method_name, include_all) || super
+  end
 end
 
 # The proxy object should pass the following Koan:
