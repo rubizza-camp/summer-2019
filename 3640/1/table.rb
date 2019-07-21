@@ -6,12 +6,16 @@ require 'yaml'
 class Table
   include CreateGemRow
   def self.fetch_table_output(selector)
-    fetcher = new
-    fetcher.fetch_table_output(selector)
+    fetcher = new(selector)
+    fetcher.fetch_table_output
   end
 
-  def fetch_table_output(param)
-    rows = get_requested_gems(param).map { |gem| create_gem_row_terminal_output(gem) }
+  def initialize(selector)
+    @selector = selector
+  end
+
+  def fetch_table_output
+    rows = fetch_requested_gems.map { |gem| create_gem_row_terminal_output(gem) }
     puts Terminal::Table.new(rows: rows)
   end
 
@@ -22,26 +26,24 @@ class Table
     @all_gems ||= AllGemsFetcher.fetch_all_gems(names_all_gems).sort_by(&:rating).reverse
   end
 
-  def get_requested_gems(selector)
-    get_path_file(selector[:file]) if selector.key?(:file)
-    return all_gems if selector.empty?
-    gems_by_name = fetch_gems_by_name(all_gems, selector)
+  def fetch_requested_gems
+    get_path_file(@selector[:file]) if @selector.key?(:file)
+    return all_gems if @selector.empty?
+    gems_by_name = fetch_gems_by_name
     if gems_by_name == []
       puts 'The entered name doesn\'t match the gems in the file gems.yaml'
     else
-      fetch_gems_by_amount(gems_by_name, selector)
+      fetch_gems_by_amount(gems_by_name)
     end
   end
 
-  def fetch_gems_by_amount(all_gems, selector)
-    selector.key?(:top) ? all_gems.first(selector[:top]) : all_gems
+  def fetch_gems_by_amount(gems)
+    @selector.key?(:top) ? gems.first(@selector[:top]) : all_gems
   end
 
-  def fetch_gems_by_name(all_gems, selector)
-    if selector.key?(:name) == true
-      return all_gems.select { |gem| gem.name.include?(selector[:name]) ? gem : next }
-    end
-    all_gems
+  def fetch_gems_by_name
+    return all_gems unless @selector.key?(:name)
+    all_gems.select { |gem| gem if gem.name.include?(@selector[:name]) }
   end
 
   def get_path_file(file_name)

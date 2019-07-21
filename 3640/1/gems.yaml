@@ -1,6 +1,7 @@
 gems:
   - sinatra
+  - rubizza
   - rails
   - nokogiri
   - rspec
-  - octokit
+  - capybara
