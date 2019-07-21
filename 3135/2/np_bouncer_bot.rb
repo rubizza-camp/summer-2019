@@ -2,41 +2,38 @@ require 'telegram/bot'
 require 'redis'
 
 #require 'open-uri'
-#require_relative 'UserData_class'
-require_relative 'User_info_class_set'
-require_relative 'event_handler.rb'
+require_relative 'EventHandler_class'
+require_relative 'UserInfo_class'
+require_relative 'Status_class_set'
 
-redis = Redis.new
-token = '984354340:AAH8gSW85nD8cNX8JXPA5osPrbHYfZWdv6Q'
 
-Telegram::Bot::Client.run(token) do |bot|
+R = Redis.new
+TOKEN = '984354340:AAH8gSW85nD8cNX8JXPA5osPrbHYfZWdv6Q' # should be env variable
+
+Telegram::Bot::Client.run(TOKEN) do |bot|
   bot.listen do |message|
 
-    tg_id = message.from.id
-    user = UserInfo.new(redis, tg_id)
+    event = EventHandler.new(bot, message) 
 
     case message.text
     when '/start'
-      start(bot, message, user)
+      event.start
     when /^\d+$/
-      save_camp_num(bot, message, user)
+      event.camp_num
     when '/checkin'
-      checkin(bot, message, user)
+      event.checkin
     when '/checkout'
-      checkout(bot, message, user)
+      event.checkout
     when '/status'
-      puts user.action.what?
-      puts user.request.what?
-      puts user.present?
-
+      event.status
     else
       case
       when message.photo.any?
-        photo(bot, message, user, token)
+        event.photo
       when message.location 
-        location(bot, message, user)
+        event.location
       else
-        bot.api.send_message(chat_id: message.chat.id, text: 'wrong input (main switch)')  
+        event.send_negative('main switch')  
       end
     end
   end
