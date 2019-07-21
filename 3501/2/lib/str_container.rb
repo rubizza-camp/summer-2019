@@ -10,7 +10,7 @@ class StrContainer
   end
 
   def self.god_luck
-    'Удачи!'
+    'Удачи! '
   end
 
   def self.check_out_help
