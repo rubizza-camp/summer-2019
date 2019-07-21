@@ -14,8 +14,11 @@ module StartCommand
     registration_check(data_redis, number)
   end
 
+  private
+
   def registration(redis, number)
     session[:number] = number
+    session[:checkout?] = true
     redis.set(number, from['id'])
   end
 
