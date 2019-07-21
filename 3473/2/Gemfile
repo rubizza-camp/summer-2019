@@ -1,0 +1,7 @@
+gem 'down'
+gem 'haversine'
+gem 'logger'
+gem 'redis'
+gem 'redis-rails'
+gem 'redis-store'
+gem 'telegram-bot'
