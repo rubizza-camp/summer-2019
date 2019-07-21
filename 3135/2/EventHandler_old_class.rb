@@ -1,22 +1,23 @@
 # Handles all sorts of events =)
-class EventHandler
+class EventHandler2
   def initialize(bot, message)
     @bot = bot
     @message = message
 
     tg_id = @message.from.id
     @user = User.new(tg_id)
-    @save = DataSaver.new(tg_id)
+    #@save = DataSaver.new(@user)
+
   end
 
   # -respond to user
-  def send_message(line)
-    @bot.api.send_message(chat_id: @message.chat.id, text: line)
-  end
+  #def send_message(line)
+  #  @bot.api.send_message(chat_id: @message.chat.id, text: line)
+  #end
 
-  def send_negative(line)
-    @bot.api.send_message(chat_id: @message.chat.id, text: "Unexpected input (#{line.to_str}).")
-  end
+  #def send_negative(line)
+  #  @bot.api.send_message(chat_id: @message.chat.id, text: "Unexpected input (#{line.to_str}).")
+  #end
   # -----------------
 
   def start
@@ -31,7 +32,8 @@ class EventHandler
 
   def camp_num
     if @user.action.registration? && @user.request.camp_num?
-      @save.camp_num(@message.text)
+      camp_num = @message.text
+      @save.camp_num
       @user.give_residency
       @user.presence_init
       @user.action.flush
@@ -62,6 +64,8 @@ class EventHandler
       send_negative(__method__)
     end
   end
+
+  #========================
 
   def photo
     if @user.request.photo?

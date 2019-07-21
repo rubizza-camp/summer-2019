@@ -4,10 +4,12 @@ class User
 
   def initialize(tg_id)
     @id = tg_id
-    @camp_num = R.get("tgid_#{@id}_camp_num")
+    @camp_num = R.get("tgid_#{tg_id}_camp_num")
+    @location = R.get("tgid_#{tg_id}_location")
+    @photo_uri = R.get("tgid_#{tg_id}_photo_uri")
 
-    @action = ActionStatus.new(@id)
-    @request = RequestStatus.new(@id)
+    @action = ActionStatus.new(tg_id)
+    @request = RequestStatus.new(tg_id)
   end
 
   # -residency
@@ -36,13 +38,9 @@ class User
     end
   end
 
-  # -photo uri
-  def photo_uri(uri)
-    R.get("tgid_#{@id}_photo_uri")
-  end
-
-  # -location
-  def location(lat_as_str,long_as_str)
-    R.get("tgid_#{@id}_location")
+  # -status flush
+  def status_flush
+    @action.flush
+    @request.flush
   end
 end
