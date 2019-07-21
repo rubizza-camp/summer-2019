@@ -1,0 +1,7 @@
+gems:
+- rspec-core
+- rspec-rails
+- rspec-support
+- diff-lcs
+- rspec-expectations
+   

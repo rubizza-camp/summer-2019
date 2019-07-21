@@ -31,21 +31,22 @@ class GemStatistics
   end
 
   def parse_gem_dependencies
-    Nokogiri::HTML(URI.open("#{fetch_gem}#{BRANCH_OF_GEM_REPOSITORY}"))
+    @parse_gem_dependencies ||= Nokogiri::HTML(URI.open("#{fetch_gem}#{BRANCH_OF_GEM_REPOSITORY}"))
   end
 
   def fetch_used_by
     used_by =
       parse_gem_dependencies.css('a[class *="btn-link selected"]').text.scan(/[0-9,]+/)
-    gem_info[:used_by] = used_by[0]
+    gem_info[:used_by] = used_by.first
   end
 
   def fetch_watch_star_fork
-    watch_star_fork =
+    watch_star_fork = {}
+    watch_star_fork[:params] =
       parse_github_page.css('a[class *="social-count"]').text.scan(/[0-9,]+/)
-    gem_info[:watch] = watch_star_fork[0]
-    gem_info[:star] = watch_star_fork[1]
-    gem_info[:fork] = watch_star_fork[2]
+    gem_info[:watch] = watch_star_fork[:params][0]
+    gem_info[:star] = watch_star_fork[:params][1]
+    gem_info[:fork] = watch_star_fork[:params][2]
   end
 
   def fetch_issues

@@ -10,10 +10,10 @@ class TopGem
   private
 
   def count_rating(gems)
-    gems.each do |elem|
-      elem[:points] = " #{elem[:star].to_i *
-                          elem[:watch].to_i *
-                          elem[:fork].to_i}  Points"
+    gems.each do |gem_stat|
+      gem_stat[:points] = " #{gem_stat[:star].to_i *
+                              gem_stat[:watch].to_i *
+                              gem_stat[:fork].to_i}  Points"
     end
   end
 end
