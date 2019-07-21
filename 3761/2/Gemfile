@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'redis'
+gem 'redis-activesupport'
+gem 'reek'
+gem 'rubocop'
+gem 'telegram-bot'
