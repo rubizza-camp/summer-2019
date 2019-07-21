@@ -1,10 +1,8 @@
-require 'redis'
-
 class UserData
   attr_reader :id, :camp_num, :location, :photo_uri, :presence_status, :action_status, :request_status
 
-  def initialize(id)
-    @r = Redis.new(host: 'localhost')
+  def initialize(id, redis)
+    @r = redis
     @id = id
     @camp_num = @r.get("tgid_#{@id}_camp_num")
     @photo_uri = @r.get("tgid_#{@id}_photo_uri")
