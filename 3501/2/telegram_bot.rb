@@ -20,7 +20,7 @@ module Telegram
     include CheckoutCommand
     include MessageCommand
     # for debug purposes
-    include ClearCommand
+    # include ClearCommand
 
     private
 
