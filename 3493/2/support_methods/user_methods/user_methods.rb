@@ -1,3 +1,4 @@
+# :reek:ControlParameter:
 class UserMethods
   def self.registered?(id)
     User[id]
