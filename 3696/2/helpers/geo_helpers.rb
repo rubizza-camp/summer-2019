@@ -10,7 +10,7 @@ module GeoHelpers
   include FileHelpers
 
   def ask_for_geo(*)
-    validate_geo(create_path(session[:command]))
+    validate_geo(create_path(session[:command].to_s))
   rescue ParseHashException
     rescue_geo
   rescue TelegramException

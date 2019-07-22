@@ -22,7 +22,7 @@ module Validator
 
   def validate_number(number)
     valid = numbers.include?(number)
-    save_context :register_message unless valid
+    save_context :try_register unless valid
 
     valid
   end

@@ -13,7 +13,7 @@ module PhotoHelpers
 
   def ask_for_photo(*)
     session[:utc] = Time.now.utc
-    validate_face(download_last_photo(create_path(session[:command])))
+    validate_face(download_last_photo(create_path(session[:command].to_s)))
   rescue ParseHashException
     rescue_photo
   rescue TelegramException
