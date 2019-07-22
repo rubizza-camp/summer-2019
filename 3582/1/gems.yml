@@ -1,7 +1,0 @@
-gems:
-  - sinatra
-  - rspec
-  - couchbase
-  - rails
-  - nokogiri
-

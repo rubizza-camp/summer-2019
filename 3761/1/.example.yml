@@ -1,6 +1,0 @@
-gems:
-  - sinatra
-  - rspec-core
-  - rails
-  - rspec
-  - mechanize

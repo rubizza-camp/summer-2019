@@ -1,5 +1,0 @@
-source 'https://rubygems.org'
-
-gem 'mechanize', '~> 2.7'
-gem 'nokogiri', '~> 1.10'
-gem 'terminal-table', '~> 1.8'

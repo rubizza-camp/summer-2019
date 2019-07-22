@@ -1,6 +1,0 @@
-gems:
- - sinatra
- - rspec
- - rubocop
- - rails
- - faraday

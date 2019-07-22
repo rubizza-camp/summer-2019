@@ -1,8 +1,0 @@
-gems:
-  - oj
-  - rspec
-  - bundler
-  - rails
-  - kaminari
-  - rubocop
-  - sinatra

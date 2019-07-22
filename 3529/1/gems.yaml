@@ -1,4 +1,0 @@
-gems:
-  - httparty
-  - octokit
-  - terminal-table

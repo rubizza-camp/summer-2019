@@ -1,7 +1,0 @@
-gems:
-  - rspec
-  - multi_json
-  - rails
-  - pry
-  - rake
-  - bundler

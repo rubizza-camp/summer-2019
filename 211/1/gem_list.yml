@@ -1,8 +1,0 @@
-gems:
- - sinatra
- - rspec
- - rails
- - devise
- - cocoon
- - nokogiri
- - httparty

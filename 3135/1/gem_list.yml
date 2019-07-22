@@ -1,4 +1,0 @@
-gems:
-  - sinatra
-  - rspec-core
-  - bundler

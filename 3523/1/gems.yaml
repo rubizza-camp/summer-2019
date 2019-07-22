@@ -1,5 +1,0 @@
-gems:
- - sinatra
- - rails
- - devise
- - rubocop

@@ -1,6 +1,0 @@
-gems:
- - not-a-gem
- - sinatra
- - rspec
- - rails
-
