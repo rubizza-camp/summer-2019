@@ -1,4 +1,4 @@
-class Number
+class Student
   attr_reader :number, :context
 
   def initialize(number, context)
