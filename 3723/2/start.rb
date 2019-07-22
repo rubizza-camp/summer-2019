@@ -14,7 +14,7 @@ module StartCommand
   def registration(number)
     redis = Redis.new
 
-    if redis.get(number).nil? && Numbers.valid_number?(number.to_i)
+    if Numbers.valid_number?(number.to_i)
       session[:number] = number
       redis.set(number, payload['from']['id'])
       respond_with :message, text: 'Successful registration'
