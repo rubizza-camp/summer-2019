@@ -15,7 +15,7 @@ class Student
   end
 
   def used?
-    context.chat_session.values.any?  { |user| user['number'] == number }
+    context.chat_session.values.any? { |user| user['number'] == number }
   end
 
   def not_used?
