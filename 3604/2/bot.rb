@@ -1,12 +1,13 @@
-# frozen_string_literal: true
-
 require 'telegram/bot'
 require 'logger'
+require 'dotenv'
 require './modules/start_command.rb'
 require './modules/checkin_command.rb'
 require './modules/checkout_command.rb'
 require './modules/delete_command.rb'
-require './modules/helper_with_methods.rb'
+require './modules/photo_uploader.rb'
+require './modules/geo_uploader.rb'
+require './modules/redis_helper'
 
 class WebhooksController < Telegram::Bot::UpdatesController
   Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_592_000 }
@@ -16,8 +17,13 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckinCommand
   include CheckoutCommand
   include DeleteCommand
-  include HelperWithMethods
+  include PhotoUploader
+  include GeoUploader
+  include RedisHelper
 end
+
+Dotenv.load
+TOKEN = ENV['TOKEN']
 
 bot = Telegram::Bot::Client.new(TOKEN)
 
