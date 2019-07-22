@@ -27,7 +27,8 @@ module CheckinCommand
   end
 
   def action_after_photo_sent
-    PhotoManager.new.request_file_path(payload['photo'].last['file_id'], "public/#{find_user}/checkins/#{TIME_NOW}/")
+    PhotoManager.new.request_file_path(payload['photo'].last['file_id'],
+                                       "public/#{find_user}/checkins/#{TIME_NOW}/")
     save_context :checkin!
     respond_with :message, text: 'А ты красивый). Скинь гео, позязя.'
   end

@@ -1,7 +1,7 @@
 class GeoManager
   def self.in_camp?(location)
-    (53.914264..53.916233).include?(location['latitude'].to_f) &&
-      (27.565941..27.571306).include?(location['longitude'].to_f)
+    (53.914264..53.916233).cover?(location['latitude'].to_f) &&
+      (27.565941..27.571306).cover?(location['longitude'].to_f)
     true
   end
 
