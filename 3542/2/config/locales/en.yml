@@ -11,3 +11,4 @@ en:
   geo: 'Send me your geoposition.'
   not_geo: 'It seems, you are not in a camp. Try again.'
   success: 'Success!'
+  

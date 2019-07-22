@@ -24,10 +24,10 @@ class AttachmentSaver
   end
 
   def path
-    @path ||= "public/#{session_key}/#{check}/#{Time.now.strftime '%Y-%m-%d_%H:%M:%S'}"
+    @path ||= "public/#{session_key}/#{check_folder}/#{Time.now.strftime '%Y-%m-%d_%H:%M:%S'}"
   end
 
-  def check
+  def check_folder
     checkin? ? 'checkout' : 'checkin'
   end
 

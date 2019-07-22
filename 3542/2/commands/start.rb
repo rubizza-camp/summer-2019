@@ -1,7 +1,7 @@
 require './validations/validations'
+require './validations/student.rb'
 
 module Start
-  include Validations
   include Validations::Registration
 
   def start!(*)
