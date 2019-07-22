@@ -1,7 +1,10 @@
 require 'fileutils'
+require './validations/validations'
 require_relative 'telegram_file_downloader'
 
 class AttachmentSaver
+  include Validations::CheckinHelper
+
   attr_reader :chat_session, :session_key, :payload
 
   def initialize(chat_session, session_key, payload)
@@ -25,7 +28,7 @@ class AttachmentSaver
   end
 
   def check
-    chat_session[session_key]['checkin'] ? 'checkout' : 'checkin'
+    checkin? ? 'checkout' : 'checkin'
   end
 
   def save(type)

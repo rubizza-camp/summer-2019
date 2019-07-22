@@ -1,4 +1,4 @@
-require './lib/saver'
+require './lib/attachment_saver'
 
 module Confirmation
   def selfie(*)
@@ -15,7 +15,7 @@ module Confirmation
 
   def geo(*)
     if geo?
-      Saver.new(chat_session, session_key, payload).save_files
+      AttachmentSaver.new(chat_session, session_key, payload).save_files
 
       change_checkin
 
