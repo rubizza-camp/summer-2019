@@ -50,7 +50,7 @@ module CheckoutCommand
   end
 
   def request_file_path_checkout(file_id)
-    uri = URI("#{API_URL}bot886244897:AAE8balNKJ7Nukdam2v3AuhiAhxCyRysVBs/getFile?file_id=#{file_id}")
+    uri = URI("#{API_URL}bot#{ENV['TOKEN']}/getFile?file_id=#{file_id}")
     json_response = JSON.parse(Net::HTTP.get(uri))
     load_pic_from_path_checkout(json_response['result']['file_path'])
   end
@@ -62,10 +62,10 @@ module CheckoutCommand
   end
 
   def load_pic_from_path_checkout(file_path)
-    uri = URI("#{API_URL}file/bot886244897:AAE8balNKJ7Nukdam2v3AuhiAhxCyRysVBs/#{file_path}")
+    uri = URI("#{API_URL}file/bot#{ENV['TOKEN']}/#{file_path}")
     DirCreator.dir_create("public/#{from['id']}/checkout/#{TIME_STAMP}")
     photo_new_path = "public/#{from['id']}/checkout/#{TIME_STAMP}/selfie.jpg"
-    File.write(photo_new_path, Kernel.open(uri), mode: 'wb')
+    File.write(photo_new_path, Kernel.open(uri).read, mode: 'wb')
     photo_new_path
   end
 
