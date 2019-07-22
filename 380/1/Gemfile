@@ -1,4 +1,4 @@
-gem 'terminal-table'
-gem 'optparse'
+gem 'gems'
 gem 'nokogiri'
-gem 'Gems'
+gem 'optparse'
+gem 'terminal-table'
