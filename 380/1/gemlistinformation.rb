@@ -1,6 +1,4 @@
 require_relative 'searcher'
-require 'nokogiri'
-require 'octokit'
 
 # return hash with needed information about gems from list
 module GemListInformation

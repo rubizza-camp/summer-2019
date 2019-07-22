@@ -1,4 +1,3 @@
-require 'pry'
 require_relative 'gemlist'
 require_relative 'toptable'
 require_relative 'optionsparser'

@@ -1,3 +1,6 @@
+require 'nokogiri'
+require 'octokit'
+
 # Include methods for searching information about gems
 module Searcher
   def check_token
