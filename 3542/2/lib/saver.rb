@@ -1,5 +1,5 @@
 require 'fileutils'
-require_relative 'parser'
+require_relative 'telegram_file_downloader'
 
 class Saver
   attr_reader :chat_session, :session_key, :payload
@@ -12,8 +12,8 @@ class Saver
 
   def save_files
     make_path
-    save :geoposition, path
-    save :photo, path
+    save :geoposition
+    save :photo
   end
 
   def make_path
@@ -28,11 +28,11 @@ class Saver
     chat_session[session_key]['checkin'] ? 'checkout' : 'checkin'
   end
 
-  def save(type, path)
-    send(type, path)
+  def save(type)
+    send(type)
   end
 
-  def geoposition(path)
+  def geoposition
     FileUtils.touch "#{path}/geo.txt"
 
     File.open(File.expand_path("#{path}/geo.txt"), 'w') do |file|
@@ -41,9 +41,13 @@ class Saver
     end
   end
 
-  def photo(path)
+  def photo
     File.open("#{path}/selfie.jpg", 'wb') do |file|
-      file << Parser.new(chat_session, session_key).download_file
+      file << TelegramFileDownloader.new(file_identifier).download_file
     end
+  end
+
+  def file_identifier
+    chat_session[session_key]['photo'].last['file_id']
   end
 end

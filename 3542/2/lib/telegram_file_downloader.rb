@@ -1,14 +1,13 @@
 require 'httparty'
 
-class Parser
+class TelegramFileDownloader
   API_URI_FOR_FILE_PATH = "https://api.telegram.org/bot#{ENV['BOT_TOKEN']}/getFile".freeze
   API_URI_FOR_DOWNLOADING = "https://api.telegram.org/file/bot#{ENV['BOT_TOKEN']}".freeze
 
-  attr_reader :chat_session, :session_key
+  attr_reader :file_identifier
 
-  def initialize(chat_session, session_key)
-    @chat_session = chat_session
-    @session_key = session_key
+  def initialize(file_identifier)
+    @file_identifier = file_identifier
   end
 
   def download_file
@@ -21,9 +20,5 @@ class Parser
 
   def telegram_api_response
     HTTParty.get(API_URI_FOR_FILE_PATH, query: { file_id: file_identifier }).to_h
-  end
-
-  def file_identifier
-    chat_session[session_key]['photo'].last['file_id']
   end
 end
