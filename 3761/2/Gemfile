@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'haversine'
 gem 'redis'
 gem 'redis-activesupport'
 gem 'reek'

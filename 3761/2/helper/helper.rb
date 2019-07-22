@@ -1,4 +1,7 @@
-module RedisHelper
+module Helper
+  Dotenv.load
+  TOKEN = ENV['TOKEN']
+
   def redis
     @redis ||= Redis.new
   end

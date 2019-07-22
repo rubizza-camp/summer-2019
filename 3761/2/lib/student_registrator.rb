@@ -1,7 +1,7 @@
-require './helper/redis_helper.rb'
+require './helper/helper.rb'
 
 class StudentRegistrator
-  include RedisHelper
+  include Helper
 
   FILE_NAME = './data/student.txt'.freeze
 

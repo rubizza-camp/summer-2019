@@ -2,7 +2,7 @@ module CheckoutCommand
   def checkout!(*)
     return respond_unreg unless student_registered?(student_number)
 
-    return respond_uncheckin unless session[:status] == 'checkin'
+    return respond_uncheckin unless session[:status] == :checkin
 
     respond_with :message, text: 'Send me selfie'
     save_context :checkout_photo_from_message
@@ -18,7 +18,7 @@ module CheckoutCommand
   end
 
   def checkout_geo_from_message(*)
-    session[:status] = 'checkout'
+    session[:status] = :checkout
     response = GeolocationLoader.call(payload, session[:time_checkout], 'checkouts')
     respond_with :message, text: response[:message]
     return respond_with :message, text: response_next if response[:status]

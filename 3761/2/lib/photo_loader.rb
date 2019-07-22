@@ -1,10 +1,7 @@
-require './helper/redis_helper.rb'
+require './helper/helper.rb'
 
 class PhotoLoader
-  include RedisHelper
-
-  Dotenv.load
-  TOKEN = ENV['TOKEN']
+  include Helper
 
   BOT_API_URL = "https://api.telegram.org/bot#{TOKEN}/".freeze
   BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
@@ -24,11 +21,9 @@ class PhotoLoader
 
   def call
     download_last_photo
-    response = 'Great!!! But... I don\'t believe you. Send me your geolocation'
-    { status: true, message: response }
+    response_successfull
   rescue NoMethodError
-    response = 'Are you sure that it is photo???'
-    { status: false, message: response }
+    response_no_photo
   end
 
   private
@@ -48,5 +43,15 @@ class PhotoLoader
 
   def help_path
     path(status, time)
+  end
+
+  def response_successfull
+    response = 'Great!!! But... I don\'t believe you. Send me your geolocation'
+    { status: true, message: response }
+  end
+
+  def response_no_photo
+    response = 'Are you sure that it is photo???'
+    { status: false, message: response }
   end
 end

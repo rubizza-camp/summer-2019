@@ -3,7 +3,7 @@ require 'redis'
 require 'fileutils'
 require 'date'
 require 'dotenv'
-require './helper/redis_helper.rb'
+require './helper/helper.rb'
 
 Dir[File.join(__dir__, 'command', '*_command.rb')].each { |file| require file }
 Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
@@ -11,7 +11,7 @@ Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
 class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::Session
   include Telegram::Bot::UpdatesController::MessageContext
-  include RedisHelper
+  include Helper
   include StartCommand
   include DeleteCommand
   include CheckinCommand
