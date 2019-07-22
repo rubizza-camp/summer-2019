@@ -8,7 +8,7 @@ REDIS = Redis.new
 
 Telegram::Bot::Client.run(TOKEN) do |bot|
   bot.listen do |message|
-    response = Router.evaluate(message, bot)
+    response = Router.resolve(message, bot)
     bot.api.send_message(response)
   end
 end

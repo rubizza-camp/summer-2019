@@ -4,30 +4,37 @@ require_relative './location.rb'
 require_relative './user.rb'
 
 class Router
-  def self.evaluate(message, bot)
-    message_helper = MessageHelper.new(bot, message)
-    @user = User.new(message)
-
+  def self.resolve(message, bot)
+    user = User.new(message)
+    message_helper = MessageHelper.new(bot, message, user)
+    status = REDIS.get("#{message.from.id}_status")
+    state = REDIS.get("#{message.from.id}_state")
+    puts message
     if message_helper.photo?
-      @photo = PhotoHelper.new(message, bot, TOKEN, message.from.id)
-      @photo.call
+      create_photo(message, state, status, bot, user)
     elsif message_helper.location?
-      LocationHelper.new(bot, message, @photo).call(REDIS.get("#{@user.user_id}_status"))
+      create_location(message, state, status, bot, user)
     elsif message_helper
-      case message.text
-      when '/start'
-        @user.check_registration
-      when '/checkin'
-        @user.change_status(message)
-      when '/checkout'
-        @user.change_status(message)
-      when '/help'
-        message_helper.help
-      when /\d/
-        @user.registration(message.text.to_i)
-      else
-        message_helper.ask_something
-      end
+      user.answer_to_request
+    end
+  end
+
+  def self.create_photo(message, state, status, bot, _user)
+    if state == 'waiting for photo'
+      @timestamp = Time.now.getlocal('+03:00').to_i
+      @photo = PhotoHelper.new(message, bot, TOKEN)
+      @photo.call(status, @timestamp)
+    else
+      { chat_id: message.chat.id, text: "Nope. don't need your photo" }
+    end
+  end
+
+  def self.create_location(message, state, status, bot, _user)
+    if state == 'waiting for location'
+      @location = LocationHelper.new(bot, message, @photo)
+      @location.call(status)
+    else
+      { chat_id: message.chat.id, text: "Nope. don't need your location" }
     end
   end
 end

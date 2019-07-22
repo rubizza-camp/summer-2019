@@ -3,9 +3,10 @@ class MessageHelper
 
   attr_reader :bot, :message
 
-  def initialize(bot, message)
+  def initialize(bot, message, user)
     @bot = bot
     @message = message
+    @user = user
   end
 
   def photo?
