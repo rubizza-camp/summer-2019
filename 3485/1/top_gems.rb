@@ -6,7 +6,7 @@ require_relative 'runtable.rb'
 require 'yaml'
 require 'optparse'
 
-class ShowTopgemsTable
+class TopGems
   include Table
   def initialize
     parameters = {}

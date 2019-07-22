@@ -1,13 +1,13 @@
 require_relative 'table.rb'
 require_relative 'parse_gem_stats.rb'
-require_relative 'topgems.rb'
+require_relative 'top_gems.rb'
 
-class TopGems
+class RunTable
   class << self
     def run
-      ShowTopgemsTable.new
+      TopGems.new
     end
   end
 end
 
-TopGems.run
+RunTable.run
