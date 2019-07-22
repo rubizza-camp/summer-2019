@@ -5,20 +5,20 @@ require 'json'
 
 # :nodoc:
 module DownloadHelper
-  PATH_LINK = "https://api.telegram.org/bot#{ENV['TOKEN']}/getFile?file_id="
-  PHOTO_LINK = "https://api.telegram.org/file/bot#{ENV['TOKEN']}/"
+  PATH_LINK="https://api.telegram.org/bot#{ENV['TOKEN']}/getFile?file_id="
+  PHOTO_LINK="https://api.telegram.org/file/bot#{ENV['TOKEN']}/"
 
-  # rubocop:disable Metrics/LineLength
   def photo_file_path
-    p "#{PATH_LINK}#{payload['photo'].last['file_id']}"
-    JSON.parse(URI.open("#{PATH_LINK}#{payload['photo'].last['file_id']}").read)['result']['file_path']
+    JSON.parse(photo_uri)['result']['file_path']
   end
-  # rubocop:enable Metrics/LineLength
+
+  def photo_uri
+    URI.open("#{PATH_LINK}#{payload['photo'].last['file_id']}").read
+  end
 
   def download_photo(dir_path)
-    p photo_file_path
     File.open(dir_path + 'selfie.jpg', 'wb') do |file|
-      file << URI.open("https://api.telegram.org/file/bot#{ENV['TOKEN']}/#{photo_file_path}").read
+      file << URI.open("#{PHOTO_LINK}#{photo_file_path}").read
     end
   end
 

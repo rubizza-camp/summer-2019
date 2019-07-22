@@ -26,9 +26,7 @@ module CheckNumber
     check_registaration(redis, number.first.to_i)
   end
 
-  # :reek:TooManyStatements
   def check_registaration(redis, number)
-    p redis.get(number)
     if redis.get(number) || session.key?(:number)
       'You have already registred'
     else
