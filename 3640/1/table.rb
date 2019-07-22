@@ -10,6 +10,7 @@ class Table
 
   def initialize(selector)
     @selector = selector
+    @gems_file_name = 'gems.yaml'
   end
 
   def fetch_table_output
@@ -28,16 +29,16 @@ class Table
   private
 
   def all_gems
-    names_all_gems = YAML.load_file('gems.yaml')['gems']
+    names_all_gems = YAML.load_file(@gems_file_name)['gems']
     @all_gems ||= AllGemsFetcher.fetch_all_gems(names_all_gems).sort_by(&:rating).reverse
   end
 
   def fetch_requested_gems
-    get_path_file(@selector[:file]) if @selector.key?(:file)
+    print_path_file(@selector[:file]) if @selector.key?(:file)
     return all_gems if @selector.empty?
     gems_by_name = fetch_gems_by_name
     if gems_by_name == []
-      puts 'The entered name doesn\'t match the gems in the file gems.yaml'
+      puts "The entered name doesn't match the gems in the file gems.yaml"
     else
       fetch_gems_by_amount(gems_by_name)
     end
@@ -49,14 +50,15 @@ class Table
 
   def fetch_gems_by_name
     return all_gems unless @selector.key?(:name)
-    all_gems.select { |gem| gem if gem.name.include?(@selector[:name]) }
+    all_gems.select { |gem| gem.name.include?(@selector[:name]) }
   end
 
-  def get_path_file(file_name)
-    if file_name == 'gems.yaml'
+  def print_path_file(file_name)
+    return nil unless @selector.key?(:file)
+    if File.exist?(file_name)
       puts "Path to directory of gems list is:\n#{Dir.pwd}/#{file_name}"
     else
-      puts 'Invalid file name entered'
+      puts 'Entered file does not exist'
     end
   end
 end

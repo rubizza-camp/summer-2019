@@ -11,15 +11,10 @@ class Scraper
                                issues: :open_issues_count,
                                watch: :subscribers_count }.freeze
 
-  HAS_NO_GEM = 'github.com has no gem: '.freeze
-  ENTER_VALID_TOKEN = 'Please enter valid Personal Auth Token'.freeze
-  ENTER_PERSONAL_TOKEN = 'Enter your Github Personal Access Token:'.freeze
-
   def self.fetch_gem_parameters(gems_names)
     fetcher = new
     fetcher.client_login
     fetcher.all_gems_info(gems_names)
-    fetcher.all_gems
   end
 
   attr_reader :all_gems
@@ -33,8 +28,7 @@ class Scraper
   end
 
   def parse_error
-    puts ENTER_VALID_TOKEN
-    fetch_client
+    puts 'Please enter valid Personal Auth Token'
     @client = fetch_client
     client_login
   end
@@ -46,13 +40,17 @@ class Scraper
   end
 
   def token
-    puts ENTER_PERSONAL_TOKEN
+    puts 'Enter your Github Personal Access Token:'
     gets.chomp
   end
 
   def all_gems_info(gems_names)
     @all_gems = gems_names.map do |name_gem|
-      gem_info(name_gem) ? GemResource.new(name_gem, @gem_parameters) : puts(HAS_NO_GEM + name_gem)
+      if gem_info(name_gem)
+        GemResource.new(name_gem, @gem_parameters)
+      else
+        puts('github.com has no gem: ' + name_gem)
+      end
     end
     all_gems.compact!
   end
@@ -65,21 +63,17 @@ class Scraper
 
   def gem_info(gem)
     @path = gem_info_source_code_homepage(gem)
-    fetch_gem_properties if @path.include?('://github.com')
-  end
-
-  def fetch_gem_properties
+    return nil unless @path.include?('://github.com')
     @path.sub!(%r{http.*com/}, '')
-    repo = repository
-    gem_properties(repo)
+    search_gem_parameters(repository)
   end
 
   def contributors_count
-    contributors.css('span.num.text-emphasized').children[2].text
+    contributors.css('span.num.text-emphasized').children[2].text.to_i
   end
 
   def used_by_count
-    dependents.css('.btn-link')[1].text.delete('^0-9')
+    dependents.css('.btn-link')[1].text.delete('^0-9').to_i
   end
 
   def contributors
@@ -94,11 +88,11 @@ class Scraper
     client.repo(@path)
   end
 
-  def gem_properties(repo)
+  def search_gem_parameters(repository)
     @gem_parameters = {}
-    GEM_PARAMETERS_KEY_VALUE.each { |key, value| @gem_parameters[key] = repo[value].to_i }
-    @gem_parameters[:contributors] = contributors_count.to_i
-    @gem_parameters[:used_by] = used_by_count.to_i
+    GEM_PARAMETERS_KEY_VALUE.each { |key, value| @gem_parameters[key] = repository[value].to_i }
+    @gem_parameters[:contributors] = contributors_count
+    @gem_parameters[:used_by] = used_by_count
     @gem_parameters
   end
 end
