@@ -11,10 +11,7 @@ class Student
   end
 
   def exist?
-    File.open('data/numbers.txt').each do |file_number|
-      return true if number == file_number.gsub(/[^0-9]/, '')
-    end
-    false
+    File.open('data/numbers.txt').any? { |file_number| file_number.gsub(/[^0-9]/, '') == number }
   end
 
   def used?
