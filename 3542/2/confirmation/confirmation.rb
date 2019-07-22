@@ -1,4 +1,4 @@
-require './saver/saver'
+require './lib/saver'
 
 module Confirmation
   def selfie(*)

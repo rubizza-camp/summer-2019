@@ -1,4 +1,4 @@
-require './number/number'
+require_relative 'number'
 require_relative 'registration.rb'
 require_relative 'selfie.rb'
 require_relative 'geo.rb'

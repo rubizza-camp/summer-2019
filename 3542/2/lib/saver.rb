@@ -1,5 +1,5 @@
 require 'fileutils'
-require './parser/parser'
+require_relative 'parser'
 
 class Saver
   attr_reader :chat_session, :session_key, :payload
