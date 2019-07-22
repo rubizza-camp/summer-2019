@@ -1,5 +1,6 @@
 require_relative 'utils_module'
 
+# This is a main switch that checks input and routs events
 class EventHandler
   attr_reader :user, :bot, :message
 
@@ -13,6 +14,10 @@ class EventHandler
     @user = User.new(message.from.id)
   end
 
+  # this method is a disaster(
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
+  # :reek:DuplicateMethodCall:reek:TooManyStatements:
   def call
     case message.text
     when '/start'
@@ -23,7 +28,7 @@ class EventHandler
       end
     when /^\d+$/
       if user.action.registration? && user.request.camp_num?
-        Registration.camp_num(user, message.text)    
+        Registration.camp_num(user, message.text)
       else
         'unexpected input (/^\d+$/)'
       end
@@ -47,16 +52,15 @@ class EventHandler
       puts user.photo_uri
       '/status'
     else
-      case
-      when message.photo.any?
+      if message.photo.any?
         if user.request.photo?
           Reception.photo(user, Utils.construct_photo_uri(message, bot))
         else
           'unexpected input (photo)'
         end
-      when message.location
+      elsif message.location
         if user.request.location?
-          Reception.location(user, Utils.construct_location(message))
+          Reception.location(user, Utils.construct_location(message.location))
         else
           'unexpected input (photo)'
         end
@@ -65,4 +69,6 @@ class EventHandler
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 end

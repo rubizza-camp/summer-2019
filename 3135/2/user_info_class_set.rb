@@ -1,4 +1,5 @@
 # User class provides access to user info and manages immediate properties
+#:reek:TooManyInstanceVariables
 class User
   attr_reader :id, :camp_num, :location, :photo_uri, :action, :request, :save
 
@@ -32,7 +33,7 @@ class User
   end
 
   def presence_switch
-    if present? 
+    if present?
       R.set("tgid_#{id}_presence", 'offsite')
     else
       R.set("tgid_#{id}_presence", 'onsite')

@@ -1,3 +1,4 @@
+# Registration module process registration event
 module Registration
   def self.start(user)
     user.action.registration
@@ -14,13 +15,15 @@ module Registration
   end
 end
 
+# Registration module process checkin/checkout event
 module Reception
   def self.checkin(user)
     user.action.checkin
     user.request.photo
-    "Checkin initiated. Step 1: Send photo."
+    'Checkin initiated. Step 1: Send photo.'
   end
 
+  # :reek:DuplicateMethodCall:
   def self.checkout(user)
     user.action.checkout
     user.request.photo
