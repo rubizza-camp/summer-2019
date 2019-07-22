@@ -14,7 +14,7 @@ require_relative './commands/checkout_command/checkout.rb'
 require_relative './lib/dir_creator.rb'
 require_relative './lib/webhook_controller.rb'
 Dotenv.load
-Ohm.redis = Redic.new('redis://127.0.0.1:6379')
+Ohm.redis = Redic.new(ENV['LINK'])
 Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.year }
 
 TOKEN = ENV['TOKEN'].freeze

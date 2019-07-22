@@ -1,6 +1,6 @@
 module CheckinCommand
   TIME_STAMP = Time.now.strftime('%d/%m/%Y %H:%M').tr('/', '.')
-  API_URL = 'https://api.telegram.org/'.freeze
+  API_URL = ENV['URL_API'].freeze
   def checkin!(*)
     check_sign_up
   end
