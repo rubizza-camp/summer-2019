@@ -1,4 +1,5 @@
 require 'telegram/bot'
+require 'logger'
 require 'redis'
 require 'active_support/all'
 require 'fileutils'
@@ -6,58 +7,34 @@ require 'open-uri'
 require 'json'
 require 'time'
 require 'yaml'
-require_relative 'commands/start_command'
-require_relative 'commands/checkin_command'
-require_relative 'commands/checkout_command'
-require_relative 'data_check'
 require_relative 'file_accessor'
+require_relative 'webhooks_controller'
+require_relative 'path_generator'
 
-class WebhooksController < Telegram::Bot::UpdatesController
-  include Telegram::Bot::UpdatesController::MessageContext
-  include StartCommand
-  include CheckinCommand
-  include CheckoutCommand
-
-  def initialize(*)
-    super
-    Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.month }
-  end
-
-  def notify(msg)
-    respond_with :message, text: msg
-  end
-
-  def notify_with_reference(msg)
-    reply_with :message, text: msg
-  end
-
-  def send_sticker(sticker_id)
-    respond_with :sticker, sticker: sticker_id
-  end
-
-  def registered?
-    return true if session.key?(:number)
-    false
-  end
-
-  def checkin?
-    return true if session[:checkin?]
-    respond_with :message, text: 'You got to checkin first'
-    false
-  end
-
-  def checkout?
-    return true if session[:checkout?]
-    false
-  end
-end
+MSG = {
+  success_registration: 'Registration done',
+  failure: 'There is no such number in my list',
+  already_registered: 'No need to register again',
+  number_request: 'Hello! Tell me your Number',
+  not_registered: "You got to register first.
+    This will be easy, just type in /start command and I'll check your number in list",
+  not_checkout: 'You need to /checkout from current shift
+    before you can /checkin in a new one',
+  success_check_start: 'Show me yourself first',
+  success_checkin_end: 'Your shift have successfully begun',
+  not_checkin: 'You need to /checkin first',
+  success_checkout_end: 'I hope you worked well today. Have a nice day',
+  farewell_sticker: 'CAADAgADJgADwnaQBi5vOvKDgdd8Ag',
+  photo_check_success: 'Good. Now i need your geolocation',
+  photo_check_failure: "I don't see a photo here",
+  geo_check_failure: "I don't see you in place"
+}.freeze
 
 TOKEN = ENV['BOT_TOKEN']
 
 bot = Telegram::Bot::Client.new(TOKEN)
-
-require 'logger'
-
+controller = WebhooksController
 logger = Logger.new(STDOUT)
-poller = Telegram::Bot::UpdatesPoller.new(bot, WebhooksController, logger: logger)
+
+poller = Telegram::Bot::UpdatesPoller.new(bot, controller, logger: logger)
 poller.start

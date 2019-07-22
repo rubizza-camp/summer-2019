@@ -1,35 +1,15 @@
-require_relative 'validators/geo_validator'
-require_relative 'validators/photo_validator'
-require_relative 'saver'
-
 module DataCheck
-  include GeoValidator
-  include PhotoValidator
-  include Saver
-
-  MSG = {
-    photo_check_success: 'Good. Now i need your geolocation',
-    photo_check_failure: "I don't see a photo here",
-    geo_check_failure: "I don't see you in place"
-  }.freeze
+  ALLOWED_LATITUDE = 53.914260..53.916240
+  ALLOWED_LONGITUDE = 27.565940..27.571310
 
   def photo_check(*)
-    if photo?
-      proceed_to_geo_check
-      notify(MSG[:photo_check_success])
-    else
-      stay_in_photo_check
-      notify_with_reference(MSG[:photo_check_failure])
-    end
+    proceed_to_geo_check if photo?
+    stay_in_photo_check unless photo?
   end
 
   def geo_check(*)
-    if geo?
-      proceed_to_command_ending
-    else
-      stay_in_geo_check
-      notify([:geo_check_failure])
-    end
+    proceed_to_command_ending if geo?
+    stay_in_geo_check unless geo?
   end
 
   private
@@ -37,6 +17,7 @@ module DataCheck
   def proceed_to_geo_check
     photo_save
     save_context :geo_check
+    notify(:photo_check_success)
   end
 
   def proceed_to_command_ending
@@ -48,9 +29,47 @@ module DataCheck
 
   def stay_in_photo_check
     save_context :photo_check
+    notify_with_reference(:photo_check_failure)
   end
 
   def stay_in_geo_check
     save_context :geo_check
+    notify(:geo_check_failure)
+  end
+
+  def geo?
+    return false unless payload['location']
+    latitude? && longitude?
+  end
+
+  def latitude?
+    ALLOWED_LATITUDE.cover? payload['location']['latitude']
+  end
+
+  def longitude?
+    ALLOWED_LONGITUDE.cover? payload['location']['longitude']
+  end
+
+  def photo?
+    payload['photo']
+  end
+
+  def path
+    path = PathGenerator.new(session, payload).save_path
+    FileUtils.mkdir_p(path) unless File.exist?(path)
+
+    path
+  end
+
+  def photo_save
+    File.open(path + 'photo.jpg', 'wb') do |file|
+      file << URI.open(PathGenerator.new(session, payload).download_path).read
+    end
+  end
+
+  def geo_save
+    File.open(path + 'geo.txt', 'wb') do |file|
+      file << payload['location'].inspect
+    end
   end
 end
