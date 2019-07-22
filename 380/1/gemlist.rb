@@ -28,7 +28,8 @@ class GemList
   end
 
   def rubygems_response(gem)
-    if Gems.info(gem).any?
+    info = Gems.info(gem)
+    if info.empty?
       puts "No information about <#{gem}> on rubygems."
     else
       info

@@ -1,6 +1,7 @@
 require_relative 'gemlist'
 require_relative 'toptable'
 require_relative 'optionsparser'
+require 'optparse'
 
 # rubizza is no surrender!
 class TopGems

@@ -8,8 +8,7 @@ module GemListInformation
     client = check_token
     gem_list.map! do |gem|
       gem_info = search_info(gem, client)
-      result_from(gem_info) if gem_info
-      gem_list.delete(gem)
+      gem_info ? result_from(gem_info) : gem_list.delete(gem)
     end
   end
 
