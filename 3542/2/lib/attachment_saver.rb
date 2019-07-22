@@ -1,7 +1,7 @@
 require 'fileutils'
 require_relative 'telegram_file_downloader'
 
-class Saver
+class AttachmentSaver
   attr_reader :chat_session, :session_key, :payload
 
   def initialize(chat_session, session_key, payload)
