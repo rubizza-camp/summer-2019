@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'redis'
-require 'yaml'
 require_relative '../helpers/base_command_helpers'
 
 module StartCommand
@@ -24,17 +22,18 @@ module StartCommand
     rescue_telegram
   end
 
+  def create_redis
+    reversed_redis
+  end
+
   private
 
-  DATA_PATH = './data/numbers.yaml'
-  NUMBERS_LIST_KEY = 'numbers'
-
   def numbers
-    @numbers ||= YAML.load_file(DATA_PATH).fetch(NUMBERS_LIST_KEY, []).map(&:to_i)
+    @numbers ||= self.class.numbers
   end
 
   def reversed_redis
-    @reversed_redis ||= Redis.new
+    @reversed_redis ||= self.class.redis
   end
 
   def write_session_register(number = nil, *)
