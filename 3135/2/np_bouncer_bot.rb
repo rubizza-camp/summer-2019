@@ -3,10 +3,9 @@ require 'redis'
 
 #require 'open-uri'
 require_relative 'user_info_class_set'
-require_relative 'status_class_set'
-require_relative 'data_saver_class'
-require_relative 'event_handler'
-require_relative 'modules'
+require_relative 'event_handler_class'
+require_relative 'event_processing_modules'
+require_relative 'utils_module'
 
 
 R = Redis.new
