@@ -1,4 +1,4 @@
-module Validation
+module Validations
   module CheckinHelper
     def checkin?
       chat_session[session_key]['checkin']

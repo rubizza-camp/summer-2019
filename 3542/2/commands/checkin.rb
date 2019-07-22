@@ -1,11 +1,11 @@
-require './validations/validation'
+require './validations/validations'
 require './confirmation/confirmation'
 
 module Checkin
-  include Validation::Registration
-  include Validation::CheckinHelper
-  include Validation::Selfie
-  include Validation::Geo
+  include Validations::Registration
+  include Validations::CheckinHelper
+  include Validations::Selfie
+  include Validations::Geo
   include Confirmation
 
   def checkin!(*)

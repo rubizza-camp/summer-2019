@@ -1,4 +1,4 @@
-module Validation
+module Validations
   module Selfie
     def selfie?
       payload['photo']

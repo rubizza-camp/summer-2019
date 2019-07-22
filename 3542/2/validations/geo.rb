@@ -1,4 +1,4 @@
-module Validation
+module Validations
   module Geo
     VALID_LATITUDE = 53.914264..53.916233
     VALID_LONGITUDE = 27.565941..27.571306

@@ -1,8 +1,8 @@
-require './validations/validation'
+require './validations/validations'
 
 module Start
-  include Validation
-  include Validation::Registration
+  include Validations
+  include Validations::Registration
 
   def start!(*)
     if registered?

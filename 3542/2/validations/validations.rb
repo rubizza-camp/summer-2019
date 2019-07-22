@@ -4,5 +4,5 @@ require_relative 'selfie.rb'
 require_relative 'geo.rb'
 require_relative 'checkin_helper.rb'
 
-module Validation
+module Validations
 end
