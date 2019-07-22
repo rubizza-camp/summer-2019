@@ -1,18 +1,27 @@
 require 'telegram/bot'
+require 'redis'
+require 'logger'
+require 'byebug'
+require 'pry'
+require 'active_support/time'
 require_relative 'commands/start'
 require_relative 'commands/check_in'
+require_relative 'commands/check_out'
 
 class WebhooksController < Telegram::Bot::UpdatesController
-  extend StartCommand
-  extend CheckInCommand
+  include Telegram::Bot::UpdatesController::MessageContext
+  include Telegram::Bot::UpdatesController::Session
+  include StartCommand
+  include CheckInCommand
+  include CheckOutCommand
+
+  self.session_store = :redis_store, { expires_in: 1.month }
 end
 
-TOKEN = '947084823:AAHdYR3Rkz_J1Ne2q4iTnRnRd5PPYTjPp-M'
+TOKEN = ENV['TELEGRAM_BOT_TOKEN']
 bot = Telegram::Bot::Client.new(TOKEN)
 
 # poller-mode
-require 'logger'
 logger = Logger.new(STDOUT)
 poller = Telegram::Bot::UpdatesPoller.new(bot, WebhooksController, logger: logger)
 poller.start
-
