@@ -1,36 +1,23 @@
-module StartCommand
-  def start!(*)
-    if registered?
-      respond_with :message, text: 'No need to register again'
-      return
-    end
-    respond_with :message, text: 'Hello!'
-    save_context :number_check
-    respond_with :message, text: 'Tell me your Number'
-  end
+require_relative '../registration'
 
-  def number_check(number = nil, *)
-    data_redis = Redis.new
-    registration_check(data_redis, number)
+module StartCommand
+  include Registration
+
+  MSG = {
+    already_registered: 'No need to register again',
+    number_request: 'Hello! Tell me your Number'
+  }.freeze
+
+  def start!(*)
+    notify(MSG[:already_registered]) && return if registered?
+
+    process_registration
+    notify(MSG[:number_request])
   end
 
   private
 
-  def registration(redis, number)
-    session[:number] = number
-    session[:checkout?] = true
-    redis.set(number, from['id'])
-  end
-
-  def registration_check(redis, number)
-    if redis.get(number) && session.key?(:number)
-      respond_with :message, text: "Greetings #{number}!"
-    elsif FileAccessor.personal_numbers.include? number
-      registration(redis, number)
-      respond_with :message, text: 'Registration done!'
-    else
-      respond_with :message, text: 'Nope, there is no such number in my list'
-      respond_with :message, text: "Shame, i can't let you in"
-    end
+  def process_registration
+    save_context :number_check
   end
 end

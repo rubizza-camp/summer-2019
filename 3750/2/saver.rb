@@ -1,4 +1,8 @@
+require_relative 'path_generator'
+
 module Saver
+  include PathGenerator
+
   def path
     path = save_path(session[:timestamp])
     FileUtils.mkdir_p(path) unless File.exist?(path)
