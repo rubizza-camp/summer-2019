@@ -10,7 +10,6 @@ module GemListInformation
       gem_info = search_info(gem, client)
       result_from(gem_info) if gem_info
       gem_list.delete(gem)
-      end
     end
   end
 
