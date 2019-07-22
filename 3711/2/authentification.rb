@@ -2,12 +2,10 @@
 
 require_relative 'scanners/yml'
 
-# some info
 module Authentification
   include YamlScanner
 
   def registered?
-    # session.delete(:student_id) # delete it later
     session.key?(:student_id)
   end
 
@@ -22,7 +20,8 @@ module Authentification
       update_session(student_id)
       respond_with :message, text: "You are authorised, number #{student_id}!"
     else
-      respond_with :message, text: "I don't know who you are and what you want from me..."
+      respond_with :message, text: "I don't know a student with such ID."
+      respond_with :message, text: 'Use /start command to try again.'
     end
   end
 

@@ -2,7 +2,6 @@
 
 require_relative '../authentification'
 
-# top-level module documentation comment
 module StartCommand
   include Authentification
 
@@ -15,6 +14,6 @@ module StartCommand
   private
 
   def help
-    respond_with :message, text: '```here will be help text with list of commands```'
+    respond_with :message, text: 'You can use /checkin and /checkout commands'
   end
 end

@@ -5,7 +5,6 @@ require './commands/start'
 require './commands/checkin'
 require './commands/checkout'
 
-# TOKEN = '984456161:AAFfF7jgKPNnZJ51auOVe1uVv_-6gxmifCs'
 class WebhooksController < Telegram::Bot::UpdatesController
   include StartCommand
   include CheckInCommand
@@ -19,8 +18,8 @@ class WebhooksController < Telegram::Bot::UpdatesController
 end
 
 bot_token = ENV['BOT_TOKEN']
+abort('Add "BOT_TOKEN" to environment to make bot alive!') unless bot_token
 bot = Telegram::Bot::Client.new(bot_token)
-# Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 3600 }
 
 # poller-mode
 require 'logger'

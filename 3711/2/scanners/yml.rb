@@ -6,7 +6,7 @@ require 'yaml'
 module YamlScanner
   def students_id
     YAML.load_file('data/student_id.yml')['id']
-  rescue Errno::ENOENT => e
-    abort(e.message)
+  rescue Errno::ENOENT => err
+    abort(err.message)
   end
 end
