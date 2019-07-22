@@ -21,4 +21,3 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include LogoutCommand
   include Telegram::Bot::UpdatesController::MessageContext
 end
-
