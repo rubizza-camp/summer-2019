@@ -1,0 +1,4 @@
+gem 'gems'
+gem 'nokogiri'
+gem 'optparse'
+gem 'terminal-table'
