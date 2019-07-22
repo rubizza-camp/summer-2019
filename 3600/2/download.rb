@@ -5,8 +5,8 @@ require 'json'
 
 # :nodoc:
 module DownloadHelper
-  PATH_LINK="https://api.telegram.org/bot#{ENV['TOKEN']}/getFile?file_id="
-  PHOTO_LINK="https://api.telegram.org/file/bot#{ENV['TOKEN']}/"
+  PATH_LINK = "https://api.telegram.org/bot#{ENV['TOKEN']}/getFile?file_id="
+  PHOTO_LINK = "https://api.telegram.org/file/bot#{ENV['TOKEN']}/"
 
   def photo_file_path
     JSON.parse(photo_uri)['result']['file_path']
