@@ -13,7 +13,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckinCommand
   include CheckoutCommand
 
-  self.session_store = :redis_store, {expires_in: 1.hour}
+  self.session_store = :redis_store, { expires_in: 1.hour }
 
   private
 

@@ -13,7 +13,7 @@ module CheckinCommand
     end
   end
 
-  def pic(*context)
+  def pic(*_context)
     if payload['photo']
       checkin_time
       save_context :geo
@@ -24,7 +24,7 @@ module CheckinCommand
     end
   end
 
-  def geo(*context)
+  def geo(*_context)
     if payload['location']
       take_location(check_in)
       respond_with :message, text: 'Good day to ya'

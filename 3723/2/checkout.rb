@@ -13,7 +13,7 @@ module CheckoutCommand
     end
   end
 
-  def pic_out(*context)
+  def pic_out(*_context)
     if payload['photo']
       checkout_time
       save_context :geo_out
@@ -24,7 +24,7 @@ module CheckoutCommand
     end
   end
 
-  def geo_out(*context)
+  def geo_out(*_context)
     if payload['location']
       take_location(check_out)
       respond_with :message, text: 'Bye!'
