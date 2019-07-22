@@ -18,8 +18,7 @@ class Student
   end
 
   def used?
-    context.chat_session.values.each { |user| return true if user['number'] == number }
-    false
+    context.chat_session.values.any?  { |user| user['number'] == number }
   end
 
   def not_used?
