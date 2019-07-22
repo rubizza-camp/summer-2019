@@ -1,6 +1,8 @@
 require 'yaml'
 
 class FileReader
+  FILE_NAME = 'list_gems.yml'.freeze
+
   def call(from_file)
     read_file(from_file)
   end

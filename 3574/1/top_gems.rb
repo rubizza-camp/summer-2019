@@ -1,11 +1,8 @@
-require_relative 'parse'
-require_relative 'option_parser'
-require_relative 'read_file'
-require_relative 'table'
-require_relative 'option_functions'
-
-HEADER = %i[name_id used_by watch stars fork issues contributors].freeze
-FILE_NAME = 'list_gems.yml'.freeze
+require_relative 'info_parser'
+require_relative 'top_function'
+require_relative 'file_reader'
+require_relative 'output'
+require_relative 'options'
 
 class TopGems
   def initialize
