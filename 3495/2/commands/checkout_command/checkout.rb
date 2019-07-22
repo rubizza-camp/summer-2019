@@ -1,26 +1,51 @@
 module CheckoutCommand
   TIME_STAMP = Time.now.strftime('%d/%m/%Y %H:%M').tr('/', '.')
   def checkout!(*)
+    check_sign_up_checkout
+  end
+
+  def check_sign_up_checkout
     if !User[from['id']]
       respond_with :message, text: 'Для начала зарегистрируйся'
-    elsif User[from['id']].checkin == 'false'
+    else
+      check_checkin_checkout
+    end
+  end
+
+  def check_checkin_checkout
+    if User[from['id']].checkin == 'false'
       respond_with :message, text: 'Ты ещё не на смене'
-      return
-    elsif payload['photo']
-        respond_with :message, text: 'А ты красивый. теперь скинь свои координаты'
-        request_file_path_checkout(payload['photo'].last['file_id'])
-        save_context :checkout!
-      elsif payload['location']
-        if check_location_checkout(payload['location'])
-          respond_with :message, text: 'Молодец, свободен'
-          load_geo_checkout(payload['location'])
-          User[from['id']].update :checkin => 'false'
-        else
-          respond_with :message, text: 'Не ври, ты не в кэмпе'
-        end
-      else
-        save_context :checkout!
-        respond_with :message, text: 'Покажи личико котик'
+    else
+      check_type_of_message_on_photo_checkout
+    end
+  end
+
+  def check_type_of_message_on_photo_checkout
+    if payload['photo']
+      respond_with :message, text: 'А ты красивый. теперь скинь свои координаты'
+      request_file_path_checkout(payload['photo'].last['file_id'])
+      save_context :checkout!
+    else
+      check_type_of_message_on_geo_checkout
+    end
+  end
+
+  def check_type_of_message_on_geo_checkout
+    if payload['location']
+      check_geo_checkout
+    else
+      save_context :checkout!
+      respond_with :message, text: 'Покажи личико котик'
+    end
+  end
+
+  def check_geo_checkout
+    if check_location_checkout(payload['location'])
+      respond_with :message, text: 'Молодец, свободен'
+      load_geo_checkout(payload['location'])
+      User[from['id']].update checkin: 'false'
+    else
+      respond_with :message, text: 'Не ври, ты не в кэмпе'
     end
   end
 
@@ -40,12 +65,13 @@ module CheckoutCommand
     uri = URI("#{API_URL}file/bot886244897:AAE8balNKJ7Nukdam2v3AuhiAhxCyRysVBs/#{file_path}")
     DirCreator.dir_create("public/#{from['id']}/checkout/#{TIME_STAMP}")
     photo_new_path = "public/#{from['id']}/checkout/#{TIME_STAMP}/selfie.jpg"
-    File.write(photo_new_path, open(uri).read, { mode: 'wb' })
+    File.write(photo_new_path, Kernel.open(uri), mode: 'wb')
     photo_new_path
   end
 
   def check_location_checkout(location)
-    (53.914264.. 53.916233).cover?(location['latitude'].to_f) && (27.565941..27.571306).cover?(location['longitude'].to_f)
+    (53.914264..53.916233).cover?(location['latitude'].to_f) &&
+      (27.565941..27.571306).cover?(location['longitude'].to_f)
   end
   API_URL = 'https://api.telegram.org/'.freeze
 end

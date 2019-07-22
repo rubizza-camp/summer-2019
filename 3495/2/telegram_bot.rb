@@ -7,9 +7,7 @@ require 'json'
 require 'net/http'
 require 'ohm'
 require 'dotenv'
-require 'redis'
-require 'redis-store'
-require 'redis-activesupport'
+
 require_relative './commands/start_command/start.rb'
 require_relative './commands/checkin_command/checkin.rb'
 require_relative './commands/checkout_command/checkout.rb'
@@ -25,7 +23,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckoutCommand
 end
 
-TOKEN = ('886244897:AAE8balNKJ7Nukdam2v3AuhiAhxCyRysVBs')
+TOKEN = '886244897:AAE8balNKJ7Nukdam2v3AuhiAhxCyRysVBs'.freeze
 bot = Telegram::Bot::Client.new(TOKEN)
 logger = Logger.new(STDOUT)
 poller = Telegram::Bot::UpdatesPoller.new(bot, WebhooksController, logger: logger)
