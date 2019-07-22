@@ -7,10 +7,11 @@ class User
   def initialize(message)
     @message = message
     @user_id = message.chat.id
+    @rubizza_id =  REDIS.get(@message.chat.id)
   end
 
   def check_registration
-    (rubizza_id = REDIS.get(@message.chat.id)) ? { chat_id: @message.chat.id, text: "Hi, #{rubizza_id}. Time to /checkin" } : gimme_id
+    REDIS.get(@message.chat.id) ? help_message : gimme_id
   end
 
   def registration(rubizza_id)
@@ -48,7 +49,13 @@ class User
 
   def wellcome
     REDIS.set(@message.chat.id, @message.text)
-    { chat_id: @message.chat.id, text: "Hi, #{@message.text}. Time to /checkin" }
+    @rubizza_id =  REDIS.get(@message.chat.id)
+    help_message
+  end
+
+  def help_message
+    { chat_id: @message.chat.id, 
+      text: "Hi, #{@rubizza_id}. Type /checkin to checkin, /checkout to checkout. Sincerely yours, K.O." }
   end
 
   def try_again

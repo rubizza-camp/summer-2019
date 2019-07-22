@@ -1,7 +1,9 @@
 require 'fileutils'
 require 'rest-client'
+require_relative './answers.rb'
 
 class PhotoHelper
+  include Answers
   attr_reader :bot, :token, :user_id, :message
 
   def initialize(message, bot, token, user_id)
@@ -23,12 +25,22 @@ class PhotoHelper
     file_id = message.photo[-1].file_id
     puts file = bot.api.get_file(file_id: file_id)
     file_path = file.dig('result', 'file_path')
-    @path = "https://api.telegram.org/file/bot#{token}/#{file_path}"
+    path = "https://api.telegram.org/file/bot#{token}/#{file_path}"
+    REDIS.set("#{@user_id}_photo", path)
+
   end
 
   def save_img(status, timestamp)
-    data = RestClient.get(@path).body
-    File.write("#{user_id}/#{status}/#{timestamp}/selfie.jpg", data, mode: 'wb')
+    path = REDIS.get("#{@user_id}_photo")
+    if path.empty?
+      ask_photo
+    else
+      data = RestClient.get(path).body
+      File.write("#{user_id}/#{status}/#{timestamp}/selfie.jpg", data, mode: 'wb')
+      REDIS.set("#{@user_id}_photo", nil)
+      puts 'after saving'
+       puts path = REDIS.get("#{@user_id}_photo")
+    end
   end
 
   def check_status

@@ -1,6 +1,8 @@
 require 'fileutils'
+require_relative './answers.rb'
 
 class LocationHelper
+  include Answers
   attr_reader :bot, :message, :user_id, :latitude, :longitude, :photo
 
   def initialize(bot, message, user_id, photo)
@@ -18,15 +20,14 @@ class LocationHelper
     end
     create_folder(status)
 
-    begin @photo.save_img(status, @timestamp)
-          save_location(status)
-          puts  REDIS.get("#{@user_id}_status")
-          REDIS.set("#{@user_id}_status", status.gsub(/s$/, 'ed'))
-          puts  REDIS.get("#{@user_id}_status")
-          { chat_id: message.chat.id, text: 'Nice to see you in right place' }
-    rescue NoMethodError
-      FileUtils.rm_rf("#{user_id}/#{status}/#{@timestamp}")
+    if REDIS.get("#{@user_id}_photo").empty?
+            FileUtils.rm_rf("#{user_id}/#{status}/#{@timestamp}")
       ask_photo
+    else
+      @photo.save_img(status, @timestamp)
+      save_location(status)
+      REDIS.set("#{@user_id}_status", status.gsub(/s$/, 'ed'))
+      { chat_id: message.chat.id, text: 'Nice to see you in right place' }
     end
   end
 
@@ -44,7 +45,5 @@ class LocationHelper
     current_status = REDIS.get("#{@user_id}_status")
   end
 
-  def ask_photo
-    { chat_id: message.chat.id, text: 'Need to see your photo first' }
-  end
+
 end

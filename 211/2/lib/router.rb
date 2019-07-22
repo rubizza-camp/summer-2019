@@ -3,6 +3,7 @@ require_relative './message.rb'
 require_relative './location.rb'
 require_relative './user.rb'
 
+
 class Router
   def self.evaluate(message, bot)
     message_helper = MessageHelper.new(bot, message)
