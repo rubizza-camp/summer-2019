@@ -27,7 +27,6 @@ class PhotoHelper
     file_path = file.dig('result', 'file_path')
     path = "https://api.telegram.org/file/bot#{token}/#{file_path}"
     REDIS.set("#{@user_id}_photo", path)
-
   end
 
   def save_img(status, timestamp)
@@ -36,15 +35,9 @@ class PhotoHelper
       ask_photo
     else
       data = RestClient.get(path).body
-      File.write("#{user_id}/#{status}/#{timestamp}/selfie.jpg", data, mode: 'wb')
+      File.write("public/#{user_id}/#{status}/#{timestamp}/selfie.jpg", data, mode: 'wb')
       REDIS.set("#{@user_id}_photo", nil)
-      puts 'after saving'
-       puts path = REDIS.get("#{@user_id}_photo")
     end
-  end
-
-  def check_status
-    current_status = REDIS.get("#{@user_id}_status")
   end
 
   def ask_location
