@@ -3,7 +3,7 @@ require 'optparse'
 # include method for parsing options
 module OptionsParser
   # :reek:NestedIterators, :reek:TooManyStatements, :reek:UtilityFunction
-  def options
+  def check_attributes
     options = {}
     parsing = OptionParser.new do |parser|
       parse_file(parser, options)
