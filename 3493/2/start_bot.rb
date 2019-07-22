@@ -12,9 +12,9 @@ require_relative './commands/selfi_command/selfi.rb'
 require_relative './commands/geoposition_command/geoposition.rb'
 
 class WebhooksController < Telegram::Bot::UpdatesController
+  self.session_store = :redis_store, { expires_in: 2.month }
   include Telegram::Bot::UpdatesController::Session
   include Telegram::Bot::UpdatesController::MessageContext
-  self.session_store = :redis_store, { expires_in: 2.month }
   include StartCommand
   include CheckinCommand
   include CheckoutCommand

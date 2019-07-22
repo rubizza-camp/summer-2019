@@ -1,6 +1,7 @@
 require_relative '../../validations/location_validation/location_validation.rb'
 require_relative '../../support_methods/location_methods/location_methods.rb'
 require_relative '../../support_methods/user_methods/user_methods.rb'
+
 module GeopositionCommand
   include LocationValidation
   include LocationMethods

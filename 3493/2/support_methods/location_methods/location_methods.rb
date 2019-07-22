@@ -1,4 +1,5 @@
 require_relative '../file_methods/file_methods.rb'
+
 module LocationMethods
   def location_condition(location, person_number, folder)
     respond_with :message, text: 'Удачного дня'

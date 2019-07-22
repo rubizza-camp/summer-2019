@@ -1,4 +1,5 @@
 require_relative '../../support_methods/user_methods/user_methods.rb'
+
 module CheckoutCommand
   def checkout!(*)
     if UserMethods.registered?(from['id']) && UserMethods.checkin?(from['id'])

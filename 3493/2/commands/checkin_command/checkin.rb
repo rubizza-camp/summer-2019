@@ -1,4 +1,5 @@
 require_relative '../../support_methods/user_methods/user_methods.rb'
+
 module CheckinCommand
   def checkin!(*)
     if UserMethods.registered?(from['id'])

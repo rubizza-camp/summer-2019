@@ -1,5 +1,6 @@
 require_relative '../../validations/photo_validation/photo_validation.rb'
 require_relative '../../support_methods/photo_methods/photo_methods.rb'
+
 module SelfiCommand
   include PhotoValidation
   include PhotoMethods
