@@ -15,7 +15,7 @@ class Bot
   private
 
   def start_logger
-    a = Logger.new(STDOUT)
+    logger = Logger.new(STDOUT)
     poller = Telegram::Bot::UpdatesPoller.new(@bot, WebhooksController, logger: logger)
     poller.start
   end
