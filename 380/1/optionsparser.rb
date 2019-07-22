@@ -1,5 +1,5 @@
-require 'optparse'
 
+require 'optparse'
 # include method for parsing options
 module OptionsParser
   # :reek:NestedIterators, :reek:TooManyStatements, :reek:UtilityFunction

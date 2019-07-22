@@ -6,7 +6,7 @@ module Searcher
   def check_token
     puts 'Enter Github API Access Token'
     token = gets.chomp.to_s
-    Octokit::Client.new(access_token: '03d5ef56a318fc532cb4bd94fbcd3a9afc615a97')
+    Octokit::Client.new(access_token: token)
   rescue Octokit::Unauthorized
     puts 'Wrong Access Token, '
     check_token(token)
@@ -19,7 +19,7 @@ module Searcher
 
   # :reek:UtilityFunction:
   def parse_uri_of(info)
-    return nil unless info != {}
+    return nil if info.empty?
 
     url = (info['source_code_uri'] || info['homepage_uri']).split('/')
     { user: url[3], repo: url[4] }
@@ -27,10 +27,9 @@ module Searcher
 
   def parse_from_page(repo_id)
     url = 'https://github.com/' + repo_id[:user] + '/' + repo_id[:repo]
-    cons = find_contributors(url)
+    contributors = find_contributors(url)
     url += '/network/dependents'
-    used_by = find_used_by(url)
-    { contributors: cons, used_by: used_by }
+    { contributors: contributors, used_by: find_used_by(url) }
   end
 
   def response_from_api(client, repo_id)

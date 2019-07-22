@@ -9,8 +9,8 @@ class TopGems
   # :reek:FeatureEnvy:
   def run
     selected = options
-    gem_list = GemList.new(selected[:file], selected[:name]).with_information
-    TopTable.new(gem_list, selected[:count]).show
+    gems_with_statistics = GemList.new(selected[:file], selected[:name]).statistics
+    TopTable.new(gems_with_statistics, selected[:count]).show
   end
 end
 

@@ -1,16 +1,15 @@
+require 'pry'
 require 'terminal-table'
 
-# :reek:NestedIterators:
 # shows top of gems by popularity
 class TopTable
   def initialize(gem_list, count)
+    @gem_list = gem_list
     @table = Terminal::Table.new do |table|
       table.headings = [
         'Gem', 'Used By', 'Watched By', 'Stars', 'Forks', 'Contributors', 'Issues'
       ]
-      sorted_gems(gem_list, count).each do |gem|
-        table << result(gem)
-      end
+      load_rows_in(table, count)
     end
   end
 
@@ -20,22 +19,22 @@ class TopTable
 
   private
 
-  # :reek:UtilityFunction
-  def result(gem)
-    gem.values_at(
-      :name,
-      :used_by,
-      :subscribers,
-      :stargazers,
-      :forks_count,
-      :contributors,
-      :issues
-    )
+  def load_rows_in(table, count = nil)
+    final_list = count ? sorted_gems.first(count) : sorted_gems
+    final_list.each do |gem|
+      table << gem.values_at(:name, :used_by, :subscribers, :stargazers, :forks_count,
+                             :contributors, :issues)
+    end
   end
 
-  # :reek:UtilityFunction
-  def add_popularity(gem_list)
-    gem_list.each do |gem|
+  def sorted_gems
+    add_popularity
+    @gem_list.sort_by { |gem| gem[:popularity] }.reverse!
+  end
+
+  # :reek:FeatureEnvy:
+  def add_popularity
+    @gem_list.map do |gem|
       gem[:popularity] = [gem[:stargazers],
                           gem[:forks_count],
                           gem[:issues],
@@ -43,14 +42,5 @@ class TopTable
                           gem[:contributors],
                           gem[:used_by]].inject(:+)
     end
-  end
-
-  # :reek:FeatureEnvy:, :reek:TooManyStatements
-  def sorted_gems(result, count = nil)
-    pop_result = add_popularity(result)
-    result_array = pop_result.sort_by { |gem| gem[:popularity] }
-    result_array.reverse!
-    result_array = result_array.first(count) if count
-    result_array
   end
 end

@@ -18,20 +18,13 @@ module GemListInformation
 
   private
 
-  # :reek:UtilityFunction:
-  # rubocop:disable Metrics/MethodLength
+  # :reek:UtilityFunction:, :reek:DuplicateMethodCall
   def result_from(info)
-    api_info = info[:api]
-    page_info = info[:page]
     {
-      name: api_info[:name],
-      stargazers: api_info[:stargazers_count],
-      forks_count: api_info[:forks_count],
-      issues: api_info[:open_issues_count],
-      subscribers: api_info[:subscribers_count],
-      contributors: page_info[:contributors],
-      used_by: page_info[:used_by]
+      name: info[:api][:name], stargazers: info[:api][:stargazers_count],
+      forks_count: info[:api][:forks_count], issues: info[:api][:open_issues_count],
+      subscribers: info[:api][:subscribers_count], contributors: info[:page][:contributors],
+      used_by: info[:page][:used_by]
     }
   end
-  # rubocop:enable Metrics/MethodLength
 end
