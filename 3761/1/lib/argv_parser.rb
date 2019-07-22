@@ -25,8 +25,15 @@ class ArgvParser
   end
 
   def check_arg
-    args[:file] ||= FILE_DEFAULT
     args[:top] = args[:top].to_i if args.key? :top
     args[:name] ||= ''
+    check_file
+  end
+
+  def check_file
+    args[:file] ||= FILE_DEFAULT
+    return if File.file?(args[:file])
+    args[:file] = FILE_DEFAULT
+    puts 'No such file. Use default file.'
   end
 end

@@ -12,12 +12,15 @@ class GemListCreator
 
   def call
     gem_list.select { |gem_name| gem_name.include? name_substring }
+  rescue NoMethodError
+    puts 'File is empty!'
+    exit
   end
 
   private
 
   def gem_list
-    read_file if File.file?(file_name)
+    return read_file if File.file?(file_name)
   end
 
   def read_file

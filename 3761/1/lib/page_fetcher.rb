@@ -18,12 +18,16 @@ class PageFetcher
 
   def url_in_github
     http_page.at('#code')['href']
+  rescue NoMethodError
+    puts 'Try again!'
+    exit
   end
 
   private
 
   def github_page
-    agent.get(gem_url) if page_exist?
+    return agent.get(gem_url) if page_exist?
+    puts "#{gem_name} isn't gem"
   end
 
   def gem_url
