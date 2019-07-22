@@ -22,10 +22,6 @@ module StartCommand
     rescue_telegram
   end
 
-  def create_redis
-    reversed_redis
-  end
-
   private
 
   def numbers

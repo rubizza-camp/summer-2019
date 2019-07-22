@@ -7,10 +7,12 @@ require_relative 'commands/checkout'
 require_relative 'helpers/memoization_helpers'
 
 class WebhooksController < Telegram::Bot::UpdatesController
-  self.session_store = :redis_store, { expires_in: 2_592_000 }
+  extend MemoizationHelpers
+
   include StartCommand
   include CheckinCommand
   include CheckoutCommand
   include Telegram::Bot::UpdatesController::MessageContext
-  extend MemoizationHelpers
+
+  self.session_store = :redis_store, { expires_in: 2_592_000 }
 end
