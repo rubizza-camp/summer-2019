@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
-require './commands/util'
-require './commands/downloader'
+require_relative './util'
+require_relative './downloader'
 
 module CheckCommands
   include Util
   include LoginCommand
   include Downloader
+
+  TIME_TO_GET_SELFIE = 60
+  TIME_TO_SEND_GEO = 90
 
   def checkin!(*)
     if session[:state] == :in
@@ -28,7 +31,7 @@ module CheckCommands
 
   def check
     if registered?
-      session[:time] = Time.now
+      session[:time] = Time.now.utc.to_i
       respond_with :message, text: 'Send selfie'
       save_context :getting_selfie
     else
@@ -37,8 +40,8 @@ module CheckCommands
   end
 
   def getting_selfie(*)
-    if Time.now - session[:time] > 120
-      respond_with :message, text: 'You thought too long. Try again'
+    if Time.now.utc.to_i - session[:time] > TIME_TO_GET_SELFIE
+      respond_with :message, text: "You thought too long. Try to check#{session[:check]} again"
     else
       save_selfie
     end
@@ -53,7 +56,7 @@ module CheckCommands
   end
 
   def getting_geo(*)
-    if Time.now - session[:time] > 90
+    if Time.now.utc.to_i - session[:time] > TIME_TO_SEND_GEO + TIME_TO_GET_SELFIE
       respond_with :message, text: "You thought too long. Try to check#{session[:check]} again"
     else
       save_geo

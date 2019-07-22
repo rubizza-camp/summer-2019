@@ -1,22 +1,19 @@
 # frozen_string_literal: true
 
-require 'redis'
-require 'yaml'
 module Util
   def registered?
     session.key?(:number)
   end
 
   def id
-    subject = from || chat
-    subject['id'] if subject
+    @id ||= (from || chat).to_h['id']
   end
 
   def redis
-    @redis ||= Redis.new
+    @redis ||= self.class.redis
   end
 
   def token
-    @token ||= YAML.load_file('./data/config.yml')['token'].first
+    @token ||= self.class.token
   end
 end

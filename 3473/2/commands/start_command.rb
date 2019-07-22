@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require './commands/login_command'
-require './commands/util'
+require_relative './login_command'
+require_relative './util'
 
 module StartCommand
   include LoginCommand

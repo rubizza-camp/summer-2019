@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './commands/util'
+require_relative './util'
 
 module LogoutCommand
   include Util
