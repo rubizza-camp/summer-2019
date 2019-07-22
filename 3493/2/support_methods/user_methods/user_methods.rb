@@ -1,4 +1,3 @@
-# :reek:ControlParameter:
 class UserMethods
   def self.registered?(id)
     User[id]
@@ -9,15 +8,17 @@ class UserMethods
   end
 
   def self.find_users_by_person_number(person_number)
+    person_num = person_number
     users = []
     User.all.each do |user|
-      users.push(user) if user.person_number == person_number
+      users.push(user) if user.person_number == person_num
     end
     users
   end
 
   def self.update_user_date(id, status)
-    case status
+    second_status = status
+    case second_status
     when 'checkins'
       User[id].update(checkin_datetime: Time.now, is_checkin: true)
     else

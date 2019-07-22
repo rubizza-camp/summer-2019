@@ -1,6 +1,5 @@
 require 'telegram/bot'
 require 'date'
-require 'redis-rails'
 require 'active_support/all'
 require 'pry'
 require 'redis'
