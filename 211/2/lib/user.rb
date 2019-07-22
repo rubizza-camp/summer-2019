@@ -15,7 +15,12 @@ class User
   end
 
   def check_registration
-    REDIS.get(@message.chat.id) ? help : gimme_id
+    if REDIS.get(@message.chat.id).empty?
+      gimme_id
+    else
+      start
+      help
+    end
   end
 
   def registration(rubizza_id)
@@ -52,9 +57,11 @@ class User
   def wellcome
     REDIS.set(@message.chat.id, @message.text)
     @rubizza_id = REDIS.get(@message.chat.id)
+    start
     help
   end
 
+  # rubocop: disable Metrics/MethodLength
   def answer_to_request
     case @message.text
     when '/start'
@@ -70,6 +77,7 @@ class User
       help
     end
   end
+  # rubocop: enable Metrics/MethodLength
 
   def checking_in
     status = REDIS.get("#{@user_id}_status")

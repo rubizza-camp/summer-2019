@@ -4,12 +4,12 @@ require_relative './location.rb'
 require_relative './user.rb'
 
 class Router
+  # rubocop: disable Metrics/MethodLength
   def self.resolve(message, bot)
     user = User.new(message)
     message_helper = MessageHelper.new(bot, message, user)
     status = REDIS.get("#{message.from.id}_status")
     state = REDIS.get("#{message.from.id}_state")
-    puts message
     if message_helper.photo?
       create_photo(message, state, status, bot, user)
     elsif message_helper.location?
@@ -19,6 +19,7 @@ class Router
     end
   end
 
+  # rubocop: enable Metrics/MethodLength
   def self.create_photo(message, state, status, bot, _user)
     if state == 'waiting for photo'
       @timestamp = Time.now.getlocal('+03:00').to_i
