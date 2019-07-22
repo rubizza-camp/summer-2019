@@ -3,6 +3,9 @@ require './helper/redis_helper.rb'
 class PhotoLoader
   include RedisHelper
 
+  Dotenv.load
+  TOKEN = ENV['TOKEN']
+
   BOT_API_URL = "https://api.telegram.org/bot#{TOKEN}/".freeze
   BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
   GET_PATH_URL = 'getFile?file_id='.freeze

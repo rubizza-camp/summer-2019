@@ -3,6 +3,7 @@ require 'redis'
 require 'fileutils'
 require 'date'
 require './helper/redis_helper.rb'
+require 'dotenv'
 
 Dir[File.join(__dir__, 'command', '*_command.rb')].each { |file| require file }
 Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
@@ -17,6 +18,9 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckoutCommand
   include EndCommand
 end
+
+Dotenv.load
+TOKEN = ENV['TOKEN']
 
 bot = Telegram::Bot::Client.new(TOKEN)
 
