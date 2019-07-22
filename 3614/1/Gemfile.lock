@@ -43,9 +43,10 @@ PLATFORMS
 DEPENDENCIES
   gems (= 1.1.1)
   io-console (= 0.4.8)
+  json (= 2.2.0)
   mechanize (= 2.7.6)
   nokogiri (= 1.10.3)
   terminal-table (= 1.8.0)
 
 BUNDLED WITH
-   1.16.2
+   1.17.2
