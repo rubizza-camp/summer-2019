@@ -1,10 +1,8 @@
 require 'terminal-table'
 require_relative 'all_gems_fetcher.rb'
-require_relative 'gem_terminal_output.rb'
 require 'yaml'
-
+# :reek:NestedIterators
 class Table
-  include CreateGemRow
   def self.fetch_table_output(selector)
     fetcher = new(selector)
     fetcher.fetch_table_output
@@ -15,7 +13,15 @@ class Table
   end
 
   def fetch_table_output
-    rows = fetch_requested_gems.map { |gem| create_gem_row_terminal_output(gem) }
+    gem_row_output = ['used_by %<used_by>s',
+                      'watched by %<watch>s',
+                      '%<star>s stars',
+                      '%<forks>s forks',
+                      '%<contributors>s contributors',
+                      '%<issues>s issues']
+    rows = fetch_requested_gems.map do |gem|
+      gem_row_output.map { |parameter| format(parameter, gem.parameters) }.unshift(gem.name)
+    end
     puts Terminal::Table.new(rows: rows)
   end
 
