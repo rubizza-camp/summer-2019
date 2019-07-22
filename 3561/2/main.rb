@@ -11,8 +11,7 @@ require 'dotenv/load'
 require_relative 'lib/models/user'
 
 require_relative 'lib/commands/start_command.rb'
-require_relative 'lib/commands/checkout_command.rb'
-require_relative 'lib/commands/checkin_command.rb'
+require_relative 'lib/commands/check_command.rb'
 
 require_relative 'lib/bot.rb'
 require_relative 'lib/controllers/webhooks_controller.rb'

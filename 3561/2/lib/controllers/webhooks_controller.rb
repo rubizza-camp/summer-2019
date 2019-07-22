@@ -4,7 +4,6 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::Session
   include Telegram::Bot::UpdatesController::MessageContext
 
-  include CheckoutCommand
-  include CheckinCommand
+  include CheckCommands
   include StartCommand
 end
