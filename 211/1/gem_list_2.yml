@@ -1,0 +1,5 @@
+gems:
+ - devise
+ - cocoon
+ - nokogiri
+ - httparty

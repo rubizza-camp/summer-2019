@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+gem 'gems', '1.1.1'
+gem 'httparty', '0.17.0'
+gem 'nokogiri', '1.10.3'
+gem 'pry', '0.12.2'
+gem 'terminal-table', '1.8.0'

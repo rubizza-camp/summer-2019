@@ -1,0 +1,10 @@
+gems:
+  - rspec-core
+  - diff-lcs
+  - rack
+  - concurrent-ruby
+  - ruby-graphviz
+  - multi_json
+  - sdfghasdfazxc
+  - multi_json
+  

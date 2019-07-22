@@ -1,0 +1,15 @@
+gems:
+  - grape
+  - sinatra
+  - rspec
+  - rails
+  - reek
+  - json
+  - a
+  - bootstrap
+  - devise
+  - pry
+  - httparty
+  - rubocop
+  - resque
+  - sidekiq

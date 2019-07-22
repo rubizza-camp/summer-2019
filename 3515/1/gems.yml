@@ -1,0 +1,6 @@
+gems:
+ - rails
+ - sinatra
+ - rspec
+ - rubocop
+ - reek

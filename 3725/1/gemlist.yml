@@ -1,0 +1,11 @@
+gems:
+  - rspec
+  - sinatra
+  - httparty
+  - mechanize
+  - nokogiri
+  - octokit
+  - reek
+  - rubocop
+  - terminal-table
+  - factory_bot

@@ -1,0 +1,5 @@
+gems:
+  - rails
+  - nokogiri
+  - rspec
+  
