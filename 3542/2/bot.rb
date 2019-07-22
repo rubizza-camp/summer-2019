@@ -1,5 +1,6 @@
 require 'telegram/bot'
 require 'active_support/time'
+require 'i18n'
 require 'logger'
 require_relative 'commands/start'
 require_relative 'commands/checkin'
@@ -8,6 +9,8 @@ require_relative 'commands/checkout'
 class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include Telegram::Bot::UpdatesController::Session
+
+  include I18n
 
   include Start
   include Checkin
@@ -25,6 +28,8 @@ class WebhooksController < Telegram::Bot::UpdatesController
     chat_session.commit
   end
 end
+
+I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
 
 TOKEN = ENV['BOT_TOKEN']
 bot = Telegram::Bot::Client.new(TOKEN)

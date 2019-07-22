@@ -6,10 +6,10 @@ module Start
 
   def start!(*)
     if registered?
-      respond_with :message, text: 'You are already registered.'
+      respond_with :message, text: t(:already_registered)
     else
       save_context :number_set
-      respond_with :message, text: 'Hello! Give me your personal number.'
+      respond_with :message, text: t(:give_number)
     end
   end
 
@@ -17,10 +17,10 @@ module Start
     if Student.new(number, self).valid_number?
       chat_session[session_key] ||= {}
       chat_session[session_key]['number'] ||= number
-      respond_with :message, text: 'Success! Registration completed.'
+      respond_with :message, text: t(:succesfull_registration)
     else
       save_context :number_set
-      respond_with :message, text: 'Wrong number. Try again.'
+      respond_with :message, text: t(:wrong_number)
     end
   end
 end

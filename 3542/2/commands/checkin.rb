@@ -11,11 +11,11 @@ module Checkin
   def checkin!(*)
     if registered? && not_checkin?
       save_context :selfie
-      respond_with :message, text: 'Send me selfie, please.'
+      respond_with :message, text: t(:selfie)
     elsif registered? && checkin?
-      respond_with :message, text: 'You are already checkin.'
+      respond_with :message, text: t(:already_checkin)
     else
-      respond_with :message, text: 'You are not registered. Type /start to start registration.'
+      respond_with :message, text: t(:not_registered)
     end
   end
 end

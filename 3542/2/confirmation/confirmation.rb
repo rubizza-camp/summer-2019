@@ -6,10 +6,10 @@ module Confirmation
       chat_session[session_key]['photo'] = payload['photo']
 
       save_context :geo
-      respond_with :message, text: 'Send me your geoposition.'
+      respond_with :message, text: t(:geo)
     else
       save_context :selfie
-      respond_with :message, text: "Sorry, it doesn't look like selfie. Try again."
+      respond_with :message, text: t(:not_selfie)
     end
   end
 
@@ -19,10 +19,10 @@ module Confirmation
 
       change_checkin
 
-      respond_with :message, text: 'Success!'
+      respond_with :message, text: t(:success)
     else
       save_context :geo
-      respond_with :message, text: 'It seems, you are not in a camp. Try again.'
+      respond_with :message, text: t(:not_geo)
     end
   end
 
