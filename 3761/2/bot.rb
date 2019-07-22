@@ -2,8 +2,8 @@ require 'telegram/bot'
 require 'redis'
 require 'fileutils'
 require 'date'
-require './helper/redis_helper.rb'
 require 'dotenv'
+require './helper/redis_helper.rb'
 
 Dir[File.join(__dir__, 'command', '*_command.rb')].each { |file| require file }
 Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
@@ -21,7 +21,6 @@ end
 
 Dotenv.load
 TOKEN = ENV['TOKEN']
-
 bot = Telegram::Bot::Client.new(TOKEN)
 
 Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_592_000 }
