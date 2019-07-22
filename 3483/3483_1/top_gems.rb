@@ -23,7 +23,8 @@ OptionParser.new do |options|
 
   options.on('-n', '--name NAME', String,
              'Shows all the gems from gems.yml, whose name contains the specified word') do |text|
-    Top.new.create_top(GemfileLoader.new('gems_list.yaml').gem_list.select { |gem_| gem_.include?(text) })
+    Top.new.create_top(GemfileLoader.new('gems_list.yaml')
+        .gem_list.select { |gem_| gem_.include?(text) })
   end
 
   options.on('-f', '--file FILE', String,
