@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'telegram-bot-ruby'
-gem 'redis'
 gem 'json'
+gem 'redis'
+gem 'telegram-bot-ruby'
