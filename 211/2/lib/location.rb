@@ -22,7 +22,7 @@ class LocationHelper
   end
 
   def save_location(status, timestamp)
-    File.write("public/#{user_id}/#{status}/#{timestamp}/location.txt", @loc)
+    File.write("public/#{REDIS.get(@message.from.id)}/#{status}/#{timestamp}/location.txt", @loc)
     REDIS.set("#{@user_id}_status", status.gsub(/s$/, 'ed'))
     final_status(status)
     { chat_id: message.chat.id, text: 'Nice to see you in right place' }

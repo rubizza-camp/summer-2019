@@ -15,21 +15,17 @@ class User
   end
 
   def check_registration
-    if REDIS.get(@message.chat.id).empty?
-      gimme_id
-    else
+    if REDIS.get(@message.chat.id)
       start
       help
+    else
+      gimme_id
     end
   end
 
   def registration(rubizza_id)
-    if (id = REDIS.get(@message.chat.id))
-      { chat_id: @message.chat.id, text: "We already know each other, #{id}" }
-    else
-      numbers = YAML.load_file('data/rubizza_numbers.yml')['numbers']
-      numbers.any?(rubizza_id) ? wellcome : try_again
-    end
+    numbers = YAML.load_file('data/rubizza_numbers.yml')['numbers']
+    numbers.any?(rubizza_id) ? wellcome : try_again
   end
 
   def change_status(message)
@@ -72,7 +68,11 @@ class User
     when '/checkout'
       checking_out
     when /\d/
-      registration(@message.text.to_i)
+      if REDIS.get(@message.chat.id)
+        help
+      else
+        registration(@message.text.to_i)
+      end
     else
       help
     end

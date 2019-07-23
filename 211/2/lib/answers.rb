@@ -4,8 +4,12 @@ module Answers
   end
 
   def help
+    text = %(Type /checkin to checkin,
+/checkout to checkout.
+/start to start.
+Sincerely yours, K.O.)
     { chat_id: @message.chat.id,
-      text: 'Type /checkin to checkin, /checkout to checkout. Sincerely yours, K.O.' }
+      text:  text }
   end
 
   def try_again

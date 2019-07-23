@@ -33,7 +33,8 @@ class PhotoHelper
   end
 
   def create_folder(status)
-    FileUtils.mkdir_p("public/#{user_id}/#{status}/#{@timestamp}")
+    path = "public/#{REDIS.get(@message.from.id)}/#{status}/#{@timestamp}"
+    FileUtils.mkdir_p(path)
   end
 
   def save_img(status, timestamp)
@@ -42,7 +43,8 @@ class PhotoHelper
       ask_photo
     else
       data = RestClient.get(path).body
-      File.write("public/#{user_id}/#{status}/#{timestamp}/selfie.jpg", data, mode: 'wb')
+      path = "public/#{REDIS.get(@message.from.id)}/#{status}/#{timestamp}/selfie.jpg"
+      File.write(path, data, mode: 'wb')
       REDIS.set("#{@user_id}_photo", nil)
       waiting_for_location
     end
