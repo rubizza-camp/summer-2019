@@ -1,6 +1,6 @@
 require_relative '../../models/user.rb'
-require_relative '../../lib/user_methods/user_methods.rb'
-require_relative '../../lib/number_methods/number_methods.rb'
+require_relative '../../lib/user_methods'
+require_relative '../../lib/number_methods'
 
 module StartCommand
   def start!(*)
@@ -14,7 +14,7 @@ module StartCommand
 
   def enter_number(person_number = nil, *)
     if UserMethods.find_users_by_person_number(person_number).empty? &&
-       NumberMethods.valid_number?(person_number) && person_number.to_i != 0
+       NumberMethods.valid_number?(person_number)
       UserMethods.create_user(from['id'], from['firts_name'], person_number)
       respond_with :message, text: 'Зарегистрирован!'
     else

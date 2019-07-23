@@ -4,11 +4,12 @@ require 'active_support/all'
 require 'redis'
 require 'ohm'
 require 'logger'
-require_relative './commands/start_command/start.rb'
-require_relative './commands/checkin_command/checkin.rb'
-require_relative './commands/checkout_command/checkout.rb'
-require_relative './commands/selfie_command/selfie.rb'
-require_relative './commands/geoposition_command/geoposition.rb'
+require 'pry'
+require_relative './commands/start_command/start'
+require_relative './commands/checkin_command/checkin'
+require_relative './commands/checkout_command/checkout'
+require_relative './commands/selfie_command/selfie'
+require_relative './commands/geoposition_command/geoposition'
 
 class WebhooksController < Telegram::Bot::UpdatesController
   self.session_store = :redis_store, { expires_in: 2.month }
