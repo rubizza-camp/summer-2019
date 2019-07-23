@@ -1,7 +1,7 @@
 require 'telegram/bot'
 require 'logger'
 require 'i18n'
-require_relative 'bot_controller'
+require_relative 'webhooks_controller'
 
 I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
 
