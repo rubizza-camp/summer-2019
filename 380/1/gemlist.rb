@@ -1,6 +1,5 @@
 require_relative 'gemlistinformation'
 require 'Gems'
-require 'YAML'
 
 # class include list of gems from file
 class GemList
