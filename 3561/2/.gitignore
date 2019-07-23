@@ -1,0 +1,6 @@
+.env
+.idea
+Gemfile
+Gemfile.lock
+public
+data
