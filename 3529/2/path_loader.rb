@@ -7,11 +7,7 @@ class PathLoader
   end
 
   def create_directory(in_or_out, file_name)
-    path = if in_or_out == 'in'
-             "public/#{@session_id}/checkins/#{@date}/"
-           else
-             "public/#{@session_id}/checkouts/#{@date}/"
-           end
+    path = "public/#{@session_id}/check#{in_or_out}s/#{@date}/"
     dirname = File.dirname(path + file_name)
     FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
     path + file_name

@@ -9,11 +9,19 @@ module CheckinContext
   include SelfieHandler
 
   def checkin!(message = nil, *)
-    @path_check = PathLoader.new(payload)
     save_context :checkin!
+    @path_check = PathLoader.new(payload)
     if message
       coord_handle(@path_check, 'in')
-    elsif payload['text']
+    else
+      reply
+    end
+  end
+
+  private
+
+  def reply
+    if payload['text']
       respond_with :message, text: 'Send me your selfie, please'
     else
       selfie_handler(@path_check, 'in')
