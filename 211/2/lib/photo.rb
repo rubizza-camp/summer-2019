@@ -6,7 +6,7 @@ require_relative './status.rb'
 class PhotoHelper
   include Answers
   include StatusChanger
-  attr_reader :bot, :token, :user_id, :message, :timestamp
+  attr_reader :bot, :token, :message, :timestamp, :user_id
 
   def initialize(message, bot, token)
     @bot = bot
@@ -15,12 +15,12 @@ class PhotoHelper
     @message = message
   end
 
-  def call(status, timestamp)
-    @timestamp = timestamp
-    REDIS.get("#{@user_id}_status")
+  def call(status, time)
+    @timestamp = time
+    REDIS.get("#{user_id}_status")
     create_folder(status)
     image_url
-    save_img(status, @timestamp)
+    save_img(status, timestamp)
     ask_location
   end
 
@@ -29,23 +29,23 @@ class PhotoHelper
     file = bot.api.get_file(file_id: file_id)
     file_path = file.dig('result', 'file_path')
     path = "https://api.telegram.org/file/bot#{token}/#{file_path}"
-    REDIS.set("#{@user_id}_photo", path)
+    REDIS.set("#{user_id}_photo", path)
   end
 
   def create_folder(status)
-    path = "public/#{REDIS.get(@message.from.id)}/#{status}/#{@timestamp}"
+    path = "public/#{REDIS.get(user_id)}/#{status}/#{timestamp}"
     FileUtils.mkdir_p(path)
   end
 
   def save_img(status, timestamp)
-    path = REDIS.get("#{@user_id}_photo")
+    path = REDIS.get("#{user_id}_photo")
     if path.empty?
       ask_photo
     else
       data = RestClient.get(path).body
-      path = "public/#{REDIS.get(@message.from.id)}/#{status}/#{timestamp}/selfie.jpg"
+      path = "public/#{REDIS.get(user_id)}/#{status}/#{timestamp}/selfie.jpg"
       File.write(path, data, mode: 'wb')
-      REDIS.set("#{@user_id}_photo", nil)
+      REDIS.set("#{user_id}_photo", nil)
       waiting_for_location
     end
   end

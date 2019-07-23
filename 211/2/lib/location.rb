@@ -5,7 +5,7 @@ require_relative './status.rb'
 class LocationHelper
   include Answers
   include StatusChanger
-  attr_reader :bot, :message, :user_id, :loc, :photo
+  attr_reader :bot, :message, :loc, :photo, :user_id
 
   def initialize(bot, message, photo)
     @bot = bot
@@ -17,13 +17,13 @@ class LocationHelper
   end
 
   def call(status)
-    REDIS.get("#{@user_id}_status")
-    @photo.nil? ? ask_photo : save_location(status, @photo.timestamp)
+    REDIS.get("#{user_id}_status")
+    photo.nil? ? ask_photo : save_location(status, photo.timestamp)
   end
 
   def save_location(status, timestamp)
-    File.write("public/#{REDIS.get(@message.from.id)}/#{status}/#{timestamp}/location.txt", @loc)
-    REDIS.set("#{@user_id}_status", status.gsub(/s$/, 'ed'))
+    File.write("public/#{REDIS.get(user_id)}/#{status}/#{timestamp}/location.txt", loc)
+    REDIS.set("#{user_id}_status", status.gsub(/s$/, 'ed'))
     final_status(status)
     'Nice to see you in right place'
   end
