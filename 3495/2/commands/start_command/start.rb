@@ -33,7 +33,7 @@ module StartCommand
   end
 
   def create_user(person_id)
-    User.create(id: from['id'], name: from['last_name'], personal_id: person_id, checkin: 'false')
+    User.create(id: from['id'], name: from['last_name'], personal_id: person_id)
     respond_with :message, text: 'Молодец, я доволен'
   end
 

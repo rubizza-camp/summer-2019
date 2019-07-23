@@ -1,6 +1,9 @@
 module CheckinCommand
+  Dotenv.load
   TIME_STAMP = Time.now.strftime('%d/%m/%Y %H:%M').tr('/', '.')
   API_URL = ENV['URL_API'].freeze
+  VALID_LATITUDE = 53.914264..53.916233
+  VALID_LONGITUDE = 27.565941..27.571306
   def checkin!(*)
     check_sign_up
   end
@@ -14,7 +17,7 @@ module CheckinCommand
   end
 
   def check_checkin
-    if User[from['id']].checkin == 'true'
+    if User[from['id']].checkin
       respond_with :message, text: 'Ты уже на смене'
     else
       check_type_of_message_on_photo
@@ -35,16 +38,16 @@ module CheckinCommand
     if payload['location']
       check_geo
     else
-      respond_with :message, text: 'Покажи личико котик'
       save_context :checkin!
+      respond_with :message, text: 'Покажи личико котик'
     end
   end
 
   def check_geo
     if check_location(payload['location'])
       respond_with :message, text: 'Молодец, порви там всех, за себя и за Оле.. Сашку'
-      User[from['id']].update checkin: 'true'
       load_geo(payload['location'])
+      User[from['id']].update checkin: true
     else
       respond_with :message, text: 'Не ври, ты не в кэмпе'
     end
@@ -59,7 +62,7 @@ module CheckinCommand
   def load_geo(location)
     geo_path = "public/#{from['id']}/checkin/#{TIME_STAMP}/geo.txt"
     File.open(geo_path, 'w')
-    File.write(geo_path, "#{location['latitude'].to_f}, #{location['longitude'].to_f}")
+    File.write(geo_path, location)
   end
 
   def load_pic_from_path(file_path)
@@ -71,7 +74,7 @@ module CheckinCommand
   end
 
   def check_location(location)
-    (53.914264..53.916233).cover?(location['latitude'].to_f) &&
-      (27.565941..27.571306).cover?(location['longitude'].to_f)
+    VALID_LATITUDE.cover?(location['latitude'].to_f) &&
+      VALID_LONGITUDE.cover?(location['longitude'].to_f)
   end
 end

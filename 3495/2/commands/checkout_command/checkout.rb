@@ -1,5 +1,9 @@
 module CheckoutCommand
+  Dotenv.load
   TIME_STAMP = Time.now.strftime('%d/%m/%Y %H:%M').tr('/', '.')
+  API_URL = ENV['URL_API'].freeze
+  VALID_LATITUDE = 53.914264..53.916233
+  VALID_LONGITUDE = 27.565941..27.571306
   def checkout!(*)
     check_sign_up_checkout
   end
@@ -13,7 +17,7 @@ module CheckoutCommand
   end
 
   def check_checkin_checkout
-    if User[from['id']].checkin == 'false'
+    if !User[from['id']].checkin
       respond_with :message, text: 'Ты ещё не на смене'
     else
       check_type_of_message_on_photo_checkout
@@ -43,7 +47,7 @@ module CheckoutCommand
     if check_location_checkout(payload['location'])
       respond_with :message, text: 'Молодец, свободен'
       load_geo_checkout(payload['location'])
-      User[from['id']].update checkin: 'false'
+      User[from['id']].update checkin: false
     else
       respond_with :message, text: 'Не ври, ты не в кэмпе'
     end
@@ -58,7 +62,7 @@ module CheckoutCommand
   def load_geo_checkout(location)
     geo_path = "public/#{from['id']}/checkout/#{TIME_STAMP}/geo.txt"
     File.open(geo_path, 'w')
-    File.write(geo_path, "#{location['latitude'].to_f}, #{location['longitude'].to_f}")
+    File.write(geo_path, location)
   end
 
   def load_pic_from_path_checkout(file_path)
@@ -70,8 +74,7 @@ module CheckoutCommand
   end
 
   def check_location_checkout(location)
-    (53.914264..53.916233).cover?(location['latitude'].to_f) &&
-      (27.565941..27.571306).cover?(location['longitude'].to_f)
+    VALID_LATITUDE.cover?(location['latitude'].to_f) &&
+      VALID_LONGITUDE.cover?(location['longitude'].to_f)
   end
-  API_URL = 'https://api.telegram.org/'.freeze
 end
