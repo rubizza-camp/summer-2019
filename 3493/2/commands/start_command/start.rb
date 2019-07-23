@@ -1,6 +1,6 @@
 require_relative '../../models/user.rb'
-require_relative '../../support_methods/user_methods/user_methods.rb'
-require_relative '../../support_methods/number_methods/number_methods.rb'
+require_relative '../../lib/user_methods/user_methods.rb'
+require_relative '../../lib/number_methods/number_methods.rb'
 
 module StartCommand
   def start!(*)

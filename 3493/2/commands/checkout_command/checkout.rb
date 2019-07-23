@@ -1,4 +1,4 @@
-require_relative '../../support_methods/user_methods/user_methods.rb'
+require_relative '../../lib/user_methods/user_methods.rb'
 
 module CheckoutCommand
   def checkout!(*)
