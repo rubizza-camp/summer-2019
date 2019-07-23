@@ -14,61 +14,87 @@ class EventHandler
     @user = User.new(message.from.id)
   end
 
-  # this method is a disaster(
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
-  # :reek:DuplicateMethodCall:reek:TooManyStatements:
   def call
     case message.text
     when '/start'
-      if user.resident?
-        'You are already registered.'
-      else
-        Registration.start(user)
-      end
+      start
     when /^\d+$/
-      if user.action.registration? && user.request.camp_num?
-        Registration.camp_num(user, message.text)
-      else
-        'unexpected input (/^\d+$/)'
-      end
+      digits
     when '/checkin'
-      if user.resident? && !user.present?
-        Reception.checkin(user)
-      else
-        'unexpected input (checkin)'
-      end
+      checkin
     when '/checkout'
-      if user.resident? && user.present?
-        Reception.checkout(user)
-      else
-        'unexpected input (checkout)'
-      end
+      checkout
     when '/status'
-      puts user.action.what?
-      puts user.request.what?
-      puts user.present?
-      puts user.location
-      puts user.photo_uri
-      '/status'
+      status
     else
-      if message.photo.any?
-        if user.request.photo?
-          Reception.photo(user, Utils.construct_photo_uri(message, bot))
-        else
-          'unexpected input (photo)'
-        end
-      elsif message.location
-        if user.request.location?
-          Reception.location(user, Utils.construct_location(message.location))
-        else
-          'unexpected input (photo)'
-        end
+      case
+      when message.photo.any?
+        photo
+      when message.location
+        location
       else
         'wrong input main switch'
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
+
+  private
+
+  def start
+    if user.resident?
+      'You are already registered.'
+    else
+      Registration.start(user)
+    end
+  end
+
+  def digits
+    if user.action.registration? && user.request.camp_num?
+      Registration.camp_num(user, message.text)
+    else
+      'unexpected input (/^\d+$/)'
+    end
+  end
+
+  def checkin
+    if user.resident? && !user.present?
+      Reception.checkin(user)
+    else
+      'unexpected input (checkin)'
+    end
+  end
+
+  def checkout
+    if user.resident? && user.present?
+      Reception.checkout(user)
+    else
+      'unexpected input (checkout)'
+    end
+  end
+
+  def status
+    puts user.action.what?
+    puts user.request.what?
+    puts user.present?
+    puts user.location
+    puts user.photo_uri
+    '/status'
+  end
+
+  def photo
+    if user.request.photo?
+      Reception.photo(user, Utils.construct_photo_uri(message, bot))
+    else
+      'unexpected input (photo)'
+    end
+  end
+
+  def location
+    if user.request.location?
+      Reception.location(user, Utils.construct_location(message.location))
+    else
+      'unexpected input (location)'
+    end
+  end
+
 end
