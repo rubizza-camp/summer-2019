@@ -5,5 +5,5 @@ class User < Ohm::Model
   attribute :person_number
   attribute :checkin_datetime
   attribute :checkout_datetime
-  attribute :is_checkin
+  attribute :checkin?
 end
