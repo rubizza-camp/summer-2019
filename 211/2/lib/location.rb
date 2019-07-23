@@ -25,6 +25,6 @@ class LocationHelper
     File.write("public/#{REDIS.get(@message.from.id)}/#{status}/#{timestamp}/location.txt", @loc)
     REDIS.set("#{@user_id}_status", status.gsub(/s$/, 'ed'))
     final_status(status)
-    { chat_id: message.chat.id, text: 'Nice to see you in right place' }
+    'Nice to see you in right place'
   end
 end

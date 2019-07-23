@@ -26,7 +26,7 @@ class Router
       @photo = PhotoHelper.new(message, bot, TOKEN)
       @photo.call(status, @timestamp)
     else
-      { chat_id: message.chat.id, text: "Nope. don't need your photo" }
+      "Nope. don't need your photo"
     end
   end
 
@@ -35,7 +35,7 @@ class Router
       @location = LocationHelper.new(bot, message, @photo)
       @location.call(status)
     else
-      { chat_id: message.chat.id, text: "Nope. don't need your location" }
+      "Nope. don't need your location"
     end
   end
 end

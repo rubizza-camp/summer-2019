@@ -11,7 +11,6 @@ class User
   def initialize(message)
     @message = message
     @user_id = message.chat.id
-    @rubizza_id = REDIS.get(@message.chat.id)
   end
 
   def check_registration
@@ -32,11 +31,11 @@ class User
     check_status
     case message.text
     when @current
-      return { chat_id: @user_id, text: "you already did your #{@current}" }
+      "you already did your #{@current}"
     when '/checkin', '/checkout'
-      @status = message.text.tr('/', '') + 's'
+      status = message.text.tr('/', '') + 's'
     end
-    REDIS.set("#{@user_id}_status", @status)
+    REDIS.set("#{@user_id}_status", status)
     ask_selfie
   end
 
@@ -52,7 +51,6 @@ class User
 
   def wellcome
     REDIS.set(@message.chat.id, @message.text)
-    @rubizza_id = REDIS.get(@message.chat.id)
     start
     help
   end
@@ -85,7 +83,7 @@ class User
       waiting_for_photo(@message.text)
       ask_selfie
     else
-      { chat_id: @message.chat.id, text: 'Nope. You cant checkin' }
+      'Nope. You cant checkin'
     end
   end
 
@@ -95,7 +93,7 @@ class User
       waiting_for_photo(@message.text)
       ask_selfie
     else
-      { chat_id: @message.chat.id, text: 'Nope. You cant checkout' }
+      'Nope. You cant checkout'
     end
   end
 end
