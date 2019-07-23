@@ -1,8 +1,8 @@
-require_relative 'searcher'
+require_relative 'githubsearcher'
 
 # return hash with needed information about gems from list
 module GemListInformation
-  include Searcher
+  include GithubSearcher
 
   def find_information(gem_list)
     client = check_token

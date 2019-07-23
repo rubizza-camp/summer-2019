@@ -1,7 +1,5 @@
-
-require 'optparse'
 # include method for parsing options
-module OptionsParser
+class OptionsParser
   # :reek:NestedIterators, :reek:TooManyStatements, :reek:UtilityFunction
   def check_attributes
     options = {}
@@ -13,6 +11,8 @@ module OptionsParser
     parsing.parse!
     options
   end
+
+  private
 
   def parse_file(parser, options)
     parser.on('-t', '--top [top]', Integer, 'Enter count of gems in top:') do |top|

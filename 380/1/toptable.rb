@@ -1,6 +1,3 @@
-require 'pry'
-require 'terminal-table'
-
 # shows top of gems by popularity
 class TopTable
   def initialize(gem_list, count)
@@ -29,18 +26,14 @@ class TopTable
 
   def sorted_gems
     add_popularity
-    @gem_list.sort_by { |gem| gem[:popularity] }.reverse!
+    @gem_list.sort_by { |gem| -1 * gem[:popularity] }
   end
 
   # :reek:FeatureEnvy:
   def add_popularity
     @gem_list.map do |gem|
-      gem[:popularity] = [gem[:stargazers],
-                          gem[:forks_count],
-                          gem[:issues],
-                          gem[:subscribers],
-                          gem[:contributors],
-                          gem[:used_by]].inject(:+)
+      gem[:popularity] = gem.values_at(:used_by, :subscribers, :stargazers, :forks_count,
+                                       :contributors, :issues).sum
     end
   end
 end

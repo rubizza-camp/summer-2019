@@ -1,8 +1,5 @@
-require 'nokogiri'
-require 'octokit'
-
 # Include methods for searching information about gems
-module Searcher
+module GithubSearcher
   def check_token
     puts 'Enter Github API Access Token'
     token = gets.chomp.to_s
