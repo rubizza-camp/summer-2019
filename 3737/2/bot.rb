@@ -16,7 +16,6 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include StartCommand
   include CheckinCommand
   include CheckoutCommand
-  include PhotoHelper
 
   Ohm.redis = Redic.new('redis://127.0.0.1:6379')
 end

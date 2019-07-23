@@ -4,7 +4,7 @@ require_relative '../helpers/location_helper.rb'
 require_relative '../helpers/photo_helper.rb'
 require_relative '../helpers/user_helper.rb'
 
-# module with checkin command
+# module with checkout command
 module CheckinCommand
   include PhotoHelper
   include LocationHelper
@@ -46,24 +46,24 @@ module CheckinCommand
 
   def save_checkin_photo(*)
     path = photo_path
-    create_directory(from['id'])
-    File.open(path(from['id']) + '/photo.jpg', 'wb') do |file|
+    create_in_directory(from['id'])
+    File.open(checkin_path(from['id']) + '/photo.jpg', 'wb') do |file|
       file << URI.open(DOWNLOAD_API + path).read
     end
   end
 
   def save_checkin_location(*)
-    path = path(from['id']) + '/location.txt'
+    path = checkin_path(from['id']) + '/location.txt'
     File.open(path, 'wb') do |file|
       file << payload['location'].values
     end
   end
 
-  def create_directory(id)
-    FileUtils.mkdir_p(path(id))
+  def create_in_directory(id)
+    FileUtils.mkdir_p(checkin_path(id))
   end
 
-  def path(id)
+  def checkin_path(id)
     "public/#{id}/checkin/#{TIME}"
   end
 end
