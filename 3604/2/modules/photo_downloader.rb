@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PhotoUploader
+module PhotoDownloader
   Dotenv.load
   TOKEN = ENV['TOKEN']
   API_URL_TELEGRAM = "https://api.telegram.org/bot#{TOKEN}/"
@@ -14,7 +14,7 @@ module PhotoUploader
   end
 
   def photo_file_path
-    JSON.parse(URI.open(url_json_about_file).read, symbolize_names: true)[:result][:file_path]
+    JSON.parse(URI.open(url_json_about_file).read, symbolize_names: true).dig(:result, :file_path)
   end
 
   def url_json_about_file
