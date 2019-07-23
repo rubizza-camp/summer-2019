@@ -18,7 +18,8 @@ class WebhooksController < Telegram::Bot::UpdatesController
   end
 end
 
-TOKEN = '919190207:AAFfJhW2frNEWYeaSAvxhgwC6I233JVnVBg'.freeze
+file_token = YAML.safe_load(File.read('Data/token.yaml'))
+TOKEN = file_token['token'].freeze
 bot = Telegram::Bot::Client.new(TOKEN)
 Telegram.bots_config = {
   default: TOKEN
