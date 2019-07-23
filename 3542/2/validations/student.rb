@@ -11,7 +11,7 @@ class Student
   end
 
   def exist?
-    File.open('data/numbers.txt').any? { |file_number| file_number.gsub(/[^0-9]/, '') == number }
+    File.open('data/numbers.txt').any? { |file_number| file_number.strip == number }
   end
 
   def used?
