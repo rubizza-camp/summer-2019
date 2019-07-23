@@ -10,4 +10,14 @@ class GemResource
   def rating
     @rating ||= @parameters.values.sum
   end
+
+  def to_row
+    gem_row_output = ['used_by %<used_by>s',
+                      'watched by %<watch>s',
+                      '%<star>s stars',
+                      '%<forks>s forks',
+                      '%<contributors>s contributors',
+                      '%<issues>s issues']
+    gem_row_output.map { |parameter| format(parameter, @parameters) }.unshift(@name)
+  end
 end

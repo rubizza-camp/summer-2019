@@ -1,10 +1,7 @@
-require 'gems'
-require 'octokit'
-require 'nokogiri'
-require 'terminal-table'
-require 'optparse'
-# :reek:InstanceVariableAssumption
-# :reek:TooManyStatements
+require_relative 'client.rb'
+require_relative 'path_gem_directory.rb'
+require_relative 'gem_parameters.rb'
+
 class Scraper
   GEM_PARAMETERS_KEY_VALUE = { star: :stargazers_count,
                                forks: :forks_count,
@@ -12,41 +9,20 @@ class Scraper
                                watch: :subscribers_count }.freeze
 
   def self.fetch_gem_parameters(gems_names)
-    fetcher = new
-    fetcher.client_login
+    fetcher = new(gems_names)
     fetcher.all_gems_info(gems_names)
   end
 
   attr_reader :all_gems
 
-  def client
-    @client ||= fetch_client
-  end
-
-  def fetch_client
-    Octokit::Client.new(access_token: token)
-  end
-
-  def parse_error
-    puts 'Please enter valid Personal Auth Token'
-    @client = fetch_client
-    client_login
-  end
-
-  def client_login
-    client.user.login
-  rescue Octokit::Unauthorized
-    parse_error
-  end
-
-  def token
-    puts 'Enter your Github Personal Access Token:'
-    gets.chomp
+  def initialize(gems_names)
+    @gems_names = gems_names
+    @gem_parameters = nil
   end
 
   def all_gems_info(gems_names)
     @all_gems = gems_names.map do |name_gem|
-      if gem_info(name_gem)
+      if check_gem(name_gem)
         GemResource.new(name_gem, @gem_parameters)
       else
         puts('github.com has no gem: ' + name_gem)
@@ -57,42 +33,22 @@ class Scraper
 
   private
 
-  def gem_info_source_code_homepage(gem)
-    Gems.info(gem)['source_code_uri'] || Gems.info(gem)['homepage_uri']
+  def client
+    @client ||= Client.initialize_client
   end
 
-  def gem_info(gem)
-    @path = gem_info_source_code_homepage(gem)
-    return nil unless @path.include?('://github.com')
-    @path.sub!(%r{http.*com/}, '')
-    search_gem_parameters(repository)
+  def gem_path_directory(name_gem)
+    PathGemDirectory.fetch_gem_path_directory(name_gem)
   end
 
-  def contributors_count
-    contributors.css('span.num.text-emphasized').children[2].text.to_i
+  def check_gem(name_gem)
+    return nil unless gem_path_directory(name_gem)
+    fetch_gem_paraeters(name_gem)
   end
 
-  def used_by_count
-    dependents.css('.btn-link')[1].text.delete('^0-9').to_i
-  end
-
-  def contributors
-    Nokogiri::HTML(open("https://github.com/#{@path}"))
-  end
-
-  def dependents
-    Nokogiri::HTML(open("https://github.com/#{@path}/network/dependents"))
-  end
-
-  def repository
-    client.repo(@path)
-  end
-
-  def search_gem_parameters(repository)
-    @gem_parameters = {}
-    GEM_PARAMETERS_KEY_VALUE.each { |key, value| @gem_parameters[key] = repository[value].to_i }
-    @gem_parameters[:contributors] = contributors_count
-    @gem_parameters[:used_by] = used_by_count
-    @gem_parameters
+  def fetch_gem_paraeters(name_gem)
+    path = gem_path_directory(name_gem)
+    repository = client.repo(path)
+    @gem_parameters = GemParameters.fetch_gem_parameters(repository, path)
   end
 end

@@ -1,7 +1,7 @@
 require 'terminal-table'
 require_relative 'all_gems_fetcher.rb'
 require 'yaml'
-# :reek:NestedIterators
+
 class Table
   def self.fetch_table_output(selector)
     fetcher = new(selector)
@@ -14,15 +14,7 @@ class Table
   end
 
   def fetch_table_output
-    gem_row_output = ['used_by %<used_by>s',
-                      'watched by %<watch>s',
-                      '%<star>s stars',
-                      '%<forks>s forks',
-                      '%<contributors>s contributors',
-                      '%<issues>s issues']
-    rows = fetch_requested_gems.map do |gem|
-      gem_row_output.map { |parameter| format(parameter, gem.parameters) }.unshift(gem.name)
-    end
+    rows = fetch_requested_gems.map(&:to_row)
     puts Terminal::Table.new(rows: rows)
   end
 
@@ -34,7 +26,7 @@ class Table
   end
 
   def fetch_requested_gems
-    print_path_file(@selector[:file]) if @selector.key?(:file)
+    print_path_file(@selector[:file])
     return all_gems if @selector.empty?
     gems_by_name = fetch_gems_by_name
     if gems_by_name == []
@@ -45,7 +37,8 @@ class Table
   end
 
   def fetch_gems_by_amount(gems)
-    @selector.key?(:top) ? gems.first(@selector[:top]) : all_gems
+    return gems unless @selector.key?(:top)
+    gems.first(@selector[:top])
   end
 
   def fetch_gems_by_name
