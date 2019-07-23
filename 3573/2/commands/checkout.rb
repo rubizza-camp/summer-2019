@@ -26,6 +26,7 @@ module Checkout
     save_context :download_geo_checkout
   end
   # :reek:TooManyStatements
+
   def download_geo_checkout(*)
     if validator_geo == false
       respond_with :message, text: 'You are not right place. Try again'

@@ -26,6 +26,7 @@ module Checkin
     save_context :download_geo_checkin
   end
   # :reek:TooManyStatements
+
   def download_geo_checkin(*)
     if validator_geo == false
       respond_with :message, text: 'You are not right place. Try again'
