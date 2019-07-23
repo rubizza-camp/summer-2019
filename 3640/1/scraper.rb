@@ -3,11 +3,6 @@ require_relative 'path_gem_directory.rb'
 require_relative 'gem_parameters.rb'
 
 class Scraper
-  GEM_PARAMETERS_KEY_VALUE = { star: :stargazers_count,
-                               forks: :forks_count,
-                               issues: :open_issues_count,
-                               watch: :subscribers_count }.freeze
-
   def self.fetch_gem_parameters(gems_names)
     fetcher = new(gems_names)
     fetcher.all_gems_info(gems_names)
