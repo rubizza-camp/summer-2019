@@ -9,7 +9,11 @@ module RedisHelper
     @user_id_telegram ||= payload['from']['id']
   end
 
-  def respond_if_are_not_registered
-    respond_with :message, text: 'You are not registered'
+  def user_name
+    @user_name ||= payload['from']['first_name']
+  end
+
+  def user_registered?
+    redis.get(user_id_telegram)
   end
 end

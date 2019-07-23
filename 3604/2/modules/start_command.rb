@@ -1,61 +1,63 @@
 # frozen_string_literal: true
 
-require 'pry'
 require 'yaml'
+require_relative 'responses_helper.rb'
 
 DATA_PATH = './data/camp_numbers.yml'
+IMAGE_DOG_PATH = './modules/dogs.jpg'
 NUMBERS_LIST_KEY = 'camp_numbers'
 LIST_OF_COMMANDS = [
   '/start',
-  '/delete',
+  '/remove_account',
   '/checkin',
   '/checkout'
 ].freeze
 
 module StartCommand
+  include ResponsesHelper
+
   def start!(*)
     print_list_of_command
-    respond = "#{from['first_name']}! Enter your camp number for registration."
-    respond_with :message, text: respond
-    respond_with :photo, photo: File.open('./modules/dogs.jpg')
+    respond_with :message, text: user_name.to_s + START_RESPONSE
+    respond_with :photo, photo: File.open(IMAGE_DOG_PATH)
     save_context :message_register
   end
 
-  def message_register(*message)
-    number = message[0].to_i
-    return respond_if_redis_have_id if redis.get(user_id_telegram)
-    return respond_if_redis_have_number if redis.get(number)
-    return respond_if_number_exists(number) if list_of_numbers.include?(number)
-    respond_if_different_situation
+  def message_register(first_word, *)
+    student_number = first_word.to_i
+    return response_for_registered_student if user_registered?
+    return response_for_busy_student_number if student_number_busy?(student_number)
+    return response_for_register_student(student_number) if list_of_numbers.include?(student_number)
+    respond_for_different_situation
   end
 
   private
 
-  def respond_if_redis_have_id
-    respond = "Уou have already registered. Your number is #{redis.get(user_id_telegram)}"
-    respond_with :message, text: respond
+  def student_number_busy?(student_number)
+    redis.get(student_number)
   end
 
-  def respond_if_redis_have_number
-    respond = 'This number is registered already'
-    respond_with :message, text: respond
+  def response_for_registered_student
+    respond_with :message, text: USER_REGISTERED_RESPONSE + redis.get(user_id_telegram).to_s
+  end
+
+  def response_for_busy_student_number
+    respond_with :message, text: STUDENT_NUMBER_BUSY_RESPONSE
     start!
   end
 
-  def respond_if_number_exists(number)
-    registration(number)
-    respond = 'Registration completed successfully :)'
-    respond_with :message, text: respond
+  def response_for_register_student(student_number)
+    register_student(student_number)
+    respond_with :message, text: SUCCESSFUL_REGISTRATION_RESPONSE
   end
 
-  def respond_if_different_situation
-    respond = "I'm sorry, I don't see your number in list camp:("
-    respond_with :message, text: respond
+  def respond_for_different_situation
+    respond_with :message, text: FAILED_REGISTRATION_RESPONSE
     start!
   end
 
   def print_list_of_command
-    respond_with :message, text: 'List of commands:'
+    respond_with :message, text: LIST_OF_COMMANDS_RESPONSE
     LIST_OF_COMMANDS.each do |name_of_command|
       respond_with :message, text: name_of_command
     end
@@ -65,8 +67,8 @@ module StartCommand
     @list_of_numbers ||= YAML.load_file(DATA_PATH)[NUMBERS_LIST_KEY]
   end
 
-  def registration(number)
-    redis.set(user_id_telegram, number)
-    redis.set(number, true)
+  def register_student(student_number)
+    redis.set(user_id_telegram, student_number)
+    redis.set(student_number, true)
   end
 end

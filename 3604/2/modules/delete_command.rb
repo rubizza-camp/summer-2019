@@ -1,13 +1,17 @@
+require_relative 'responses_helper.rb'
+
 module DeleteCommand
-  def delete!(*)
-    return respond_if_are_not_registered unless redis.get(user_id_telegram)
-    delete_from_redis
-    respond_with :message, text: "Okey, #{from['username']}! I deleted you"
+  include ResponsesHelper
+
+  def remove_account!(*)
+    return respond_with :message, text: USER_ARE_NOT_REGISTERED_RESPONSE unless user_registered?
+    remove_from_redis
+    respond_with :message, text: user_name.to_s + REMOVE_ACCOUNT_RESPONSE
   end
 
   private
 
-  def delete_from_redis
+  def remove_from_redis
     number = redis.get(user_id_telegram)
     redis.del(number)
     redis.del(user_id_telegram)
