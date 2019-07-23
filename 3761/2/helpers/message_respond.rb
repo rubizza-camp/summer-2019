@@ -1,12 +1,20 @@
 module MessageRespond
   private
 
+  def respond_wrong_number
+    respond_with :message, text: I18n.t(:start_wrong_number)
+  end
+
+  def respond_student_exist
+    respond_with :message, text: I18n.t(:start_student_exist)
+  end
+
   def respond_ask_geo
-    { status: true, message: I18n.t(:ask_geo) }
+    respond_with :message, text: I18n.t(:ask_geo)
   end
 
   def respond_no_photo
-    { status: false, message: I18n.t(:no_photo) }
+    respond_with :message, text: I18n.t(:no_photo)
   end
 
   def respond_ask_photo
@@ -34,15 +42,15 @@ module MessageRespond
   end
 
   def respond_no_geo
-    { status: false, message: I18n.t(:no_geo) }
+    respond_with :message, text: I18n.t(:no_geo)
   end
 
   def respond_no_near_camp
-    { status: false, message: I18n.t(:wrong_geo) }
+    respond_with :message, text: I18n.t(:wrong_geo)
   end
 
   def respond_geo_end
-    { status: true, message: I18n.t(:geo_end) }
+    respond_with :message, text: I18n.t(:geo_end)
   end
 
   def response_delete_end

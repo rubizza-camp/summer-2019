@@ -5,9 +5,9 @@ require 'date'
 require 'dotenv'
 require 'i18n'
 
-Dir[File.join(__dir__, 'command', '*_command.rb')].each { |file| require file }
+Dir[File.join(__dir__, 'commands', '*_command.rb')].each { |file| require file }
 Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
-Dir[File.join(__dir__, 'helper', '*.rb')].each { |file| require file }
+Dir[File.join(__dir__, 'helpers', '*.rb')].each { |file| require file }
 
 class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::Session

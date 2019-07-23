@@ -1,8 +1,7 @@
-Dir[File.join('.', 'helper', '*.rb')].each { |file| require file }
+Dir[File.join('.', 'helpers', '*.rb')].each { |file| require file }
 
 class StudentRegistrator
   include Helper
-  include MessageRespond
 
   FILE_NAME = './data/student.txt'.freeze
 
@@ -18,11 +17,9 @@ class StudentRegistrator
   end
 
   def call
-    response = I18n.t(:start_wrong_number)
-    return { status: false, message: response } unless student_list.include?(student_number)
+    raise Errors::InvalidNumberError unless student_list.include?(student_number)
 
-    response = I18n.t(:start_student_exist)
-    return { status: false, message: response } if student_registered?(student_number)
+    raise Errors::StudentExistError if student_registered?(student_number)
 
     registration
   end
@@ -31,7 +28,6 @@ class StudentRegistrator
 
   def registration
     redis_registration(telegram_id, student_number)
-    { status: true, message: I18n.t(:start_end) } if redis.get(telegram_id)
   end
 
   def student_list
