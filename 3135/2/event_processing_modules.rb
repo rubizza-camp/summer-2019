@@ -6,6 +6,7 @@ module Registration
     'Provide camp number.'
   end
 
+  # :reek:TooManyStatements
   def self.camp_num(user, camp_num)
     puts camp_num
     user.save.camp_num(camp_num)
@@ -38,6 +39,7 @@ module Reception
     "Photo received. #{user.action.what?.capitalize} step 2: Send location."
   end
 
+  # :reek:TooManyStatements
   def self.location(user, location)
     action = user.action.what?
     user.save.location(location)

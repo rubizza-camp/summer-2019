@@ -12,6 +12,9 @@ class EventHandler
     @user = User.new(message.from.id)
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Style/EmptyCaseCondition, Metrics/MethodLength
+  # :reek:TooManyStatements
   def call
     case message.text
     when '/start'
@@ -35,6 +38,8 @@ class EventHandler
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Style/EmptyCaseCondition, Metrics/MethodLength
 
   private
 
@@ -46,20 +51,22 @@ class EventHandler
     end
   end
 
+  # rubocop:disable Metrics/AbcSize, MethodLength
   def digits
+    digits = message.text
     if user.action.registration? && user.request.camp_num?
-      if !Utils.recruit_list.include?(message.text)
+      if !Utils.recruit_list.include?(digits)
         'Sorry, you are not on the list of rubizza recruits.'
-      elsif Utils.registered_list.include?(message.text)
+      elsif Utils.registered_list.include?(digits)
         'Sorry, the recruit with this number is already registered.'
       else
-        puts "message.text = #{message.text.class}"
-        Registration.camp_num(user, message.text)
+        Registration.camp_num(user, digits)
       end
     else
       unexpected(__method__)
     end
   end
+  # rubocop:enable Metrics/AbcSize, MethodLength
 
   def checkin
     if user.resident? && !user.present?
@@ -94,6 +101,6 @@ class EventHandler
   end
 
   def unexpected(where_from = nil)
-    "unexpected input (#{where_from})"    
+    "unexpected input (#{where_from})"
   end
 end

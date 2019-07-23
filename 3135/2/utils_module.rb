@@ -15,28 +15,41 @@ module Utils
     "latitude: #{lat} longitude: #{long}"
   end
 
+  #:reek:LongParameterList
   def self.store_session(id, action, photo_uri, location)
     dir = "public/session_#{id}/#{action}s/#{Time.now.iso8601}"
     `mkdir -p #{dir}`
-    `curl -s #{photo_uri} --output #{dir}/selfie.jpg`     
-    File.open("#{dir}/geo.txt", "w") { |f| f.write(location) }
+    `curl -s #{photo_uri} --output #{dir}/selfie.jpg`
+    File.open("#{dir}/geo.txt", 'w') { |file| file.write(location) }
   end
 
   def self.recruit_list
-    YAML.load_file('recruit_list.yml')['rubizza_recruits'].map(&:to_s)
+    list = YAML.load_file('recruit_list.yml')['rubizza_recruits']
+    if list
+      list.map(&:to_s)
+    else
+      []
+    end
   end
 
   def self.registered_list
-    YAML.load_file('registered_list.yml').map(&:to_s)
-  end
-
-  def self.add_to_registered_list(camp_num)
     list = YAML.load_file('registered_list.yml')
     if list
-      list << camp_num.to_i
-      else
-      list = [camp_num.to_i]
+      list.map(&:to_s)
+    else
+      []
     end
-    File.open("registered_list.yml", "w") {|file| file.write(list.to_yaml)}
+  end
+
+  # :reek:TooManyStatements
+  def self.add_to_registered_list(digits)
+    camp_num = digits.to_i
+    list = YAML.load_file('registered_list.yml')
+    if list
+      list << camp_num
+    else
+      list = [camp_num]
+    end
+    File.open('registered_list.yml', 'w') { |file| file.write(list.to_yaml) }
   end
 end
