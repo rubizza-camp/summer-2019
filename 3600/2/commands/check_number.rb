@@ -16,12 +16,12 @@ module CheckNumber
   end
 
   def register_from_message(*words)
-    respond_with :message, text: register_session(words)
+    respond_with :message, text: add_number(words)
   end
 
   private
 
-  def register_session(number = nil, *)
+  def add_number(number)
     redis = Redis.new
     check_registaration(redis, number.first.to_i)
   end
