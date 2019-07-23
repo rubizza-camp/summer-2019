@@ -39,8 +39,8 @@ module Reception
   def self.location(user, location)
     user.save.location(location)
     user.presence_switch
-
     action = user.action.what?
+    Utils.store_session(user.id, action, user.photo_uri, user.location)
     user.status_flush
     "Location received. #{action.capitalize} successful."
   end

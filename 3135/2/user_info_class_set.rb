@@ -144,8 +144,8 @@ class DataSaver
   end
 
   # -camp number
-  def camp_num(num_as_str)
-    R.set("tgid_#{id}_camp_num", num_as_str)
+  def camp_num(digits)
+    R.set("tgid_#{id}_camp_num", digits)
   end
 
   # -photo uri
