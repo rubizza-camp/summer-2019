@@ -20,10 +20,10 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     builder (3.2.3)
-    byebug (11.0.1)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    dotenv (2.7.4)
     erubi (1.8.0)
     httparty (0.17.0)
       mime-types (~> 3.0)
@@ -72,7 +72,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
+  dotenv
   httparty
   pry
   redis-activesupport

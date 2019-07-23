@@ -8,16 +8,12 @@ class SaveFiles
     @session_key = session_key
   end
 
-  def make_path
-    FileUtils.makedirs path
-  end
-
   def path
     @path ||= "user/#{session_key}/#{Time.now.strftime '%Y-%m-%d_%H:%M:%S'}"
   end
 
   def save_files
-    make_path
+    FileUtils.makedirs(path)
     save :geoposition, path
     save :photo, path
   end

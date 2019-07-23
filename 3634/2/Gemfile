@@ -4,11 +4,11 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
+gem 'dotenv'
 gem 'httparty'
 gem 'redis-activesupport'
 gem 'telegram-bot'
 
 group :development do
-  gem 'byebug'
   gem 'pry'
 end

@@ -1,12 +1,11 @@
-require 'telegram/bot'
-require 'redis'
-require 'logger'
-require 'byebug'
-require 'pry'
 require 'active_support/time'
-require_relative 'commands/start'
+require 'dotenv/load'
+require 'logger'
+require 'redis'
+require 'telegram/bot'
 require_relative 'commands/check_in'
 require_relative 'commands/check_out'
+require_relative 'commands/start'
 
 class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
@@ -16,9 +15,19 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckOutCommand
 
   self.session_store = :redis_store, { expires_in: 1.month }
+
+  def chat_session
+    @chat_session ||= self.class.build_session('global_session')
+  end
+
+  def process_action(*)
+    super
+  ensure
+    chat_session.commit
+  end
 end
 
-TOKEN = ENV['TELEGRAM_BOT_TOKEN']
+TOKEN = ENV['TOKEN']
 bot = Telegram::Bot::Client.new(TOKEN)
 
 # poller-mode
