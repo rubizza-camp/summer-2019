@@ -1,6 +1,6 @@
 require 'optparse'
 
-class TGParse
+class TGParser
   def self.parse
     @options = {}
     parser_commands

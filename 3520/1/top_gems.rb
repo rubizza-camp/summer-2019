@@ -1,4 +1,11 @@
-require './lib/topgems.rb'
-require './lib/tg_parse.rb'
+require './lib/gems_data.rb'
 
-TopGems.new.run
+class TopGems
+  class << self
+    def run
+      GemsData.new
+    end
+  end
+end
+
+TopGems.run

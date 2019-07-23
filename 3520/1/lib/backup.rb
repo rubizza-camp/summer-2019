@@ -20,12 +20,12 @@ module Backup
     "./yaml/tmp/#{gem_name}.yml"
   end
 
-  def self.backup_create(gem_name, gem_info)
+  def self.backup_create(gem_info)
     if backup_dir_check
-      File.write(backup_path(gem_name), gem_info.to_yaml)
+      File.write(backup_path(gem_info[:name]), gem_info.to_yaml)
     else
       Dir.mkdir('./yaml/tmp') unless Dir.exist?('./yaml/tmp')
-      backup_create(gem_name, gem_info)
+      backup_create(gem_info)
     end
   end
 

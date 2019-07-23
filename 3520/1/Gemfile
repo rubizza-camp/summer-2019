@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'fileutils'
-gem 'optparse'
-gem 'tty-table'
-gem 'watir'
-gem 'webdrivers/geckodriver'
-gem 'yaml'
+gem 'OptionParser', '~> 0.5.1'
+gem 'ruby-progressbar', '~> 1.10', '>= 1.10.1'
+gem 'tty-table', '~> 0.10.0'
+gem 'watir', '~> 6.16', '>= 6.16.5'
+gem 'webdrivers', '~> 4.1', '>= 4.1.1'
