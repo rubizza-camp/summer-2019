@@ -4,7 +4,7 @@ class UserMethods
   end
 
   def self.checkin?(id)
-    User[id].is_checkin
+    User[id].checkin?
   end
 
   def self.find_users_by_person_number(person_number)
@@ -20,9 +20,9 @@ class UserMethods
     second_status = status
     case second_status
     when 'checkins'
-      User[id].update(checkin_datetime: Time.now, is_checkin: true)
+      User[id].update(checkin_datetime: Time.now, checkin?: true)
     else
-      User[id].update(checkout_datetime: Time.now, is_checkin: false)
+      User[id].update(checkout_datetime: Time.now, checkin?: false)
     end
   end
 

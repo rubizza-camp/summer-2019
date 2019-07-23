@@ -1,4 +1,4 @@
-require_relative '../file_methods/file_methods.rb'
+require_relative '../file_methods'
 
 module LocationMethods
   def location_condition(location, person_number, folder)
