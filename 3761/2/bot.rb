@@ -3,7 +3,6 @@ require 'redis'
 require 'fileutils'
 require 'date'
 require 'dotenv'
-require 'logger'
 require 'i18n'
 
 Dir[File.join(__dir__, 'command', '*_command.rb')].each { |file| require file }
@@ -24,15 +23,3 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckoutCommand
   include EndCommand
 end
-
-Dotenv.load
-TOKEN = ENV['TOKEN']
-bot = Telegram::Bot::Client.new(TOKEN)
-
-Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_592_000 }
-
-logger = Logger.new(STDOUT)
-poller = Telegram::Bot::UpdatesPoller.new(bot, WebhooksController, logger: logger)
-poller.start
-
-Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_592_000 }
