@@ -1,13 +1,7 @@
 require 'telegram/bot'
 require 'logger'
 require 'dotenv'
-require './modules/start_command.rb'
-require './modules/checkin_command.rb'
-require './modules/checkout_command.rb'
-require './modules/delete_command.rb'
-require './modules/photo_uploader.rb'
-require './modules/geo_uploader.rb'
-require './modules/redis_helper'
+Dir[File.join('./modules', '*.rb')].each { |file| require_relative file }
 
 class WebhooksController < Telegram::Bot::UpdatesController
   Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_592_000 }
@@ -17,15 +11,13 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckinCommand
   include CheckoutCommand
   include DeleteCommand
-  include PhotoUploader
-  include GeoUploader
+  include PhotoDownloader
+  include GeoDownloader
   include RedisHelper
 end
 
 Dotenv.load
-TOKEN = ENV['TOKEN']
-
-bot = Telegram::Bot::Client.new(TOKEN)
+bot = Telegram::Bot::Client.new(ENV['TOKEN'])
 
 # poller-mode
 logger = Logger.new(STDOUT)
