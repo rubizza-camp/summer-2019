@@ -1,11 +1,9 @@
 module DeleteCommand
   def delete!(*)
-    respond = 'You are not registered'
-    return respond_with :message, text: respond unless redis.get(student_number)
+    return respond_with :message, text: NOT_REGISTER unless redis.get(student_number)
     delete_from_redis
-    respond = 'I deleted you'
 
-    respond_with :message, text: respond
+    respond_with :message, text: DELETE
   end
 
   private

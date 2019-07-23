@@ -3,12 +3,6 @@
 class LoaderPhoto
   include Helper
 
-  Dotenv.load
-  TOKEN = ENV['TOKEN']
-  API_URL_TELEGRAM = "https://api.telegram.org/bot#{TOKEN}/"
-  API_URL_TELEGRAM_FILE = "https://api.telegram.org/file/bot#{TOKEN}/"
-  GET_FILE_URL = 'getFile?file_id='
-
   attr_reader :payload, :time, :status
 
   def initialize(payload, time, status)
@@ -23,11 +17,9 @@ class LoaderPhoto
 
   def call
     download_last_photo(create_checkin_path)
-    response = 'Send me your geolocation'
-    { status: true, message: response }
+    { status: true, message: GEOLOCATION }
   rescue NoMethodError
-    response = 'Are you sure that it is photo???'
-    { status: false, message: response }
+    { status: false, message: NOT_PHOTO }
   end
 
   private
@@ -45,7 +37,7 @@ class LoaderPhoto
   end
 
   def photo_file_path
-    JSON.parse(URI.open(url_json_about_file).read, symbolize_names: true)[:result][:file_path]
+    JSON.parse(URI.open(url_json_about_file).read, symbolize_names: true).dig(result, file_path)
   end
 
   def url_json_about_file

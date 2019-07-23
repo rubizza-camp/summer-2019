@@ -1,9 +1,6 @@
 class LoaderGeoLocation
   include Helper
 
-  VALID_LATITUDE = 53.914264..53.916233
-  VALID_LONGITUDE = 27.565941..27.571306
-
   attr_reader :payload, :time, :status
 
   def initialize(payload, time, status)
@@ -17,10 +14,9 @@ class LoaderGeoLocation
   end
 
   def call
-    response = 'You must be on work'
-    return { status: false, message: response } unless valid?
+    return { status: false, message: NOT_AT_WORK } unless valid?
 
-    { status: true, message: 'U\'re really cool men' }
+    { status: true, message: GREAT }
   end
 
   private

@@ -13,11 +13,9 @@ class Registration
   end
 
   def call
-    response = 'Don\'t know student with this number'
-    return { status: false, message: response } unless student_list.include?(student_number)
+    return { status: false, message: NO_ON_THE_LIST } unless student_list.include?(student_number)
 
-    response = 'You\'re already registered!'
-    return { status: false, message: response } if redis.get(student_number)
+    return { status: false, message: REGISTERED } if redis.get(student_number)
 
     registration
   end
@@ -30,7 +28,6 @@ class Registration
 
   def registration
     redis_registration(identity, student_number)
-    response = 'You can continue with /checkin, /checkout'
-    { status: true, message: response } if redis.get(identity)
+    { status: true, message: SUCCESSFUL_REGISTRATION } if redis.get(identity)
   end
 end

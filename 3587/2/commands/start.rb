@@ -1,14 +1,7 @@
-# frozen_string_literal: true
-
-DATA_PATH = './data/numbers.yml'
-
 module StartCommand
   def start!(*)
-    response = "#{student_number}, You've already registered!"
-    return respond_with :message, text: response if account_registered?
-
-    response = "Hi, #{from['first_name']}! Enter your number, please."
-    respond_with :message, text: response
+    return respond_with :message, text: REGISTERED if account_registered?
+    respond_with :message, text: "Hi, #{from['first_name']}! Enter your number, please."
     save_context :number_from_message
   end
 
