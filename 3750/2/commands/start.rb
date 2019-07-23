@@ -3,27 +3,22 @@ module Commands
     def start!(*)
       notify(:already_registered) && return if registered?
 
-      process_registration
       notify(:number_request)
+      save_context(:number_check)
     end
 
     def number_check(number, *)
-      notify(:failure) && return unless FileAccessor.personal_numbers.include? number
-      registration(number)
+      notify(:failure) && return unless FileAccessor.personal_numbers.include?(number)
+      register(number)
+      notify(:success_registration)
     end
 
     private
 
-    def process_registration
-      save_context :number_check
-    end
-
-    def registration(number)
+    def register(number)
       session[:number] = number
       session[:id] = from['id']
-      session[:checkout?] = true
-      Redis.new.set(number, from['id'])
-      notify(:success_registration)
+      session[:checked_in] = false
     end
   end
 end

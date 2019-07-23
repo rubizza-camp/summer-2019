@@ -20,7 +20,7 @@ class PathGenerator
   end
 
   def download_path
-    BOT_DOWNLOAD_API_URL + photo_download_path
+    "#{BOT_DOWNLOAD_API_URL}#{photo_download_path}"
   end
 
   private
@@ -43,6 +43,6 @@ class PathGenerator
   end
 
   def path_request_url
-    BOT_API_URL + GET_PATH_URL + photo_id
+    "#{BOT_API_URL}#{GET_PATH_URL}#{photo_id}"
   end
 end
