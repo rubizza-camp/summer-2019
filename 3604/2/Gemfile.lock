@@ -101,6 +101,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv (= 2.7.4)
+  i18n (= 1.6.0)
   redis (= 4.1.2)
   redis-activesupport (= 5.0.7)
   reek (= 5.4.0)
