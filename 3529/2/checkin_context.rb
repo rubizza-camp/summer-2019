@@ -11,7 +11,8 @@ module CheckinContext
   def checkin!(message = nil, *)
     save_context :checkin!
     @path_check = PathLoader.new(payload)
-    if message
+    new = message
+    if new
       coord_handle(@path_check, 'in')
     else
       reply

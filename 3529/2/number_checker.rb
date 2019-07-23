@@ -28,7 +28,7 @@ class NumberChecker
             else
               new_part
             end
-    participant['telegram_id'] = payload['from']['id'] if resp.eql?(new_part)
+    participant['telegram_id'] = payload['from']['id'] if @resp.eql?(new_part)
     @resp
   end
 
