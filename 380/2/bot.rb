@@ -7,6 +7,10 @@ token = ''
 db = Redis.new
 
 class RubizzaWatchman
+  def initialize
+    # to do create storage, token enter
+  end
+
   def run(token, db)
     Telegram::Bot::Client.run(token) do |bot|
       bot.listen do |message|

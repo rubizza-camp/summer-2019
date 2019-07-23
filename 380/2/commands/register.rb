@@ -8,6 +8,8 @@ module Register
     end
   end
 
+  private
+
   def sign_in(dialog)
     dialog.database.set(dialog.chat_id, dialog.user_said.to_i)
     dialog.change_status('registred')
