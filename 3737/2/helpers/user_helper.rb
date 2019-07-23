@@ -7,16 +7,17 @@ class UserHelper
     User[id]
   end
 
-  def self.check_number(number)
+  def self.check_number(enter_number)
     file = YAML.load_file('data/stud.yml')
-    file['numbers'].find { |num| num == number.to_i }
+    file['numbers'].find { |number| number == enter_number.to_i }
   end
 
   def self.find_user(number)
-    reg_user = []
+    registrated_user = []
+    student_number = number
     User.all.each do |user|
-      reg_user << user if user.number == number
+      registrated_user << user if user.number == student_number
     end
-    reg_user
+    registrated_user
   end
 end

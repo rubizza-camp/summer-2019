@@ -1,14 +1,14 @@
 require 'fileutils'
+require 'haversine'
 require 'time'
-require_relative '../helpers/location_helper.rb'
 require_relative '../helpers/photo_helper.rb'
 require_relative '../helpers/user_helper.rb'
 
 # module with checkout command
 module CheckoutCommand
   include PhotoHelper
-  include LocationHelper
 
+  CAMP = [53.915205, 27.560094].freeze
   TIME = Time.now.strftime('%a, %d %b %Y %H:%M')
 
   def checkout!(*)
@@ -32,21 +32,25 @@ module CheckoutCommand
 
   def checkout_location(*)
     if payload['location']
-      if valid_location(payload['location'].values)
-        respond_with :message, text: 'Cool! Good luck!'
-        save_checkout_location
-      else
-        respond_with :message, text: 'U\' so far from camp! Try later'
-      end
+      checkout_valid_location(payload['location'].values)
     else
       save_context :checkout_location
       respond_with :message, text: 'Send ur location'
     end
   end
 
+  def checkout_valid_location(location)
+    if Haversine.distance(CAMP, location).to_km <= 0.5
+      respond_with :message, text: 'Cool! Good luck!'
+      save_checkout_location
+    else
+      respond_with :message, text: 'U\' so far from camp! Try later'
+    end
+  end
+
   def save_checkout_photo(*)
     path = photo_path
-    create_out_directory(from['id'])
+    create_checkout_directory(from['id'])
     File.open(checkout_path(from['id']) + '/photo.jpg', 'wb') do |file|
       file << URI.open(DOWNLOAD_API + path).read
     end
@@ -59,7 +63,7 @@ module CheckoutCommand
     end
   end
 
-  def create_out_directory(id)
+  def create_checkout_directory(id)
     FileUtils.mkdir_p(checkout_path(id))
   end
 
