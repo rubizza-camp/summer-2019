@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+gem 'gems', '1.1.1'
+gem 'io-console', '0.4.8'
+gem 'json', '2.2.0'
+gem 'mechanize', '2.7.6'
+gem 'nokogiri', '1.10.3'
+gem 'terminal-table', '1.8.0'

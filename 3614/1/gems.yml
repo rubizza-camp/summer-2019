@@ -1,0 +1,12 @@
+gems:
+  - sinatra
+  - rspec
+  - pry-byebug
+  - letter_opener
+  - kaminari
+ # - paranoia
+ # - aasm
+ # - activerecord-import
+ # - rollout
+ # - grape
+ # - rake
