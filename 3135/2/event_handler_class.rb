@@ -1,5 +1,3 @@
-require_relative 'utils_module'
-
 # This is a main switch that checks input and routs events
 class EventHandler
   attr_reader :user, :bot, :message
@@ -33,7 +31,7 @@ class EventHandler
       when message.location
         location
       else
-        'wrong input main switch'
+        unexpected('main switch')
       end
     end
   end
@@ -52,7 +50,7 @@ class EventHandler
     if user.action.registration? && user.request.camp_num?
       Registration.camp_num(user, message.text)
     else
-      'unexpected input (/^\d+$/)'
+      unexpected(__method__)
     end
   end
 
@@ -60,7 +58,7 @@ class EventHandler
     if user.resident? && !user.present?
       Reception.checkin(user)
     else
-      'unexpected input (checkin)'
+      unexpected(__method__)
     end
   end
 
@@ -68,7 +66,7 @@ class EventHandler
     if user.resident? && user.present?
       Reception.checkout(user)
     else
-      'unexpected input (checkout)'
+      unexpected(__method__)
     end
   end
 
@@ -85,7 +83,7 @@ class EventHandler
     if user.request.photo?
       Reception.photo(user, Utils.construct_photo_uri(message, bot))
     else
-      'unexpected input (photo)'
+      unexpected(__method__)
     end
   end
 
@@ -93,8 +91,11 @@ class EventHandler
     if user.request.location?
       Reception.location(user, Utils.construct_location(message.location))
     else
-      'unexpected input (location)'
+      unexpected(__method__)
     end
   end
 
+  def unexpected(where_from = nil)
+    "unexpected input (#{where_from})"    
+  end
 end
