@@ -11,12 +11,12 @@ module CheckoutContext
   def checkout!(message = nil, *)
     save_context :checkout!
     if message
-      coord_handle(@@path_checkout, 'out')
+      coord_handle(@@path_check, 'out')
     elsif payload['text']
       respond_with :message, text: 'Send me your selfie, please'
     else
-      @@path_checkout = PathLoader.new(payload)
-      selfie_handler(@@path_checkout, 'out')
+      @@path_check = PathLoader.new(payload)
+      selfie_handler(@@path_check, 'out')
     end
   end
 end

@@ -11,12 +11,12 @@ module CheckinContext
   def checkin!(message = nil, *)
     save_context :checkin!
     if message
-      coord_handle(@@path_checkin, 'in')
+      coord_handle(@@path_check, 'in')
     elsif payload['text']
       respond_with :message, text: 'Send me your selfie, please'
     else
-      @@path_checkin = PathLoader.new(payload)
-      selfie_handler(@@path_checkin, 'in')
+      @@path_check = PathLoader.new(payload)
+      selfie_handler(@@path_check, 'in')
     end
   end
 end
