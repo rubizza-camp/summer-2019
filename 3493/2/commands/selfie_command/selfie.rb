@@ -1,10 +1,10 @@
 require_relative '../../validations/photo_validation/photo_validation.rb'
-require_relative '../../support_methods/photo_methods/photo_methods.rb'
+require_relative '../../lib/photo_methods/photo_methods.rb'
 
-module SelfiCommand
+module SelfieCommand
   include PhotoValidation
   include PhotoMethods
-  def selfi(*)
+  def selfie(*)
     if photo?
       photo_condition(payload['photo'], User[from['id']].person_number,
                       session['status'])
@@ -12,7 +12,7 @@ module SelfiCommand
     else
       respond_with :message, text: 'Ну где же ваше фото, давай же сделаем фото и
                                     будем продолжать!!'
-      save_context :selfi
+      save_context :selfie
     end
   end
 end
