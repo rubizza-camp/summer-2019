@@ -1,0 +1,9 @@
+gems:
+  - rake
+  - activeadmin
+  - rspec
+  - rails
+  - sinatra
+  - rubocop
+  - capybara
+  - redis
