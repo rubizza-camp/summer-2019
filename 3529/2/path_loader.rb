@@ -3,7 +3,7 @@ require 'fileutils'
 class PathLoader
   def initialize(payload)
     @session_id = "#{payload['from']['id']}:#{payload['chat']['id']}"
-    @date = Time.now.asctime
+    @date = Time.now.strftime('%m:%d:%Y:%H')
   end
 
   def create_directory(in_or_out, file_name)
