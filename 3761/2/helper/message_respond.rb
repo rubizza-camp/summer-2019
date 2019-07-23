@@ -1,4 +1,6 @@
 module MessageRespond
+  private
+
   def respond_ask_geo
     { status: true, message: I18n.t(:ask_geo) }
   end
