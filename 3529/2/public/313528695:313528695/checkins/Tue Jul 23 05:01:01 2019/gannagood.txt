@@ -1,0 +1,4 @@
+def create_directory(path)
+    dirname = File.dirname(path)
+    FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
+  end

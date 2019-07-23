@@ -12,14 +12,13 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckoutContext
   include Telegram::Bot::UpdatesController::MessageContext
 
-
   def initialize(*)
     super
     Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 100_000_000 }
   end
 end
 
-TOKEN = '919190207:AAFfJhW2frNEWYeaSAvxhgwC6I233JVnVBg'
+TOKEN = '919190207:AAFfJhW2frNEWYeaSAvxhgwC6I233JVnVBg'.freeze
 bot = Telegram::Bot::Client.new(TOKEN)
 Telegram.bots_config = {
   default: TOKEN
