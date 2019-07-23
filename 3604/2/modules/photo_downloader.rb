@@ -18,6 +18,6 @@ module PhotoDownloader
   end
 
   def url_json_about_file
-    @url_json_about_file ||= API_URL_TELEGRAM + GET_FILE_URL + payload['photo'].last['file_id']
+    @url_json_about_file ||= API_URL_TELEGRAM + GET_FILE_URL + payload.dig('photo', -1, 'file_id')
   end
 end
