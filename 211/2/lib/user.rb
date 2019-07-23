@@ -25,28 +25,6 @@ class User
     numbers.any?(rubizza_id) ? wellcome : try_again
   end
 
-  def change_status(message, current)
-    check_status
-    case message.text
-    when current
-      "you already did your #{current}"
-    when '/checkin', '/checkout'
-      status = message.text.tr('/', '') + 's'
-    end
-    REDIS.set("#{user_id}_status", status)
-    ask_selfie
-  end
-
-  def check_status
-    current_status = REDIS.get("#{user_id}_status")
-    current = case current_status
-               when 'checkined'
-                 '/checkin'
-               when 'checkouted'
-                 '/checkout'
-               end
-  end
-
   def wellcome
     REDIS.set(user_id, message.text)
     start
@@ -54,10 +32,16 @@ class User
   end
 
   # rubocop: disable Metrics/MethodLength
+  # rubocop: disable Metrics/AbcSize
+  # rubocop: disable Metrics/CyclomaticComplexity
   def answer_to_request
     case message.text
     when '/start'
-      check_registration
+      if %w[checkouted checkined].include?(REDIS.get("#{user_id}_status"))
+        'You already started'
+      else
+        check_registration
+      end
     when '/checkin'
       checking_in
     when '/checkout'
@@ -73,6 +57,8 @@ class User
     end
   end
   # rubocop: enable Metrics/MethodLength
+  # rubocop: enable Metrics/AbcSize
+  # rubocop: enable Metrics/CyclomaticComplexity
 
   def checking_in
     status = REDIS.get("#{user_id}_status")
@@ -97,7 +83,4 @@ class User
   private
 
   attr_reader :message, :user_id
-
-
-
 end
