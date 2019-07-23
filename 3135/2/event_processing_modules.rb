@@ -7,10 +7,12 @@ module Registration
   end
 
   def self.camp_num(user, camp_num)
+    puts camp_num
     user.save.camp_num(camp_num)
     user.give_residency
     user.presence_init
     user.status_flush
+    Utils.add_to_registered_list(camp_num)
     "You have been registered with camp number #{camp_num}."
   end
 end
@@ -37,9 +39,9 @@ module Reception
   end
 
   def self.location(user, location)
+    action = user.action.what?
     user.save.location(location)
     user.presence_switch
-    action = user.action.what?
     Utils.store_session(user.id, action, user.photo_uri, user.location)
     user.status_flush
     "Location received. #{action.capitalize} successful."

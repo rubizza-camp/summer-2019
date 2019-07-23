@@ -48,7 +48,14 @@ class EventHandler
 
   def digits
     if user.action.registration? && user.request.camp_num?
-      Registration.camp_num(user, message.text)
+      if !Utils.recruit_list.include?(message.text)
+        'Sorry, you are not on the list of rubizza recruits.'
+      elsif Utils.registered_list.include?(message.text)
+        'Sorry, the recruit with this number is already registered.'
+      else
+        puts "message.text = #{message.text.class}"
+        Registration.camp_num(user, message.text)
+      end
     else
       unexpected(__method__)
     end
@@ -68,15 +75,6 @@ class EventHandler
     else
       unexpected(__method__)
     end
-  end
-
-  def status
-    puts user.action.what?
-    puts user.request.what?
-    puts user.present?
-    puts user.location
-    puts user.photo_uri
-    '/status'
   end
 
   def photo

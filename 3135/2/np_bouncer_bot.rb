@@ -1,7 +1,6 @@
 require 'telegram/bot'
 require 'redis'
 
-# require 'open-uri'
 require_relative 'user_info_class_set'
 require_relative 'event_handler_class'
 require_relative 'event_processing_modules'

@@ -1,3 +1,5 @@
+require 'YAML'
+
 # Utils prepares data for storing
 module Utils
   def self.construct_photo_uri(message, bot)
@@ -18,5 +20,23 @@ module Utils
     `mkdir -p #{dir}`
     `curl -s #{photo_uri} --output #{dir}/selfie.jpg`     
     File.open("#{dir}/geo.txt", "w") { |f| f.write(location) }
+  end
+
+  def self.recruit_list
+    YAML.load_file('recruit_list.yml')['rubizza_recruits'].map(&:to_s)
+  end
+
+  def self.registered_list
+    YAML.load_file('registered_list.yml').map(&:to_s)
+  end
+
+  def self.add_to_registered_list(camp_num)
+    list = YAML.load_file('registered_list.yml')
+    if list
+      list << camp_num.to_i
+      else
+      list = [camp_num.to_i]
+    end
+    File.open("registered_list.yml", "w") {|file| file.write(list.to_yaml)}
   end
 end

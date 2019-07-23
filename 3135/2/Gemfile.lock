@@ -15,6 +15,7 @@ GEM
     ice_nine (0.11.2)
     inflecto (0.0.2)
     multipart-post (2.1.1)
+    redis (4.1.2)
     telegram-bot-ruby (0.10.1)
       faraday
       inflecto
@@ -30,6 +31,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  redis
   telegram-bot-ruby
 
 BUNDLED WITH
