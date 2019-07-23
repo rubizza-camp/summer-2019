@@ -1,8 +1,9 @@
 require 'haversine'
-require './helper/helper.rb'
+Dir[File.join('.', 'helper', '*.rb')].each { |file| require file }
 
 class GeolocationLoader
   include Helper
+  include MessageRespond
 
   attr_reader :payload, :time, :status
 
@@ -20,12 +21,12 @@ class GeolocationLoader
   end
 
   def call
-    return response_no_geo unless geo_parse
+    return respond_no_geo unless geo_parse
 
-    return response_no_near_camp unless near_camp?
+    return respond_no_near_camp unless near_camp?
 
     download_last_geo
-    response_successfull
+    respond_geo_end
   end
 
   private
@@ -42,20 +43,5 @@ class GeolocationLoader
 
   def near_camp?
     Haversine.distance(CAMP_LOCATION, geo_parse.values).to_kilometers < MAX_DISTANCE_FROM_CAMP
-  end
-
-  def response_no_geo
-    response = 'Are you sure that it is geo??? Try again'
-    { status: false, message: response }
-  end
-
-  def response_no_near_camp
-    response = 'Are you sure tha you\'re near camp. Try again'
-    { status: false, message: response }
-  end
-
-  def response_successfull
-    response = 'Great!!! I believe you=)'
-    { status: true, message: response }
   end
 end

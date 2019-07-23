@@ -2,9 +2,10 @@
 
 source 'https://rubygems.org'
 
-gem 'haversine'
-gem 'redis'
-gem 'redis-activesupport'
-gem 'reek'
-gem 'rubocop'
-gem 'telegram-bot'
+gem 'haversine', '0.3.2'
+gem 'i18n', '1.6.0'
+gem 'redis', '4.1.2'
+gem 'redis-activesupport', '5.0.7'
+gem 'reek', '5.4.0'
+gem 'rubocop', '0.73.0'
+gem 'telegram-bot', '0.14.2'

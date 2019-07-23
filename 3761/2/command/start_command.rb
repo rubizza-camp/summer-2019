@@ -1,9 +1,9 @@
 module StartCommand
   def start!(*)
-    response = "#{student_number}, You\'ve already registered! You can continue."
+    response = student_number.to_s + I18n.t(:start_register)
     return respond_with :message, text: response if account_registered?
 
-    response = "Hi, #{from['first_name']}! Enter your number, please."
+    response = from['first_name'].to_s + I18n.t(:start_unregister)
     respond_with :message, text: response
     save_context :number_from_message
   end

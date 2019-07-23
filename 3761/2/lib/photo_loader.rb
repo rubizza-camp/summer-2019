@@ -1,7 +1,8 @@
-require './helper/helper.rb'
+Dir[File.join('.', 'helper', '*.rb')].each { |file| require file }
 
 class PhotoLoader
   include Helper
+  include MessageRespond
 
   BOT_API_URL = "https://api.telegram.org/bot#{TOKEN}/".freeze
   BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
@@ -21,9 +22,9 @@ class PhotoLoader
 
   def call
     download_last_photo
-    response_successfull
+    respond_ask_geo
   rescue NoMethodError
-    response_no_photo
+    respond_no_photo
   end
 
   private
@@ -43,15 +44,5 @@ class PhotoLoader
 
   def help_path
     path(status, time)
-  end
-
-  def response_successfull
-    response = 'Great!!! But... I don\'t believe you. Send me your geolocation'
-    { status: true, message: response }
-  end
-
-  def response_no_photo
-    response = 'Are you sure that it is photo???'
-    { status: false, message: response }
   end
 end
