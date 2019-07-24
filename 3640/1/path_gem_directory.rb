@@ -8,21 +8,20 @@ class PathGemDirectory
 
   def initialize(name_gem)
     @name_gem = name_gem
-    @gem_path_directory = nil
   end
 
   def gem_path_directory
-    return nil unless validation_source_code_homepage
-    @gem_path_directory = validation_source_code_homepage.sub!(%r{http.*com/}, '')
+    return nil unless validate_source_code_homepage
+    validate_source_code_homepage.sub!(%r{http.*com/}, '')
   end
 
   private
 
   def fetch_source_code_homepage
-    Gems.info(@name_gem)['source_code_uri'] || Gems.info(@name_gem)['homepage_uri']
+    Gems.info(@name_gem) ['source_code_uri'] || Gems.info(@name_gem) ['homepage_uri']
   end
 
-  def validation_source_code_homepage
+  def validate_source_code_homepage
     return nil unless fetch_source_code_homepage.include?('://github.com')
     fetch_source_code_homepage
   end

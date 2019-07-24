@@ -1,5 +1,5 @@
+require_relative 'scraper.rb'
 require 'terminal-table'
-require_relative 'all_gems_fetcher.rb'
 require 'yaml'
 
 class Table
@@ -22,7 +22,7 @@ class Table
 
   def all_gems
     names_all_gems = YAML.load_file(@gems_file_name)['gems']
-    @all_gems ||= AllGemsFetcher.fetch_all_gems(names_all_gems).sort_by(&:rating).reverse
+    @all_gems ||= Scraper.fetch_gem_parameters(names_all_gems).sort_by(&:rating).reverse
   end
 
   def fetch_requested_gems

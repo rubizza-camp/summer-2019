@@ -1,6 +1,7 @@
 require_relative 'client.rb'
 require_relative 'path_gem_directory.rb'
 require_relative 'gem_parameters.rb'
+require_relative 'gem_resource.rb'
 
 class Scraper
   def self.fetch_gem_parameters(gems_names)
@@ -12,15 +13,15 @@ class Scraper
 
   def initialize(gems_names)
     @gems_names = gems_names
-    @gem_parameters = nil
+    @client = Client.initialize_client
   end
 
   def all_gems_info(gems_names)
-    @all_gems = gems_names.map do |name_gem|
-      if check_gem(name_gem)
-        GemResource.new(name_gem, @gem_parameters)
+    all_gems = gems_names.map do |gem_name|
+      if validate_gem(gem_name)
+        GemResource.new(gem_name, fetch_gem_paraeters(gem_name))
       else
-        puts('github.com has no gem: ' + name_gem)
+        puts('github.com has no gem: ' + gem_name)
       end
     end
     all_gems.compact!
@@ -28,22 +29,18 @@ class Scraper
 
   private
 
-  def client
-    @client ||= Client.initialize_client
+  def gem_path_directory(gem_name)
+    PathGemDirectory.fetch_gem_path_directory(gem_name)
   end
 
-  def gem_path_directory(name_gem)
-    PathGemDirectory.fetch_gem_path_directory(name_gem)
+  def validate_gem(gem_name)
+    return nil unless gem_path_directory(gem_name)
+    true
   end
 
-  def check_gem(name_gem)
-    return nil unless gem_path_directory(name_gem)
-    fetch_gem_paraeters(name_gem)
-  end
-
-  def fetch_gem_paraeters(name_gem)
-    path = gem_path_directory(name_gem)
-    repository = client.repo(path)
-    @gem_parameters = GemParameters.fetch_gem_parameters(repository, path)
+  def fetch_gem_paraeters(gem_name)
+    path = gem_path_directory(gem_name)
+    repository = @client.repo(path)
+    GemParameters.fetch_gem_parameters(repository, path)
   end
 end
