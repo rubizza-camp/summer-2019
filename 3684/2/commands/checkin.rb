@@ -1,14 +1,13 @@
 module Checkin
-  def checkin!(*)
+  def checkin!
     if redis.get('telegram_id').include?(from['id'].to_s)
       if session[:checkin]
-        respond_with :message, text: 'Нужно зачекаутиться -> /checkout'
+        respond_with :message, text: I18n.t(:without_checkout)
         return
       end
       update_session_info_checkin
-      respond_with :message, text: 'Фейсконтроль'
     else
-      respond_with :message, text: 'Пройдите регистрацию -> /start'
+      respond_with :message, text: I18n.t(:without_registration)
     end
   end
 
@@ -17,5 +16,6 @@ module Checkin
     session[:timestamp] = Time.now
     session[:operation] = 'checkin'
     save_context :photo
+    respond_with :message, text: I18n.t(:face_control)
   end
 end

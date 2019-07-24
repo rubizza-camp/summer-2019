@@ -6,13 +6,18 @@ module CommandHelper
     @redis ||= Redis.new
   end
 
+  def help!
+    respond_with :message, text: I18n.t(:help_command)
+  end
+
   def save_data(location, photo_id)
     FileUtils.mkdir_p file_save_path
     save_location(location['latitude'], location['longitude'])
     download_file(photo_id)
   end
 
-  def add_telegram_id
+  def add_telegram_id(number)
+    redis.set(from['id'], number)
     user_ids = redis.get('telegram_id')
     user_ids = "#{user_ids}, #{from['id']}"
     redis.set('telegram_id', user_ids)
@@ -21,9 +26,9 @@ module CommandHelper
   def respond_to_sucsess_checkin_or_checkout
     case session[:operation]
     when 'checkin'
-      respond_with :message, text: 'Можешь приступать'
+      respond_with :message, text: I18n.t(:checkin_success)
     when 'checkout'
-      respond_with :message, text: 'Можешь отдохнуть'
+      respond_with :message, text: I18n.t(:checkout_success)
     end
   end
 

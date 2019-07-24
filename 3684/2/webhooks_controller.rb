@@ -5,11 +5,12 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include Checkin
   include Checkout
   include ContextMessages
-  include InfoSaver
+  include CommandHelper
+  include LocaleChooser
 
   self.session_store = :redis_store, { expires_in: 1_000_000_000_000 }
 
-  def message
-    reply_with :message, text: 'Шо ты несешь, чувырло?'
+  def message(*)
+    reply_with :message, text: I18n.t(:incorrect_input)
   end
 end

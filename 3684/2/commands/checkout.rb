@@ -1,15 +1,15 @@
 module Checkout
-  def checkout!(*)
+  def checkout!
     if session[:checkin]
-      save_context :photo
       update_session_info_checkout
-      respond_with :message, text: 'Фейсконтроль'
+      respond_with :message, text: I18n.t(:face_control)
     else
-      respond_with :message, text: 'Ты не чекинился, чудовище -> /checkin'
+      respond_with :message, text: I18n.t(:without_checkin)
     end
   end
 
   def update_session_info_checkout
+    save_context :photo
     session[:checkin] = false
     session[:timestamp] = Time.now
     session[:operation] = 'checkout'
