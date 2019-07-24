@@ -14,5 +14,9 @@ class IdeaBoxApp < Sinatra::Base
     erb :index
   end
 
+  get '/register' do
+    erb :register
+  end
+
   run! if app_file == $0
 end
