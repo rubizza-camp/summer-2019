@@ -1,13 +1,13 @@
-module CheckOut
-  def check_out(dialog)
+class CheckOut
+  def self.call(dialog)
     case dialog.status
     when nil
       dialog.say_to_user('Register!')
     when 'not_registred'
       dialog.say_to_user('Register!')
-    when 'registred'
+    when 'checked_in'
       dialog.say_to_user('Send selfie!')
-      dialog.change_status('check_out_photo')
+      dialog.change_status('wait_out_selfie')
     end
   end
 end
