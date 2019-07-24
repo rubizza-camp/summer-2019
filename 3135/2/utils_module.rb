@@ -17,7 +17,7 @@ module Utils
 
   #:reek:LongParameterList
   def self.store_session(id, action, photo_uri, location)
-    dir = "public/session_#{id}/#{action}s/#{Time.now.iso8601}"
+    dir = "public/session_#{id}/#{action}s/#{Time.now.to_i}"
     `mkdir -p #{dir}`
     `curl -s #{photo_uri} --output #{dir}/selfie.jpg`
     File.open("#{dir}/geo.txt", 'w') { |file| file.write(location) }

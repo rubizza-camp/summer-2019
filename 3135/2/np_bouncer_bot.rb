@@ -13,7 +13,7 @@ class DB
 end
 
 #R = Redis.new
-TOKEN = '984354340:AAH8gSW85nD8cNX8JXPA5osPrbHYfZWdv6Q'.freeze # should be env variable
+TOKEN = '984354340:AAH8gSW85nD8cNX8JXPA5osPrbHYfZWdv6Q'.freeze
 
 Telegram::Bot::Client.run(TOKEN) do |bot|
   bot.listen do |message|

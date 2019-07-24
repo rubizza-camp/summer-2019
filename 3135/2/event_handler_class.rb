@@ -25,8 +25,8 @@ class EventHandler
       checkin
     when '/checkout'
       checkout
-    when '/status'
-      status
+    when '/stop'
+      stop
     else
       case
       when message.photo.any?
@@ -49,6 +49,11 @@ class EventHandler
     else
       Registration.start(user)
     end
+  end
+
+  def stop
+    user.status_flush
+    'Seeya later, alligator!'
   end
 
   # rubocop:disable Metrics/AbcSize, MethodLength
