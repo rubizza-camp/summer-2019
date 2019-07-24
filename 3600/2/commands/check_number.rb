@@ -28,7 +28,7 @@ module CheckNumber
 
   def check_registaration(redis, number)
     return 'You have already registred' if redis.get(number) || session.key?(:number)
-    return 'Non existent Rubizza-number. Tap /start and try again' if !member?(number)
+    return 'Non existent Rubizza-number. Tap /start and try again' unless member?(number)
     session[:number] = number
     redis.set(number, user_id)
     'Successfully registered. Enter /checkin to continue'
