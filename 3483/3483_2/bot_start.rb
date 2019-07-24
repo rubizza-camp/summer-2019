@@ -1,4 +1,5 @@
 require 'telegram/bot'
+require 'logger'
 
 Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.month }
 
@@ -10,9 +11,6 @@ end
 TOKEN = ENV['BOT_TOKEN']
 bot = Telegram::Bot::Client.new(TOKEN)
 
-
-# poller-mode
-require 'logger'
 logger = Logger.new(STDOUT)
 poller = Telegram::Bot::UpdatesPoller.new(bot, WebhooksController, logger: logger)
 poller.start
