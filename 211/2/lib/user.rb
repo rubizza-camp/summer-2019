@@ -1,6 +1,8 @@
 require 'open-uri'
 require 'yaml'
-require_relative './status.rb'
+
+require_relative 'answers.rb'
+require_relative 'status.rb'
 
 class User
   include Answers
@@ -11,57 +13,39 @@ class User
     @user_id = message.chat.id
   end
 
-  def check_registration
-    if REDIS.get(user_id)
-      start
-      help
-    else
-      gimme_id
-    end
-  end
-
   def registration(rubizza_id)
     numbers = YAML.load_file('data/rubizza_numbers.yml')['numbers']
     numbers.any?(rubizza_id) ? wellcome : try_again
   end
 
   def wellcome
-    REDIS.set(user_id, message.text)
+    Settings.redis.set(user_id, message.text)
     start
     help
   end
 
-  # rubocop: disable Metrics/MethodLength
-  # rubocop: disable Metrics/AbcSize
-  # rubocop: disable Metrics/CyclomaticComplexity
   def answer_to_request
     case message.text
-    when '/start'
-      if %w[checkouted checkined].include?(REDIS.get("#{user_id}_status"))
-        'You already started'
-      else
-        check_registration
-      end
-    when '/checkin'
-      checking_in
-    when '/checkout'
-      checking_out
+    when '/start' then starting
+    when '/checkin' then checking_in
+    when '/checkout' then checking_out
     when /\d/
-      if REDIS.get(user_id)
-        help
-      else
-        registration(message.text.to_i)
-      end
-    else
-      help
+      Settings.redis.get(user_id) ? help : registration(message.text.to_i)
+    else help
     end
   end
-  # rubocop: enable Metrics/MethodLength
-  # rubocop: enable Metrics/AbcSize
-  # rubocop: enable Metrics/CyclomaticComplexity
+
+  def starting
+    if Settings.redis.get(user_id)
+      "Hi, #{Settings.redis.get(user_id)}."\
+      "#{help}"
+    else
+      gimme_id
+    end
+  end
 
   def checking_in
-    status = REDIS.get("#{user_id}_status")
+    status = Settings.redis.get("#{user_id}_status")
     if %w[checkouted started].include?(status)
       waiting_for_photo(message.text)
       ask_selfie
@@ -71,7 +55,7 @@ class User
   end
 
   def checking_out
-    status = REDIS.get("#{user_id}_status")
+    status = Settings.redis.get("#{user_id}_status")
     if status == 'checkined'
       waiting_for_photo(message.text)
       ask_selfie

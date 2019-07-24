@@ -1,13 +1,8 @@
 module Answers
-  def ask_photo
-    'Need to see your photo first'
-  end
-
   def help
-    %(Type /checkin to checkin,
-    /checkout to checkout.
-    /start to start.
-    Sincerely yours, K.O.)
+    'Type /checkin to checkin, '\
+    '/checkout to checkout. '\
+    'Sincerely yours, K.O.'\
   end
 
   def try_again
@@ -15,11 +10,11 @@ module Answers
   end
 
   def gimme_id
-    'gimme your id'
+    'Give me your id'
   end
 
   def ask_selfie
-    ' selfie pls'
+    'Selfie pls'
   end
 
   def ask_location

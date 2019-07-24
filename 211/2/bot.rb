@@ -1,12 +1,10 @@
-require 'telegram/bot'
-require './lib/router'
+require 'dotenv/load'
 require 'redis'
-require_relative './lib/user.rb'
+require 'telegram/bot'
 
-TOKEN = ENV['IRIS_BOT']
-REDIS = Redis.new
+require_relative 'lib/router'
 
-Telegram::Bot::Client.run(TOKEN) do |bot|
+Telegram::Bot::Client.run(Settings.token) do |bot|
   bot.listen do |message|
     response = Router.resolve(message, bot)
     bot.api.send_message(chat_id: message.chat.id, text: response)
