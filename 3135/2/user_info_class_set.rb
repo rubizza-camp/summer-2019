@@ -1,5 +1,6 @@
 # User class provides access to user info and manages immediate properties
 #:reek:TooManyInstanceVariables
+#:reek:DuplicateMethodCall
 class User
   attr_reader :id, :camp_num, :location, :photo_uri, :action, :request, :save
 
