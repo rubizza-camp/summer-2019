@@ -14,7 +14,7 @@ module Registration
     user.status_flush
     Utils.add_to_registered_list(camp_num)
     "You have been registered with camp number #{camp_num}.
- /checkin & /checkout commands are now available.".gsub(/\n/, '')
+ /checkin & /checkout commands are now available."
   end
 end
 

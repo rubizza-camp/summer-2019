@@ -45,7 +45,7 @@ class EventHandler
 
   def start
     if user.resident?
-      'You are already registered.'
+      'You are already registered. Use /checkin, /checkout commands.'
     else
       Registration.start(user)
     end
