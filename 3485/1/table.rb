@@ -11,10 +11,10 @@ module Table
 
   def create_string_table(repo)
     [
-      repo.stats_from_git[:name], repo.stats_from_git[:used_by],
-      repo.stats_from_git[:watched_by], repo.stats_from_git[:stars],
-      repo.stats_from_git[:forks], repo.stats_from_git[:contributors],
-      repo.stats_from_git[:issues]
+      repo[:name], repo[:used_by],
+      repo[:watched_by], repo[:stars],
+      repo[:forks], repo[:contributors],
+      repo[:issues]
     ]
   end
 

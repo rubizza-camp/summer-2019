@@ -2,7 +2,6 @@
 
 require_relative 'table.rb'
 require_relative 'parse_gem_stats.rb'
-require_relative 'runtable.rb'
 require 'yaml'
 require 'optparse'
 
@@ -15,7 +14,14 @@ class TopGems
     @yml_file = yml_from_file(parameters)
     @gem_list = parameters[:name] ? select_name(parameters) : @yml_file['gems']
     @repos = parameters[:top] ? sort_top(load_gems, parameters) : load_gems
-    show
+  end
+
+  def call
+    show_table
+  end
+
+  def self.call
+    new.call
   end
 
   private
@@ -30,7 +36,7 @@ class TopGems
     end.parse!(into: parameters)
   end
 
-  def show
+  def show_table
     table_str = @repos.map do |repo|
       create_string_table(repo)
     end
@@ -58,7 +64,7 @@ class TopGems
 
   def sort_top(gems, parameters)
     range = [parameters[:top], gems.size].min
-    gems.sort_by { |element| element.stats_from_git[:stars] }[-range..-1].reverse
+    gems.sort_by { |element| element[:stars] }[-range..-1].reverse
   end
 
   def yml_from_file(parameters)
@@ -66,3 +72,5 @@ class TopGems
     YAML.load_file(File.open(parameters[:file]))
   end
 end
+
+TopGems.call

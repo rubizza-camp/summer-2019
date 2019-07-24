@@ -45,6 +45,8 @@ class ParseGemStatsFromGitHub
     check_for_errors
     pull_from_api
     select_from_site
+
+    @stats_from_git
   end
 
   def check_for_errors
@@ -66,7 +68,6 @@ class ParseGemStatsFromGitHub
     @stats_from_git[:contributors] = contributors_count
     @stats_from_git[:watched_by] = watched_by_count
     @stats_from_git[:used_by] = used_by_count
-    self
   end
 
   def default_data_from_api(gems, message)
@@ -81,7 +82,6 @@ class ParseGemStatsFromGitHub
     @stats_from_git[:contributors]
     @stats_from_git[:used_by]
     @stats_from_git[:watched_by]
-    self
   end
 
   def nokogiri
