@@ -2,7 +2,7 @@ require 'fileutils'
 require './validations/validations'
 require_relative 'downloader'
 
-class Saver
+class Save
   include Validations::Helper
 
   attr_reader :chat_session, :session_key, :payload
@@ -14,14 +14,14 @@ class Saver
   end
 
   def save_files
-    pathh
+    fetch_path
     save :geoposition
     save :photo
   end
 
   private
 
-  def pathh
+  def fetch_path
     FileUtils.makedirs path
   end
 

@@ -15,7 +15,7 @@ module Confirmation
 
   def geo(*)
     if geo?
-      Saver.new(chat_session, session_key, payload).save_files
+      Save.new(chat_session, session_key, payload).save_files
 
       change_checkin
 

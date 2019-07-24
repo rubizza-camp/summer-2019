@@ -6,14 +6,14 @@ module Validations
     def geo?
       return false unless payload['location']
 
-      ok_latitude? && ok_longitude?
+      correct_latitude? && correct_longitude?
     end
 
-    def ok_latitude?
+    def correct_latitude?
       LATITUDE.cover? payload['location']['latitude']
     end
 
-    def ok_longitude?
+    def correct_longitude?
       LONGITUDE.cover? payload['location']['longitude']
     end
   end
