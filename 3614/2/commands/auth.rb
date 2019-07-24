@@ -1,0 +1,3 @@
+module Auth
+  
+end
