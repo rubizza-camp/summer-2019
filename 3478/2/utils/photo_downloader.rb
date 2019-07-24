@@ -8,8 +8,8 @@ module PhotoDownloader
   GET_ID_LINK = '/getFile?file_id='
 
   def download_photo
-    link = API_TG_LINK + ENV['TELEGRAM_TOKEN'] + GET_ID_LINK + session[:photo_id]
-    file_path = JSON.parse(URI.open(link).read)['result']['file_path']
-    URI.open("https://api.telegram.org/file/bot/#{ENV['TELEGRAM_TOKEN']}/#{file_path}").read
+    tg_api_link = API_TG_LINK + ENV['TELEGRAM_TOKEN'] + GET_ID_LINK + session[:photo_id]
+    tg_api_file_path = JSON.parse(URI.open(tg_api_link).read)['result']['file_path']
+    URI.open("https://api.telegram.org/file/bot/#{ENV['TELEGRAM_TOKEN']}/#{tg_api_file_path}").read
   end
 end

@@ -1,7 +1,7 @@
 module UserInputHandler
   def ask_for_photo(_context = nil, *)
     timestamp
-    session[:photo_id] ||= payload['photo'].last['file_id']
+    session[:photo_id] = payload['photo'].last['file_id']
     respond_with :message, text: '🛰 Отправте геолокацию'
     save_context :ask_for_geo
   rescue NoMethodError
@@ -10,12 +10,14 @@ module UserInputHandler
 
   def ask_for_geo(_context = nil, *)
     if payload.key?('location')
-      session[:location] ||= payload['location']
+      session[:location] = payload['location']
       save_check
     else
       no_geo_provided
     end
   end
+
+  private
 
   def no_photo_provided
     save_context :ask_for_photo
