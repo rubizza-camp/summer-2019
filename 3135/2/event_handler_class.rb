@@ -16,37 +16,27 @@ class EventHandler
     @user = User.new(message.from.id)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop:disable Style/EmptyCaseCondition, Metrics/MethodLength
-  # :reek:TooManyStatements
   def call
     case message.text
-    when '/start'
-      start
-    when /^\d+$/
-      digits
-    when '/checkin'
-      checkin
-    when '/checkout'
-      checkout
-    when '/stop'
-      stop
+    when '/start'    then start
+    when /^\d+$/     then digits
+    when '/checkin'  then checkin
+    when '/checkout' then checkout
+    when '/stop'     then stop
     else other_input
     end
   end
 
+  # rubocop:disable Style/EmptyCaseCondition
   def other_input
     case
-    when message.photo.any?
-      photo
-    when message.location
-      location
+    when message.photo.any? then photo
+    when message.location   then location
     else
       unexpected('main switch')
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop:enable Style/EmptyCaseCondition, Metrics/MethodLength
+  # rubocop:enable Style/EmptyCaseCondition
 
   private
 
@@ -63,58 +53,44 @@ class EventHandler
     'Seeya later, alligator!'
   end
 
-  # rubocop:disable Metrics/AbcSize, MethodLength
+  # rubocop:disable Metrics/AbcSize
   def digits
+    return unexpected(__method__) unless user.action.registration? && user.request.camp_num?
+
     digits = message.text
-    if user.action.registration? && user.request.camp_num?
-      if !Utils.recruit_list.include?(digits)
-        'Sorry, you are not on the list of rubizza recruits.'
-      elsif Utils.registered_list.include?(digits)
-        'Sorry, the recruit with this number is already registered.'
-      else
-        Registration.camp_num(user, digits)
-      end
+    if !Utils.recruit_list.include?(digits)
+      'Sorry, you are not on the list of rubizza recruits.'
+    elsif Utils.registered_list.include?(digits)
+      'Sorry, the recruit with this number is already registered.'
     else
-      unexpected(__method__)
+      Registration.camp_num(user, digits)
     end
   end
-  # rubocop:enable Metrics/AbcSize, MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def checkin
-    return unexpected(__method__) if !user.resident? && user.present?
-    
+    return unexpected(__method__) unless user.resident? && !user.present?
+
     Reception.checkin(user)
   end
 
   def checkout
-    if user.resident? && user.present?
-      Reception.checkout(user)
-    else
-      unexpected(__method__)
-    end
+    return unexpected(__method__) unless user.resident? && user.present?
+
+    Reception.checkout(user)
   end
 
   def photo
-    if user.request.photo?
-      Reception.photo(user, Utils.construct_photo_uri(message.photo, bot))
-    else
-      unexpected(__method__)
-    end
+    return unexpected(__method__) unless user.request.photo?
+
+    Reception.photo(user, Utils.construct_photo_uri(message.photo, bot))
   end
 
   def location
-    if user.request.location?
-      Reception.location(user, Utils.construct_location(message.location))
-    else
-      unexpected(__method__)
-    end
-  end
+    return unexpected(__method__) unless user.request.location?
 
-  #def location
-  #  return unexpected(__method__) unless user.request.location?
-  #
-  #  Reception.location(user, Utils.construct_location(message.location))
-  #end
+    Reception.location(user, Utils.construct_location(message.location))
+  end
 
   def unexpected(where_from = nil)
     "unexpected input (#{where_from})"
