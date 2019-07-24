@@ -1,6 +1,5 @@
 require './models/user.rb'
 module StartCommand
-
   def start!(person_id = nil, *)
     numbers = YAML.load_file('data/users.yml')
     if person_id
