@@ -1,3 +1,5 @@
+require_relative 'utils_module'
+
 # Registration module process registration event
 module Registration
   def self.start(user)

@@ -2,10 +2,7 @@ require 'telegram/bot'
 require 'redis'
 require 'dotenv'
 
-require_relative 'user_info_class_set'
 require_relative 'event_handler_class'
-require_relative 'event_processing_modules'
-require_relative 'utils_module'
 
 # DB class is used to acess redis
 # rubocop:disable Lint/UselessAssignment

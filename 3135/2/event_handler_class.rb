@@ -1,3 +1,7 @@
+require_relative 'event_processing_modules'
+require_relative 'utils_module'
+require_relative 'user_info_class_set'
+
 # This is a main switch that checks input and routs events
 class EventHandler
   attr_reader :user, :bot, :message
