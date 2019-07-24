@@ -1,5 +1,4 @@
 module CheckinCommand
-  Dotenv.load
   TIME_STAMP = Time.now.strftime('%d/%m/%Y %H:%M').tr('/', '.')
   API_URL = ENV['URL_API'].freeze
   VALID_LATITUDE = 53.914264..53.916233
