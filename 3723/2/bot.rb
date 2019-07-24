@@ -1,6 +1,7 @@
 require 'logger'
 require 'telegram/bot'
 require 'redis'
+require 'dotenv/load'
 require_relative 'start'
 require_relative 'numbers'
 require_relative 'checkin'
@@ -22,7 +23,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   end
 end
 
-TOKEN = ENV['TELEGRAM_BOT_API_KEY']
+TOKEN = ENV['TOKEN']
 bot = Telegram::Bot::Client.new(TOKEN)
 
 logger = Logger.new(STDOUT)

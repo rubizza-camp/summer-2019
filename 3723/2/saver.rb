@@ -1,5 +1,7 @@
+require 'dotenv/load'
+
 module Saver
-  TOKEN = ENV['TELEGRAM_BOT_API_KEY']
+  TOKEN = ENV['TOKEN']
   PATH_URL = "https://api.telegram.org/bot#{TOKEN}/getFile?file_id=".freeze
   PIC_URL = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
 
