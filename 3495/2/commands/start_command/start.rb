@@ -5,16 +5,17 @@ module StartCommand
     if person_id
       check_number_is_used(person_id, numbers)
     else
-      respond_with :message, text: 'Солнышко, введи свой номер'
+      respond_with :message, text: 'Enter your number'
       save_context :start!
     end
   end
 
   def check_number_is_used(person_id, numbers)
     if !check_number(person_id).empty?
-      respond_with :message, text: "Это номер уже использует #{check_number(person_id).first.name}"
+      respond_with :message, text: "This number is already using
+      #{check_number(person_id).first.name}"
     elsif user_id
-      respond_with :message, text: "Ты уже зарегестрирован как #{user_id.personal_id}"
+      respond_with :message, text: "You are already registered as #{user_id.personal_id}"
     else
       check_number_from_list(person_id, numbers)
     end
@@ -28,14 +29,16 @@ module StartCommand
     if numbers.include?(person_id)
       create_user(person_id)
     else
-      respond_with :message, text: "Не не не, #{person_id} у нас нет"
+      respond_with :message, text: "No, we do not have #{person_id}"
     end
   end
 
   def create_user(person_id)
     User.create(id: from['id'], name: from['last_name'], personal_id: person_id)
-    respond_with :message, text: 'Молодец, я доволен'
+    respond_with :message, text: 'Well done, you are registered'
   end
+
+  private
 
   def check_number(person_id)
     User.all.select { |user| user.personal_id == person_id }

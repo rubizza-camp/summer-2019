@@ -4,13 +4,14 @@ module CheckinCommand
   API_URL = ENV['URL_API'].freeze
   VALID_LATITUDE = 53.914264..53.916233
   VALID_LONGITUDE = 27.565941..27.571306
+
   def checkin!(*)
     check_sign_up
   end
 
   def check_sign_up
     if !User[from['id']]
-      respond_with :message, text: 'Для начала зарегистрируйся'
+      respond_with :message, text: 'Sign up first'
     else
       check_checkin
     end
@@ -18,7 +19,7 @@ module CheckinCommand
 
   def check_checkin
     if User[from['id']].checkin
-      respond_with :message, text: 'Ты уже на смене'
+      respond_with :message, text: 'You\'re already in camp'
     else
       check_type_of_message_on_photo
     end
@@ -26,7 +27,7 @@ module CheckinCommand
 
   def check_type_of_message_on_photo
     if payload['photo']
-      respond_with :message, text: 'А ты красивый. теперь скинь свои координаты'
+      respond_with :message, text: 'Ok now send the coordinates'
       request_file_path(payload['photo'].last['file_id'])
       save_context :checkin!
     else
@@ -39,17 +40,17 @@ module CheckinCommand
       check_geo
     else
       save_context :checkin!
-      respond_with :message, text: 'Покажи личико котик'
+      respond_with :message, text: 'Send a photo'
     end
   end
 
   def check_geo
     if check_location(payload['location'])
-      respond_with :message, text: 'Молодец, порви там всех, за себя и за Оле.. Сашку'
+      respond_with :message, text: 'Well done, good luck have fun'
       load_geo(payload['location'])
       User[from['id']].update checkin: true
     else
-      respond_with :message, text: 'Не ври, ты не в кэмпе'
+      respond_with :message, text: 'You\'re not in camp'
     end
   end
 
@@ -72,6 +73,8 @@ module CheckinCommand
     File.write(photo_new_path, Kernel.open(uri).read, mode: 'wb')
     photo_new_path
   end
+
+  private
 
   def check_location(location)
     VALID_LATITUDE.cover?(location['latitude'].to_f) &&

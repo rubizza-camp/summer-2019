@@ -1,16 +1,16 @@
 module CheckoutCommand
-  Dotenv.load
   TIME_STAMP = Time.now.strftime('%d/%m/%Y %H:%M').tr('/', '.')
   API_URL = ENV['URL_API'].freeze
   VALID_LATITUDE = 53.914264..53.916233
   VALID_LONGITUDE = 27.565941..27.571306
+
   def checkout!(*)
     check_sign_up_checkout
   end
 
   def check_sign_up_checkout
     if !User[from['id']]
-      respond_with :message, text: 'Для начала зарегистрируйся'
+      respond_with :message, text: 'Sign up first'
     else
       check_checkin_checkout
     end
@@ -18,7 +18,7 @@ module CheckoutCommand
 
   def check_checkin_checkout
     if !User[from['id']].checkin
-      respond_with :message, text: 'Ты ещё не на смене'
+      respond_with :message, text: 'You are not in camp yet'
     else
       check_type_of_message_on_photo_checkout
     end
@@ -26,7 +26,7 @@ module CheckoutCommand
 
   def check_type_of_message_on_photo_checkout
     if payload['photo']
-      respond_with :message, text: 'А ты красивый. теперь скинь свои координаты'
+      respond_with :message, text: 'Ok now send the coordinates'
       request_file_path_checkout(payload['photo'].last['file_id'])
       save_context :checkout!
     else
@@ -39,17 +39,17 @@ module CheckoutCommand
       check_geo_checkout
     else
       save_context :checkout!
-      respond_with :message, text: 'Покажи личико котик'
+      respond_with :message, text: 'Send a photo'
     end
   end
 
   def check_geo_checkout
     if check_location_checkout(payload['location'])
-      respond_with :message, text: 'Молодец, свободен'
+      respond_with :message, text: 'Well done, you can go'
       load_geo_checkout(payload['location'])
       User[from['id']].update checkin: false
     else
-      respond_with :message, text: 'Не ври, ты не в кэмпе'
+      respond_with :message, text: 'You\'re not in camp'
     end
   end
 
@@ -72,6 +72,8 @@ module CheckoutCommand
     File.write(photo_new_path, Kernel.open(uri).read, mode: 'wb')
     photo_new_path
   end
+
+  private
 
   def check_location_checkout(location)
     VALID_LATITUDE.cover?(location['latitude'].to_f) &&
