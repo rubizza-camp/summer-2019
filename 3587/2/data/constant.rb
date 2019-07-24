@@ -16,7 +16,7 @@ DATA_PATH = './data/numbers.yml'
 # answers for user
 
 NOT_REGISTER = 'You are not registered'
-NO_ON_THE_LIST = 'Don\'t know student with this number'
+NO_IN_THE_LIST = 'Don\'t know student with this number'
 SUCCESSFUL_REGISTRATION = 'You can continue with /checkin, /checkout'
 GEOLOCATION = 'Send me your geolocation'
 PHOTO = 'Send me your photo, please'
