@@ -31,15 +31,18 @@ class EventHandler
       checkout
     when '/stop'
       stop
+    else other_input
+    end
+  end
+
+  def other_input
+    case
+    when message.photo.any?
+      photo
+    when message.location
+      location
     else
-      case
-      when message.photo.any?
-        photo
-      when message.location
-        location
-      else
-        unexpected('main switch')
-      end
+      unexpected('main switch')
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
@@ -49,7 +52,7 @@ class EventHandler
 
   def start
     if user.resident?
-      'You are already registered. Use /checkin, /checkout commands.'
+      "You are already registered.\nUse /checkin, /checkout commands."
     else
       Registration.start(user)
     end
@@ -78,11 +81,9 @@ class EventHandler
   # rubocop:enable Metrics/AbcSize, MethodLength
 
   def checkin
-    if user.resident? && !user.present?
-      Reception.checkin(user)
-    else
-      unexpected(__method__)
-    end
+    return unexpected(__method__) if !user.resident? && user.present?
+    
+    Reception.checkin(user)
   end
 
   def checkout
@@ -108,6 +109,12 @@ class EventHandler
       unexpected(__method__)
     end
   end
+
+  #def location
+  #  return unexpected(__method__) unless user.request.location?
+  #
+  #  Reception.location(user, Utils.construct_location(message.location))
+  #end
 
   def unexpected(where_from = nil)
     "unexpected input (#{where_from})"

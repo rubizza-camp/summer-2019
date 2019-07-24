@@ -1,6 +1,6 @@
 require 'telegram/bot'
 require 'redis'
-require 'dotenv'
+require 'dotenv/load'
 
 require_relative 'event_handler_class'
 
@@ -13,7 +13,6 @@ class DB
 end
 # rubocop:enable Lint/UselessAssignment
 
-Dotenv.load
 TOKEN = ENV['TELEGRAM_BOT_TOKEN']
 
 Telegram::Bot::Client.run(TOKEN) do |bot|
