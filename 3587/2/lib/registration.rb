@@ -13,7 +13,7 @@ class Registration
   end
 
   def call
-    return { status: false, message: NO_ON_THE_LIST } unless student_list.include?(student_number)
+    return { status: false, message: NO_IN_THE_LIST } unless student_list.include?(student_number)
 
     return { status: false, message: REGISTERED } if redis.get(student_number)
 
@@ -23,7 +23,7 @@ class Registration
   private
 
   def student_list
-    File.open(DATA_PATH, 'r', &:read).split(' ')
+    YAML.load_file(DATA_PATH)
   end
 
   def registration
