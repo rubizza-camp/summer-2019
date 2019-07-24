@@ -2,16 +2,29 @@ require 'yaml'
 require_relative 'gest'
 
 
-class Kids
+class KidsChecker
+	attr_reader :number
+
+	def initialize(number)
+	  @number = number	
+	end
+
+	def correct_data?
+	  check_number && find_user
+	end
+
 	def self.registered(id)
       Gest[id]
     end
 
-    def self.find_user(number)
-      Gest.all.number.include?(number)
+    private
+
+    def find_user
+      Gest.all.number.include?(number) == false
     end
 
-	def check_number(number)
-		@check ||= YAML.load_file('kids.yaml')['Kids'].include?(number)	
+	def check_number
+	  @check ||= YAML.load_file('kids.yaml')['Kids'].include?(number)	
 	end
 end
+
