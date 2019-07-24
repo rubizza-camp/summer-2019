@@ -3,7 +3,6 @@ require './lib/commands/start'
 require './lib/commands/check_in'
 require './lib/commands/check_out'
 require 'logger'
-require 'redis-rails'
 require 'active_support/all'
 require 'dotenv/load'
 class WebhooksController < Telegram::Bot::UpdatesController
