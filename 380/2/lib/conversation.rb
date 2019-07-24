@@ -2,6 +2,7 @@ class Conversation
   attr_accessor :database
   attr_reader :message, :bot, :chat_id
 
+<<<<<<< HEAD
   def initialize(message:, bot:)
     @message = message
     @bot = bot
@@ -14,6 +15,21 @@ class Conversation
 
   def status
     database.get(chat_id)
+=======
+  def initialize(params)
+    @message = params[:message]
+    @bot = params[:bot]
+    @database = params[:database]
+    @chat_id = params[:chat_id]
+  end
+
+  def user_said
+    @message.text
+  end
+
+  def status
+    @database.get(@chat_id.to_s)
+>>>>>>> 1ed441a6300624e463d74010206dbb0c07cb79ec
   end
 
   def change_status(status)
