@@ -14,14 +14,14 @@ class Saver
   end
 
   def save_files
-    get_path
+    pathh
     save :geoposition
     save :photo
   end
 
   private
 
-  def get_path
+  def pathh
     FileUtils.makedirs path
   end
 

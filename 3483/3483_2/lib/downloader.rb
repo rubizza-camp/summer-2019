@@ -17,10 +17,10 @@ class Downloader
   private
 
   def image
-    "#{DOWNLOADING}/#{get_file_path}"
+    "#{DOWNLOADING}/#{file_path}"
   end
 
-  def get_file_path
+  def file_path
     HTTParty.get(FILE_PATH, query: { file_id: file_id }).to_h['result']['file_path']
   end
 end
