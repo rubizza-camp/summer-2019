@@ -1,14 +1,15 @@
 require './models/user.rb'
 module StartCommand
   def start!(person_id = nil, *)
-    numbers = YAML.load_file('data/users.yml')
     if person_id
-      check_number_is_used(person_id, numbers)
+      check_number_is_used(person_id, load_numbers_list)
     else
       respond_with :message, text: 'Enter your number'
       save_context :start!
     end
   end
+
+  private
 
   def check_number_is_used(person_id, numbers)
     if !check_number(person_id).empty?
@@ -38,7 +39,9 @@ module StartCommand
     respond_with :message, text: 'Well done, you are registered'
   end
 
-  private
+  def load_numbers_list
+    YAML.load_file('data/users.yml')
+  end
 
   def check_number(person_id)
     User.all.select { |user| user.personal_id == person_id }
