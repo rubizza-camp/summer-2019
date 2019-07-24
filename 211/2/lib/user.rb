@@ -5,23 +5,11 @@ require_relative 'answers.rb'
 require_relative 'status.rb'
 
 class User
-  include Answers
   include StatusChanger
 
   def initialize(message)
     @message = message
     @user_id = message.chat.id
-  end
-
-  def registration(rubizza_id)
-    numbers = YAML.load_file('data/rubizza_numbers.yml')['numbers']
-    numbers.any?(rubizza_id) ? wellcome : try_again
-  end
-
-  def wellcome
-    Settings.redis.set(user_id, message.text)
-    start
-    help
   end
 
   def answer_to_request
@@ -31,16 +19,16 @@ class User
     when '/checkout' then checking_out
     when /\d/
       Settings.redis.get(user_id) ? help : registration(message.text.to_i)
-    else help
+    else Answers.help
     end
   end
 
   def starting
     if Settings.redis.get(user_id)
       "Hi, #{Settings.redis.get(user_id)}."\
-      "#{help}"
+      "#{Answers.help}"
     else
-      gimme_id
+      Answers.gimme_id
     end
   end
 
@@ -48,7 +36,7 @@ class User
     status = Settings.redis.get("#{user_id}_status")
     if %w[checkouted started].include?(status)
       waiting_for_photo(message.text)
-      ask_selfie
+      Answers.ask_selfie
     else
       'Nope. You cant checkin'
     end
@@ -58,10 +46,21 @@ class User
     status = Settings.redis.get("#{user_id}_status")
     if status == 'checkined'
       waiting_for_photo(message.text)
-      ask_selfie
+      Answers.ask_selfie
     else
       'Nope. You cant checkout'
     end
+  end
+
+  def registration(rubizza_id)
+    numbers = YAML.load_file('data/rubizza_numbers.yml')['numbers']
+    numbers.any?(rubizza_id) ? wellcome : Answers.try_again
+  end
+
+  def wellcome
+    Settings.redis.set(user_id, message.text)
+    Answers.start
+    Answers.help
   end
 
   private

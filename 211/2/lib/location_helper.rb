@@ -1,10 +1,8 @@
 require 'fileutils'
 
-require_relative 'answers.rb'
 require_relative 'status.rb'
 
 class LocationHelper
-  include Answers
   include StatusChanger
   attr_reader :message, :loc, :photo, :user_id
 

@@ -1,11 +1,9 @@
 require 'fileutils'
 require 'rest-client'
 
-require_relative 'answers.rb'
 require_relative 'status.rb'
 
 class PhotoHelper
-  include Answers
   include StatusChanger
   attr_reader :bot, :message, :timestamp, :user_id
 
@@ -21,7 +19,7 @@ class PhotoHelper
     create_folder(status)
     image_url
     save_img(status, timestamp)
-    ask_location
+    "#{message.from.first_name}, where are you?"
   end
 
   def image_url
