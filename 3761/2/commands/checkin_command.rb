@@ -1,9 +1,11 @@
 module CheckinCommand
   def checkin!(*)
-    return respond_need_to_register unless student_registered?(student_number)
+    # rubocop:disable Metrics/LineLength
+    return respond_with :message, text: t(:need_to_register) unless student_registered?(student_number)
 
-    return checkin_without_checkout if session[:status] == :checkin
+    return respond_with :message, text: t(:checkin_without_checkout) if session[:status] == :checkin
 
+    # rubocop:enable Metrics/LineLength
     respond_with :message, text: t(:ask_photo)
     save_context :checkin_photo_from_message
   end
@@ -42,13 +44,5 @@ module CheckinCommand
   def handle_no_photo
     respond_with :message, text: t(:no_photo)
     save_context :checkin_photo_from_message
-  end
-
-  def respond_need_to_register
-    respond_with :message, text: t(:need_to_register)
-  end
-
-  def checkin_without_checkout
-    respond_with :message, text: t(:checkin_without_checkout)
   end
 end
