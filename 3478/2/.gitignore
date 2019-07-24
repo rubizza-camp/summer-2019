@@ -2,3 +2,5 @@
 *.mov
 .idea
 ToDo.txt
+.env
+

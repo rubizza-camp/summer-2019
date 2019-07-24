@@ -1,8 +1,8 @@
 require 'date'
-require_relative 'check.rb'
+require_relative 'user_input_handler.rb'
 
 module CheckoutCommand
-  include Check
+  include UserInputHandler
   def checkout!(*)
     session[:check_type] = 'checkout'
     save_context :ask_for_photo_check

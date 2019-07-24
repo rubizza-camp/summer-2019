@@ -1,11 +1,12 @@
 require 'telegram/bot'
 require 'logger'
+require 'dotenv'
 require 'active_support/all'
 
-class Bot
-  def initialize(token)
-    @token = token
-    @bot = Telegram::Bot::Client.new(@token)
+class TimeTracker
+  def initialize
+    load_dotenv
+    @bot = Telegram::Bot::Client.new(ENV['TELEGRAM_TOKEN'])
   end
 
   def start
@@ -13,6 +14,10 @@ class Bot
   end
 
   private
+
+  def load_dotenv
+    Dotenv.load
+  end
 
   def start_logger
     logger = Logger.new(STDOUT)

@@ -1,9 +1,7 @@
 require 'redis-rails'
-require 'dotenv'
+require 'fileutils'
+require 'require_all'
+require_rel '/utils/'
 
-require_relative 'utils/bot.rb'
-require_relative 'utils/webhooks_controller.rb'
-
-Dotenv.load
-controller = Bot.new(ENV['TELEGRAM_TOKEN'])
-controller.start
+tracker = TimeTracker.new
+tracker.start

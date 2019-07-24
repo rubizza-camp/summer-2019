@@ -1,30 +1,34 @@
-module Check
-  def ask_for_photo_check(_context = nil, *)
-    session[:beginning_time] = Time.new
+module UserInputHandler
+  def ask_for_photo(_context = nil, *)
+    timestamp
     session[:photo_id] ||= payload['photo'].last['file_id']
     respond_with :message, text: '🛰 Отправте геолокацию'
-    save_context :ask_for_geo_check
+    save_context :ask_for_geo
   rescue NoMethodError
-    rescue_photo_check
+    no_photo_provided
   end
 
-  def ask_for_geo_check(_context = nil, *)
+  def ask_for_geo(_context = nil, *)
     if payload.key?('location')
       session[:location] ||= payload['location']
       save_check
     else
-      rescue_geo_check
+      no_geo_provided
     end
   end
 
-  def rescue_photo_check
-    save_context :ask_for_photo_check
+  def no_photo_provided
+    save_context :ask_for_photo
     respond_with :message, text: '🚫 Это не фото'
   end
 
-  def rescue_geo_check
-    save_context :ask_for_geo_check
+  def no_geo_provided
+    save_context :ask_for_geo
     respond_with :message, text: '🚫 Это не геолокация'
+  end
+
+  def timestamp
+    session[:beginning_time] = Time.new
   end
 
   def save_check
