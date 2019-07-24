@@ -1,8 +1,8 @@
 module DeleteCommand
   def remove_account!(*)
-    return respond_with :message, text: I18n.t(:ARE_NOT_REGISTERED_RESPONSE) unless user_registered?
+    return respond_with :message, text: I18n.t(:not_registered_response) unless user_registered?
     remove_from_redis
-    respond_with :message, text: user_name.to_s + I18n.t(:REMOVE_ACCOUNT_RESPONSE)
+    respond_with :message, text: user_name.to_s + I18n.t(:remove_account_response)
   end
 
   private

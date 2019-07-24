@@ -1,47 +1,47 @@
 module CheckinCommand
   def checkin!(*)
-    return respond_with :message, text: I18n.t(:ARE_NOT_REGISTERED_RESPONSE) unless user_registered?
-    return response_for_session_checkin if session[:status] == I18n.t(:CHECKIN_STRING)
+    return respond_with :message, text: I18n.t(:not_registered_response) unless user_registered?
+    return response_for_session_checkin if session[:status] == I18n.t(:checkin_string)
     session[:time_checkin] = Time.now.utc
     dialog_about_photo_checkin
   end
 
   def response_for_session_checkin
-    respond_with :message, text: I18n.t(:SESSION_CHECKIN_RESPONSE)
+    respond_with :message, text: I18n.t(:session_checkin_response)
   end
 
   def dialog_about_photo_checkin
-    respond_with :message, text: I18n.t(:PHOTO_DIALOG_RESPONSE)
+    respond_with :message, text: I18n.t(:photo_dialog_response)
     save_context :ask_for_photo_checkin
   end
 
   def dialog_about_geo_checkin
-    respond_with :message, text: I18n.t(:GEO_DIALOG_RESPONSE)
+    respond_with :message, text: I18n.t(:geo_dialog_response)
     save_context :ask_for_geo_checkin
   end
 
   def ask_for_photo_checkin(*)
-    download_last_photo(create_checkin_path)
+    download_latest_photo(create_checkin_path)
     dialog_about_geo_checkin
   rescue NoMethodError
     rescue_photo_checkin
   end
 
   def ask_for_geo_checkin(*)
-    return rescue_geo_checkin unless download_last_geo(create_checkin_path)
-    respond_with :message, text: I18n.t(:SUCCESSFUL_CHECKIN_RESPONSE)
-    session[:status] = I18n.t(:CHECKIN_STRING)
+    return rescue_geo_checkin unless download_latest_geo(create_checkin_path)
+    respond_with :message, text: I18n.t(:successful_checkin_response)
+    session[:status] = I18n.t(:checkin_string)
   end
 
   private
 
   def rescue_photo_checkin
-    respond_with :message, text: I18n.t(:RESCUE_PHOTO_RESPONSE)
+    respond_with :message, text: I18n.t(:rescue_photo_response)
     dialog_about_photo_checkin
   end
 
   def rescue_geo_checkin
-    respond_with :message, text: I18n.t(:RESCUE_GEO_RESPONSE)
+    respond_with :message, text: I18n.t(:rescue_geo_response)
     dialog_about_geo_checkin
   end
 
@@ -50,8 +50,8 @@ module CheckinCommand
   end
 
   def create_checkin_path
-    local_path = generate_checkin_path(session[:time_checkin])
-    FileUtils.mkdir_p(local_path) unless File.exist?(local_path)
-    local_path
+    generate_checkin_path(session[:time_checkin]).tap do |local_path|
+      FileUtils.mkdir_p(local_path) unless File.exist?(local_path)
+    end
   end
 end
