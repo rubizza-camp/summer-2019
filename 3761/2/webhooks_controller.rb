@@ -1,4 +1,3 @@
-require 'telegram/bot'
 require 'redis'
 require 'fileutils'
 require 'date'
@@ -15,11 +14,10 @@ class WebhooksController < Telegram::Bot::UpdatesController
 
   I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
 
+  include I18n
   include Helper
-  include MessageRespond
   include StartCommand
   include DeleteCommand
   include CheckinCommand
   include CheckoutCommand
-  include EndCommand
 end

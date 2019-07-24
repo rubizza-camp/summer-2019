@@ -19,15 +19,15 @@ class StudentRegistrator
   def call
     raise Errors::InvalidNumberError unless student_list.include?(student_number)
 
-    raise Errors::StudentExistError if student_registered?(student_number)
+    raise Errors::StudentAlreadyExistError if student_registered?(student_number)
 
-    registration
+    register
   end
 
   private
 
-  def registration
-    redis_registration(telegram_id, student_number)
+  def register
+    register_with_redis(telegram_id, student_number)
   end
 
   def student_list

@@ -1,7 +1,6 @@
-require 'dotenv'
 require 'telegram/bot'
 require 'logger'
-require './bot.rb'
+require './webhooks_controller.rb'
 
 Dotenv.load
 TOKEN = ENV['TOKEN']

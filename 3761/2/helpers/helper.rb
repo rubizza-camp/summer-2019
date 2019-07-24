@@ -1,7 +1,4 @@
 module Helper
-  Dotenv.load
-  TOKEN = ENV['TOKEN']
-
   def redis
     @redis ||= Redis.new
   end
@@ -18,7 +15,7 @@ module Helper
     redis.get(payload['from']['id'])
   end
 
-  def redis_registration(telegram_id, student_number)
+  def register_with_redis(telegram_id, student_number)
     redis.set(student_number, true)
     redis.set(telegram_id, student_number)
   end
