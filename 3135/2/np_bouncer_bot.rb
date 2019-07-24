@@ -2,16 +2,7 @@ require 'telegram/bot'
 require 'redis'
 require 'dotenv/load'
 
-require_relative 'event_handler_class'
-
-# DB class is used to acess redis
-# rubocop:disable Lint/UselessAssignment
-class DB
-  def self.redis
-    redis ||= Redis.new
-  end
-end
-# rubocop:enable Lint/UselessAssignment
+require_relative './lib/event_handler'
 
 TOKEN = ENV['TELEGRAM_BOT_TOKEN']
 

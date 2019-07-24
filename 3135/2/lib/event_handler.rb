@@ -1,6 +1,7 @@
-require_relative 'event_processing_modules'
-require_relative 'utils_module'
-require_relative 'user_info_class_set'
+require_relative 'registration'
+require_relative 'reception'
+require_relative 'utils'
+require_relative 'user'
 
 # This is a main switch that checks input and routs events
 class EventHandler
@@ -16,6 +17,7 @@ class EventHandler
     @user = User.new(message.from.id)
   end
 
+  # :reek:TooManyStatements
   def call
     case message.text
     when '/start'    then start
