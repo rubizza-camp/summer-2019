@@ -25,7 +25,7 @@ module CheckoutCommand
   end
 
   def check_type_of_message_on_photo_checkout
-    if payload['photo']
+    if payload['photo'].last['file_id']
       respond_with :message, text: 'Ok now send the coordinates'
       request_file_path_checkout(payload['photo'].last['file_id'])
       save_context :check_type_of_message_on_geo_checkout

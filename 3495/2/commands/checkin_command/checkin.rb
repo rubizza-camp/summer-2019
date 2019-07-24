@@ -25,7 +25,7 @@ module CheckinCommand
   end
 
   def check_type_of_message_on_photo
-    if payload['photo']
+    if payload['photo'].last['file_id']
       respond_with :message, text: 'Ok now send the coordinates'
       request_file_path(payload['photo'].last['file_id'])
       save_context :check_type_of_message_on_geo
