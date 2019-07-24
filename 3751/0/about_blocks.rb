@@ -81,6 +81,7 @@ class AboutBlocks < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+
   # rubocop:disable Performance/RedundantBlockCall
   # explicit block
   def method_with_explicit_block(&block)
