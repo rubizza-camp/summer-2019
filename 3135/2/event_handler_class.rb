@@ -86,7 +86,7 @@ class EventHandler
 
   def photo
     if user.request.photo?
-      Reception.photo(user, Utils.construct_photo_uri(message, bot))
+      Reception.photo(user, Utils.construct_photo_uri(message.photo, bot))
     else
       unexpected(__method__)
     end

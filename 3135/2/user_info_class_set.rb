@@ -5,9 +5,9 @@ class User
 
   def initialize(tg_id)
     @id = tg_id
-    @camp_num = R.get("tgid_#{tg_id}_camp_num")
-    @location = R.get("tgid_#{tg_id}_location")
-    @photo_uri = R.get("tgid_#{tg_id}_photo_uri")
+    @camp_num = DB.redis.get("tgid_#{tg_id}_camp_num")
+    @location = DB.redis.get("tgid_#{tg_id}_location")
+    @photo_uri = DB.redis.get("tgid_#{tg_id}_photo_uri")
 
     @action = ActionStatus.new(tg_id)
     @request = RequestStatus.new(tg_id)
@@ -16,34 +16,34 @@ class User
 
   # -residency
   def resident?
-    R.get("tgid_#{id}_rank") == 'resident'
+    DB.redis.get("tgid_#{id}_rank") == 'resident'
   end
 
   def give_residency
-    R.set("tgid_#{id}_rank", 'resident')
+    DB.redis.set("tgid_#{id}_rank", 'resident')
   end
 
   # -presence
   def presence_init
-    R.set("tgid_#{id}_presence", 'offsite')
+    DB.redis.set("tgid_#{id}_presence", 'offsite')
   end
 
   def present?
-    R.get("tgid_#{id}_presence") == 'onsite'
+    DB.redis.get("tgid_#{id}_presence") == 'onsite'
   end
 
   def presence_switch
     if present?
-      R.set("tgid_#{id}_presence", 'offsite')
+      DB.redis.set("tgid_#{id}_presence", 'offsite')
     else
-      R.set("tgid_#{id}_presence", 'onsite')
+      DB.redis.set("tgid_#{id}_presence", 'onsite')
     end
   end
 
   # -status flush
   def status_flush
-    @action.flush
-    @request.flush
+    action.flush
+    request.flush
   end
 end
 
@@ -56,38 +56,38 @@ class ActionStatus
   end
 
   def what?
-    R.get(key)
+    DB.redis.get(key)
   end
 
   def flush
-    R.del(key)
+    DB.redis.del(key)
   end
 
   # -registration
   def registration
-    R.set(key, 'registration')
+    DB.redis.set(key, 'registration')
   end
 
   def registration?
-    R.get(key) == 'registration'
+    DB.redis.get(key) == 'registration'
   end
 
   # -checkin
   def checkin
-    R.set(key, 'checkin')
+    DB.redis.set(key, 'checkin')
   end
 
   def checkin?
-    R.get(key) == 'checkin'
+    DB.redis.get(key) == 'checkin'
   end
 
   # -checkout
   def checkout
-    R.set(key, 'checkout')
+    DB.redis.set(key, 'checkout')
   end
 
   def checkout?
-    R.get(key) == 'checkout'
+    DB.redis.get(key) == 'checkout'
   end
 end
 
@@ -100,38 +100,38 @@ class RequestStatus
   end
 
   def what?
-    R.get(key)
+    DB.redis.get(key)
   end
 
   def flush
-    R.del(key)
+    DB.redis.del(key)
   end
 
   # -campnum
   def camp_num
-    R.set(key, 'camp_num')
+    DB.redis.set(key, 'camp_num')
   end
 
   def camp_num?
-    R.get(key) == 'camp_num'
+    DB.redis.get(key) == 'camp_num'
   end
 
   # -photo
   def photo
-    R.set(key, 'photo')
+    DB.redis.set(key, 'photo')
   end
 
   def photo?
-    R.get(key) == 'photo'
+    DB.redis.get(key) == 'photo'
   end
 
   # -location
   def location
-    R.set(key, 'location')
+    DB.redis.set(key, 'location')
   end
 
   def location?
-    R.get(key) == 'location'
+    DB.redis.get(key) == 'location'
   end
 end
 
@@ -145,16 +145,16 @@ class DataSaver
 
   # -camp number
   def camp_num(digits)
-    R.set("tgid_#{id}_camp_num", digits)
+    DB.redis.set("tgid_#{id}_camp_num", digits)
   end
 
   # -photo uri
   def photo_uri(uri)
-    R.set("tgid_#{id}_photo_uri", uri)
+    DB.redis.set("tgid_#{id}_photo_uri", uri)
   end
 
   # -location
   def location(coords)
-    R.set("tgid_#{id}_location", coords)
+    DB.redis.set("tgid_#{id}_location", coords)
   end
 end
