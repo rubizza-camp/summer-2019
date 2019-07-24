@@ -1,6 +1,6 @@
 require 'redis'
 
-module AddMethods
+module AdditionalMethods
   def response_if_not_registered
     respond_with :message, text: "You're not registered"
   end

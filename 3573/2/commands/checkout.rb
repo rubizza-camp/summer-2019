@@ -6,11 +6,11 @@ module Checkout
   end
 
   def response_if_session_checkout
-    respond_with :message, text: "You session status: 'checkout'. First use command /checkin"
+    respond_with :message, text: t(:status_checkout)
   end
 
   def message_for_photo_checkout
-    respond_with :message, text: 'Send me photo!'
+    respond_with :message, text: t(:send_photo)
     save_context :download_photo_checkout
   end
 
@@ -22,20 +22,19 @@ module Checkout
   end
 
   def message_for_geo_checkout
-    respond_with :message, text: 'Send me your location'
+    respond_with :message, text: t(:send_location)
     save_context :download_geo_checkout
   end
   # :reek:TooManyStatements
 
   def download_geo_checkout(*)
     if validator_geo == false
-      respond_with :message, text: 'You are not right place. Try again'
+      respond_with :message, text: t(:not_right_place)
       message_for_geo_checkout
     else
       download_last_geo(create_checkout_path)
       checkout_parameters
       work_time
-
     end
   rescue NoMethodError
     rescue_geo_checkout
@@ -44,6 +43,7 @@ module Checkout
   def work_time
     work_time = session[:time_checkout] - session[:time_checkin]
     work_time_in_string = Time.at(work_time).utc.strftime('%H hours, %M min')
+    respond_with :message, text: t(:checkout_done)
     respond = "Your work time #{work_time_in_string}"
     respond_with :message, text: respond
   end
@@ -54,17 +54,17 @@ module Checkout
   end
 
   def rescue_photo_checkout
-    respond_with :message, text: 'Are you sure, you sent your photo?'
+    respond_with :message, text: t(:message_rescue_photo)
     message_for_photo_checkout
   end
 
   def rescue_geo_checkout
-    respond_with :message, text: 'Are you sure, you sent your location?'
+    respond_with :message, text: t(:message_rescue_location)
     message_for_geo_checkout
   end
 
   def generate_checkout_path(time)
-    "./public/#{user_id_telegram}/checkouts/#{time}"
+    "./public/#{user_id_telegram}/checkouts/#{time}/"
   end
 
   def create_checkout_path

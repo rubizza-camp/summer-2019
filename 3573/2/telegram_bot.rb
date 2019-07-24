@@ -1,26 +1,22 @@
 require 'telegram/bot'
 require 'logger'
 require 'dotenv'
-require_relative './commands/start'
-require_relative './commands/checkin'
-require_relative './commands/checkout'
-require_relative './commands/additional_methods'
-require_relative './commands/download_image'
-require_relative './commands/location'
+Dir[File.join(__dir__, 'commands', '*.rb')].each { |file| require file }
 
 class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include Start
   include Checkin
   include Checkout
-  include AddMethods
+  include AdditionalMethods
   include DownloadImage
   include DownloadLocation
 
   Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_592_000 }
+
+  I18n.load_path << Dir[File.expand_path("config/locales") + "/*.yml"]
 end
 
-Dotenv.load
 bot = Telegram::Bot::Client.new(ENV['TOKEN'])
 
 # poller-mode

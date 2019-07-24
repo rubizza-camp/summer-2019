@@ -16,7 +16,11 @@ module DownloadImage
     JSON.parse(URI.open(url_json_file).read, symbolize_names: true)[:result][:file_path]
   end
 
+  def parse_image
+    payload['photo'].last['file_id']
+  end
+
   def url_json_file
-    @url_json_file ||= API_URL_TELEGRAM + GET_FILE_URL + payload['photo'].last['file_id']
+    @url_json_file ||= API_URL_TELEGRAM + GET_FILE_URL + parse_image
   end
 end

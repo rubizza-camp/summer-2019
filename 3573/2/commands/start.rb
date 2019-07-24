@@ -4,7 +4,7 @@ DATA_PATH = './data/numbers.yaml'.freeze
 
 module Start
   def start!(*)
-    respond_with :message, text: 'Enter your number in RubizzaCamp'
+    respond_with :message, text: t(:enter_number)
     save_context :register_message
   end
 
@@ -17,25 +17,21 @@ module Start
   end
 
   def response_if_have_id_telegram?
-    respond = 'You have already registered.'\
-      "Your number is #{redis.get(user_id_telegram)}."\
-      'Use command /checkin or /checkout.'
-    respond_with :message, text: respond
+    respond_with :message, text: t(:already_registered)
+    respond_with :message, text: "Your number is #{redis.get(user_id_telegram)}."
   end
 
   def response_if_have_number?
-    respond = 'Your number is registered. Use command /checkin or /checkout.'
-    respond_with :message, text: respond
+    respond_with :message, text: t(:already_registered)
   end
 
   def response_if_number_in_the_list?(student_number)
     registration(student_number)
-    respond = 'Registration is done. Use command /checkin or /checkout'
-    respond_with :message, text: respond
+    respond_with :message, text: t(:registration_done)
   end
 
   def response_in_other_situations
-    respond_with :message, text: 'Sorry, try again'
+    respond_with :message, text: t(:try_again)
     start!
   end
 

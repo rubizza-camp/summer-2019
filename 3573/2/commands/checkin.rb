@@ -6,11 +6,11 @@ module Checkin
   end
 
   def response_if_session_checkin
-    respond_with :message, text: "You session status: 'checkin'. First use command /checkout"
+    respond_with :message, text: t(:status_checkin)
   end
 
   def message_for_photo_checkin
-    respond_with :message, text: 'Send me your photo'
+    respond_with :message, text: t(:send_photo)
     save_context :download_photo_checkin
   end
 
@@ -22,19 +22,19 @@ module Checkin
   end
 
   def message_for_geo_checkin
-    respond_with :message, text: 'Send me your location'
+    respond_with :message, text: t(:send_location)
     save_context :download_geo_checkin
   end
   # :reek:TooManyStatements
 
   def download_geo_checkin(*)
-    if validator_geo == false
-      respond_with :message, text: 'You are not right place. Try again'
-      message_for_geo_checkin
-    else
+    if validator_geo
       download_last_geo(create_checkin_path)
-      respond_with :message, text: 'OK, checkin is done. You can work!'
+      respond_with :message, text: t(:checkin_done)
       checkin_parameters
+    else
+      respond_with :message, text: t(:not_right_place)
+      message_for_geo_checkin
     end
   rescue NoMethodError
     rescue_geo_checkin
@@ -46,12 +46,12 @@ module Checkin
   end
 
   def rescue_photo_checkin
-    respond_with :message, text: 'Are you sure, you sent your photo?'
+    respond_with :message, text: t(:message_rescue_photo)
     message_for_photo_checkin
   end
 
   def rescue_geo_checkin
-    respond_with :message, text: 'Are you sure, you sent your location?'
+    respond_with :message, text: t(:message_rescue_location)
     message_for_geo_checkin
   end
 
