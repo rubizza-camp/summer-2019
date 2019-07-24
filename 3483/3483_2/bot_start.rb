@@ -6,6 +6,8 @@ Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.m
 class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include Telegram::Bot::UpdatesController::Session
+
+  Ohm.redis = Redic.new("redis://127.0.0.1:6379")
 end
 
 TOKEN = ENV['BOT_TOKEN']

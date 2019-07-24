@@ -1,6 +1,6 @@
 require 'ohm'
 
-class User < Ohm::Model
+class Gest < Ohm::Model
   attribute :number
   attribute :in_camp
 end
