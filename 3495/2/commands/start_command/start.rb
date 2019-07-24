@@ -1,7 +1,8 @@
 require './models/user.rb'
 module StartCommand
+
   def start!(person_id = nil, *)
-    numbers = File.open('data/users.yml', 'r').read.split(' ')
+    numbers = YAML.load_file('data/users.yml')
     if person_id
       check_number_is_used(person_id, numbers)
     else

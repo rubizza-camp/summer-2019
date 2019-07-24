@@ -28,18 +28,19 @@ module CheckoutCommand
     if payload['photo']
       respond_with :message, text: 'Ok now send the coordinates'
       request_file_path_checkout(payload['photo'].last['file_id'])
-      save_context :checkout!
-    else
-      check_type_of_message_on_geo_checkout
-    end
-  end
-
-  def check_type_of_message_on_geo_checkout
-    if payload['location']
-      check_geo_checkout
+      save_context :check_type_of_message_on_geo_checkout
     else
       save_context :checkout!
       respond_with :message, text: 'Send a photo'
+    end
+  end
+
+  def check_type_of_message_on_geo_checkout(*)
+    if payload['location']
+      check_geo_checkout
+    else
+      save_context :check_type_of_message_on_geo_checkout
+      respond_with :message, text: 'Send the coordinates'
     end
   end
 
@@ -67,7 +68,7 @@ module CheckoutCommand
 
   def load_pic_from_path_checkout(file_path)
     uri = URI("#{API_URL}file/bot#{ENV['TOKEN']}/#{file_path}")
-    DirCreator.dir_create("public/#{from['id']}/checkout/#{TIME_STAMP}")
+    DirCreator.call("public/#{from['id']}/checkout/#{TIME_STAMP}")
     photo_new_path = "public/#{from['id']}/checkout/#{TIME_STAMP}/selfie.jpg"
     File.write(photo_new_path, Kernel.open(uri).read, mode: 'wb')
     photo_new_path

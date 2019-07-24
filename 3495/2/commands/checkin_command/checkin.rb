@@ -29,18 +29,19 @@ module CheckinCommand
     if payload['photo']
       respond_with :message, text: 'Ok now send the coordinates'
       request_file_path(payload['photo'].last['file_id'])
-      save_context :checkin!
-    else
-      check_type_of_message_on_geo
-    end
-  end
-
-  def check_type_of_message_on_geo
-    if payload['location']
-      check_geo
+      save_context :check_type_of_message_on_geo
     else
       save_context :checkin!
       respond_with :message, text: 'Send a photo'
+    end
+  end
+
+  def check_type_of_message_on_geo(*)
+    if payload['location']
+      check_geo
+    else
+      save_context :check_type_of_message_on_geo
+      respond_with :message, text: 'Send the coordinates'
     end
   end
 
@@ -68,7 +69,7 @@ module CheckinCommand
 
   def load_pic_from_path(file_path)
     uri = URI("#{API_URL}file/bot#{ENV['TOKEN']}/#{file_path}")
-    DirCreator.dir_create("public/#{from['id']}/checkin/#{TIME_STAMP}")
+    DirCreator.call("public/#{from['id']}/checkin/#{TIME_STAMP}")
     photo_new_path = "public/#{from['id']}/checkin/#{TIME_STAMP}/selfie.jpg"
     File.write(photo_new_path, Kernel.open(uri).read, mode: 'wb')
     photo_new_path
