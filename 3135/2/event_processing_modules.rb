@@ -43,8 +43,8 @@ module Reception
     action = user.action.what?
     user.save.location(location)
     user.presence_switch
-    Utils.store_session(user.id, action, user.photo_uri, user.location)
     user.status_flush
+    Utils.store_session(user.id, action, user.photo_uri, location)
     "Location received. #{action.capitalize} successful."
   end
 end
