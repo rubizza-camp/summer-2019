@@ -1,8 +1,8 @@
 require 'fileutils'
 
 class PathLoader
-  def initialize(payload)
-    @session_id = "#{payload['from']['id']}:#{payload['chat']['id']}"
+  def initialize(user_id, chat_id)
+    @session_id = "#{user_id}:#{chat_id}"
     @date = Time.now.strftime('%m:%d:%Y:%H')
   end
 

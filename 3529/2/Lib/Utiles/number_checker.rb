@@ -1,19 +1,15 @@
 require 'yaml'
 require 'redis'
-require 'redis-activesupport'
-require 'redis-rails'
 require 'redis-namespace'
-require 'redis-rack-cache'
 
 class NumberChecker
   def initialize(file_path)
     @file_path = file_path
     @file = YAML.safe_load(File.read(@file_path))
-    @resp = ''
+    @resp = "I am sorry, but there ism't anyone in the camp with this number"
   end
 
   def handle_number(number, payload)
-    @resp = ''
     @file['participents'].each do |participant|
       @resp = checker_id(participant, payload, number) if number == participant.keys.first.to_s
     end
@@ -33,7 +29,7 @@ class NumberChecker
   end
 
   def update_file
-    data_base = Redis::Namespace.new('telegram-bot-app', redis: Redis.new)
+    data_base = Redis::Namespace.new('telegram-bot-app', redis: data_base)
     @file['participents'].each do |participant|
       data_base.set(participant.keys.first.to_s, participant['telegram_id'].to_s)
     end
