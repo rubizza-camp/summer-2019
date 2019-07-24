@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+gem 'telegram-bot', '~> 0.14.2'
+gem 'telegram-bot-types', '~> 0.6.1'
+gem 'redis', '~> 4.1', '>= 4.1.2'
+gem 'pry'
+gem 'activesupport'
