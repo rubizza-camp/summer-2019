@@ -10,8 +10,7 @@ module CheckinCommand
 
   def checkin_photo_from_message(*)
     session[:time_checkin] = Time.now.to_s
-    # PhotoLoader.call(payload: payload, time: session[:time_checkin], status: 'checkins')
-    PhotoLoader.call(payload, session[:time_checkin], 'checkins')
+    PhotoLoader.call(payload: payload, time: session[:time_checkin], status: 'checkins')
     respond_with :message, text: t(:ask_geolocation)
     save_context :checkin_geo_from_message
   rescue Errors::NoPhotoError
@@ -19,7 +18,7 @@ module CheckinCommand
   end
 
   def checkin_geo_from_message(*)
-    GeolocationLoader.call(payload, session[:time_checkin], 'checkins')
+    GeolocationLoader.call(payload: payload, time: session[:time_checkin], status: 'checkins')
     session[:status] = :checkin
     respond_with :message, text: t(:checkin_end)
   rescue Errors::NoGeolocationError

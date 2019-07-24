@@ -18,7 +18,7 @@ class PhotoLoader
     @status = status
   end
 
-  def self.call(payload, time, status)
+  def self.call(payload:, time:, status:)
     new(payload, time, status).call
   end
 

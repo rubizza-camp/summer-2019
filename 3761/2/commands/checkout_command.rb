@@ -10,7 +10,7 @@ module CheckoutCommand
 
   def checkout_photo_from_message(*)
     session[:time_checkout] = Time.now.to_s
-    PhotoLoader.call(payload, session[:time_checkout], 'checkouts')
+    PhotoLoader.call(payload: payload, time: session[:time_checkout], status: 'checkouts')
     respond_with :message, text: t(:ask_geolocation)
     save_context :checkout_geo_from_message
   rescue Errors::NoPhotoError
@@ -18,7 +18,7 @@ module CheckoutCommand
   end
 
   def checkout_geo_from_message(*)
-    GeolocationLoader.call(payload, session[:time_checkout], 'checkouts')
+    GeolocationLoader.call(payload: payload, time: session[:time_checkout], status: 'checkouts')
     session[:status] = :checkout
     respond_with :message, text: t(:checkout_end)
   rescue Errors::NoGeolocationError
