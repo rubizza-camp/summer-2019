@@ -1,9 +1,9 @@
 require 'yaml'
 DEFAULT_FILE = 'gems.yml'.freeze
+RUBYGEMS = 'https://rubygems.org/gems/'.freeze
 
 class RubyGemsLink
   def initialize
-    @link = 'https://rubygems.org/gems/'
     @file = file_to_parse
   end
 
@@ -26,7 +26,7 @@ class RubyGemsLink
   end
 
   def yaml_links
-    yaml_load['gem'].map { |link| @link + link }
+    yaml_load['gem'].map { |link| RUBYGEMS + link }
   end
 
   def gems_name
