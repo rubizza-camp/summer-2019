@@ -8,6 +8,6 @@ en:
   not_registred: 'Hello, send me your number, please.'
   success_registered: 'Yohoo! You are finally registered.'
   wrong_number: 'Do not try to deceive me. Enter your number correctly!'
-  geo: 'Send me your geolocation'
-  not_geo: 'It seems, you are not in a camp. Try again.'
+  geolocation_is: 'Send me your geolocation'
+  not_geolocation: 'It seems, you are not in a camp. Try again.'
   success: 'Well done! Good luck today.'

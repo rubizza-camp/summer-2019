@@ -1,3 +1,5 @@
+require 'yaml'
+
 class NumbersHandler
   attr_reader :number, :context
 
@@ -11,10 +13,13 @@ class NumbersHandler
   end
 
   def number_presence
-    File.open('./data/numbers.txt').each do |file_number|
-      return true if number == file_number.gsub(/[^0-9]/, '')
-    end
+    return true if number_from_file
     false
+  end
+
+  def number_from_file
+    file = YAML.load_file('./data/numbers.yml')
+    file['numbers'].find { |num| num == @number.to_i }
   end
 
   def number_is_in_use

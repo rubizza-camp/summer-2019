@@ -15,7 +15,7 @@ module CommandStart
   end
 
   def number_input(number)
-    if NumbersHandler.new(number, self).valid_number
+    if number_is_correct(number)
       chat_session[session_key] ||= {}
       chat_session[session_key]['number'] ||= number
       respond_with :message, text: t(:success_registered)
@@ -23,5 +23,9 @@ module CommandStart
       save_context :number_input
       respond_with :message, text: t(:wrong_number)
     end
+  end
+
+  def number_is_correct(number)
+    NumbersHandler.new(number, self).valid_number
   end
 end

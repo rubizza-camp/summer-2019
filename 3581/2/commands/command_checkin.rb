@@ -8,7 +8,6 @@ module CommandCheckin
   include Verification::SelfieAttachment
   include Verification::Geolocation
   include Verification::CheckinAssistant
-  include I18n
   include Confirmation
 
   def checkin!(*)

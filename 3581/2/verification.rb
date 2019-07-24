@@ -27,7 +27,7 @@ module Verification
     NEEDED_LATITUDE = 53.914264..53.916233
     NEEDED_LONGITUDE = 27.565941..27.571306
 
-    def geo?
+    def geolocation_data?
       return false unless payload['location']
 
       needed_longitude

@@ -14,7 +14,7 @@ class DataKeeper
 
   def save_files
     make_path
-    save :geo
+    save :geolocation_getter
     save :photo
   end
 
@@ -34,7 +34,7 @@ class DataKeeper
     send(type)
   end
 
-  def geo
+  def geolocation_getter
     FileUtils.touch "#{path}/geolocation.txt"
 
     File.open(File.expand_path("#{path}/geolocation.txt"), 'w') do |file|

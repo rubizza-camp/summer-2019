@@ -6,7 +6,7 @@ module Confirmation
       chat_session[session_key]['photo'] = payload['photo']
 
       save_context :geolocation
-      respond_with :message, text: t(:geo)
+      respond_with :message, text: t(:geolocation_is)
     else
       save_context :selfie_attachment
       respond_with :message, text: t(:not_selfie)
@@ -14,7 +14,7 @@ module Confirmation
   end
 
   def geolocation(*)
-    if geo?
+    if geolocation_data?
       DataKeeper.new(chat_session, session_key, payload).save_files
 
       change_checkin
@@ -22,7 +22,7 @@ module Confirmation
       respond_with :message, text: t(:success)
     else
       save_context :geolocation
-      respond_with :message, text: t(:not_geo)
+      respond_with :message, text: t(:not_geolocation)
     end
   end
 
