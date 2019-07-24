@@ -13,7 +13,7 @@ module Contexts
     private
 
     def process_geo_check
-      geo_save
+      Storage.save_location(session, payload)
       checkin_ending if session[:command] == 'checkin'
       checkout_ending if session[:command] == 'checkout'
       session[:command] = nil
@@ -43,19 +43,6 @@ module Contexts
 
     def allowed_longitude?
       ALLOWED_LONGITUDE.cover? payload['location']['longitude']
-    end
-
-    def create_path
-      path = PathGenerator.new(session, payload).save_path
-      FileUtils.mkdir_p(path) unless File.exist?(path)
-
-      path
-    end
-
-    def geo_save
-      File.open(create_path + 'geo.txt', 'wb') do |file|
-        file << payload['location'].inspect
-      end
     end
   end
 end

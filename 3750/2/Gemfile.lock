@@ -42,6 +42,11 @@ GEM
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
     redis (4.1.2)
+    redis-activesupport (5.0.7)
+      activesupport (>= 3, < 6)
+      redis-store (>= 1.3, < 2)
+    redis-store (1.6.0)
+      redis (>= 2.2, < 5)
     telegram-bot (0.14.2)
       actionpack (>= 4.0, < 6.0)
       activesupport (>= 4.0, < 6.0)
@@ -56,6 +61,8 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   redis
+  redis-activesupport
+  redis-store
   telegram-bot
 
 BUNDLED WITH

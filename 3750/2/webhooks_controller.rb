@@ -25,7 +25,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
     before you can /checkin in a new one',
     not_checked_in: 'You need to /checkin first',
     success_check_start: 'Show me yourself first',
-    success_checkin_end: 'Your shift have successfully begun',
+    success_checkin_end: 'Your shift has successfully begun',
     success_checkout_end: 'I hope you worked well today. Have a nice day',
     farewell_sticker: 'CAADAgADJgADwnaQBi5vOvKDgdd8Ag',
     photo_check_success: 'Good. Now i need your geolocation',

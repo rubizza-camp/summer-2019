@@ -9,7 +9,7 @@ require 'time'
 require 'yaml'
 require_relative 'file_accessor'
 require_relative 'webhooks_controller'
-require_relative 'path_generator'
+require_relative 'storage'
 
 TOKEN = ENV['BOT_TOKEN']
 
