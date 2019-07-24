@@ -1,7 +1,7 @@
 require 'yaml'
 
 class Kids
-	def self.check(number)
+	def 
 		@check ||= YAML.load_file('kids.yaml')['Kids'].include?(number)	
 	end
 end
