@@ -6,22 +6,22 @@ module Checkout
     return respond_if_are_not_registered unless redis.get(user_id_telegram)
     return respond_if_session_checkout_or_nil unless session[:status] == 'checkin'
 
-    session[:time_checkout] = Time.now.to_i
+    session[:time_checkout] = Time.now
     session[:status] = 'checkout'
     photo_checkout
   end
 
   def respond_if_session_checkout_or_nil
-    respond_with :message, text: 'зачекинься сразу /checkin'
+    respond_with :message, text: 'Зачекинься сразу /checkin'
   end
 
   def photo_checkout
-    respond_with :message, text: 'дай фото'
+    respond_with :message, text: 'Скиньте фото!'
     save_context :ask_for_photo_checkout
   end
 
   def geo_checkout
-    respond_with :message, text: 'где ты?'
+    respond_with :message, text: 'Нужна геолокация!'
     save_context :ask_for_geo_checkout
   end
 
@@ -37,24 +37,24 @@ module Checkout
 
     work_time = session[:time_checkout] - session[:time_checkin]
     work_time_string = Time.at(work_time).utc.strftime('%H часов, %M  минут')
-    respond = "чёт мало работал, всего #{work_time_string}"
+    respond = "Чёт мало работал, всего #{work_time_string}"
     respond_with :message, text: respond
   end
 
   private
 
   def rescue_photo_checkout
-    respond_with :message, text: 'скинь фото?'
+    respond_with :message, text: 'Нужна фотография!'
     photo_checkout
   end
 
   def rescue_geo_checkout
-    respond_with :message, text: 'чё за херь ты скинул'
+    respond_with :message, text: 'Это не координаты!'
     geo_checkout
   end
 
-  def checkout_path(time)
-    "./public/#{user_id_telegram}/checkouts/#{time}/"
+  def checkout_path(*)
+    "./public/#{user_id_telegram}/checkouts/#{session[:time_checkout]}/"
   end
 
   def create_checkout_path

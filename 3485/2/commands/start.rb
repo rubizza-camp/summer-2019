@@ -37,19 +37,19 @@ module Start
   end
 
   def respond_if_redis_have_number
-    respond = 'Такой номер уже зареган.'
+    respond = 'Такой номер уже зарегистрирован.'
     respond_with :message, text: respond
     start!
   end
 
   def respond_if_number_exists(number)
     registration(number)
-    respond = 'Вы уже зарегались.'
+    respond = 'Вы уже зарегистрировались.'
     respond_with :message, text: respond
   end
 
   def respond_if_different_situation
-    respond = 'чё ты ввёл бл?'
+    respond = 'Вы ввели?'
     respond_with :message, text: respond
     start!
   end

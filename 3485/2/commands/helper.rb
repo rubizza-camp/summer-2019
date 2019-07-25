@@ -4,7 +4,7 @@ require 'redis'
 
 # load geo and photo
 module Helper
-  TOKEN = '-------------------------------------------'
+  TOKEN = ENV['TOKEN']
   API_TELEGRAM = "https://api.telegram.org/bot#{TOKEN}/"
   API_TELEGRAM_FILE = "https://api.telegram.org/file/bot#{TOKEN}/"
   GET_FILE = 'getFile?file_id='

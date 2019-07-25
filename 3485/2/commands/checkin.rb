@@ -5,8 +5,7 @@ require_relative 'start.rb'
 # checkin and create path for data
 module Checkin
   def checkin!(*)
-    session[:time_checkin] = Time.now.to_i
-    respond = 'попался'
+    session[:time_checkin] = Time.now
     return respond_with :message, text: respond unless redis.get(user_id_telegram)
 
     session[:status] = 'checkin'
@@ -14,12 +13,12 @@ module Checkin
   end
 
   def checkin_photo
-    respond_with :message, text: 'скинь фото'
+    respond_with :message, text: 'Скиньте фото!'
     save_context :ask_for_photo_checkin
   end
 
   def checkin_geo
-    respond_with :message, text: 'Твоя гео лок?'
+    respond_with :message, text: 'Ваша геолокация?'
     save_context :ask_for_geo_checkin
   end
 
@@ -33,23 +32,23 @@ module Checkin
   def ask_for_geo_checkin(*)
     return rescue_geo_checkin unless download_geo(create_checkin_path)
 
-    respond_with :message, text: 'time to work'
+    respond_with :message, text: 'Time to work'
   end
 
   private
 
   def rescue_photo_checkin
-    respond_with :message, text: 'это фото?'
+    respond_with :message, text: 'Это фото?'
     checkin_photo
   end
 
   def rescue_geo_checkin
-    respond_with :message, text: 'пиши нормально'
+    respond_with :message, text: 'Нужна геолокация!'
     checkin_geo
   end
 
-  def generate_checkin_path(time)
-    "./public/#{user_id_telegram}/checkins/#{time}/"
+  def generate_checkin_path(*)
+    "./public/#{user_id_telegram}/checkins/#{session[:time_checkin]}/"
   end
 
   def create_checkin_path
