@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class GithubParser
+
+class StudentsParser
 
   attr_reader :list_numbers
 
