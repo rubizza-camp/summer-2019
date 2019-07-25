@@ -13,16 +13,24 @@ module Reg
 
   def registr?
     session.key?(:id)
-    save_context :registration
   end
 
-  def registration
+  def registration(*)
     save_context :valid
     respond_with :message, text: 'Enter your camp ID please:'
   end
 
-  def valid
-    students words[0].to_i
-    respond_with :message, text: 'kk'
+  def valid(*words)
+    id = words[0].to_i
+    if check_list_id(id)
+      respond_with :message, text: 'Gratz! You are successfully registered!'
+      uppdate_session(id)
+    else
+      respond_with :message,text:'There is no such ID, use /start to retry!'
+    end
+  end
+
+  def uppdate_session(id)
+    session[:id] = id
   end
 end
