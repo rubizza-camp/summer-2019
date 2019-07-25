@@ -1,7 +1,7 @@
 module BotCheckoutCommands
   def checkout!
-    if current_user.status == STATUS[0]
-      current_user.status = STATUS[1]
+    if current_user.status == 'out'
+      current_user.status = 'in'
     else
       respond_with :message, text: I18n.t(:checkout_error)
     end

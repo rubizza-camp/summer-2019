@@ -1,10 +1,10 @@
 module BotCheckinCommands
   def checkin!(*)
-    if current_user.status == STATUS[0]
+    if current_user.status == 'in'
       respond_with :message, text: I18n.t(:checkin_error)
     else
       save_context :manage_selfie
-      current_user.status = STATUS[0]
+      current_user.status = 'in'
       respond_with :message, text: I18n.t(:selfie_request)
     end
   end

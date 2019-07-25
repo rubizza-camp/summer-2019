@@ -18,7 +18,7 @@ require_relative 'lib/helper/dir_manager.rb'
 require_relative 'lib/helper/geolocation_uploader.rb'
 require_relative 'lib/helper/photo_uploader.rb'
 
-STATUS = [true, false].freeze
+STATUS = %w[in out].freeze
 
 I18n.load_path << Dir[File.expand_path('data/locales') + '/*.yml']
 I18n.locale = :en

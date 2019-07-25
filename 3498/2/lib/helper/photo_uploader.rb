@@ -5,7 +5,7 @@ class PhotoUploader
 
   def self.upload_selfie(user_number, photo_id)
     DirManager.create_directory(user_number, 'checkins')
-    path = "public/#{user_number}/checkins/#{Time.now.strftime('%a, %d %b %Y %H:%M')}/selfie.jpg"
+    path = "public/#{user_number}/checkins/#{Time.now.strftime('%a, %d %b %Y %H')}/selfie.jpg"
     File.open(path, 'wb') do |file|
       file << URI.open(TG_API + photo_path(photo_id)).read
     end
