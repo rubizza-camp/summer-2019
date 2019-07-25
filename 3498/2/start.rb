@@ -6,23 +6,20 @@ require 'active_support/all'
 require 'ohm'
 require 'date'
 require 'fileutils'
+require 'i18n'
 
+require_relative 'lib/model/user_model.rb'
 require_relative 'lib/command/bot_start_commands.rb'
 require_relative 'lib/command/bot_checkin_commands.rb'
 require_relative 'lib/command/bot_checkout_commands.rb'
+require_relative 'bot.rb'
 require_relative 'lib/controller/webhooks_controller.rb'
-require_relative 'lib/model/user_model.rb'
+require_relative 'lib/helper/dir_manager.rb'
+require_relative 'lib/helper/geolocation_uploader.rb'
+require_relative 'lib/helper/photo_uploader.rb'
 
-class Bot
-  def initialize(token)
-    @bot = Telegram::Bot::Client.new(token)
-  end
+STATUS = [true, false].freeze
 
-  def run
-    logger = Logger.new(STDOUT)
-    poller = Telegram::Bot::UpdatesPoller.new(@bot, WebhooksController, logger: logger)
-    poller.start
-  end
-end
-
+I18n.load_path << Dir[File.expand_path('data/locales') + '/*.yml']
+I18n.locale = :en
 Bot.new(ENV['TG_TOKEN']).run

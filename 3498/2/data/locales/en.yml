@@ -1,0 +1,12 @@
+en:
+  start_fail: 'You have already started your journey'
+  enter_number: 'Enter your number'
+  number_error: 'Invalid number! Type /start and try again'
+  number_match: 'It is not your number! Type /start and try again'
+  login_success: 'Now we are watching you'
+  checkin_error: 'You have already checked in'
+  selfie_request: 'Send me a selfie!'
+  location_request: 'Now send me your location'
+  checkin_success: 'Cool! Now you are checked in'
+  checkout_error: 'First of all, try to /checkin'
+  bye: 'See you later!'

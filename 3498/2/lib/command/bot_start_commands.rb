@@ -2,10 +2,10 @@ module BotStartCommands
   attr_reader :users_list
 
   def start!(number = nil, *)
-    if User.all.select { |user| user.telegram_id == from['id'].to_s }.empty?
-      check_number(number)
+    if User.all.select { |user| user.telegram_id == from['id'].to_s }
+      respond_with :message, text: I18n.t(:start_fail)
     else
-      respond_with :message, text: 'You have already started your journey'
+      check_number(number)
     end
   end
 
@@ -16,7 +16,7 @@ module BotStartCommands
       validate_number(number)
     else
       save_context :start!
-      respond_with :message, text: 'Enter your number'
+      respond_with :message, text: I18n.t(:enter_number)
     end
   end
 
@@ -25,7 +25,7 @@ module BotStartCommands
     if @users_list.include?(number.to_i)
       register_user(number)
     else
-      respond_with :message, text: 'Invalid number! Type /start and try again'
+      respond_with :message, text: I18n.t(:number_error)
     end
   end
 
@@ -35,12 +35,12 @@ module BotStartCommands
   end
 
   def register_user(number)
-    if User.all.each { |user| user.camp_number.equal?(number) }
-      reply_with :message, text: 'It is not your number! Type /start and try again'
+    if User.all { |user| user.camp_number == number }
+      reply_with :message, text: I18n.t(:number_match)
     else
-      User.create(telegram_id: from['id'], camp_number: number)
-      session[:id] = number
-      respond_with :message, text: 'Now we are watching you'
+      user = User.create(telegram_id: from['id'], camp_number: number, status: STATUS[1])
+      session[:user_id] = user.id
+      respond_with :message, text: I18n.t(:login_success)
     end
   end
 end

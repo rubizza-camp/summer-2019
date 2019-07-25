@@ -1,55 +1,29 @@
 module BotCheckinCommands
-  TOKEN = ENV['TG_TOKEN']
-  TG_API = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
-  API_PATH = "https://api.telegram.org/bot#{TOKEN}/getFile?file_id=".freeze
-
   def checkin!(*)
-    if session[:is_in?]
-      respond_with :message, text: 'You have already checked in'
+    if current_user.status == STATUS[0]
+      respond_with :message, text: I18n.t(:checkin_error)
     else
       save_context :manage_selfie
-      session[:is_in?] = true
-      respond_with :message, text: 'Send me a selfie!'
+      current_user.status = STATUS[0]
+      respond_with :message, text: I18n.t(:selfie_request)
     end
   end
 
-  private
+  def current_user
+    User[session[:user_id]]
+  end
 
-  def manage_selfie(*)
-    upload_selfie
-    respond_with :message, text: 'Now send me your location'
+  def manage_selfie
+    photo_id = payload['photo'].last['file_id']
+    PhotoUploader.upload_selfie(current_user.camp_number, photo_id)
+    respond_with :message, text: I18n.t(:location_request)
     save_context :upload_location
   end
 
-  def upload_selfie(*)
-    create_directory
-    path = "public/3498/checkins/#{Time.now.strftime('%a, %d %b %Y %H:%M')}/selfie.jpg"
-    File.open(path, 'wb') do |file|
-      file << URI.open(TG_API + photo_path).read
-    end
-  end
-
-  def photo_path
-    JSON.parse(URI.open(API_PATH + payload['photo'].last['file_id'])
-      .read, symbolize_names: true)[:result][:file_path]
-  end
-
-  def upload_location(*)
-    create_location_file
-    respond_with :message, text: 'Cool! Now you are checked in'
-  end
-
-  def create_location_file
-    path = "public/#{session[:id]}
-            /checkins/#{Time.now.strftime '%a, %d %b %Y %H:%M'}/geolocation.txt"
-    File.open(path, 'wb') do |file|
-      file.write "#{payload['location']['latitude']}\n"
-      file.write payload['location']['longitude']
-    end
-  end
-
-  def create_directory
-    path = "public/#{session[:id]}/checkins/#{Time.now.strftime('%a, %d %b %Y %H:%M')}"
-    FileUtils.mkdir_p(path)
+  def upload_location
+    latitude = payload['location']['latitude']
+    longitude = payload['location']['longitude']
+    GeolocationUploader.create_location_file(current_user.camp_number, latitude, longitude)
+    respond_with :message, text: I18n.t(:checkin_success)
   end
 end
