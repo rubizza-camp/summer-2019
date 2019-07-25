@@ -3,16 +3,16 @@ require_relative '../helpers/user_helper.rb'
 # module with start command
 module StartCommand
   def start!(*)
-    if UserHelper.registered(from['id'])
-      respond_with :message, text: 'Sorry, but u have already registered!'
+    if User.registered?(from['id'])
+      respond_with :message, text: 'Sorry, but you have already registered!'
     else
-      respond_with :message, text: 'Enter ur number'
-      save_context :check_user
+      respond_with :message, text: 'Enter your number'
+      save_context :registering_user
     end
   end
 
-  def check_user(number = nil, *)
-    if UserHelper.check_number(number) && UserHelper.find_user(number).empty?
+  def registering_user(number = nil, *)
+    if UserHelper.existed_numbers(number) && !User.find(number: number)
       User.create(id: from['id'], number: number, in_camp: 'false')
       respond_with :message, text: 'Done!'
     else

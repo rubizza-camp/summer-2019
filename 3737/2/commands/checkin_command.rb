@@ -2,28 +2,30 @@ require 'fileutils'
 require 'haversine'
 require 'time'
 require_relative '../helpers/photo_helper.rb'
-require_relative '../helpers/user_helper.rb'
+require_relative '../helpers/location_helper.rb'
 
 # module with checkout command
 module CheckinCommand
-  include PhotoHelper
-
-  CAMP = [53.915205, 27.560094].freeze
-  TIME = Time.now.strftime('%a, %d %b %Y %H:%M')
-
   def checkin!(*)
-    if UserHelper.registered(from['id']) && User[from['id']].in_camp == 'false'
-      checkin_photo
-      User[from['id']].update in_camp: 'true'
+    if User.registered?(from['id'])
+      check_user_state
     else
-      respond_with :message, text: 'U\'re in camp'
+      respond_with :message, text: 'You\'re not registered'
+    end
+  end
+
+  def check_user_state
+    if User[from['id']].in_camp == 'false'
+      session[:time] = Time.now.strftime('%a, %d %b %Y %H:%M')
+      checkin_photo
+    else
+      respond_with :message, text: 'You\'re in camp'
     end
   end
 
   def checkin_photo(*)
     if payload['photo']
       save_checkin_photo
-      checkin_location
     else
       save_context :checkin_photo
       respond_with :message, text: 'Send yourself!'
@@ -31,29 +33,21 @@ module CheckinCommand
   end
 
   def checkin_location(*)
-    if payload['location']
-      checkin_valid_location(payload['location'].values)
-    else
-      save_context :checkin_location
-      respond_with :message, text: 'Send ur location'
-    end
-  end
-
-  def checkin_valid_location(location)
-    if Haversine.distance(CAMP, location).to_km <= 0.5
+    if payload['location'] && LocationHelper.valid_location(payload['location'].values)
       respond_with :message, text: 'Cool! Good luck!'
       save_checkin_location
     else
-      respond_with :message, text: 'U\' so far from camp! Try later'
+      save_context :checkin_location
+      respond_with :message, text: 'Send your location'
     end
   end
 
+  private
+
   def save_checkin_photo(*)
-    path = photo_path
+    checkin_location
     create_checkin_directory(from['id'])
-    File.open(checkin_path(from['id']) + '/photo.jpg', 'wb') do |file|
-      file << URI.open(DOWNLOAD_API + path).read
-    end
+    save_photo(checkin_path(from['id']))
   end
 
   def save_checkin_location(*)
@@ -61,6 +55,7 @@ module CheckinCommand
     File.open(path, 'wb') do |file|
       file << payload['location'].values
     end
+    User[from['id']].update(in_camp: 'true')
   end
 
   def create_checkin_directory(id)
@@ -68,6 +63,6 @@ module CheckinCommand
   end
 
   def checkin_path(id)
-    "public/#{id}/checkin/#{TIME}"
+    "public/#{id}/checkin/#{session[:time]}"
   end
 end
