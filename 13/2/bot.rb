@@ -7,11 +7,11 @@ require 'nokogiri'
 require 'time'
 require 'down'
 require 'fileutils'
+require_relative 'commands/start'
+require_relative 'commands/checkin'
+require_relative 'commands/checkout'
 require_relative 'modules/studentsparser'
-require_relative 'modules/start_helper'
-require_relative 'modules/checkin_helper'
-require_relative 'modules/checkout_helper'
-require_relative 'modules/else_helper'
+require_relative 'modules/else_controller'
 require_relative 'modules/redis_helper'
 require_relative 'modules/bot_answers'
 require_relative 'modules/location'
@@ -28,10 +28,10 @@ STUDENTS = StudentsParser.new.parse
 Telegram::Bot::Client.run(TOKEN) do |bot|
   bot.listen do |message|
     case message.text
-    when '/start' then StartHelper.do(bot, message)#start_helper(message, bot)
-    when '/checkin' then CheckInHelper.do(bot, message)#checkin_helper(message, bot)
-    when '/checkout' then CheckOutHelper.do(bot, message)#checkout_helper(message, bot)
-    else ElseHelper.do(bot, message) #else_helper(message, bot)
+    when '/start' then Start.call(bot, message)#start_helper(message, bot)
+    when '/checkin' then Checkin.call(bot, message)#checkin_helper(message, bot)
+    when '/checkout' then Checkout.call(bot, message)#checkout_helper(message, bot)
+    else ElseController.call(bot, message) #else_helper(message, bot)
     end
   end
 end
