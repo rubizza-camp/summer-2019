@@ -7,7 +7,7 @@ module Registration
     elsif registered?(group_id)
       respond_with :message, text: 'Пользователь с таким номером уже зарегестрирован(/start)'
     else
-      respond_with :message, text: 'Тебя нет в списках, ухады адсюль'
+      respond_with :message, text: 'Тебя нет в списках, попробуй снова(/start)'
     end
   end
 
