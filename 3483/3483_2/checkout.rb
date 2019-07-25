@@ -10,7 +10,7 @@ module Checkout
       check_data
       Gest[from['id']].update in_camp: 'false'
     else
-      respond_with :message, text: 'U not in camp'
+      respond_with :message, text: "I can not hear you. Type /checkin to go home"
     end
   end
 end

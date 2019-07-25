@@ -12,7 +12,7 @@ module PhotoLocation
       check_location
     else
       save_context :check_data
-      respond_with :message, text: 'Send self!'
+      respond_with :message, text: 'Mom sees you badly, send me a selfie.'
     end
   end
 
@@ -21,16 +21,16 @@ module PhotoLocation
       check_valid_location(payload['location'].values)
     else
       save_context :check_location
-      respond_with :message, text: 'Send ur location'
+      respond_with :message, text: 'Are you exactly home? Send me your geoposition.'
     end
   end
 
   def check_valid_location(location)
     if Haversine.distance(CAMP, location).to_km <= 1
-      respond_with :message, text: 'Cool!'
+      respond_with :message, text: 'Love you sweetheart:3'
       save_location
     else
-      respond_with :message, text: 'U not in camp! Try later'
+      respond_with :message, text: 'It seems, you are not in home. Try again.'
     end
   end
 end
