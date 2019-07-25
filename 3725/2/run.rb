@@ -13,7 +13,7 @@ require_relative 'user'
 require_relative 'bot'
 require_relative 'controllers/webhooks_controller'
 
-token = '812391281:AAGbnwP8CdHvhZV5_rNSw9ryuRRbEUroLno'
+token = ENV['KEY_TOKEN']
 Ohm.redis = Redic.new('redis://127.0.0.1:6379')
 controller = Bot.new(token)
 controller.call
