@@ -26,7 +26,7 @@ module PhotoLocation
   end
 
   def check_valid_location(location)
-    if Haversine.distance(CAMP, location).to_km <= 0.3
+    if Haversine.distance(CAMP, location).to_km <= 1
       respond_with :message, text: 'Cool!'
       save_location
     else
