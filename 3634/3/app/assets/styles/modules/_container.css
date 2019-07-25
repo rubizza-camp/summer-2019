@@ -1,0 +1,9 @@
+.container {
+  max-width: 56.25rem;
+  margin: 0 auto;
+  background-color: #63e091;
+  text-align: center;
+  font-size: 2rem;
+  font-style: italic;
+  text-transform: uppercase;
+}

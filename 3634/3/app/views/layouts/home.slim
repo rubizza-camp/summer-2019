@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title Restaurants annotations
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    link rel="stylesheet" type="text/css" href="styles/styles.css"
+  body
+    .container
+        h2 Restaurants:
+        - @restaurants.each do |restaurant|
+            .block onclick='location.href="#{restaurant.id}"'
+                .block__name
+                    h3 = restaurant.name
+                .block__text
+                    p = restaurant.description
+                .block__coorinates
+                    p Latitude:&nbsp;&nbsp;
+                        #{restaurant.latitude}&nbsp;&nbsp;
+                      Longitude:&nbsp;&nbsp;
+                        #{restaurant.longitude}
+    script src="scripts/app.js"

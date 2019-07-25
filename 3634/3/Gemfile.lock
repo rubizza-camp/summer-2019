@@ -56,7 +56,11 @@ GEM
       sinatra (>= 1.0)
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
+    slim (4.0.1)
+      temple (>= 0.7.6, < 0.9)
+      tilt (>= 2.0.6, < 2.1)
     sqlite3 (1.4.1)
+    temple (0.8.1)
     thin (1.7.2)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -85,6 +89,7 @@ DEPENDENCIES
   sinatra
   sinatra-activerecord
   sinatra-flash
+  slim
   sqlite3
   thin
   tux
