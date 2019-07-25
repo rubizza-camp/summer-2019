@@ -1,31 +1,14 @@
-require 'date'
-require 'fileutils'
-require './modules/fetch_messages'
+require './modules/user_data_fetcher'
 module CheckinCommand
-  include FetchMessages
+  include UserDataFetcher
   def checkin!(*)
     if session[:checkined]
-      respond_with :message, text: 'Смена уже началась'
-    elsif session[:is_registered]
-      save_context :download_photo_checkin
-      respond_with :message, text: 'Пришли мне своё фото'
+      respond_with :message, text: 'Смена уже началась(закрыть смену /checkout)'
+    elsif session[:registered]
+      session[:status] = 'checkin'
+      user_data_fetch
     else
-      respond_with :message, text: 'Нет доступа к этой команде'
+      respond_with :message, text: 'Нет доступа(/start)'
     end
-  end
-
-  def download_photo_checkin
-    @path = "./public/#{session_key}/checkins/#{Date.today.strftime}/"
-    FileUtils.mkdir_p @path
-    File.write([@path, 'photo.jpg'].join, Net::HTTP.get(fetch_photo_uri))
-    save_context :download_location_checkin
-    respond_with :message, text: 'Пришли мне своё местоположение'
-  end
-
-  def download_location_checkin
-    @path = "./public/#{session_key}/checkins/#{Date.today.strftime}/"
-    File.write([@path, 'location.txt'].join, fetch_location)
-    session[:checkined] = true
-    respond_with :message, text: 'Смена началась)'
   end
 end

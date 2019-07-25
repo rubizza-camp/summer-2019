@@ -1,6 +1,5 @@
 require 'yaml'
 require './modules/registration'
-
 module StartCommand
   include Registration
 
@@ -15,9 +14,9 @@ module StartCommand
 
   def say_hello
     if session[:checkined]
-      respond_with :message, text: "Твоя смена открыта ##{session[:group_id]}"
+      respond_with :message, text: 'Твоя смена открыта(закрыть смену /checkout)'
     else
-      respond_with :message, text: "Ты можешь начать смену ##{session[:group_id]}"
+      respond_with :message, text: 'Ты можешь начать смену(/checkin)'
     end
   end
 end

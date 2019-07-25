@@ -1,7 +1,7 @@
 require 'net/http'
 require 'httparty'
 require 'pry'
-module FetchMessages
+module MessageFetch
   def fetch_photo_uri
     json = HTTParty.get("https://api.telegram.org/bot#{TOKEN}/getupdates")
     file_id = json['result'][-1]['message']['photo'][-1]['file_id']
