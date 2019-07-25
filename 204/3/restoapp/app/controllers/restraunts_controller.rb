@@ -1,0 +1,2 @@
+class RestrauntsController < ApplicationController
+end
