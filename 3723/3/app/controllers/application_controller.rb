@@ -1,3 +1,5 @@
+Dotenv.load
+
 class ApplicationController < Sinatra::Base
 
   configure do
