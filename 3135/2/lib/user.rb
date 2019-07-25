@@ -6,16 +6,17 @@ require_relative 'db'
 #:reek:TooManyInstanceVariables
 #:reek:DuplicateMethodCall
 class User
-  attr_reader :id, :camp_num, :location, :photo_uri, :action, :request
+  attr_reader :id, :action, :request
 
   def initialize(tg_id)
     @id = tg_id
-    @camp_num = DB.get("tgid_#{tg_id}_camp_num")
-    @location = DB.get("tgid_#{tg_id}_location")
-    @photo_uri = DB.get("tgid_#{tg_id}_photo_uri")
 
     @action = ActionStatus.new(tg_id)
     @request = RequestStatus.new(tg_id)
+  end
+
+  def key(name)
+    "tgid_#{id}_#{name}"
   end
 
   # -residency
@@ -51,24 +52,8 @@ class User
   end
 
   # -save
-  # -campnum
-  def save_camp_num(digits)
-    save('camp_num', digits)
-  end
-
-  # -photo uri
-  def save_photo_uri(uri)
-    save('photo_uri', uri)
-  end
-
-  # -location
-  def save_location(coords)
-    save('location', coords)
-  end
-
-  private
-
-  def save(entity, data)
-    DB.set("tgid_#{id}_#{entity}", data)
+  %w[camp_num photo_uri location].each do |name|
+    define_method("save_#{name}") { |data| DB.set(key(name), data) }
+    define_method(name.to_s) { DB.get(key(name)) }
   end
 end

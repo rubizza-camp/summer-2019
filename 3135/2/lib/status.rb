@@ -1,5 +1,3 @@
-#require_relative 'db'
-
 # Status class
 class Status
   attr_reader :tg_id

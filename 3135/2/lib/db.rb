@@ -10,11 +10,11 @@ class DB
   end
 
   def self.set(key, value)
-    redis.set(key, value) 
+    redis.set(key, value)
   end
 
   def self.del(key)
     redis.del(key)
-  end 
+  end
 end
 # rubocop:enable Lint/UselessAssignment
