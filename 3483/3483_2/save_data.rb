@@ -1,5 +1,6 @@
 require 'net/http'
 require 'open-uri'
+require 'fileutils'
 
 module SaveData
   API = "https://api.telegram.org/bot#{TOKEN}/getFile?file_id=".freeze
@@ -7,14 +8,14 @@ module SaveData
   TIME = Time.now.strftime('%a, %d %b %Y %H:%M')
 
   def save_photo(*)
-    FileUtils.mkdir_p("public/#{from['id']}/checkin/#{TIME}")
-    File.open("public/#{from['id']}/checkin/#{TIME}" + '/photo.jpg', 'wb') do |file|
+    FileUtils.mkdir_p("public/#{from['id']}/#{in_or_out}/#{TIME}")
+    File.open("public/#{from['id']}/#{in_or_out}/#{TIME}" + '/photo.jpg', 'wb') do |file|
       file << URI.open(DOWNLOAD_API + photo_path).read
     end
   end
 
   def save_location(*)
-    File.open("public/#{from['id']}/checkin/#{TIME}" + '/location.txt', 'wb') do |file|
+    File.open("public/#{from['id']}/#{in_or_out}/#{TIME}" + '/location.txt', 'wb') do |file|
       file << payload['location'].values
     end
   end
@@ -22,5 +23,12 @@ module SaveData
   def photo_path
     JSON.parse(URI.open(API + payload['photo'].last['file_id'])
                  .read, symbolize_names: true)[:result][:file_path]
+  end
+
+  def in_or_out
+    if Gest[from['id']].in_camp == 'false'
+      "checkin"
+    else
+      "chekout"  
   end
 end

@@ -5,6 +5,7 @@ require 'redis'
 require 'active_support/all'
 require_relative 'start.rb'
 require_relative 'checkin.rb'
+require_relative 'checkout.rb'
 
 Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.month }
 
@@ -13,6 +14,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::Session
   include Start
   include Checkin
+  include Checkout
 
   Ohm.redis = Redic.new("redis://127.0.0.1:6379")
 end
