@@ -9,7 +9,7 @@ class PhotoLoader
   BOT_API_URL = "https://api.telegram.org/bot#{TOKEN}/".freeze
   BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
   GET_PATH_URL = 'getFile?file_id='.freeze
-  FOLDER_NAME = '/selfie.jpg'.freeze
+  FILE_FOR_SELFIE = '/selfie.jpg'.freeze
 
   attr_reader :payload, :time, :status
 
@@ -32,7 +32,7 @@ class PhotoLoader
   def download_last_photo
     telegram_path = photo_file_path
     FileUtils.mkdir_p(path_to_storage) unless File.exist?(path_to_storage)
-    File.open(path_to_storage + FOLDER_NAME, 'wb') do |file|
+    File.open(path_to_storage + FILE_FOR_SELFIE, 'wb') do |file|
       file << URI.open(BOT_DOWNLOAD_API_URL + telegram_path).read
     end
   end
