@@ -11,4 +11,3 @@
 - Start conversation via typing /start(if you are already registered you can type /checkin)
 - First time, after typing /start, you should give him you rubizza_id(e.g. 3582)
 - Then you can type /checkin and strictly following instructions
-
