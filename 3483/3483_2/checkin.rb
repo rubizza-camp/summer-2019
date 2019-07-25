@@ -4,7 +4,7 @@ require_relative 'photo_location.rb'
 
 module Checkin
   include PhotoLocation
-  
+
   def checkin!(*)
     if KidsChecker.registered(from['id']) && Gest[from['id']].in_camp == 'false'
       check_data

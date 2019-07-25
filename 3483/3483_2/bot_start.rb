@@ -16,7 +16,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include Checkin
   include Checkout
 
-  Ohm.redis = Redic.new("redis://127.0.0.1:6379")
+  Ohm.redis = Redic.new('redis://127.0.0.1:6379')
 end
 
 TOKEN = ENV['BOT_TOKEN']

@@ -28,9 +28,9 @@ module SaveData
 
   def in_or_out
     if Gest[from['id']].in_camp == 'false'
-      "checkin"
+      'checkin'
     else
-      "chekout"  
+      'chekout'
     end
   end
 end
