@@ -1,6 +1,6 @@
 module UserInputHandler
   def ask_for_photo(_context = nil, *)
-    timestamp
+    session[:beginning_time] = Time.now.to_i
     session[:photo_id] = payload['photo'].last['file_id']
     respond_with :message, text: '🛰 Отправте геолокацию'
     save_context :ask_for_geo
@@ -27,10 +27,6 @@ module UserInputHandler
   def no_geo_provided
     save_context :ask_for_geo
     respond_with :message, text: '🚫 Это не геолокация'
-  end
-
-  def timestamp
-    session[:beginning_time] = Time.new
   end
 
   def save_check

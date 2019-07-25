@@ -5,7 +5,7 @@ module CheckoutCommand
   include UserInputHandler
   def checkout!(*)
     session[:check_type] = 'checkout'
-    save_context :ask_for_photo_check
+    save_context :ask_for_photo
     respond_with :message, text: '📸 Отправтье селфи'
   end
 end

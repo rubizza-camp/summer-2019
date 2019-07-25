@@ -5,7 +5,7 @@ module CheckinCommand
   include UserInputHandler
   def checkin!(*)
     session[:check_type] = 'checkin'
-    respond_with :message, text: '📸 Отправтье селфи'
-    ask_for_photo
+    save_context :ask_for_photo
+    respond_with :message, text: '📸 Отправте селфи'
   end
 end

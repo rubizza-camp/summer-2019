@@ -1,23 +1,23 @@
 module Unlink
-  def unlink!(message = nil, *)
-    if valid_message(message)
-      delete
-    else
-      respond_with :message, text: "Отвязать номер от своего аккаунта?\n[ Да | Нет ]"
-      save_context :unlink!
-    end
+  def unlink!(*)
+    respond_with :message, text: 'Отвязать номер от аккаунта?', reply_markup: {
+      inline_keyboard: [
+        [
+          { text: 'Удалить', callback_data: 'unlink_confirmed' },
+          { text: 'Отмена', callback_data: 'unlink_denied' }
+        ]
+      ]
+    }
   end
 
   private
 
-  def valid_message(message)
-    message =~ /(Да)|(да)|(Yes)|(yes)/
-  end
+  def delete(data)
+    return unless data == 'unlink_confirmed'
 
-  def delete
     redis = Redis.new
     redis.del(session[:rubizza_num])
     session[:rubizza_num] = nil
-    respond_with :message, text: 'Номер отвязан. /start чтобы зарегистрироваться'
+    respond_with :message, text: "#{data}. /start чтобы зарегистрироваться"
   end
 end

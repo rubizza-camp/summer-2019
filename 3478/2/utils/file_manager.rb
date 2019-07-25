@@ -4,6 +4,9 @@ require 'fileutils'
 require_relative 'photo_downloader'
 
 module FileManager
+  API_TG_LINK = 'https://api.telegram.org/bot'.freeze
+  GET_ID_LINK = '/getFile?file_id='.freeze
+
   include PhotoDownloader
 
   def save_check_file
@@ -22,4 +25,6 @@ module FileManager
   def save_location(path)
     File.write(path + 'geo.txt', session[:location].inspect, mode: 'w')
   end
+
+  def create_file_path; end
 end
