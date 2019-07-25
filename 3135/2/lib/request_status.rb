@@ -1,45 +1,38 @@
-require_relative 'db'
+#require_relative 'db'
+require_relative 'status'
 
 # RequestStatus class manages current requests and stores their statuses to redis
-class RequestStatus
+class RequestStatus < Status
   attr_reader :key
 
-  def initialize(tg_id)
-    @key = "tgid_#{tg_id}_request"
-  end
-
-  def value
-    DB.redis.get(key)
-  end
-
-  def flush
-    DB.redis.del(key)
+  def key
+    @key ||= "tgid_#{tg_id}_request"
   end
 
   # -campnum
   def camp_num
-    DB.redis.set(key, 'camp_num')
+    DB.set(key, 'camp_num')
   end
 
   def camp_num?
-    DB.redis.get(key) == 'camp_num'
+    DB.get(key) == 'camp_num'
   end
 
   # -photo
   def photo
-    DB.redis.set(key, 'photo')
+    DB.set(key, 'photo')
   end
 
   def photo?
-    DB.redis.get(key) == 'photo'
+    DB.get(key) == 'photo'
   end
 
   # -location
   def location
-    DB.redis.set(key, 'location')
+    DB.set(key, 'location')
   end
 
   def location?
-    DB.redis.get(key) == 'location'
+    DB.get(key) == 'location'
   end
 end
