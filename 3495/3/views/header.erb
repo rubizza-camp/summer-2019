@@ -1,0 +1,37 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-default bg-light">
+  <a class="navbar-brand" href="#">SNACK WELL</a>
+  <div>
+    <ul class="navbar-nav">
+      <li class="active">
+        <button type="submit" class="btn btn-dark">Main</button>
+      </li>
+      <li>
+        <button type="submit" class="btn btn-dark">About us</button>
+      </li>
+      <li>
+        <button type="submit" class="btn btn-dark">Contacts</button>
+      </li>
+      <li>
+        <button type="submit" class="btn btn-dark" data-toggle="modal" data-target="#modalLoginForm">Login</button>
+      </li>
+      <form action="/user_logout" method="post">
+      <li>
+        <button type="submit" class="btn btn-dark">Logout</button>
+      </li>
+      </form>
+      <li>
+        <button type="submit" class="btn btn-dark" data-toggle="modal" data-target="#modalSignUpForm">Sign up</button>
+      </li>
+      <form action="/restaurant_registration" method="get">
+      <li>
+        <button type="submit" class="btn btn-dark">Resataurant registration</button>
+      </li>
+      </form>
+      <li>
+        <a class="nav-link"> Name <%= session[:name] %> </a>
+      </li>
+    </ul>
+  </div>
+  </nav>
+</header>
