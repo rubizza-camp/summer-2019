@@ -7,7 +7,7 @@ class ActionStatus < Status
   end
 
   %w[registration checkin checkout].each do |name|
-    define_method("#{name}") { DB.set(key, name) }
+    define_method(name.to_s) { DB.set(key, name) }
     define_method("#{name}?") { DB.get(key) == name }
   end
 end
