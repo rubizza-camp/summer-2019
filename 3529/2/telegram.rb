@@ -1,10 +1,11 @@
 require 'telegram/bot'
-require 'yaml'
 require 'httparty'
 require 'open-uri'
 require 'logger'
+require './telegram_runner'
 
 Dir[File.dirname(__FILE__) + '/Lib/*.rb'].each { |file| require file }
+Dir[File.dirname(__FILE__) + '/Lib/Utiles/*.rb'].each { |file| require file }
 
 class WebhooksController < Telegram::Bot::UpdatesController
   include ContextHandler
@@ -16,12 +17,9 @@ class WebhooksController < Telegram::Bot::UpdatesController
   end
 end
 
-file_token = YAML.safe_load(File.read('Data/token.yaml'))
-TOKEN = file_token['token'].freeze
-bot = Telegram::Bot::Client.new(TOKEN)
-Telegram.bots_config = {
-  default: TOKEN
-}
+telegram_run = TelegramRunner.new
+bot = telegram_run.run
+TOKEN = bot.token
 
 logger = Logger.new(STDOUT)
 poller = Telegram::Bot::UpdatesPoller.new(bot, WebhooksController, logger: logger)

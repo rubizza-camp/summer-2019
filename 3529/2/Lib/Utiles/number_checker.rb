@@ -1,6 +1,7 @@
 require 'yaml'
 require 'redis'
 require 'redis-namespace'
+require 'fileutils'
 
 class NumberChecker
   def initialize(file_path)
@@ -29,7 +30,6 @@ class NumberChecker
   end
 
   def update_file
-    data_base = Redis::Namespace.new('telegram-bot-app', redis: data_base)
     @file['participents'].each do |participant|
       data_base.set(participant.keys.first.to_s, participant['telegram_id'].to_s)
     end

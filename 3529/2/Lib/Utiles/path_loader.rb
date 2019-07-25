@@ -1,15 +1,22 @@
 require 'fileutils'
 
 class PathLoader
-  def initialize(user_id, chat_id)
-    @session_id = "#{user_id}:#{chat_id}"
+  def initialize(id)
+    @id = id
+    @number = find_number_by_id(id)
     @date = Time.now.strftime('%m:%d:%Y:%H')
   end
 
+  def find_number_by_id
+    file = YAML.safe_load(File.read('Data/camp_participants.yaml'))
+    file['participents'].each do |participant|
+      @number = participant.keys.first.to_s if participant['telegram_id'] == id
+    end
+  end
+
   def create_directory(in_or_out, file_name)
-    path = "public/#{@session_id}/check#{in_or_out}s/#{@date}/"
-    dirname = File.dirname(path + file_name)
-    FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
+    path = "public/#{@number}/check#{in_or_out}s/#{@date}/"
+    FileUtils.mkdir_p(path)
     path + file_name
   end
 end
