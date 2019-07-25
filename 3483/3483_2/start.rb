@@ -10,7 +10,7 @@ module Start
     end
   end
 
-  def check_user(number)
+  def check_user(number = nil, *)
     if KidsChecker.new(number).correct_data?
       Gest.create(id: from['id'], number: number, in_camp: 'false')
       respond_with :message, text: 'Done!'
