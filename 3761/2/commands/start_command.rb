@@ -10,6 +10,7 @@ module StartCommand
 
   def number_from_message(*words)
     StudentRegistrator.call(words.first, payload['from']['id'])
+    checkout
     respond_with :message, text: t(:start_end)
   rescue Errors::InvalidNumberError
     handle_invalid_number

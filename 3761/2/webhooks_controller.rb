@@ -16,6 +16,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
 
   include I18n
   include Helper
+  include SessionsHelper
   include StartCommand
   include DeleteCommand
   include CheckinCommand

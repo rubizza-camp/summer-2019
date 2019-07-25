@@ -1,10 +1,6 @@
 module Errors
   class UnregisteredStudentError < StandardError; end
 
-  class UncheckoutError < StandardError; end
-
-  class UncheckinError < StandardError; end
-
   class NoGeolocationError < StandardError; end
 
   class NoPhotoError < StandardError; end

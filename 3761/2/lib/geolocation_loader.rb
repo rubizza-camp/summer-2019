@@ -7,6 +7,7 @@ class GeolocationLoader
 
   CAMP_LOCATION = [53.915451, 27.568789].freeze
   MAX_DISTANCE_FROM_CAMP = 0.2
+  FOLDER_NAME = '/geo.txt'.freeze
 
   def initialize(payload, time, status)
     @payload = payload
@@ -29,7 +30,7 @@ class GeolocationLoader
   private
 
   def download_last_geolocation
-    File.open(path(status, time) + '/geo.txt', 'wb') do |file|
+    File.open(path(status, time) + FOLDER_NAME, 'wb') do |file|
       file << geolocation_from_payload.inspect
     end
   end
@@ -39,7 +40,7 @@ class GeolocationLoader
   end
 
   def near_camp?
-    Haversine.distance(CAMP_LOCATION, geolocation_from_payload.values)
-             .to_kilometers < MAX_DISTANCE_FROM_CAMP
+    current_distance = Haversine.distance(CAMP_LOCATION, geolocation_from_payload.values).to_km
+    current_distance < MAX_DISTANCE_FROM_CAMP
   end
 end
