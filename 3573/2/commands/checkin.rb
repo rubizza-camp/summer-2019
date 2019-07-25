@@ -1,8 +1,14 @@
 module Checkin
   def checkin!(*)
-    return response_if_not_registered unless redis.get(user_id_telegram)
-    return response_if_session_checkin if session[:status] == 'checkin'
+    return response_if_not_registered unless user_registered?
+
+    return response_if_session_checkin if checkin?
+
     message_for_photo_checkin
+  end
+
+  def response_if_not_registered
+    respond_with :message, text: t(:not_registered)
   end
 
   def response_if_session_checkin
@@ -17,7 +23,7 @@ module Checkin
   def download_photo_checkin(*)
     download_last_photo(create_checkin_path)
     message_for_geo_checkin
-  rescue NoMethodError
+  rescue Errors::NoPhotoError
     rescue_photo_checkin
   end
 
@@ -28,7 +34,7 @@ module Checkin
   # :reek:TooManyStatements
 
   def download_geo_checkin(*)
-    if validator_geo
+    if valid_geo?
       download_last_geo(create_checkin_path)
       respond_with :message, text: t(:checkin_done)
       checkin_parameters
@@ -36,14 +42,16 @@ module Checkin
       respond_with :message, text: t(:not_right_place)
       message_for_geo_checkin
     end
-  rescue NoMethodError
+  rescue Errors::NoGeoError
     rescue_geo_checkin
   end
 
   def checkin_parameters
     session[:time_checkin] = Time.now.utc
-    session[:status] = 'checkin'
+    checkin
   end
+
+  private
 
   def rescue_photo_checkin
     respond_with :message, text: t(:message_rescue_photo)
@@ -53,15 +61,5 @@ module Checkin
   def rescue_geo_checkin
     respond_with :message, text: t(:message_rescue_location)
     message_for_geo_checkin
-  end
-
-  def generate_checkin_path(time)
-    "./public/#{user_id_telegram}/checkins/#{time}/"
-  end
-
-  def create_checkin_path
-    local_path = generate_checkin_path(Time.at(session[:time_checkin]).utc)
-    FileUtils.mkdir_p(local_path) unless File.exist?(local_path)
-    local_path
   end
 end

@@ -10,37 +10,34 @@ module Start
 
   def register_message(number, *)
     student_number = number[0].to_i
-    return response_if_have_id_telegram? if redis.get(user_id_telegram)
-    return response_if_have_number? if redis.get(student_number)
-    return response_if_number_in_the_list?(student_number) if list_numbers.include?(student_number)
-    response_in_other_situations
+    return response_if_have_id_telegram? if user_registered?
+
+    return response_if_have_number? if user_number_registered?
+
+    return response_if_number_in_list?(student_number) if list_of_numbers.include?(student_number)
+
+    response_if_error
   end
 
   def response_if_have_id_telegram?
-    respond_with :message, text: t(:already_registered)
-    respond_with :message, text: "Your number is #{redis.get(user_id_telegram)}."
+    respond_with :message, text: t(:user_id_telegram) + user_registered?.to_s
   end
 
   def response_if_have_number?
     respond_with :message, text: t(:already_registered)
   end
 
-  def response_if_number_in_the_list?(student_number)
-    registration(student_number)
+  def response_if_number_in_list?(student_number)
+    register_student(student_number)
     respond_with :message, text: t(:registration_done)
   end
 
-  def response_in_other_situations
+  def response_if_error
     respond_with :message, text: t(:try_again)
     start!
   end
 
-  def list_numbers
-    @list_numbers ||= YAML.load_file(DATA_PATH)['numbers'].map(&:to_i)
-  end
-
-  def registration(student_number)
-    redis.set(user_id_telegram, student_number)
-    redis.set(student_number, true)
+  def list_of_numbers
+    @list_of_numbers ||= YAML.load_file(DATA_PATH)['numbers'].map(&:to_i)
   end
 end

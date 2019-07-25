@@ -1,6 +1,7 @@
 en:
   enter_number: 'Enter your number in RubizzaCamp'
   already_registered: 'You have already registered. Use command /checkin or /checkout.'
+  not_registered: "You're not registered"
   registration_done: 'Registration is done. Use command /checkin or /checkout'
   try_again: 'Sorry, try again'
   status_checkin: "You session status: 'checkin'. First use command /checkout"
@@ -11,4 +12,5 @@ en:
   message_rescue_photo: 'Are you sure, you sent your photo?'
   message_rescue_location: 'Are you sure, you sent your location?'
   status_checkout: "You session status: 'checkout'. First use command /checkin"
-  checkout_done: 'Checkout is done. Can you relax'
+  checkout_done: 'Checkout is done. Can you relax. Your work time '
+  user_id_telegram: 'You have already registered. Use command /checkin or /checkout. Your number is '
