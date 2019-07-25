@@ -1,7 +1,7 @@
 module CheckoutCommand
   def checkout!(*)
     return respond_with :message, text: I18n.t(:not_registered_response) unless user_registered?
-    return response_for_session_checkout_or_nil unless session[:status] == I18n.t(:checkin_string)
+    return response_for_session_checkout_or_nil unless session[:status] == :checkin
     session[:time_checkout] = Time.now.utc
     dialog_about_photo_checkout
   end
@@ -30,7 +30,7 @@ module CheckoutCommand
   def ask_for_geo_checkout(*)
     return rescue_geo_checkout unless download_latest_geo(create_checkout_path)
     respond_with :message, text: I18n.t(:successful_checkout_response) + work_time
-    session[:status] = I18n.t(:checkout_string)
+    session[:status] = :checkout
   end
 
   private

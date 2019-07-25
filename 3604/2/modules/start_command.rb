@@ -15,7 +15,7 @@ module StartCommand
 
   def message_register(number, *)
     return response_for_registered_student if user_registered?
-    return response_for_busy_student_number if student_number_reserved?(number.to_i)
+    return response_for_reserved_student_number if student_number_reserved?(number.to_i)
     return response_for_register_student(number.to_i) if list_of_numbers.include?(number.to_i)
     respond_for_different_situation
   rescue NoMethodError
@@ -32,7 +32,7 @@ module StartCommand
     respond_with :message, text: I18n.t(:registered_response) + redis.get(user_id_telegram).to_s
   end
 
-  def response_for_busy_student_number
+  def response_for_reserved_student_number
     respond_with :message, text: I18n.t(:student_number_reserved_response)
     start!
   end

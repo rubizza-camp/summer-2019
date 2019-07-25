@@ -1,7 +1,7 @@
 module CheckinCommand
   def checkin!(*)
     return respond_with :message, text: I18n.t(:not_registered_response) unless user_registered?
-    return response_for_session_checkin if session[:status] == I18n.t(:checkin_string)
+    return response_for_session_checkin if session[:status] == :checkin
     session[:time_checkin] = Time.now.utc
     dialog_about_photo_checkin
   end
@@ -30,7 +30,7 @@ module CheckinCommand
   def ask_for_geo_checkin(*)
     return rescue_geo_checkin unless download_latest_geo(create_checkin_path)
     respond_with :message, text: I18n.t(:successful_checkin_response)
-    session[:status] = I18n.t(:checkin_string)
+    session[:status] = :checkin
   end
 
   private

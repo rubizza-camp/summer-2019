@@ -15,6 +15,4 @@ en:
   photo_dialog_response: 'Send me photo'
   successful_checkin_response: 'Have a nice day!'
   successful_checkout_response: 'Have a good relax! Your work time is '
-  checkin_string: 'checkin'
-  checkout_string: 'checkout'
   empty_list_of_numbers_response: "In this moment we don't have list of student number"
