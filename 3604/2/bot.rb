@@ -1,5 +1,6 @@
 require 'telegram/bot'
 require 'logger'
+require 'dotenv'
 require_relative 'webhooks_controller.rb'
 
 Dotenv.load

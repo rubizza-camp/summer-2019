@@ -1,4 +1,3 @@
-require 'dotenv'
 require 'i18n'
 Dir[File.join('./modules', '*.rb')].each { |file| require_relative file }
 
