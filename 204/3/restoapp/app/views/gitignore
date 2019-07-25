@@ -1,0 +1,6 @@
+/public/*.jpg
+/public/*.png
+/public/*.jpeg
+/vendor/*.css
+/vendor/*.js
+/vendor/*.map
