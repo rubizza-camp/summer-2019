@@ -8,7 +8,7 @@ class ActionStatus
     @key = "tgid_#{tg_id}_action"
   end
 
-  def what?
+  def value
     DB.redis.get(key)
   end
 

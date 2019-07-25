@@ -8,7 +8,7 @@ class RequestStatus
     @key = "tgid_#{tg_id}_request"
   end
 
-  def what?
+  def value
     DB.redis.get(key)
   end
 
@@ -41,29 +41,5 @@ class RequestStatus
 
   def location?
     DB.redis.get(key) == 'location'
-  end
-end
-
-# DataSaver class saves data to redis with respect to user tg_id
-class DataSaver
-  attr_reader :id
-
-  def initialize(tg_id)
-    @id = tg_id
-  end
-
-  # -camp number
-  def camp_num(digits)
-    DB.redis.set("tgid_#{id}_camp_num", digits)
-  end
-
-  # -photo uri
-  def photo_uri(uri)
-    DB.redis.set("tgid_#{id}_photo_uri", uri)
-  end
-
-  # -location
-  def location(coords)
-    DB.redis.set("tgid_#{id}_location", coords)
   end
 end

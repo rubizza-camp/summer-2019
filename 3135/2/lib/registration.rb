@@ -10,7 +10,7 @@ module Registration
 
   # :reek:TooManyStatements
   def self.camp_num(user, camp_num)
-    user.save.camp_num(camp_num)
+    user.save_camp_num(camp_num)
     user.give_residency
     user.presence_init
     user.status_flush

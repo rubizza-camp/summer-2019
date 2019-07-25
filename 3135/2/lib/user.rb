@@ -6,7 +6,7 @@ require_relative 'db'
 #:reek:TooManyInstanceVariables
 #:reek:DuplicateMethodCall
 class User
-  attr_reader :id, :camp_num, :location, :photo_uri, :action, :request, :save
+  attr_reader :id, :camp_num, :location, :photo_uri, :action, :request, :repo
 
   def initialize(tg_id)
     @id = tg_id
@@ -16,7 +16,6 @@ class User
 
     @action = ActionStatus.new(tg_id)
     @request = RequestStatus.new(tg_id)
-    @save = DataSaver.new(tg_id)
   end
 
   # -residency
@@ -49,5 +48,27 @@ class User
   def status_flush
     action.flush
     request.flush
+  end
+
+  # -save
+  # -campnum
+  def save_camp_num(digits)
+    save('camp_num', digits)
+  end
+
+  # -photo uri
+  def save_photo_uri(uri)
+    save('photo_uri', uri)
+  end
+
+  # -location
+  def save_location(coords)
+    save('location', coords)
+  end
+
+  private
+
+  def save(entity, data)
+    DB.redis.set("tgid_#{id}_#{entity}", data)
   end
 end
