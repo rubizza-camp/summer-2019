@@ -20,10 +20,6 @@ module Start
     save_context :message_register
   end
 
-  def test!(*)
-    respond_with :photo, photo: File.open('qjeip_u_4rU.jpg')
-  end
-
   def message_register(*message)
     number = message[0].to_i
     return respond_if_redis_have_id if redis.get(user_id_telegram)

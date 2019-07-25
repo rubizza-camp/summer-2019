@@ -1,6 +1,0 @@
-gems:
-  - sinatra
-  - Nokogiri
-  - rake
-  - pry
-  - grape

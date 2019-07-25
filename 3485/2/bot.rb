@@ -7,7 +7,7 @@ require_relative './commands/checkout.rb'
 require_relative './commands/helper.rb'
 require 'logger'
 
-# The Dummy class is responsible for ...
+# Soure telegramm bot
 class WebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include Start
