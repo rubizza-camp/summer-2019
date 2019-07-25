@@ -1,8 +1,9 @@
-module StopCommand
-  def stop(user_id)
-    session_params = load_session_params(user_id)
-    return 'You have not even started' unless session_params
-    delete_users(user_id)
+module Stop
+  def self.stop(user)
+    return 'You have not even started' unless user.state
+    user.state = 'stop'
+    user.photo = nil
+    user.location = nil
     'Bye, bye'
   end
 end

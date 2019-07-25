@@ -1,63 +1,56 @@
-require 'telegram/bot'
-require 'open-uri'
 require 'fileutils'
+require 'open-uri'
+require 'redis'
+require 'telegram/bot'
 require_relative 'commands/start'
 require_relative 'commands/stop'
-require_relative 'commands/change_status'
-require_relative 'helpers/session'
+require_relative 'commands/check_in'
+require_relative 'commands/check_out'
+require_relative 'user'
 
 class Bot
-  include StartCommand
-  include StopCommand
-  include ChangeStatusCommand
-  include Session
-
-  def launch
-    Telegram::Bot::Client.run(TOKEN) do |bot|
-      @bot = bot
-      bot_lissen(bot)
+  # :reek:FeatureEnvy
+  # :reek:NestedIterators
+  def launch(token)
+    Telegram::Bot::Client.run(token) do |bot|
+      bot.listen do |message|
+        bot_answer = receive_bot_answer(message, bot)
+        bot.api.send_message(chat_id: message.chat.id, text: bot_answer)
+      end
     end
   end
 
-  def bot_lissen(bot)
-    bot.listen do |message|
-      chat_id = message.chat.id
-      bot_answer = receive_bot_answer(message)
-      send_message(chat_id, bot_answer, bot)
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
+  def receive_bot_answer(message, bot)
+    user = User.new(message.from.id)
+    case message.text
+    when '/start'    then Start.fetch_id(user)
+    when '/checkin'  then CheckIn.start(user)
+    when '/checkout' then CheckOut.start(user)
+    when '/stop'     then Stop.stop(user)
+    else                  other_input(user, message, bot)
     end
   end
 
   # :reek:UtilityFunction
-  def send_message(chat_id, bot_answer, bot)
-    bot.api.send_message(chat_id: chat_id, text: bot_answer)
-  end
-
   # :reek:TooManyStatements
-  def receive_bot_answer(message)
-    user_id = message.from.id
-    command = message.text
-    case command
-    when '/start'    then state_wait_id(message)
-    when '/checkin'  then state_wait_picture(user_id, 'checkin')
-    when '/checkout' then state_wait_picture(user_id, 'checkout')
-    when '/stop'     then stop(user_id)
-    else                  other_input(message, user_id)
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def other_input(user, message, bot)
+    case user.state
+    when 'start'             then Start.logging_in(user, message)
+    when 'ready_checkin'     then 'Enter command /checkin'
+    when 'ready_checkout'    then 'Enter command /checkout'
+    when 'wait_picture'      then CheckIn.save_url_photo(user, message)
+    when 'wait_location'     then CheckIn.save_location(user, message, bot)
+    when 'stop' || 'initial' then 'The bot is not running. Press /start'
+    else 'wrong command'
     end
   end
-
-  # :reek:TooManyStatements
-  def other_input(message, user_id)
-    session_params = load_session_params(user_id)
-    return 'The bot is not running. Press /start' unless session_params
-    state = session_params['state']
-    case state
-    when 'start'        then srarting(message)
-    when 'ready'        then 'Enter command /checkin or /checkout'
-    when 'wait_picture' then save_url_photo(message)
-    when 'wait_locate'  then check_locate(message)
-    end
-  end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
 
-TOKEN = '839245120:AAFNkeNCKJTSOkDnx3q9yO94jWOH-bXOTpA'.freeze
-Bot.new.launch
+print 'Enter token: '
+TOKEN = gets.chomp.freeze
+
+Bot.new.launch(TOKEN)
