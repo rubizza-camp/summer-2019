@@ -1,66 +1,59 @@
 require 'open-uri'
 require 'yaml'
 
-require_relative 'answers.rb'
-require_relative 'status.rb'
+require_relative 'state_changer.rb'
 
 class User
-  include StatusChanger
+  include StateChanger
 
   def initialize(message)
     @message = message
     @user_id = message.chat.id
   end
 
-  def answer_to_request
-    case message.text
-    when '/start' then starting
-    when '/checkin' then checking_in
-    when '/checkout' then checking_out
-    when /\d/
-      Settings.redis.get(user_id) ? help : registration(message.text.to_i)
-    else Answers.help
-    end
-  end
-
   def starting
-    if Settings.redis.get(user_id)
-      "Hi, #{Settings.redis.get(user_id)}."\
-      "#{Answers.help}"
+    if Redis.current.get(user_id)
+      "Hi, #{Redis.current.get(user_id)}."\
     else
-      Answers.gimme_id
+      'Give me your id'
     end
   end
 
   def checking_in
-    status = Settings.redis.get("#{user_id}_status")
-    if %w[checkouted started].include?(status)
+    state = Redis.current.get("#{user_id}_state")
+    if %w[checkouted started].include?(state)
       waiting_for_photo(message.text)
-      Answers.ask_selfie
+      'Selfie, pls'
     else
-      'Nope. You cant checkin'
+      'Nope. You can\'t checkin'
     end
   end
 
   def checking_out
-    status = Settings.redis.get("#{user_id}_status")
-    if status == 'checkined'
+    state = Redis.current.get("#{user_id}_state")
+    if state == 'checkined'
       waiting_for_photo(message.text)
-      Answers.ask_selfie
+      'Selfie, pls'
     else
-      'Nope. You cant checkout'
+      'Nope. You can\'t checkout'
     end
   end
 
   def registration(rubizza_id)
     numbers = YAML.load_file('data/rubizza_numbers.yml')['numbers']
-    numbers.any?(rubizza_id) ? wellcome : Answers.try_again
+    numbers.any?(rubizza_id) ? welcome : 'Try another number'
   end
 
-  def wellcome
-    Settings.redis.set(user_id, message.text)
-    Answers.start
-    Answers.help
+  def welcome
+    Redis.current.set(user_id, message.text)
+    start
+    help_message
+  end
+
+  def help_message
+    'Type /checkin to checkin, '\
+    '/checkout to checkout. '\
+    'Sincerely yours, K.O.'\
   end
 
   private
