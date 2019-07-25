@@ -1,0 +1,6 @@
+
+source 'https://rubygems.org'
+
+gem 'httparty', '~> 0.17.0'
+gem 'redis-activesupport', '~> 5.0', '>= 5.0.7'
+gem 'telegram-bot', '~> 0.14.2'
