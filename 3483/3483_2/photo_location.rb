@@ -20,15 +20,15 @@ module PhotoLocation
     if payload['location']
       check_valid_location(payload['location'].values)
     else
-      save_context :checkout_location
+      save_context :check_location
       respond_with :message, text: 'Send ur location'
     end
   end
 
   def check_valid_location(location)
     if Haversine.distance(CAMP, location).to_km <= 0.3
-      respond_with :message, text: 'Cool! Good luck!'
-      save_checkout_location
+      respond_with :message, text: 'Cool!'
+      save_location
     else
       respond_with :message, text: 'U not in camp! Try later'
     end

@@ -3,6 +3,7 @@ require 'open-uri'
 require 'fileutils'
 
 module SaveData
+  TOKEN = ENV['BOT_TOKEN']
   API = "https://api.telegram.org/bot#{TOKEN}/getFile?file_id=".freeze
   DOWNLOAD_API = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
   TIME = Time.now.strftime('%a, %d %b %Y %H:%M')
@@ -30,5 +31,6 @@ module SaveData
       "checkin"
     else
       "chekout"  
+    end
   end
 end

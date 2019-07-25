@@ -3,7 +3,7 @@ require_relative 'kids_checker'
 module Start
   def start!(*)
     if KidsChecker.registered(from['id'])
-      respond_with :message, text: 'U have already registered!'
+      respond_with :message, text: 'U registered!'
     else
       respond_with :message, text: 'Enter your number'
       save_context :check_user

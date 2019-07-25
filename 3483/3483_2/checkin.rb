@@ -1,6 +1,6 @@
 require 'time'
 require_relative 'kids_checker'
-require_relative 'seve_data.rb'
+require_relative 'photo_location.rb'
 
 module Checkin
   include PhotoLocation
