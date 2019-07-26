@@ -1,0 +1,1 @@
+#<Telegram::Bot::Types::Location:0x00007f8d51c9e880>

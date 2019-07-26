@@ -1,7 +1,7 @@
 class Help
-  def call(camp_id)
-    puts "/start to get camp_id"
-    puts "/check_in to check in"
-    puts "/check_out to check out"
+  def self.call
+    puts '/start for get camp_id'
+    puts '/check_in for check in'
+    puts '/check_out for check out'
   end
 end
