@@ -17,7 +17,6 @@ module FileManager
     URI.open(create_photo_path(file_path)).read
   end
 
-
   def save_check_file
     path_to_save_folder = save_path
     FileUtils.mkdir_p(path_to_save_folder)
