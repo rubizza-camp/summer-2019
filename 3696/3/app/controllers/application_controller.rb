@@ -3,6 +3,7 @@
 require 'sinatra/flash'
 require 'sinatra/namespace'
 require 'truemail'
+require_relative '../helpers/auth_helper'
 
 class ApplicationController < Sinatra::Base
   configure do
@@ -10,13 +11,22 @@ class ApplicationController < Sinatra::Base
     set :session_secret, ENV.fetch('SECRET')
   end
 
-  register Sinatra::Namespace
-
   Truemail.configure do |config|
     config.verifier_email = 'ojiknpe@net8mail.com'
   end
 
+  set views: proc { File.join(root, '../views/') }
+
+  register Sinatra::ActiveRecordExtension
+  register Sinatra::Flash
+  helpers AuthHelper::Helpers
+
+  get '/' do
+    @places = Place.all
+    erb :home
+  end
+
   use SessionsController
   use PlacesController
-  namespace('/review') { use ReviewsController }
+  use ReviewsController
 end

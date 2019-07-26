@@ -31,6 +31,12 @@ class AuthHelper < Sinatra::Base
       warning_message 'You are logged out already'
       redirect '/'
     end
+
+    def successful_login
+      log_in
+      info_message 'Success!'
+      redirect '/'
+    end
   end
 
   helpers Helpers

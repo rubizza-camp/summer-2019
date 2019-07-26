@@ -4,7 +4,7 @@ require 'sinatra/namespace'
 require_relative 'base_controller'
 
 class ReviewsController < BaseController
-  namespace '/review' do
+  namespace '/reviews' do
     post '/new' do
       @place = Place.find_by(name: session[:place])
       if user_logged?
@@ -13,7 +13,7 @@ class ReviewsController < BaseController
       else
         warning_message 'You must be logged in!'
       end
-      redirect "/#{@place.name}"
+      redirect "/places/#{@place.name}"
     end
   end
 end
