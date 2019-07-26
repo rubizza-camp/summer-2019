@@ -8,15 +8,19 @@ module StartCommand
   def start!(number = nil, *)
     return unless new_user?
 
-    if number
+    ask_for_number(number)
+  end
+
+  private
+
+  def ask_for_number(number)
+    if number =~ /\b(\d{3,4})\b/
       register_user(number)
     else
       save_context :start!
       respond_with :message, text: '📝 Введите свой номер'
     end
   end
-
-  private
 
   def register_user(number)
     register_new_user(number) if rubizza_num?(number) && number_free?(number)
@@ -45,6 +49,7 @@ module StartCommand
     session[:rubizza_num] = number
     session[:telegram_id] = from['id']
     @redis.set(number, from['id'])
+    pre_generate_folder
     respond_with :message, text: '✅ Аккаунт успешно зарегистрирован'
   end
 end

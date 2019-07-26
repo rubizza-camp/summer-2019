@@ -3,8 +3,8 @@ module Unlink
     respond_with :message, text: 'Отвязать номер от аккаунта?', reply_markup: {
       inline_keyboard: [
         [
-          { text: 'Удалить', callback_data: 'unlink_confirmed' },
-          { text: 'Отмена', callback_data: 'unlink_denied' }
+          { text: 'Удалить', callback_data: :unlink_confirmed },
+          { text: 'Отмена', callback_data: :unlink_denied }
         ]
       ]
     }
@@ -13,7 +13,7 @@ module Unlink
   private
 
   def delete(data)
-    return unless data == 'unlink_confirmed'
+    return unless data == :unlink_confirmed
 
     @redis.del(session[:rubizza_num])
     session[:rubizza_num] = nil

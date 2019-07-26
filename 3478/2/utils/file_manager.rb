@@ -8,16 +8,20 @@ module FileManager
   API_TG_LINK = 'https://api.telegram.org/bot'.freeze
   GET_ID_LINK = '/getFile?file_id='.freeze
 
-  def save_check_file
-    path = "./public/#{session[:rubizza_num]}/#{session[:check_type]}/#{session[:beginning_time]}/"
-    FileUtils.mkdir_p(path)
-    save_location(path)
-    save_photo(path)
-  end
-
   def download_photo
     file_path = JSON.parse(URI.open(create_file_path).read)['result']['file_path']
     URI.open(create_photo_path(file_path)).read
+  end
+
+  def pre_generate_folder
+    FileUtils.mkdir_p(user_folder_path)
+  end
+
+  def save_check_file
+    path_to_save_folder = save_path
+    FileUtils.mkdir_p(path_to_save_folder)
+    save_location(path_to_save_folder)
+    save_photo(path_to_save_folder)
   end
 
   private
@@ -30,6 +34,14 @@ module FileManager
 
   def save_location(path)
     File.write(path + 'geo.txt', session[:location].inspect, mode: 'w')
+  end
+
+  def save_path
+    "./public/#{session[:rubizza_num]}/#{session[:check_type]}/#{session[:beginning_time]}/"
+  end
+
+  def user_folder_path
+    "/public/#{session[:rubizza_num]}/#{session[:check_type]}"
   end
 
   def create_file_path
