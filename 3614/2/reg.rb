@@ -2,13 +2,12 @@ require 'yaml'
 
 module Reg
 
-  def check_list_id(*args)
+  def load_list_id
     list = YAML.load_file('./students.yml')['id']
-    list.each do |id|
-      return registr? if list.include?(args[0].to_i)
-    end
-    respond_with :message, text: 'Try one more time'
-    save_context :check_list_id
+  end
+
+  def check_list_id(id)
+    load_list_id.include?(id.to_i)
   end
 
   def registr?
@@ -16,17 +15,18 @@ module Reg
   end
 
   def registration(*)
+    from['id']
     save_context :valid
     respond_with :message, text: 'Enter your camp ID please:'
   end
 
   def valid(*words)
-    id = words[0].to_i
+    id = words[0]
     if check_list_id(id)
-      respond_with :message, text: 'Gratz! You are successfully registered!'
       uppdate_session(id)
+      respond_with :message, text: 'Gratz! You are successfully registered!'
     else
-      respond_with :message,text:'There is no such ID, use /start to retry!'
+      respond_with :message, text: 'There is no such ID, use /start to retry!'
     end
   end
 

@@ -5,9 +5,9 @@ module Start
 
   
   def start!(*)
-    session.delete(:id)
+    # session.delete(:id)
     if registr?
-      respond_with :message, text: "Hello, #{from['first_name']}, @#{from['username']}."
+      respond_with :message, text: "Hello, #{from['first_name']}."
       respond_with :message, text: 'U can check list of command using /help'
     else
       registration
