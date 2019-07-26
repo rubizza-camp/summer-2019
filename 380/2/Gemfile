@@ -4,11 +4,10 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'telegram-bot-ruby'
-gem 'redis'
+gem 'aasm'
 gem 'dotenv', require: 'dotenv/load'
-
-gem 'rspec'
 gem 'pry'
 gem 'pry-byebug'
-gem 'state_machines'
+gem 'redis'
+gem 'rspec'
+gem 'telegram-bot-ruby'
