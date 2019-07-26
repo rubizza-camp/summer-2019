@@ -1,0 +1,39 @@
+<h2><%= @rest.name %></h2>
+<%= image(@rest.photo, options={height: 200}) %>
+<%= @rest.photo %>
+<ul>
+  <li><%= @rest.id %></li>
+  <li><%= @rest.location %></li>
+  <li><%= @rest.description %></li>
+</ul>
+<h2>RATING: <%= @rest.reviews.average(:mark) %></h2>
+<h2>MARKS:</h2>
+<% @rest.reviews.each do |review|%>
+  <strong> <%= review.user.id %></strong> wrote: <%= review.description %>.... 
+  Mark us: <%= review.mark %>
+  <br>
+<% end  %>
+
+
+<br>
+
+
+<form action="/reviews/create" method="POST">
+    descrbe <input type="text" name="description">
+    <br/>
+    Your grade: <input type="integer" name="mark">
+    <br/>    
+    Your Name: <input type="integer" name="user_id">
+    <input type="hidden" name="restaurant_id" value=<%= @rest.id %>>
+    <br/>
+    <input type="submit">
+</form>
+<%= form("/reviews/create", :post) %>
+
+<%=   input :review, :description  %>
+<%=   hidden :review, :restaurant_id, :value => 16  %>
+<%= submit %>
+
+<br>
+<a href="/restaurants">Cafe</a>
+<a href="/users">Users</a>

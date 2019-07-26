@@ -1,0 +1,16 @@
+<ol>
+  <% @rest.each do |rest| %>
+    <li> 
+      <h2><%= link(rest.name, href = "restaurants/#{rest.id}")  %></h2>
+      <%= image(rest.photo, options={height: 200}) %>
+      <%= rest.photo %>
+      <ul>
+        <li><%= rest.id %></li>
+    	  <li><%= rest.location %></li>
+        <li><%= rest.description %></li>
+      </ul>
+    </li>
+  <% end %>
+</ol>
+
+<a href="/users">Users</a>

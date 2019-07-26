@@ -1,0 +1,13 @@
+<ol>
+  <% @users.each do |user| %>
+    <li>
+      <ul>
+      	<li><%= user.id %></li>
+    	<li><%= user.login %></li>
+        <li><%= user.email %></li>
+      </ul>
+    </li>
+  <% end %>
+</ol>
+
+<a href="/restaurants">Cafe</a>

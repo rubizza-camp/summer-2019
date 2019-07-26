@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Myapp</title>
+</head>
+<body>
+  <h1>IM A MAIN HEADER IM EVERYWHERE</h1>
+  <% if flash[:error] %>
+    <% flash[:error].each do |error|  %> 
+      <%= error %>
+    <% end  %>
+  <% end  %>
+  <%= yield %>
+</body>
+</html>
