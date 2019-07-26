@@ -21,7 +21,7 @@ module StartCommand
 
   def number_valid?(number)
     chat_session.values.any? { |user| number != user['number'] } &&
-      File.open('data', 'r').any? { |file_number| file_number.gsub(/\D/, '') == number }
+      Psych.load_file('data.yml')['students'].any? { |file_number| file_number.to_s == number }
   end
 
   def registered?

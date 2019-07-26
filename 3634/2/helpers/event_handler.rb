@@ -2,8 +2,8 @@ require 'fileutils'
 require_relative 'save_files'
 
 module EventHandler
-  CAMPLATITUDE = (53.913264..53.917233).freeze
-  CAMPLONGITUDE = (27.564941..27.572306).freeze
+  CAMP_LATITUDE = (53.913264..53.917233).freeze
+  CAMP_LONGITUDE = (27.564941..27.572306).freeze
 
   def event
     save_context :selfie
@@ -41,8 +41,8 @@ module EventHandler
 
   def geoposition_valid?
     payload['location'] &&
-      CAMPLONGITUDE.include?(payload['location']['longitude']) &&
-      CAMPLATITUDE.include?(payload['location']['latitude'])
+      CAMP_LONGITUDE.include?(payload['location']['longitude']) &&
+      CAMP_LATITUDE.include?(payload['location']['latitude'])
   end
 
   def start_save_files

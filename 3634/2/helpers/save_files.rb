@@ -9,7 +9,7 @@ class SaveFiles
   end
 
   def path
-    @path ||= "user/#{session_key}/#{Time.now.strftime '%Y-%m-%d_%H:%M:%S'}"
+    @path ||= "public/#{session_key}/#{Time.now.strftime '%Y-%m-%d_%H:%M:%S'}"
   end
 
   def save_files

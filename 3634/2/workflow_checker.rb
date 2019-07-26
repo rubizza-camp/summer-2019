@@ -1,6 +1,8 @@
 require 'active_support/time'
 require 'dotenv/load'
 require 'logger'
+require 'psych'
+require 'pry'
 require 'redis'
 require 'telegram/bot'
 require_relative 'commands/check_in'
