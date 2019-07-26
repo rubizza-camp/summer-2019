@@ -1,15 +1,14 @@
+Dir[File.join('.', ['helpers', '*.rb'])].each { |file| require file }
+
 module Checkout
+  include SessionsHelper
+
   def checkout!(*)
     return respond_with :message, text: t(:not_registered) unless user_registered?
 
     return respond_with :message, text: t(:status_checkout) if checkout?
 
     message_for_photo_checkout
-  end
-
-  def message_for_photo_checkout
-    respond_with :message, text: t(:send_photo)
-    save_context :download_photo_checkout
   end
 
   def download_photo_checkout(*)
@@ -19,18 +18,13 @@ module Checkout
   rescue Errors::NoPhotoError
     handle_no_photo_checkout
   end
-
-  def message_for_geolocation_checkout
-    respond_with :message, text: t(:send_location)
-    save_context :download_geolocation_checkout
-  end
   # :reek:TooManyStatements
 
   def download_geolocation_checkout(*)
     if valid_geoposition?
       checkout
       download_last_geolocation(path_name_checkout)
-      work_time
+      respond_with :message, text: t(:checkout_done, time: worked_time)
     else
       respond_with :message, text: t(:not_right_place)
       message_for_geolocation_checkout
@@ -41,14 +35,25 @@ module Checkout
 
   private
 
-  def path_name_checkout
-    PathFile.call(payload: user_id_telegram, status: 'checkouts', time: session[:time_checkout])
+  def message_for_geolocation_checkout
+    respond_with :message, text: t(:send_location)
+    save_context :download_geolocation_checkout
   end
 
-  def work_time
+  def message_for_photo_checkout
+    respond_with :message, text: t(:send_photo)
+    save_context :download_photo_checkout
+  end
+  # rubocop:disable Metrics/LineLength
+
+  def path_name_checkout
+    FilePathBuilder.call(payload: user_id_telegram, status: SESSION_STATUSSES.key(2), time: session[:time_checkout])
+  end
+  # rubocop:enable Metrics/LineLength
+
+  def worked_time
     work_time = session[:time_checkout] - session[:time_checkin]
-    formatted_work_time = Time.at(work_time).utc.strftime('%H hours, %M min')
-    respond_with :message, text: t(:checkout_done) + formatted_work_time.to_s
+    Time.at(work_time).utc.strftime('%H hours, %M min')
   end
 
   def handle_no_photo_checkout

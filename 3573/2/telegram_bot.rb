@@ -1,12 +1,12 @@
 require 'telegram/bot'
 require 'logger'
 require 'dotenv'
+require 'i18n'
+require 'active_support/time'
 Dir[File.join(__dir__, 'commands', '*.rb')].each { |file| require file }
 Dir[File.join(__dir__, ['helpers', '*.rb'])].each { |file| require file }
 
 class WebhooksController < Telegram::Bot::UpdatesController
-  SESSION_TIME = 2_592_000
-
   include Telegram::Bot::UpdatesController::MessageContext
   include Start
   include Checkin
@@ -16,8 +16,9 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include UserHelper
   include SessionsHelper
   include ValidationGeoPosition
+  include DeleteCommand
 
-  Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: SESSION_TIME }
+  Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.month }
 
   I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
 end

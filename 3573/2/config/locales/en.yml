@@ -12,5 +12,6 @@ en:
   no_photo_in_message_error: 'Are you sure, you sent your photo?'
   no_geolocation_in_message_error: 'Are you sure, you sent your location?'
   status_checkout: "You session status: 'checkout'. First use command /checkin"
-  checkout_done: 'Checkout is done. Can you relax. Your work time '
-  user_number_registered: 'You have already registered. Use command /checkin or /checkout. Your number is '
+  checkout_done: 'Checkout is done. Can you relax. Your work time %{time}'
+  user_number_registered: "You have already registered. Use command /checkin or /checkout.Your number is %{user_number}"
+  remove_account: 'Account remove!'
