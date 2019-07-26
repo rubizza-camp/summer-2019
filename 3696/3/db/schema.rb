@@ -10,36 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 # rubocop:disable all
-ActiveRecord::Schema.define(version: 20190723192433) do
 
-  create_table "places", force: :cascade do |t|
-    t.string   "name",              null: false
-    t.float    "latitude",          null: false
-    t.float    "longitude",         null: false
-    t.text     "short_description"
-    t.text     "full_description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+ActiveRecord::Schema.define(version: 20_190_723_192_433) do
+  create_table 'places', force: :cascade do |t|
+    t.string   'name',              null: false
+    t.float    'latitude',          null: false
+    t.float    'longitude',         null: false
+    t.text     'short_description'
+    t.text     'full_description'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.integer  "grade",      null: false
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "place_id"
+  create_table 'reviews', force: :cascade do |t|
+    t.integer  'grade', null: false
+    t.text     'text'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.integer  'user_id'
+    t.integer  'place_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.string   "email",         null: false
-    t.string   "password_hash", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'users', force: :cascade do |t|
+    t.string   'username',      null: false
+    t.string   'email',         null: false
+    t.string   'password_hash', null: false
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["name"], name: "index_users_on_name", unique: true
-
+  add_index 'users', ['email'], name: 'index_users_on_email', unique: true
+  add_index 'users', ['username'], name: 'index_users_on_username', unique: true
 end

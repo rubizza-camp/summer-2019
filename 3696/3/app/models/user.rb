@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   include BCrypt
 
-  validates_presence_of :name, :email, :password_hash
-  validates_uniqueness_of :name, :email
+  validates_presence_of :username, :email, :password_hash
+  validates_uniqueness_of :username, :email
   has_many :reviews, dependent: :destroy
 
   def password

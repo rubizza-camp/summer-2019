@@ -1,5 +1,5 @@
 <div class="card-columns">
-  <% Place.find_each do |place| %>
+  <% @places.each do |place| %>
       <div class="card">
         <div class="card-body">
           <a href="/<%=place.name %>" ><h5 class="card-title"><%= place.name %></h5> </a>

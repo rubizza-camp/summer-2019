@@ -1,16 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../helpers/auth_helper'
-require_relative '../helpers/info_helper'
+require_relative 'base_controller'
 
-class UserController < Sinatra::Base
-  set views: proc { File.join(root, '../views/') }
-
-  register Sinatra::ActiveRecordExtension
-  register Sinatra::Flash
-  helpers Sinatra::AuthHelper
-  helpers Sinatra::InfoHelper
-
+class SessionsController < BaseController
   get '/signup' do
     avoid_repeated_login
     erb :signup
@@ -29,7 +21,7 @@ class UserController < Sinatra::Base
 
   post '/signup' do
     avoid_repeated_login
-    @user = User.new(name: params['name'], email: params['email'], password: params['password'])
+    @user = User.new(username: params['name'], email: params['email'], password: params['password'])
     if can_register?
       @user.save
       log_in

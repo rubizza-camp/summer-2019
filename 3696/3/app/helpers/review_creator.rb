@@ -1,7 +1,7 @@
 require 'sinatra/base'
 
-module Sinatra
-  module CreateHelper
+class ReviewCreator < Sinatra::Base
+  module Helpers
     def create_review
       @user = User.find(session[:user_id])
       @review = @user.reviews.create(grade: params[:grade].to_i, text: params[:text])
@@ -9,5 +9,5 @@ module Sinatra
     end
   end
 
-  helpers CreateHelper
+  helpers Helpers
 end

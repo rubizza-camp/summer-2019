@@ -1,7 +1,7 @@
 require 'sinatra/base'
 
-module Sinatra
-  module InfoHelper
+class InfoHelper < Sinatra::Base
+  module Helpers
     def review_validation_info
       if @review.valid?
         @review.save
@@ -20,5 +20,5 @@ module Sinatra
     end
   end
 
-  helpers InfoHelper
+  helpers Helpers
 end

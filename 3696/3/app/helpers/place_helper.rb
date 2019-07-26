@@ -1,11 +1,11 @@
 require 'sinatra/base'
 
-module Sinatra
-  module PlaceHelper
+class PlaceHelper < Sinatra::Base
+  module Helpers
     def register_place(place)
       session[:place] = place
     end
   end
 
-  helpers PlaceHelper
+  helpers Helpers
 end

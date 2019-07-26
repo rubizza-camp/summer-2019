@@ -1,7 +1,7 @@
 require 'sinatra/base'
 
-module Sinatra
-  module AuthHelper
+class AuthHelper < Sinatra::Base
+  module Helpers
     def user_exists?
       @user && (@user.password == params[:password])
     end
@@ -33,5 +33,5 @@ module Sinatra
     end
   end
 
-  helpers AuthHelper
+  helpers Helpers
 end

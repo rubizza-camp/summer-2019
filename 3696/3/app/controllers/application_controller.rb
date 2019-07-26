@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sinatra/flash'
+require 'sinatra/namespace'
 require 'truemail'
 
 class ApplicationController < Sinatra::Base
@@ -9,13 +10,13 @@ class ApplicationController < Sinatra::Base
     set :session_secret, ENV.fetch('SECRET')
   end
 
+  register Sinatra::Namespace
+
   Truemail.configure do |config|
     config.verifier_email = 'ojiknpe@net8mail.com'
   end
 
-  helpers Sinatra::AuthHelper
-
-  use UserController
-  use PlaceController
-  use ReviewController
+  use SessionsController
+  use PlacesController
+  namespace('/review') { use ReviewsController }
 end
