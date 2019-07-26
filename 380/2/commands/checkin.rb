@@ -18,7 +18,7 @@ class CheckIn
     when :unregister
       'Register first!'
     else
-      'Finish now process! '
+      'Finish now process!'
     end
   end
 end

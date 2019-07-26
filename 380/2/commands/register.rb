@@ -13,12 +13,8 @@ class Register
       'You are registred! Enter /check_in for check in! :)'
     else
       user = User.create(tg_id, camp_id)
-      puts "user.status #{user.status}"
-      user.checked_out
-      puts "user.status #{user.status}"
+      user.save_status(:checked_out)
       USER_LIST.push(camp_id)
-      binding.pry
-      puts "Camp ids of camp now: #{USER_LIST}"
       "Welcome to camp, Comrade No #{camp_id}!"
     end
   end

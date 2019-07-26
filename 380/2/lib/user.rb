@@ -1,9 +1,6 @@
 class User
   def self.find(tg_id)
     camp_id = Redis.current.get(tg_id)
-    puts "self.find(#{tg_id})"
-    puts "Redis.current.get(tg_id) #{camp_id}"
-    puts "Redis.current.get(camp_id) #{Redis.current.get(camp_id)}"
     user = new(tg_id, camp_id)
     user
   end
