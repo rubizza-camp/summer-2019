@@ -1,13 +1,13 @@
 require 'redis'
 require_relative '../file_manager'
 
+# Handles /start command in tg bot.
 module StartCommand
   include FileManager
 
   def start!(number = nil, *)
     return unless new_user?
 
-    guide unless session.key?(:first_time)
     if number
       register_user(number)
     else
@@ -17,15 +17,6 @@ module StartCommand
   end
 
   private
-
-  def guide
-    respond_with :message, text: 'Это бот для трекинга времени, проведенного в Rubizza Camp'
-    respond_with :message, text: "Основные комманды /checkin и /checkout\n"\
-                                 "Если что-то пошло не так введи /unlink и /start\n"
-    respond_with :message, text: 'Теперь нужно зарегестрироваться'
-    session[:first_time] = false
-    save_context :start!
-  end
 
   def register_user(number)
     register_new_user(number) if rubizza_num?(number) && number_free?(number)

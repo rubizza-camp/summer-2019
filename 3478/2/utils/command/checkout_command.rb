@@ -1,4 +1,3 @@
-require 'date'
 require_relative 'user_input_handler.rb'
 
 module CheckoutCommand

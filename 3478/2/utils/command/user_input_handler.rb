@@ -1,3 +1,5 @@
+require 'date'
+
 module UserInputHandler
   def ask_for_photo(_context = nil, *)
     session[:beginning_time] = Time.now.to_i
