@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+gem 'dotenv', '~> 2.7'
+gem 'redis-activesupport', '~> 5.0.7'
+gem 'telegram-bot', '~> 0.14.2'
