@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'redis'
+require 'dotenv/load'
 
 # load geo and photo
 module Helper

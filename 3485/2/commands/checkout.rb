@@ -53,12 +53,12 @@ module Checkout
     geo_checkout
   end
 
-  def checkout_path(*)
+  def checkout_path
     "./public/#{user_id_telegram}/checkouts/#{session[:time_checkout]}/"
   end
 
   def create_checkout_path
-    local_path = checkout_path(Time.at(session[:time_checkout]).utc)
+    local_path = checkout_path
     FileUtils.mkdir_p(local_path) unless File.exist?(local_path)
     local_path
   end

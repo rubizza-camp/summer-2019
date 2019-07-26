@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'dotenv/load'
 require 'telegram/bot'
 require_relative './commands/start.rb'
 require_relative './commands/checkin.rb'

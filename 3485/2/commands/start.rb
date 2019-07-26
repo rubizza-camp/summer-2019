@@ -7,8 +7,7 @@ NUMBERS = 'numbers'
 COMMANDS = [
   '/start',
   '/checkin',
-  '/checkout',
-  '/test'
+  '/checkout'
 ].freeze
 
 # registration and list commands
@@ -24,7 +23,7 @@ module Start
     number = message[0].to_i
     return respond_if_redis_have_id if redis.get(user_id_telegram)
     return respond_if_redis_have_number if redis.get(number)
-    return respond_if_number_exists(number) if list_of_numbers.include?(number)
+    return respond_if_number_exists(number) if camp_numbers.include?(number)
 
     respond_if_different_situation
   end

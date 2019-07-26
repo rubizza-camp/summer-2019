@@ -47,12 +47,12 @@ module Checkin
     checkin_geo
   end
 
-  def generate_checkin_path(*)
+  def generate_checkin_path
     "./public/#{user_id_telegram}/checkins/#{session[:time_checkin]}/"
   end
 
   def create_checkin_path
-    local_path = generate_checkin_path(Time.at(session[:time_checkin]).utc)
+    local_path = generate_checkin_path
     FileUtils.mkdir_p(local_path) unless File.exist?(local_path)
     local_path
   end
