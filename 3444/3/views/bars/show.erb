@@ -1,0 +1,30 @@
+  <div class="row">
+    <div class="col-md-6">
+      <p><h3><strong>Title:</strong> <%= @bar.title %></h3></p>
+      <p><strong>Description:</strong> <%= @bar.description %></p> 
+      <p><strong>About:</strong> <%= @bar.body %></p>
+    </div>
+  
+    <div class="col-md-6">
+      <p><img src="https://static-maps.yandex.ru/1.x/?ll=<%=@bar.coordinates.gsub(/\s+/, "")%>&pt=<%=@bar.coordinates.gsub(/\s+/, "")%>,org&z=16&l=map"></p>
+      <p>Coordinates: <%= @bar.coordinates %></p>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-10">
+        <h1>Median user rate: <%= @bar_rate %></h1>
+      </div>
+      <div class="col-md-2">
+        
+          <strong><a href="/bars/<%= @bar.id %>/comments/new">
+          <button type="button" class="btn btn-success">Add your own comment</strong>
+        </button></a>
+      </div>
+    </div>
+    <p><h2>Comments:</h2></p>
+    <hr>
+    <% @comments.each do |com| %>
+      <p><%= com.body %></p>
+      <p><strong>RATED: <%= com.rate %></strong></p>
+      <br>
+    <% end %>

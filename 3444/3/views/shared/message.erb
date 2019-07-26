@@ -1,0 +1,11 @@
+<% if flash.has?(:success) %>
+	<div class="alert alert-primary" role="alert">
+	   <h3 class="err"><%= flash[:success] %></h3>
+	</div>
+<% end %>
+
+<% if flash.has?(:error) %>
+	<div class="alert alert-danger" role="alert">
+    	<p class="alert"><h3 class="err"><%= flash[:error] %></h3></p>
+	</div>
+<% end %>

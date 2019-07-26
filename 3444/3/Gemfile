@@ -1,0 +1,22 @@
+source 'https://rubygems.org'
+
+gem 'bcrypt',  '~> 3.1'
+gem 'datamapper', '~> 1.2'
+gem 'dm-sqlite-adapter', '~> 1.2'
+gem 'puma'
+gem 'rack-flash3'
+gem 'rake'
+gem 'require_all', '~> 2.0'
+gem 'sequel', '~> 5.22'
+gem 'sinatra'
+gem 'warden', '~> 1.2'
+
+group :development do
+  gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
+  gem 'pry'
+  gem 'shotgun'
+end
+
+group :test do
+  gem 'minitest'
+end
