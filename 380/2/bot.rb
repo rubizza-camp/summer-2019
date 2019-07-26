@@ -7,7 +7,7 @@ Dir[File.join(__dir__, 'commands', '*.rb')].each { |file| require file }
 
 Telegram::Bot::Client.run(ENV['TOKEN']) do |bot|
   bot.listen do |message|
-    result = Router.resolve(message)
+    result = Router.resolve(message, bot)
     if result.nil?
       bot.api.send_message(chat_id: message.from.id,
                            text: 'Repeat please! try /help to see available commands')
