@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 module Register
   def register(dialog)
     case dialog.status
@@ -37,5 +38,26 @@ class Register
       'Wrong camp id'
     end
 >>>>>>> 94a9c14... working prototype without ill features
+=======
+class Register
+  attr_reader :tg_id, :camp_id
+
+  USER_LIST = []
+
+  def initialize(tg_id)
+    @tg_id = tg_id
+  end
+
+  def call(camp_id)
+    puts "USER LIST =[#{USER_LIST}]"
+    if USER_LIST.include?(camp_id)
+      'You are registred! Enter /check_in for check in! :)'
+    else
+      user = User.create(tg_id, camp_id)
+      user.save_status(:checked_out)
+      USER_LIST.push(camp_id)
+      "Welcome to camp, Comrade No #{camp_id}!"
+    end
+>>>>>>> 8ef874f22a9a9f5675fca28d5c151f7e1f71fa75
   end
 end

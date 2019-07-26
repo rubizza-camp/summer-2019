@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 module CheckIn
   def check_in(dialog)
     case dialog.status
@@ -10,6 +11,8 @@ module CheckIn
       dialog.say_to_user('Send selfie!')
       dialog.change_status('check_in_photo')
 =======
+=======
+>>>>>>> 8ef874f22a9a9f5675fca28d5c151f7e1f71fa75
 class CheckIn
   attr_reader :tg_id
 
@@ -19,6 +22,7 @@ class CheckIn
 
   def call
     user = User.find(tg_id)
+<<<<<<< HEAD
     if user
       user.check_in
     else
@@ -26,6 +30,20 @@ class CheckIn
       u.check_in
       'Send selfie, please!'
 >>>>>>> 94a9c14... working prototype without ill features
+=======
+    case user.status.to_sym
+    when :checked_out
+      user.save_status(:waiting_for_selfie_in)
+      'Send selfie, please!'
+    when :waiting_for_number
+      'Enter your camp number!'
+    when :checked_in
+      'You already checked in!'
+    when :unregister
+      'Register first!'
+    else
+      'Finish now process!'
+>>>>>>> 8ef874f22a9a9f5675fca28d5c151f7e1f71fa75
     end
   end
 end

@@ -1,12 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+require 'bundler'
+>>>>>>> 8ef874f22a9a9f5675fca28d5c151f7e1f71fa75
 require 'telegram/bot'
-require 'redis'
-require 'pry'
-require_relative 'dialog'
+Bundler.require
 
-token = ''
-db = Redis.new
+Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
+Dir[File.join(__dir__, 'commands', '*.rb')].each { |file| require file }
 
+<<<<<<< HEAD
 class RubizzaWatchman
   def initialize
     # to do create storage, token enter
@@ -45,3 +48,16 @@ Telegram::Bot::Client.run(ENV['TOKEN']) do |bot|
   end
 end
 >>>>>>> 94a9c14... working prototype without ill features
+=======
+Telegram::Bot::Client.run(ENV['TOKEN']) do |bot|
+  bot.listen do |message|
+    result = Router.resolve(message, bot)
+    if result.nil?
+      bot.api.send_message(chat_id: message.from.id,
+                           text: 'Repeat please! try /help to see available commands')
+    else
+      bot.api.send_message(chat_id: message.from.id, text: result)
+    end
+  end
+end
+>>>>>>> 8ef874f22a9a9f5675fca28d5c151f7e1f71fa75

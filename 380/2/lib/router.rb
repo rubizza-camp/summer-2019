@@ -10,7 +10,11 @@ module Router
     when '/check_out'
       CheckOut.new(message.from.id).call
     when '/help'
+<<<<<<< HEAD
       Help.call
+=======
+      Help.new
+>>>>>>> 8ef874f22a9a9f5675fca28d5c151f7e1f71fa75
     else
       operation_by_user_status(message, bot)
     end
@@ -21,7 +25,11 @@ module Router
     Register.new(message.from.id).call(message.text.to_i) if user.status == :waiting_for_number
     if (user.status.to_s.include? 'waiting_for_selfie') && !message.photo.empty?
       Selfie.new(message.from.id, bot).call(message.photo.last.file_id)
+<<<<<<< HEAD
     elsif (user.status.include? 'waiting_for_geo') && message.location
+=======
+    elsif message.location && (user.status.include? 'waiting_for_geo')
+>>>>>>> 8ef874f22a9a9f5675fca28d5c151f7e1f71fa75
       Geo.new(message.from.id, bot).call(message.location)
     end
   end
