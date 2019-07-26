@@ -13,10 +13,9 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include Checkout
   include DownloadImageHelper
   include DownloadLocationHelper
-  include RedisHelper
+  include UserHelper
   include SessionsHelper
-  include PathHelper
-  include ValidationGeo
+  include ValidationGeoPosition
 
   Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: SESSION_TIME }
 

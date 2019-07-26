@@ -1,18 +1,10 @@
 module Checkin
   def checkin!(*)
-    return response_if_not_registered unless user_registered?
+    return respond_with :message, text: t(:not_registered) unless user_registered?
 
-    return response_if_session_checkin if checkin?
+    return respond_with :message, text: t(:status_checkin) if checkin?
 
     message_for_photo_checkin
-  end
-
-  def response_if_not_registered
-    respond_with :message, text: t(:not_registered)
-  end
-
-  def response_if_session_checkin
-    respond_with :message, text: t(:status_checkin)
   end
 
   def message_for_photo_checkin
@@ -21,45 +13,45 @@ module Checkin
   end
 
   def download_photo_checkin(*)
-    download_last_photo(create_checkin_path)
-    message_for_geo_checkin
+    session[:time_checkin] = Time.now.utc
+    download_last_photo(path_name_checkin)
+    message_for_geolocation_checkin
   rescue Errors::NoPhotoError
-    rescue_photo_checkin
+    handle_no_photo_checkin
   end
 
-  def message_for_geo_checkin
+  def message_for_geolocation_checkin
     respond_with :message, text: t(:send_location)
-    save_context :download_geo_checkin
+    save_context :download_geolocation_checkin
   end
   # :reek:TooManyStatements
 
-  def download_geo_checkin(*)
-    if valid_geo?
-      download_last_geo(create_checkin_path)
+  def download_geolocation_checkin(*)
+    if valid_geoposition?
+      download_last_geolocation(path_name_checkin)
       respond_with :message, text: t(:checkin_done)
-      checkin_parameters
+      checkin
     else
       respond_with :message, text: t(:not_right_place)
-      message_for_geo_checkin
+      message_for_geolocation_checkin
     end
-  rescue Errors::NoGeoError
-    rescue_geo_checkin
-  end
-
-  def checkin_parameters
-    session[:time_checkin] = Time.now.utc
-    checkin
+  rescue Errors::NoGeoLocationError
+    handle_no_location_checkin
   end
 
   private
 
-  def rescue_photo_checkin
-    respond_with :message, text: t(:message_rescue_photo)
+  def path_name_checkin
+    PathFile.call(payload: user_id_telegram, status: 'checkins', time: session[:time_checkin])
+  end
+
+  def handle_no_photo_checkin
+    respond_with :message, text: t(:no_photo_in_message_error)
     message_for_photo_checkin
   end
 
-  def rescue_geo_checkin
-    respond_with :message, text: t(:message_rescue_location)
-    message_for_geo_checkin
+  def handle_no_location_checkin
+    respond_with :message, text: t(:no_geolocation_in_message_error)
+    message_for_geolocation_checkin
   end
 end

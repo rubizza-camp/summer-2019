@@ -9,8 +9,8 @@ en:
   send_location: 'Send me your location'
   not_right_place: 'You are not right place. Try again'
   checkin_done: 'OK, checkin is done. You can work!'
-  message_rescue_photo: 'Are you sure, you sent your photo?'
-  message_rescue_location: 'Are you sure, you sent your location?'
+  no_photo_in_message_error: 'Are you sure, you sent your photo?'
+  no_geolocation_in_message_error: 'Are you sure, you sent your location?'
   status_checkout: "You session status: 'checkout'. First use command /checkin"
   checkout_done: 'Checkout is done. Can you relax. Your work time '
-  user_id_telegram: 'You have already registered. Use command /checkin or /checkout. Your number is '
+  user_number_registered: 'You have already registered. Use command /checkin or /checkout. Your number is '

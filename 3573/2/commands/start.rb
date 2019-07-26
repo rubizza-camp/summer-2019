@@ -8,33 +8,24 @@ module Start
     save_context :register_message
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/LineLength
   def register_message(number, *)
     student_number = number[0].to_i
-    return response_if_have_id_telegram? if user_registered?
+    return respond_with :message, text: t(:user_number_registered) + user_registered?.to_s if user_registered?
 
-    return response_if_have_number? if user_number_registered?
+    return respond_with :message, text: t(:already_registered) if user_number_registered?
 
-    return response_if_number_in_list?(student_number) if list_of_numbers.include?(student_number)
+    return response_register_student(student_number) if list_of_numbers.include?(student_number)
 
-    response_if_error
+    respond_with :message, text: t(:try_again)
   end
+  # rubucop:enable Metrics/LineLength
+  # rubocop:enable Metrics/AbcSize, Metrics/LineLength
 
-  def response_if_have_id_telegram?
-    respond_with :message, text: t(:user_id_telegram) + user_registered?.to_s
-  end
-
-  def response_if_have_number?
-    respond_with :message, text: t(:already_registered)
-  end
-
-  def response_if_number_in_list?(student_number)
+  def response_register_student(student_number)
     register_student(student_number)
     respond_with :message, text: t(:registration_done)
-  end
-
-  def response_if_error
-    respond_with :message, text: t(:try_again)
-    start!
   end
 
   def list_of_numbers

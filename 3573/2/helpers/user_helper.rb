@@ -1,6 +1,6 @@
 require 'redis'
 
-module RedisHelper
+module UserHelper
   def redis
     @redis ||= Redis.new
   end
