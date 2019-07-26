@@ -7,11 +7,10 @@ class Start
 
   def call
     user = User.find(tg_id)
-    if user.camp_id
+    if user.save_status(:check_out)
       'You are registred! Enter /check_in for check in! :)'
     else
-      user.waiting_for_number
-      puts "user.current_state afer user.waiting_for_number: #{user.current_state}"
+      user.save_status(:waiting_for_number)
       'Cant find your camp id! Are you registred? enter your camp id!'
     end
   end

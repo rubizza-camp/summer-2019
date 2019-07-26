@@ -30,8 +30,8 @@ class Geo
   end
 
   def save_location(location, operation)
-    folder = "public/#{user.camp_id}/#{operation}/#{Time.now.to_s}/"
+    folder = "public/#{user.camp_id}/#{operation}/#{Time.now}/"
     FileUtils.mkdir_p(folder)
-    File.write("public/#{user.camp_id}/#{operation}/#{Time.now.to_s}/location.txt", location)
+    File.write("public/#{user.camp_id}/#{operation}/#{Time.now}/location.txt", location)
   end
 end
