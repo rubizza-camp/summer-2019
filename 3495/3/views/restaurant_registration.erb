@@ -16,20 +16,22 @@
   </head>
   <body>
   <%= erb :header %>
-  <div class="col-sm-8 form-group row">
-    <div>
-      <input type="text" class="form-text" placeholder="Enter the name of restaurant" id="name">
+  <form action="/restaurant_registrate" method="get">
+    <div class='form-group'>
+      <input type="text" class="form-text" name="nam" placeholder="Enter the name of restaurant" id="name">
     </div>
-    <div>
-      <input type="text" class="form-text" placeholder="Enter the short description" id="short_description">
+    <div class='form-group'>
+      <input type="text" class="form-text" name="short_desc" placeholder="Enter the short description" id="short_description">
     </div>      
-    <div>
-      <input type="text" class="form-text" placeholder="Enter the address of restaurant" id="address">
+    <div class='form-group'>
+      <input type="text" class="form-text" name="addr" placeholder="Enter the address of restaurant" id="address">
     </div>
     <div class="form-group">
-      <textarea class="form-control" id="long_description" rows="6" placeholder="Enter the long description"></textarea>
+      <textarea class="form-control" name="long_desc" id="long_description" rows="6" placeholder="Enter the long description"></textarea>
     </div>
+    <div>
+      <button type="submit" class="btn btn-success">Success</button>
     </div>
-  </div>
+    </form>
   </body>
 </html>

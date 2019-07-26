@@ -15,76 +15,93 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </head>
   <body>
-  <%= erb :header %>
-
-<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-      <form action="/user_login" method="post">
-        <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="email" id="defaultForm-email" placeholder="Enter your email" name="email" class="form-control validate">
+    <%= erb :header %>
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <form action="/user_login" method="post">
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="email" id="defaultForm-email" placeholder="Enter your email" name="email" class="form-control validate">
+              </div>
+              <div class="md-form mb-4">
+                <i class="fas fa-lock prefix grey-text"></i>
+                <input type="password" id="defaultForm-pass" placeholder="Enter your password" name="pass" class="form-control validate">
+              </div>
+              <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-default">Login</button>
+              </div>
+            </form>
+          </div>
         </div>
-
-        <div class="md-form mb-4">
-          <i class="fas fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" placeholder="Enter your password" name="pass" class="form-control validate">
+      </div>
+    </div>  
+    <div class="modal fade" id="modalSignUpForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <form action="/user_registration" method="post">
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input type="text" id="defaultForm-name" placeholder="Enter your name" name="name" class="form-control validate">
+                </div>
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input type="email" id="defaultForm-email" placeholder="Enter your email" name="email" class="form-control validate">
+                </div>
+                <div class="md-form mb-4">
+                  <i class="fas fa-lock prefix grey-text"></i>
+                  <input type="password" id="defaultForm-pass" placeholder="Enter your password" name="pass" class="form-control validate"> 
+                </div>
+                <div class="md-form mb-4">
+                  <i class="fas fa-lock prefix grey-text"></i>
+                  <input type="password" id="defaultForm-confpass" placeholder="Confirm your password" name="confpass" class="form-control validate">
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                  <button class="btn btn-default">Sign up</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-      
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-default">Login</button>
-      </div>
-    </form>
     </div>
-  </div>
-  </div>
-
-  <div class="modal fade" id="modalSignUpForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+       <div class="container my-5">
+  <div class="card-deck row">
+  <% @restaurants.each do |restaurant| %>
+    <div class="col-md-6">
+      <div class="card mycard-height mb-4 ">
+        <div class="view overlay flex-auto">
+          <img class="card-img-top" src="<%= restaurant.image_path %>" alt="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" >
+          <a href="restaurant/<%= restaurant.id%>">
+              <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+        <div class="card-body  flex-column">
+          <h3 class="card-title">
+              <a class='text-dark' href = "restaurant/<%= restaurant.id%>"> <%= restaurant.name %></h1>
+          </h3>
+          <a href = "restaurant/<%= restaurant.id%>" >
+              <p class="card-text"><%= restaurant.short_description %></p>
+          </a>
+        </div>  
       </div>
-      <div class="modal-body mx-3">
-      <form action="/user_registration" method="post">
-        <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="text" id="defaultForm-name" placeholder="Enter your name" name="name" class="form-control validate">
-        </div>
-
-        <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="email" id="defaultForm-email" placeholder="Enter your email" name="email" class="form-control validate">
-        </div>
-
-        <div class="md-form mb-4">
-          <i class="fas fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" placeholder="Enter your password" name="pass" class="form-control validate"> 
-        </div>
-
-        <div class="md-form mb-4">
-          <i class="fas fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-confpass" placeholder="Confirm your password" name="confpass" class="form-control validate">
-        </div>
-
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-default">Login</button>
-      </div>
-      </form>
     </div>
+    <%end%>
   </div>
+</div>
   </body>
 </html>
 
