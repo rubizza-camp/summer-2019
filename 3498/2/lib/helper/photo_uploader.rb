@@ -13,6 +13,6 @@ class PhotoUploader
 
   def self.photo_path(photo_id)
     JSON.parse(URI.open(API_PATH + photo_id)
-      .read, symbolize_names: true)[:result][:file_path]
+        .read, symbolize_names: true)[:result][:file_path]
   end
 end

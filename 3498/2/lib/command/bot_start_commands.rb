@@ -1,8 +1,8 @@
 module BotStartCommands
-  attr_reader :users_list
+  NUMBERS_FILE = 'data/numbers.yaml'.freeze
 
   def start!(number = nil, *)
-    if User.all { |user| user.telegram_id == from['id'].to_s }
+    if User.all.select { |user| user.telegram_id == from['id'].to_s }
       respond_with :message, text: I18n.t(:start_fail)
     else
       check_number(number)
@@ -22,16 +22,16 @@ module BotStartCommands
 
   def validate_number(number)
     load_numbers_file
-    if @users_list.include?(number.to_i)
+    if users_list.include?(number.to_i)
       register_user(number)
     else
       respond_with :message, text: I18n.t(:number_error)
     end
   end
 
-  def load_numbers_file
-    list = YAML.load_file('data/numbers.yaml')
-    @users_list = list.values.to_a.slice(0)
+  def users_list
+    list = YAML.load_file(NUMBERS_FILE)
+    list.values.to_a.slice(0)
   end
 
   def register_user(number)

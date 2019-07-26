@@ -1,7 +1,7 @@
 class WebhooksController < Telegram::Bot::UpdatesController
-  EXP_DATE = 1_000_000
+  SESSION_TIMELIFE = 1_000_000
 
-  Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: EXP_DATE }
+  Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: SESSION_TIMELIFE }
   include Telegram::Bot::UpdatesController::MessageContext
   include Telegram::Bot::UpdatesController::Session
 
@@ -10,4 +10,8 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include BotCheckoutCommands
 
   use_session!
+
+  def current_user
+    User[session[:user_id]]
+  end
 end

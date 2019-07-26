@@ -10,3 +10,4 @@ en:
   checkin_success: 'Cool! Now you are checked in'
   checkout_error: 'First of all, try to /checkin'
   bye: 'See you later!'
+  try_again: 'Something went wrong! Try again'
