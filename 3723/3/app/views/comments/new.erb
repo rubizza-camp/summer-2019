@@ -1,0 +1,24 @@
+<h2>Leave your comment</h2>
+
+<form action="/comments" method="POST">
+  <p><b>Short description:<b> <input type='text' name="title">
+  <p>
+    <b>Your message:</b><br>
+    <textarea rows="3" cols="35" name="content"></textarea>
+  </p>
+  <p>
+    Rating:
+    <select name="rating" value="-">
+      <option value="-">-</option>
+      <option value="1">1 star</option>
+      <option value="2">2 stars</option>
+      <option value="3">3 stars</option>
+      <option value="4">4 stars</option>
+      <option value="5">5 stars</option>
+    </select>
+  </p>
+  <p><input type='submit' value='Save this comment'></p>
+</form>
+
+<p><a href='logout'>Logout</a></p>
+<p><a href='/'>Cancel</a></p>

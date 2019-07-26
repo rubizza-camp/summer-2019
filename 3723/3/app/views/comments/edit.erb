@@ -1,0 +1,29 @@
+<h2>Edit this comment</h2>
+<h3><%= @content.title %></h3>
+
+<p>Description: <%= @comment.content %></p>
+<p>Rating: <%= @comment.rating %></p>
+
+<form>
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <p><b>Short description:</b><input type="text" name="title" value="<%= @comment.title %>"></p>
+  <p>
+    <b>Your message:</b><br>
+    <textarea rows="3" cols="35" name="content"><%= @comment.content %></textarea>
+  </p>
+  <p>
+    Rating:
+    <select name="rating" value="-">
+      <option value="-">-</option>
+      <option value="1">1 star</option>
+      <option value="2">2 stars</option>
+      <option value="3">3 stars</option>
+      <option value="4">4 stars</option>
+      <option value="5">5 stars</option>
+    </select>
+  </p>
+  <p><input type="submit" value="Save this comment"></p>
+</form>
+
+<p><a href='logout'>Logout</a></p>
+<p><a href='/'>Cancel</a></p>

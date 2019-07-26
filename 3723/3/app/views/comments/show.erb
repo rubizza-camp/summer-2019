@@ -1,0 +1,12 @@
+<h2> <%= @comment.title %> </h2>
+
+<p>Description: <%= @comment.content %> </p>
+<p>Rating: <%= @comment.rating %> </p>
+
+<form action="/comments/<%=@comment.id%>/delete" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete this comment">
+</form>
+
+<p><a href='/comments/<%=@comment.id%>/edit'>Edit this comment</a></p>
+<p><a href='/logout'>Logout</a></p>
