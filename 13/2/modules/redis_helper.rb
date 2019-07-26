@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module RedisHelper 
-
   def self.set(chat_id, state)
     Redis.current.set(chat_id, state)
   end
@@ -12,5 +11,4 @@ module RedisHelper
     answer = answer.to_sym if answer
     answer
   end
-  
 end

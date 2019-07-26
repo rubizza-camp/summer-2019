@@ -16,6 +16,7 @@ GEM
     equalizer (0.0.11)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
+    geocoder (1.5.1)
     httparty (0.17.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -47,6 +48,7 @@ PLATFORMS
 
 DEPENDENCIES
   down
+  geocoder
   httparty
   nokogiri
   redis
