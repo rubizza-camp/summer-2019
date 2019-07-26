@@ -8,6 +8,7 @@ require 'date'
 require 'fileutils'
 require 'i18n'
 
+require_relative 'lib/model/status_manager.rb'
 require_relative 'lib/model/user_model.rb'
 require_relative 'lib/command/bot_start_commands.rb'
 require_relative 'lib/command/bot_checkin_commands.rb'
