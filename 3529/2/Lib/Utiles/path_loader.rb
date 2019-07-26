@@ -3,15 +3,16 @@ require 'fileutils'
 class PathLoader
   def initialize(id)
     @id = id
-    @number = find_number_by_id(id)
+    @number = find_number_by_id
     @date = Time.now.strftime('%m:%d:%Y:%H')
   end
 
   def find_number_by_id
     file = YAML.safe_load(File.read('Data/camp_participants.yaml'))
     file['participents'].each do |participant|
-      @number = participant.keys.first.to_s if participant['telegram_id'] == id
+      @number = participant.keys.first.to_s if participant['telegram_id'] == @id
     end
+    @number
   end
 
   def create_directory(in_or_out, file_name)
