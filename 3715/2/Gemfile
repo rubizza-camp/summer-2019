@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+ruby '2.6.3'
+
+gem 'redis-rails', '~> 5.0', '>= 5.0.1'
+gem 'telegram-bot', '~> 0.14.2'
+
+group :development do
+  gem 'pry'
+  gem 'reek'
+  gem 'rubocop', '~> 0.54.0'
+end
