@@ -2,7 +2,7 @@ require 'active_support/all'
 require 'telegram/bot'
 require 'logger'
 require 'redis'
-require_relative 'data/text_constant.rb'
+require 'i18n'
 require_relative 'lib/commands/start.rb'
 require_relative 'lib/commands/checkin.rb'
 require_relative 'lib/commands/checkout.rb'
@@ -15,6 +15,9 @@ require_relative 'lib/helpers/location.rb'
 TOKEN = File.read('data/secret.yml').strip.freeze
 STUDENT_LIST = StudentListFetcher.read_from_file
 REDIS = Redis.new
+
+I18n.load_path << Dir[File.expand_path('data/locales') + '/*.yml']
+I18n.default_locale = :ru
 
 bot = Telegram::Bot::Client.new(TOKEN)
 

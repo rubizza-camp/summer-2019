@@ -1,10 +1,10 @@
 module CheckoutCommand
   def checkout!(*)
-    return respond_with :message, text: NOT_REGISTERED_MESSAGE unless member_is_registered?
-    return respond_with :message, text: ALREADY_CHECKOUTED_MESSAGE unless checkout?
+    return respond_with :message, text: I18n.t(:not_registered) unless member_is_registered?
+    return respond_with :message, text: I18n.t(:already_checkouted) unless checkout?
 
     save_context :make_photo_checkout
-    respond_with :message, text: REQUEST_PHOTO_MESSAGE
+    respond_with :message, text: I18n.t(:request_photo)
   end
 
   def make_photo_checkout(*)
@@ -12,16 +12,16 @@ module CheckoutCommand
     FileUtils.mkdir_p(file_path_preparation)
     download_photo(file_path_preparation)
     save_context :make_location_checkout
-    respond_with :message, text: REQUEST_LOCATION_MESSAGE
+    respond_with :message, text: I18n.t(:request_location)
   end
 
   def make_location_checkout
     if valid_location?
       save_location(file_path_preparation)
       checkin
-      respond_with :message, text: CHECKOUT_SUCCESSFUL_MESSAGE
+      respond_with :message, text: I18n.t(:checkout_successful)
     else
-      respond_with :message, text: LOCATION_ERROR_MESSAGE
+      respond_with :message, text: I18n.t(:location_error)
     end
   end
 end

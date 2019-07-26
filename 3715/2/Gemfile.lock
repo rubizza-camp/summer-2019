@@ -115,6 +115,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  i18n (~> 1.6)
   pry
   redis-rails (~> 5.0, >= 5.0.1)
   reek
