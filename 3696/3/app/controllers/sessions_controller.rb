@@ -3,6 +3,7 @@
 require_relative 'base_controller'
 
 class SessionsController < BaseController
+  # rubocop:disable Metrics/BlockLength
   namespace '/session' do
     get '/signup' do
       avoid_repeated_login
@@ -19,9 +20,7 @@ class SessionsController < BaseController
       session.clear
       redirect '/'
     end
-  end
 
-  namespace '/session' do
     post '/signup' do
       avoid_repeated_login
       @user = User.new(username: params['name'], email: params['email'],
@@ -46,4 +45,5 @@ class SessionsController < BaseController
       end
     end
   end
+  # rubocop:enable Metrics/BlockLength
 end
