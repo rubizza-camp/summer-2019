@@ -1,7 +1,7 @@
 module CheckoutCommand
   def checkout!(*)
-    return if not_registered
-    return if alredy_checkouted
+    return respond_with :message, text: NOT_REGISTERED_MESSAGE unless member_is_registered?
+    return respond_with :message, text: ALREADY_CHECKOUTED_MESSAGE unless checkout?
 
     save_context :make_photo_checkout
     respond_with :message, text: REQUEST_PHOTO_MESSAGE
@@ -18,7 +18,7 @@ module CheckoutCommand
   def make_location_checkout
     if valid_location?
       save_location(file_path_preparation)
-      session.delete('state')
+      checkin
       respond_with :message, text: CHECKOUT_SUCCESSFUL_MESSAGE
     else
       respond_with :message, text: LOCATION_ERROR_MESSAGE

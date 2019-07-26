@@ -1,12 +1,12 @@
 module StartCommand
   def start!
-    return if registered
+    return respond_with :message, text: ALREADY_REGISTERED_MESSAGE if member_is_registered?
 
-    save_context :validation
+    save_context :number_validation_for_registration
     respond_with :message, text: START_MESSAGE
   end
 
-  def validation(answer = '')
+  def number_validation_for_registration(answer = '')
     respond_text = if member_exist?(answer)
                      login(REDIS, answer)
                    else
@@ -20,7 +20,7 @@ module StartCommand
   def login(redis, number)
     session[:number] = number
     redis.set(number, from['id'])
-    session[:state] = 'checkin'
+    checkin
     SUCCESSFUL_REGISTRATION_MESSAGE
   end
 end

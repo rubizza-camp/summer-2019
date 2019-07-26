@@ -2,6 +2,7 @@ module Photo
   TOKEN = File.read('data/secret.yml').strip.freeze
   BOT_API_URL = "https://api.telegram.org/bot#{TOKEN}/getFile?file_id=".freeze
   BOT_DOWNLOAD_API_URL = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
+  SELFIE_FILE_NAME = 'selfie.jpg'.freeze
 
   def timestamp
     session[:time] = Time.at(payload['date']).utc
@@ -17,7 +18,7 @@ module Photo
 
   def download_photo(path)
     telegram_path = photo_file_path
-    File.open(path + 'selfie.jpg', 'wb') do |file|
+    File.open(path + SELFIE_FILE_NAME, 'wb') do |file|
       file << URI.open(BOT_DOWNLOAD_API_URL + telegram_path).read
     end
   end
