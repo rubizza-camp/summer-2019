@@ -14,7 +14,7 @@ module StartCommand
   private
 
   def ask_for_number(number)
-    if number =~ /\b(\d{3,4})\b/
+    if number.match(/\b(\d{3,4})\b/)
       register_user(number)
     else
       save_context :start!

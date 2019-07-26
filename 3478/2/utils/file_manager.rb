@@ -8,14 +8,15 @@ module FileManager
   API_TG_LINK = 'https://api.telegram.org/bot'.freeze
   GET_ID_LINK = '/getFile?file_id='.freeze
 
+  def pre_generate_folder
+    FileUtils.mkdir_p(user_folder_path)
+  end
+
   def download_photo
     file_path = JSON.parse(URI.open(create_file_path).read)['result']['file_path']
     URI.open(create_photo_path(file_path)).read
   end
 
-  def pre_generate_folder
-    FileUtils.mkdir_p(user_folder_path)
-  end
 
   def save_check_file
     path_to_save_folder = save_path
