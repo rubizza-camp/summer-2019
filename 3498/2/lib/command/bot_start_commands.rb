@@ -2,7 +2,7 @@ module BotStartCommands
   NUMBERS_FILE = 'data/numbers.yaml'.freeze
 
   def start!(number = nil, *)
-    if User.all.select { |user| user.telegram_id == from['id'].to_s }
+    if User.all.any? { |user| user.telegram_id == from['id'].to_s }
       respond_with :message, text: I18n.t(:start_fail)
     else
       check_number(number)
@@ -35,7 +35,7 @@ module BotStartCommands
   end
 
   def register_user(number)
-    if User.all.select { |user| user.camp_number == number }
+    if User.all.any? { |user| user.camp_number == number }
       reply_with :message, text: I18n.t(:number_match)
     else
       user = User.create(telegram_id: from['id'], camp_number: number, status: 'out')
