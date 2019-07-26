@@ -1,5 +1,5 @@
 require_relative 'file_manager.rb'
-require_rel '/command/'
+require_relative '../helpers/commands_helper.rb'
 
 class WebhooksController < Telegram::Bot::UpdatesController
   Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 2_250_000 }
@@ -14,8 +14,5 @@ class WebhooksController < Telegram::Bot::UpdatesController
     delete(data)
   end
 
-  include StartCommand
-  include Unlink
-  include CheckoutCommand
-  include CheckinCommand
+  include CommandsHelper
 end

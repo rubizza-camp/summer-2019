@@ -15,8 +15,7 @@ module Unlink
   def delete(data)
     return unless data == 'unlink_confirmed'
 
-    redis = Redis.new
-    redis.del(session[:rubizza_num])
+    @redis.del(session[:rubizza_num])
     session[:rubizza_num] = nil
     respond_with :message, text: "#{data}. /start чтобы зарегистрироваться"
   end
