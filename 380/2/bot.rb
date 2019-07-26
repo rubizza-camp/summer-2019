@@ -1,3 +1,28 @@
+<<<<<<< HEAD
+require 'telegram/bot'
+require 'redis'
+require 'pry'
+require_relative 'dialog'
+
+token = ''
+db = Redis.new
+
+class RubizzaWatchman
+  def initialize
+    # to do create storage, token enter
+  end
+
+  def run(token, db)
+    Telegram::Bot::Client.run(token) do |bot|
+      bot.listen do |message|
+        Dialog.new(message: message, bot: bot, database: db, chat_id: message.chat.id).validate
+      end
+    end
+  end
+end
+
+RubizzaWatchman.new.run(token, db)
+=======
 require 'bundler'
 require 'telegram/bot'
 Bundler.require
@@ -7,7 +32,10 @@ Dir[File.join(__dir__, 'commands', '*.rb')].each { |file| require file }
 
 Telegram::Bot::Client.run(ENV['TOKEN']) do |bot|
   bot.listen do |message|
-    result = Router.resolve(message, bot)
+    user = User.find(message.from.id)
+
+    result = Router.resolve(message, user)
+    binding.pry
     if result.nil?
       bot.api.send_message(chat_id: message.from.id,
                            text: 'Repeat please! try /help to see available commands')
@@ -16,3 +44,4 @@ Telegram::Bot::Client.run(ENV['TOKEN']) do |bot|
     end
   end
 end
+>>>>>>> 94a9c14... working prototype without ill features
