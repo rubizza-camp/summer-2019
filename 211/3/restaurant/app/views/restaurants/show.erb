@@ -9,7 +9,7 @@
 <h2>RATING: <%= @rest.reviews.average(:mark) %></h2>
 <h2>MARKS:</h2>
 <% @rest.reviews.each do |review|%>
-  <strong> <%= review.user.id %></strong> wrote: <%= review.description %>.... 
+  <strong> <%= review.user %></strong> wrote: <%= review.description %>.... 
   Mark us: <%= review.mark %>
   <br>
 <% end  %>
@@ -28,12 +28,9 @@
     <br/>
     <input type="submit">
 </form>
-<%= form("/reviews/create", :post) %>
-
-<%=   input :review, :description  %>
-<%=   hidden :review, :restaurant_id, :value => 16  %>
-<%= submit %>
 
 <br>
+<br>
+
 <a href="/restaurants">Cafe</a>
 <a href="/users">Users</a>

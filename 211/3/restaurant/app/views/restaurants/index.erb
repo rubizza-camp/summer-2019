@@ -1,5 +1,5 @@
 <ol>
-  <% @rest.each do |rest| %>
+  <% @rests.each do |rest| %>
     <li> 
       <h2><%= link(rest.name, href = "restaurants/#{rest.id}")  %></h2>
       <%= image(rest.photo, options={height: 200}) %>
