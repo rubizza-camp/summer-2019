@@ -3,13 +3,14 @@ require_relative '../handlers/geo'
 
 module PhotoHandler
   include GeoHandler
-
-  def ask_photo(*)
+  
+  def ask_photo
     respond_with :message, text: 'Send me your selfie :D'
     save_context :check_photo
   end
 
-  def check_photo(*)
+  def check_photo(*args)
+    puts args
     if photo?
       handle_photo
       ask_geo
@@ -23,9 +24,10 @@ module PhotoHandler
     payload.key?('photo')
   end
 
-  def handle_photo(*)
-    photo = last_photo_data
-    photo_id = photo['file_id']
+  def handle_photo
+    photo_id = last_photo_data['file_id']
+    return false unless photo_id
+
     Downloader.download_photo(photo_id, session)
   end
 

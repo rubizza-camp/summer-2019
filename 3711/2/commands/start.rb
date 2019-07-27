@@ -5,7 +5,7 @@ require_relative '../authentification'
 module StartCommand
   include Authentification
 
-  def start!(*)
+  def start!
     respond_with :message, text: "Hello, #{from['first_name']}!"
     help
     registrate unless registered?

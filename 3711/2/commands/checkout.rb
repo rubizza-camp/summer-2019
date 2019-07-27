@@ -7,17 +7,17 @@ module CheckOutCommand
   include Authentification
   include PhotoHandler
 
-  def checkout!(*)
-    if registered?
-      if checkedout?
-        respond_with :message, text: "You've already checked out! Fell free :D"
-      else
-        checkout_context && ask_photo
-      end
+  def checkout!
+    return registrate unless registered?
+
+    if checkedout?
+      respond_with :message, text: "You've already checked out! Fell free :D"
     else
-      registrate
+      checkout_context && ask_photo
     end
   end
+
+  private
 
   def checkedout?
     session[:status] == :out

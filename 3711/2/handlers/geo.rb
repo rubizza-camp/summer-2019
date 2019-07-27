@@ -1,11 +1,10 @@
 module GeoHandler
-  def ask_geo(*)
+  def ask_geo
     respond_with :message, text: 'Now send me your location.'
     save_context :check_geo
   end
 
   def check_geo(*)
-    puts payload
     if geo?
       handle_geo
       change_status
@@ -19,7 +18,7 @@ module GeoHandler
     payload.key?('location')
   end
 
-  def handle_geo(*)
+  def handle_geo
     Downloader.load_location(payload['location'], session)
   end
 

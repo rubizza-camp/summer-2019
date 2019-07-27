@@ -7,17 +7,17 @@ module CheckInCommand
   include Authentification
   include PhotoHandler
 
-  def checkin!(*)
-    if registered?
-      if checkedin?
-        respond_with :message, text: "You've already checked in! Have a nice day :D"
-      else
-        checkin_context && ask_photo
-      end
+  def checkin!
+    return registrate unless registered?
+
+    if checkedin?
+      respond_with :message, text: "You've already checked in! Have a nice day :D"
     else
-      registrate
+      checkin_context && ask_photo
     end
   end
+
+  private
 
   def checkedin?
     session[:status] == :in

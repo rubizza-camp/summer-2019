@@ -14,9 +14,8 @@ module Authentification
     respond_with :message, text: "You have to authorise.\nWhat\'s your camp ID?"
   end
 
-  def identification(*words)
-    student_id = words[0].to_i
-    if students_id.include?(student_id)
+  def identification(student_id)
+    if students_id.include?(student_id.to_i)
       update_session(student_id)
       respond_with :message, text: "You are authorised, number #{student_id}!"
     else
