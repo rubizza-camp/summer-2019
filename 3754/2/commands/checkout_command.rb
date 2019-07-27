@@ -37,7 +37,7 @@ module CheckoutCommand
   def take_url_for_download_photo_out(file_id)
     url_with_file_path = URI("#{ENV['API']}bot#{ENV['TOKEN']}/getFile?file_id=#{file_id}")
     file_path = JSON.parse(Net::HTTP.get(url_with_file_path))['result']['file_path']
-    url_for_download = URI("#{ENV['API']}file/bot#{ENV['TOKEN']}/#{file_path}")
+    URI("#{ENV['API']}file/bot#{ENV['TOKEN']}/#{file_path}")
   end
 
   def check_location_out(*)
