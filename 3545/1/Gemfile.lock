@@ -1,0 +1,21 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.1.0)
+    mini_portile2 (2.4.0)
+    nokogiri (1.10.3)
+      mini_portile2 (~> 2.4.0)
+    terminal-table (1.8.0)
+      unicode-display_width (~> 1.1, >= 1.1.1)
+    unicode-display_width (1.6.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  json (~> 2.1.0)
+  nokogiri (~> 1.10.3)
+  terminal-table (~> 1.8.0)
+
+BUNDLED WITH
+   1.17.3

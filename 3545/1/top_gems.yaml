@@ -1,0 +1,8 @@
+gems:
+  - bundler
+  - capistrano
+  - nokogiri
+  - devise
+  - sinatra
+  - rubocop
+  - rubycritic
