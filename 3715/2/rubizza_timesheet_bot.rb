@@ -12,14 +12,13 @@ require_relative 'lib/helpers/base_command_helpers.rb'
 require_relative 'lib/helpers/photo.rb'
 require_relative 'lib/helpers/location.rb'
 
-TOKEN = File.read('data/secret.yml').strip.freeze
 STUDENT_LIST = StudentListFetcher.read_from_file
 REDIS = Redis.new
 
 I18n.load_path << Dir[File.expand_path('data/locales') + '/*.yml']
 I18n.default_locale = :ru
 
-bot = Telegram::Bot::Client.new(TOKEN)
+bot = Telegram::Bot::Client.new(ENV['TOKEN'])
 
 # poller-mode
 logger = Logger.new(STDOUT)

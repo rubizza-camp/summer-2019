@@ -8,11 +8,13 @@ module CheckinCommand
   end
 
   def make_photo_checkin(*)
-    timestamp
-    FileUtils.mkdir_p(file_path_preparation)
-    download_photo(file_path_preparation)
-    save_context :make_location_checkin
-    respond_with :message, text: I18n.t(:request_location)
+    if payload['photo']
+      Photo.new(session, payload).download_photo
+      save_context :make_location_checkin
+      respond_with :message, text: I18n.t(:request_location)
+    else
+      respond_with :message, text: I18n.t(:photo_error)
+    end
   end
 
   def make_location_checkin

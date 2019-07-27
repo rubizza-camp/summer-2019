@@ -9,7 +9,6 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include CheckoutCommand
   include BaseCommandHelpers
   include SessionsHelper
-  include Photo
   include Location
   include Telegram::Bot::UpdatesController::MessageContext
 
