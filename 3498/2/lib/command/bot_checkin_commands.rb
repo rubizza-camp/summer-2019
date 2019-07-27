@@ -19,7 +19,6 @@ module BotCheckinCommands
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def upload_location
     if payload['location']
       GeolocationUploader.create_location_file(current_user.camp_number,
@@ -30,5 +29,4 @@ module BotCheckinCommands
       respond_with :message, text: I18n.t(:try_again)
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end
