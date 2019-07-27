@@ -2,10 +2,9 @@ require 'fileutils'
 require 'yaml'
 
 module Backup
-  def self.backup_check(rg_links)
-    backup_names = rg_links.gems_name.each { |b_name| b_name.insert(-1, '.yml') }.sort
+  def self.backup_check(names)
     backup_files = Dir['./yaml/tmp/*.yml'].each { |b_file| b_file.slice!('./yaml/tmp/') }.sort
-    backup_names == backup_files if backup_dir_check
+    names.select { |name| backup_files.include?(name.insert(-1, '.yml')) }.size.positive?
   end
 
   def self.backup_dir_check

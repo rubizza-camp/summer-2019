@@ -13,7 +13,10 @@ class OutputTable
   end
 
   def add_value(value)
-    @table << value
+    @table << [value[:name], value[:used_by],
+               value[:watchers], value[:stars],
+               value[:forks], value[:contributors],
+               value[:issues]]
   end
 
   def show_table

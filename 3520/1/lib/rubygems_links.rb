@@ -5,6 +5,7 @@ RUBYGEMS = 'https://rubygems.org/gems/'.freeze
 class RubyGemsLink
   def initialize
     @file = file_to_parse
+    @g_hash = {}
   end
 
   def file_to_parse(filename = DEFAULT_FILE)
@@ -20,16 +21,21 @@ class RubyGemsLink
   end
 
   def yaml_load
-    return YAML.safe_load File.read full_path if file_check
+    return YAML.safe_load(File.read(full_path)) if file_check
 
-    raise "There is no file by file name #{@file}"
+    abort "There is no file #{@file}"
   end
 
-  def yaml_links
+  def gems_links
     yaml_load['gem'].map { |link| RUBYGEMS + link }
   end
 
   def gems_name
     yaml_load['gem'].map { |link| link }
+  end
+
+  def gems_hash
+    gems_name.zip(gems_links) { |key, value| @g_hash[key] = value }
+    @g_hash
   end
 end

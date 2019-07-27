@@ -19,17 +19,25 @@ class GemsData
   end
 
   def parse_all_links
-    GemsProgressbar.create(@rg_links.yaml_links.size)
-    @rg_links.yaml_links.each do |link|
-      @scraper.get_repo_page(link)
-      Backup.backup_create(@scraper.repo_info)
-      GemsProgressbar.progress
+    GemsProgressbar.create(@rg_links.gems_name.size)
+    @rg_links.gems_hash.each do |_gem, link|
+      next if parse_repo_by_link(link) == 'next'
     end
+  end
+
+  def parse_repo_by_link(link)
+    if @scraper.get_repo_page(link) == 'flag'
+      puts "#{link} skipped."
+      return 'next'
+    end
+    Backup.backup_create(@scraper.repo_info)
+    GemsProgressbar.progress
+    puts "#{link} parsed"
   end
 
   def gathering_data
     @rg_links.gems_name.each do |name|
-      @data << Backup.backup_load(name)
+      @data << Backup.backup_load(name) if Backup.backup_file_check(name)
     end
   end
 
@@ -53,13 +61,7 @@ class GemsData
 
   def backup
     @rg_links.file_to_parse(@options[:file]) if OptionValidation.check_option(@options) == 'g_file'
-    if Backup.backup_check @rg_links
-      p 'I found backups!'
-      gathering_data
-    else
-      p 'There is no backups. T_T'
-      parse_and_gathering_data
-    end
+    parse_and_gathering_data
   end
 
   def run
@@ -74,6 +76,6 @@ class GemsData
   end
 
   def show(options)
-    OutputTable.new.full_table table_to_show(options)
+    OutputTable.new.full_table(table_to_show(options))
   end
 end
