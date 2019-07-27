@@ -1,4 +1,5 @@
 require 'tty-table'
+require './lib/data_converter'
 
 HEADER = ['name', 'used by', 'watched by', 'stars', 'forks', 'contributors', 'issues'].freeze
 
@@ -13,10 +14,7 @@ class OutputTable
   end
 
   def add_value(value)
-    @table << [value[:name], value[:used_by],
-               value[:watchers], value[:stars],
-               value[:forks], value[:contributors],
-               value[:issues]]
+    @table << DataConverter.convert_info_order(value)
   end
 
   def show_table

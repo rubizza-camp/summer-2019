@@ -4,7 +4,6 @@ require './lib/tg_parse'
 require './lib/output_table'
 require './lib/backup'
 require './lib/option_validation'
-require './lib/gems_progressbar'
 
 class GemsData
   include Backup
@@ -19,19 +18,18 @@ class GemsData
   end
 
   def parse_all_links
-    GemsProgressbar.create(@rg_links.gems_name.size)
-    @rg_links.gems_hash.each do |_gem, link|
-      next if parse_repo_by_link(link) == 'next'
+    @rg_links.gems_hash.each do |gem, link|
+      if parse_repo_by_link(link) == 'next'
+        puts "#{gem} skipped."
+        next
+      end
     end
   end
 
   def parse_repo_by_link(link)
-    if @scraper.get_repo_page(link) == 'flag'
-      puts "#{link} skipped."
-      return 'next'
-    end
+    return 'next' if @scraper.get_repo_page(link) == 'flag'
+
     Backup.backup_create(@scraper.repo_info)
-    GemsProgressbar.progress
     puts "#{link} parsed"
   end
 

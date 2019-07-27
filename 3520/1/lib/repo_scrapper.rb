@@ -1,13 +1,11 @@
 require 'webdrivers/geckodriver'
 require 'watir'
 
-EXCEPTION = [Selenium::WebDriver::Error::UnknownError,
-             Net::ReadTimeout, Watir::Exception::UnknownObjectException].freeze
 class RepoScrapper
   attr_reader :repo_info
 
   def initialize
-    @browser = Watir::Browser.new :firefox # , headless: true
+    @browser = Watir::Browser.new :firefox, headless: true
     @repo_info = {}
   end
 
@@ -27,14 +25,14 @@ class RepoScrapper
     elsif @browser.link(text: 'Source Code').href.include?('github.com')
       get_page(@browser.link(text: 'Source Code').href)
     end
-  rescue EXCEPTION
+  rescue Selenium::WebDriver::Error::UnknownError, Watir::Exception::UnknownObjectException
     'no_link'
   end
 
   def get_page(link)
     @browser.goto(link)
     sleep 0.5
-  rescue EXCEPTION
+  rescue Net::ReadTimeout
     'Check internet connection.'
   end
 
@@ -46,7 +44,7 @@ class RepoScrapper
 
   def repo_gem_name
     repo_info[:name] = @browser.h1.text.split('/').last
-  rescue EXCEPTION
+  rescue Net::ReadTimeout
     'skip'
   end
 
@@ -54,7 +52,7 @@ class RepoScrapper
     return 'skip' if get_page(@browser.url + '/network/dependents') == 'Check internet connection.'
 
     repo_info[:used_by] = @browser.link(href: /dependent_type=REPOSITORY/).text.split(' ').first
-  rescue EXCEPTION
+  rescue Net::ReadTimeout
     'skip'
   end
 
@@ -62,19 +60,19 @@ class RepoScrapper
     repo_info[:watchers] = @browser.link(href: /watchers/).text
     repo_info[:stars] = @browser.link(href: /stargazers/).text
     repo_info[:forks] = @browser.link(href: %r{network\/members}).text
-  rescue EXCEPTION
+  rescue Net::ReadTimeout
     'skip'
   end
 
   def repo_issues
     repo_info[:issues] = @browser.link(text: /Issues/).text.split(' ').last
-  rescue EXCEPTION
+  rescue Net::ReadTimeout
     'skip'
   end
 
   def repo_contributors
     repo_info[:contributors] = @browser.link(href: /contributors/).text.split(' ').first
-  rescue EXCEPTION
+  rescue Net::ReadTimeout
     'skip'
   end
 end
