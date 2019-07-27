@@ -4,7 +4,8 @@ require_relative 'save_data.rb'
 module PhotoLocation
   include SaveData
 
-  CAMP = [53.915205, 27.560094].freeze
+  CAMP_LOCATION = [53.915205, 27.560094].freeze
+  CORRECT_LOCATION = 0.6
 
   def check_data(*)
     if payload['photo']
@@ -12,7 +13,7 @@ module PhotoLocation
       check_location
     else
       save_context :check_data
-      respond_with :message, text: 'Mom sees you badly, send me a selfie.'
+      respond_with :message, text: t(:selfi)
     end
   end
 
@@ -21,16 +22,16 @@ module PhotoLocation
       check_valid_location(payload['location'].values)
     else
       save_context :check_location
-      respond_with :message, text: 'Are you exactly home? Send me your geoposition.'
+      respond_with :message, text: t(:geo)
     end
   end
 
   def check_valid_location(location)
-    if Haversine.distance(CAMP, location).to_km <= 0.6
-      respond_with :message, text: 'Love you sweetheart:3'
+    if Haversine.distance(CAMP_LOCATION, location).to_km <= CORRECT_LOCATION
+      respond_with :message, text: t(:done)
       save_location
     else
-      respond_with :message, text: 'It seems, you are not in home. Try again.'
+      respond_with :message, text: t(:geo_error)
     end
   end
 end

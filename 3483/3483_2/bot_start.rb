@@ -1,23 +1,11 @@
 require 'telegram/bot'
 require 'logger'
-require 'ohm'
-require 'redis'
-require 'active_support/all'
-require_relative 'start.rb'
-require_relative 'checkin.rb'
-require_relative 'checkout.rb'
+require 'i18n'
+require_relative 'controller'
 
 Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.month }
 
-class WebhooksController < Telegram::Bot::UpdatesController
-  include Telegram::Bot::UpdatesController::MessageContext
-  include Telegram::Bot::UpdatesController::Session
-  include Start
-  include Checkin
-  include Checkout
-
-  Ohm.redis = Redic.new('redis://127.0.0.1:6379')
-end
+I18n.load_path << Dir[File.expand_path('phrases') + '/*.yml']
 
 TOKEN = ENV['BOT_TOKEN']
 bot = Telegram::Bot::Client.new(TOKEN)

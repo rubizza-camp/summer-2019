@@ -1,8 +1,7 @@
 require 'yaml'
-require_relative 'gest'
-require 'pry'
+require_relative '../registration/guest'
 
-class KidsChecker
+class Checker
   attr_reader :number
 
   def initialize(number)
@@ -14,11 +13,11 @@ class KidsChecker
   end
 
   def self.registered(id)
-    Gest[id]
+    Guest[id]
   end
 
   def find_user
-    Gest.all.any? { |gest| gest.number.include?(number) }
+    Guest.all.any? { |guest| guest.number.include?(number) }
   end
 
   def not_find_user
@@ -26,6 +25,6 @@ class KidsChecker
   end
 
   def check_number
-    @check_number ||= YAML.load_file('kids.yaml')['Kids'].include?(number)
+    @check_number ||= YAML.load_file('humans_list.yaml')['Humans'].include?(number)
   end
 end

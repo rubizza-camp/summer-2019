@@ -21,13 +21,15 @@ module SaveData
     end
   end
 
+  private
+
   def photo_path
     JSON.parse(URI.open(API + payload['photo'].last['file_id'])
                  .read, symbolize_names: true)[:result][:file_path]
   end
 
   def in_or_out
-    if Gest[from['id']].in_camp == 'false'
+    if Guest[from['id']].in_camp == 'false'
       'checkin'
     else
       'chekout'

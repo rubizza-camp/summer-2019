@@ -1,7 +1,7 @@
-require_relative 'gest'
+require_relative 'Guest'
 #:reek:UtilityFunction
 module Registration
   def registered(id)
-    Gest[id]
+    Guest[id]
   end
 end
