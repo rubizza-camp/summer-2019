@@ -36,7 +36,7 @@ module BotStartCommands
 
   def register_user(number)
     if User.find(camp_number: number)
-      reply_with :message, text: I18n.t(:number_match)
+      respond_with :message, text: I18n.t(:number_match)
     else
       user = User.create(telegram_id: from['id'], camp_number: number, status: STATUS[:out])
       session[:user_id] = user.id
