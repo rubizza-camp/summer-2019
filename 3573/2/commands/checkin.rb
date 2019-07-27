@@ -47,7 +47,7 @@ module Checkin
 
   def path_name_checkin
     FilePathBuilder.call(payload: user_id_telegram,
-                         status: SESSION_STATUSSES.key(1),
+                         status: SESSION_STATUSSES[:checkin],
                          time: session[:time_checkin])
   end
 

@@ -1,7 +1,7 @@
 module SessionsHelper
   SESSION_STATUSSES = {
-    checkin: 1,
-    checkout: 2
+    checkin: 'checkin',
+    checkout: 'checkout'
   }.freeze
 
   def checkin?

@@ -47,7 +47,7 @@ module Checkout
 
   def path_name_checkout
     FilePathBuilder.call(payload: user_id_telegram,
-                         status: SESSION_STATUSSES.key(2),
+                         status: SESSION_STATUSSES[:checkout],
                          time: session[:time_checkout])
   end
 
