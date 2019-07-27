@@ -5,18 +5,18 @@ module SessionsHelper
   }.freeze
 
   def checkin?
-    session[:status] == 'checkin'
+    session[:status] == SESSION_STATUSSES[:checkin]
   end
 
   def checkout?
-    session[:status] == 'checkout'
+    session[:status] == SESSION_STATUSSES[:checkout]
   end
 
   def checkin
-    session[:status] = 'checkin'
+    session[:status] = SESSION_STATUSSES[:checkin]
   end
 
   def checkout
-    session[:status] = 'checkout'
+    session[:status] = SESSION_STATUSSES[:checkout]
   end
 end

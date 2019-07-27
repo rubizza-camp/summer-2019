@@ -15,13 +15,13 @@ module Start
 
     return respond_with :message, text: t(:already_registered) if user_number_registered?(student_number)
 
-    return response_register_student(student_number) if list_of_numbers.include?(student_number)
+    return register_with_student_number(student_number) if list_of_numbers.include?(student_number)
 
     respond_with :message, text: t(:try_again)
   end
   # rubocop:enable Metrics/LineLength
 
-  def response_register_student(student_number)
+  def register_with_student_number(student_number)
     register_student(student_number)
     respond_with :message, text: t(:registration_done)
   end

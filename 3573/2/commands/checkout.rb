@@ -21,7 +21,7 @@ module Checkout
   # :reek:TooManyStatements
 
   def download_geolocation_checkout(*)
-    if valid_geoposition?
+    if GeopositionValidator.call(geoposition: geolocation)
       checkout
       download_last_geolocation(path_name_checkout)
       respond_with :message, text: t(:checkout_done, time: worked_time)
@@ -44,12 +44,12 @@ module Checkout
     respond_with :message, text: t(:send_photo)
     save_context :download_photo_checkout
   end
-  # rubocop:disable Metrics/LineLength
 
   def path_name_checkout
-    FilePathBuilder.call(payload: user_id_telegram, status: SESSION_STATUSSES.key(2), time: session[:time_checkout])
+    FilePathBuilder.call(payload: user_id_telegram,
+                         status: SESSION_STATUSSES.key(2),
+                         time: session[:time_checkout])
   end
-  # rubocop:enable Metrics/LineLength
 
   def worked_time
     work_time = session[:time_checkout] - session[:time_checkin]

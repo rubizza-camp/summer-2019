@@ -21,7 +21,7 @@ module Checkin
   # :reek:TooManyStatements
 
   def download_geolocation_checkin(*)
-    if valid_geoposition?
+    if GeopositionValidator.call(geoposition: geolocation)
       download_last_geolocation(path_name_checkin)
       respond_with :message, text: t(:checkin_done)
       checkin
@@ -44,12 +44,12 @@ module Checkin
     respond_with :message, text: t(:send_location)
     save_context :download_geolocation_checkin
   end
-  # rubocop:disable Metrics/LineLength
 
   def path_name_checkin
-    FilePathBuilder.call(payload: user_id_telegram, status: SESSION_STATUSSES.key(1), time: session[:time_checkin])
+    FilePathBuilder.call(payload: user_id_telegram,
+                         status: SESSION_STATUSSES.key(1),
+                         time: session[:time_checkin])
   end
-  # rubocop:enable Metrics/LineLength
 
   def handle_no_photo_checkin
     respond_with :message, text: t(:no_photo_in_message_error)
