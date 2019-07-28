@@ -5,10 +5,6 @@ require 'sinatra/activerecord'
 set :database, "sqlite3:db/database.sqlite3"
 enable :sessions
 
-before do
-  @logged_in = session[:id]
-end
-
 # main page
 get '/' do
   @restaurants = Restaurant.all
@@ -22,6 +18,7 @@ end
 
 post '/registration' do
   user = User.create(params)
+  session[:id] = user[:id]
   redirect '/'
 end
 
