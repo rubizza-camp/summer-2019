@@ -1,0 +1,24 @@
+<%if cookies['users_id'] %>
+    <div id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <h2 class="nav-link " style="margin:10px" title="Manage"><%= cookies['user_name']%></h2>
+            </li>
+            <li class="nav-item active">
+                <form action='/logout' method='POST' >
+                    <input type="submit" class=" btn btn-info" value='Log out'>
+                </form>
+            </li>
+        </ul>
+    </div>
+<% else %>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item ">
+            <a class="nav-link" style="margin:10px" data-toggle="modal" data-target="#modalRegisterForm">Register</a>
+        </li>
+        <li class="nav-item ">
+            <a class="btn btn-info" data-toggle="modal" data-target="#modalLoginForm">Log in</a>
+        </li>
+    </ul>
+<%end%>
+
