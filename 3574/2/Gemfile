@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'redis'
-gem 'redis-rails'
-gem 'telegram-bot'
+gem 'haversine', '0.3.2'
+gem 'redis', '4.1.2'
+gem 'redis-rails', '5.0.2'
+gem 'telegram-bot', '0.14.2'

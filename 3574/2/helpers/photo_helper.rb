@@ -1,9 +1,9 @@
 require 'open-uri'
 require 'json'
 
-module Photo
-  BOT_PATH = "https://api.telegram.org/bot#{ENV['TOKEN']}/".freeze
-  BOT_PATH_FOR_DOWNLOAD = "https://api.telegram.org/file/bot#{ENV['TOKEN']}/".freeze
+module PhotoHelper
+  BOT_PATH = "https://api.telegram.org/bot#{ENV['TOKEN']}/getFile?file_id=".freeze
+  BOT_PATH_FOR_DOWNLOAD = "https://api.telegram.org/file/bot#{ENV['TOKEN']}".freeze
 
   private
 

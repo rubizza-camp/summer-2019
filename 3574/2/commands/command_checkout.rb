@@ -1,18 +1,21 @@
-require_relative '../helpers/session_state'
-require_relative '../helpers/location'
-require_relative '../helpers/photo'
-require_relative '../helpers/save'
+require_relative '../helpers/location_helper'
+require_relative '../helpers/photo_helper'
+require_relative '../helpers/save_helper'
 
 module CheckoutCommand
-  include SessionStatus
-  include Location
-  include Photo
-  include Save
+  def allready_registered
+    respond_with :message, text: 'Сначала регистрация ~> /start' unless session.key?(:number)
+    session.key?(:number)
+  end
+
+  def allready_checkined
+    respond_with :message, text: 'Прими смену ~> /checkin' unless session[:checkin]
+    session[:checkin]
+  end
 
   def checkout!(*)
     return unless allready_registered
     return unless allready_checkined
-
     save_context :checkout_photo
     respond_with :message, text: 'Пришли мне себя.'
   end
@@ -29,8 +32,9 @@ module CheckoutCommand
   end
 
   def checkout_location(*)
-    if valid_location?
+    if payload['location'] && valid_location?(payload['location'].values)
       save_data(:checkout)
+      session[:checkout] = !session[:checkout]
       respond_with :message, text: 'Жду тебя снова ~> /checkin'
     else
       save_context :checkout_location

@@ -23,6 +23,7 @@ GEM
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     erubi (1.8.0)
+    haversine (0.3.2)
     httpclient (2.8.3)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
@@ -73,9 +74,10 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  redis
-  redis-rails
-  telegram-bot
+  haversine (= 0.3.2)
+  redis (= 4.1.2)
+  redis-rails (= 5.0.2)
+  telegram-bot (= 0.14.2)
 
 BUNDLED WITH
    1.17.2
