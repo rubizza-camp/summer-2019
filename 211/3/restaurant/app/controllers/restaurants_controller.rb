@@ -1,4 +1,4 @@
-require_relative 'base_controller'
+# require_relative 'base_controller'
 class RestaurantsController < BaseController
   get '/restaurants' do
     @rests = Restaurant.all

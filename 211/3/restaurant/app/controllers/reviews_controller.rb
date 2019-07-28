@@ -1,4 +1,4 @@
-require_relative 'base_controller'
+# require_relative 'base_controller'
 class ReviewsController < BaseController
   post '/reviews/create' do
     @review = Review.new(mark: params[:mark], description: params[:description], user_id: params[:user_id], restaurant_id: params[:restaurant_id])
