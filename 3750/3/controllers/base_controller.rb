@@ -11,6 +11,5 @@ class BaseController < Sinatra::Base
 
   def info_message(message)
     flash[:info] = message
-    binding.pry
   end
 end

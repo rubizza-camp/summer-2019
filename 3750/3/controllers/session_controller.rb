@@ -1,7 +1,7 @@
 require_relative 'base_controller'
 
 class SessionController < BaseController
-  post '/registrations/signup' do
+  post '/sessions/signup' do
     @user = User.new(login: params['name'], email: params['email'],
                      password: params['password'])
     # binding.pry
@@ -12,11 +12,11 @@ class SessionController < BaseController
       redirect '/'
     else
       error_message 'Something went wrong(email)'
-      redirect '/registrations/signup'
+      redirect '/sessions/signup'
     end
   end
 
-  post '/login' do
+  post '/sessions/login' do
     @user = User.find_by(email: params[:email])
     if user_exists?
       login
@@ -50,8 +50,8 @@ class SessionController < BaseController
     erb :index
   end
 
-  get '/registrations/signup' do
-    erb :'/registrations/signup'
+  get '/sessions/signup' do
+    erb :'/sessions/signup'
   end
 
   get '/sessions/login' do
