@@ -32,7 +32,7 @@ class SaveHelper
 
   # :reek:UtilityFunction
   def create_folder_path(camp_id)
-    folder_path = "story/#{camp_id}/"
+    folder_path = " public/#{camp_id}/"
     FileUtils.mkdir_p folder_path
     folder_path
   end

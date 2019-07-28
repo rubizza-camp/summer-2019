@@ -1,4 +1,3 @@
-require 'redis'
 require 'yaml'
 
 class User

@@ -35,18 +35,6 @@ module RedisHelper
   end
 
   def check_in?(message)
-    !redis.hexists(message.chat.id, 'check_ined') && message.text == '/check_in'
-  end
-
-  def check_out?(message)
-    redis.hexists(message.chat.id, 'check_ined') && message.text == '/check_out'
-  end
-
-  def send_photo?(message)
-    redis.hexists(message.chat.id, 'check_ined') && message.photo.last
-  end
-
-  def send_location?(message)
-    redis.hexists(message.chat.id, 'check_ined') && message.location.latitude
+    redis.hexists(message.chat.id, 'check_ined')
   end
 end

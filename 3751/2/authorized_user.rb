@@ -7,10 +7,10 @@ class AuthorizedUser
 
   # :reek:TooManyStatements
   def call(message)
-    if check_in?(message)
+    if !check_in? && message.text == '/check_in'
       save_session('check_ined', message)
       'Send me selfie'
-    elsif check_out?(message)
+    elsif check_in? && message.text == '/check_out'
       camp_id = checkout_session(message)
       save_helper.save_checkout(camp_id)
       "Great job! See you soon. Don't forget press /check_in to start work"
@@ -21,10 +21,10 @@ class AuthorizedUser
 
   # :reek:TooManyStatements
   def other_input(message)
-    if send_photo?(message)
+    if check_in? && message.photo.last
       save_photo(message)
       'Send me your location'
-    elsif send_location?(message)
+    elsif check_in? && message.location.latitude
       data = checkin_session(message)
       save_helper.save_checkin(data)
       'OK, have a productive work! When finish, press /check_out'
