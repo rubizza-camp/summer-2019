@@ -1,11 +1,13 @@
 class User < ActiveRecord::Base
-  validates_presence_of :username, :email, :password_hash
-  validates_uniqueness_of :username, :email
+  include BCrypt
+
+  validates_presence_of :login, :email, :password
+  validates_uniqueness_of :login, :email
   has_many :reviews, dependent: :destroy
 
-  def password
-    @password ||= BCrypt::Password.new(password_hash)
-  end
+  # def saved_password
+  #   @saved_password ||= BCrypt::Password.new(password)
+  # end
 
   # def password=(new_password)
   #   @password = BCrypt::Password.create(new_password)

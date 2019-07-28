@@ -2,11 +2,12 @@ require_relative 'base_controller'
 
 class SessionController < BaseController
   post '/registrations/signup' do
-    @user = User.new(login: params['login'], email: params['email'],
+    @user = User.new(login: params['name'], email: params['email'],
                      password: params['password'])
+    # binding.pry
     if email_exists?
       @user.save
-      successful_login
+      login
       info_message 'Registration done'
       redirect '/'
     else
@@ -17,7 +18,18 @@ class SessionController < BaseController
 
   post '/login' do
     @user = User.find_by(email: params[:email])
-    successful_login if user_exists?
+    if user_exists?
+      login
+      info_message 'Success!'
+      redirect '/'
+    else
+      error_message 'wrong login or password'
+      redirect '/'
+    end
+  end
+
+  def login
+    session[:user_id] = @user.id
   end
 
   get '/logout' do
@@ -27,11 +39,6 @@ class SessionController < BaseController
 
   def user_exists?
     @user && (@user.password == params[:password])
-  end
-
-  def successful_login
-    session[:user_id] = @user.id
-    redirect '/'
   end
 
   def email_exists?

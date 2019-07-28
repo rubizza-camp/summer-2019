@@ -4,8 +4,7 @@ class CreateUsersTable < ActiveRecord::Migration[5.2]
       t.string :login
       t.string :password
       t.string :email
-      t.datetime :created_at
-      t.datetime :updated_at
+      t.timestamps
     end
   end
 end
