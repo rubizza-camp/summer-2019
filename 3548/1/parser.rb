@@ -35,7 +35,7 @@ class Parser
     match[0].delete(',').to_i unless match.to_s.empty?
   end
 
-  def search_main_inforamtion(all_gems, page, full_name)
+  def search_main_inforamtion_about_gems(all_gems, page, full_name)
     all_gems[:contributors] = search_in_html(REQUEST_CONTRIBUTORS, page)
     all_gems[:watchers] = search_in_html("li a[href=\"/#{full_name}/watchers\"]", page)
     all_gems[:issues] = search_in_html("span a[href=\"/#{full_name}/issues\"]", page)
@@ -50,12 +50,12 @@ class Parser
   def filling_the_data(all_gems, full_name)
     github_page = Nokogiri::HTML(open("https://github.com/#{full_name}"))
     github_dep = Nokogiri::HTML(open("https://github.com/#{full_name}/network/dependents"))
-    all_gems = search_main_inforamtion(all_gems, github_page, full_name)
-    all_gems = search_other_information(all_gems, github_dep)
+    all_gems = search_main_inforamtion_about_gems(all_gems, github_page, full_name)
+    all_gems = search_other_information_about_gems(all_gems, github_dep)
     all_gems
   end
 
-  def search_other_information(all_gems, page)
+  def search_other_information_about_gems(all_gems, page)
     all_gems[:used_by] = search_in_html(REQUEST_USED_BY, page)
     all_gems
   end
