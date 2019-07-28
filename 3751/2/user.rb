@@ -1,15 +1,23 @@
-# rubocop:disable all
+require 'redis'
+require 'yaml'
+
 class User
   include RedisHelper
 
   def call(message)
-    if started?(message)
-      "Hello. Enter your id"
-    elsif entered?(message)
-      save_session("camp_id", message)
-      "you entered, press /checkin"
+    if message.text == '/start'
+      'Hello. Enter your id'
+    elsif rubizzians.include?(message.text.to_i)
+      save_session('camp_id', message)
+      'you entered, press /checkin'
     else
-      "Enter right id"
+      'Enter right id'
     end
+  end
+
+  # :reek:UtilityFunction
+  def rubizzians
+    users = YAML.load_file('users.yaml')
+    users['id']
   end
 end

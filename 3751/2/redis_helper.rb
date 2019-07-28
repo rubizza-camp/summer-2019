@@ -1,5 +1,6 @@
 require 'redis'
 
+# :reek:FeatureEnvy
 module RedisHelper
   def redis
     @redis ||= Redis.current
@@ -10,51 +11,42 @@ module RedisHelper
   end
 
   def save_photo(message)
-    redis.hmset(message.chat.id, "selfie", message.last.file_id)
+    redis.hmset(message.chat.id, 'selfie', message.last.file_id)
   end
 
   def checkin_session(message)
     redis.hmset(
       message.chat.id,
-      "latitude",
+      'latitude',
       message.location.latitude,
-      "longitude",
-      message.location.longitude,
+      'longitude',
+      message.location.longitude
     )
     redis.hgetall(message.chat.id)
   end
 
   def checkout_session(message)
-    redis.hdel(message.chat.id, "check_ined")
-    redis.hmget(message.chat.id, "camp_id")[0]
+    redis.hdel(message.chat.id, 'check_ined')
+    redis.hmget(message.chat.id, 'camp_id')[0]
   end
 
-  def started?(message)
-    !redis.hexists(message.chat.id, "camp_id") and message.text == '/start'
-  end
-
-  def entered?(message)
-    rubizzians = ['3751', '204', '211', '13', '380', '3135', '3172']
-    !redis.hexists(message.chat.id, "camp_id") and rubizzians.include?(message.text)
-  end
-
-  def camp_user?(message)
-    redis.hexists(message.chat.id, "camp_id")
+  def camp_user?(chat_id)
+    redis.hexists(chat_id, 'camp_id')
   end
 
   def check_in?(message)
-    !redis.hexists(message.chat.id, "check_ined") and message.text == '/check_in'
+    !redis.hexists(message.chat.id, 'check_ined') && message.text == '/check_in'
   end
 
   def check_out?(message)
-    redis.hexists(message.chat.id, "check_ined") and message.text == '/check_out'
+    redis.hexists(message.chat.id, 'check_ined') && message.text == '/check_out'
   end
 
   def send_photo?(message)
-    redis.hexists(message.chat.id, "check_ined") and message.photo.last
+    redis.hexists(message.chat.id, 'check_ined') && message.photo.last
   end
 
   def send_location?(message)
-    redis.hexists(message.chat.id, "check_ined") and message.location.latitude
+    redis.hexists(message.chat.id, 'check_ined') && message.location.latitude
   end
 end
