@@ -2,8 +2,7 @@ require 'sinatra/base'
 
 module InfoHelper
   def review_validation_info
-    @review.save
-    if @review.valid?
+    if @review.save
       'Review created!'
     else
       'You need to enter more text before publishing!'
