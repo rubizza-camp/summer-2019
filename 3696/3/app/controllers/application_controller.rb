@@ -19,7 +19,7 @@ class ApplicationController < Sinatra::Base
 
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
-  helpers AuthHelper::Helpers
+  helpers AuthHelper
 
   get '/' do
     @places = Place.all
