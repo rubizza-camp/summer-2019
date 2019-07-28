@@ -1,0 +1,22 @@
+source 'http://rubygems.org'
+
+gem 'activerecord', '~> 4.2', '>= 4.2.6', require: 'active_record'
+gem 'bcrypt'
+gem 'eventmachine', platform: :ruby
+gem 'i18n'
+gem 'rake'
+gem 'require_all'
+gem 'sinatra', require: 'sinatra/base'
+gem 'sinatra-activerecord', require: 'sinatra/activerecord'
+gem 'sinatra-contrib'
+# gem 'sqlite3' stable raises error ' cannot load such file - sqlite3/sqlite3_native (LoadError)'
+# on Windows 7, 10. Advice from
+# https://stackoverflow.com/questions/17643897/cannot-load-such-file-sqlite3-sqlite3-native-loaderror-on-ruby-on-rails
+# helps to fix this error
+gem 'sqlite3', git: 'https://github.com/sparklemotion/sqlite3-ruby'
+gem 'thin'
+gem 'valid_email2'
+
+group :development do
+  gem 'tux'
+end
