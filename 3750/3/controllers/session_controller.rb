@@ -1,6 +1,6 @@
 require_relative 'base_controller'
 
-class SessionsController < BaseController
+class SessionController < BaseController
   post '/registrations/signup' do
     @user = User.new(login: params['login'], email: params['email'],
                      password: params['password'])
@@ -18,6 +18,11 @@ class SessionsController < BaseController
   post '/login' do
     @user = User.find_by(email: params[:email])
     successful_login if user_exists?
+  end
+
+  get '/logout' do
+    session.clear
+    redirect '/'
   end
 
   def user_exists?

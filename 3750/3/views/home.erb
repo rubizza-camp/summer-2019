@@ -10,7 +10,7 @@
     <div class="card">
       <div class="card-body">
         <a href="<%=restaurant.name %>" ><h5 class="card-title"><%= restaurant.name %></h5> </a>
-<!--        <h6 class="card-subtitle mb-2 text-muted"> Average grade : <%#= restaurant.reviews.average(:grade)%></h6>-->
+        <h6 class="card-subtitle mb-2 text-muted"> Average grade : <%= restaurant.reviews.average(:grade)%></h6>
         <p class="card-text"><%= restaurant.description %></p>
         <p class="card-text"><small class="text-muted"><%= restaurant.latitude %> <%= restaurant.longitude %></small></p>
       </div>

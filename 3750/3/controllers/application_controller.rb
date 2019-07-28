@@ -7,8 +7,9 @@ require 'yaml/store'
 require 'securerandom'
 require 'truemail'
 require_relative 'base_controller'
-require_relative 'sessions_controller'
+require_relative 'session_controller'
 require_relative 'restaurant_controller'
+require_relative 'review_controller'
 
 class ApplicationController < BaseController
   configure do
@@ -30,6 +31,7 @@ class ApplicationController < BaseController
     erb :home
   end
 
-  use SessionsController
+  use SessionController
   use RestaurantController
+  use ReviewController
 end
