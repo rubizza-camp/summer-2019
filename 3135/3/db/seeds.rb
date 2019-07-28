@@ -7,6 +7,19 @@ restaurants = [
   { name: 'Good Stuff Restaurant', location: '1286 The Strand, Hermosa Beach, CA 90254, USA', description: 'Founded in 1979, Good Stuff Restaurants have grown to become a staple in the South Bay community. From eggs benedict to delicious fajitas, Good Stuff’s wide range of healthy meal options keep customers coming back for more.' },
 ]
 
+users = [
+  { username: 'testuser1', email: 'tu1@mb.com', password: '123' },
+  { username: 'testuser2', email: 'tu2@mb.com', password: '123' },
+  { username: 'testuser3', email: 'tu3@mb.com', password: '123' },
+  { username: 'johndoe1988', email: 'johndoe@gmail.com', password: 'jd88' },
+  { username: 'janedoe1990', email: 'janedoe@gmail.com', password: 'jd90' }
+]
+
 restaurants.each do |r|
   Restaurant.create(r)
 end
+
+users.each do |u|
+  User.create(u)
+end
+
