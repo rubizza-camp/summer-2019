@@ -1,0 +1,25 @@
+
+<style >
+.carousel {
+        color: blue;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%) }
+</style>
+<form class="form-signin" method="get" action="/about_us">
+<div class="row marketing" class = "carousel">
+  <% @restaurants.each do |restaurant| %>
+    <div class="card mt-5 ml-5" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"> <%= restaurant.name %> </h5>
+        <p class="card-text"> <%= restaurant.short_description %> </p>
+        <a href="/<%= restaurant.name %>" class="btn btn-secondary">About us</a>
+      </div>
+    </div>
+  <% end %>
+</div>
+</form>

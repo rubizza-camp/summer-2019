@@ -1,0 +1,94 @@
+<div class="card">
+  <div class="card-header">
+    <h2><%= @rest.name %></h2>
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-3">
+      <p><h3><%=  @rest.short_description %></h3></p>
+      <footer class="blockquote-footer"><h4><%=  @rest.full_description %></h4></footer>
+      <footer class="blockquote-footer"><h4><%=  @rest.address %></h4></footer>
+      <footer class="blockquote-footer"><h4>Average mark ---- <%= @average_mark.round(1) %></h4></footer>
+    </blockquote>
+  </div>
+</div>
+
+<link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="http://bootstraptema.ru/plugins/font-awesome/4-4-0/font-awesome.min.css" />
+<style>
+  .panel {
+    box-shadow: 0 2px 0 rgba(0,0,0,0.075);
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 15px;
+  }
+  .panel .panel-footer, .panel>:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .panel .panel-heading, .panel>:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .panel-body {
+    padding: 25px 20px;
+  }
+  .media-block .media-left {
+    display: block;
+    float: left
+  }
+  .media-block .media-right {
+    float: right
+  }
+  .media-block .media-body {
+    display: block;
+    overflow: hidden;
+    width: auto
+  }
+  .middle .media-left,
+  .middle .media-right,
+  .middle .media-body {
+    vertical-align: middle
+  }
+
+  .btn-sm, .btn-group-sm>.btn, .btn-icon.btn-sm {
+    padding: 5px 10px !important;
+  }
+  .mar-top {
+    margin-top: 15px;
+  }
+    .abcd {
+      border-color: #cacd58 #5faf8a #b9cea5 #aab238;
+      border-width: 5px;
+      box-sizing: border-box !important;
+      width: 500px;
+    }
+</style>
+
+<% Comment.all.where(place_id: session[:rest_id]).each do |comment| %>
+  <div class=" abcd card mt-5 ml-5" style="box-sizing: border-box">
+    <div class="card-body">
+      <h5 class="card-title"> <%= User.find_by(id: comment.user_id).name %> </h5>
+      <p class="card-text"> <%= comment.text%>. Grade - <%= comment.grade%> </p>
+      <p class="card-text">  </p>
+    </div>
+  </div>
+<% end %>
+
+<form  method="post" action="/rate">
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-body">
+          <p><input type="number" name="rate" value="1" min="1" max="5" step="0.5"></p>
+          <textarea class="form-control" rows="2" placeholder="Add your comment" name = "text"></textarea>
+          <div class="mar-top clearfix">
+            <button class="btn btn-sm btn-primary pull-right" type="submit" > Add </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.row -->
+</section><!-- /.container -->
+</form>
