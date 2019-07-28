@@ -23,8 +23,7 @@ class SessionsController < BaseController
 
     post '/signup' do
       avoid_repeated_login
-      @user = User.new(username: params['username'], email: params['email'],
-                       password: params['password'])
+      @user = User.new(params.slice('username', 'email', 'password'))
       if can_register?
         @user.save
         successful_login
