@@ -1,0 +1,9 @@
+<% @restaurants.each do |restaurant| %>
+    <div>
+        <hr>
+        <h4><%= restaurant.name %></h4>
+        <%= restaurant.location %><br><br>
+        <%= restaurant.description.truncate(150) %>
+        <a href="/<%= restaurant.name.gsub(' ','_') %>">more</a>
+    </div>
+<% end %>
