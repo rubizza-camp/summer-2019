@@ -13,6 +13,11 @@ class ReviewController < BaseController
     redirect "/#{@restaurant.name}"
   end
 
+  post '/review/delete' do
+    review_to_delete = Review.find_by(user_id: session[:user_id])
+    review_to_delete.destroy
+  end
+
   def user_logged?
     session[:user_id]
   end

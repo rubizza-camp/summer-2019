@@ -2,6 +2,7 @@
 <p>
   <a href="/index">list of users</a>
 </p>
+<p>Logged in as <%session[:user_id]%></p>
 <div class="card-columns">
   <% @restaurants.each do |restaurant| %>
     <div class="card">
