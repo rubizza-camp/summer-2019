@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Myapp</title>
+  <title>FoodAdvisor</title>
 </head>
 <body>
   <h1>IM A MAIN HEADER IM EVERYWHERE</h1>
-  <% if flash[:error] %>
-    <% flash[:error].each do |error|  %> 
-      <%= error %>
-    <% end  %>
-  <% end  %>
+
+  <% flash.keys.each do |type| %>
+    <div data-alert class="flash <%= type %> alert-box radius">
+      <%= flash[type] %>
+    </div>
+  <% end %>
+
+  <h2>ID  <%= session[:user_id] %></h2>
+  <a href='/sessions/logout'>выйти</a> 
+
   <%= yield %>
 </body>
 </html>

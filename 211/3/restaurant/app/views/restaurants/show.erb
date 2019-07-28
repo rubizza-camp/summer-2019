@@ -6,10 +6,10 @@
   <li><%= @rest.location %></li>
   <li><%= @rest.description %></li>
 </ul>
-<h2>RATING: <%= @rest.reviews.average(:mark) %></h2>
+<h2>RATING: <%= @rest.reviews.average(:mark).round(2) %></h2>
 <h2>MARKS:</h2>
 <% @rest.reviews.each do |review|%>
-  <strong> <%= review.user %></strong> wrote: <%= review.description %>.... 
+  <strong> <%= review.user.try(:login) %></strong> wrote: <%= review.description %>.... 
   Mark us: <%= review.mark %>
   <br>
 <% end  %>
@@ -17,20 +17,23 @@
 
 <br>
 
-
-<form action="/reviews/create" method="POST">
-    descrbe <input type="text" name="description">
-    <br/>
-    Your grade: <input type="integer" name="mark">
-    <br/>    
-    Your Name: <input type="integer" name="user_id">
-    <input type="hidden" name="restaurant_id" value=<%= @rest.id %>>
-    <br/>
-    <input type="submit">
-</form>
-
+<% if session[:user_id] %>
+  <form action="/reviews/create" method="POST">
+      descrbe <input type="text" name="description">
+      <br/>
+      Your grade: <input type="integer" name="mark">
+      <input type="hidden" name="restaurant_id" value=<%= @rest.id %>>
+      <br/>
+      <input type="submit">
+  </form>
+<% else  %>
+  <p>
+    <a href="/sessions/signup">Sign Up</a> or 
+    <a href="/sessions/login">Log In</a>
+  to leave comment
+  </p>
+<% end  %>
 <br>
 <br>
 
-<a href="/restaurants">Cafe</a>
-<a href="/users">Users</a>
+<a href="/">All restaurants</a>

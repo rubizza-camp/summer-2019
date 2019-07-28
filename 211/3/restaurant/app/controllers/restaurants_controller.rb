@@ -1,12 +1,11 @@
-# require_relative 'base_controller'
 class RestaurantsController < BaseController
-  get '/restaurants' do
+  get '/' do
     @rests = Restaurant.all
-    erb :'restaurants/index', layout: :layout
+    erb :'restaurants/index'
   end
 
   get '/restaurants/:id' do
     @rest = Restaurant.find(params[:id])
-    erb :'restaurants/show', layout: :layout
+    erb :'restaurants/show'
   end
 end

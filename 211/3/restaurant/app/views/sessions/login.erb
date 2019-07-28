@@ -1,10 +1,13 @@
 <h1>Log In Below:</h1>
 
-<form method="post" action="/sessions">
+<form method="post" action="/sessions/login">
   <label for="email">Email:</label>
-  <input type="text" name="email"><br>
+  <input type="email" name="email"><br>
   
   <label for="password">Password:</label>
-  <input type="text" name="password"><br>
+  <input type="password" name="password"><br>
   <input type="submit" value="Log In">
 </form>
+
+or 
+  <a href="/sessions/signup">Sign Up</a>

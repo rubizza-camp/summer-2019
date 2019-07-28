@@ -1,14 +1,16 @@
 <h1>Sign Up Below:</h1>
 
-<form method="post" action="/registrations">
+<form method="post" action="/sessions/signup">
   <label for="login">Name: </label>
   <input type="text" name="login"><br>
   
   <label for="email">Email: </label>
-  <input type="text" name="email"><br>
+  <input type="email" name="email"><br>
   
   <label for="password">Password: </label>
-  <input type="text" name="password"><br>
+  <input type="password" name="password"><br>
   
   <input type="submit" value="Sign Up">
 </form>
+
+  Or <a href="/sessions/login">Log In</a> if you already signed up

@@ -7,6 +7,7 @@ class BaseController < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
   register Sinatra::Contrib
+  register Sinatra::Namespace
 
   helpers Sinatra::FormHelpers
 end
