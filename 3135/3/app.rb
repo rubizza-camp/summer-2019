@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 #require 'pry'
 
+set :environment, :development
 set :database, "sqlite3:db/database.sqlite3"
 enable :sessions
 
@@ -41,6 +42,12 @@ end
 get '/logout' do
   session.clear
   redirect '/'
+end
+
+# add_review
+post '/add_review' do
+  Review.create(params)
+  redirect "/#{Restaurant.find(params[:restaurant_id])[:name]}"
 end
 
 # restaurants_in_detail
