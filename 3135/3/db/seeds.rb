@@ -15,6 +15,17 @@ users = [
   { username: 'janedoe1990', email: 'janedoe@gmail.com', password: 'jd90' }
 ]
 
+reviews = [
+  { user_id: 1, restaurant_id: 1, rating: 5, description: "Nice burgers, crispy fries, fuzzy soda!" },
+  { user_id: 1, restaurant_id: 2, rating: 4, description: "Alright burgers, a bit cold fries, a small soda!" },
+  { user_id: 1, restaurant_id: 3, rating: 3, description: "Decent burgers, moist fries, not that sweet soda!" },
+  { user_id: 1, restaurant_id: 4, rating: 2, description: "Disaster burgers, garbage fries, no soda!" },
+  { user_id: 2, restaurant_id: 1, rating: 4, description: "Solid entree, ok main dish, sweet dessert!" },
+  { user_id: 2, restaurant_id: 2, rating: 3, description: "Regular entree, disproportional main dish, tasteless dessert!" },
+  { user_id: 2, restaurant_id: 3, rating: 2, description: "Terrible entree, heart breaking main dish, minuscule dessert!" },
+  { user_id: 2, restaurant_id: 4, rating: 1, description: "Joke entree, burnt main dish, nogo dessert!" },
+]
+
 restaurants.each do |r|
   Restaurant.create(r)
 end
@@ -22,4 +33,9 @@ end
 users.each do |u|
   User.create(u)
 end
+
+reviews.each do |r|
+  Review.create(r)
+end
+
 

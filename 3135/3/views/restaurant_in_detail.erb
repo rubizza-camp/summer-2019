@@ -4,4 +4,16 @@
     <%= @restaurant.location %>
     <%= @restaurant.description %>
     <%= @restaurant.rating.class.to_s %>
-</div>   
+</div>
+
+<br>
+<h4>Reviews:</h4>
+
+<% @restaurant.reviews.each do |review| %>
+    <div>
+        <hr>
+        <%= review.description %> |
+        by user: <%= review.user[:username] %> |
+        rating: <%= review.rating %>
+    </div>
+<% end %>

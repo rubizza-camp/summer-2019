@@ -4,18 +4,18 @@
     </head>
     <body>
 
-         <% if session[:id].nil? %>
-        <div>
-            <a href="/login">login</a>
-            <a href="/registration">register</a>
-            <hr>
-        </div>
+        <% if session[:id].nil? %>
+            <div>
+                <a href="/login">login</a>
+                <a href="/registration">register</a>
+                <hr>
+            </div>
         <% else %>
-        <div>
-            <%= User.find(session[:id])[:username] %>
-            <a href="/logout">log out</a>
-            <hr>
-        </div>
+            <div>
+                <%= User.find(session[:id])[:username] %>
+                <a href="/logout">log out</a>
+                <hr>
+            </div>
         <% end %>
 
         <div align="center">
