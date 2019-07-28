@@ -83,8 +83,7 @@ class ApplicationController < Sinatra::Base
     avg_mark = Review.all.where(restraunt_id: params[:id]).ids.reduce(:+)
     @restraunt.update(avg_mark: avg_mark)
     @location = { langitude: @restraunt.location.split(',')[0],
-    			 longitude: @restraunt.location.split(',')[1].delete(' ')
-    		    }
+                  longitude: @restraunt.location.split(',')[1].delete(' ') }
     erb :restraunt
   end
 
