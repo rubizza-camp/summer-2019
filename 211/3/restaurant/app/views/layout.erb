@@ -2,19 +2,32 @@
 <html>
 <head>
   <title>FoodAdvisor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
-  <h1>IM A MAIN HEADER IM EVERYWHERE</h1>
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">FoodAdvisor</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/">All restaurants</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>  <% if session[:user_id] %>
+              <a href='/sessions/logout'>Log Out</a> 
+            <% end %>  
+      </li>
+    </ul>
+  </div>
+  </nav>
 
   <% flash.keys.each do |type| %>
-    <div data-alert class="flash <%= type %> alert-box radius">
+    <div class="alert alert-info" role="alert">
       <%= flash[type] %>
     </div>
   <% end %>
-
-  <h2>ID  <%= session[:user_id] %></h2>
-  <a href='/sessions/logout'>выйти</a> 
-
   <%= yield %>
+
 </body>
 </html>

@@ -1,28 +1,38 @@
-<h2><%= @rest.name %></h2>
-<%= image(@rest.photo, options={height: 200}) %>
-<%= @rest.photo %>
-<ul>
-  <li><%= @rest.id %></li>
-  <li><%= @rest.location %></li>
-  <li><%= @rest.description %></li>
-</ul>
-<h2>RATING: <%= @rest.reviews.average(:mark).round(2) %></h2>
-<h2>MARKS:</h2>
-<% @rest.reviews.each do |review|%>
-  <strong> <%= review.user.try(:login) %></strong> wrote: <%= review.description %>.... 
-  Mark us: <%= review.mark %>
-  <br>
-<% end  %>
+<div class="text-center" style="margin:30px">
+  <div class="media">
+    <div class="media-left">
+      <%= image("../#{@rest.photo}", options={width: 500}) %>
+    </div>
+    <div class="media-body">
+      <h2 class="media-heading"><%= @rest.name %></h2>
+      <p> <%= @rest.location %></p>
+      <p> <%= @rest.description %></p>
+      <h3>RATING: <%= @rest.reviews.average(:mark).round(2) %></h3>
+    </div>
+  </div>
+</div>
 
+<div style="margin:30px">
+  <h3>Reviews:</h3>
+  <% @rest.reviews.each do |review|%>
+    <p><strong> <%= review.user.try(:login) %></strong> gives us  <strong><%=  review.mark %></strong> points and wrote:
+    <%= review.description %></p>
+  <% end  %>
+</div>
 
 <br>
 
+<div class="text-center" style="margin:30px">
 <% if session[:user_id] %>
   <form action="/reviews/create" method="POST">
-      descrbe <input type="text" name="description">
-      <br/>
-      Your grade: <input type="integer" name="mark">
-      <input type="hidden" name="restaurant_id" value=<%= @rest.id %>>
+    <p>Hi, <%= User.find(session[:user_id]).login %>! Rate us </p>
+    <% (1..5).each do |num| %>
+      <input type="radio" id="mark_<%=num%>" name="mark" value=<%=num%>>
+      <label for="mark_<%=num%>"><%=num%></label>
+    <% end %>  
+    <p> Describe your expirience </p>
+    <textarea name="description" cols="40" rows="5"></textarea>
+    <input type="hidden" name="restaurant_id" value=<%= @rest.id %>>
       <br/>
       <input type="submit">
   </form>
@@ -33,7 +43,4 @@
   to leave comment
   </p>
 <% end  %>
-<br>
-<br>
-
-<a href="/">All restaurants</a>
+</div>

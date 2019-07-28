@@ -1,35 +1,15 @@
-<ol>
+<div class="row">
   <% @rests.each do |rest| %>
-    <li> 
-      <h2><%= link(rest.name, href = "restaurants/#{rest.id}")  %></h2>
-      <%= image(rest.photo, options={height: 200}) %>
-      <%= rest.photo %>
-      <ul>
-        <li>RATING: <%= rest.reviews.average(:mark).round(2) %></li>
-    	  <li><%= rest.location %></li>
-        <li><%= rest.description %></li>
-      </ul>
-    </li>
-      <% end %>
-</ol>
-
-
-<div class="menu-item-tile col-md-6">
-  <div class="row">
-      <% @rests.each do |rest| %>
-    <div class="col-sm-5">
-      <div class="menu-item-photo">
-        
-        <img class="img-responsive" width="250" height="150" src=<%=rest.photo%> alt="Item">
+    <div class="col-md-4">
+      <div class="thumbnail">
+          <h3> <%= link(rest.name, href = "restaurants/#{rest.id}") %></h3>
+          <%= image(rest.photo, options={style: "width:100%"}) %>
+          <div class="caption">
+          	<h4>RATING: <%= rest.reviews.average(:mark).round(2) %></h4>
+            <p><%= rest.location %></p>
+            <p><%= rest.description %></p>
+          </div>
       </div>
     </div>
-    <div class="menu-item-description col-sm-7">
-      <h2></h2>
-      <h3 class="menu-item-title"><%= link(rest.name, href = "restaurants/#{rest.id}")  %></h3>
-      <p class="menu-item-details"><%= rest.location %></p>
-      <p class="menu-item-details"><%= rest.description %></p>
-    </div>
-      <% end %>
-  </div>
- 
+  <% end %>
 </div>
