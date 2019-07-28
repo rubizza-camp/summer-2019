@@ -12,7 +12,7 @@
         </div>
         <% else %>
         <div>
-            you are logged in as <%= User.find(session[:id])[:username] %>
+            <%= User.find(session[:id])[:username] %>
             <a href="/logout">log out</a>
             <hr>
         </div>
