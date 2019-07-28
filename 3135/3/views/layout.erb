@@ -3,11 +3,20 @@
         <title>MUNCH BUNCH</title>
     </head>
     <body>
+
+         <% if @logged_in.nil? %>
         <div>
             <a href="/login">login</a>
             <a href="/registration">register</a>
             <hr>
         </div>
+        <% else %>
+        <div>
+            you are logged in as <%= User.find(@logged_in)[:username] %>
+            <a href="/logout">log out</a>
+            <hr>
+        </div>
+        <% end %>
 
         <div align="center">
            <h1><a href="/" style="text-decoration: none">MUNCH BUNCH</a></h1>
