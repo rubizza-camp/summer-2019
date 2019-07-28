@@ -11,12 +11,13 @@ get '/' do
 end
 
 # registration
-get '/register' do
+get '/registration' do
   erb :registration_form, :layout => :layout
 end
 
-post '/register' do
-  puts params.inspect
+post '/registration' do
+  User.create(params)
+  redirect '/'
 end
 
 # restaurants_in_detail
