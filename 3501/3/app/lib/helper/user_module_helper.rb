@@ -31,7 +31,7 @@ module UserHelper
 
   def signin_user_with_session(post, current_user)
     user_token_random = SecureRandom.base64(124)
-    expired_time = post.params[:save_user] == 'on' ? (Time.now + 30).to_time : nil
+    expired_time = post.params[:save_user] == 'on' ? (Time.now + 2_592_000).to_time : nil
     generate_user_token_id(post, expired_time, user_token_random)
     current_user.update_attribute(:session, user_token_random)
   end
@@ -57,7 +57,7 @@ module UserHelper
   end
 
   def generate_new_user_session(post, user_token_random)
-    expired_time = (Time.now + 30).to_time
+    expired_time = (Time.now + 2_592_000).to_time
     generate_user_token_id(post, expired_time, user_token_random)
   end
 
