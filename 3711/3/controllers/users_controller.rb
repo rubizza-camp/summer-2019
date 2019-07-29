@@ -6,24 +6,24 @@ class UsersController < Sinatra::Base
   include CryptHelper
 
   configure do
-    set :views, Proc.new { File.join(root, '../views/users') }
+    set :views, proc { File.join(root, '../views/users') }
   end
 
   get '/login' do
+    session[:back] = back
     erb :login
   end
 
   post '/login' do
     @user = User.find_by(mail: params[:mail])
-    return redirect '/' if user_exists?
+    return erb :login unless user_exists?
 
-    session[:user_id] = @user.id
-    puts @user
-    puts session[:user_id]
-    erb :login
+    session[:user] = @user
+    redirect session[:back] || '/'
   end
 
   get '/signup' do
+    session[:back] = back
     erb :signup
   end
 
@@ -31,16 +31,12 @@ class UsersController < Sinatra::Base
     @user = User.create(mail: params['mail'], username: params['username'],
                         pass_hash: md5_encrypt(params['password']),
                         first_name: params['f_name'], last_name: params['l_name'])
-    session[:user_id] = @user.id
-    redirect '/'
+    session[:user] = @user
+    redirect session[:back] || '/'
   end
 
-  # get '/users' do
-  #   erb :index
-  # end
-
-  # get '/users/:user_id' do
-  #   @user_id = params['name']
-  #   erb :user
-  # end
+  get '/logoff' do
+    session[:user] = @user
+    redirect back
+  end
 end

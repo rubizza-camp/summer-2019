@@ -2,11 +2,11 @@ require_relative 'crypt'
 
 module AuthHelper
   def loged_in?
-    session.key?(:user_id) && session[:user_id]
+    session.key?(:user) && session[:user]
   end
 
-  def currect_user_id
-    session[:user_id]
+  def currect_user
+    session[:user]
   end
 
   def user_exists?
