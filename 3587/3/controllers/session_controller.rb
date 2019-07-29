@@ -2,7 +2,6 @@ require 'sinatra/base'
 require 'sinatra/session'
 require 'truemail'
 
-
 class SessionController < ApplicationController
   register Sinatra::Session
   get '/register' do

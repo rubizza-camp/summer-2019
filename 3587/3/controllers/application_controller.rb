@@ -7,9 +7,7 @@ require './models/user'
 require './models/shop'
 require './models/review'
 
-
-set :database, "sqlite3:users.sqlite3"
-
+set :database, 'sqlite3:users.sqlite3'
 class ApplicationController < Sinatra::Base
   register Sinatra::Session
   configure do
