@@ -8,8 +8,8 @@ var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: {lat: 59.325, lng: 18.070}
 });
-latitudeEl.oninput = ()=> { onLatitudeElChanged(map); };
-longitudeEl.oninput = ()=> { onLongitudeElChanged(map); };
+latitudeEl.oninput = function(map){ onLatitudeElChanged(map); };
+longitudeEl.oninput = function(map){ onLongitudeElChanged(map); };
 
 
 marker = new google.maps.Marker({
@@ -66,9 +66,9 @@ function onMargerMoved()  {
 
 function onLatitudeElChanged(map) {
     marker.setPosition(new google.maps.LatLng(latitudeEl.value,marker.getPosition().lng()));
-    map.setCenter(marker.getPosition());
+    marker.getMap().setCenter(marker.getPosition());
 }
 function onLongitudeElChanged(map) {
     marker.setPosition(new google.maps.LatLng(marker.getPosition().lat(),longitudeEl.value));
-    map.setCenter(marker.getPosition());
+    marker.getMap().setCenter(marker.getPosition());
 }
