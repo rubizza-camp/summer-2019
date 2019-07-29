@@ -1,0 +1,8 @@
+- @places.each do |place|
+  .card{:style => "width: 18rem;"}
+    .card-body
+      %h5.card-title
+        = place.name
+      %p.card-text 
+        = place.description
+      %a.btn.btn-primary{:href => "/places/#{place.id}"} View
