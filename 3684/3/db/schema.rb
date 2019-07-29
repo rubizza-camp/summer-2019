@@ -10,27 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_183502) do
-
-  create_table "comments", force: :cascade do |t|
-    t.string "text"
-    t.integer "user_id"
-    t.integer "restaurant_id"
-    t.integer "score"
+ActiveRecord::Schema.define(version: 20_190_728_183_502) do
+  create_table 'comments', force: :cascade do |t|
+    t.string 'text'
+    t.integer 'user_id'
+    t.integer 'restaurant_id'
+    t.integer 'score'
   end
 
-  create_table "restaurants", force: :cascade do |t|
-    t.string "location"
-    t.string "name"
-    t.string "short_description"
-    t.string "full_description"
-    t.float "score"
+  create_table 'restaurants', force: :cascade do |t|
+    t.string 'location'
+    t.string 'name'
+    t.string 'short_description'
+    t.string 'full_description'
+    t.float 'score'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password"
+  create_table 'users', force: :cascade do |t|
+    t.string 'name'
+    t.string 'email'
+    t.string 'password'
   end
-
 end
