@@ -1,0 +1,21 @@
+<table class="table table-bordered m-3" style='width: 96%'>
+  <thead class="thead-light">
+    <tr>
+      <th>#</th>
+      <th>Place Name</th>
+      <th>Description</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @places.each do |place| %>
+    <tr>
+      <th scope="row"><%=place.id%></th>
+      <td><a href='place/<%=place.id%>'><%= place.name %></a></td>
+      <td><%= place.main_description %></td>
+      <td><%= place.location %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

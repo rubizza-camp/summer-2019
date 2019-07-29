@@ -1,0 +1,16 @@
+<div class="container mt-3" style="width:50%;">  
+  <form method="POST" action="/sign_in" class="was-validated">
+    <div class="mb-3">
+      <label for="validationEmail">Email</label>
+      <input type="text" class="form-control" name="email" id="validationEmail" placeholder="Email" required>
+      <div class="invalid-feedback">Fill in this field</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="validationPassword">Password</label>
+      <input type="password" class="form-control" id="validationPassword" name="password" minlength="3" placeholder="Password" required>
+      <div class="invalid-feedback">Fill in this field</div>
+    </div>
+    <button type="submit" class="btn btn-outline-dark justify-content-center">Sign in</button>
+  </form>
+</div>
