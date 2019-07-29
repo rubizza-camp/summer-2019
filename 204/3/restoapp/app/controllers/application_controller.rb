@@ -6,7 +6,6 @@ require 'sinatra/session'
 # :reek:all
 
 class ApplicationController < Sinatra::Base
-
   register Sinatra::Session
   helpers Sinatra::Param
 
@@ -89,21 +88,21 @@ class ApplicationController < Sinatra::Base
 
   private
 
-def median(reviews)
-  array = []
-  reviews.each do |review|
-    array.push(review.mark)
+  def median(reviews)
+    array = []
+    reviews.each do |review|
+      array.push(review.mark)
+    end
+    sorted = array.sort
+    len = sorted.length
+    (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
   end
-  sorted = array.sort
-  len = sorted.length
-  (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
-end
 
-def hash_password(password)
-  BCrypt::Password.create(password).to_s
-end
+  def hash_password(password)
+    BCrypt::Password.create(password).to_s
+  end
 
-def validate_password(hash_password, _password)
-  BCrypt::Password.new(hash_password) == params[:password]
-end
+  def validate_password(hash_password, _password)
+    BCrypt::Password.new(hash_password) == params[:password]
+  end
 end
