@@ -1,0 +1,12 @@
+---
+gem:
+- rails
+- bundler
+- byebug
+- capybara
+- chartkick
+- devise
+- webdrivers
+- watir
+- tty-table
+- puma
