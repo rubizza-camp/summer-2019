@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 %w[bundler logger yaml open-uri json time fileutils].each(&method(:require))
 
 Bundler.require(:default)
