@@ -14,8 +14,8 @@ var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: {lat: 59.325, lng: 18.070}
 });
-latitudeEl.oninput = ()=> { onLatitudeElChanged(map) };
-longitudeEl.oninput = ()=> { onLongitudeElChanged(map)};
+latitudeEl.oninput = ()=> { onLatitudeElChanged(map); };
+longitudeEl.oninput = ()=> { onLongitudeElChanged(map); };
 
 
 marker = new google.maps.Marker({
