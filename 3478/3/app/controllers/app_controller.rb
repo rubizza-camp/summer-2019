@@ -8,11 +8,8 @@ require 'erb'
 require 'sinatra/flash'
 require 'dotenv'
 require 'truemail'
-require 'pry'
-
-require_relative '../models/users'
-require_relative '../models/restaurants'
-require_relative '../models/comments'
+require 'require_all'
+require_rel '../models/'
 
 require_relative 'restaurant_controller'
 require_relative 'user_controller'
