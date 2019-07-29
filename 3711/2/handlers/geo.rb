@@ -4,7 +4,7 @@ module GeoHandler
     save_context :check_geo
   end
 
-  def check_geo(*)
+  def check_geo
     if geo?
       handle_geo
       change_status

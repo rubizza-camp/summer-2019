@@ -3,7 +3,7 @@ require_relative '../handlers/geo'
 
 module PhotoHandler
   include GeoHandler
-  
+
   def ask_photo
     respond_with :message, text: 'Send me your selfie :D'
     save_context :check_photo

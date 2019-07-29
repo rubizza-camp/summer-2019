@@ -9,7 +9,7 @@ module Authentification
     session.key?(:student_id)
   end
 
-  def registrate(*)
+  def registrate
     save_context :identification
     respond_with :message, text: "You have to authorise.\nWhat\'s your camp ID?"
   end

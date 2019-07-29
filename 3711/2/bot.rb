@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'telegram/bot'
-require './commands/start'
-require './commands/checkin'
-require './commands/checkout'
+require_relative 'commands/start'
+require_relative 'commands/checkin'
+require_relative 'commands/checkout'
 
 class WebhooksController < Telegram::Bot::UpdatesController
   include StartCommand

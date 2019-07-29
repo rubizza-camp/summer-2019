@@ -26,12 +26,16 @@ class Downloader
       JSON.parse(response)['result']['file_path']
     end
 
+    def save_data(path, &block)
+      File.open(path, 'wb') { block }
+    end
+
     def save_location_to_folder(file_name, location, session)
-      File.open(folder_path(session) + file_name, 'wb') { |file| file.puts location }
+      save_data(folder_path(session) + file_name) { |file| file.puts location }
     end
 
     def save_photo_to_folder(file_name, file_path, session)
-      File.open(folder_path(session) + file_name, 'wb') do |file|
+      save_data(folder_path(session) + file_name) do |file|
         file << URI.parse(BOT_API_STORAGE_URL + file_path).read
       end
     end
