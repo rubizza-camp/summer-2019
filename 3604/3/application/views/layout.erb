@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Users</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
   </head>
 
   <body>
@@ -16,9 +16,9 @@
       <% end %>
     </header>
 
-    <% if flash.has?(:message) %>
+    <% if flash.has?(:error) %>
       <div class = 'alert_box'>
-        <%= flash[:message] %>
+        <%= flash[:error] %>
       </div>
     <% end %>
 

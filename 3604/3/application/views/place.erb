@@ -1,0 +1,31 @@
+<div class = 'place'>
+  <a class = 'name' href = '/place/<%= @place.id%>' ><%= @place.name %></a>
+  <p class = 'location'>Adress: <%= @place.location %></p>
+  <p class = 'main_description'>Description: <%= @place.main_description %></p>
+  <p class = 'main_description'><%= @place.main_description %></p>
+  <img src = <%= @place.path_to_image %> alt='Place is <%= @place.name %>'>
+  <% if @stars %>
+    <p><%= @stars %></p>
+  <% end %>
+</div>
+<div class = 'reviews'>
+<% if @reviews %>
+  <% @reviews.each do |review| %>
+      <div class="card card-body m-1">
+        <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
+        <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
+        <p class="card-text"><%= review.text %>
+          <button class="btn btn-<%if review.grade >2 %>success<%else%>danger<%end%> btn-sm float-right"  disabled>
+          <span class="fa fa-star"></span>   <%= review.grade%>
+          </button>
+        </p>
+      </div>
+  <% end %>
+<% end %>
+<form action='/review/<%=@place.id%>' method='GET'>
+  <% if session[:user_id] %>
+    <button type="button" class="btn_send_feedback">Send feedback</button>
+  <% end %>
+</form>
+</div>
+

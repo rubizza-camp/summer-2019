@@ -1,20 +1,6 @@
-require 'sinatra/session'
-require 'sinatra'
-require './models/user.rb'
 require 'rack-flash'
-require 'dotenv'
-
 class UserController < Sinatra::Base
-  register Sinatra::Session
-  register Sinatra::ActiveRecordExtension
-
-  use Rack::Flash
-
   set views: proc { File.join(root, '../views/') }
-  set models: proc { File.join(root, '../models/') }
-  set :session_fail, '/sign_in'
-  Dotenv.load
-  set :session_secret, ENV['SESSION_SECRET']
 
   get '/sign_in' do
     if session?
@@ -31,7 +17,7 @@ class UserController < Sinatra::Base
       session[:user_id] = @user.id
       redirect '/main'
     else
-      flash[:message] = 'Incorrect password or you do not sign up'
+      flash[:error] = I18n.t(:incorrect_sign_in)
       redirect '/sign_in'
     end
   end
@@ -57,8 +43,10 @@ class UserController < Sinatra::Base
       session[:user_id] = @user.id
       redirect '/main'
     else
-      flash[:message] = 'Invalid email'
+      flash[:error] = I18n.t(:incorrect_sign_up)
       redirect '/sign_up'
     end
   end
+
+  use Rack::Flash
 end

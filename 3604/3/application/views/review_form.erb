@@ -1,0 +1,19 @@
+<div class = 'review_form'>
+  <form method = 'POST' action = '/review/<%= @place.id%>'>
+    <div class="col">
+      <select class="form-control mb-3" style='width: 80px;' name='grade'>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+
+    </div>
+        <textarea style="height: 250px;" type="text" name="text" class="form-control" placeholder="Text" required></textarea>
+    </div>
+    
+    <button type="submit" class="btn_add_review">Add review</button>
+  </form>
+</div>

@@ -13,6 +13,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    bcrypt (3.1.13)
     concurrent-ruby (1.1.5)
     dotenv (2.7.4)
     i18n (1.6.0)
@@ -25,6 +26,7 @@ GEM
     rack-protection (2.0.5)
       rack
     rake (12.3.3)
+    require_all (2.0.0)
     sinatra (2.0.5)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -46,9 +48,11 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (= 5.2.3)
+  bcrypt (= 3.1.13)
   dotenv (= 2.7.4)
   rack-flash3 (= 1.0.5)
   rake (= 12.3.3)
+  require_all (= 2.0.0)
   sinatra-activerecord (= 2.0.13)
   sinatra-session (= 1.0.0)
   sqlite3 (= 1.4.1)
