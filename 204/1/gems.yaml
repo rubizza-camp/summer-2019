@@ -1,0 +1,13 @@
+gems:
+ - sinatra
+ - github_api
+ - byebug
+ - nokogiri
+ - r2d2
+ - rails
+ - octokit
+ - terminal-table
+ - active_attr
+ - active_utils
+ - active_hash
+ - active-fedora

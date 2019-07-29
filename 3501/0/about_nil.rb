@@ -1,5 +1,9 @@
+# rubocop:disable Style/RedundantBegin
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:NilCheck
+# This method smells of :reek:UncommunicativeVariableName
 class AboutNil < Neo::Koan
   def test_nil_is_an_object
     assert_equal true, nil.is_a?(Object), 'Unlike NULL in other languages'
@@ -9,18 +13,16 @@ class AboutNil < Neo::Koan
     # What happens when you call a method that doesn't exist.  The
     # following begin/rescue/end code block captures the exception and
     # makes some assertions about it.
+    begin
+      nil.some_method_nil_doesnt_know_about
+    rescue StandardError => e
+      # What exception has been caught?
+      assert_equal NoMethodError, e.class
 
-    nil.some_method_nil_doesnt_know_about
-  rescue Exception => e # rubocop:disable Lint/RescueException
-    # What exception has been caught?
-
-    assert_equal ::NoMethodError, e.class
-
-    part_of_the_error_mes = "undefined method `some_method_nil_doesnt_know_about' for nil:NilClass"
-    # What message was attached to the exception?
-    # (HINT: replace __ with part of the error message.)
-
-    assert_match(/#{part_of_the_error_mes}/, e.message)
+      # What message was attached to the exception?
+      # (HINT: replace __ with part of the error message.)
+      assert_match(/`some_method_nil_doesnt_know_about'/, e.message)
+    end
   end
 
   def test_nil_has_a_few_methods_defined_on_it
@@ -37,3 +39,4 @@ class AboutNil < Neo::Koan
     # Why?
   end
 end
+# rubocop:enable Style/RedundantBegin

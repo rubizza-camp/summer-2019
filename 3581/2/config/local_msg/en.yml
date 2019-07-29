@@ -1,0 +1,13 @@
+en:
+  selfie: 'Send me your selfie now.'
+  not_selfie: 'Try again. I need your selfie.'
+  already_checkin: 'Sorry, I will not checkin you twice!'
+  not_registered: 'Do not try to deceive me.  You must register! Enter /start!'
+  not_checkin: 'You must try /checkin at first.'
+  already_registred: 'Hello! You have already been registered.'
+  not_registred: 'Hello, send me your number, please.'
+  success_registered: 'Yohoo! You are finally registered.'
+  wrong_number: 'Do not try to deceive me. Enter your number correctly!'
+  geolocation_is: 'Send me your geolocation'
+  not_geolocation: 'It seems, you are not in a camp. Try again.'
+  success: 'Well done! Good luck today.'

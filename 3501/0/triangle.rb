@@ -13,18 +13,23 @@
 # and
 #   about_triangle_project_2.rb
 #
+#:reek:ControlParameter
+#:reek:UtilityFunction
 def triangle_kind(side_a, side_b, side_c)
   return :equilateral if (side_a == side_b) && (side_b == side_c)
-  return :isosceles if (side_a == side_b) || (side_b == side_c) || (side_c == side_a)
+  if (side_a == side_b) ||
+     (side_b == side_c) ||
+     (side_c == side_a)
+    return :isosceles
+  end
 
   :scalene
 end
 
+#:reek:TooManyStatements
 def triangle(side_a, side_b, side_c)
-  variable_one = side_a + side_b
-  variable_two = side_b + side_c
-  variable_tree = side_c + side_a
-  if variable_one <= side_c || variable_two <= side_a || variable_tree <= side_b
+  raise(TriangleError, 'Bad side length') if [side_a, side_b, side_c].min <= 0
+  if side_a + side_b <= side_c || side_b + side_c <= side_a || side_c + side_a <= side_b
     raise TriangleError, 'Bad side length: triangle does not exist'
   end
 

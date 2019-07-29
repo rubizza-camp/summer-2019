@@ -20,25 +20,27 @@ class Proxy
     @messages = []
   end
 
-  def respond_to_missing?(name, include_private); end
-
-  def method_missing(sym, *args, &block)
-    @messages << sym
-    return @object.send(sym, *args, &block)
-    super # rubocop:disable Lint/UnreachableCode
+  def called?(message)
+    @messages.include?(message)
   end
 
-  def called?(method)
-    @messages.include?(method)
+  def number_of_times_called(message)
+    @messages.count(message)
   end
 
-  def number_of_times_called(method)
-    @messages.select { |m| m == method }.size
+  # rubocop:disable Style/MethodMissing
+  def method_missing(method_name, *args, &block)
+    @messages << method_name
+    @object.send(method_name, *args, &block)
   end
+  # rubocop:enable Style/MethodMissing
 end
 
 # The proxy object should pass the following Koan:
 #
+# This method smells of :reek:FeatureEnvy
+# This method smells of :reek:InstanceVariableAssumption
+# This method smells of :reek:TooManyStatements
 class AboutProxyObjectProject < Neo::Koan
   def test_proxy_method_returns_wrapped_object
     # NOTE: The Television class is defined below
@@ -114,6 +116,8 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# This method smells of :reek:Attribute
+# This method smells of :reek:InstanceVariableAssumption
 class Television
   attr_accessor :channel
 
@@ -131,6 +135,9 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+# This method smells of :reek:FeatureEnvy
+# This method smells of :reek:InstanceVariableAssumption
+# This method smells of :reek:TooManyStatements
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new

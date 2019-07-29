@@ -1,9 +1,12 @@
+# rubocop:disable Naming/AccessorMethodName
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:FeatureEnvy
 class AboutModules < Neo::Koan
   module Nameable
-    def name(new_name)
-      @attr_name = new_name
+    def set_name(new_name)
+      @name = new_name
     end
 
     def here
@@ -22,10 +25,10 @@ class AboutModules < Neo::Koan
   class Dog
     include Nameable
 
-    attr_reader :attr_name
+    attr_reader :name
 
     def initialize
-      @attr_name = 'Fido'
+      @name = 'Fido'
     end
 
     def bark
@@ -45,15 +48,15 @@ class AboutModules < Neo::Koan
   def test_module_methods_are_also_available_in_the_object
     fido = Dog.new
     assert_nothing_raised do
-      fido.name('Rover')
+      fido.set_name('Rover')
     end
   end
 
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
-    assert_equal 'Fido', fido.attr_name
-    fido.name('Rover')
-    assert_equal 'Rover', fido.attr_name
+    assert_equal 'Fido', fido.name
+    fido.set_name('Rover')
+    assert_equal 'Rover', fido.name
   end
 
   def test_classes_can_override_module_methods
@@ -61,3 +64,4 @@ class AboutModules < Neo::Koan
     assert_equal :in_object, fido.here
   end
 end
+# rubocop:enable Naming/AccessorMethodName

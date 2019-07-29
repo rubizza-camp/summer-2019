@@ -1,0 +1,9 @@
+gems:
+ - rails
+ - rubizza
+ - devise
+ - grape
+ - rspec
+ - bullet
+ - capistrano
+

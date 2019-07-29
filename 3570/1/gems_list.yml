@@ -1,0 +1,12 @@
+gems:
+  - sinatra
+  - rspec
+  - rack
+  - rake
+  - bundler
+  - rubocop
+  - devise
+  - mini_magick
+  - byebug
+  - capybara
+  - rails

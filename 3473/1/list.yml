@@ -1,0 +1,22 @@
+gems:
+  - activerecord-import
+  - primary
+  - rollout
+  - pry
+  - wicked_pdf
+  - cocoon
+  - grape
+  - rake
+  - webpacker
+  - bullet
+  - geocoder
+  - vcr
+  - parallel_tests
+  - capistrano
+  - bundler-audit
+  - shoulda-matchers
+  - devise_masquerade
+  - sidekiq-cron
+  - ancestry
+  - lit
+

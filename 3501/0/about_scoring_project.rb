@@ -8,8 +8,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # * A set of three ones is 1000 points
 #
-# * A set of three numbers (other than ones) is worth 100 times the
-#   number. (e.g. three fives is 500 points).
+# * A set of three sidebers (other than ones) is worth 100 times the
+#   sideber. (e.g. three fives is 500 points).
 #
 # * A one (that is not part of a set of three) is worth 100 points.
 #
@@ -28,45 +28,26 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
-def set_points(dice_array, index, multipler)
-  counter = 0
-  dice_array.each do |item|
-    counter += 1 if item == index
-    if counter == 3
-      dice_array.slice!(dice_array.index(index)..dice_array.index(index) + counter - 1)
-      return index * multipler
+
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UtilityFunction
+def score(dice) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  dice.uniq.sum do |side|
+    count = dice.count(side)
+    case side
+    when 1
+      side * 1000 * (count / 3) + (count % 3) * 100
+    when 5
+      side * 100 * (count / 3) + (count % 3) * 50
+    else
+      side * 100 * (count / 3)
     end
   end
-  0
 end
 
-def solo_points(dice_array, index, multipler)
-  dice_array.each do |item|
-    next unless item == index
-
-    count = dice_array.count(index)
-    dice_array.slice!(dice_array.index(index))
-    return multipler * count
-  end
-  0
-end
-
-def score(dice)
-  dice.sort!
-  points = 0
-
-  # Finding set of three numbers and deleting them
-  points += set_points(dice, 1, 1000)
-  (2..6).each do |item|
-    points += set_points(dice, item, 100)
-  end
-  # Finding solo one or five
-  points += solo_points(dice, 1, 100)
-  points += solo_points(dice, 5, 50)
-
-  points
-end
-
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:UncommunicativeMethodName
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
     assert_equal 0, score([])

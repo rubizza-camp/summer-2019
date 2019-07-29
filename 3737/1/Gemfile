@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+gem 'nokogiri', '~> 1.8.2'
+gem 'terminal-table', '~> 1.8.0'
+gem 'xpath', '~> 3.2.0'

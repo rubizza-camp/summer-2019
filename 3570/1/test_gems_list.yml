@@ -1,0 +1,4 @@
+gems:
+  - rspec
+  - rack
+  - rails

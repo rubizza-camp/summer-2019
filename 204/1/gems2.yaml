@@ -1,0 +1,6 @@
+gems:
+ - r2d2
+ - rails
+ - octokit
+ - terminal-table
+ - activesupport

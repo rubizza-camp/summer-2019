@@ -1,5 +1,10 @@
+# rubocop:disable Metrics/AbcSize
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:FeatureEnvy
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = {}
@@ -23,7 +28,7 @@ class AboutHashes < Neo::Koan
   def test_accessing_hashes_with_fetch
     hash = { one: 'uno' }
     assert_equal 'uno', hash.fetch(:one)
-    assert_raise(IndexError) do
+    assert_raise(KeyError) do
       hash.fetch(:doesnt_exist)
     end
 
@@ -72,8 +77,8 @@ class AboutHashes < Neo::Koan
 
     assert_equal true, hash != new_hash
 
-    expected = { 'jim' => 54, 'amy' => 20, 'dan' => 23, 'jenny' => 26 }
-    assert_equal true, expected == new_hash
+    expected = { 'jim' => 53, 'amy' => 20, 'dan' => 23, 'jenny' => __ }
+    assert_equal false, expected == new_hash
   end
 
   def test_default_value
@@ -90,7 +95,7 @@ class AboutHashes < Neo::Koan
     assert_equal 'dos', hash2[:two]
   end
 
-  def test_default_value_is_the_same_object # rubocop:disable Metrics/AbcSize
+  def test_default_value_is_the_same_object
     hash = Hash.new([])
 
     hash[:one] << 'uno'
@@ -104,13 +109,14 @@ class AboutHashes < Neo::Koan
   end
 
   def test_default_value_with_block
-    new_hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |h, key| h[key] = [] }
 
-    new_hash[:one] << 'uno'
-    new_hash[:two] << 'dos'
+    hash[:one] << 'uno'
+    hash[:two] << 'dos'
 
-    assert_equal ['uno'], new_hash[:one]
-    assert_equal ['dos'], new_hash[:two]
-    assert_equal [], new_hash[:three]
+    assert_equal ['uno'], hash[:one]
+    assert_equal ['dos'], hash[:two]
+    assert_equal [], hash[:three]
   end
 end
+# rubocop:enable Metrics/AbcSize

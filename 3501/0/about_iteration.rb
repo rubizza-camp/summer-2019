@@ -1,5 +1,11 @@
+# rubocop:disable Lint/AmbiguousBlockAssociation
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# This method smells of :reek:TooManyStatements
+# This method smells of :reek:UtilityFunction
+# This method smells of :reek:UncommunicativeVariableName
+# This method smells of :reek:NestedIterators
 class AboutIteration < Neo::Koan
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 and later stores names
@@ -66,18 +72,18 @@ class AboutIteration < Neo::Koan
   def test_select_selects_certain_items_from_an_array
     array = [1, 2, 3, 4, 5, 6]
 
-    even_numbers = array.select(&:even?)
+    even_numbers = array.select { |item| (item % 2).zero? }
     assert_equal [2, 4, 6], even_numbers
 
     # NOTE: 'find_all' is another name for the 'select' operation
-    more_even_numbers = array.find_all(&:even?)
+    more_even_numbers = array.find_all { |item| (item % 2).zero? }
     assert_equal [2, 4, 6], more_even_numbers
   end
 
   def test_find_locates_the_first_element_matching_a_criteria
     array = %w[Jim Bill Clarence Doug Eli]
 
-    assert_equal 'Clarence', (array.find { |item| item.size > 4 })
+    assert_equal 'Clarence', array.find { |item| item.size > 4 }
   end
 
   def test_inject_will_blow_your_mind
@@ -119,3 +125,4 @@ class AboutIteration < Neo::Koan
   #
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 end
+# rubocop:enable Lint/AmbiguousBlockAssociation
