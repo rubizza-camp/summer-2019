@@ -7,7 +7,7 @@ require './app/lib/user'
 class ApplicationController < Sinatra::Base
   helpers Sinatra::Cookies
   get('/') do
-    @current_user = User.find_user_by_token(cookies[:user_token_id])
+    session[:current_user] = User.find_user_by_token(cookies[:user_token_id])
     erb(:main)
   end
 

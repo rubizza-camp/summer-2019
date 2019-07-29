@@ -23,7 +23,7 @@ class SignController < Sinatra::Base
   post('/signup') do
     return redirect('/signup') unless User.create_new_user(self)
 
-    @current_user = User.find_user_by_token(cookies[:user_token_id])
+    session[:current_user] = User.find_user_by_token(cookies[:user_token_id])
     redirect('/')
   end
 
