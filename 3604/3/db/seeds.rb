@@ -9,7 +9,7 @@ places = [
     as well as the constant updating of the menu, taking into account the seasons of the year.
     LIDO has a surprisingly pleasant interior, national colors and a warm homely atmosphere,
     and the design of the halls changes in accordance with the holidays and seasons.',
-    path_to_image: 'http://www.lido.by/test/wp-content/uploads/2011/07/%D0%BB%D0%B8%D0%B4%D0%BE-%D0%BD%D0%B0-%D0%BA%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%D0%BD-768x526.jpg'
+    path_to_image: 'http://www.lido.by/test/wp-content/uploads/2017/01/DSC_9164.jpg'
   },
 
   {
@@ -22,7 +22,7 @@ places = [
     as well as the constant updating of the menu, taking into account the seasons of the year.
     LIDO has a surprisingly pleasant interior, national colors and a warm homely atmosphere,
     and the design of the halls changes in accordance with the holidays and seasons.',
-    path_to_image: 'http://www.lido.by/test/wp-content/uploads/2011/07/%D0%BB%D0%B8%D0%B4%D0%BE-%D0%BD%D0%B0-%D0%BA%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%D0%BD-768x526.jpg'
+    path_to_image: 'http://www.lido.by/test/wp-content/uploads/2017/01/DSC_9164.jpg'
   }
 ]
 

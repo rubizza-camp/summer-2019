@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 # rubocop:disable Style/NumericLiterals
+
 ActiveRecord::Schema.define(version: 2019_07_29_135106) do
   create_table 'places', force: :cascade do |t|
     t.string 'name'
@@ -34,7 +35,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_135106) do
   create_table 'users', force: :cascade do |t|
     t.string 'name'
     t.string 'email'
-    t.string 'password'
+    t.string 'password_hash'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.index ['email'], name: 'index_users_on_email', unique: true
