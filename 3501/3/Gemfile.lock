@@ -53,12 +53,12 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  activerecord
-  rack-ssl
-  sinatra
-  sinatra-contrib
-  sqlite3
-  thin
+  activerecord (~> 5.2.3)
+  rack-ssl (~> 1.4.1)
+  sinatra (~> 2.0.5)
+  sinatra-contrib (~> 2.0.5)
+  sqlite3 (~> 1.4.1)
+  thin (~> 1.7.2)
 
 BUNDLED WITH
    2.0.2
