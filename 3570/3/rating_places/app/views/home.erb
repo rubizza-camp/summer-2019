@@ -1,0 +1,18 @@
+<div class="card-deck">
+  <% @places.each do |place| %>
+  <div class="card mb-4">
+    <div class="view overlay">
+      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+    <div class="card-body">
+      <h4 class="card-title"><a href="/places/<%= place.id %>"><%= place.name %></a></h4>
+      <p class="card-text"><%= place.short_description %></p>
+      <h6 class="card-text"><%= place.latitude %></h6>
+      <h6 class="card-text"><%= place.longitude %></h6>
+    </div>
+  </div>
+  <% end %>
+</div>
