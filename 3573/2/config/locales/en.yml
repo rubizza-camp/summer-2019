@@ -1,0 +1,17 @@
+en:
+  enter_number: 'Enter your number in RubizzaCamp'
+  already_registered: 'You have already registered. Use command /checkin or /checkout.'
+  not_registered: "You're not registered"
+  registration_done: 'Registration is done. Use command /checkin or /checkout'
+  try_again: 'Sorry, try again'
+  status_checkin: "You session status: 'checkin'. First use command /checkout"
+  send_photo: 'Send me your photo'
+  send_location: 'Send me your location'
+  not_right_place: 'You are not right place. Try again'
+  checkin_done: 'OK, checkin is done. You can work!'
+  no_photo_in_message_error: 'Are you sure, you sent your photo?'
+  no_geolocation_in_message_error: 'Are you sure, you sent your location?'
+  status_checkout: "You session status: 'checkout'. First use command /checkin"
+  checkout_done: 'Checkout is done. Can you relax. Your work time %{time}'
+  user_number_registered: "You have already registered. Use command /checkin or /checkout.Your number is %{user_number}"
+  remove_account: 'Account remove!'
