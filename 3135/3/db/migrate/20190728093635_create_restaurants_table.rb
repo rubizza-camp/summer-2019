@@ -4,7 +4,6 @@ class CreateRestaurantsTable < ActiveRecord::Migration[5.2]
       t.string :name, null: false
       t.text :description, null: false
       t.string :location, null: false
-      t.float :rating
     end
   end
 end

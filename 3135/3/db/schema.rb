@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 2019_07_28_094703) do
     t.string "name", null: false
     t.text "description", null: false
     t.string "location", null: false
-    t.float "rating"
   end
 
   create_table "reviews", force: :cascade do |t|

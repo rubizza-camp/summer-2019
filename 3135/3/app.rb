@@ -2,7 +2,6 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
 require_relative 'helpers/utils'
-#require 'pry'
 
 set :database, "sqlite3:db/database.sqlite3"
 enable :sessions
@@ -47,10 +46,7 @@ end
 
 # add_review
 post '/add_review' do
-  #redo review
   redirect add_review(params)
-  #Review.create(params)
-  #redirect session[:return_to_page]
 end
 
 # restaurants_in_detail
@@ -63,5 +59,3 @@ end
 require './models/user'
 require './models/restaurant'
 require './models/review'
-
-#binding.pry
