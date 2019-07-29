@@ -5,9 +5,7 @@ require 'date'
 require 'time'
 
 class User < ActiveRecord::Base
-  class << self
-    include UserHelper
-  end
+  extend UserHelper
 
   has_many :feed_backs
   has_many :snack_bars
