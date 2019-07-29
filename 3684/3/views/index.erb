@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/theme.css">
+  <title>Restaurants</title>
+</head>
+<body>
+  <% if session[:user_id] %>
+    <h4><a href="/dislogin">Выйти</a></h4>
+  <% else %>
+    <h4 align='left'><a href="/login">Войти</a> / <a href="/registration">Зарегистрироваться</a></h4>
+  <% end %>
+  <% @restaurants.each do |restaurant| %>
+    <a href="<%= "/restaurant/#{restaurant.id}" %>"><%= restaurant.name %></a><br>
+    <%= restaurant.short_description %><br>
+    <em><%= restaurant.location %></em><br>
+    <br>
+  <% end %>
+</body>
+</html>

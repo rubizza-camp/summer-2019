@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @restaurant.name %></title>
+  <link rel="stylesheet" type="text/css" href="/css/theme.css">
+</head>
+  <body>
+    <% if session[:user_id] %>
+      <h4><a href="/dislogin">Выйти</a></h4>
+    <% else %>
+      <h4 align='left'><a href="/login">Войти</a> / <a href="/registration">Зарегистрироваться</a></h4>
+    <% end %>
+    <h1 align='center'><%= @restaurant.name %></h1>
+    <div>
+      <p><%= @restaurant.full_description %></p>
+      <p><label>Адрес: </label><%= @restaurant.location %></p>
+      <p><label>Средняя оценка пользователей: </label><%= @restaurant.score %></p><br>
+    </div>
+    <div>
+      <% @comments.each do |comment| %>
+        <%= comment.user.name %><br>
+        <%= comment.text %><br>
+        <%= comment.score %><br><br>
+      <% end %>
+    </div>
+    <% if session[:user_id] %>
+    <form class="comment" method="post" action="/leave_comment">
+      <div>
+        <input title="Ваш комментарий" type="text" name="text" required><br>
+        <input name="score" type="number" min="1" max="5" step="1" required><br><br>
+        <% session['rest_id'] = @restaurant.id %>
+      </div>
+      <button>Оставить комментарий</button><br>
+    </form>
+    <% end %>
+    <p><a href="/restaurants" />На главную</p>
+  </body>
+</html>
