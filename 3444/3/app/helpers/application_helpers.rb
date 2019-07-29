@@ -1,20 +1,19 @@
 module ApplicationHelpers
   def useremail
     if session['warden.user.default.key']
-      User.first(id: session['warden.user.default.key']).useremail
+      User.find(session['warden.user.default.key']).email
     else
       false
     end
   end
 
   def calculate_rate(id)
-    comments = Comment.all(bar_id: id)
-    bar_rate = comments.map(&:rate)
+    comments = Review.where(bar_id: id)
+    bar_rate = comments.map(&:rating)
     median(bar_rate)
   end
 
-  # Desable cause i don't know where to move this, can you help me?
-  #:reek:UtilityFunction
+  # :reek:UtilityFunction
   def median(array)
     sorted = array.sort
     len = sorted.length

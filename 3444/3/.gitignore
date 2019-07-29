@@ -2,4 +2,4 @@
 log
 tmp
 bin
-/db/*.db
+/db/*.sqlite

@@ -8,7 +8,7 @@
     <button type="button" class="btn btn-success">Add another one bar</button>
     </a></strong>
   </div>
-
+<%= will_paginate @bars %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -24,7 +24,7 @@
     <tr>
       <th scope="row"><%= bar.id %></th>
       <td><%= bar.title %></td>
-      <td><%= bar.description %></td>
+      <td><%= bar.short_description %></td>
       <td><%= bar.coordinates %></td>
       <td><a href="/bars/<%= bar.id %>/show">Show</td>
     </tr>

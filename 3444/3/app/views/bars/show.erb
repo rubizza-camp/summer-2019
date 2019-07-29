@@ -1,8 +1,8 @@
   <div class="row">
     <div class="col-md-6">
       <p><h3><strong>Title:</strong> <%= @bar.title %></h3></p>
-      <p><strong>Description:</strong> <%= @bar.description %></p> 
-      <p><strong>About:</strong> <%= @bar.body %></p>
+      <p><strong>Description:</strong> <%= @bar.short_description %></p> 
+      <p><strong>About:</strong> <%= @bar.full_description %></p>
     </div>
   
     <div class="col-md-6">
@@ -16,15 +16,15 @@
       </div>
       <div class="col-md-2">
         
-          <strong><a href="/bars/<%= @bar.id %>/comments/new">
-          <button type="button" class="btn btn-success">Add your own comment</strong>
+          <strong><a href="/bars/<%= @bar.id %>/reviews/new">
+          <button type="button" class="btn btn-success">Add your own review</strong>
         </button></a>
       </div>
     </div>
-    <p><h2>Comments:</h2></p>
+    <p><h2>Reviews:</h2></p>
     <hr>
-    <% @comments.each do |com| %>
-      <p><%= com.body %></p>
-      <p><strong>RATED: <%= com.rate %></strong></p>
+    <% @reviews.each do |com| %>
+      <p><%= com.comment %></p>
+      <p><strong>RATED: <%= com.rating %></strong></p>
       <br>
     <% end %>
