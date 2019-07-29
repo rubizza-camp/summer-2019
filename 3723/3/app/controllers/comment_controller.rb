@@ -1,6 +1,6 @@
 class CommentController < ApplicationController
 
-  get '/comments/new' do
+  get '/comments/new/:id' do
     if is_logged_in?
       erb :'comments/new'
     else
@@ -9,7 +9,7 @@ class CommentController < ApplicationController
     end
   end
 
-  post '/comments' do
+  post '/comments/place/:id' do
     if params[:title] == "" || params[:contet] == "" || params[:rating] == ""
       flash[:message] = "You must fill all forms"
       redirect to '/comments/new'
@@ -19,6 +19,7 @@ class CommentController < ApplicationController
         :title => params[:title],
         :content => params[:contetnt],
         :rating => params[:rating],
+        :place_id => params[:id],
         :user_id => user.id)
       redirect to "comments/#{@comment.id}"
     end

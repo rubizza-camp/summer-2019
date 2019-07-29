@@ -1,0 +1,21 @@
+<h2> <%= @place.name %> </h2>
+
+<p>Location: <%= @place.location %></p>
+<p>Description: <%= @place.description %></p>
+<p>Rating: <%= @place.rating %></p>
+<br>
+<br>
+<br>
+
+<% Comment.all.each do |comment| %>
+  <div>
+      <p><%= comment.title %></p>
+      <p>User: <%=User.find(comment.user_id).username%></p>
+      <p>Description: <%= comment.content %></p>
+      <p>Rating: <%= comment.rating %></p>
+      <br>
+  </div>
+<% end %>
+
+<a href="/comments/new/:id">Add another comment</a><br>
+<p><a href='/logout'>Log Out</a></p>

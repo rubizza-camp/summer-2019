@@ -1,6 +1,6 @@
 <h2>Leave your comment</h2>
 
-<form action="/comments" method="POST">
+<form action="/comments/place/:id" method="POST">
   <p><b>Short description:<b> <input type='text' name="title">
   <p>
     <b>Your message:</b><br>
@@ -8,8 +8,7 @@
   </p>
   <p>
     Rating:
-    <select name="rating" value="-">
-      <option value="-">-</option>
+    <select name="rating" value="1">
       <option value="1">1 star</option>
       <option value="2">2 stars</option>
       <option value="3">3 stars</option>
