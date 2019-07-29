@@ -1,5 +1,6 @@
 require 'fileutils'
 
+# process of geo sending is here
 class Geo
   attr_reader :user
 
@@ -7,6 +8,7 @@ class Geo
     @user = User.find(tg_id)
   end
 
+  # :reek:TooManyStatements:
   def call(location)
     result = "latitude: #{location.latitude} longitude: #{location.longitude}"
     case user.status.to_sym
@@ -23,7 +25,7 @@ class Geo
     end
   end
 
-  def save_location(location, operation)
+  def save_location(location)
     save_file_path = Redis.current.get("user:#{user.camp_id}:folder")
     File.write(save_file_path + 'geo.txt', location)
   end

@@ -1,3 +1,4 @@
+# process of checking in starts here
 class CheckIn
   attr_reader :user
 
@@ -5,6 +6,7 @@ class CheckIn
     @user = User.find(tg_id)
   end
 
+  # :reek:TooManyStatements
   def call
     case user.status.to_sym
     when :checked_out
@@ -13,7 +15,6 @@ class CheckIn
     when :waiting_for_number then 'Enter your camp number!'
     when :checked_in then 'You already checked in!'
     when :unregister then 'Register first!'
-    when nil then 'Send /start before please!'
     else 'Finish now process!'
     end
   end

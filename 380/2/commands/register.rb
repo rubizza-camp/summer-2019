@@ -1,3 +1,4 @@
+# registration process
 class Register
   attr_reader :user, :tg_id
 
@@ -17,6 +18,7 @@ class Register
 
   private
 
+  # :reek:UtilityFunction:
   def in_list?(camp_id)
     file ||= 'lib/camp_ids.yml'
     camp_list = YAML.load_file(file).fetch('camp_ids', [])

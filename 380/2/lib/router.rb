@@ -1,4 +1,6 @@
+# routing answers
 module Router
+  # :reek:TooManyStatements
   def self.resolve(message, bot)
     tg_id = message.from.id
     case message.text
@@ -11,15 +13,17 @@ module Router
     end
   end
 
+  # :reek:TooManyStatements, :reek:DuplicateMethodCall
   def self.operation_by_user_status(message, bot)
-    user = User.find(message.from.id)
-    if user.status.to_sym == :waiting_for_number
-      Register.new(message.from.id).call(message.text.to_i)
-    elsif (user.status.to_s.include? 'waiting_for_selfie') && !message.photo.empty?
-      file_path = bot.api.get_file(file_id: message.photo.last.file_id)
-      Selfie.new(message.from.id).call(file_path)
-    elsif (user.status.to_s.include? 'waiting_for_geo') && message.location
-      Geo.new(message.from.id).call(message.location)
+    tg_id = message.from.id
+    user = User.find(tg_id)
+    user_status = user.status.to_s
+    if user_status.to_sym == :waiting_for_number
+      Register.new(tg_id).call(message.text.to_i)
+    elsif (user_status.include? 'waiting_for_selfie') && !message.photo.empty?
+      Selfie.new(tg_id).call(bot.api.get_file(file_id: message.photo.last.file_id))
+    elsif (user_status.include? 'waiting_for_geo') && message.location
+      Geo.new(tg_id).call(message.location)
     end
   end
 end

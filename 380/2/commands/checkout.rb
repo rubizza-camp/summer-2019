@@ -1,3 +1,4 @@
+# process of checking out starts here
 class CheckOut
   attr_reader :user
 
@@ -5,6 +6,7 @@ class CheckOut
     @user = User.find(tg_id)
   end
 
+  # :reek:TooManyStatements:
   def call
     case user.status.to_sym
     when :checked_in

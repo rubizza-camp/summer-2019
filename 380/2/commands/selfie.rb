@@ -1,3 +1,4 @@
+# process of selfie sending is here
 class Selfie
   attr_reader :user
 
@@ -5,6 +6,7 @@ class Selfie
     @user = User.find(tg_id)
   end
 
+  # :reek:TooManyStatements:
   def call(file_path)
     case user.status.to_sym
     when :waiting_for_selfie_in
@@ -23,6 +25,7 @@ class Selfie
 
   private
 
+  # :reek:DuplicateMethodCall, :reek:TooManyStatements
   def save_img(file_path, operation)
     save_file_path = "store/#{user.camp_id}/#{operation}/#{Time.now.getlocal('+03:00')}/"
     FileUtils.mkdir_p(save_file_path)
@@ -30,10 +33,11 @@ class Selfie
     File.write(save_file_path + 'photo.jpg', image, mode: 'wb')
     Redis.current.set("user:#{user.camp_id}:folder", save_file_path)
     true
-  rescue Errno::ENOENT => e
-    puts e.message
+  rescue Errno::ENOENT => error
+    puts error.message
   end
 
+  # :reek:UtilityFunction:
   def img_url(file_path)
     file_path = file_path.dig('result', 'file_path')
     "https://api.telegram.org/file/bot#{ENV['TOKEN']}/#{file_path}"
