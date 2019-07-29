@@ -1,5 +1,29 @@
+
 <h2><%= "#{@place.name}"%></h2>
 <p><%= "#{@place.description}"%></p>
 <p><%= "locations: #{@place.locations}" %></p>
+<p><%= "rating: #{@average_rating}" %></p>
 <hr>
-<%= @message %>
+
+<% if @place.reviews.count > 0 %>
+    <h3>Reviews:</h3>
+    <% @place.reviews.each do |review| %>
+      <p><%= "#{review.text} #{review.rating}"%></p>
+    <% end %>
+<% end %>
+
+<% if session[:identity]%>
+    <form action=<%= "/places/#{@place.id}/reviews" %> method='post'>
+        <h3>New review:</h3>
+        <p>
+            <textarea row=5 name='review_text' placeholder="text"></textarea>
+        </p>
+        <p>Rating:</p>
+        <p>
+            <input type="text" name='rating' placeholder="1-5">
+        </p>
+        <p>
+            <input class="btn primary" type='submit' value='Publish'>
+        </p>
+    </form>
+<% end %>

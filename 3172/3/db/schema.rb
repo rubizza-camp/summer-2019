@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_171721) do
+ActiveRecord::Schema.define(version: 2019_07_28_203754) do
 
   create_table "places", force: :cascade do |t|
     t.text "name"
     t.text "description"
     t.text "locations"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text "text"
+    t.integer "rating"
+    t.integer "author"
+    t.integer "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_reviews_on_place_id"
   end
 
   create_table "users", force: :cascade do |t|

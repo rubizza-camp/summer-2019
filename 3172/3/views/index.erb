@@ -1,5 +1,5 @@
 <% @places.each do |place| %>
-  <a href=<%= "/place/#{place.id}" %>><%= place.name %></a>
+  <a href=<%= "/places/#{place.id}" %>><%= place.name %></a>
   <p><%= "#{place.description}"%></p>
   <p><%= "locations: #{place.locations}" %></p>
   <hr>
