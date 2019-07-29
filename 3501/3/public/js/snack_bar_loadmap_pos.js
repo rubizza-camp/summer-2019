@@ -1,3 +1,5 @@
+// jshint esversion: 6
+
 var map;
 function initMap() {
 var cairo = {
@@ -11,7 +13,7 @@ var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 16
 });
 
-var infowindow = new google.maps.InfoWindow;
+var infowindow = new google.maps.InfoWindow();
 infowindow.setContent('<b>'+document.getElementById('map').getAttribute('snack_name')+'</b>');
 
 var marker = new google.maps.Marker({map: map, position: cairo});

@@ -1,3 +1,5 @@
+// jshint esversion: 6
+
 // The following example creates a marker in Stockholm, Sweden using a DROP
 // animation. Clicking on the marker will toggle the animation between a BOUNCE
 // animation and no animation.
@@ -25,7 +27,7 @@ marker = new google.maps.Marker({
 marker.addListener('click', toggleBounce);
 marker.addListener('drag', onMargerMoved);
 
-infoWindow = new google.maps.InfoWindow;
+infoWindow = new google.maps.InfoWindow();
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
     var pos = {
