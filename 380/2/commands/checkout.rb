@@ -1,26 +1,20 @@
 class CheckOut
-  attr_reader :tg_id
+  attr_reader :user
 
   def initialize(tg_id)
-    @tg_id = tg_id
+    @user = User.find(tg_id)
   end
 
   def call
-    user = User.find(tg_id)
     case user.status.to_sym
     when :checked_in
       user.save_status(:waiting_for_selfie_out)
       'Send selfie, please!'
-    when :waiting_for_number
-      'Enter your camp number!'
-    when :checked_in
-      'You already checked in!'
-    when :waiting_for_selfie
-      'Send selfie for checking in'
-    when :waiting_for_geo
-      'Send selfie for checking in'
-    when :unregister
-      'Register first!'
+    when :waiting_for_number then 'Enter your camp number!'
+    when :checked_in then 'You already checked in!'
+    when :waiting_for_selfie then 'Send selfie for check in'
+    when :waiting_for_geo then 'Send selfie for checki in'
+    when :unregister then 'Register first!'
     end
   end
 end

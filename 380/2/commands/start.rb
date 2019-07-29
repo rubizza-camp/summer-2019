@@ -1,12 +1,11 @@
 class Start
-  attr_reader :tg_id
+  attr_reader :user
 
   def initialize(tg_id)
-    @tg_id = tg_id
+    @user = User.find(tg_id)
   end
 
   def call
-    user = User.find(tg_id)
     if user.camp_id
       'You are registred! Enter /check_in for check in! :)'
     else

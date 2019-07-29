@@ -3,6 +3,8 @@ GEM
   specs:
     aasm (5.0.5)
       concurrent-ruby (~> 1.0)
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -18,6 +20,8 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.4)
+    down (4.8.1)
+      addressable (~> 2.5)
     equalizer (0.0.11)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
@@ -37,6 +41,7 @@ GEM
     pry-byebug (3.7.0)
       byebug (~> 11.0)
       pry (~> 0.10)
+    public_suffix (3.1.1)
     redis (4.1.2)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
@@ -74,7 +79,9 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  bundler
   dotenv
+  down
   pry
   pry-byebug
   redis

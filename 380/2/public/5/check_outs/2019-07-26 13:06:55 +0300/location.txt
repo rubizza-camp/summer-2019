@@ -1,1 +1,0 @@
-latitude: 59.909066 longitude: 30.281309
