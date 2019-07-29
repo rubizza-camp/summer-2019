@@ -1,0 +1,12 @@
+<div class="card-columns">
+  <% place = Place.find(@place_id) %>
+  <div class="card">
+    <div class="card-body">
+    <p class="card-text"><%= place.name%></p>
+    <p class="card-text"><%= place.note%></p>
+    <p class="card-text"><%= place.description%></p>
+    <p class="card-text"><%= place.longitude%></p>
+    <p class="card-text"><%= place.latitude%></p>
+    </div>
+  </div>
+</div>
