@@ -1,4 +1,4 @@
-require_relative '../check_and_save/checker'
+require_relative '../check_helper/checker'
 
 module Start
   def start!(*)

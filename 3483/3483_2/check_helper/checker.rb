@@ -25,6 +25,8 @@ class Checker
   end
 
   def check_number
-    @check_number ||= YAML.load_file('humans_list.yaml')['Humans'].include?(number)
+    @check_number ||= YAML.load_file('humans.yaml')['Humans'].include?(number)
   end
 end
+
+

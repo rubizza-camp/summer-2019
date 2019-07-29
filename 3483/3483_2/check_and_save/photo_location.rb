@@ -5,7 +5,7 @@ module PhotoLocation
   include SaveData
 
   CAMP_LOCATION = [53.915205, 27.560094].freeze
-  CORRECT_LOCATION = 0.6
+  CORRECT_LOCATION = 1
 
   def check_data(*)
     if payload['photo']
