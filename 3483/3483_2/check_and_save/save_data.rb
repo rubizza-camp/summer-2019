@@ -1,7 +1,7 @@
 require 'net/http'
 require 'open-uri'
 require 'fileutils'
-
+# rubocop:disable Metrics/AbcSize
 module SaveData
   TOKEN = ENV['BOT_TOKEN']
   API = "https://api.telegram.org/bot#{TOKEN}/getFile?file_id=".freeze
@@ -32,3 +32,4 @@ module SaveData
                  .read, symbolize_names: true)[:result][:file_path]
   end
 end
+# rubocop:enable Metrics/AbcSize
