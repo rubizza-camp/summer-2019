@@ -1,6 +1,6 @@
 module RestaurantHelper
   def average_cafe_mark
-    @average_mark = @restaurant.comments.average(:grade).to_f
+    @average_mark = Comment.where(place_id: session[:rest_id]).average(:grade).to_f
   end
 
   def info_about_selected_cafe
