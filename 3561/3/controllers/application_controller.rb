@@ -12,6 +12,6 @@ class ApplicationController < Sinatra::Base
   private
 
   def redirect_back
-    redirect @env['HTTP_REFERER'].to_s
+    redirect env['HTTP_REFERER']
   end
 end
