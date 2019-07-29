@@ -1,6 +1,5 @@
 require_relative '../check_helper/checker'
 require_relative '../check_and_save/photo_location.rb'
-# rubocop:disable Metrics/AbcSize
 module Checkout
   include PhotoLocation
 
@@ -13,4 +12,3 @@ module Checkout
     end
   end
 end
-# rubocop:enable Metrics/AbcSize

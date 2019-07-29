@@ -30,5 +30,3 @@ class Checker
     @check_number ||= YAML.load_file('humans.yaml')['Humans'].include?(number)
   end
 end
-
-
