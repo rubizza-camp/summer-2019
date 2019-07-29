@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gem 'activerecord', '5.2.3'
+gem 'dotenv', '2.7.4'
+gem 'rack-flash3', '1.0.5'
+gem 'rake', '12.3.3'
+gem 'sinatra-activerecord', '2.0.13'
+gem 'sinatra-session', '1.0.0'
+gem 'sqlite3', '1.4.1'
