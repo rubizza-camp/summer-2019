@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+
+gem 'fileutils', '~> 1.0.2'
+gem 'haversine', '~> 0.3.2'
+gem 'ohm', '~> 3.1.1'
+gem 'redis', '~> 4.1.2'
+gem 'telegram-bot', '~> 0.14.2'
