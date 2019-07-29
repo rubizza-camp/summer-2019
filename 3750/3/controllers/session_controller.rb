@@ -24,12 +24,13 @@ class SessionController < BaseController
       redirect '/'
     else
       error_message 'wrong login or password'
-      redirect '/'
+      redirect '/sessions/login'
     end
   end
 
   def login
     session[:user_id] = @user.id
+    session[:user_name] = @user.login
   end
 
   get '/logout' do

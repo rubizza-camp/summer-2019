@@ -4,13 +4,17 @@ require_relative 'base_controller'
 class ReviewController < BaseController
   post '/review/new' do
     @restaurant = Restaurant.find_by(name: session[:restaurant])
-    if user_logged?
+    if user_logged? && !already_reviewed?
       create_review
       info_message review_validation_info
     else
-      error_message 'You must be logged in!'
+      error_message 'You must be logged in! Or you tried to publish several reviews'
     end
     redirect "/#{@restaurant.name}"
+  end
+
+  def already_reviewed?
+    Review.find_by(user_id: session[:user_id])
   end
 
   post '/review/delete' do
