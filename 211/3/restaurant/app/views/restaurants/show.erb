@@ -5,9 +5,11 @@
     </div>
     <div class="media-body">
       <h2 class="media-heading"><%= @rest.name %></h2>
-      <p> <%= @rest.location %></p>
       <p> <%= @rest.description.gsub(/\n/, '<br>') %></p>
       <h3>RATING: <%= @rest.reviews.average(:mark).round(2) unless @rest.reviews.average(:mark).nil? %></h3>
+
+      <iframe width="400" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=<%= @rest.location.split(',')[0] %>%2C%20<%= @rest.location.split(',')[1] %>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+
     </div>
   </div>
 </div>
@@ -15,7 +17,7 @@
 <div style="margin:30px">
   <h3>Reviews:</h3>
   <% @rest.reviews.each do |review|%>
-    <p><strong> <%= review.user.try(:login) %></strong> gives us  <strong><%=  review.mark %></strong> points and wrote:
+    <p><strong> <%= review.user.login %></strong> gives us  <strong><%=  review.mark %></strong> points and wrote:
     <%= review.description %></p>
   <% end  %>
 </div>

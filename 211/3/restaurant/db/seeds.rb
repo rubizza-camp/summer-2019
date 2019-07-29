@@ -1,4 +1,4 @@
-# Restaurant.destroy_all
+Restaurant.destroy_all
 
 # rubocop:disable Metrics/LineLength
 restaurants = [
