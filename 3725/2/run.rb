@@ -1,19 +1,8 @@
-require 'telegram/bot'
-require 'active_support/all'
-require 'logger'
-require 'redis-rails'
-require 'yaml'
-require 'open-uri'
-require 'json'
-require 'time'
-require 'ohm'
-require 'fileutils'
-require 'active_support/time'
-require_relative 'user'
-require_relative 'bot'
-require_relative 'controllers/webhooks_controller'
+%w[bundler logger yaml open-uri json time fileutils].each(&method(:require))
 
-token = ENV['KEY_TOKEN']
+Bundler.require(:default)
+Dir[File.join(__dir__, '**', '*.rb')].each(&method(:require))
+
 Ohm.redis = Redic.new('redis://127.0.0.1:6379')
-controller = Bot.new(token)
-controller.call
+
+Bot.start
