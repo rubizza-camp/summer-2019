@@ -29,7 +29,7 @@ class RestaurantController < Sinatra::Base
   post '/restaurant/new-comment' do
     @restaurant = Restaurant.find_by(name: session[:place])
 
-    add_new_comment_db if negative_comment_has_text && session[:user_id]
+    add_new_comment if (negative_comment_has_text || params[:grade].to_i >= 3) && session[:user_id]
     redirect "/restaurant/#{@restaurant.name}"
   end
 end
