@@ -1,0 +1,4 @@
+en:
+  incorrect_sign_in: 'Incorrect password or you do not sign up'
+  incorrect_sign_up: 'Invalid email'
+  error_review: 'You can not add review, because you do not sign in'
