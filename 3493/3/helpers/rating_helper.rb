@@ -1,8 +1,5 @@
 class RatingHelper
-  def self.calculate_average_rating(plcae_id)
-    reviews = Review.where(['places_id = ?', plcae_id])
-    total_rating = 0
-    reviews.each { |review| total_rating += review.rating }
-    total_rating / reviews.count
+  def self.calculate_average_rating(place_id)
+    Review.where(places_id: place_id).average(:rating).round(1)
   end
 end
