@@ -5,7 +5,7 @@ class UserController < ApplicationController
       flash[:message] = "Already logged in"
       redirect to '/'
     else
-      erb :'user/create_user'
+      erb :'users/create_user'
     end
   end
 
@@ -29,7 +29,7 @@ class UserController < ApplicationController
       flash[:mesage] = "Already logged in"
       redirect to '/'
     else
-      erb :'user/login'
+      erb :'users/login'
     end
   end
 

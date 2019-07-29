@@ -10,10 +10,6 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
   end
 
-  get '/' do
-    erb :index
-  end
-
   def is_logged_in?
     !!session[:user_id]
   end

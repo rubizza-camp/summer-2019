@@ -5,5 +5,7 @@ if ActiveRecord::Base.connection.migration_context.needs_migration?
 end
 
 use Rack::MethodOverride
-# use another controller
+use CommentController
+use PlaceController
+use UserController
 run ApplicationController
