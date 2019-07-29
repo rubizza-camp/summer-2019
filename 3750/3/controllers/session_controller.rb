@@ -1,11 +1,13 @@
 require_relative 'base_controller'
+require_relative '../helpers/session_helper'
 
 class SessionController < BaseController
+  include SessionHelper
+
   post '/sessions/signup' do
     @user = User.new(login: params['name'], email: params['email'],
-                     password: params['password'])
-    # binding.pry
-    if email_exists?
+                     password_hash: encrypt_password(params['password']))
+    if email_valid?
       @user.save
       login
       info_message 'Registration done'
@@ -20,30 +22,16 @@ class SessionController < BaseController
     @user = User.find_by(email: params[:email])
     if user_exists?
       login
-      info_message 'Success!'
       redirect '/'
     else
-      error_message 'wrong login or password'
+      error_message 'Wrong login or password'
       redirect '/sessions/login'
     end
-  end
-
-  def login
-    session[:user_id] = @user.id
-    session[:user_name] = @user.login
   end
 
   get '/logout' do
     session.clear
     redirect '/'
-  end
-
-  def user_exists?
-    @user && (@user.password == params[:password])
-  end
-
-  def email_exists?
-    Truemail.valid?(params['email'])
   end
 
   get '/index' do

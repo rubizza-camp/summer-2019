@@ -10,32 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_094826) do
-
-  create_table "restaurants", force: :cascade do |t|
-    t.string "name", null: false
-    t.float "latitude", null: false
-    t.float "longitude", null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+ActiveRecord::Schema.define(version: 20_190_729_105_238) do
+  create_table 'restaurants', force: :cascade do |t|
+    t.string 'name', null: false
+    t.float 'latitude', null: false
+    t.float 'longitude', null: false
+    t.text 'short_description'
+    t.text 'description'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.integer "grade", null: false
-    t.text "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "restaurant_id"
+  create_table 'reviews', force: :cascade do |t|
+    t.integer 'grade', null: false
+    t.text 'text'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'user_id'
+    t.integer 'restaurant_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "login"
-    t.string "password"
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'login'
+    t.string 'password_hash'
+    t.string 'email'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
-
 end
