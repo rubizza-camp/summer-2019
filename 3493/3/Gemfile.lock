@@ -21,6 +21,7 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     mustermann (1.0.3)
+    pagy (3.4.1)
     rack (2.0.7)
     rack-protection (2.0.5)
       rack
@@ -42,6 +43,8 @@ GEM
       tilt (>= 1.3, < 3)
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
+    sinatra-strong-params (0.1.0)
+      sinatra (>= 1.4.0)
     sqlite3 (1.4.1)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -52,13 +55,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt
-  rake
-  sinatra
-  sinatra-activerecord
-  sinatra-contrib
-  sinatra-flash
-  sqlite3
+  bcrypt (~> 3.1.13)
+  pagy (~> 3.4.1)
+  rake (~> 12.3.2)
+  sinatra (~> 2.0.5)
+  sinatra-activerecord (~> 2.0.13)
+  sinatra-contrib (~> 2.0.5)
+  sinatra-flash (~> 0.3.0)
+  sinatra-strong-params
+  sqlite3 (~> 1.4.1)
 
 BUNDLED WITH
    1.17.2
