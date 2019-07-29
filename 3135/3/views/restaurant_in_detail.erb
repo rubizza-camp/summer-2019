@@ -1,12 +1,11 @@
 <div>
     <hr>
     <h4><%= @restaurant.name %></h4>
-    <%= @restaurant.location %>
-    <%= @restaurant.description %>
-    <%= @restaurant.rating.class.to_s %>
+    <p><%= @restaurant.location %></p>
+    <p><%= @restaurant.description %></p>
+    <h4>Average rating: <%= @average_rating.to_s %></h4>
 </div>
 
-<br>
 <h4>Reviews:</h4>
 
 <% @restaurant.reviews.each do |review| %>

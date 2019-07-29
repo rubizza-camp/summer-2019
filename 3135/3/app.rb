@@ -10,7 +10,7 @@ enable :sessions
 helpers Utils
 
 before do
-  @active_user = set_active_user(session[:id])
+  @active_user = find_active_user(session[:id])
 
   pass if ['/login', '/logout', '/registration', '/add_review'].include? request.path_info
   session[:return_to_page] = request.path_info
@@ -28,20 +28,16 @@ get '/registration' do
 end
 
 post '/registration' do
-  #make registration
-  user = User.create(params)
-  session[:id] = user[:id]
-  redirect session[:return_to_page]
+  redirect registration(params)
 end
 
-# login
+# login & logout
 get '/login' do
   erb :login_form
 end
 
 post '/login' do
-  #redo login
-  login(params[:email],params[:password])
+  redirect login(params[:email],params[:password])
 end
 
 get '/logout' do
@@ -52,13 +48,15 @@ end
 # add_review
 post '/add_review' do
   #redo review
-  Review.create(params)
-  redirect session[:return_to_page]
+  redirect add_review(params)
+  #Review.create(params)
+  #redirect session[:return_to_page]
 end
 
 # restaurants_in_detail
 get '/:name' do
   @restaurant = Restaurant.find_by(name: params[:name])
+  @average_rating = calculate_average_rating(@restaurant)
   erb :restaurant_in_detail
 end
 
