@@ -1,9 +1,3 @@
-// jshint esversion: 6
-
-// The following example creates a marker in Stockholm, Sweden using a DROP
-// animation. Clicking on the marker will toggle the animation between a BOUNCE
-// animation and no animation.
-
 var marker;
 var infoWindow;
 var latitudeEl, longitudeEl;
