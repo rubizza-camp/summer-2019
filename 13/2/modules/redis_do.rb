@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-module RedisHelper 
+#sets and gets data with Redis
+module RedisDo
   def self.set(chat_id, state)
     Redis.current.set(chat_id, state)
   end

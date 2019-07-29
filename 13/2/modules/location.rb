@@ -2,23 +2,26 @@
 
 #saves location in geo.txt
 module Location
-  def self.save(student, message, folder)
+  def self.save(chat_id, student, message, folder)
     if message.location
-      chat_id = message.chat.id
-      timestamp = Time.now
-      RedisHelper.set("chat:#{chat_id}:timestamp", timestamp)
-      FileUtils.mkdir_p("public/#{student}/#{folder}/#{timestamp}")
-      path_to_file = "public/#{student}/#{folder}/#{timestamp}"
-      latitude, longitude = message.location.latitude, message.location.longitude
-      file = File.open("#{path_to_file}/geo.txt", 'w')
-      for_human_location = Geocoder.search([latitude, longitude])
-      file.write("Location for human: #{for_human_location.first.address}" + "\n")
-      file.write("Location for machine: latitude: #{latitude}, longitude: #{longitude}" + "\n")
-      file.write("At time: #{Time.now}" + "\n")
+      data = fetch_data(message)
+      RedisDo.set("chat:#{chat_id}:timestamp", data[:timestamp])
+      FileUtils.mkdir_p("public/#{student}/#{folder}/#{data[:timestamp]}")
+      file = File.open("public/#{student}/#{folder}/#{data[:timestamp]}/geo.txt", 'w')
+      file.write("Adress: #{data[:address].first.address}" + "\n")
+      file.write("Coordinates: #{data[:latitude]}, longitude: #{data[:longitude]}" + "\n")
       file.close
       true
     else
       false
     end
   end
-end
+
+  def self.fetch_data(message)
+    latitude, longitude = message.location.latitude, message.location.longitude
+    data = {latitude: latitude,
+            longitude: longitude,
+            address: Geocoder.search([latitude, longitude]),
+            timestamp:Time.now}
+    end
+  end

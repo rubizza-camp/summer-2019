@@ -1,3 +1,2 @@
 .env
-bot_else_reserve.rb
-reserve.rb
+public/*
