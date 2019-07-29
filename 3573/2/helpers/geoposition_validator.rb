@@ -19,7 +19,7 @@ class GeopositionValidator
   CAMP_LOCATION_LONGITUDE = (27.565941..27.571306).freeze
 
   def valid_geoposition?
-    raise Errors::NoGeoLocationError unless geoposition
+    raise Errors::NoGeolocationError unless geoposition
 
     valid_latitude && valid_longitude
   end

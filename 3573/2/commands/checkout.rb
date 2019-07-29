@@ -22,14 +22,14 @@ module Checkout
 
   def download_geolocation_checkout(*)
     if GeopositionValidator.call(geoposition: geolocation)
-      checkout
       download_last_geolocation(path_name_checkout)
+      checkout
       respond_with :message, text: t(:checkout_done, time: worked_time)
     else
       respond_with :message, text: t(:not_right_place)
       message_for_geolocation_checkout
     end
-  rescue Errors::NoGeoLocationError
+  rescue Errors::NoGeolocationError
     handle_no_geolocation_checkout
   end
 

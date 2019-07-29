@@ -23,13 +23,13 @@ module Checkin
   def download_geolocation_checkin(*)
     if GeopositionValidator.call(geoposition: geolocation)
       download_last_geolocation(path_name_checkin)
-      respond_with :message, text: t(:checkin_done)
       checkin
+      respond_with :message, text: t(:checkin_done)
     else
       respond_with :message, text: t(:not_right_place)
       message_for_geolocation_checkin
     end
-  rescue Errors::NoGeoLocationError
+  rescue Errors::NoGeolocationError
     handle_no_location_checkin
   end
 

@@ -1,5 +1,5 @@
 module Errors
   class NoPhotoError < StandardError; end
 
-  class NoGeoLocationError < StandardError; end
+  class NoGeolocationError < StandardError; end
 end
