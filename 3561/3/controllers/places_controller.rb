@@ -1,5 +1,3 @@
-require_relative 'application_controller.rb'
-
 class PlacesController < ApplicationController
   get '/places' do
     @places = Place.all

@@ -1,6 +1,3 @@
-require 'bcrypt'
-require_relative 'application_controller.rb'
-
 class UsersController < ApplicationController
   post '/users' do
     new_user = User.new(name: params[:usrname], email: params[:email])
@@ -9,7 +6,6 @@ class UsersController < ApplicationController
       session[:user_id] = user[:id].to_s
     else
       session[:message] = 'Invalid credentials'
-      redirect_back
     end
     redirect_back
   end

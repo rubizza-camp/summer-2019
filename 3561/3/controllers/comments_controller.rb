@@ -1,5 +1,3 @@
-require_relative 'application_controller.rb'
-
 class CommentsController < ApplicationController
   post '/comments' do
     Comment.create(text: params[:comment],
