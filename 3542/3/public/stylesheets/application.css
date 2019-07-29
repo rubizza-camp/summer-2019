@@ -24,6 +24,9 @@ body {
   background-color:#d4edda;
   border-color:#c3e6cb
 }
+.center-card {
+  width: -moz-available
+}
 .starter-template {
   padding: 3rem 1.5rem;
   text-align: center
