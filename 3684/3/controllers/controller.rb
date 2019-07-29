@@ -19,11 +19,18 @@ class Controller < ApplicationController
 
   post '/log_in' do
     @user = User.find_by(email: params['email'])
-    if BCrypt::Password.new(@user[:password]) == params['password']
-      session[:user_id] = @user.id
-      redirect '/restaurants'
+    if @user
+      if BCrypt::Password.new(@user[:password]) == params['password']
+        session[:user_id] = @user.id
+        session[:fail] = false
+        redirect '/restaurants'
+      else
+        session[:fail] = true
+        redirect '/login_page'
+      end
     else
-      redirect '/fail'
+      session[:fail] = true
+      redirect '/login_page'
     end
   end
 
@@ -48,16 +55,12 @@ class Controller < ApplicationController
     erb :index
   end
 
-  get '/login' do
+  get '/login_page' do
     erb :login_page
   end
 
   get '/registration' do
     erb :registration_page
-  end
-
-  get '/fail' do
-    'SUCK DICK'
   end
 
   private

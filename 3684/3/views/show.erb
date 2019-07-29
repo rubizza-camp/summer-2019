@@ -9,7 +9,7 @@
     <% if session[:user_id] %>
       <h4><a href="/dislogin">Выйти</a></h4>
     <% else %>
-      <h4 align='left'><a href="/login">Войти</a> / <a href="/registration">Зарегистрироваться</a></h4>
+      <h4 align='left'><a href="/login_page">Войти</a> / <a href="/registration">Зарегистрироваться</a></h4>
     <% end %>
     <h1 align='center'><%= @restaurant.name %></h1>
     <div>
@@ -28,7 +28,7 @@
     <form class="comment" method="post" action="/leave_comment">
       <div>
         <input title="Ваш комментарий" type="text" name="text" required><br>
-        <input name="score" type="number" min="1" max="5" step="1" required><br><br>
+        <input title="Ваша оценка заведению" name="score" type="number" min="1" max="5" step="1" required><br><br>
         <% session['rest_id'] = @restaurant.id %>
       </div>
       <button>Оставить комментарий</button><br>

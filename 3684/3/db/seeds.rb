@@ -1,9 +1,9 @@
-kfc_descr = File.open('restaurant_descriptions/kfc_short_description.txt', 'r').read
-mac_descr = File.open('restaurant_descriptions/mac_short_description.txt', 'r').read
-bk_descr = File.open('restaurant_descriptions/burger_king_short_description.txt', 'r').read
-bk_full_descr = File.open('restaurant_descriptions/burger_king_full_description.txt', 'r').read
-kfc_full_descr = File.open('restaurant_descriptions/kfc_full_description.txt', 'r').read
-mac_full_descr = File.open('restaurant_descriptions/mac_full_description.txt', 'r').read
+kfc_descr = File.read('restaurant_descriptions/kfc_short_description.txt', 'r')
+mac_descr = File.read('restaurant_descriptions/mac_short_description.txt', 'r')
+bk_descr = File.read('restaurant_descriptions/burger_king_short_description.txt', 'r')
+bk_full_descr = File.read('restaurant_descriptions/burger_king_full_description.txt', 'r')
+kfc_full_descr = File.read('restaurant_descriptions/kfc_full_description.txt', 'r')
+mac_full_descr = File.read('restaurant_descriptions/mac_full_description.txt', 'r')
 
 restaurants = [
   {
