@@ -18,7 +18,7 @@ require 'webrick'
 require 'webrick/https'
 require 'openssl'
 
-CERT_PATH = 'keys/'
+CERT_PATH = 'priate_keys/'
 
 webrick_options = {
   # '192.168.43.176' /BANDR
@@ -36,6 +36,7 @@ webrick_options = {
 
 class MyServer < Sinatra::Base
   set :public_folder, File.dirname(__FILE__) + '/public'
+  enable :sessions
 
   use ApplicationController
   use SignController
