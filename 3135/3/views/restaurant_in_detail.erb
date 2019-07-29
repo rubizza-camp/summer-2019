@@ -13,17 +13,25 @@
     <div>
         <hr>
         <%= review.description %> |
-        by user: <%= review.user[:username] %> |
-        rating: <%= review.rating %>
+        by user: <b><%= review.user[:username] %></b> |
+        rating: <b><%= review.rating %></b>
     </div>
 <% end %>
 
 <form method="POST" action="/add_review">
-  <hr>
-  <h3>Add your review:</h3>
-  <p>description: <input type="text" name="description"></p>
-  <p>rating: <input type="text" name="rating"></p>
-  <input type="submit">
-  <input type="hidden" name="restaurant_id" value=<%= @restaurant[:id]%> />
-  <input type="hidden" name="user_id" value=<%=session[:id]%> />
+    <hr>
+    <h3>Add your review:</h3>
+    <p>rating:
+        <select name="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select></p>
+    <p>review:<p>
+        <textarea name="description" rows="5" cols="60"></textarea>
+    <p><input type="submit"></p>
+    <input type="hidden" name="restaurant_id" value=<%= @restaurant[:id]%> />
+    <input type="hidden" name="user_id" value=<%=session[:id]%> />
 </form>

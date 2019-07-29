@@ -9,12 +9,12 @@ enable :sessions
 # main page
 get '/' do
   @restaurants = Restaurant.all
-  erb :index, :layout => :layout
+  erb :index
 end
 
 # registration
 get '/registration' do
-  erb :registration_form, :layout => :layout
+  erb :registration_form
 end
 
 post '/registration' do
@@ -25,7 +25,7 @@ end
 
 # login
 get '/login' do
-  erb :login_form, :layout => :layout
+  erb :login_form
 end
 
 post '/login' do
