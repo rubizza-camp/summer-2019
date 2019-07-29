@@ -1,0 +1,115 @@
+<%  snackbars = SnackBar.all
+    if snackbars.length == 0
+%>
+    <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
+        <div class="alert alert-info" role="alert">
+            No one snack bars exists.
+            Create new one!
+        </div>
+    </div>
+<% 
+    else
+        snackbars.each_with_index  do |snackbar, index|
+            if (index % 2.0).zero?
+%>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style = "min-height: unset;">
+                <div class="mdl-card__title" style = "background: url('../picture/test_back.jpg') center / cover;">
+                    <div class="content">
+                        <div class="text">
+                            <h1 class="display-4" style="font-size: 2rem;"><%= snackbar.name%></h1>
+                        </div>
+
+                        <div class="blur" style = "background: url('../picture/test_back.jpg') center / cover;"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="mdl-card__supporting-text">
+                    <%= snackbar.description%>
+                </div>
+                <div class="mdl-card__actions mdl-card--border d-flex justify-content-between">
+                    <a  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                        onclick="location.href=location.origin+'/snackbars/<%= snackbar.id%>'">
+                        Подробнее
+                    </a>
+                    <span class="mdl-chip tooltip_menu_item mdl-chip--contact">
+                        <span class="mdl-chip__contact mdl-color-text--white">
+                            <i class="material-icons-outlined md-dark" style="font-size: 32px;">
+                                how_to_reg
+                            </i>
+                        </span>
+                        <span class="mdl-chip__text">
+                            <p class="font-weight-normal p-0 m-0"><%= snackbar.comments_count%></p>
+                        </span>
+                    </span>
+                    <div class="snack_bar_raiting stars_raiting" value="<%= snackbar.modular_raiting%>">
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+<%
+                if index == (snackbars.length - 1) || ((index+1) % 2.0).zero?
+%>
+    </div>  
+<%
+                end
+            else
+%>
+        <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style = "min-height: unset;">
+                <div class="mdl-card__title" style = "background: url('../picture/test_back.jpg') center / cover;">
+                    <div class="content">
+                        <div class="text">
+                            <h1 class="display-4" style="font-size: 2rem;"><%= snackbar.name%></h1>
+                        </div>
+
+                        <div class="blur" style = "background: url('../picture/test_back.jpg') center / cover;"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="mdl-card__supporting-text">
+                    <%= snackbar.description%>
+                </div>
+                <div class="mdl-card__actions mdl-card--border d-flex justify-content-between">
+                    <a  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                        onclick="location.href=location.origin+'/snackbars/<%= snackbar.id%>'">
+                        Подробнее
+                    </a>
+                    <span class="mdl-chip tooltip_menu_item mdl-chip--contact">
+                        <span class="mdl-chip__contact mdl-color-text--white">
+                            <i class="material-icons-outlined md-dark" style="font-size: 32px;">
+                                how_to_reg
+                            </i>
+                        </span>
+                        <span class="mdl-chip__text">
+                            <p class="font-weight-normal p-0 m-0"><%= snackbar.comments_count%></p>
+                        </span>
+                    </span>
+                    <div class="snack_bar_raiting stars_raiting" value="<%= snackbar.modular_raiting%>">
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+<%
+                if index == (snackbars.length - 1) || ((index+1) % 2.0).zero?
+%>
+    </div>  
+<%
+                end
+            end
+        end
+    end
+%>

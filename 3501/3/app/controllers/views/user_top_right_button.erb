@@ -1,0 +1,58 @@
+<div class="top_right_user_button">
+    <%if @current_user.nil?%>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" id="demo-menu-lower-right">
+            <i class="material-icons">
+                account_circle
+            </i>
+        </button>
+
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+            for="demo-menu-lower-right">
+            <li href="signin" onclick="location.href=location.origin+'/signin'" class="mdl-list__item mdl-menu__item">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-icon">launch</i>
+                Войти
+                </span>
+            </li>
+            <li href="signup" onclick="location.href=location.origin+'/signup'" class="mdl-list__item mdl-menu__item">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-icon">person_add</i>
+                Создать аккаунт
+                </span>
+            </li>
+        </ul>
+    <%else%>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" id="demo-menu-lower-right"
+            style="background-image: url('../picture/test_user_pic.jpg'); background-size: cover;">
+        </button>
+
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+            for="demo-menu-lower-right">
+            <li>
+                <div class="alert alert-light" role="alert">
+                    <p class="font-weight-light"><%= @current_user.first_name%> <%= @current_user.last_name%></p>
+                    <p class="font-weight-light"><%= @current_user.mail%></p>
+                </div>
+            </li>
+            <li href="new snack" onclick="location.href=location.origin+'/snackbars/new'" class="mdl-list__item mdl-menu__item">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-icon">add_to_photos</i>
+                Добавить мою закусочную
+                </span>
+            </li>
+            <li href="my snacks" onclick="location.href=location.origin+'/snackbars'" class="mdl-list__item mdl-menu__item">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-icon">domain</i>
+                Мои закусочные
+                </span>
+            </li>
+            <li href="sign out" onclick="location.href=location.origin+'/signout'" class="mdl-list__item mdl-menu__item">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-icon">exit_to_app</i>
+                Выйти
+                </span>
+            </li>
+        </ul>
+    <%end%>
+    
+</div>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!--Google api-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <!---->
+    <link rel="stylesheet" href="/css/main/main.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Snak</title>
+</head>
+<body>
+    <%= erb :user_top_right_button%>
+    <div class="container" style="margin-top: 50px;">
+        <form class="was-validated" method="POST" action="/snackbars/new">
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style = "min-height: unset; padding: 10px;">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <h5>Придумайте хорошее имя и описание вашего заведения</h5>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="sample3" name="name" required>
+                                    <label class="mdl-textfield__label" for="sample3">Название вашего заведения...</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <h6 style="margin-top: -25px;">Описание заведения</h6>
+                                <div class="mdl-textfield mdl-js-textfield" style="margin-top: -25px;">
+                                    <textarea class="mdl-textfield__input" type="text" id="sample5" name="description" required></textarea>
+                                    <label class="mdl-textfield__label" for="sample5">Опишите в кратце ваше заведение...</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <h6 style="margin-top: -25px;">Добавьте заглавное фото заведения</h6>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="validatedCustomFile" name="photo" required>
+                                    <label class="custom-file-label" for="validatedCustomFile">Выберите файл...</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <h6>Введите либо укажите на карте координаты заведения</h6>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" value="0.0" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="validationServerLatitude" name="latitude" required>
+                                    <label class="mdl-textfield__label" for="validationServerLatitude">Широта...</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-top: -25px;">
+                                    <input class="mdl-textfield__input" value="0.0" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="validationServerLongitude" name="longitude" required>
+                                    <label class="mdl-textfield__label" for="validationServerLongitude">Долгота...</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3" style="margin-top: -25px; margin-bottom: 0px !important;">
+                                <button type="create" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                    Создать
+                                </button>
+                                <a href="/" type="create" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                    Отмена
+                                </a>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
+                    <div class="row justify-content-md-center" style="height: fit-content; margin-bottom: 14px;">
+                        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style = "min-height: unset; padding: 10px;">
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="telephone" name="telephone" required>
+                                        <label class="mdl-textfield__label" for="telephone">Рабочий номер телефона...</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6  style="margin-top: -25px;">Рабочее время</h6>
+                            <div style="margin-top: -5px; margin-bottom: -30px;" class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="time_opening" name="working_time_opening" required>
+                                        <label class="mdl-textfield__label" for="time_opening">Открытие...</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="time_closing" name="working_time_closing" required>
+                                        <label class="mdl-textfield__label" for="time_closing">Закрытие...</label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center" style="height: 100%;">
+                        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="height: 100%;" id = "map">
+                        <div>
+                    </div>
+                <div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+        // The following example creates a marker in Stockholm, Sweden using a DROP
+        // animation. Clicking on the marker will toggle the animation between a BOUNCE
+        // animation and no animation.
+
+        var marker;
+        var infoWindow;
+        var latitudeEl, longitudeEl;
+        latitudeEl = document.getElementById('validationServerLatitude');
+        longitudeEl = document.getElementById('validationServerLongitude');
+        function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: {lat: 59.325, lng: 18.070}
+        });
+        latitudeEl.oninput = ()=> { onLatitudeElChanged(map) };
+        longitudeEl.oninput = ()=> { onLongitudeElChanged(map)};
+        
+
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            position: {lat: 59.327, lng: 18.067}
+        });
+        marker.addListener('click', toggleBounce);
+        marker.addListener('drag', onMargerMoved);
+
+        infoWindow = new google.maps.InfoWindow;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            infoWindow.open(map);
+            map.setCenter(pos);
+            marker.setPosition(pos);
+            latitudeEl.value = marker.getPosition().lat();
+            longitudeEl.value = marker.getPosition().lng();
+            }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                                'Error: The Geolocation service failed.' :
+                                'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+        }
+
+        function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+        }
+
+        function onMargerMoved()  {
+            latitudeEl.value = marker.getPosition().lat();
+            longitudeEl.value = marker.getPosition().lng();
+        }
+
+        function onLatitudeElChanged(map) {
+            marker.setPosition(new google.maps.LatLng(latitudeEl.value,marker.getPosition().lng()));
+            map.setCenter(marker.getPosition());
+        }
+        function onLongitudeElChanged(map) {
+            marker.setPosition(new google.maps.LatLng(marker.getPosition().lat(),longitudeEl.value));
+            map.setCenter(marker.getPosition());
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJttCulxdGFwOSjLQ6be4dJCIhMaDN0Ws&callback=initMap"
+    async defer></script>
+</body>
+</html>
+
