@@ -8,16 +8,19 @@
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">FoodAdvisor</a>
+      <a class="navbar-brand" href="/">FoodAdvisor</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="/">All restaurants</a></li>
+      <li ><a href="/">All restaurants</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li>  <% if session[:user_id] %>
-              <a href='/sessions/logout'>Log Out</a> 
-            <% end %>  
-      </li>
+      <% if session[:user_id] %>
+        <li> <a href='/sessions/logout'>Log Out</a> </li>
+      <% else %>
+        <li><a href='/sessions/login'>Log In</a> </li>
+        <li><a href='/sessions/signup'>Sign Up</a></li>
+      <% end %>  
+      
     </ul>
   </div>
   </nav>
@@ -31,3 +34,4 @@
 
 </body>
 </html>
+

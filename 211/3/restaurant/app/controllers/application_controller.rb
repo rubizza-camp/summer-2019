@@ -9,15 +9,12 @@ require_relative 'restaurants_controller.rb'
 require_relative 'reviews_controller.rb'
 
 class ApplicationController < Sinatra::Base
-  configure do
-    set views: proc { File.join(root, '../views/') }
-    enable :sessions
-    use Rack::Static, :urls => ['/stylesheets', '/javascripts', '/images'], :root => 'public'
-    set :static, true
-  end
+  set views: proc { File.join(root, '../views/') }
+  enable :sessions
+  use Rack::Static, urls: ['/stylesheets', '/javascripts', '/images'], root: 'public'
+  set :static, true
 
   use SessionsController
   use RestaurantsController
   use ReviewsController
 end
-

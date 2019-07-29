@@ -3,7 +3,7 @@ Bundler.require
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
-  database: 'restaurant.sqlite3'
+  database: 'db/restaurant.sqlite3'
 )
 
 require_relative '../app/controllers/application_controller.rb'

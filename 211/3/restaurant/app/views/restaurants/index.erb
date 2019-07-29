@@ -5,9 +5,9 @@
           <h3> <%= link(rest.name, href = "restaurants/#{rest.id}") %></h3>
           <%= image(rest.photo, options={style: "width:100%"}) %>
           <div class="caption">
-          	<h4>RATING: <%= rest.reviews.average(:mark).round(2) %></h4>
+          	<h4>RATING: <%= rest.reviews.average(:mark).round(2) unless rest.reviews.average(:mark).nil?%></h4>
             <p><%= rest.location %></p>
-            <p><%= rest.description %></p>
+            <p><%= rest.description.slice(0..(rest.description.index('blah'))) %></p>
           </div>
       </div>
     </div>

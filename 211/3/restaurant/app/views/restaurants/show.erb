@@ -6,8 +6,8 @@
     <div class="media-body">
       <h2 class="media-heading"><%= @rest.name %></h2>
       <p> <%= @rest.location %></p>
-      <p> <%= @rest.description %></p>
-      <h3>RATING: <%= @rest.reviews.average(:mark).round(2) %></h3>
+      <p> <%= @rest.description.gsub(/\n/, '<br>') %></p>
+      <h3>RATING: <%= @rest.reviews.average(:mark).round(2) unless @rest.reviews.average(:mark).nil? %></h3>
     </div>
   </div>
 </div>

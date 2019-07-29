@@ -5,8 +5,7 @@ class CreateRestaurantsTable < ActiveRecord::Migration[5.2]
       t.string :location
       t.text :description
       t.string :photo
-      t.datetime :created_at
-      t.datetime :updated_at
+      t.timestamp
     end
   end
 end

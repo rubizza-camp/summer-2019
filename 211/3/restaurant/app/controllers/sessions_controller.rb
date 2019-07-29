@@ -1,4 +1,5 @@
 class SessionsController < BaseController
+  # rubocop:disable Metrics/BlockLength
   namespace '/sessions' do
     get '/signup' do
       erb :'/sessions/signup'
@@ -9,11 +10,11 @@ class SessionsController < BaseController
                        password: params[:password])
       if @user.save
         session[:user_id] = @user.id
-        flash[:notice] = 'You signed in sucessfuly'      
+        flash[:notice] = 'You signed in sucessfuly'
         redirect '/'
       else
         flash[:error] = @user.errors.full_messages
-        redirect '/'
+        redirect '/signup'
       end
     end
 
@@ -39,4 +40,5 @@ class SessionsController < BaseController
       redirect '/'
     end
   end
+  # rubocop:enable Metrics/BlockLength
 end

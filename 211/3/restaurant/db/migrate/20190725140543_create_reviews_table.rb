@@ -2,11 +2,11 @@ class CreateReviewsTable < ActiveRecord::Migration[5.2]
   def change
     create_table :reviews do |t|
       t.text :description
-      t.integer :user_id
-      t.integer :restaurant_id
+      t.integer :mark
+      t.integer :user_id, index: true
+      t.integer :restaurant_id, index: true
 
-      t.datetime :created_at
-      t.datetime :updated_at
+      t.timestamp
     end
   end
 end
