@@ -24,9 +24,12 @@
     </ul>
   </div>
   </nav>
-
+  
   <% flash.keys.each do |type| %>
-    <div class="alert alert-info" role="alert">
+    <% if flash.keys.include?(:notice) then style = 'info'   %>
+    <% elsif flash.keys.include?(:error) then style = 'danger'  %>
+    <% end  %>
+    <div class="alert alert-<%= style  %>" role="alert">
       <%= flash[type] %>
     </div>
   <% end %>
