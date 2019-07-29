@@ -1,30 +1,5 @@
 class CommentController < ApplicationController
 
-  get '/comments/new/:id' do
-    if is_logged_in?
-      erb :'comments/new'
-    else
-      flash[:message] = "Login first"
-      redirect to '/login'
-    end
-  end
-
-  post '/comments/place/:id' do
-    if params[:title] == "" || params[:contet] == "" || params[:rating] == ""
-      flash[:message] = "You must fill all forms"
-      redirect to '/comments/new'
-    else
-      user = current_user
-      @comment = Comment.create(
-        :title => params[:title],
-        :content => params[:contetnt],
-        :rating => params[:rating],
-        :place_id => params[:id],
-        :user_id => user.id)
-      redirect to "comments/#{@comment.id}"
-    end
-  end
-
   get '/comments/:id/edit' do
     if is_logged_in?
       @comment = Comment.find_by_id(params[:id])
