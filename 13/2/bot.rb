@@ -16,12 +16,14 @@ require_relative 'modules/redis_do'
 require_relative 'modules/location'
 require_relative 'modules/photo'
 
+Redis.new.flushall
+
 TOKEN = '935196824:AAFALTOy8UMgbOXpIp9SewpWTHSNlHakBOg'
 
 STUDENTS = GithubParser.new.parse
 
 STATE = {
-  wait_start:             'Hey, push /start',
+  wait_start:             'Hey, you currently not logged in, push /start',
   wait_number:            'Lets enter your correct RUBIZZA number',
   wait_checkin:           'Your number is ok, push /checkin',
   wait_location:          'You checked in, need location',
@@ -70,18 +72,17 @@ STATE = {
     end
   end
 
-Telegram::Bot::Client.run(TOKEN) do |bot|
-  bot.listen do |message|
-    chat_id = message.chat.id
-    state = RedisDo.get(chat_id)
-    case message.text
-    when '/start'    then Start.call(chat_id, state)
-    when '/checkin'  then Checkin.call(chat_id, state)
-    when '/checkout' then Checkout.call(chat_id, state)
-    else                  Else.call(bot, message, chat_id, state)
+  Telegram::Bot::Client.run(TOKEN) do |bot|
+    bot.listen do |message|
+      chat_id = message.chat.id
+      state = RedisDo.get(chat_id)
+      case message.text
+      when '/start'    then Start.call(chat_id, state)
+      when '/checkin'  then Checkin.call(chat_id, state)
+      when '/checkout' then Checkout.call(chat_id, state)
+      else                  Else.call(bot, message, chat_id, state)
+      end
+      bot.api.send_message(chat_id: chat_id, text: STATE[RedisDo.get(chat_id)])
     end
-    bot.api.send_message(chat_id: chat_id, text: STATE[RedisDo.get(chat_id)])
   end
-end
-
 
