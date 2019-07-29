@@ -1,5 +1,6 @@
 require_relative '../check_helper/checker'
 require_relative '../check_and_save/photo_location.rb'
+
 module Checkout
   include PhotoLocation
 
