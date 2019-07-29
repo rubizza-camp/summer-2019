@@ -1,3 +1,4 @@
+# :reek:RepeatedConditional
 class UserController < ApplicationController
 
   get '/signup' do
@@ -23,7 +24,7 @@ class UserController < ApplicationController
       redirect to '/'
     end
   end
-
+  
   get '/login' do
     if is_logged_in?
       flash[:mesage] = "Already logged in"
