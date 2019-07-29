@@ -1,4 +1,7 @@
 class CreateUsersRestrauntsReviewsTable < ActiveRecord::Migration[5.2]
+  # rubocop: disable Metrics/MethodLength
+  # rubocop: disable Metrics/AbcSize
+  # :reek:all
   def change
     create_table :users do |t|
       t.string :name, null: false
@@ -18,9 +21,11 @@ class CreateUsersRestrauntsReviewsTable < ActiveRecord::Migration[5.2]
     create_table :reviews do |t|
       t.string :body, null: false
       t.integer :mark, null: false
-      t.references :user, foreign_key: { to_table: :users }
-      t.references :restraunt, foreign_key: { to_table: :restraunts }
+      t.integer :user_id, null: false
+      t.integer :restraunt_id, null: false
       t.timestamps
     end
   end
+  # rubocop: enable Metrics/MethodLength
+  # rubocop: enable Metrics/AbcSize
 end

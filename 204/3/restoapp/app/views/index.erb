@@ -49,21 +49,21 @@
                                     <%= restraunt.title %></a>
                             </h4>
                             <p class="card-text">
-                                <%= restraunt.description %>
+                                <%= restraunt.description.split(".")[0] %>
                             </p>
                         </div>
                         <div class="card-footer">
-                            <% if restraunt.avg_mark == 0 || restraunt.avg_mark == nil %>
+                            <% if restraunt.avg_mark.to_i == 0 || restraunt.avg_mark == nil %>
                             <small class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</small>
-                            <% elsif restraunt.avg_mark == 1 %>
+                            <% elsif restraunt.avg_mark.to_i == 1 %>
                             <small class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</small>
-                            <% elsif restraunt.avg_mark == 2 %>
+                            <% elsif restraunt.avg_mark.to_i == 2 %>
                             <small class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</small>
-                            <% elsif restraunt.avg_mark == 3 %>
+                            <% elsif restraunt.avg_mark.to_i == 3 %>
                             <small class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</small>
-                            <% elsif restraunt.avg_mark == 4 %>
+                            <% elsif restraunt.avg_mark.to_i == 4 %>
                             <small class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            <% elsif  restraunt.avg_mark == 5 %>
+                            <% elsif  restraunt.avg_mark.to_i == 5 %>
                             <small class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</small>
                             <% end %>
                         </div>

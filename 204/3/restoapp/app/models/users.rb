@@ -1,8 +1,8 @@
 require 'bcrypt'
 
-include BCrypt
-
 class User < ActiveRecord::Base
+  include BCrypt
+
   has_many :reviews
 
   validates_presence_of :email, uniqueness: true

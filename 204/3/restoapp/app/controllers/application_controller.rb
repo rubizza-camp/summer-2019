@@ -3,6 +3,7 @@ require 'byebug'
 require 'bcrypt'
 require 'sinatra'
 require 'sinatra/session'
+# :reek:all
 
 def hash_password(password)
   BCrypt::Password.create(password).to_s
@@ -12,8 +13,19 @@ def validate_password(hash_password, _password)
   BCrypt::Password.new(hash_password) == params[:password]
 end
 
+def median(reviews)
+  array = []
+  reviews.each do |review|
+    array.push(review.mark)
+  end
+  sorted = array.sort
+  len = sorted.length
+  (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
+end
+
 class ApplicationController < Sinatra::Base
   register Sinatra::Session
+  helpers Sinatra::Param
 
   configure do
     set :public_folder, 'public'
@@ -36,12 +48,12 @@ class ApplicationController < Sinatra::Base
     if session?
       redirect '/'
     else
-      erb :login, layout: false
+      erb :login, layout: :login_layout
     end
   end
 
   get '/logout' do
-    session_end!(destroy = true)
+    session_end!
     redirect '/'
   end
 
@@ -53,50 +65,42 @@ class ApplicationController < Sinatra::Base
       session[:user_id] = user.id
       redirect '/'
     else
-      erb :sign_in
+      erb :login
     end
   end
 
   get '/register' do
-    erb :register, layout: false
+    erb :register, layout: :login_layout
   end
 
   post '/create_user' do
-    users = User.all
-    user_id = users.last.id + 1
+    param :email, String, format: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+    user_id = User.all.last.id + 1
     User.create!(
       id: user_id,
       name: params[:name],
       email: params[:email],
       password: hash_password(params[:password])
     )
-
     redirect '/'
   end
 
   get '/restraunts/:id' do
-    @restraunts = Restraunt.all do |restraunt|
-      restraunt.id == params[:id]
-    end
-    @restraunt = Restraunt.find_by(id: params[:id])
-    @restraunt_reviews = Review.all.where(restraunt_id: params[:id])
-    avg_mark = Review.all.where(restraunt_id: params[:id]).ids.reduce(:+)
-    @restraunt.update(avg_mark: avg_mark)
-    @location = { langitude: @restraunt.location.split(',')[0],
-                  longitude: @restraunt.location.split(',')[1].delete(' ') }
+    @restraunt = Restraunt.all.find_by(id: params[:id])
     erb :restraunt
   end
 
   post '/new_review/:id' do
-    reviews = Review.all
-    review_id = reviews.last.id + 1 if reviews.present?
-    Review.create!(
+    review_id = Review.all.last.id + 1 if reviews.present?
+    restraunt = Restraunt.all.find_by(id: params[:id])
+    param :body, String, min_length: 50
+    restraunt.reviews.create!(
       id: review_id,
       body: params[:body],
       mark: params[:mark],
-      user_id: session[:user_id],
-      restraunt_id: params[:id].to_i
+      user_id: session[:user_id]
     )
+    restraunt.update(avg_mark: median(restraunt.reviews))
     redirect '/restraunts/' + params[:id]
   end
 end

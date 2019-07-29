@@ -1,56 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Best restraunt resource</title>
-    <!-- Bootstrap core CSS -->
-    <link href="<%= url('/vendor/bootstrap/css/bootstrap.min.css') %>" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="<%= url('/public/stylesheets/restraunts.css') %>" rel="stylesheet">
-    <link href="<%= url('/public/stylesheets/restraunt.css') %>" rel="stylesheet">
-</head>
-
-<body>
-    <div class="container">
-        <div class="col-md-12 col-lg-12">
-            <div class="login d-flex align-items-center py-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 col-lg-8 mx-auto">
-                            <h3 class="login-heading mb-4">Registration</h3>
-                            <form method='POST' action='/create_user'>
-                                <div class="form-label-group">
-                                    <br>
-                                    <label for="inputName">Name</label>
-                                    <input name="name" id="inputName" class="form-control" placeholder="Name" required autofocus>
-                                </div>
-                                <div class="form-label-group">
-                                    <br>
-                                    <label for="inputEmail">E-mail</label>
-                                    <input name="email" id="inputEmail" class="form-control" placeholder="E-mail" required>
-                                </div>
-                                <div class="form-label-group">
-                                    <br>
-                                    <label for="inputPassword">Password</label>
-                                    <input name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                                </div>
-                                <br>
-                                <button class="btn btn-lg btn-light btn-outline-dark btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Register</button>
-                            </form>
+<div class="col-md-12 col-lg-12">
+    <div class="login d-flex align-items-center py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-8 mx-auto">
+                    <h3 class="login-heading mb-4">Registration</h3>
+                    <form method='POST' action='/create_user'>
+                        <div class="form-label-group">
+                            <br>
+                            <label for="inputName">Name</label>
+                            <input name="name" id="inputName" class="form-control" placeholder="Name" required autofocus>
                         </div>
-                    </div>
+                        <div class="form-label-group">
+                            <br>
+                            <label for="inputEmail">E-mail</label>
+                            <input name="email" id="inputEmail" class="form-control" placeholder="E-mail" required>
+                        </div>
+                        <div class="form-label-group">
+                            <br>
+                            <label for="inputPassword">Password</label>
+                            <input name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                        </div>
+                        <br>
+                        <button class="btn btn-lg btn-light btn-outline-dark btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Register</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</body>
-<!-- Bootstrap core JavaScript -->
-<script src="<%= url('vendor/jquery/jquery.min.js') %>"></script>
-<script src="<%= url('vendor/bootstrap/js/bootstrap.bundle.min.js') %>"></script>
-</body>
-
-</html>
+</div>
