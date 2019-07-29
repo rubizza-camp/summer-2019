@@ -16,6 +16,8 @@ class Checker
     Guest[id]
   end
 
+  private
+
   def find_user
     Guest.all.any? { |guest| guest.number.include?(number) }
   end

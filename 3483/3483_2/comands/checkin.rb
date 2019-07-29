@@ -5,9 +5,9 @@ module Checkin
   include PhotoLocation
 
   def checkin!(*)
-    if Checker.registered(from['id']) && Guest[from['id']].in_camp == 'false'
+    if Checker.registered(from['id']) && Guest[from['id']].in_camp == 'checkin'
       check_data
-      Guest[from['id']].update in_camp: 'true'
+      Guest[from['id']].update in_camp: 'checkout'
     else
       respond_with :message, text: t(:in_camp)
     end

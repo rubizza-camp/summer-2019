@@ -12,7 +12,7 @@ module Start
 
   def check_user(number = nil, *)
     if Checker.new(number).correct_data?
-      Guest.create(id: from['id'], number: number, in_camp: 'false')
+      Guest.create(id: from['id'], number: number, in_camp: 'checkin')
       respond_with :message, text: t(:done)
     else
       respond_with :message, text: t(:start_error)
