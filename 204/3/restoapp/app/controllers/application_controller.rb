@@ -5,14 +5,6 @@ require 'sinatra'
 require 'sinatra/session'
 # :reek:all
 
-def hash_password(password)
-  BCrypt::Password.create(password).to_s
-end
-
-def validate_password(hash_password, _password)
-  BCrypt::Password.new(hash_password) == params[:password]
-end
-
 def median(reviews)
   array = []
   reviews.each do |review|
@@ -21,6 +13,14 @@ def median(reviews)
   sorted = array.sort
   len = sorted.length
   (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
+end
+
+def hash_password(password)
+  BCrypt::Password.create(password).to_s
+end
+
+def validate_password(hash_password, _password)
+  BCrypt::Password.new(hash_password) == params[:password]
 end
 
 class ApplicationController < Sinatra::Base
@@ -91,8 +91,8 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/new_review/:id' do
-    review_id = Review.all.last.id + 1 if reviews.present?
     restraunt = Restraunt.all.find_by(id: params[:id])
+    review_id = Review.all.last.id + 1 if restraunt.reviews.any?
     param :body, String, min_length: 50
     restraunt.reviews.create!(
       id: review_id,
