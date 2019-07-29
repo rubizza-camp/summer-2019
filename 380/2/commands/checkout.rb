@@ -7,16 +7,18 @@ class CheckOut
   end
 
   # :reek:TooManyStatements:
+  # rubocop:disable Metrics/CyclomaticComplexity
   def call
     case user.status.to_sym
     when :checked_in
       user.save_status(:waiting_for_selfie_out)
       'Send selfie, please!'
     when :waiting_for_number then 'Enter your camp number!'
-    when :checked_in then 'You already checked in!'
+    when :checked_out then 'You already checked out!'
     when :waiting_for_selfie then 'Send selfie for check in'
     when :waiting_for_geo then 'Send selfie for checki in'
     when :unregister then 'Register first!'
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

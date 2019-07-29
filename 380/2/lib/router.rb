@@ -13,6 +13,7 @@ module Router
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   # :reek:TooManyStatements, :reek:DuplicateMethodCall
   def self.operation_by_user_status(message, bot)
     tg_id = message.from.id
@@ -26,4 +27,5 @@ module Router
       Geo.new(tg_id).call(message.location)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end

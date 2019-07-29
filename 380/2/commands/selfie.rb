@@ -6,6 +6,7 @@ class Selfie
     @user = User.find(tg_id)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
   # :reek:TooManyStatements:
   def call(file_path)
     case user.status.to_sym
@@ -22,9 +23,11 @@ class Selfie
     when :unregister then 'Register first!'
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   # :reek:DuplicateMethodCall, :reek:TooManyStatements
   def save_img(file_path, operation)
     save_file_path = "store/#{user.camp_id}/#{operation}/#{Time.now.getlocal('+03:00')}/"
@@ -33,9 +36,10 @@ class Selfie
     File.write(save_file_path + 'photo.jpg', image, mode: 'wb')
     Redis.current.set("user:#{user.camp_id}:folder", save_file_path)
     true
-  rescue Errno::ENOENT => error
-    puts error.message
+  rescue Errno::ENOENT => e
+    puts e.message
   end
+  # rubocop:enable Metrics/AbcSize
 
   # :reek:UtilityFunction:
   def img_url(file_path)

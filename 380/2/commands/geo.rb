@@ -8,6 +8,7 @@ class Geo
     @user = User.find(tg_id)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
   # :reek:TooManyStatements:
   def call(location)
     result = "latitude: #{location.latitude} longitude: #{location.longitude}"
@@ -24,6 +25,7 @@ class Geo
     when :unregister then 'Register first!'
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
   def save_location(location)
     save_file_path = Redis.current.get("user:#{user.camp_id}:folder")
