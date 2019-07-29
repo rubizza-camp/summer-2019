@@ -36,6 +36,7 @@ GEM
     builder (3.2.3)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    dotenv (2.7.4)
     erubi (1.8.0)
     execjs (2.7.0)
     ffi (1.11.1)
@@ -114,6 +115,7 @@ DEPENDENCIES
   activerecord (= 5.2.3)
   bcrypt (= 3.1.13)
   bootstrap (= 4.3.1)
+  dotenv
   i18n (= 1.6.0)
   rack-flash3 (= 1.0.5)
   rake (= 12.3.3)
