@@ -17,7 +17,7 @@ module RestaurantHelper
   def ask_about_comment
     return if comment?
 
-    please_add_comment
+    show_message_about_problems
   end
 
   def comment?

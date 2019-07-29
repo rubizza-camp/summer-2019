@@ -15,9 +15,7 @@ module UserHelper
   end
 
   def check_info_for_sign_up
-    already_registered if find_user_in_db
-    invalid_email unless valid_email?
-    password_should_be_the_same unless password_and_confirm_password?
+    show_message_about_problems unless !find_user_in_db || valid_email? || password?
   end
 
   def logout
@@ -26,12 +24,11 @@ module UserHelper
 
   def login
     logout if login?
-    no_email_in_db unless find_user_in_db
-    invalid_password unless right_password?
+    show_message_about_problems unless find_user_in_db || right_password?
     session[:user_id] = @user.id
   end
 
-  def password_and_confirm_password?
+  def password?
     params[:password] == params[:confirm_password]
   end
 
