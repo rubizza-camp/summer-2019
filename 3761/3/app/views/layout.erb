@@ -32,9 +32,9 @@
       </div>     
     </nav> 
 
-    <% if flash.has?(:message) %>
+    <% if flash.has?(:error) %>
       <div class="alert alert-danger box" role="alert">
-        <%= flash[:message] %> 
+        <%= flash[:error] %> 
       </div>
     <% end %>
 

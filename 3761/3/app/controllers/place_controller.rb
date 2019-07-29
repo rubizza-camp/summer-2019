@@ -7,8 +7,8 @@ class PlaceController < ApplicationController
   get '/place/:id' do
     @place = Place.find(params[:id])
     @review = Review.where(place_id: params[:id]).reverse
-    @average_score = average_score if @review.count.positive?
-    flash[:message] = I18n.t(:unregistered_user) unless session?
+    average_score if @review.count.positive?
+    flash[:error] = I18n.t(:unregistered_user) unless session?
     erb :place
   end
 
@@ -17,8 +17,6 @@ class PlaceController < ApplicationController
   private
 
   def average_score
-    review.inject(0) do |score, review|
-      score + review.grade
-    end / review.count
+    @average_score = review.pluck(:grade).inject(&:+) / review.count
   end
 end

@@ -1,9 +1,13 @@
 require 'rack-flash'
 require 'dotenv'
+require_relative '../helpers/user_helper'
+require_relative '../helpers/session_helper'
 
 class ApplicationController < Sinatra::Base
   register Sinatra::Session
   register Sinatra::ActiveRecordExtension
+  helpers UserHelper
+  helpers SessionHelper
 
   Dotenv.load
   SESSION_SECRET = ENV['SESSION_SECRET']
