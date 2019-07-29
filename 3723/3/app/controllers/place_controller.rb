@@ -1,14 +1,5 @@
 class PlaceController < ApplicationController
 
-  get '/places/:id/new_comment' do
-    if is_logged_in?
-      erb :'comments/new'
-    else
-      flash[:message] = "Login first"
-      redirect to '/login'
-    end
-  end
-
   post '/places/:id/new_comment' do
     if params[:title] == "" || params[:contet] == "" || params[:rating] == ""
       flash[:message] = "You must fill all forms"
@@ -21,7 +12,7 @@ class PlaceController < ApplicationController
         :rating => params[:rating],
         :place_id => params[:id],
         :user_id => user.id)
-      redirect to "comments/#{@comment.id}"
+      redirect to "places/#{params[:id]}"
     end
   end
 
@@ -32,6 +23,10 @@ class PlaceController < ApplicationController
 
   get '/places/:id' do
     @place = Place.find_by_id(params[:id])
+    @place.comments.each do |comment|
+        @place.rating += comment.rating
+    end
+    @place.update(rating: @place.rating / @place.comments.count) if @place.comments.count > 0
     erb :'places/show'
   end
 end

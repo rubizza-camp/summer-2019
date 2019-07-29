@@ -7,7 +7,7 @@
 <br>
 <br>
 
-<% Comment.all.each do |comment| %>
+<% @place.comments.each do |comment| %>
   <div>
       <p><%= comment.title %></p>
       <p>User: <%=User.find(comment.user_id).username%></p>
@@ -16,6 +16,35 @@
       <br>
   </div>
 <% end %>
+<br>
+<br>
+<br>
 
-<a href="/places/:id/new_comment">Add another comment</a><br>
-<p><a href='/logout'>Log Out</a></p>
+<form action="/places/<%= @place.id %>/new_comment" method="POST">
+  <p><b>Short description:<b> <input type='text' name="title">
+  <p>
+    <b>Your message:</b><br>
+    <textarea rows="3" cols="35" name="content"></textarea>
+  </p>
+  <p>
+    Rating:
+    <select name="rating" value="1">
+      <option value="1">1 star</option>
+      <option value="2">2 stars</option>
+      <option value="3">3 stars</option>
+      <option value="4">4 stars</option>
+      <option value="5">5 stars</option>
+    </select>
+  </p>
+  <p><input type='submit' value='Save this comment'></p>
+</form>
+<br>
+<br>
+
+<% if is_logged_in? %>
+  <p>Logged as <%= current_user.email %></p>
+  <p><a href='/logout'>Logout</a></p>
+<% else %>
+  <p><a href='/login'>Login</a></p>
+<% end %>
+<p><a href='/'>Back to index</a></p>

@@ -11,5 +11,10 @@
   </div>
 <% end %>
 
-<p><a href='/login'>Login</a></p>
+<% if is_logged_in? %>
+  <p>Logged as <%= current_user.email %></p>
+  <p><a href='/logout'>Logout</a></p>
+<% else %>
+  <p><a href='/login'>Login</a></p>
+<% end %>
 <p><a href='/signup'>Or sign up here</a></p>
