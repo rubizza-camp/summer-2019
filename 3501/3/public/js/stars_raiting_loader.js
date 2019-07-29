@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 class StarsRaitingController
 {
     static update_all_users_reiting()
@@ -30,4 +32,4 @@ class StarsRaitingController
     }
 }
 
-StarsRaitingController.update_all_users_reiting()
+StarsRaitingController.update_all_users_reiting();

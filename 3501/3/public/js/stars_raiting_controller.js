@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 class StarsRaitingController
 {
     constructor()
@@ -105,7 +107,7 @@ class StarsRaitingController
         this.current_state = [];
         for (var i = 0; i < this.stars.length; i++)
         {
-            this.current_state.push(this.stars[i].children[0].textContent)
+            this.current_state.push(this.stars[i].children[0].textContent);
         }
     }
     load_last_state()
@@ -201,4 +203,4 @@ class StarsRaitingController
 }
 
 starsRaitingController = new StarsRaitingController();
-StarsRaitingController.update_all_users_reiting()
+StarsRaitingController.update_all_users_reiting();
