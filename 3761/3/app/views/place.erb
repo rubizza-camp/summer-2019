@@ -19,57 +19,17 @@
       <% if session[:user_id] %>
         <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#comment">Send feedback</button>
       <% end %>
-      <!-- Modal -->
-      <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Review</h5>
-              <button type="button" class="close" onclick="document.getElementById('addForm').reset()" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">                
-              <div class='row'>
-                <div class='col-md-1'>
-                  <button class="btn btn-success btn-sm" disabled>
-                    <span class="fa fa-star"></span>
-                  </button>
-                </div>
-                <div class="col">
-                  <select class="form-control mb-3" style='width: 80px;' name='grade'>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col mb-3 form-group">
-                  <textarea style="height: 250px;" type="text" name="text" class="form-control" placeholder="Text" required></textarea>
-                  <div class="invalid-feedback">Fill in this field</div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="document.getElementById('addForm').reset()">Cancel</button>
-              <button type="submit" class="btn btn-dark">Send</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= erb :comment_modal_form%>
     </form>
     <% @review.each do |review| %>
       <div class="card card-body m-1">
-          <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
-          <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
-          <p class="card-text"><%= review.text %>
+        <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
+        <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
+        <p class="card-text"><%= review.text %>
             <button class="btn btn-<%if review.grade >2 %>success<%else%>danger<%end%> btn-sm float-right"  disabled>
-              <span class="fa fa-star"></span>   <%= review.grade%>
+            <span class="fa fa-star"></span>   <%= review.grade%>
             </button>
-          </p>
+        </p>
       </div>
     <% end %>
   </div>
