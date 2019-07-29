@@ -1,12 +1,12 @@
 class CafeController < ApplicationController
   get '/' do
-    @places = Place.all
+    @pagy, @places = pagy(Place.all, items: 4)
     erb :show_all_places
   end
 
-  post '/login' do
-    if AuthHelper.chek_user_email(params[:email])
-      if AuthHelper.check_valid_user_password(params[:password], params[:email])
+  post '/login', needs: %i[email password] do
+    if UserHelper.chek_user_email(params[:email])
+      if UserHelper.valid_user_password?(params[:password], params[:email])
         add_user_info_to_cookies(params[:email])
         cookies.delete(:info)
         redirect @env['HTTP_REFERER']
@@ -23,25 +23,26 @@ class CafeController < ApplicationController
     redirect @env['HTTP_REFERER']
   end
 
-  post '/register' do
+  post '/register', needs: %i[email password name] do
     cookies.delete(:info)
-    User.create(name: params[:name], email: params[:email],
-                password: BCrypt::Password.create(params[:password]))
+    UserHelper.create_user(params[:email], params[:name], params[:password])
     redirect @env['HTTP_REFERER']
   end
 
   get '/place/:id' do
-    @reviews = Review.where(['places_id = ?', params[:id]])
+    @reviews = Review.where(['place_id = ?', params[:id]])
     @place = Place.find(params[:id])
-    @user_names = []
-    @reviews.each { |review| @user_names << User.where('id = ?', review.users_id).first.name }
     erb :show_place
   end
 
   post '/place/:id' do
-    Review.create(title: params[:title], description: params[:description],
-                  places_id: params[:id], users_id: cookies[:users_id],
-                  rating: params[:rating])
+    ReviewHelper.create_review(
+      title: params[:title],
+      description: params[:description],
+      place_id: params[:id],
+      user_id: cookies[:users_id],
+      rating: params[:rating]
+    )
     Place.find(params[:id]).update(average_rating:
                                     RatingHelper.calculate_average_rating(params[:id]))
     redirect "/place/#{params[:id]}"
