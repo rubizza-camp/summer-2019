@@ -2,17 +2,32 @@ doctype html
 html
   head
     title Restaurants annotations
-    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    meta content="text/html" charset="UTF-8" http-equiv="Content-Type"
     link rel="stylesheet" type="text/css" href="styles/styles.css"
   body
+    #modal_restaurants.modal
+        .restaurant
+            .restaurant__close CLOSE X
+            .restaurant__name
+                h1
+            .restaurant__description
+                p
+            .restaurant__coordinates
+                p
+            #comment Comments:
     .container
         h2 Restaurants:
         - @restaurants.each do |restaurant|
-            .block onclick='location.href="#{restaurant.id}"'
+            .block
+                .reedmore.modal--disable
+                    p reed more...
                 .block__name
                     h3 = restaurant.name
-                .block__text
+                .block__description
+                    p &ldquo;#{restaurant.description[0, 100]}...&rdquo;
+                .block__hidden
                     p = restaurant.description
+                    span = restaurant.id
                 .block__coorinates
                     p Latitude:&nbsp;&nbsp;
                         #{restaurant.latitude}&nbsp;&nbsp;

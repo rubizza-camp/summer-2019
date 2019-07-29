@@ -9,33 +9,32 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
+# rubocop:disable Style/NumericLiterals
 ActiveRecord::Schema.define(version: 2019_07_25_084101) do
-
-  create_table "comments", force: :cascade do |t|
-    t.integer "mark", null: false
-    t.text "annotation", null: false
-    t.integer "user_id", null: false
-    t.integer "restaurant_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'comments', force: :cascade do |t|
+    t.integer 'mark', null: false
+    t.text 'annotation', null: false
+    t.integer 'user_id', null: false
+    t.integer 'restaurant_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "restaurants", force: :cascade do |t|
-    t.string "name", null: false
-    t.float "latitude", null: false
-    t.float "longitude", null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'restaurants', force: :cascade do |t|
+    t.string 'name', null: false
+    t.float 'latitude', null: false
+    t.float 'longitude', null: false
+    t.text 'description'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "password_hash", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'name', null: false
+    t.string 'email', null: false
+    t.string 'password_hash', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
-
 end
+# rubocop:enable Style/NumericLiterals

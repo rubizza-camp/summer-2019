@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-
   get '/:id' do
     @comment = Comment.find_by(id: params[:id])
     unless @comment

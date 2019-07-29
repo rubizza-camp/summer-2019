@@ -1,11 +1,13 @@
+# :reek:FeatureEnvy
+# :reek:TooManyStatements
 class CreateRestaurants < ActiveRecord::Migration[5.2]
   def change
-    create_table :restaurants do |t|
-      t.string :name, null: false
-      t.float :latitude, null: false
-      t.float :longitude, null: false
-      t.text :description
-      t.timestamps
+    create_table :restaurants do |table|
+      table.string :name, null: false
+      table.float :latitude, null: false
+      table.float :longitude, null: false
+      table.text :description
+      table.timestamps
     end
   end
 end

@@ -1,3 +1,4 @@
+# :reek:InstanceVariableAssumption
 class User < ActiveRecord::Base
   include BCrypt
 

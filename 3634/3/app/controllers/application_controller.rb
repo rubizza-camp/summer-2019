@@ -1,18 +1,18 @@
 require 'rack-flash'
+require 'sinatra'
+require 'sinatra/json'
 
 class ApplicationController < Sinatra::Base
-
   use Rack::Flash
 
   configure do
     set :views, 'app/views'
     set :public_folder, 'app/assets'
     enable :sessions
-    #set :session_secret, "password_security"
+    set :session_secret, 'password_security'
   end
 
   helpers do
-
     def logged_in?
       session[:user_id]
     end
@@ -30,7 +30,5 @@ class ApplicationController < Sinatra::Base
     # def redirect_to_categories
     #   redirect to "/categories"
     # end
-
   end
-
 end

@@ -1,0 +1,14 @@
+#comment {
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.comment {
+  border: .125rem solid #63287d;
+  padding: 1rem;
+  margin: 3rem auto;
+  font-size: 1.5rem;
+  text-transform: none;
+  text-align: justify;
+}

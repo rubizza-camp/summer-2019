@@ -1,0 +1,30 @@
+.restaurant {
+  position: absolute;
+  margin: 3rem 25%;
+  padding: 2rem;
+  background-color: #63e091;
+  z-index: 2;
+}
+
+.restaurant__close {
+  text-decoration: underline;
+  text-align: right;
+}
+
+.restaurant__close:hover {
+  cursor: pointer;
+}
+
+.restaurant__name {
+
+}
+
+.restaurant__description {
+  text-align: justify;
+  font-size: 2rem;
+}
+
+.restaurant__coordinates {
+  font-size: 1.5rem;
+  text-align: center;
+}
