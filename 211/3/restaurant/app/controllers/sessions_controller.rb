@@ -2,7 +2,12 @@ class SessionsController < BaseController
   # rubocop:disable Metrics/BlockLength
   namespace '/sessions' do
     get '/signup' do
-      erb :'/sessions/signup'
+      if session[:user_id]
+        flash[:notice] = 'You already logged in'
+        redirect '/'
+      else
+        erb :'/sessions/signup'
+      end
     end
 
     post '/signup' do
@@ -19,7 +24,12 @@ class SessionsController < BaseController
     end
 
     get '/login' do
-      erb :'sessions/login'
+      if session[:user_id]
+        flash[:notice] = 'You already logged in'
+        redirect '/'
+      else
+        erb :'sessions/login'
+      end
     end
 
     post '/login' do
