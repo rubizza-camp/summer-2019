@@ -4,7 +4,7 @@
     <div class="card-deck row">
     <% @places.each do |place| %>
       <div class="col-md-6">
-        <div class="card mb-4 " style='height: 500px'>
+        <div class="card mb-4 " style="height: 500px">
           <div class="view overlay flex-auto">
             <img class="card-img-top" src="<%= place.image_path %>" alt="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" width="350" height="350" >
             <a href="place/<%= place.id%>">
@@ -13,7 +13,7 @@
           </div>
           <div class="card-body  flex-column">
             <h3 class="card-title">
-                <a class='text-dark' href = "place/<%= place.id%>"> <%= place.name %></h1>
+                <a class="text-dark" href = "place/<%= place.id%>"> <%= place.name %></h1>
             </h3>
             <a href = "place/<%= place.id%>" >
                 <p class="card-text"><%= place.description %></p>
@@ -25,6 +25,11 @@
         </div>
       </div>
       <%end%>
+    </div>
+    <div class="container">
+      <div class="container">
+        <%= pagy_bootstrap_combo_nav_js(@pagy) %>
+      </div>
     </div>
   </div>
 </body>

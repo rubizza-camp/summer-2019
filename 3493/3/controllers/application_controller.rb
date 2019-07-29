@@ -5,5 +5,4 @@ class ApplicationController < Sinatra::Base
   include Pagy::Backend
   include Pagy::Frontend
   include CookiesHelper
-  include ReviewHelper
 end
