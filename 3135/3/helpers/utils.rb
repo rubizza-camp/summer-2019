@@ -8,7 +8,7 @@ module Utils
   def login(email,password)
     if User.exists?(email: email) && User.find_by(email: email)[:password] == password
       session[:id] = User.find_by(email: email)[:id]
-      redirect '/'
+      redirect session[:return_to_page]
     else
       flash.next[:notice] = 'wrong input'
       redirect '/login'
