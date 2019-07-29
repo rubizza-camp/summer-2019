@@ -3,7 +3,7 @@ require 'redis'
 module DeleteCommand
   def remove_account!(*)
     return respond_with :message, text: t(:not_registered) unless user_registered?
-    
+
     remove_from_redis
     respond_with :message, text: t(:remove_account)
   end
