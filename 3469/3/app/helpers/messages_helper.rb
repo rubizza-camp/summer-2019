@@ -1,5 +1,4 @@
 module MessagesHelper
-
   def invalid_password
     flash[:danger] = 'Invalid user password!!!!!!!!'
     redirect 'sign_in'
@@ -25,4 +24,8 @@ module MessagesHelper
     redirect 'sign_in'
   end
 
+  def please_add_comment
+    flash[:danger] = 'Add comment!!!!!!!!'
+    redirect "/#{session[:cafe_name]}"
+  end
 end

@@ -1,19 +1,20 @@
 # frozen_string_literal: true
+
 require 'sinatra'
 require 'rubygems'
 require 'sinatra/activerecord'
 require 'erb'
 require 'sinatra/flash'
-require_relative './app/models/users'
-require_relative './app/models/restaurants'
-require_relative './app/models/comments'
-require_relative './app/helpers/user_helper'
-require_relative './app/helpers/comment_helper'
-require_relative './app/helpers/messages_helper'
-require_relative './app/helpers/restaurant_helper'
+require 'bcrypt'
+require 'email_address'
+require 'dotenv'
+Dir['./app/models/*.rb'].each { |file| require file }
+Dir['./app/helpers/*.rb'].each { |file| require file }
+Dotenv.load
 class Controller < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
+
   include UserHelper
   include CommentHelper
   include MessagesHelper
@@ -21,7 +22,7 @@ class Controller < Sinatra::Base
 
   configure do
     enable :sessions
-    set :session_secret, 'qwe'
+    set :session_secret, ENV['key']
   end
 
   get '/' do
@@ -48,9 +49,7 @@ class Controller < Sinatra::Base
   end
 
   post '/rate' do
-    redirect 'sign_in' unless login?
-    ask_about_comment unless good_mark?
-    create_comment
+    comment_to_the_cafe
     redirect "/#{session[:cafe_name]}"
   end
 
@@ -60,9 +59,7 @@ class Controller < Sinatra::Base
   end
 
   get '/:name' do
-    session[:cafe_name] = params[:name]
     info_about_selected_cafe
     erb :page_about_restaurant
   end
-
 end

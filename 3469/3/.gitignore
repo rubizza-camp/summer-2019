@@ -1,5 +1,6 @@
 .DS_Store
 *.mov
 .idea
-.sqlite
+db/*.sqlite
+.env
 

@@ -15,6 +15,7 @@ GEM
     arel (9.0.0)
     bcrypt (3.1.13)
     concurrent-ruby (1.1.5)
+    dotenv (2.7.4)
     email_address (0.1.11)
       netaddr (~> 2.0)
       simpleidn
@@ -53,6 +54,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1, >= 3.1.12)
+  dotenv
   email_address
   rake
   sinatra-activerecord
