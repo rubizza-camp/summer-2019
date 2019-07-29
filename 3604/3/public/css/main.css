@@ -1,0 +1,80 @@
+body {
+  background: rgb(206, 192, 192);
+}
+
+header {
+  padding-left: 50%;
+  list-style: none;                    
+  display: flex;
+}
+
+.header-menu-item {
+  padding: 40px 30px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 20px;
+}   
+
+.alert_box {
+  margin: 15px;
+  padding: 20px;
+  background: rgb(204, 110, 110);
+  color: white;
+  font-size: 20px;
+}
+
+.sign_in, .sign_up, .place {
+    background: rgb(204, 110, 110);
+    box-shadow:  
+    0 1px 4px rgba(0, 0, 0, .3),
+    -23px 0 20px -23px rgba(0, 0, 0, .8),
+    23px 0 20px -23px rgba(0, 0, 0, .8),
+    0 0 40px rgba(0, 0, 0, .1) inset;;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    padding: 20px;
+}
+
+.place {
+    margin-top: 20px; 
+    width: 60%;
+    color: white;
+}
+
+input {
+  border-radius: 20px;
+  padding: 10px;
+  width: 90%
+}
+
+label {
+  padding: 20px;
+  color: white;
+  font-size: 30px;
+}
+
+button{
+  display: flex;
+  background: white;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  border: none;
+  color: rgb(204, 110, 110);
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.place {
+  color: white;
+  font-size: 20px;
+}
+
+.place .name{
+  color: white;
+  font-size: 30px;
+}

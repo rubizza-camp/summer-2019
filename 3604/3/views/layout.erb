@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+
+  <body>
+    <header>
+      <a class = 'header-menu-item' href = '/main' >Main</a>
+      <% if session[:user_id] %>
+        <a class = 'header-menu-item' href = '/sign_out' >Sign out</a>
+      <% else %>
+        <a class = 'header-menu-item' href = '/sign_in' >Sign in</a>
+        <a class = 'header-menu-item' href = '/sign_up' >Sign up</a>
+      <% end %>
+    </header>
+
+    <% if flash.has?(:message) %>
+      <div class = 'alert_box'>
+        <%= flash[:message] %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= yield %>
+    </div>
+
+    <footer>
+
+    </footer>
+  </body>
+</html>
