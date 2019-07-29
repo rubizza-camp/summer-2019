@@ -1,8 +1,6 @@
 require_relative './config/environment'
 
-if ActiveRecord::Base.connection.migration_context.needs_migration?
-  raise 'Run db:migrate first'
-end
+raise 'Run db:migrate first' if ActiveRecord::Base.connection.migration_context.needs_migration?
 
 use Rack::MethodOverride
 use PlaceController

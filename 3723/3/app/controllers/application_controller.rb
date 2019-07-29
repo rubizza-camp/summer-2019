@@ -1,7 +1,6 @@
 Dotenv.load
 
 class ApplicationController < Sinatra::Base
-
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
@@ -10,8 +9,8 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
   end
 
-  def is_logged_in?
-    !!session[:user_id]
+  def logged_in?
+    session[:user_id]
   end
 
   def current_user
