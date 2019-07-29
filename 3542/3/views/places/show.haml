@@ -6,15 +6,15 @@
 %p= "Rate: #{@place.average_mark.round(2)}"
 %h2 Share your opinion
 %form{ method: 'post', action: '/comments' }
-  %div.form-group
+  .form-group
     %label.sr-only{ for: 'description' }
-    %textarea.form-control{ name: 'description', placeholder: 'Enter your text...' } 
-  %div.form-group
+    %textarea.form-control{ name: 'description', placeholder: 'Enter text...' }
+  .form-group
     %label.sr-only{ for: 'mark' }
     %input.form-control{ type: 'number', name: 'mark', min: '1', max: '5', placeholder: 'Mark' }
   %div
     %input{ type: 'hidden', name: 'place_id', readonly: 'readonly', value: @place.id }
-  %div.form-group
+  .form-group
     %button.btn.btn-lg.btn-primary{:type => "submit"} Comment
 %h2 Comments
 - @place.comments.each do |comment|

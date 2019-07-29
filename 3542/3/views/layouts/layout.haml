@@ -1,24 +1,22 @@
-/ rubocop disable:all
-/ :reek:all
 !!! 5
 %html
   %head
-    %link{:crossorigin => "anonymous", :href => "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", :integrity => "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", :rel => "stylesheet"}
-    %link{:href => "/stylesheets/application.css", :rel => "stylesheet"}
+    %link{ :crossorigin => "anonymous", :href => "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", :integrity => "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", :rel => "stylesheet" }
+    %link{ :href => "/stylesheets/application.css", :rel => "stylesheet" }
     %title Places
   %body
     %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
-      %a.navbar-brand{:href => "/places"} Places
+      %a.navbar-brand{ :href => "/places" } Places
       %ul.navbar-nav.mr-auto
         %li.nav-item.active
-          %a.nav-link{:href => "/places"}
+          %a.nav-link{ :href => "/places" }
             Home
             %span.sr-only (current)
       .nav-item.nav-link.white-text
         = session[:email]
-      %a{:href => "/logout"}
-        %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Logout
-    %main.container{:role => "main"}
+      %a{ :href => "/logout" }
+        %button.btn.btn-outline-success.my-2.my-sm-0{ :type => "submit" } Logout
+    %main.container{ :role => "main" }
       .starter-template
-        =styled_flash
-        =yield
+        = styled_flash
+        = yield
