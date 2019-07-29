@@ -1,11 +1,14 @@
-source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+# frozen_string_literal: true
 
-gem 'activesupport'
-gem 'figaro', '~> 1.1', '>= 1.1.1'
-gem 'json', '~> 1.8', '>= 1.8.3'
+source 'https://rubygems.org'
+
+gem 'activesupport', require: 'active_support/all'
+gem 'dotenv', require: 'dotenv/load'
+gem 'ohm'
+gem 'pry-byebug', '~> 3.7'
 gem 'redis', '~> 4.1', '>= 4.1.2'
-gem 'reek', '~> 5.4'
-gem 'rubocop'
-gem 'telegram-bot', '~> 0.14.2'
+gem 'redis-rails'
+gem 'reek', '~> 5.4', require: false
+gem 'rubocop', require: false
+gem 'telegram-bot', '~> 0.14.2', require: 'telegram/bot'
 gem 'telegram-bot-types', '~> 0.6.1'
