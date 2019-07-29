@@ -1,11 +1,5 @@
-require 'sinatra'
-require 'sinatra/activerecord'
-require 'sinatra/cookies'
-require 'sinatra/flash'
-
-Dir.glob('./{models,helpers,controllers}/*.rb').each { |file| require file }
-
-set :database, adapter: 'sqlite3', database: 'mywebapp.sqlite3'
+require_relative 'config/environment'
+require 'sinatra/strong-params'
 use Rack::MethodOverride
 
 map('/') { run CafeController }
