@@ -14,7 +14,7 @@ module Commands
       @save_context = true
     end
 
-    def perform(&_block)
+    def perform(&_block) # rubocop:disable Metrics/MethodLength
       process_photo && set_geolocation_message if photo?
       process_location && set_checked_in_message if geo?
       update_user if message == :checked_in
