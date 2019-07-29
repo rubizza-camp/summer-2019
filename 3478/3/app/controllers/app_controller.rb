@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'rubygems'
 require 'sinatra/activerecord'
@@ -24,10 +26,6 @@ class AppController < Sinatra::Base
 
   Truemail.configure do |config|
     config.verifier_email = 'ojiknpe@net8mail.com'
-  end
-
-  get '/test' do
-    binding.pry
   end
 
   use UserController

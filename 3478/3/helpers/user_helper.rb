@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserHelper
   def add_user
     @user[:password] = Digest::SHA1.hexdigest(params[:password])
@@ -14,7 +16,6 @@ module UserHelper
   end
 
   def valid_user_login?
-    binding.pry
     return true if @user && (@user.password == Digest::SHA1.hexdigest(params[:password]))
 
     flash[:danger] = 'No such user!'

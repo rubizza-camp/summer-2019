@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require_relative '../../helpers/comment_helper.rb'
 
 class RestaurantController < Sinatra::Base
-  set views: proc {File.join(root, '../views/')}
+  set views: proc { File.join(root, '../views/') }
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
 
@@ -27,9 +29,7 @@ class RestaurantController < Sinatra::Base
   post '/restaurant/new-comment' do
     @restaurant = Restaurant.find_by(name: session[:place])
 
-    if negative_comment_has_text && session[:user_id]
-      add_new_comment_db
-    end
+    add_new_comment_db if negative_comment_has_text && session[:user_id]
     redirect "/restaurant/#{@restaurant.name}"
   end
 end

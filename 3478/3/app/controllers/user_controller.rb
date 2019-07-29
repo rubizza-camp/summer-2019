@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../helpers/user_helper'
 require 'digest'
 
@@ -18,21 +20,17 @@ class UserController < Sinatra::Base
 
   post '/sign_up' do
     @user = User.new(name: params['username'], email: params['email'], password: params['password'])
-    if valid_user_registration?
-      add_user
-    end
+    add_user if valid_user_registration?
   end
 
   post '/sign_in' do
     valid_log_state
     @user = User.find_by(email: params[:email])
-    if valid_user_login?
-      sign_in_user
-    end
+    sign_in_user if valid_user_login?
   end
 
   get '/logout' do
     session[:user_id] = nil
     redirect '/'
-    end
+  end
 end
