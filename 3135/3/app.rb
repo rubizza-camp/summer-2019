@@ -1,10 +1,18 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'sinatra/flash'
+require_relative 'helpers/utils'
 #require 'pry'
 
 set :environment, :development
 set :database, "sqlite3:db/database.sqlite3"
 enable :sessions
+
+helpers Utils
+
+before do
+  @active_user = set_active_user(session[:id])
+end
 
 # main page
 get '/' do
@@ -29,14 +37,7 @@ get '/login' do
 end
 
 post '/login' do
-  em = params[:email]
-  pw = params[:password]
-  if User.exists?(email: em) && User.find_by(email: em)[:password] == pw
-    session[:id] = User.find_by(email: em)[:id]
-    redirect '/'
-  else
-    'incorrent email - password combination'
-  end
+  login(params[:email],params[:password])
 end
 
 get '/logout' do

@@ -4,6 +4,7 @@ gem 'activerecord'
 gem 'puma'
 gem 'rake'
 gem 'sinatra-activerecord'
+gem 'sinatra-flash'
 gem 'shotgun'
 gem 'sqlite3'
 

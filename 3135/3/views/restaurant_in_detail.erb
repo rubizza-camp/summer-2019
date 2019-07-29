@@ -18,6 +18,7 @@
     </div>
 <% end %>
 
+<% if @active_user %>
 <form method="POST" action="/add_review">
     <hr>
     <h3>Add your review:</h3>
@@ -35,3 +36,9 @@
     <input type="hidden" name="restaurant_id" value=<%= @restaurant[:id]%> />
     <input type="hidden" name="user_id" value=<%=session[:id]%> />
 </form>
+<% else %>
+<hr>
+<h3>Login to leave a review!</h3>
+<% end %>
+
+

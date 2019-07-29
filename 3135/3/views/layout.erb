@@ -3,26 +3,24 @@
         <title>MUNCH BUNCH</title>
     </head>
     <body>
-
-        <% if session[:id].nil? %>
-            <div>
+    
+    <div>
+        <% if @active_user %>
+                <%= @active_user[:username] %>
+                <a href="/logout">log out</a>
+        <% else %>
                 <a href="/login">login</a>
                 <a href="/registration">register</a>
-                <hr>
-            </div>
-        <% else %>
-            <div>
-                <%= User.find(session[:id])[:username] %>
-                <a href="/logout">log out</a>
-                <hr>
-            </div>
         <% end %>
-
+        <hr>
+    </div>
+        
         <div align="center">
            <h1><a href="/" style="text-decoration: none">MUNCH BUNCH</a></h1>
         </div>
 
         <%= yield %>
+        <%= styled_flash %>
 
         <div align="right">
             <hr>
