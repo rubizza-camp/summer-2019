@@ -1,30 +1,30 @@
 <html>
-    <head>
-        <title>MUNCH BUNCH</title>
-    </head>
-    <body>
-    
+  <head>
+    <title>MUNCH BUNCH</title>
+  </head>
+
+  <body> 
     <div>
-        <% if @active_user %>
-                <%= @active_user.username %>
-                <a href="/logout">log out</a>
-        <% else %>
-                <a href="/login">login</a>
-                <a href="/registration">register</a>
-        <% end %>
-        <hr>
+      <% if @active_user %>
+        <%= @active_user.username %>
+        <a href="/logout">log out</a>
+      <% else %>
+        <a href="/login">login</a>
+        <a href="/registration">register</a>
+      <% end %>
+      <hr>
     </div>
         
-        <div align="center">
-           <h1><a href="/" style="text-decoration: none">MUNCH BUNCH</a></h1>
-        </div>
+    <div align="center">
+      <h1><a href="/" style="text-decoration: none">MUNCH BUNCH</a></h1>
+    </div>
 
-        <%= yield %>
-        <%= styled_flash %>
+    <%= yield %>
+    <%= styled_flash %>
 
-        <div align="right">
-            <hr>
-            rubizza MMXIX
-        </div>
-    </body>
+    <div align="right">
+      <hr>
+      rubizza MMXIX
+    </div>
+  </body>
 </html>
