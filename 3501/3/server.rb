@@ -18,7 +18,7 @@ require 'webrick'
 require 'webrick/https'
 require 'openssl'
 
-CERT_PATH = 'priate_keys/'
+CERT_PATH = ENV['SSH_PATH']
 
 webrick_options = {
   # '192.168.43.176' /BANDR
@@ -29,14 +29,15 @@ webrick_options = {
   DocumentRoot: '/ruby/htdocs',
   SSLEnable: true,
   SSLVerifyClient: OpenSSL::SSL::VERIFY_NONE,
-  SSLCertificate: OpenSSL::X509::Certificate.new(File.open(File.join(CERT_PATH, 'cert.crt')).read),
-  SSLPrivateKey: OpenSSL::PKey::RSA.new(File.open(File.join(CERT_PATH, 'private.key')).read),
+  SSLCertificate: OpenSSL::X509::Certificate.new(File.open(File.join('cert/', 'cert.crt')).read),
+  SSLPrivateKey: OpenSSL::PKey::RSA.new(File.open(File.join(CERT_PATH + '/', 'private.key')).read),
   SSLCertName: [['CN', WEBrick::Utils.getservername]]
 }
 
 class MyServer < Sinatra::Base
   set :public_folder, File.dirname(__FILE__) + '/public'
   enable :sessions
+  set :sessions, expire_after: 2_592_000
 
   use ApplicationController
   use SignController
