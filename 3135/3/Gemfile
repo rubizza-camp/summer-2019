@@ -8,4 +8,3 @@ gem 'shotgun'
 gem 'sinatra-activerecord'
 gem 'sinatra-flash'
 gem 'sqlite3'
-

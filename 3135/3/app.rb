@@ -1,15 +1,13 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
-require_relative 'helpers/utils'
 
 set :database, 'sqlite3:db/database.sqlite3'
+
 enable :sessions
 
-helpers Utils
-
 before do
-  @active_user = find_active_user(session[:id])
+  @active_user = User.find_by(id: session[:id])
 
   pass if ['/login', '/logout', '/registration', '/add_review'].include? request.path_info
   session[:return_to_page] = request.path_info
@@ -27,7 +25,14 @@ get '/registration' do
 end
 
 post '/registration' do
-  redirect registration(params)
+  user = User.new(params)
+  if user.save
+    session[:id] = user.id
+    redirect session[:return_to_page]
+  else
+    flash[:error] = '!!wrong input!!'
+    redirect '/registration'
+  end
 end
 
 # login & logout
@@ -36,7 +41,14 @@ get '/login' do
 end
 
 post '/login' do
-  redirect login(params[:email], params[:password])
+  user = User.find_by(email: params[:email]).try(:authenticate, params[:password])
+  if user
+    session[:id] = user.id
+    redirect session[:return_to_page]
+  else
+    flash[:error] = '!!wrong email/password combo!!'
+    redirect '/login'
+  end
 end
 
 get '/logout' do
@@ -46,7 +58,10 @@ end
 
 # add_review
 post '/add_review' do
-  redirect add_review(params)
+  review = Review.new(params)
+  flash[:error] = review.errors[:description].last unless review.save
+
+  redirect session[:return_to_page]
 end
 
 # restaurants_in_detail
@@ -54,6 +69,12 @@ get '/:name' do
   @restaurant = Restaurant.find_by(name: params[:name])
   @average_rating = calculate_average_rating(@restaurant)
   erb :restaurant_in_detail
+end
+
+def calculate_average_rating(restaurant)
+  return '-' if restaurant.reviews.empty?
+
+  restaurant.reviews.average(:rating).round(1)
 end
 
 require './models/user'
