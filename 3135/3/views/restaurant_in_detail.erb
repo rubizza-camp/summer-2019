@@ -3,10 +3,14 @@
     <h4><%= @restaurant.name %></h4>
     <p><%= @restaurant.location %></p>
     <p><%= @restaurant.description %></p>
-    <h4>Average rating: <%= @average_rating %></h4>
-</div>
 
-<h4>Reviews:</h4>
+    <% if @average_rating %>
+        <h4>Average rating: <%= @average_rating.round(1) %></h4>
+        <h4>Reviews:</h4>
+    <% else %>
+        <h4>No reviews!</h4>
+    <% end %>
+</div>
 
 <% @restaurant.reviews.each do |review| %>
     <div>
@@ -18,26 +22,26 @@
 <% end %>
 
 <% if @active_user %>
-<form method="POST" action="/add_review">
-    <hr>
-    <h3>Add your review:</h3>
-    <p>rating:
-        <select name="rating">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select></p>
-    <p>review:<p>
+    <form method="POST" action="/add_review">
+        <hr>
+        <h3>Add your review:</h3>
+        <p>rating:
+            <select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select></p>
+        <p>review:<p>
         <textarea name="description" rows="5" cols="60"></textarea>
-    <p><input type="submit"></p>
-    <input type="hidden" name="restaurant_id" value=<%= @restaurant[:id]%> />
-    <input type="hidden" name="user_id" value=<%=session[:id]%> />
-</form>
+        <p><input type="submit"></p>
+        <input type="hidden" name="restaurant_id" value=<%= @restaurant[:id]%> />
+        <input type="hidden" name="user_id" value=<%=session[:id]%> />
+    </form>
 <% else %>
-<hr>
-<h3>Login to leave a review!</h3>
+    <hr>
+    <h3>Login to leave a review!</h3>
 <% end %>
 
 

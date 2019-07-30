@@ -60,7 +60,7 @@ end
 # add_review
 post '/add_review' do
   review = Review.new(params)
-  flash[:error] = review.errors unless review.save
+  flash[:error] = review.errors.flatten unless review.save
 
   redirect session[:return_to_page]
 end
@@ -68,14 +68,8 @@ end
 # restaurants_in_detail
 get '/:name' do
   @restaurant = Restaurant.find_by(name: params[:name])
-  @average_rating = calculate_average_rating(@restaurant)
+  @average_rating = @restaurant.reviews.average(:rating)
   erb :restaurant_in_detail
-end
-
-def calculate_average_rating(restaurant)
-  return '-' if restaurant.reviews.empty?
-
-  restaurant.reviews.average(:rating).round(1)
 end
 
 require './models/user'
