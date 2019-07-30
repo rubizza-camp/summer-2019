@@ -16,7 +16,7 @@ class Bot
   end
 
   def token
-    '812391281:AAGbnwP8CdHvhZV5_rNSw9ryuRRbEUroLno'
+    ENV['KEY_TOKEN']
   end
 
   def logger

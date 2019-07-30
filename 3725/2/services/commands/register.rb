@@ -13,11 +13,8 @@ module Commands
     end
 
     def perform(&_block)
-      # message, save_context = :successfully_registered, false
-      # message, save_context = :invalid_number, true unless create_user
-      message :successfully_registered, save_context = false
-      message :invalid_number, save_context = true unless create_user
-
+      message, save_context = :successfully_registered, false
+      message, save_context = :invalid_number, true unless create_user
       yield message, save_context if block_given?
     end
 

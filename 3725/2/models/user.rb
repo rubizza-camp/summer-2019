@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'ohm'
 class User < Ohm::Model
   attribute :name
@@ -12,6 +10,7 @@ class User < Ohm::Model
   index :id
   index :telegram_id
   index :person_number
+
   # :reek:NilCheck
   def self.person_number_exists?(person_number)
     !find(person_number: person_number).first.nil?

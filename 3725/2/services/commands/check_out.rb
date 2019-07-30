@@ -14,16 +14,23 @@ module Commands
       @save_context = true
     end
 
-    def perform(&_block) # rubocop:disable Metrics/CyclomaticComplexity
-      process_photo && set_geolocation_message if photo?
-      process_location && set_checked_in_message if geo?
-
+    def perform(&_block)
+      check_photo
+      check_location
       update_user if message == :checked_out
-
       yield message, save_context if block_given?
     end
 
     private
+
+    def check_photo
+      process_photo && set_geolocation_message if photo?
+    end
+
+    def check_location
+      process_location && set_checked_in_message if geo?
+    end
+
 
     def update_user
       user.update(checkin_datetime: Time.now, checked_in: false)
