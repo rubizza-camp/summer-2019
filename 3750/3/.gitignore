@@ -1,2 +1,2 @@
-.idea/*
-db/best_taste.sqlite
+.idea/
+db/development.sqlite3

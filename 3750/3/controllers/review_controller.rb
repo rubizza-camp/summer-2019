@@ -1,22 +1,24 @@
+# frozen_string_literal: true
+
 require_relative 'base_controller'
-require_relative '../helpers/review_helper'
+require_relative '../services/review_service'
+require_relative '../services/session_service'
 
 class ReviewController < BaseController
-  include ReviewHelper
+  include ReviewService
+  include SessionService
 
-  post '/review/new' do
-    @restaurant = Restaurant.find_by(name: session[:restaurant])
-    if user_logged? && !already_reviewed?
-      create_review
-      info_message review_validation_info
-    else
-      error_message 'You must be logged in! Or you tried to publish several reviews'
-    end
-    redirect "/#{@restaurant.name}"
+  post '/restaurants/:id/reviews' do
+    @restaurant = Restaurant.includes(:user).find_by(id: params[:id])
+    unable_to_review_twice if already_reviewed?
+
+    create_review
+    approve_review
+    redirect back
   end
 
-  post '/review/delete' do
-    review_to_delete = Review.find_by(user_id: session[:user_id])
-    review_to_delete.destroy
+  delete '/reviews/:id' do
+    Review.find_by(id: params[:id]).destroy
+    redirect back
   end
 end

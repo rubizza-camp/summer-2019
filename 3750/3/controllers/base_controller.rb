@@ -1,12 +1,17 @@
+# frozen_string_literal: true
+
 require 'pry'
-require 'sinatra/namespace'
 
 class BaseController < Sinatra::Base
   set views: proc { File.join(root, '../views/') }
+  set :method_override, true
 
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
-  register Sinatra::Namespace
+
+  def username
+    User.find_by(id: session[:user_id]).login
+  end
 
   def error_message(message)
     flash[:danger] = message

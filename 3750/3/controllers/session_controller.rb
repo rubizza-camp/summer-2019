@@ -1,42 +1,28 @@
+# frozen_string_literal: true
+
 require_relative 'base_controller'
-require_relative '../helpers/session_helper'
+require_relative '../services/session_service'
 
 class SessionController < BaseController
-  include SessionHelper
+  include SessionService
 
   post '/sessions/signup' do
     @user = User.new(login: params['name'], email: params['email'],
-                     password_hash: encrypt_password(params['password']))
-    if email_valid?
-      @user.save
-      login
-      info_message 'Registration done'
-      redirect '/'
-    else
-      error_message 'Something went wrong(email)'
-      redirect '/sessions/signup'
-    end
+                     password_hash: params['password'])
+
+    @user.email_valid? ? successful_registration : registration_fail
   end
 
   post '/sessions/login' do
     @user = User.find_by(email: params[:email])
-    if user_exists?
-      login
-      redirect '/'
-    else
-      error_message 'Wrong login or password'
-      redirect '/sessions/login'
-    end
+
+    user_exists? ? login : login_fail
+    redirect '/'
   end
 
   get '/logout' do
     session.clear
     redirect '/'
-  end
-
-  get '/index' do
-    @users = User.all
-    erb :index
   end
 
   get '/sessions/signup' do

@@ -4,9 +4,9 @@
 class CreateUserTable < ActiveRecord::Migration[5.2]
   def change
     create_table :users do |t|
-      t.string :login
+      t.string :login, index: { unique: true }
       t.string :password_hash
-      t.string :email
+      t.string :email, index: { unique: true }
       t.timestamps
     end
   end

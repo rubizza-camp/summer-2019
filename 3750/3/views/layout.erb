@@ -1,44 +1,50 @@
 <!doctype html>
 <html>
-<head>
-  <title>Besttaste</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
-<% flash.keys.each do |type| %>
-  <div data-alert class="alert alert-<%= type %>" role="alert">
-    <%= flash[type] %>
-    <a href="." class="close">&times;</a>
-  </div>
-<% end %>
-<div class="pos-f-t">
+  <head>
+    <title>Besttaste</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[type] %>
+      </div>
+    <% end %>
+
+  <div class="pos-f-t">
     <div class="bg-dark p-3">
       <a href="/">
-      <h4 class="text-white">Besttaste</h4>
+        <h4 class="text-white">Besttaste</h4>
       </a>
-      <span class="text-muted">    <% if session[:user_id] %>
-       <ul class="list-group list-group-horizontal ">
-        <a class="text-info list-group-item bg-dark border-0"> Logged in as "<%=session[:user_name]%>" </a>
-        <a href="/logout" class="text-danger list-group-item bg-dark border-0">Logout</a>
-       </ul>
-      <% else %>
-        <ul class="list-group list-group-horizontal ">
-          <a href="/sessions/signup" class="list-group-item bg-dark border-0">Signup</a>
-          <a href="/sessions/login" class="list-group-item bg-dark border-0">Login</a>
-        </ul>
-      <% end %>
+    </div>
+  </div>
+
+  <div class="pos-f-t">
+    <div class="bg-warning">
+      <span class="text-muted">
+        <% if session[:user_id] %>
+          <ul class="list-group list-group-horizontal ">
+            <a class="text-info list-group-item bg-warning text-dark border-0"> Logged in as "<%= username %>"</a>
+            <a href="/logout" class="text-danger list-group-item bg-warning text-dark border-0">Logout</a>
+          </ul>
+        <% else %>
+          <ul class="list-group list-group-horizontal ">
+            <a href="/sessions/signup" class="list-group-item bg-warning text-dark border-0">Signup</a>
+            <a href="/sessions/login" class="list-group-item bg-warning text-dark border-0">Login</a>
+          </ul>
+        <% end %>
       </span>
     </div>
-</div>
-<div class="container">
+  </div>
 
+  <div class="container">
+    <%= yield %>
+  </div>
 
-  <%= yield %>
-
-
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'sinatra/flash'
-require 'sinatra/namespace'
 require 'truemail'
 require_relative 'base_controller'
 require_relative 'session_controller'
 require_relative 'restaurant_controller'
 require_relative 'review_controller'
+require_relative 'website_controller'
 
 class ApplicationController < BaseController
   configure do
@@ -16,16 +18,7 @@ class ApplicationController < BaseController
     config.verifier_email = 'verifier@example.com'
   end
 
-  set views: proc { File.join(root, '../views/') }
-
-  register Sinatra::ActiveRecordExtension
-  register Sinatra::Flash
-
-  get '/' do
-    @restaurants = Restaurant.all
-    erb :home
-  end
-
+  use WebsiteController
   use SessionController
   use RestaurantController
   use ReviewController
