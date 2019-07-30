@@ -6,7 +6,7 @@
     
     <div>
         <% if @active_user %>
-                <%= @active_user[:username] %>
+                <%= @active_user.username %>
                 <a href="/logout">log out</a>
         <% else %>
                 <a href="/login">login</a>
