@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
     if user && (bcrypt.new(user.password) == params[:password])
       session[:email] = params[:email]
     else
-      flash.next[:message] = 'Wrong credentials.'
+      flash[:message] = 'Wrong credentials.'
     end
 
     redirect '/'
