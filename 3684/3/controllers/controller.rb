@@ -19,7 +19,7 @@ class Controller < ApplicationController
     else
       User.create(hash)
       session[:user_id] = User.last.id
-      redirect '/restaurants'
+      redirect '/'
     end
   end
 
@@ -28,7 +28,7 @@ class Controller < ApplicationController
     if @user
       if BCrypt::Password.new(@user[:password]) == params['password']
         session[:user_id] = @user.id
-        redirect '/restaurants'
+        redirect '/'
       else
         login_fail_redirect
       end
@@ -56,10 +56,10 @@ class Controller < ApplicationController
 
   get '/logout' do
     session[:user_id] = false
-    redirect '/restaurants'
+    redirect '/'
   end
 
-  get '/restaurants' do
+  get '/' do
     # require 'pry'; binding.pry
     @restaurants = Restaurant.all
     erb :index
