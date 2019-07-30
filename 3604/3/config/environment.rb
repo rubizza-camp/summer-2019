@@ -1,5 +1,6 @@
 require 'bundler'
 Bundler.require
+require 'rack-flash'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',

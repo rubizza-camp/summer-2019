@@ -1,6 +1,5 @@
-require 'rack-flash'
 class UserController < Sinatra::Base
-  set views: proc { File.join(root, '../views/') }
+  use Rack::Flash
 
   get '/sign_in' do
     if session?
@@ -47,6 +46,4 @@ class UserController < Sinatra::Base
       redirect '/sign_up'
     end
   end
-
-  use Rack::Flash
 end

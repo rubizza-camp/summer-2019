@@ -3,7 +3,6 @@
   <p class = 'location'>Adress: <%= @place.location %></p>
   <p class = 'main_description'>Description: <%= @place.main_description %></p>
   <p class = 'full_description'><%= @place.full_description %></p>
-  <img src = <%= @place.path_to_image %> alt='Place is <%= @place.name %>'>
   <% if @stars %>
     <p class = 'stars'><%= @stars %> &#9733</p>
   <% end %>

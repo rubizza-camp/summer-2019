@@ -1,8 +1,4 @@
-require 'rack-flash'
 class PlaceController < Sinatra::Base
-  set views: proc { File.join(root, '../views/') }
-  use Rack::Flash
-
   get '/place/:id' do
     @place = Place.find_by(params[:id])
     @reviews = Review.where(place_id: params[:id])

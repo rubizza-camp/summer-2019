@@ -8,8 +8,7 @@ places = [
     of Belarusian and European cuisine,
     as well as the constant updating of the menu, taking into account the seasons of the year.
     LIDO has a surprisingly pleasant interior, national colors and a warm homely atmosphere,
-    and the design of the halls changes in accordance with the holidays and seasons.',
-    path_to_image: 'http://www.lido.by/test/wp-content/uploads/2017/01/DSC_9164.jpg'
+    and the design of the halls changes in accordance with the holidays and seasons.'
   },
 
   {
@@ -21,8 +20,7 @@ places = [
     of Belarusian and European cuisine,
     as well as the constant updating of the menu, taking into account the seasons of the year.
     LIDO has a surprisingly pleasant interior, national colors and a warm homely atmosphere,
-    and the design of the halls changes in accordance with the holidays and seasons.',
-    path_to_image: 'http://www.lido.by/test/wp-content/uploads/2017/01/DSC_9164.jpg'
+    and the design of the halls changes in accordance with the holidays and seasons.'
   }
 ]
 

@@ -7,7 +7,6 @@ class PlacesTable < ActiveRecord::Migration[5.2]
       place.string :location
       place.text :main_description
       place.text :full_description
-      place.string :path_to_image
       place.timestamps
     end
   end
