@@ -29,12 +29,12 @@ class User
   end
 
   def timestamp
-    @timestamp ||= Redis.current.get("chat:#{data[:chat_id]}:timestamp")
+    @timestamp ||= Redis.current.get("chat:#{:chat_id}:timestamp")
   end
 
   def set_timestamp
     t = Time.now
-    Redis.current.set("chat:#{data[:chat_id]}:timestamp", t)
+    Redis.current.set("chat:#{:chat_id}:timestamp", t)
 
     @timestamp = t
   end

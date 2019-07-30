@@ -12,15 +12,15 @@ class SetPhotoCommand < BaseCommand
 
   def call(photos)
     return if photos.empty?
-    return unless save(photos.last.file_id)
+    return unless save_file(photos.last.file_id)
 
-    user.sate = user.state == :wait_photo ? :wait_checkout : :wait_start
+    user.state = user.state.to_sym == :wait_photo ? :wait_checkout : :wait_start
   end
 
   private
 
   def save_file(file_id)
-    Kernel.open("https://api.telegram.org/file/bot#{TOKEN}/#{file_path(file_id)}") do |image|
+    Kernel.open("https://api.telegram.org/file/bot#{ENV['TOKEN']}/#{file_path(file_id)}") do |image|
       File.open("public/#{user.student_id}/#{folder}/#{user.timestamp}/selfie.jpg", 'wb') do |file|
         file.write(image.read)
       end
@@ -28,10 +28,10 @@ class SetPhotoCommand < BaseCommand
   end
 
   def file_path(file_id)
-    file_path = bot_api.get_file(file_id: photo_id).dig('result', 'file_path')
+    file_path = bot_api.get_file(file_id: file_id).dig('result', 'file_path')
   end
 
   def folder
-    user.state == :wait_photo ? 'checkins' : 'checkouts'
+    user.state.to_sym == :wait_photo ? 'checkins' : 'checkouts'
   end
 end
