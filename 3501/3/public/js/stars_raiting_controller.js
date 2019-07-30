@@ -8,7 +8,6 @@ var stars;
 
 function initialize_stars_raitings()
 {
-    //1. Находим все элементы stars
     user_self_CommentRaiting = document.getElementById('user_self_CommentRaiting');
     if (user_self_CommentRaiting != undefined)
     {
@@ -25,41 +24,36 @@ function initialize_stars_raitings()
         stars.push(document.getElementById('star5'));
         save_current_state();
         user_self_CommentRaiting.value = current_string_raiting;
-        // Добавляем обработчики
-        // Мышь заходит на звезду
+        
         for(var i = 0; i < stars.length; i++)
         {
-            on_mouse_over(i);
-        }
-        // Мышь выходит из звезды
-        for(var j = 0; j < stars.length; j++)
-        {
-            on_mouse_exit(j);
-        }
-
-        // Мышь нажимает на звезду
-        for(var k = 0; k < stars.length; k++)
-        {
-            on_mouse_click(k);
+            stars[i].setAttribute('index',i);
+            stars[i].children[0].setAttribute('index',i);
+            set_listeners_on_mouse_over(i);
+            set_listeners_on_mouse_exit(i);
+            set_listeners_on_mouse_click(i);
         }
     }
     
 }
-function on_mouse_click(index)
+function set_listeners_on_mouse_click(index)
 {
-    stars[index].onclick = function (index){
+    stars[index].onclick = function(event){
+        index = event.target.getAttribute('index');
         save_temp_stars_state_onclick(index);
     };
 }
-function on_mouse_exit(index)
+function set_listeners_on_mouse_exit(index)
 {
-    stars[index].onmouseleave = function (){
+    stars[index].onmouseleave = function(event){
+        index = event.target.getAttribute('index');
         load_last_state();
     };
 }
-function on_mouse_over(index)
+function set_listeners_on_mouse_over(index)
 {
-    stars[index].onmouseenter = function (index){
+    stars[index].onmouseenter = function(event){
+        index = event.target.getAttribute('index');
         save_current_state();
         update_temp_stars_state_onover(index);
     };
