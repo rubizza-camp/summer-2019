@@ -19,7 +19,7 @@ class SessionsController < BaseController
         redirect '/'
       else
         flash[:error] = @user.errors.full_messages
-        redirect '/signup'
+        redirect :'/sessions/signup'
       end
     end
 
@@ -34,7 +34,7 @@ class SessionsController < BaseController
 
     post '/login' do
       @user = User.find_by(email: params[:email])
-      if @user && (@user.password == params[:password])
+      if @user == @user.try(:authenticate, params[:password])
         session[:user_id] = @user.id
         flash[:notice] = 'You logged in sucessfuly'
         redirect '/'
