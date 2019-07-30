@@ -10,12 +10,11 @@ class ApplicationController < Sinatra::Base
   helpers SessionHelper
 
   Dotenv.load
-  SESSION_SECRET = ENV['SESSION_SECRET']
 
   use Rack::Flash
   configure do
     set :session_fail, '/sign_up'
-    set :session_secret, SESSION_SECRET
+    set :session_secret, ENV['SESSION_SECRET']
     set views: proc { File.join(root, '../views/') }
   end
 
