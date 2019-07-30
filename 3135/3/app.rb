@@ -31,7 +31,7 @@ post '/registration' do
     session[:id] = user.id
     redirect session[:return_to_page]
   else
-    flash[:error] = 'invalid input!'
+    flash[:error] = user.errors.full_messages.join('; ')
     redirect '/registration'
   end
 end
@@ -47,7 +47,7 @@ post '/login' do
     session[:id] = user.id
     redirect session[:return_to_page]
   else
-    flash[:error] = '!!Invalid email/password combo!!'
+    flash[:error] = 'Invalid email/password combo!'
     redirect '/login'
   end
 end
@@ -60,7 +60,7 @@ end
 # add_review
 post '/add_review' do
   review = Review.new(params)
-  flash[:error] = review.errors.flatten unless review.save
+  flash[:error] = review.errors.full_messages.join('; ') unless review.save
 
   redirect session[:return_to_page]
 end
