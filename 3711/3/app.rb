@@ -1,7 +1,7 @@
-# require 'rack-flash'
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/base'
+require 'sinatra/flash'
 require_relative './controllers/places_controller'
 require_relative './controllers/reviews_controller'
 require_relative './controllers/users_controller'
@@ -18,11 +18,12 @@ class App < Sinatra::Base
     set :session_secret, 'secret'
   end
 
+  register Sinatra::ActiveRecordExtension
+  register Sinatra::Flash
+
   use UsersController
   use ReviewsController
   use PlacesController
-
-  register Sinatra::ActiveRecordExtension
 
   get '/' do
     redirect '/places/'

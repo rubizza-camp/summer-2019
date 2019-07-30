@@ -5,6 +5,8 @@ class PlacesController < Sinatra::Base
   include AuthHelper
   include CryptHelper
 
+  register Sinatra::Flash
+
   configure do
     set :views, proc { File.join(root, '../views/places') }
   end

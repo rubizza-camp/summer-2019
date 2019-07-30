@@ -5,6 +5,8 @@ class UsersController < Sinatra::Base
   include AuthHelper
   include CryptHelper
 
+  register Sinatra::Flash
+
   configure do
     set :views, proc { File.join(root, '../views/users') }
   end
@@ -18,8 +20,7 @@ class UsersController < Sinatra::Base
     @user = User.find_by(mail: params[:mail])
     return erb :login unless user_exists?
 
-    session[:user] = @user
-    redirect session[:back] || '/'
+    authorization
   end
 
   get '/signup' do
@@ -31,12 +32,10 @@ class UsersController < Sinatra::Base
     @user = User.create(mail: params['mail'], username: params['username'],
                         pass_hash: md5_encrypt(params['password']),
                         first_name: params['f_name'], last_name: params['l_name'])
-    session[:user] = @user
-    redirect session[:back] || '/'
+    authorization
   end
 
   get '/logoff' do
-    session[:user] = @user
-    redirect back
+    logoff
   end
 end

@@ -27,7 +27,6 @@
         width: 100%;
         z-index: 99;
         display: flex;
-        position: relative;
         color: white;
         padding: 14px 16px 11px 12px;
       }
@@ -81,6 +80,14 @@
       </div>
     </div>
     <div class="post_header">
+      <% flash.keys.each do |type| %>
+        <div data-alert class="alert alert-<%= type %>" role="alert">
+          <%= flash[type] %>
+          <a href="#" class="close">&times;</a>
+        </div>
+      <% end %>
+      
+      
       <%= yield %>
     </div>
   </body>

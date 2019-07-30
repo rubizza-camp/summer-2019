@@ -20,6 +20,10 @@
       <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
         <div class="col-md-6 px-0">
           <h1 class="display-4 font-italic"><b><%= place.name%></b></h1>
+          <% avg_rating = place.reviews.average(:rating) || 0 %>
+          <small class="">Rating: <%= '⭐' * avg_rating.round + "(#{'%.1f' % avg_rating})" %></small>
+          
+          <p class="lead my-3"><%= place.note%></p>
           <p class="lead my-3"><%= place.note%></p>
           <p class="lead my-3"><%= place.description%></p>
           <p class="lead my-3">
@@ -46,7 +50,9 @@
               <option>5</option>
             </select>
           </div>
-          <input type="text" placeholder="Enter comment" name="note" required>
+          <div class="form-group">
+            <textarea class="form-control" type="text" placeholder="Enter comment" name="note" required></textarea>
+          </div>
           <input type="hidden" name="place_id" value="<%=@place_id%>">
           <button type="submit" class="registerbtn">Make review</button>
         </div>
@@ -62,7 +68,7 @@
       <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
         <div class="d-flex justify-content-between align-items-center w-100">
           <strong class="text-gray-dark"><%= review.user.username %></strong>
-          <strong class="text-gray-dark"><%= '⭐'*review.rating %></strong>
+          <strong class="text-gray-dark"><%= '⭐' * review.rating %></strong>
         </div>
         <span class="d-block"><%= review.text %></span>
       </div>
@@ -70,9 +76,3 @@
     <% end %>
   </div>
 </main>
-
-      <%# t.integer  :place_id, null: false
-      t.integer  :user_id, null: false
-      t.integer  :rating, null: false
-      t.text     :text %>
-
