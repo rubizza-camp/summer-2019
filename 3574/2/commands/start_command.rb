@@ -1,6 +1,8 @@
 require 'yaml'
 
 module StartCommand
+  CAMP_NUMBERS = load_file_numbers
+
   def needs_checkin
     "#{session[:number]}, прими смену ~> /checkin"
   end
@@ -22,15 +24,14 @@ module StartCommand
   end
 
   def register(*answer)
-    camp_numbers = load_file_numbers
-    respond_with :message, text: register_with_validation(answer, camp_numbers)
+    respond_with :message, text: register_with_validation(answer)
   end
 
   def register_with_validation(number = nil, *)
     number = number.first.to_i
     if REDIS.get(number) || session.key?(:number)
       "Номер #{number} уже зарегистрирован, попробуй ещё -> /start!"
-    elsif camp_numbers.include?(number)
+    elsif CAMP_NUMBERS.include?(number)
       login(REDIS, number)
     else
       'Такого номера нет в списке, попробуй ещё -> /start!'

@@ -1,6 +1,6 @@
-require_relative '../commands/command_start'
-require_relative '../commands/command_checkin'
-require_relative '../commands/command_checkout'
+require_relative '../commands/start_command'
+require_relative '../commands/checkin_command'
+require_relative '../commands/checkout_command'
 
 class WebhooksController < Telegram::Bot::UpdatesController
   include StartCommand
