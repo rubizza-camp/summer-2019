@@ -13,12 +13,20 @@ module Commands
     end
 
     def perform(&_block)
-      message, save_context = :successfully_registered, false
-      message, save_context = :invalid_number, true unless create_user
+      check_registered
+      check_number
       yield message, save_context if block_given?
     end
 
     private
+
+    def check_registered
+      message = :successfully_registered && save_context = false
+    end
+
+    def check_number
+      message = :invalid_number && save_context = true unless create_user
+    end
 
     def create_user
       User.create(telegram_id: telegram_id, name: name, person_number: person_number)
