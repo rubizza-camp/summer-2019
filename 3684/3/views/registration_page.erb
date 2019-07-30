@@ -6,6 +6,9 @@
   <link rel="stylesheet" type="text/css" href="/css/theme.css">
 </head>
   <body align='center'>
+  <% if flash[:message] %>
+    <b><i><p class="message"><%= flash[:message] %></p></i></b>
+  <% end %>
   <form class="form-singing" method="post" action="/registrate">
     <p>Заполните формы для успешного завершения регистрации</p>
     <br><label><small><em>Наведите на поля для получения подсказок<em></small></label>
@@ -16,7 +19,7 @@
     </div>
     <button>Клап</button><br>
   </form>
-  <p><a href='/login_page'>Войти в аккаунт</a></a>
+  <p><a href='/login'>Войти в аккаунт</a></a>
   <p><a href="/restaurants" />На главную</p>
   </body>
 </html>

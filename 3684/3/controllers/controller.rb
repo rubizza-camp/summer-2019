@@ -13,9 +13,14 @@ class Controller < ApplicationController
   post '/registrate' do
     password = BCrypt::Password.create(params['password'])
     hash = { name: params['name'], email: params['email'], password: password }
-    User.create(hash)
-    session[:user_id] = User.last.id
-    redirect '/restaurants'
+    if User.find_by(email: params['email'])
+      flash[:message] = 'Пользователь с данным email уже существует'
+      redirect '/registration'
+    else
+      User.create(hash)
+      session[:user_id] = User.last.id
+      redirect '/restaurants'
+    end
   end
 
   post '/log_in' do
@@ -23,7 +28,6 @@ class Controller < ApplicationController
     if @user
       if BCrypt::Password.new(@user[:password]) == params['password']
         session[:user_id] = @user.id
-        session[:fail] = false
         redirect '/restaurants'
       else
         login_fail_redirect
@@ -34,13 +38,19 @@ class Controller < ApplicationController
   end
 
   post '/leave_comment' do
-    hash = {
-      text: params['text'],
-      score: params['score'],
-      user_id: session[:user_id],
-      restaurant_id: session['rest_id']
-    }
-    Comment.create(hash)
+    if params['text'] == '' && params['score'].to_i < 3
+      flash[:message] = 'Пожалуйста, опишите почему балл столь низкий'
+    elsif params['text'] != '' && params['score'] == ''
+      flash[:message] = 'Поставьте пожалуйста оценку'
+    else
+      hash = {
+        text: params['text'],
+        score: params['score'],
+        user_id: session[:user_id],
+        restaurant_id: session['rest_id']
+      }
+      Comment.create(hash)
+    end
     redirect "/#{@env['HTTP_REFERER'].slice(PREV_ROUT_FIRST_SYMBOL..@env['HTTP_REFERER'].length)}"
   end
 
@@ -50,11 +60,12 @@ class Controller < ApplicationController
   end
 
   get '/restaurants' do
+    # require 'pry'; binding.pry
     @restaurants = Restaurant.all
     erb :index
   end
 
-  get '/login_page' do
+  get '/login' do
     erb :login_page
   end
 
@@ -65,8 +76,8 @@ class Controller < ApplicationController
   private
 
   def login_fail_redirect
-    session[:fail] = true
-    redirect '/login_page'
+    flash[:message] = 'Ошибка входа в аккаунт'
+    redirect '/login'
   end
 
   def count_score(comments)

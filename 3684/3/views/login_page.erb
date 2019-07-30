@@ -7,8 +7,8 @@
 </head>
   <body align='center'>
   <form class="form-singing" method="post" action="/log_in">
-    <% if session[:fail] %>
-      <h4>Ошибка входа в аккаунт</h4>
+    <% if flash[:message] %>
+      <b><i><p class="message"><%= flash[:message] %></p></i></b>
     <% end %>
     <p>Введите email и пароль, чтобы войти в аккаунт</p>
     <input title="Введите сюда свой email" type="email" name="email" placeholder="kavoo@email.com" required><br><br>
