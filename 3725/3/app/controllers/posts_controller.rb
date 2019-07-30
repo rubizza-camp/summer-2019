@@ -1,8 +1,11 @@
+require 'sinatra/base'
+require 'sinatra'
+
 class PostsController < ApplicationController
 
-  get '/' do
+  get '/posts' do
     @posts = Post.all
-    haml :posts
+    erb :'post/index'
   end
 
   get '/:id' do
