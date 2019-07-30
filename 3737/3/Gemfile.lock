@@ -49,6 +49,7 @@ GEM
     sqlite3 (1.4.1)
     thread_safe (0.3.6)
     tilt (2.0.9)
+    truemail (1.2.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
 
@@ -66,6 +67,7 @@ DEPENDENCIES
   sinatra-activerecord (~> 2.0.13)
   sinatra-flash (~> 0.3.0)
   sqlite3 (~> 1.4.1)
+  truemail (~> 1.2, >= 1.2.1)
 
 BUNDLED WITH
    1.16.2

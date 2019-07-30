@@ -9,26 +9,26 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema.define(version: 2019_07_24_084655) do
-
-  create_table "comments", force: :cascade do |t|
-    t.string "text"
-    t.integer "star"
-    t.integer "user_id"
-    t.integer "restaraunt_id"
+# rubocop: disable Style/NumericLiterals
+ActiveRecord::Schema.define(version: 2019_07_30_110334) do
+  # rubocop: enable Style/NumericLiterals
+  create_table 'comments', force: :cascade do |tab|
+    tab.string 'text'
+    tab.integer 'star'
+    tab.integer 'user_id'
+    tab.integer 'restaraunt_id'
   end
 
-  create_table "restaraunts", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "coordinate"
+  create_table 'restaraunts', force: :cascade do |tab|
+    tab.string 'name'
+    tab.text 'description'
+    tab.string 'coordinate'
+    tab.float 'average_star'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
-    t.string "password_hash"
+  create_table 'users', force: :cascade do |tab|
+    tab.string 'username'
+    tab.string 'email'
+    tab.string 'password_hash'
   end
-
 end

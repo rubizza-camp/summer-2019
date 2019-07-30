@@ -1,24 +1,24 @@
+require 'bcrypt'
+require 'truemail'
+
+#:reek:RepeatedConditional
 class UsersController < ApplicationController
   get '/signup' do
-    unless logged_in
-      erb :registration
-    else
+    if current_user
       @user = current_user
       redirect '/'
+    else
+      erb :registration
     end
   end
 
   post '/signup' do
     @user = User.new(username: params[:username], email: params[:email],
-                     password_hash: params[:password])
-    puts @user.username, @user.email, @user.password_hash
-    if @user.save
+                     password_hash: password(params[:password]))
+    if @user.save && Truemail.valid?(params[:email])
       session[:user_id] = @user.id
-      puts session
-      puts session[:user_id]
       redirect '/'
     else
-      puts @user.username, @user.email
       erb :registration
     end
   end
@@ -34,15 +34,15 @@ class UsersController < ApplicationController
   end
 
   get '/login' do
-    unless current_user
-      erb :login
-    else
+    if current_user
       redirect '/'
+    else
+      erb :login
     end
   end
 
   get '/logout' do
-    if logged_in
+    if current_user
       session.destroy
       redirect '/'
     end

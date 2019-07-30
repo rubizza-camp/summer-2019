@@ -13,7 +13,7 @@
       </a>
     </div>
     <ul class="nav justify-content-end">
-      <% unless logged_in%>
+      <% unless current_user%>
         <li class="nav-item">
           <button type="button" class="btn btn-outline-success">
           <a href="/signup" class="nav-link" style="color: white">Sign up</a>
