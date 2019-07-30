@@ -29,7 +29,7 @@ header {
   0 1px 4px rgba(0, 0, 0, .3),
   -23px 0 20px -23px rgba(0, 0, 0, .8),
   23px 0 20px -23px rgba(0, 0, 0, .8),
-  0 0 40px rgba(0, 0, 0, .1) inset;;
+  0 0 40px rgba(0, 0, 0, .1) inset;
   margin-left: auto;
   margin-right: auto;
   width: 25%;
@@ -54,7 +54,7 @@ label {
   font-size: 30px;
 }
 
-button{
+.btn_sign_in, .btn_sign_up {
   display: flex;
   background: white;
   margin-top: 10px;
@@ -79,6 +79,59 @@ button{
   font-size: 30px;
 }
 
-.place {
-  color: pink;
+p.stars {
+  padding: 20px;
+  font-size: 20px;
+  background: white;
+  color: rgb(204, 110, 110);
+  border-radius: 50px;
+  width: 5%;
+}
+
+.reviews {
+  background: white;
+  margin: 20px auto;
+  width: 63%;
+  box-shadow:  
+  0 1px 4px rgba(0, 0, 0, .3),
+  -23px 0 20px -23px rgba(0, 0, 0, .8),
+  23px 0 20px -23px rgba(0, 0, 0, .8),
+  0 0 40px rgba(0, 0, 0, .1) inset;
+}
+
+.review {
+  padding: 10px 10px 0px 10px;
+  margin-bottom: 20px;
+  color: rgb(204, 110, 110);
+  font-size: 15px;
+}
+
+.reviews .review_form form div{
+  list-style: none;    
+  display: flex;
+}
+
+.reviews .review_form form div{
+  padding: 10px;
+}
+
+.reviews .review_form .col .grade {
+  border-radius: 50px;
+  padding: 10px;
+  font-size: 15px;
+  background: rgb(204, 110, 110);
+  color: white;
+}
+
+.reviews .review_form .form-text {
+  width: 500px;
+  height: 250px;
+}
+
+.btn_add_review{
+  background: rgb(204, 110, 110);
+  color: white;
+  font-size: 15px;
+  margin: 10px;
+  padding: 10px;
 }

@@ -10,10 +10,6 @@ class PlaceController < Sinatra::Base
     erb :place
   end
 
-  get '/review/:id' do
-    erb :review_form
-  end
-
   post '/review/:id' do
     @review = Review.new(grade: params[:grade], text: params[:text],
                          place_id: params[:id], user_id: session[:user_id])

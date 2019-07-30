@@ -1,31 +1,48 @@
 <div class = 'place'>
-  <a class = 'name' href = '/place/<%= @place.id%>' ><%= @place.name %></a>
+  <a class = 'name'><%= @place.name %></a>
   <p class = 'location'>Adress: <%= @place.location %></p>
   <p class = 'main_description'>Description: <%= @place.main_description %></p>
-  <p class = 'main_description'><%= @place.main_description %></p>
+  <p class = 'full_description'><%= @place.full_description %></p>
   <img src = <%= @place.path_to_image %> alt='Place is <%= @place.name %>'>
   <% if @stars %>
-    <p><%= @stars %></p>
+    <p class = 'stars'><%= @stars %> &#9733</p>
   <% end %>
-</div>
-<div class = 'reviews'>
-<% if @reviews %>
-  <% @reviews.each do |review| %>
-      <div class="card card-body m-1">
-        <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
-        <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
-        <p class="card-text"><%= review.text %>
-          <button class="btn btn-<%if review.grade >2 %>success<%else%>danger<%end%> btn-sm float-right"  disabled>
-          <span class="fa fa-star"></span>   <%= review.grade%>
-          </button>
-        </p>
-      </div>
-  <% end %>
-<% end %>
-<form action='/review/<%=@place.id%>' method='GET'>
-  <% if session[:user_id] %>
-    <button type="button" class="btn_send_feedback">Send feedback</button>
-  <% end %>
-</form>
 </div>
 
+<div class = 'reviews'>
+  <% if @reviews %>
+    <% @reviews.each do |review| %>
+        <div class='review'>
+          <p>Author: <%= review.user.name %></p>
+          <p>Date: <%= review.created_at %></p>
+          <p><%= review.text %></p>
+          <p><%= review.grade%> &#9733</p><hr>
+        </div>
+    <% end %>
+  <% end %>
+
+  <% if session[:user_id] %>
+    <div class = 'review_form'>
+      <form method = 'POST' action = '/review/<%= @place.id%>'>
+        <div class = 'col'>
+          <select class = 'grade' name = 'grade' required>
+            <option value = ''>&#9733</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+
+        <div>
+          <textarea type = 'text' name = 'text' class = 'form-text' required></textarea>
+        </div>
+
+        <div>
+          <button type = 'submit' class = 'btn_add_review'>Add review</button>
+        </div>
+      </form>
+    </div>
+  <% end %>
+</div>
