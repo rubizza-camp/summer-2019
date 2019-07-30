@@ -1,3 +1,6 @@
+# :reek:FeatureEnvy:
+# :reek:IrresponsibleModule:
+# :reek:UncommunicativeVariableName:
 class CreateReviewsTable < ActiveRecord::Migration[5.2]
   def change
     create_table :reviews do |t|

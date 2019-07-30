@@ -3,7 +3,7 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require_relative 'helpers/utils'
 
-set :database, "sqlite3:db/database.sqlite3"
+set :database, 'sqlite3:db/database.sqlite3'
 enable :sessions
 
 helpers Utils
@@ -36,7 +36,7 @@ get '/login' do
 end
 
 post '/login' do
-  redirect login(params[:email],params[:password])
+  redirect login(params[:email], params[:password])
 end
 
 get '/logout' do

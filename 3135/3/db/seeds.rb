@@ -1,4 +1,5 @@
 # db/seeds.rb
+#rubocop:disable all
 restaurants = [
   { name: 'The Cheesecake Factory', location: '605 N Harbor Dr, Redondo Beach, CA 90277, USA', description: 'The Cheesecake Factory story begins in Detroit, Michigan in the 1940’s. Evelyn Overton found a recipe in the local newspaper that would inspire her “Original” Cheesecake. Everyone loved her recipe so much that she decided to open a small Cheesecake shop, but she eventually gave up her dream of owning her own business in order to raise her two small children, David and Renee. She moved her baking equipment to a kitchen in her basement and continued to supply cakes to several of the best restaurants in town while raising her family.' },
   { name: 'Din Tai Fung', location: 'Del Amo Fashion Center, 21540 Hawthorne Blvd #519, Torrance, CA 90503, USA', description: 'Originally founded as a cooking oil retail business in 1958, Din Tai Fung was reborn as a steamed dumpling and noodle restaurant in 1972. Today, Din Tai Fung has branches in Japan, the United States, South Korea, Singapore, China, Hong Kong, Indonesia, Malaysia, Australia, and Thailand. Din Tai Fung gives people throughout the world the opportunity to experience a classic taste of Taiwan.' },
@@ -37,5 +38,4 @@ end
 reviews.each do |r|
   Review.create(r)
 end
-
-
+#rubocop:enable all

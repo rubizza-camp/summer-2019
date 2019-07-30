@@ -1,3 +1,4 @@
+# :reek:IrresponsibleModule:
 class User < ActiveRecord::Base
   has_many :reviews
 
@@ -5,5 +6,5 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :email
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
-    message: "email regex" }
+                              message: 'email regex' }
 end
