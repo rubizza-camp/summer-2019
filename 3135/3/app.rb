@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
+require 'pry'
 
 set :database, 'sqlite3:db/database.sqlite3'
 
@@ -30,7 +31,7 @@ post '/registration' do
     session[:id] = user.id
     redirect session[:return_to_page]
   else
-    flash[:error] = '!!wrong input!!'
+    flash[:error] = 'invalid input!'
     redirect '/registration'
   end
 end
@@ -46,7 +47,7 @@ post '/login' do
     session[:id] = user.id
     redirect session[:return_to_page]
   else
-    flash[:error] = '!!wrong email/password combo!!'
+    flash[:error] = '!!Invalid email/password combo!!'
     redirect '/login'
   end
 end
@@ -59,7 +60,7 @@ end
 # add_review
 post '/add_review' do
   review = Review.new(params)
-  flash[:error] = review.errors[:description].last unless review.save
+  flash[:error] = review.errors unless review.save
 
   redirect session[:return_to_page]
 end
