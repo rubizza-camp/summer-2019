@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="jumbotron p-4 p-md-5 text-green rounded bg-dark">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic" style="color: #7FFF00">
+        <%= @restaraunt.name %>
+      </h1>
+    </div>
+    <div class="col-md-10 px-0">
+      <p class="lead my-3" style="color: white">
+        <%= @restaraunt.description %>
+      </p>
+      <p class="lead my-3" style="color: white">
+        <%= @restaraunt.coordinate %>
+      </p>
+      <p>
+        
+      </p>
+    </div>
+  </div>
+</div>
+<% if logged_in %>
+<div class="container">
+  <div class="card">
+    <div class="card- header">
+      <%= @current_user.username %>, please leave comment
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <form action="" method="POST">
+          <textarea class="form-control" id="textarea" rows="5" placeholder="Enter comment..."></textarea>
+          <select name="Stars">
+            <option disabled>Stars</option>
+            <option value=1>
+              1<i class="fas fa-star-of-david"></i>
+            </option>
+            <option value=2>
+              2<i class="fas fa-star-of-david"></i>
+            </option>
+            <option value=3>
+              3<i class="fas fa-star-of-david"></i>
+            </option>
+            <option value=4>
+              4<i class="fas fa-star-of-david"></i>
+            </option>
+            <option value=5>
+              5<i class="fas fa-star-of-david"></i>
+            </option>
+          </select>
+        </form>
+      </div>
+      <button class="btn btn-dark float-right">Submit</button>
+    </div>
+  </div>
+</div>
+<% end %>
+<div class="container">
+  <% @restaraunt.comments.each do |comment| %>
+    <div class="my-3 p-3 bg-white rounded shadow-rg">
+      <h4 class="media text-muted pt-3">Comments</h4>
+      <div class="media text-muted pt-3">
+        <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+          <strong class="d-block text-gray-dark">
+            <%= comment.user.username %>            
+          </strong>
+          <span class="d-block">
+            <%= comment.text %>
+          </span>
+          <span class="d-block">
+            <%= comment.star %><i class="fas fa-star-of-david"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
