@@ -1,9 +1,7 @@
 require_relative '../helpers/auth'
-require_relative '../helpers/crypt'
 
 class PlacesController < Sinatra::Base
   include AuthHelper
-  include CryptHelper
 
   register Sinatra::Flash
 

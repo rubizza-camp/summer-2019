@@ -1,3 +1,6 @@
+#:reek:FeatureEnvy
+#:reek:TooManyStatements
+#:reek:UncommunicativeVariableName
 class CreateReviews < ActiveRecord::Migration[5.2]
   def change
     create_table :reviews do |t|
