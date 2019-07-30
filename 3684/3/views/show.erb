@@ -7,7 +7,7 @@
 </head>
   <body>
     <% if session[:user_id] %>
-      <h4><a href="/dislogin">Выйти</a></h4>
+      <h4><a href="/logout">Выйти</a></h4>
     <% else %>
       <h4 align='left'><a href="/login_page">Войти</a> / <a href="/registration">Зарегистрироваться</a></h4>
     <% end %>
@@ -15,7 +15,7 @@
     <div>
       <p><%= @restaurant.full_description %></p>
       <p><label>Адрес: </label><%= @restaurant.location %></p>
-      <p><label>Средняя оценка пользователей: </label><%= @restaurant.score %></p><br>
+      <p><label>Средняя оценка пользователей: </label><%= @restaurant.score.truncate(2) %></p><br>
     </div>
     <div>
       <% @comments.each do |comment| %>

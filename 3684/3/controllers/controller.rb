@@ -1,10 +1,11 @@
 require_relative 'application_controller'
 require 'bcrypt'
+PREV_ROUT_FIRST_SYMBOL = 22
 
 class Controller < ApplicationController
   get '/restaurant/:id' do
-    update_score(params[:id])
     @restaurant = Restaurant.find(params[:id])
+    @restaurant.update(score: count_score(Restaurant.find(params[:id]).comments))
     @comments = @restaurant.comments
     erb :show
   end
@@ -25,12 +26,10 @@ class Controller < ApplicationController
         session[:fail] = false
         redirect '/restaurants'
       else
-        session[:fail] = true
-        redirect '/login_page'
+        login_fail_redirect
       end
     else
-      session[:fail] = true
-      redirect '/login_page'
+      login_fail_redirect
     end
   end
 
@@ -42,10 +41,10 @@ class Controller < ApplicationController
       restaurant_id: session['rest_id']
     }
     Comment.create(hash)
-    redirect "/#{@env['HTTP_REFERER'].slice(22..@env['HTTP_REFERER'].length)}"
+    redirect "/#{@env['HTTP_REFERER'].slice(PREV_ROUT_FIRST_SYMBOL..@env['HTTP_REFERER'].length)}"
   end
 
-  get '/dislogin' do
+  get '/logout' do
     session[:user_id] = false
     redirect '/restaurants'
   end
@@ -65,13 +64,12 @@ class Controller < ApplicationController
 
   private
 
-  def update_score(id)
-    Restaurant.find(id).update(score: count_score(Restaurant.find(id).comments))
+  def login_fail_redirect
+    session[:fail] = true
+    redirect '/login_page'
   end
 
   def count_score(comments)
-    amount = 0.0
-    comments.each { |com| amount += com.score }
-    amount / comments.size
+    comments.inject(0) { |total, temp| total + temp.score }.to_f / comments.size
   end
 end
