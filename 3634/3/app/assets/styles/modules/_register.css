@@ -1,0 +1,28 @@
+.register {
+  position: absolute;
+  margin: 7rem 35%;
+  padding: 2rem;
+  background-color: #56e38a;
+  z-index: 2;
+  text-align: center;
+}
+
+.register__link{
+  text-decoration: underline;
+  color: #63287d;
+  margin: 1rem;
+}
+
+.register__link:hover {
+  cursor: pointer;
+  color: #311140;
+}
+
+#register__close {
+  text-decoration: underline;
+  text-align: right;
+}
+
+#register__close:hover {
+  cursor: pointer;
+}

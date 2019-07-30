@@ -1,5 +1,12 @@
 /* jshint ignore: start */
 var blocks = document.querySelectorAll(".block"),
+    modalLogin = document.querySelector("#modal_login"),
+    login = document.querySelectorAll(".login_btn"),
+    loginLink = document.querySelector(".login__link"),
+    loginClose = document.querySelector("#login__close"),
+    registerLink = document.querySelector('.register__link'),
+    modalRegister = document.querySelector('#modal_register'),
+    registerClose = document.querySelector('#register__close'),
     modalRestaurants = document.querySelector("#modal_restaurants"),
     restaurantClose = document.querySelector(".restaurant__close"),
     comment = document.querySelector("#comment");
@@ -28,12 +35,15 @@ var blocks = document.querySelectorAll(".block"),
         var restaurantId = this.querySelector(".block__hidden span").innerText;
         restaurantCoordinates.innerText = this.querySelector(".block__coorinates p").innerText;
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', "/" + restaurantId, true);
+        xhr.open('GET', "/restaurant/" + restaurantId, true);
         xhr.onload = function() {
           var commentsData = JSON.parse(xhr.responseText);
           renderHtml(commentsData);
         };
         xhr.send();
+        var commentBtn = document.querySelector(".comment_btn");
+          commentBtn.setAttribute("action", "/" + restaurantId);
+          console.log(commentBtn);
     });}
 
     function renderHtml(data) {
@@ -69,4 +79,28 @@ var blocks = document.querySelectorAll(".block"),
       for (i = 0; i < comments.length; i++) {
         comments[i].parentNode.removeChild(comments[i]);
       }
+    });
+
+    for (i = 0; i < login.length; i++) {
+    login[i].addEventListener('click', function() {
+      modalLogin.classList.add("modal--enable");
+      modalRestaurants.classList.remove("modal--enable");
+    })};
+
+    loginClose.addEventListener('click', function() {
+      modalLogin.classList.remove("modal--enable");
+    });
+
+    registerLink.addEventListener('click', function() {
+      modalLogin.classList.remove("modal--enable");
+      modalRegister.classList.add("modal--enable");
+    });
+
+    registerClose.addEventListener('click', function() {
+      modalRegister.classList.remove("modal--enable");
+    });
+
+    loginLink.addEventListener('click', function() {
+      modalLogin.classList.add("modal--enable");
+      modalRegister.classList.remove("modal--enable");
     });

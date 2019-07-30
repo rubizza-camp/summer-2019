@@ -4,6 +4,25 @@
   text-align: center;
 }
 
+.comment_body {
+  width: 30%;
+  position: absolute;
+  margin: 7rem 30%;
+  padding: 2rem;
+  background-color: #63e091;
+  z-index: 5;
+  text-align: center;
+}
+
+#comment__close {
+  text-decoration: underline;
+  text-align: right;
+}
+
+#comment__close:hover {
+  cursor: pointer;
+}
+
 .comment {
   border: .125rem solid #63287d;
   padding: 1rem;

@@ -3,3 +3,8 @@ body {
   margin: 0;
   background-color: #63287d;
 }
+
+a {
+  color: black;
+  text-align: right;
+}

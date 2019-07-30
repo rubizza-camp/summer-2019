@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 # rubocop:disable Style/NumericLiterals
 ActiveRecord::Schema.define(version: 2019_07_25_084101) do
+  # rubocop:enable Style/NumericLiterals
   create_table 'comments', force: :cascade do |t|
     t.integer 'mark', null: false
     t.text 'annotation', null: false
@@ -32,9 +33,8 @@ ActiveRecord::Schema.define(version: 2019_07_25_084101) do
   create_table 'users', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'email', null: false
-    t.string 'password_hash', null: false
+    t.string 'password_digest', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
 end
-# rubocop:enable Style/NumericLiterals

@@ -1,5 +1,8 @@
 @import "base/_base.css";
+@import "modules/_btn.css";
+@import "modules/_register.css";
 @import "modules/_modal.css";
+@import "modules/_login.css";
 @import "modules/_restaurant.css";
 @import "modules/_container.css";
 @import "modules/_block.css";

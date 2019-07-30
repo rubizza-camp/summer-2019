@@ -10,7 +10,7 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  get '/:id' do
+  get '/restaurant/:id' do
     @restaurant = Restaurant.find_by(id: params[:id])
     unless @restaurant
       flash[:message] = 'This restautant is out of our scope'

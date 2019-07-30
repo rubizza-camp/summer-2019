@@ -5,17 +5,48 @@ html
     meta content="text/html" charset="UTF-8" http-equiv="Content-Type"
     link rel="stylesheet" type="text/css" href="styles/styles.css"
   body
+    #modal_login.modal
+        .login
+            #login__close CLOSE
+            p.login--large Login
+            <form action="/login" method="POST">
+              <p>Name: <input type='text' id='name' name="name"></p>
+              <p>Email: <input type='text' id='email' name="email"></p>
+              <p>Password: <input type='password' id='password' name="password"></p>
+              <button type='Submit' class='btn btn-primary'>Login</button>
+            </form>
+            p Have not account yet?
+            span.register__link Register!
+    #modal_register.modal
+        .register
+            #register__close CLOSE
+            p.login--large Register
+            <form action="/register" method="POST">
+              <p>Name: <input type='text' id='name' name="name"></p>
+              <p>Email: <input type='text' id='email' name="email"></p>
+              <p>Password: <input type='password' id='password' name="password"></p>
+              <button type='Submit' class='btn btn-primary'>Register</button>
+            </form>
+            p Back to
+            span.login__link Login
     #modal_restaurants.modal
         .restaurant
-            .restaurant__close CLOSE X
+            .restaurant__close CLOSE
             .restaurant__name
                 h1
             .restaurant__description
                 p
             .restaurant__coordinates
                 p
+            - if logged_in?
+                <form class="comment_btn" method="GET">
+                    <button class='btn btn-success' type='submit'>Leave comment</button>
+                </form>
+            - else
+                == yield
             #comment Comments:
     .container
+        == yield
         h2 Restaurants:
         - @restaurants.each do |restaurant|
             .block
