@@ -1,3 +1,4 @@
+require 'digest/md5'
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/base'

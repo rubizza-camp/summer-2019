@@ -1,5 +1,3 @@
-require_relative 'crypt'
-
 module AuthHelper
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
@@ -8,7 +6,7 @@ module AuthHelper
   end
 
   def correct_login?
-    @user && @user.pass_hash == md5_encrypt(params[:password])
+    @user && @user.pass_hash == Digest::MD5.hexdigest(params[:password])
   end
 
   def signup_mail_check(mail)

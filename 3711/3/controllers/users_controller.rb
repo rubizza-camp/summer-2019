@@ -1,10 +1,8 @@
 require_relative '../helpers/auth'
-require_relative '../helpers/crypt'
 require_relative '../helpers/flash'
 
 class UsersController < Sinatra::Base
   include AuthHelper
-  include CryptHelper
   include FlashHelper
 
   register Sinatra::Flash
@@ -37,8 +35,9 @@ class UsersController < Sinatra::Base
     return if signup_mail_check(params['mail'])
 
     @user = User.create(mail: params['mail'], username: params['u_name'],
-                        pass_hash: md5_encrypt(params['password']),
+                        pass_hash: Digest::MD5.hexdigest(params['password']),
                         first_name: params['f_name'], last_name: params['l_name'])
+    @user.save
     authorization
   end
 

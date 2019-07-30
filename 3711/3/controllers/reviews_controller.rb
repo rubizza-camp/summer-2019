@@ -8,12 +8,7 @@ class ReviewsController < Sinatra::Base
   register Sinatra::Flash
 
   post '/reviews/new' do
-    puts session[:user].inspect
     return if validate_review
-
-
-
-    puts user_id: session[:user].id, place_id: params['place_id'], rating: params['rating'], text: params['note']
 
     Review.create(user_id: session[:user].id, place_id: params['place_id'],
                   rating: params['rating'], text: params['note'])
