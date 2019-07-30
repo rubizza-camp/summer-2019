@@ -5,13 +5,12 @@ require 'fileutils'
 
 module SaveData
   include StudentHelper
-  
+
   TOKEN = ENV['BOT_TOKEN']
   API = "https://api.telegram.org/bot#{TOKEN}/getFile?file_id=".freeze
   DOWNLOAD_API = "https://api.telegram.org/file/bot#{TOKEN}/".freeze
-  TIME = Time.now.strftime('%a, %d %b %Y %H:%M')
-  PHOTO = '/photo.jpg'
-  LOCATION = '/location.txt'
+  PHOTO = '/photo.jpg'.freeze
+  LOCATION = '/location.txt'.freeze
 
   def save_photo(*)
     FileUtils.mkdir_p(path_to_save_data)

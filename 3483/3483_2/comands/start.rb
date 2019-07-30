@@ -1,9 +1,8 @@
 require_relative '../helper_module/student_helper.rb'
 
 module Start
+  include StudentHelper
   def start!(*)
-    include StudentHelper
-
     if student_registered(from['id'])
       respond_with :message, text: t(:registered)
     else

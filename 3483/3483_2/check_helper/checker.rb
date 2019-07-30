@@ -15,7 +15,7 @@ class Checker
   private
 
   def user_exists?
-    Student.find { |student| student.number.include?(number) }
+    Student.all.any? { |student| student.number.include?(number) }
   end
 
   def user_not_exists?
