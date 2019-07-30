@@ -5,6 +5,8 @@ class CreatePlaces < ActiveRecord::Migration[5.2]
       t.string :location
       t.integer :place_rating
       t.text :description
+
+      t.timestamps
     end
   end
 end
