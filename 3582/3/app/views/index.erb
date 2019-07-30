@@ -1,0 +1,10 @@
+<h3>Minsk restaraunts</h3>
+<br>
+<% Restaraunt.all.each do |restaraunt| %>
+  <div>
+      <p>Name: <%= restaraunt.name %></p>
+      <p>Description: <%= restaraunt.description %></p>
+      <p>Location: <%= restaraunt.location %></p>
+      <br>
+  </div>
+<% end %>
