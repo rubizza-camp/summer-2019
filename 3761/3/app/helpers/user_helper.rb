@@ -1,10 +1,6 @@
 require 'sinatra/base'
 
 module UserHelper
-  def can_registered?
-    true if user_valid? && email_valid?
-  end
-
   def account_exist?
     @user = User.find_by(email: params['email'])
     return true if @user && @user.password == params[:password]
@@ -13,19 +9,29 @@ module UserHelper
     redirect '/sign_in'
   end
 
-  private
-
-  def user_valid?
-    return true if @user.valid?
-
-    flash[:error] = I18n.t(:account_already_exist)
-    redirect '/sign_up'
+  def error_message
+    nickname_error_message + email_error_message
   end
 
-  def email_valid?
-    return true if Truemail.valid?(params['email'])
+  def nickname_error_message
+    case @user.errors.details.dig(:name, 0, :error)
+    when :blank
+      I18n.t(:blank_nickname)
+    when :taken
+      I18n.t(:existing_nickname)
+    else
+      @user.errors.details.dig(:name, 0, :error).to_s
+    end
+  end
 
-    flash[:error] = I18n.t(:invalid_email)
-    redirect '/sign_up'
+  def email_error_message
+    case @user.errors.details.dig(:email, 0, :error)
+    when :blank
+      I18n.t(:blank_email)
+    when :taken
+      I18n.t(:existing_email)
+    else
+      @user.errors.details.dig(:email, 0, :error).to_s
+    end
   end
 end

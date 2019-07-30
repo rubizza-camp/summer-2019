@@ -1,5 +1,8 @@
 en:
-  account_already_exist: User with this name or email already exist
-  incorrect_password: Incorrect password or email. Try again.
-  invalid_email: Invalid email. Try again.
+  incorrect_password: Incorrect password or email.
+  invalid_email: Invalid email.
   unregistered_user: You can't leave a feedback. Need to sign in.
+  existing_email: Email has already been taken. 
+  existing_nickname: Nickname has already been taken. 
+  blank_email: Fill in email. 
+  blank_nickname: Fill in nickname. 

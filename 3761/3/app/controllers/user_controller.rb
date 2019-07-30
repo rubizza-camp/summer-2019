@@ -21,10 +21,13 @@ class UserController < ApplicationController
   end
 
   post '/sign_up' do
-    @user = User.create(name: params['name'], email: params['email'], password: params[:password])
-    if can_registered?
+    @user = User.new(name: params['name'], email: params['email'], password: params[:password])
+    if @user.valid?
       @user.save
       session_start
+    else
+      flash[:error] = error_message
+      redirect '/sign_up'
     end
   end
 end
