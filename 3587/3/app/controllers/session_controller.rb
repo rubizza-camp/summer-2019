@@ -5,11 +5,12 @@ class SessionController < ApplicationController
   end
 
   post '/register' do
-    @user = User.new(name: params[:name], email: params[:email], password: params[:password])
-    if valid_email? && valid_password?
+    @user = User.create(name: params[:name], email: params[:email], password: params[:password])
+    if @user.valid?
       @user.save!
       redirect '/login'
     end
+    erb :register
   end
 
   get '/login' do
@@ -18,12 +19,7 @@ class SessionController < ApplicationController
   end
 
   post '/login' do
-    if account_exist?
-      session_start!
-      session['user_id'] = @user.id
-      redirect '/'
-    end
-    erb :login
+    start_session if account_exist?
   end
 
   get '/logout' do
