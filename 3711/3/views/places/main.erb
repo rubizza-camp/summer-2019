@@ -1,17 +1,27 @@
 <div class="container">
   <div class="card-deck mb-3 text-center">
-    <% @places.each do |place| %>
-      <div class="card mb-4 box-shadow">
-        <div class="card-header">
-          <a href="/places/<%=place.id %>">
-            <h5 class="card-title"><%= place.name %></h5>
-          </a>
+  
+    <div class="container">
+      <% @places.each_slice(3)  do |places| %>
+        <div class="row">
+        <% places.each  do |place| %>
+          
+          <div class="col-sm-6 col-lg-4">
+            <div class="card-header">
+              <a href="/places/<%=place.id %>">
+                <h5 class="card-title"><%= place.name %></h5>
+              </a>
+            </div>
+            <div class="card-body">
+              <p class="card-text"><%= place.note %></p>
+              <p class="card-text"><small class="text-muted"><%= place.latitude %> <%= place.longitude %></small></p>
+            </div>
+          </div>
+          
+        <% end %>
         </div>
-        <div class="card-body">
-          <p class="card-text"><%= place.note %></p>
-          <p class="card-text"><small class="text-muted"><%= place.latitude %> <%= place.longitude %></small></p>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+
   </div>
 </div>

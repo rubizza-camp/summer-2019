@@ -1,34 +1,41 @@
 <style>
-.container {
-  max-width: 720px;
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-}
+  .place {
+    max-width: 1080px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+  }
 
-.review {
-  max-width: 720px;
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-}
+  .review {
+    max-width: 720px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+  }
+
+  .error {
+    color: red;
+  }
+
+  .notification {
+    color: green;
+  }
 </style>
 <main role="main" class="container">
-  <div class="review">
+  <div class="place">
     <div class="my-3 p-3 bg-white rounded box-shadow">
       <% place = Place.find(@place_id) %>
       <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-        <div class="col-md-6 px-0">
+        <div class="px-0">
           <h1 class="display-4 font-italic"><b><%= place.name%></b></h1>
           <% avg_rating = place.reviews.average(:rating) || 0 %>
           <small class="">Rating: <%= '⭐' * avg_rating.round + "(#{'%.1f' % avg_rating})" %></small>
           
           <p class="lead my-3"><%= place.note%></p>
-          <p class="lead my-3"><%= place.note%></p>
           <p class="lead my-3"><%= place.description%></p>
           <p class="lead my-3">
-            <a href="https://www.google.com/maps/@<%= place.latitude%>,<%= place.longitude%>,15z">
-              <small class="text-muted"><%= place.latitude %> <%= place.longitude %></small>
+            <a href="https://www.google.com/maps/@<%= place.longitude%>,<%= place.latitude%>,15z">
+              <small class="text-muted"><%= place.longitude %> <%= place.latitude %></small>
             </a>
           </p>
         </div>
@@ -37,6 +44,14 @@
   </div>
 
   <div class="my-3 p-3 bg-white rounded box-shadow review">
+    <% if session[:error]%>
+      <p class="error"><%= session[:error] %></p>
+      <% session.delete(:error) %>
+    <% elsif session[:notification] %>
+      <p class="notification"><%= session[:notification] %></p>
+      <% session.delete(:notification) %>
+    <% end %>
+    
     <% if loged_in? %>
       <form action="/reviews/new" method="POST">
         <div class="container">
@@ -51,16 +66,14 @@
             </select>
           </div>
           <div class="form-group">
-            <textarea class="form-control" type="text" placeholder="Enter comment" name="note" required></textarea>
+            <textarea class="form-control" type="text" placeholder="Enter comment" name="note"></textarea>
           </div>
           <input type="hidden" name="place_id" value="<%=@place_id%>">
           <button type="submit" class="registerbtn">Make review</button>
         </div>
       </form>
     <% else %>
-      <div class="container media text-muted pt-3">
-        <a href="/signup">Sign Up</a> or <a href="/login">Log In</a> to make review.
-      <div>
+      <h4><a href="/signup">Sign Up</a> or <a href="/login">Log In</a> to make review.</h4>
     <% end %>
     
     <% place.reviews.reverse.each do |review| %>

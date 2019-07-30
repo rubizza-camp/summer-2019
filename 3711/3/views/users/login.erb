@@ -42,6 +42,14 @@ input[type=text]:focus, input[type=password]:focus {
   background-color: #f1f1f1;
   text-align: center;
 }
+
+.error {
+  color: red;
+}
+
+.notification {
+  color: green;
+}
 </style>
 
 <form action="/login" method="POST">
@@ -49,6 +57,14 @@ input[type=text]:focus, input[type=password]:focus {
     <h1>Input your login data</h1>
     <p>Please fill in this form to login.</p>
     
+    <% if session[:error]%>
+      <p class="error"><%= session[:error] %></p>
+      <% session.delete(:error) %>
+    <% elsif session[:notification] %>
+      <p class="notification"><%= session[:notification] %></p>
+      <% session.delete(:notification) %>
+    <% end %>
+
     <label for="mail"><b>Place your e-mail</b></label>
     <input type="text" placeholder="Enter your e-mail" name="mail" required>
 

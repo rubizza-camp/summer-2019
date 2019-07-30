@@ -1,14 +1,16 @@
 require_relative '../helpers/auth'
 require_relative '../helpers/crypt'
+require_relative '../helpers/flash'
 
 class UsersController < Sinatra::Base
   include AuthHelper
   include CryptHelper
+  include FlashHelper
 
   register Sinatra::Flash
 
   configure do
-    set :views, proc { File.join(root, '../views/users') }
+    set :views, (proc { File.join(root, '../views/users') })
   end
 
   get '/login' do
@@ -18,9 +20,12 @@ class UsersController < Sinatra::Base
 
   post '/login' do
     @user = User.find_by(mail: params[:mail])
-    return erb :login unless user_exists?
-
-    authorization
+    if correct_login?
+      flash_info('Successful loged in!')
+      authorization
+    else
+      retry_login
+    end
   end
 
   get '/signup' do
@@ -29,7 +34,9 @@ class UsersController < Sinatra::Base
   end
 
   post '/signup' do
-    @user = User.create(mail: params['mail'], username: params['username'],
+    return if signup_mail_check(params['mail'])
+
+    @user = User.create(mail: params['mail'], username: params['u_name'],
                         pass_hash: md5_encrypt(params['password']),
                         first_name: params['f_name'], last_name: params['l_name'])
     authorization

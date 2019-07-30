@@ -1,25 +1,23 @@
-require_relative '../helpers/auth'
-require_relative '../helpers/crypt'
+require_relative '../helpers/flash'
+require_relative '../helpers/rating'
 
 class ReviewsController < Sinatra::Base
-  include AuthHelper
-  include CryptHelper
+  include FlashHelper
+  include RatingHelper
 
   register Sinatra::Flash
 
-  configure do
-    set :views, proc { File.join(root, '../views/reviews') }
-  end
-
-  # get '/reviews' do
-  #   erb :index
-  # end
-
   post '/reviews/new' do
-    puts params.inspect
+    puts session[:user].inspect
+    return if validate_review
+
+
+
+    puts user_id: session[:user].id, place_id: params['place_id'], rating: params['rating'], text: params['note']
+
     Review.create(user_id: session[:user].id, place_id: params['place_id'],
                   rating: params['rating'], text: params['note'])
-    info_message('Thanks for yor review!')
+    flash_info('Thanks for yor review!')
     redirect "/places/#{params['place_id']}"
   end
 end

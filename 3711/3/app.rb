@@ -9,7 +9,7 @@ require_relative './models/place'
 require_relative './models/review'
 require_relative './models/user'
 
-set :database,  adapter: 'sqlite3', database: 'places.sqlite3'
+set :database, adapter: 'sqlite3', database: 'places.sqlite3'
 set views: proc { File.join(root, '../views/') }
 
 class App < Sinatra::Base

@@ -8,7 +8,7 @@ class PlacesController < Sinatra::Base
   register Sinatra::Flash
 
   configure do
-    set :views, proc { File.join(root, '../views/places') }
+    set :views, (proc { File.join(root, '../views/places') })
   end
 
   get '/places/' do
