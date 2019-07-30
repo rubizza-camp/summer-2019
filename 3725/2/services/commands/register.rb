@@ -21,11 +21,13 @@ module Commands
     private
 
     def check_registered
-      message = :successfully_registered && save_context = false
+      message = :successfully_registered
+      save_context = false
     end
 
     def check_number
-      message = :invalid_number && save_context = true unless create_user
+      message = :invalid_number
+      save_context = true unless create_user
     end
 
     def create_user

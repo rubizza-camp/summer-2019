@@ -31,7 +31,6 @@ module Commands
       process_location && set_checked_in_message if geo?
     end
 
-
     def update_user
       user.update(checkin_datetime: Time.now, checked_in: false)
     end
