@@ -10,25 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_726_094_219) do
-  create_table 'comments', force: :cascade do |t|
-    t.string 'title'
-    t.text 'content'
-    t.integer 'rating'
-    t.integer 'user_id'
-    t.integer 'place_id'
+ActiveRecord::Schema.define(version: 2019_07_26_094219) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string "title"
+    t.integer "rating"
+    t.integer "user_id"
+    t.integer "place_id"
   end
 
-  create_table 'places', force: :cascade do |t|
-    t.string 'name'
-    t.string 'location'
-    t.string 'description'
-    t.integer 'rating'
+  create_table "places", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.string "description"
+    t.integer "rating"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'username'
-    t.string 'email'
-    t.string 'password_digest'
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.string "password_digest"
   end
+
 end

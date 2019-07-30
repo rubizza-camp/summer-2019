@@ -7,7 +7,6 @@ class PlaceController < ApplicationController
       user = current_user
       @comment = Comment.create(
         title: params[:title],
-        content: params[:contetnt],
         rating: params[:rating],
         place_id: params[:id],
         user_id: user.id

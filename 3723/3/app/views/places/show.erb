@@ -9,9 +9,8 @@
 
 <% @place.comments.each do |comment| %>
   <div>
-      <p><%= comment.title %></p>
       <p>User: <%=User.find(comment.user_id).username%></p>
-      <p>Description: <%= comment.description %></p>
+      <p>Message: <%= comment.title %></p>
       <p>Rating: <%= comment.rating %></p>
       <br>
   </div>
@@ -21,11 +20,7 @@
 <br>
 
 <form action="/places/<%= @place.id %>/new_comment" method="POST">
-  <p><b>Short description:<b> <input type='text' name="title">
-  <p>
-    <b>Your message:</b><br>
-    <textarea rows="3" cols="35" name="content"></textarea>
-  </p>
+  <p><b>Message:</b><input type='text' name="title"></p>
   <p>
     Rating:
     <select name="rating" value="1">
