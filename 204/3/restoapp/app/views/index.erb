@@ -5,7 +5,7 @@
             <h3 class="my-4">Best Restraunts of Spb</h3>
             <div class="list-group">
                 <% @restraunts.each do |restraunt| %>
-                <a href="/restraunts/<%= restraunt.id %>" class="list-group-item">
+                  <a href="/restraunts/<%= restraunt.id %>" class="list-group-item">
                     <%= restraunt.title %></a>
                 <% end %>
             </div>
@@ -53,19 +53,7 @@
                             </p>
                         </div>
                         <div class="card-footer">
-                            <% if restraunt.avg_mark.to_i == 0 || restraunt.avg_mark == nil %>
-                            <small class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</small>
-                            <% elsif restraunt.avg_mark.to_i == 1 %>
-                            <small class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</small>
-                            <% elsif restraunt.avg_mark.to_i == 2 %>
-                            <small class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</small>
-                            <% elsif restraunt.avg_mark.to_i == 3 %>
-                            <small class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</small>
-                            <% elsif restraunt.avg_mark.to_i == 4 %>
-                            <small class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            <% elsif  restraunt.avg_mark.to_i == 5 %>
-                            <small class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</small>
-                            <% end %>
+                            <%= review_statistic(restraunt.avg_rate) %>
                         </div>
                     </div>
                 </div>

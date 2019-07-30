@@ -11,30 +11,28 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20_190_725_163_744) do
+  create_table 'accounts', force: :cascade do |t|
+    t.string 'name', null: false
+    t.string 'password', null: false
+    t.string 'email', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
   create_table 'restraunts', force: :cascade do |t|
     t.string 'title', null: false
     t.string 'description', null: false
-    t.string 'location', null: false
-    t.integer 'avg_mark', default: 0
+    t.string 'google_map_link', null: false
+    t.integer 'avg_rate', default: 0
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
 
   create_table 'reviews', force: :cascade do |t|
     t.string 'body', null: false
-    t.integer 'mark', null: false
-    t.integer 'user_id'
-    t.integer 'restraunt_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['restraunt_id'], name: 'index_reviews_on_restraunt_id'
-    t.index ['user_id'], name: 'index_reviews_on_user_id'
-  end
-
-  create_table 'users', force: :cascade do |t|
-    t.string 'name', null: false
-    t.string 'password', null: false
-    t.string 'email', null: false
+    t.integer 'rate', null: false
+    t.integer 'account_id', null: false
+    t.integer 'restraunt_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end

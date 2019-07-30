@@ -1,13 +1,19 @@
 require './config/environment'
+require './app/helpers/review_helper.rb'
+require './app/services/account_creator.rb'
+require './app/services/review_creator.rb'
+require './app/services/sign_in.rb'
 require 'byebug'
 require 'bcrypt'
 require 'sinatra'
 require 'sinatra/session'
 # :reek:all
 
+EMAIL_REGEX = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/.freeze
+
 class ApplicationController < Sinatra::Base
   register Sinatra::Session
-  helpers Sinatra::Param
+  helpers Sinatra::Param, ReviewHelper
 
   configure do
     set :public_folder, 'public'
@@ -40,11 +46,11 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/sign_in' do
-    user = User.all.find_by(email: params[:email])
-    if user && validate_password(user.password, params[:password])
+    subscribe = SignIn.new.call(session, params)
+    if subscribe[:success] == true
       session_start!
-      session[:name] = user.name
-      session[:user_id] = user.id
+      session[:name] = subscribe[:payload].name
+      session[:account_id] = subscribe[:payload].id
       redirect '/'
     else
       erb :login
@@ -55,54 +61,21 @@ class ApplicationController < Sinatra::Base
     erb :register, layout: :login_layout
   end
 
-  post '/create_user' do
-    param :email, String, format: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
-    user_id = User.all.last.id + 1
-    User.create!(
-      id: user_id,
-      name: params[:name],
-      email: params[:email],
-      password: hash_password(params[:password])
-    )
+  post '/create_account' do
+    param :email, String, format: EMAIL_REGEX
+    AccountCreator.new(params).call
     redirect '/'
   end
 
   get '/restraunts/:id' do
-    @restraunt = Restraunt.all.find_by(id: params[:id])
+    @restraunt = Restraunt.find(params[:id])
     erb :restraunt
   end
 
   post '/new_review/:id' do
-    restraunt = Restraunt.all.find_by(id: params[:id])
-    review_id = Review.all.last.id + 1 if restraunt.reviews.any?
     param :body, String, min_length: 50
-    restraunt.reviews.create!(
-      id: review_id,
-      body: params[:body],
-      mark: params[:mark],
-      user_id: session[:user_id]
-    )
-    restraunt.update(avg_mark: median(restraunt.reviews))
+    restraunt = Restraunt.find(params[:id])
+    ReviewCreator.new.call(params, session, restraunt)
     redirect '/restraunts/' + params[:id]
-  end
-
-  private
-
-  def median(reviews)
-    array = []
-    reviews.each do |review|
-      array.push(review.mark)
-    end
-    sorted = array.sort
-    len = sorted.length
-    (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
-  end
-
-  def hash_password(password)
-    BCrypt::Password.create(password).to_s
-  end
-
-  def validate_password(hash_password, _password)
-    BCrypt::Password.new(hash_password) == params[:password]
   end
 end
