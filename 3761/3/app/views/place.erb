@@ -1,0 +1,36 @@
+<div class="row m-3">
+  <div class="col-md-6">
+    <div class="card">
+        <div class="card-body bg-light">
+            <h3 class="card-title text-center"><%= @place.name %>
+              <button class="btn btn-<%if @average_score && @average_score > 2 %>success<%else%>danger<%end%> btn-lg"  disabled>
+                <span class="fa fa-star"></span>   <%= @average_score%>
+              </button>
+            </h3>
+            <h6 class="card-subtitle mb-2 text-muted text-center"><%= @place.location%></h6>
+            <img src=<%= @place.path_to_image %> class="img-thumbnail">
+            <p class="card-text">  <%= @place.full_description %></p>
+        </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <form action='/new_review/<%=@place.id%>' id='addForm' method='POST' class="mb-3 mt-3 was-validated">
+      <% if session[:user_id] %>
+        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#comment">Send feedback</button>
+      <% end %>
+      <%= erb :comment_modal_form%>
+    </form>
+    <% @review.each do |review| %>
+      <div class="card card-body m-1">
+        <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
+        <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
+        <p class="card-text"><%= review.text %>
+            <button class="btn btn-<%if review.grade >2 %>success<%else%>danger<%end%> btn-sm float-right"  disabled>
+            <span class="fa fa-star"></span>   <%= review.grade%>
+            </button>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+en:
+  incorrect_password: Incorrect password or email.
+  invalid_email: Invalid email.
+  unregistered_user: You can't leave a feedback. Need to sign in.
+  existing_email: Email has already been taken. 
+  existing_nickname: Nickname has already been taken. 
+  blank_email: Fill in email. 
+  blank_nickname: Fill in nickname.
+  blank_review: Fill in this fields. 
