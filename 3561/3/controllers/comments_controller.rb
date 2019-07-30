@@ -11,6 +11,6 @@ class CommentsController < ApplicationController
   private
 
   def calculate_average_rating
-    Comment.where(place_id: params['id']).average(:star).to_f
+    Place.find(params['id']).comments.average(:star).to_f
   end
 end
