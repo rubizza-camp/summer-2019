@@ -4,5 +4,4 @@ class User < ActiveRecord::Base
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   has_many :reviews, dependent: :destroy
   has_secure_password
-
 end
