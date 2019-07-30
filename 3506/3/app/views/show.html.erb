@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="restaurant-show">
+    <h2><%= @restaurant.name %></h2>
+    <h4><i class="text-warning fa fa-star"></i><%= @restaurant.average_rating %></h4>
+    <p class="restaurant-desc"><%= @restaurant.description %></p>
+    <p class="restaurant-desc"><%= @restaurant.address %></p>
+
+    <h3 class="comment-section-header">Reviews:</h3>
+
+    <% @restaurant.reviews.each do |review| %>
+      <div class="review">
+        <p>
+          <h4 class="float-left" class="review-posted-by"><strong><%= review.user.username %></strong></h4>
+
+          <% review.rating.times do |star| %>
+            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+          <% end %>
+        </p>
+        <div class="clearfix"></div>
+        <p class="review-content"><%= review.comment %></p>
+      </div>
+    <% end %>
+
+    <% if current_user %>
+      <li><h4>Make your review:</h4></li>
+      <div class="review">
+        <form action="/restaurants/<%= @restaurant.id %>" method="post">
+          <select name="rating" class="form-control" required>
+            <option value="1">1 star</option>
+            <option value="2">2 star</option>
+            <option value="3">3 star</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+          </select>
+          <div class="form-group">
+            <textarea class="form-control" rows="5" name="comment" placeholder="Tell your opinion about this place." required></textarea>
+          </div>
+          <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </form>
+      </div>
+    <% end %>
+  </div>
+</div>

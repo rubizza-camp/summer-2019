@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+gem 'activerecord', '~> 5.2.3'
+gem 'bcrypt', '~> 3.1.13'
+gem 'bootstrap', '~> 4.3.1'
+gem 'rake', '~> 12.3.3'
+gem 'shotgun', '~> 0.9.2'
+gem 'sinatra', '~> 2.0.5'
+gem 'sinatra-activerecord', '~> 2.0.13'
+gem 'sinatra-flash', '~> 0.3.0'
+gem 'sqlite3', '~> 1.4.1'
+gem 'truemail', '~> 1.2.1'

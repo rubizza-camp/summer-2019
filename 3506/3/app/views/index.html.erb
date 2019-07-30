@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<% @restaurants.each do |restaurant| %>
+  <div class="col-md-10 container col-md-offset-1">
+    <div class="restaurant">
+      <div class="links row">
+        <h3 class="col-md-10 col-sm-3"><a class=" text-white" href='/restaurants/<%= restaurant.id %>'><%= restaurant.name %></a></h3>
+        <h5 class="col-md-2 col-sm-3"><i class="text-warning fa fa-star"></i><%= restaurant.average_rating %></h5>
+        <p><%= restaurant.description.truncate(100, separator: ' ') %></p>
+        <p><%= restaurant.address %></p>
+      </div>
+    </div>
+  </div>
+<% end %>
