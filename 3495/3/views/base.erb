@@ -1,0 +1,26 @@
+<div class="container my-5">
+  <div class="card-deck row">
+    <% @places.each do |place| %>
+      <div class="col-md-3">
+        <div class="card mycard-height mb-4" style="height: 95%">
+          <div class="view overlay flex-auto">
+            <img class="card-img-top" height="170px" width="40px" src="<%= place.image_path %>" alt= "IMAGE NOT FOUND" >
+            <a href="place/<%= place.id%>">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <div class="card-body flex-column">
+            <h3 class="card-title">
+                <a class='text-dark' href = "place/<%= place.id%>"> <%= place.name %></h1>
+            </h3>
+            <a href = "place/<%= place.id%>" >
+                <p class="card-text"><%= place.short_description %></p>
+                <p class="card-text">Address: <%= place.address %></p
+            </a>
+          </div>  
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>
+<%= pagy_bootstrap_nav(@pagy) %>
