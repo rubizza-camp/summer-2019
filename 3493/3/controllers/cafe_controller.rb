@@ -1,6 +1,6 @@
 class CafeController < ApplicationController
   get '/' do
-    @pagy, @places = pagy(Place.all, items: 4)
+    @pagy, @places = pagy(Place.all, items: 10)
     erb :show_all_places
   end
 
@@ -30,9 +30,12 @@ class CafeController < ApplicationController
   end
 
   get '/place/:id' do
-    @reviews = Review.where(['place_id = ?', params[:id]])
-    @place = Place.find(params[:id])
-    erb :show_place
+    @place = Place.where(id: params[:id])
+    if @place.empty?
+      redirect '/'
+    else
+      erb :show_place
+    end
   end
 
   post '/place/:id' do
