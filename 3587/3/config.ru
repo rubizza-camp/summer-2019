@@ -1,7 +1,4 @@
-require './controllers/application_controller.rb'
-require './controllers/session_controller.rb'
-require './controllers/shop_controller.rb'
-require './controllers/review_controller.rb'
+require_relative './config/environment'
 
 use SessionController
 use ShopController
