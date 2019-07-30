@@ -1,8 +1,10 @@
-require_relative '../check_helper/checker'
+require_relative '../helper_module/student_helper.rb'
 
 module Start
   def start!(*)
-    if Checker.registered(from['id'])
+    include StudentHelper
+
+    if student_registered(from['id'])
       respond_with :message, text: t(:registered)
     else
       respond_with :message, text: t(:give_number)
@@ -11,8 +13,8 @@ module Start
   end
 
   def check_user(number = nil, *)
-    if Checker.new(number).correct_data?
-      Guest.create(id: from['id'], number: number, in_camp: 'checkin')
+    if student_entered_number_correctly(number)
+      create_user(number)
       respond_with :message, text: t(:done)
     else
       respond_with :message, text: t(:start_error)

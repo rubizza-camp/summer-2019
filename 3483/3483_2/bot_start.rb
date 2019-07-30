@@ -5,7 +5,7 @@ require_relative 'controller'
 
 Telegram::Bot::UpdatesController.session_store = :redis_store, { expires_in: 1.month }
 
-I18n.load_path << Dir[File.expand_path('phrases') + '/*.yml']
+I18n.load_path << Dir[File.expand_path('locales') + '/*.yml']
 
 TOKEN = ENV['BOT_TOKEN']
 bot = Telegram::Bot::Client.new(TOKEN)

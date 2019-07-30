@@ -15,7 +15,7 @@ class WebhooksController < Telegram::Bot::UpdatesController
   include Checkin
   include Checkout
 
-  REDIS_IP = ENV['IP']
+  REDIS_IP = ENV['REDIS_IP']
 
   Ohm.redis = Redic.new(REDIS_IP)
 end

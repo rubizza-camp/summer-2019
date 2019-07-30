@@ -1,5 +1,5 @@
 require 'yaml'
-require_relative '../registration/guest'
+require_relative '../registration/student'
 
 class Checker
   attr_reader :number
@@ -9,24 +9,20 @@ class Checker
   end
 
   def correct_data?
-    check_number && not_find_user
-  end
-
-  def self.registered(id)
-    Guest[id]
+    check_number && user_not_exists?
   end
 
   private
 
-  def find_user
-    Guest.all.any? { |guest| guest.number.include?(number) }
+  def user_exists?
+    Student.find { |student| student.number.include?(number) }
   end
 
-  def not_find_user
-    !find_user
+  def user_not_exists?
+    !user_exists?
   end
 
   def check_number
-    @check_number ||= YAML.load_file('humans.yaml')['Humans'].include?(number)
+    @check_number ||= YAML.load_file('humans.yaml').include?(number)
   end
 end

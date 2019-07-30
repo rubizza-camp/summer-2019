@@ -5,7 +5,7 @@ en:
   start_error: 'I do not know you!'
   in_camp: 'U in camp'
   not_in_camp: 'U not in camp'
-  selfi: 'Send self!'
+  selfie: 'Send self!'
   geo: 'Send me your geoposition.'
   geo_error: 'It seems, you are not in camp. Try again.'
   

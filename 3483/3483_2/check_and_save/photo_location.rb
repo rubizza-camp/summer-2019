@@ -5,7 +5,7 @@ module PhotoLocation
   include SaveData
 
   CAMP_LOCATION = [53.915205, 27.560094].freeze
-  CORRECT_LOCATION = 1
+  MAX_RADIUS = 1
 
   def check_data(*)
     if payload['photo']
@@ -13,7 +13,7 @@ module PhotoLocation
       check_location
     else
       save_context :check_data
-      respond_with :message, text: t(:selfi)
+      respond_with :message, text: t(:selfie)
     end
   end
 
@@ -27,7 +27,7 @@ module PhotoLocation
   end
 
   def check_valid_location(location)
-    if Haversine.distance(CAMP_LOCATION, location).to_km <= CORRECT_LOCATION
+    if Haversine.distance(CAMP_LOCATION, location).to_km <= MAX_RADIUS
       respond_with :message, text: t(:done)
       save_location
     else

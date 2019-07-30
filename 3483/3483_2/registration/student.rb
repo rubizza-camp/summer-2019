@@ -1,6 +1,6 @@
 require 'ohm'
 
-class Guest < Ohm::Model
+class Student < Ohm::Model
   attribute :number
   attribute :in_camp
 end
