@@ -15,19 +15,19 @@ module Commands
     def perform(&_block)
       check_registered
       check_number
-      yield message, save_context if block_given?
+      yield @message, @save_context if block_given?
     end
 
     private
 
     def check_registered
-      message = :successfully_registered
-      save_context = false
+      @message = :successfully_registered
+      @save_context = false
     end
 
     def check_number
-      message = :invalid_number
-      save_context = true unless create_user
+      @message = :invalid_number
+      @save_context = true unless create_user
     end
 
     def create_user
