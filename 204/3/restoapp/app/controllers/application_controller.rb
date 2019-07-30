@@ -75,7 +75,7 @@ class ApplicationController < Sinatra::Base
   post '/new_review/:id' do
     param :body, String, min_length: 50
     restraunt = Restraunt.find(params[:id])
-    ReviewCreator.new.call(params, session, restraunt)
+    ReviewCreator.new(params, session, restraunt).call
     redirect '/restraunts/' + params[:id]
   end
 end

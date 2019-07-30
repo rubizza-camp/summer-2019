@@ -1,6 +1,7 @@
 class AccountCreator
   attr_reader :id, :name, :email, :password
 
+  # :reek:all
   def initialize(params)
     @id = params[:id]
     @name = params[:name]

@@ -1,4 +1,5 @@
 class SignIn
+  # :reek:all
   def call(_session, params)
     account = Account.find(params[:email])
     if validate?(account, params[:password])

@@ -1,4 +1,4 @@
-require 'bcrypt'
+# :reek:all
 
 class Account < ActiveRecord::Base
   include BCrypt
