@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 2019_07_26_125759) do
   end
 
   create_table 'reviews', force: :cascade do |t|
-    t.integer 'grade'
-    t.text 'text'
+    t.integer 'grade', null: false
+    t.text 'text', null: false
     t.integer 'place_id'
     t.integer 'user_id'
     t.datetime 'created_at', null: false

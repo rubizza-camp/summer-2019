@@ -13,6 +13,8 @@ module UserHelper
     nickname_error_message + email_error_message
   end
 
+  private
+
   def nickname_error_message
     case @user.errors.details.dig(:name, 0, :error)
     when :blank

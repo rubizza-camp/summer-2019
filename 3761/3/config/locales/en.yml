@@ -5,4 +5,5 @@ en:
   existing_email: Email has already been taken. 
   existing_nickname: Nickname has already been taken. 
   blank_email: Fill in email. 
-  blank_nickname: Fill in nickname. 
+  blank_nickname: Fill in nickname.
+  blank_review: Fill in this fields. 
