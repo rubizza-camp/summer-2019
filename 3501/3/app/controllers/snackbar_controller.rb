@@ -7,29 +7,37 @@ require './app/lib/user'
 class SnackBarController < Sinatra::Base
   helpers Sinatra::Cookies
   get('/snackbars/new') do
-    session[:current_user] = User.find_user_by_token(cookies[:user_token_id])
     erb(:snackbars_new)
   end
 
   post('/snackbars/new') do
-    session[:current_user] = User.find_user_by_token(cookies[:user_token_id])
-    session[:current_user]&.create_new_snackbar(self)
+    session[:current_user].snack_bars.create(
+      description: params[:description],
+      name: params[:name],
+      photo: params[:photo],
+      telephone: params[:telephone],
+      working_time_opening: params[:working_time_opening],
+      working_time_closing: params[:working_time_closing],
+      latitude: params[:latitude],
+      longitude: params[:longitude]
+    )
     redirect('/')
   end
 
   get('/snackbars/:id') do
-    session[:current_user] = User.find_user_by_token(cookies[:user_token_id])
     @current_snack_bar = SnackBar.find_by_id(params['id'].to_i)
-    return erb(:snackbar) if @current_snack_bar
-
-    redirect('/')
+    erb(:snackbar)
   end
 
   post('/snackbars/:id/new_comment') do
-    session[:current_user] = User.find_user_by_token(cookies[:user_token_id])
-    return redirect('/') unless session[:current_user]
+    session[:current_user].feed_backs.create(
+      snack_bar_id: params[:id],
+      content: params[:content],
+      raiting: params[:raiting],
+      date: Time.now
+    )
 
-    session[:current_user].create_new_comment(self)
+    session[:current_user].update_snackbar_commnets_count_and_rait(self)
     redirect("/snackbars/#{params[:id]}")
   end
 end

@@ -11,9 +11,8 @@ class SignController < Sinatra::Base
   end
 
   post('/signin') do
-    return redirect('/') if User.sign_in_user(self)
-
-    redirect('/signin')
+    session[:current_user] = User.where(mail: params[:mail], password: params[:password]).first
+    redirect('/')
   end
 
   get('/signup') do
@@ -21,14 +20,17 @@ class SignController < Sinatra::Base
   end
 
   post('/signup') do
-    return redirect('/signup') unless User.create_new_user(self)
-
-    session[:current_user] = User.find_user_by_token(cookies[:user_token_id])
+    session[:current_user] = User.create(
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      mail: params[:mail],
+      password: params[:password]
+    )
     redirect('/')
   end
 
   get('/signout') do
-    response.delete_cookie('user_token_id')
+    session.delete(:current_user)
     redirect('/')
   end
 end
