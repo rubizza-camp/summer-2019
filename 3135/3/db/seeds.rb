@@ -9,11 +9,9 @@ restaurants = [
 ]
 
 users = [
-  { username: 'testuser1', email: 'tu1@mb.com', password: '123' },
-  { username: 'testuser2', email: 'tu2@mb.com', password: '123' },
-  { username: 'testuser3', email: 'tu3@mb.com', password: '123' },
-  { username: 'johndoe1988', email: 'johndoe@gmail.com', password: 'jd88' },
-  { username: 'janedoe1990', email: 'janedoe@gmail.com', password: 'jd90' }
+  { username: 'testuser1', email: 'tu1@mb.com', password_digest: 'somehash' },
+  { username: 'testuser2', email: 'tu2@mb.com', password_digest: 'somehash' },
+  { username: 'testuser3', email: 'tu3@mb.com', password_digest: 'somehash' }
 ]
 
 reviews = [

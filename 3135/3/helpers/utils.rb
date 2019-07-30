@@ -14,7 +14,7 @@ module Utils
 
   # :reek:DuplicateMethodCall:
   def login(email, password)
-    if User.exists?(email: email) && User.find_by(email: email)[:password] == password
+    if User.find_by(email: email).try(:authenticate, password)
       activate_user(User.find_by(email: email)[:id])
       session[:return_to_page]
     else
