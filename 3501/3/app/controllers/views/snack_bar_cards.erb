@@ -10,7 +10,7 @@
 <%
     else
         @snackbars.each_with_index  do |snackbar, index|
-            if (index % 2.0).zero?
+            if index.even?
 %>
     <div class="row justify-content-md-center">
         <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
