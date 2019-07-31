@@ -18,6 +18,7 @@ class AppController < Sinatra::Base
   Dotenv.load
   configure do
     enable :sessions
+    set :public_folder, File.dirname(__FILE__) + '/public'
     set :session_secret, ENV['key']
   end
 

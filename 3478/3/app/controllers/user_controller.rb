@@ -20,7 +20,7 @@ class UserController < Sinatra::Base
 
   post '/sign_up' do
     @user = User.new(name: params['username'], email: params['email'], password: params['password'])
-    add_user if valid_user_registration?
+    add_user if unregistered_email? && valid_email?
   end
 
   post '/sign_in' do

@@ -8,8 +8,15 @@ module UserHelper
     redirect '/'
   end
 
-  def valid_user_registration?
-    return true if Truemail.valid?(params['email']) && !User.find_by(email: params[:email])
+  def valid_email?
+    return true if params['email'].match?(URI::MailTo::EMAIL_REGEXP)
+
+    flash[:danger] = 'Invalid email'
+    redirect '/sign_up'
+  end
+
+  def unregistered_email?
+    return true unless User.find_by(email: params[:email])
 
     flash[:danger] = 'Account with this email is already registered'
     redirect '/sign_up'
