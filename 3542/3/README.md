@@ -6,4 +6,6 @@ Execute in terminal:
 
 Then in project folder:
 
+```~$ ruby db/seeds.rb```
+
 ```~$ ruby app.rb```
