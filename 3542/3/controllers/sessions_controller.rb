@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   bcrypt = BCrypt::Password
 
   get '/signup' do
-    erb :signup
+    haml :signup, layout: false
   end
 
   post '/signup' do
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
   end
 
   get '/login' do
-    erb :login
+    haml :login, layout: false
   end
 
   post '/login' do
