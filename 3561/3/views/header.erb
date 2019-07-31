@@ -9,9 +9,10 @@
         <a href="/delete_user_from_session" class="w3-bar-item w3-button w3-text-red w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>SING
           OUT</a>
       <% else %>
-        <a id="openRegistration" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>REGISTRATION</a>
-        <a id="openLogin" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-user fa-fw w3-margin-right"></i>SING
+        <a id="openRegistration" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>SIGN
           UP</a>
+        <a id="openLogin" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-user fa-fw w3-margin-right"></i>SIGN
+          IN</a>
       <% end %>
     </div>
   </nav>
@@ -27,9 +28,8 @@
 
   <div id="registration" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
       <div class="w3-center"><br>
-        <span id="closeRegistration" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+        <a id="closeRegistration" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</a>
       </div>
 
       <form class="w3-container" action="/users" method="post">
@@ -40,20 +40,18 @@
           <input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Enter Email" name="email" required>
           <label><b>Password</b></label>
           <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-          <button id="closeRegistration"
-                  class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Registration
-          </button>
+          <label><b>Write Password Again</b></label>
+          <input class="w3-input w3-border" type="password" placeholder="Enter Password Again" name="password_again" required>
+          <button id="closeRegistration" class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Registration</button>
         </div>
       </form>
     </div>
   </div>
 
-
   <div id="login" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
       <div class="w3-center"><br>
-        <span id="closeLogin" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+        <a id="closeLogin" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</a>
       </div>
 
       <form class="w3-container" action="/login" method="post">
@@ -62,7 +60,8 @@
           <input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Enter Email" name="email" required>
           <label><b>Password</b></label>
           <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-          <button id="closeLogin" class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Sing Up
+          <a id="openRegistrationFromLogin" class="w3-right w3-button">sign on?</a>
+          <button id="closeLogin" class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Sign Up
           </button>
         </div>
       </form>

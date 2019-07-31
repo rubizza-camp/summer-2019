@@ -1,6 +1,10 @@
 require_relative '../controllers/application_controller'
 
 class PlacesController < ApplicationController
+  get '/' do
+    redirect '/places'
+  end
+
   get '/places' do
     @places = Place.all
     erb :'places/index'
