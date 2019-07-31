@@ -4,9 +4,9 @@ var blocks = document.querySelectorAll(".block"),
     login = document.querySelectorAll(".login_btn"),
     loginLink = document.querySelector(".login__link"),
     loginClose = document.querySelector("#login__close"),
-    registerLink = document.querySelector('.register__link'),
-    modalRegister = document.querySelector('#modal_register'),
-    registerClose = document.querySelector('#register__close'),
+    registerLink = document.querySelector(".register__link"),
+    modalRegister = document.querySelector("#modal_register"),
+    registerClose = document.querySelector("#register__close"),
     modalRestaurants = document.querySelector("#modal_restaurants"),
     restaurantClose = document.querySelector(".restaurant__close"),
     comment = document.querySelector("#comment");
@@ -24,7 +24,7 @@ var blocks = document.querySelectorAll(".block"),
         reedmore.classList.remove("modal--enable");
         reedmore.classList.add("modal--disable");
       };
-      blocks[i].addEventListener('click', function() {
+      blocks[i].addEventListener("click", function() {
         var restaurantName = document.querySelector(".restaurant__name h1"),
             restaurantDescription = document.querySelector(".restaurant__description p"),
             restaurantCoordinates = document.querySelector(".restaurant__coordinates p");
@@ -35,7 +35,7 @@ var blocks = document.querySelectorAll(".block"),
         var restaurantId = this.querySelector(".block__hidden span").innerText;
         restaurantCoordinates.innerText = this.querySelector(".block__coorinates p").innerText;
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', "/restaurant/" + restaurantId, true);
+        xhr.open("GET", "/restaurant/" + restaurantId, true);
         xhr.onload = function() {
           var commentsData = JSON.parse(xhr.responseText);
           renderHtml(commentsData);
@@ -67,13 +67,13 @@ var blocks = document.querySelectorAll(".block"),
         paragraphTwo.appendChild(document.createTextNode(htmlComment));
         paragraphThree.appendChild(document.createTextNode(htmlMark));
 
-        div.insertAdjacentHTML('beforeend', paragraphOne.outerHTML);
-        div.insertAdjacentHTML('beforeend', paragraphTwo.outerHTML);
-        div.insertAdjacentHTML('beforeend', paragraphThree.outerHTML);
+        div.insertAdjacentHTML("beforeend", paragraphOne.outerHTML);
+        div.insertAdjacentHTML("beforeend", paragraphTwo.outerHTML);
+        div.insertAdjacentHTML("beforeend", paragraphThree.outerHTML);
       }
     }
 
-    restaurantClose.addEventListener('click', function() {
+    restaurantClose.addEventListener("click", function() {
       modalRestaurants.classList.remove("modal--enable");
       var comments = document.querySelectorAll(".comment");
       for (i = 0; i < comments.length; i++) {
@@ -82,25 +82,25 @@ var blocks = document.querySelectorAll(".block"),
     });
 
     for (i = 0; i < login.length; i++) {
-    login[i].addEventListener('click', function() {
+    login[i].addEventListener("click", function() {
       modalLogin.classList.add("modal--enable");
       modalRestaurants.classList.remove("modal--enable");
     })};
 
-    loginClose.addEventListener('click', function() {
+    loginClose.addEventListener("click", function() {
       modalLogin.classList.remove("modal--enable");
     });
 
-    registerLink.addEventListener('click', function() {
+    registerLink.addEventListener("click", function() {
       modalLogin.classList.remove("modal--enable");
       modalRegister.classList.add("modal--enable");
     });
 
-    registerClose.addEventListener('click', function() {
+    registerClose.addEventListener("click", function() {
       modalRegister.classList.remove("modal--enable");
     });
 
-    loginLink.addEventListener('click', function() {
+    loginLink.addEventListener("click", function() {
       modalLogin.classList.add("modal--enable");
       modalRegister.classList.remove("modal--enable");
     });
