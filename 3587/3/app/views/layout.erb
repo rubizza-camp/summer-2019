@@ -10,21 +10,22 @@
 <body>
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">На главную</a>
+    <a class="navbar-brand" href="/">Main</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
 
       <span class="text-muted">
-            <% if session['user_id'] %>
-              <ul class="list-group list-group-horizontal ">
-                <a href="/logout" class="list-group-item" style ="float:right;">Выйти</a>
+            <% if User.find(session[:user_id]) %>
+          <form action="/logout" method="post">
+                <input type = 'submit' value="Log out">
+          </form>
               </ul>
             <% else %>
               <ul class="list-group list-group-horizontal ">
-                <a href="/login" class="list-group-item">Войти</a>
-                <a href="/register" class="list-group-item">Зарегистрироваться</a>
+                <a href="/login" class="list-group-item">Sign in</a>
+                <a href="/register" class="list-group-item">Sign up</a>
               </ul>
             <% end %>
           </span>
