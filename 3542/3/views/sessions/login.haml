@@ -8,8 +8,10 @@
     %link{ :href => ENV['BOOTSTRAP'],
            :rel => "stylesheet" }
     %link{ :href => "stylesheets/signin.css", :rel => "stylesheet" }
+    %link{ :href => "stylesheets/flash.css", :rel => "stylesheet" }
   %body.text-center
     %form.form-signin{ :action => "/login", :method => "post" }
+      = styled_flash
       %h1.h3.mb-3.font-weight-normal Please sign in
       %label.sr-only{ :for => "email" } Email address
       %input.form-control{ :autofocus => "",
