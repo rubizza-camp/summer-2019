@@ -56,7 +56,7 @@ get '/logout' do
 end
 
 # add_review
-post '/restaurant/:id/review' do
+post '/restaurants/:id/review' do
   review = Review.new({
                        user_id: @current_user.id, 
                        restaurant_id: params[:id], 
@@ -72,7 +72,7 @@ end
 get '/restaurants/:id' do
   @restaurant = Restaurant.find(params[:id])
   @average_rating = @restaurant.reviews.average(:rating)
-  erb :restaurant_in_detail
+  erb :restaurant
 end
 
 require './models/user'

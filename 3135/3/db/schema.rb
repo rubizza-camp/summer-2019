@@ -9,7 +9,6 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-# rubocop:disable all
 
 ActiveRecord::Schema.define(version: 2019_07_28_094703) do
 
@@ -17,6 +16,7 @@ ActiveRecord::Schema.define(version: 2019_07_28_094703) do
     t.string "name", null: false
     t.text "description", null: false
     t.string "location", null: false
+    t.index ["name"], name: "index_restaurants_on_name", unique: true
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -36,5 +36,3 @@ ActiveRecord::Schema.define(version: 2019_07_28_094703) do
   end
 
 end
-
-# rubocop:enable all
