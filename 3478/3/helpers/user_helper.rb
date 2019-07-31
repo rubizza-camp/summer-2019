@@ -8,6 +8,13 @@ module UserHelper
     redirect '/'
   end
 
+  def valid_password?
+    return true if params['password'] == params['password_confirmation']
+
+    flash[:danger] = 'Passwords do not match'
+    redirect '/sign_up'
+  end
+
   def valid_email?
     return true if params['email'].match?(URI::MailTo::EMAIL_REGEXP)
 
