@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  get '/places' do
+  get '/' do
     @places = Place.all
     erb :'/index'
   end

@@ -6,9 +6,8 @@ class ApplicationController < Sinatra::Base
     set :session_secret, ENV['SECRET']
   end
 
-  private
-
-  def redirect_back
-    redirect env['HTTP_REFERER']
+  not_found do
+    status 404
+    'Something wrong! Try to type URL correctly.'
   end
 end

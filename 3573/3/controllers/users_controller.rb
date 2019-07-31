@@ -1,13 +1,21 @@
 class UsersController < ApplicationController
-  post '/users' do
-    new_user = User.new(name: params[:username], email: params[:email])
-    new_user.password = params[:password]
-    if new_user.save
-      session[:user_id] = user[:id].to_s
+  get '/login' do
+    erb :login
+  end
+
+  get '/register' do
+    erb :register
+  end
+
+  post '/register' do
+    if params[:password] == params[:password_confirm]
+      new_user = User.new(name: params[:username],
+                          email: params[:email],
+                          password: params[:password])
+      save_user(new_user)
     else
-      session[:message] = 'Invalid credentials'
+      session[:message] = 'Password not equals'
     end
-    redirect_back
   end
 
   post '/login' do
@@ -16,22 +24,32 @@ class UsersController < ApplicationController
     else
       session[:message] = 'Password or email is incorrect'
     end
-    redirect_back
+    redirect '/'
   end
 
-  get '/delete_user_from_session' do
-    delete_from_session :user_id
+  get '/logout' do
+    session.clear
+    redirect '/'
   end
 
-  get '/delete_message_from_session' do
-    delete_from_session :message
+  get '/delete_session_message' do
+    delete_session_message :message
   end
 
   private
 
-  def delete_from_session(symbol)
+  def delete_session_message(symbol)
     session.delete symbol
-    redirect_back
+    redirect '/'
+  end
+
+  def save_user(new_user)
+    if new_user.save
+      session[:user_id] = user[:id].to_s
+      redirect '/'
+    else
+      session[:message] = 'Invalid credentials'
+    end
   end
 
   def user
