@@ -1,0 +1,26 @@
+<h2><%= @place.name %></h2>
+<hr>
+<h5><%= @place.reviews.average(:stars) %></h5>
+<p><%= @place.description %></p>
+<p><small><%= @place.lat %> <%= @place.lon %></small></p>
+<% @place.reviews.each do |review| %>
+  <hr>
+  <b><div><%= review.user.username %></div></b>
+  <b><div><%= review.stars %> star(s)</div></b>
+    <p><%= review.comment %></p>
+    <hr>
+<% end %>
+<hr>
+<a>Stars</a>
+<form action="/reviews/<%= @place.id %>/new" method="post">
+  <select name="stars">
+    <option value="1">*----</option>
+    <option value="2">**---</option>
+    <option value="3">***--</option>
+    <option value="4">****-</option>
+    <option value="5">*****</option>
+  </select>
+  <p><label for="message">Text review</label></p>
+  <textarea id="message" name="comment" placeholder="type your review, min 10 sym"></textarea>
+  <p><button type="submit">publish!</button></p>
+</form>

@@ -1,0 +1,8 @@
+<% @places.each do |place| %>
+  <hr>
+  <a href="/places/<%=place.id %>" ><h3><%= place.name %></h3> </a>
+  <h5> Rating: <%= place.average_stars %></h5>
+  <p><%= place.short_info %></p>
+  <p><small><%= place.lat %> <%= place.lon %></small></p>
+  <hr>
+<% end %>
