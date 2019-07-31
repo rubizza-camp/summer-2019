@@ -1,7 +1,7 @@
 <html>
   </body>
-    <% if flash[:message] %>
-      <b><i><p class="message"><%= flash[:message] %></p></i></b>
+    <% if flash[:notice] %>
+      <b><i><p class="message"><%= flash[:notice] %></p></i></b>
     <% end %>
   <%= yield %>
   </body>
