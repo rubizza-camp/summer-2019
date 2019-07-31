@@ -6,4 +6,6 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3',
                                         pool: 15,
                                         timeout: 5000)
 
-Place.first_or_create(name: 'Rubizza', address: 'Masherova, 11', description: 'Extremal ruby courses')
+Place.first_or_create(name: 'Rubizza',
+                      address: 'Masherova, 11',
+                      description: 'Extremal ruby courses')
