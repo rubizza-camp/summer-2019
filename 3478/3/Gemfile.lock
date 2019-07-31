@@ -32,6 +32,7 @@ GEM
     rack-protection (2.0.5)
       rack
     rake (12.3.3)
+    require_all (2.0.0)
     simpleidn (0.1.1)
       unf (~> 0.1.4)
     sinatra (2.0.5)
@@ -62,6 +63,7 @@ DEPENDENCIES
   email_address
   pry
   rake
+  require_all
   sinatra-activerecord
   sinatra-flash (~> 0.3.0)
   sqlite3
