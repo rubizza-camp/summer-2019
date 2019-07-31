@@ -1,6 +1,5 @@
 #:reek:RepeatedConditional
 class UserController < ApplicationController
-
   get '/signup' do
     if logged_in?
       flash[:notice] = 'Already logged in'

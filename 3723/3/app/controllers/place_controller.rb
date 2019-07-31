@@ -1,5 +1,4 @@
 class PlaceController < ApplicationController
-
   post '/places/:id' do
     if params[:title] == '' || params[:contet] == '' || params[:rating] == ''
       flash[:notice] = 'You must fill all forms'
