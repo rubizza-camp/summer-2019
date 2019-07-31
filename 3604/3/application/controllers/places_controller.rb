@@ -12,17 +12,19 @@ class PlacesController < Sinatra::Base
   end
 
   post '/review/:id' do
-    @review = Review.new(grade: params[:grade], text: params[:text],
-                         place_id: params[:id], user_id: session[:user_id])
-    @review.save
+    review = Review.new(grade: params[:grade], text: params[:text],
+                        place_id: params[:id], user_id: session[:user_id])
+    review.save
     redirect "/place/#{params[:id]}"
   end
+
+  attr_reader :reviews
 
   private
 
   def place_rating
-    @reviews.inject(0) do |sum, review|
-      sum + review.grade
-    end / @reviews.count
+    reviews.pluck(:grade) do |grade|
+      grade
+    end.sum / reviews.count
   end
 end
