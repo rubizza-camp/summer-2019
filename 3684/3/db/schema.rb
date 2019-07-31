@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20_190_728_183_502) do
     t.string 'name'
     t.string 'short_description'
     t.string 'full_description'
-    t.float 'score'
+    t.float 'score', default: 0.0
   end
 
   create_table 'users', force: :cascade do |t|

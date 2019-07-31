@@ -3,10 +3,15 @@ require 'bcrypt'
 PREV_ROUT_FIRST_SYMBOL = 22
 
 class Controller < ApplicationController
+  get '/' do
+    @restaurants = Restaurant.all
+    erb :index
+  end
+
   get '/restaurant/:id' do
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.update(score: count_score(Restaurant.find(params[:id]).comments))
     @comments = @restaurant.comments
+    @restaurant.update(score: count_score(@comments))
     erb :show
   end
 
@@ -59,12 +64,6 @@ class Controller < ApplicationController
     redirect '/'
   end
 
-  get '/' do
-    # require 'pry'; binding.pry
-    @restaurants = Restaurant.all
-    erb :index
-  end
-
   get '/login' do
     erb :login_page
   end
@@ -81,6 +80,10 @@ class Controller < ApplicationController
   end
 
   def count_score(comments)
-    comments.inject(0) { |total, temp| total + temp.score }.to_f / comments.size
+    if comments.empty?
+      0
+    else
+      comments.inject(0) { |total, temp| total + temp.score }.to_f / comments.size
+    end
   end
 end
