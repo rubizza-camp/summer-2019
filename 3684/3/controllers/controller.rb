@@ -30,7 +30,7 @@ class Controller < ApplicationController
 
   post '/registrate' do
     password = BCrypt::Password.create(params['password'])
-    hash = { name: params['name'], email: params['email'], password: password }
+    hash = { name: params['name'], email: params['email'].downcase, password: password }
     new_user = User.new(hash)
     if new_user.valid?
       new_user.save
@@ -43,7 +43,7 @@ class Controller < ApplicationController
   end
 
   post '/log_in' do
-    @user = User.find_by(email: params['email'])
+    @user = User.find_by(email: params['email'].downcase)
     if @user && BCrypt::Password.new(@user[:password]) == params['password']
       session[:user_id] = @user.id
       redirect '/'
