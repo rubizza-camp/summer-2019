@@ -73,7 +73,7 @@ class ApplicationController < Sinatra::Base
     erb :restraunt
   end
 
-  post '/review/:id' do
+  post '/restraunts/:id/review' do
     param :body, String, min_length: 50
     CreateReview.new.call(params, session)
     redirect '/restraunts/' + params[:id]
