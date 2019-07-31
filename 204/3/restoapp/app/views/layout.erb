@@ -39,7 +39,9 @@
                     </li>
                     <% if session[:name].present? %>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                            <form action="/logout" method="POST">
+                                <a class="nav-link" href="javascript:;" onclick="parentNode.submit();">Logout</a>
+                            </form>
                         </li>
                     <% else %>
                         <li class="nav-item">
