@@ -1,6 +1,5 @@
 class MainController < Sinatra::Base
-  get '/main' do
-    @places = Place.all
-    erb :main
+  get '/' do
+    redirect '/places'
   end
 end

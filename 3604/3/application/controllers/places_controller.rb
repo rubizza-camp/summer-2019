@@ -1,8 +1,13 @@
-class PlaceController < Sinatra::Base
+class PlacesController < Sinatra::Base
+  get '/places' do
+    @places = Place.all
+    erb :places
+  end
+
   get '/place/:id' do
     @place = Place.find_by(params[:id])
     @reviews = Review.where(place_id: params[:id])
-    @stars = stars(@reviews) if @reviews.count.positive?
+    @stars = place_rating unless @reviews.empty?
     erb :place
   end
 
@@ -10,14 +15,14 @@ class PlaceController < Sinatra::Base
     @review = Review.new(grade: params[:grade], text: params[:text],
                          place_id: params[:id], user_id: session[:user_id])
     @review.save
-    redirect '/place/' + params[:id]
+    redirect "/place/#{params[:id]}"
   end
 
   private
 
-  def stars(reviews)
-    reviews.inject(0) do |sum, review|
+  def place_rating
+    @reviews.inject(0) do |sum, review|
       sum + review.grade
-    end / reviews.count
+    end / @reviews.count
   end
 end
