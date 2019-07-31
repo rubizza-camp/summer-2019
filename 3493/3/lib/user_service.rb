@@ -1,5 +1,5 @@
 # :reek:NilCheck:
-class UserHelper
+class UserService
   def self.chek_user_email(email)
     User.find_by(['email = ?', email])&.email
   end
@@ -7,10 +7,5 @@ class UserHelper
   def self.valid_user_password?(password, email)
     user = User.find_by(['email = ?', email])
     BCrypt::Password.new(user.password) == password
-  end
-
-  def self.create_user(email, name, password)
-    User.create(name: name, email: email,
-                password: BCrypt::Password.create(password))
   end
 end
