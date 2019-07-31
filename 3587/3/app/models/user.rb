@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include BCrypt
 
+  has_many :reviews
   validates :name, presence: true
   validates_uniqueness_of :email
   validate :valid_email?
@@ -14,6 +15,6 @@ class User < ActiveRecord::Base
   end
 
   def valid_email?
-    errors.add(:email, message: 'Неправильная почта') unless Truemail.valid?(email) && email?
+    Truemail.valid?(email) && email?
   end
 end
