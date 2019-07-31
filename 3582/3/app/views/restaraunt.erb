@@ -1,0 +1,41 @@
+ <p><a href='/'>Back to the main page</a></p>
+<h3>Hi, this is <%= @restaraunt.name %></h3>
+<div>
+  <p>Description: <%= @restaraunt.description %></p>
+  <p>Location: <%= @restaraunt.location %></p>
+  <p>Rating: <%= @rating %></p>
+</div>
+
+<hr>
+
+<h4><%= @restaraunt.name %>'s comments</h4>
+  <hr>
+  <% @comments.all.each do |comment| %>
+    <p><%= User.all.find(comment.user_id).name %></p>
+    <p><%= User.all.find(comment.user_id).email %></p>
+    <p><%= comment.content %></p>
+    <p><%= comment.rating %></p>
+    <hr>
+  <% end %>
+<hr>
+
+<% if logged_in?%>
+  <div class='comment_form'>
+    <h4>Add comment</h4>
+    <form action='/comments' method='post'>
+      <b>Your opinion:</b><br>
+      <textarea rows='4' cols='50' name='content'></textarea>
+      <p>
+        <select name='rating' value=5>
+          <option value=1>1 star</option>
+          <option value=2>2 stars</option>
+          <option value=3>3 stars</option>
+          <option value=4>4 stars</option>
+          <option value=5>5 stars</option>
+        </select>
+      </p>  
+      <input type='hidden' name='restaraunt_id' value='<%= @restaraunt.id %>' >
+      <p><input type='submit'></p>
+    </form>
+  </div>  
+<% end %>

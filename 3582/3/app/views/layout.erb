@@ -3,6 +3,16 @@
  <title>One more tripadvisor</title>
  </head>
  <body>
+  <% if logged_in? %>
+    <p><a href='/logout'>Log out</a></p>
+  <% else %>
+    <p><a href='/login'>Log In Here</a></p>
+    <p><a href='/signup'>Sign Up Here</a></p>
+  <% end %>
+
+  <% if flash[:message] %>
+    <h1 class="message"><%= flash[:message] %></h1>
+  <% end %>
   <%= yield %>
  </body>
 </html>

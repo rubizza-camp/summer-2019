@@ -1,6 +1,5 @@
 require './config/environment'
 require 'sinatra/flash'
-require 'pry'
 class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
@@ -15,7 +14,7 @@ class ApplicationController < Sinatra::Base
   end
 
   def logged_in?
-    !!session[:user_id] # rubocop:disable Style/DoubleNegation
+    session[:user_id]
   end
 
   def current_user
@@ -23,6 +22,6 @@ class ApplicationController < Sinatra::Base
   end
 
   not_found do
-    erb :not_found
+    erb :not_found, layout: false
   end
 end

@@ -1,8 +1,8 @@
-<h3>Minsk restaraunts</h3>
-<br>
+<h3>Minsk restaraunts</h3>  
 <% Restaraunt.all.each do |restaraunt| %>
+  <hr>
   <div>
-      <p>Name: <%= restaraunt.name %></p>
+      <p><a href="/restaraunts/<%= restaraunt.id %>">Name: <%= restaraunt.name %></a></p>
       <p>Description: <%= restaraunt.description %></p>
       <p>Location: <%= restaraunt.location %></p>
       <br>
