@@ -1,8 +1,8 @@
-class SignIn
+class Login
   # :reek:all
   def call(_session, params)
     account = Account.find(params[:email])
-    if validate?(account, params[:password])
+    if valid_password?(account, params[:password])
       { success: true, payload: account }
     else
       { success: false }
@@ -15,7 +15,7 @@ class SignIn
     BCrypt::Password.new(hash_password) == password
   end
 
-  def validate?(account, password)
+  def valid_password?(account, password)
     account.present? && validate_password(account.password, password)
   end
 end

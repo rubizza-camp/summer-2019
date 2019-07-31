@@ -1,19 +1,20 @@
 require './config/environment'
 require './app/helpers/review_helper.rb'
-require './app/services/account_creator.rb'
-require './app/services/review_creator.rb'
-require './app/services/sign_in.rb'
+require './app/services/create_account.rb'
+require './app/services/create_review.rb'
+require './app/services/login.rb'
 require 'byebug'
 require 'bcrypt'
 require 'sinatra'
 require 'sinatra/session'
 # :reek:all
 # rubocop: disable all
-EMAIL_REGEX = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
 class ApplicationController < Sinatra::Base
   register Sinatra::Session
   helpers Sinatra::Param, ReviewHelper
+
+  EMAIL_REGEX = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
   configure do
     set :public_folder, 'public'
@@ -45,9 +46,9 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
 
-  post '/sign_in' do
-    subscribe = SignIn.new.call(session, params)
-    if subscribe[:success] == true
+  post '/login' do
+    subscribe = Login.new.call(session, params)
+    if subscribe[:success]
       session_start!
       session[:name] = subscribe[:payload].name
       session[:account_id] = subscribe[:payload].id
@@ -57,13 +58,13 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  get '/register' do
+  get '/account/new' do
     erb :register, layout: :login_layout
   end
 
-  post '/create_account' do
+  post '/account' do
     param :email, String, format: EMAIL_REGEX
-    AccountCreator.new(params).call
+    CreateAccount.new.call(params)
     redirect '/'
   end
 
@@ -72,10 +73,9 @@ class ApplicationController < Sinatra::Base
     erb :restraunt
   end
 
-  post '/new_review/:id' do
+  post '/review/:id' do
     param :body, String, min_length: 50
-    restraunt = Restraunt.find(params[:id])
-    ReviewCreator.new(params, session, restraunt).call
+    CreateReview.new.call(params, session)
     redirect '/restraunts/' + params[:id]
   end
 end
