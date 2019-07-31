@@ -1,0 +1,64 @@
+<div class='container' style='margin-top:25px' >
+  <section class="card wow fadeIn" style="background-image: url(&quot;https://mdbootstrap.com/img/Photos/Others/gradient1.jpg&quot;);">
+    <div class="card-body text-white text-center py-5 px-5 my-5">
+      <img class="card-img-top w-25" src="<%= @place.image_path %>" alt="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" >
+      <h1 class="mb-4">
+        <strong><%= @place.name %></strong>
+      </h1>
+      <p class="mb-4">
+        <strong> <%=@place.long_description  %></strong>
+      </p>
+      <p class="mb-4">
+        Address: <%=@place.address  %>
+      </p>
+    </div>
+  </section>
+  <section>
+    <div>
+    </div>
+  </section>
+  <section>
+    <div class="comments-list text-center text-md-left mb-5">
+        <div class="text-center mb-4">
+            <h3 class="font-weight-bold pt-3 mb-5">Average rating <%= @place.rating%> </h3>
+        </div>
+        <% if session[:id]%>
+          <div class='card row mb-4'>
+            <div class="col-sm-10 col-12">
+              <form action="/place/<%= @place.id%>" method='POST' class="md-form">
+                <div class="form-group">
+                  <input required type="text" id="title" class="form-control" placeholder='Title' name='title'>
+                  <select require name="rating" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <textarea required id="text" class="md-textarea form-control" placeholder='Comment text' name='text' ></textarea>
+                  <input type="submit" class='btn btn-primary' value='Send'>
+                </div>
+              </form>
+            </div>
+          </div>
+        <% end %>
+        <% @place.reviews.reverse.each do |review| %>
+          <div class="card row mb-4">
+            <div class="col-sm-10 col-12">
+              <h4> <%= review.user.name%></h4>
+              <h4 class="font-weight-bold"><%= review.title%></h4>
+              <h4 class="text-right"><%= review.rating %></h4>
+              <div class="mt-2">
+                <ul class="list-unstyled">
+                  <li class="comment-date"></li>
+                </ul>
+              </div>
+              <p class=" grey-text">
+                <%= review.text%>
+              </p>
+            </div>
+          </div>
+        <% end%>     
+    </div>
+  </section>
+</div>
