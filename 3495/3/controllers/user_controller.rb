@@ -9,7 +9,7 @@ class UserController < ApplicationController
     erb :base
   end
 
-  post '/user_login', needs: %i[email pass] do
+  post '/user_login', allows: %i[email pass], needs: %i[email pass] do
     user = User.find_by(email: params['email'])
     if user && BCrypt::Password.new(user[:password]) == params['pass']
       session[:name] = user[:name].to_s
@@ -26,7 +26,7 @@ class UserController < ApplicationController
     redirect @env['HTTP_REFERER']
   end
 
-  post '/user_registration', needs: %i[name email] do
+  post '/user_registration', allows: %i[name email], needs: %i[name email] do
     User.create(name: params['name'], email: params['email'],
                 password: BCrypt::Password.create(params['pass']).to_s)
     session[:name] = params['name']
@@ -38,19 +38,20 @@ class UserController < ApplicationController
     erb :place_registration
   end
 
-  get '/place_registrate', needs: %i[nam short_desc long_desc image_link addr] do
+  get '/place_registrate', allows: %i[nam short_desc long_desc image_link addr],
+                           needs: %i[nam short_desc long_desc image_link addr] do
     Place.create(name: params['nam'], short_description: params['short_desc'],
                  long_description: params['long_desc'], image_path: params['image_link'],
                  address: params['addr'])
     erb :base
   end
 
-  get '/place/:id', needs: %i[id] do
+  get '/place/:id', allows: %i[id], needs: %i[id] do
     @place = Place.find(params['id'])
     erb :show_place
   end
 
-  post '/place/:id', needs: %i[id title text rating] do
+  post '/place/:id', allows: %i[id title text rating], needs: %i[id title text rating] do
     @place = Place.find(params['id'])
     Review.create(title: params[:title], text: params[:text], rating: params[:rating],
                   place_id: params[:id], user_id: session[:id])

@@ -41,8 +41,8 @@
               </form>
             </div>
           </div>
-        <% end%>
-        <% @place.review.reverse.each do |review| %>
+        <% end %>
+        <% @place.reviews.reverse.each do |review| %>
           <div class="card row mb-4">
             <div class="col-sm-10 col-12">
               <h4> <%= review.user.name%></h4>

@@ -13,8 +13,7 @@
         <li>
           <button type="submit" class="btn btn-dark" data-toggle="modal" data-target="#modalSignUpForm">Sign up</button>
         </li>
-        <%end%>
-        <%if session[:id]%>
+        <%else%>
         <form action="/user_logout" method="post">
           <li>
             <button type="submit" class="btn btn-dark">Logout</button>

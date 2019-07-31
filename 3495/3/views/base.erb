@@ -1,6 +1,6 @@
 <div class="container my-5">
   <div class="card-deck row">
-    <% @places.each do |place| %>
+    <% @places.find_each do |place| %>
       <div class="col-md-3">
         <div class="card mycard-height mb-4" style="height: 95%">
           <div class="view overlay flex-auto">
