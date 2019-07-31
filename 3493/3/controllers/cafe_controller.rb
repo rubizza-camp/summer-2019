@@ -8,7 +8,6 @@ class CafeController < ApplicationController
     if EmailUserService.chek_user_email(params[:email])
       if PasswordService.valid_user_password?(params[:password], params[:email])
         SetCookiesService.add_user_info_to_cookies(params[:email])
-        cookies.delete(:info)
         redirect @env['HTTP_REFERER']
       end
       cookies[:info] = 'Wrong email or password!!'
@@ -19,7 +18,6 @@ class CafeController < ApplicationController
   end
 
   post '/logout' do
-    require 'pry'; binding.pry
     DeleteCookiesService.delete_cookies(:info, :user_name, :users_id)
     redirect @env['HTTP_REFERER']
   end
