@@ -30,8 +30,6 @@ BOT_MESSAGES = {
 Telegram::Bot::Client.run(ENV['TOKEN']) do |bot|
   bot.listen do |message|
     user = User.new(message.chat.id)
-    puts "1"
-    puts "STATE #{user.state}"
     case message.text
     when '/start'    then StartCommand.new(user).call
     when '/checkin'  then CheckinCommand.new(user).call
@@ -42,17 +40,14 @@ Telegram::Bot::Client.run(ENV['TOKEN']) do |bot|
         SetNumberCommand.new(user).call(message.text.to_i, 
         StudentsParser.students_list)
       when :wait_location, :wait_checkout_location
-        puts "2"
         SetLocationCommand.new(user).call(message.location)
       when :wait_photo, :wait_checkout_photo
         SetPhotoCommand.new(user, bot.api).call(message.photo)
       end
     end
-    puts "3"
     bot.api.send_message(
       chat_id: user.chat_id,
       text: BOT_MESSAGES[user.state.to_sym]
     )
-    puts '4'
    end
 end
