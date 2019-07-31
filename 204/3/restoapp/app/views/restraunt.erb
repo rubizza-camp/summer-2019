@@ -1,0 +1,96 @@
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <h1 class="my-4">
+                <%= @restraunt.title %>
+            </h1>
+            <br>
+            <a href="/" class="btn btn-outline-dark">
+                Назад
+            </a>
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-9">
+            <div class="card mt-4">
+                <img class="card-img-top img-fluid" src="<%= request.base_url %>/images/<%= @restraunt.id %>.jpg" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">Ресторан
+                        <%= @restraunt.title %>
+                    </h3>
+                    <p class="card-text">
+                        <%= @restraunt.description %>
+                    </p>
+                    <%= review_statistic(@restraunt.avg_rate) %>
+                </div>
+            </div>
+            <br>
+            <iframe src="<%= @restraunt.google_map_link %>" width="825" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <!-- /.card -->
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Product Reviews
+                </div>
+                <% if @restraunt.reviews.any? %>
+                    <% @restraunt.reviews.each do |review| %>
+                    <div class="card-body">
+                        <p>
+                            <%= review.body %>
+                        </p>
+                        <small class="text-muted">
+                            Posted by
+                            <%= session[:name] %> at
+                            <%= review.created_at %>
+                        </small>
+                        <small class="text-muted">
+                            Rating:
+                            <%= review.rate %>
+                        </small>
+                        <hr>
+                    </div>
+                    <% end %>
+                <% else %>
+                    <div class="card-body">
+                        <br>
+                        <p class="text-center"> No reviews. Be the first one! </p>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="empty col-lg-3">
+        </div>
+        <form class="col-lg-9" method='POST' action="/restraunts/<%=@restraunt.id %>/review">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Rating</label>
+                <select class="form-control" name="rate">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Your comment</label>
+                <textarea class="form-control" name="body" rows="4"></textarea>
+            </div>
+            <% if session[:name].present? %>
+            <button class="btn btn-lg btn-light btn-outline-dark btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">
+                Leave Review
+            </button>
+            <% else %>
+            <a class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2">
+                Only register users can comment
+            </a>
+            <% end %>
+        </form>
+        <!-- /.card -->
+        <!-- /.col-lg-9 -->
+    </div>
+</div>
+</div>
+<!-- /.container -->
