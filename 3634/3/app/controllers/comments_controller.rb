@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
-  get '/:restaurant_id' do
+  get '/comments/:restaurant_id' do
     if logged_in?
       @restaurant_id = params[:restaurant_id]
-      slim :'comment/comment_form'
+      slim :'forms/leave_comment'
     else
       flash[:message] = "You're not permitted to leave comment. Please, login"
       redirect '/'

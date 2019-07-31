@@ -10,25 +10,17 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  get '/restaurant/:id' do
-    @restaurant = Restaurant.find_by(id: params[:id])
+  get '/restaurants/:id' do
+    @restaurant = Restaurant.find(params[:id])
     unless @restaurant
       flash[:message] = 'This restautant is out of our scope'
       redirect '/'
     end
     @comments = Comment.where(restaurant_id: params[:id])
-    message = []
-    @comments.each do |comment|
-      user = User.find_by(id: comment.user_id)
-      message << { user_name: user.name,
-                   annotation: comment.annotation,
-                   mark: comment.mark }
+    if logged_in?
+      slim :'restaurant/for_logged_in_users', layout: :'layouts/restaurant'
+    else
+      slim :'home/for_unregistered_users', layout: :'layouts/restaurant'
     end
-    json message
-    # if logged_in?
-    #   slim :'restautant/for_logged_in_users', :layout => :'layouts/restautant'
-    # else
-    #   slim :'restautant/for_unregistered_users', :layout => :'layouts/restautant'
-    # end
   end
 end

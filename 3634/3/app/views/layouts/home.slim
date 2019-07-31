@@ -3,65 +3,19 @@ html
   head
     title Restaurants annotations
     meta content="text/html" charset="UTF-8" http-equiv="Content-Type"
-    link rel="stylesheet" type="text/css" href="styles/styles.css"
-  body
-    #modal_login.modal
-        .login
-            #login__close CLOSE
-            p.login--large Login
-            <form action="/login" method="POST">
-              <p>Name: <input type='text' id='name' name="name"></p>
-              <p>Email: <input type='text' id='email' name="email"></p>
-              <p>Password: <input type='password' id='password' name="password"></p>
-              <button type='Submit' class='btn btn-primary'>Login</button>
-            </form>
-            p Have not account yet?
-            span.register__link Register!
-    #modal_register.modal
-        .register
-            #register__close CLOSE
-            p.login--large Register
-            <form action="/register" method="POST">
-              <p>Name: <input type='text' id='name' name="name"></p>
-              <p>Email: <input type='text' id='email' name="email"></p>
-              <p>Password: <input type='password' id='password' name="password"></p>
-              <button type='Submit' class='btn btn-primary'>Register</button>
-            </form>
-            p Back to
-            span.login__link Login
-    #modal_restaurants.modal
-        .restaurant
-            .restaurant__close CLOSE
-            .restaurant__name
-                h1
-            .restaurant__description
-                p
-            .restaurant__coordinates
-                p
-            - if logged_in?
-                <form class="comment_btn" method="GET">
-                    <button class='btn btn-success' type='submit'>Leave comment</button>
-                </form>
-            - else
-                == yield
-            #comment Comments:
-    .container
-        == yield
-        h2 Restaurants:
+    link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+  body.bg-dark
+    .container.w-75.p-4.text-light
+        .text-center
+            == yield
+        h2.m-4.text-center Restaurants:
         - @restaurants.each do |restaurant|
-            .block
-                .reedmore.modal--disable
-                    p reed more...
-                .block__name
-                    h3 = restaurant.name
-                .block__description
-                    p &ldquo;#{restaurant.description[0, 100]}...&rdquo;
-                .block__hidden
-                    p = restaurant.description
-                    span = restaurant.id
-                .block__coorinates
-                    p Latitude:&nbsp;&nbsp;
-                        #{restaurant.latitude}&nbsp;&nbsp;
-                      Longitude:&nbsp;&nbsp;
-                        #{restaurant.longitude}
-    script src="scripts/app.js"
+            .border.m-4
+                h3.m-2.text-center = restaurant.name
+                p.m-2.text-justify &ldquo;#{restaurant.description[0, 150]}...&rdquo;
+                .text-center
+                    a{href="/restaurants/#{restaurant.id}" class="text-light"} Reed more
+                p.m-2.text-center Latitude:&nbsp;&nbsp;
+                    #{restaurant.latitude}&nbsp;&nbsp;
+                  Longitude:&nbsp;&nbsp;
+                    #{restaurant.longitude}

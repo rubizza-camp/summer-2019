@@ -1,4 +1,13 @@
 class UsersController < ApplicationController
+  get '/login' do
+    if logged_in?
+      flash[:message] = 'Already logged in'
+      redirect to '/'
+    else
+      slim :'forms/login'
+    end
+  end
+
   post '/login' do
     @user = User.find_by(email: params[:email])
     if @user&.authenticate(params[:password])
@@ -7,6 +16,15 @@ class UsersController < ApplicationController
       redirect '/'
     else
       flash[:message] = "We can't find you, Please try again"
+    end
+  end
+
+  get '/register' do
+    if logged_in?
+      flash[:message] = 'Already logged in'
+      redirect to '/'
+    else
+      slim :'forms/register'
     end
   end
 
