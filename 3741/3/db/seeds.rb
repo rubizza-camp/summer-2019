@@ -4,9 +4,7 @@ require_relative '../models/user'
 require_relative '../models/place'
 
 users = [
-  { username: 'ex@ex.ex', password: 'ex', email: 'ex@ex.ex' },
-  { username: 'Jane', password: 'Doe', email: 'ex2@ex.ex' },
-  { username: 'Jon', password: 'Doe', email: 'ex3@ex.ex' }
+  { username: 'ex@ex.ex', password: 'ex', email: 'ex@ex.ex' }
 ]
 
 users.each do |u|

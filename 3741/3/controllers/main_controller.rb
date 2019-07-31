@@ -7,11 +7,13 @@ require 'sinatra/flash'
 require 'sinatra/namespace'
 require 'truemail'
 require_relative '../helpers/view_helper'
+require 'dotenv'
 # main class
 class MainController < Sinatra::Base
+  Dotenv.load
   configure do
     enable :sessions
-    set :session_secret, 'ranker'
+    set :session_secret, ENV['SECRET']
     set views: proc { File.join(root, '../views/') }
   end
 
