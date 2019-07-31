@@ -27,9 +27,9 @@
 # end
 
 require 'bundler'
-require_relative 'models/place'
+require_relative 'models/places'
 require_relative 'models/users'
-require_relative 'models/review'
+require_relative 'models/reviews'
 
 Bundler.require
 

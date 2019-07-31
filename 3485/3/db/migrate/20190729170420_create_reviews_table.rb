@@ -1,11 +1,11 @@
 # :reek:FeatureEnvy
 # :reek:UncommunicativeVariableName
 
-class CreateReviewTable < ActiveRecord::Migration[5.2]
+class CreateReviewsTable < ActiveRecord::Migration[5.2]
   def change
-    create_table :review do |t|
+    create_table :reviews do |t|
       t.string :text
-      t.integer :user_id
+      t.integer :users_id
       t.integer :restaurant_id
       t.integer :score
     end

@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 
-class Place < ActiveRecord::Base
-  has_many :review
+class Places < ActiveRecord::Base
+  has_many :reviews
 end

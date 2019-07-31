@@ -10,25 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_29_170520) do
-
-  create_table "place", force: :cascade do |t|
-    t.string "location"
-    t.string "name"
-    t.float "score"
+ActiveRecord::Schema.define(version: 20_190_729_170_520) do
+  create_table 'places', force: :cascade do |t|
+    t.string 'location'
+    t.string 'name'
+    t.float 'score'
+    t.string 'description'
   end
 
-  create_table "review", force: :cascade do |t|
-    t.string "text"
-    t.integer "user_id"
-    t.integer "restaurant_id"
-    t.integer "score"
+  create_table 'reviews', force: :cascade do |t|
+    t.string 'text'
+    t.integer 'users_id'
+    t.integer 'restaurant_id'
+    t.integer 'score'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password"
+  create_table 'users', force: :cascade do |t|
+    t.string 'name'
+    t.string 'email'
+    t.string 'password'
   end
-
 end

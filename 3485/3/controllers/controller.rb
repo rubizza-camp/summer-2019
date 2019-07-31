@@ -19,14 +19,14 @@ class Controller < ApplicationController
       if BCrypt::Password.new(@users[:password]) == params['password']
         session[:users_id] = @users.id
         redirect '/home'
-      else
         session[:users_id] = true
+      else
+        redirect '/home'
       end
-      redirect '/home'
-    else
       session[:users_id] = true
+    else
+      redirect '/home'
     end
-    redirect '/home'
   end
 
   get '/logout' do
@@ -41,4 +41,38 @@ class Controller < ApplicationController
   get '/registration' do
     erb :registration
   end
+
+  get '/places' do
+    @places = Places.all
+    erb :places
+  end
+
+  post '/leave_comment' do
+    hash = {
+      text: params['text'],
+      score: params['score'],
+      users_id: session[:users_id],
+      restaurant_id: session['rest_id']
+    }
+    Reviews.create(hash)
+    redirect "/#{@env['HTTP_REFERER'].slice(22..@env['HTTP_REFERER'].length)}"
+  end
+  # require 'pry'
+  get '/place/:id' do
+    # update_score(params[:id])
+    @place = Places.find(params[:id])
+    @reviews = Reviews.all
+    erb :placepage
+  end
+
+  #   def update_score(id)
+  #   #    binding.pry
+  #     Places.find(id).update(score: count_score(Places.find(id).reviews))
+  #   end
+  #
+  # def count_score(reviews)
+  #   amount = 0.0
+  #   reviews.each { |com| amount += com.score }
+  #   amount / reviews.size
+  # end
 end
