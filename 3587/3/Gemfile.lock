@@ -14,25 +14,18 @@ GEM
       tzinfo (~> 1.1)
     arel (9.0.0)
     bcrypt (3.1.13)
-    coderay (1.1.2)
     concurrent-ruby (1.1.5)
     dotenv (2.7.4)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    method_source (0.8.2)
     minitest (5.11.3)
     mustermann (1.0.3)
-    pry (0.10.4)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
     rack (2.0.7)
     rack-flash3 (1.0.5)
       rack
     rack-protection (2.0.5)
       rack
     rake (12.3.3)
-    rb-readline (0.5.5)
     require_all (2.0.0)
     sinatra (2.0.5)
       mustermann (~> 1.0)
@@ -44,7 +37,6 @@ GEM
       sinatra (>= 1.0)
     sinatra-session (1.0.0)
       sinatra (>= 1.0)
-    slop (3.6.0)
     sqlite3 (1.4.1)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -56,18 +48,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord
-  bcrypt
-  dotenv
-  pry
-  rack-flash3
-  rake
-  rb-readline
-  require_all
-  sinatra-activerecord
-  sinatra-session
-  sqlite3
-  truemail
+  activerecord (= 5.2.3)
+  bcrypt (= 3.1.13)
+  dotenv (= 2.7.4)
+  i18n (= 1.6.0)
+  rack-flash3 (= 1.0.5)
+  rake (= 12.3.3)
+  require_all (= 2.0.0)
+  sinatra-activerecord (= 2.0.13)
+  sinatra-session (= 1.0.0)
+  sqlite3 (= 1.4.1)
+  truemail (= 1.2.1)
 
 BUNDLED WITH
    1.16.2
