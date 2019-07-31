@@ -1,0 +1,15 @@
+<h1>Sign Up</h1>
+
+<% if @error %>
+  <div class="error">Login failed.</div>
+<% end %>
+
+<form action="/signup" method="post">
+
+  <input type="text" name="username", placeholder="Username" />
+  <input type="text" name="email", placeholder="Email" />
+  <input type="password" name="password", placeholder="Password" />
+
+  <input type="submit" name="button" value="Login" />
+
+</form>
