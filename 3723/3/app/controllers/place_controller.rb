@@ -1,9 +1,8 @@
 class PlaceController < ApplicationController
-  Tilt.register Tilt::ERBTemplate, 'html.erb'
 
   post '/places/:id' do
     if params[:title] == '' || params[:contet] == '' || params[:rating] == ''
-      flash[:message] = 'You must fill all forms'
+      flash[:notice] = 'You must fill all forms'
       redirect to '/places/:id'
     else
       @comment = Comment.create(

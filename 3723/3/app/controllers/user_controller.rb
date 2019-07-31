@@ -1,6 +1,5 @@
 #:reek:RepeatedConditional
 class UserController < ApplicationController
-  Tilt.register Tilt::ERBTemplate, 'html.erb'
 
   get '/signup' do
     if logged_in?
