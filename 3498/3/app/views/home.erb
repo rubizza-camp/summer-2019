@@ -3,18 +3,14 @@
 
    <!--- Basic Page Needs
    ================================================== -->
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 	<title>Choose wisely.</title>
 
    <!-- CSS
     ================================================== -->
-   <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/default.css">
 	<link rel="stylesheet" href="css/layout.css">  
 	<link rel="stylesheet" href="css/media-queries.css"> 
-
-   <!-- Script
-   ================================================== -->
-	<script src="js/modernizr.js"></script>
 
 </head>
 
@@ -22,28 +18,30 @@
 
    <header id="top">
 
-   	<div class="row">
+   		<div class="row">
 
-   		<div class="header-content twelve columns">
+   			<div class="header-content twelve columns">
 
 		      <h1 id="logo-text"><a href="index.html" title="">Choose wisely.</a></h1>
 
-		        <a href="/registrations/signup">Sign Up</a>
-                <a href="/sessions/login">Log In</a>
+		        <a href="/signup">Sign Up</a>
+                <a href="/login">Log In</a>
+                <a href="/logout">Log Out</a>
+
 
 			</div>			
-
-	   </div>
+		</div>
+	</header>
 
    <!-- Content
    ================================================== -->
    <div id="content-wrap">
 
-   	<div class="row">
+   		<div class="row">
 
-   		<div id="main" class="eight columns">
+   			<div id="main" class="eight columns">
 
-   			<% @places.each do |place| %>
+   				<% @places.each do |place| %>
 
 	   		<article class="entry">
 
@@ -69,16 +67,7 @@
 
 				<% end %>
 
-				</article> <!-- end entry -->
-
-
-   <!-- Java Script
-   ================================================== -->
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
-   <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>  
-   <script src="js/main.js"></script>
+			</article> 
 
 </body>
-
 </html>
