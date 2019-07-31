@@ -1,6 +1,6 @@
 <h2><%= @place.name %></h2>
 <hr>
-<h5><%= @place.reviews.average(:stars) %></h5>
+<h5><%= @place.average_stars %></h5>
 <p><%= @place.description %></p>
 <p><small><%= @place.lat %> <%= @place.lon %></small></p>
 <% @place.reviews.each do |review| %>
