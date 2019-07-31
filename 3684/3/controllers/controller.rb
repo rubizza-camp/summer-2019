@@ -11,12 +11,12 @@ class Controller < ApplicationController
   end
 
   post '/registrate' do
-    password = BCrypt::Password.create(params['password'])
-    hash = { name: params['name'], email: params['email'], password: password }
     if User.find_by(email: params['email'])
       flash[:message] = 'Пользователь с данным email уже существует'
       redirect '/registration'
     else
+      password = BCrypt::Password.create(params['password'])
+      hash = { name: params['name'], email: params['email'], password: password }
       User.create(hash)
       session[:user_id] = User.last.id
       redirect '/'
