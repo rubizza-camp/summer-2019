@@ -2,7 +2,7 @@
 
 require 'sinatra/namespace'
 require_relative 'base_controller'
-
+# :reek:InstanceVariableAssumption
 class ReviewsController < BaseController
   namespace '/reviews' do
     helpers do

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# :reek:FeatureEnvy
+# :reek:UncommunicativeVariableName
+# :reek:TooManyStatements
 class CreatePlaces < ActiveRecord::Migration[5.2]
   def change
     create_table :places do |t|
