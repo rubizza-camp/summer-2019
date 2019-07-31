@@ -1,29 +1,14 @@
-# frozen_string_literal: true
-
-require 'sinatra'
-require 'rubygems'
-require 'sinatra/activerecord'
-require 'erb'
-require 'sinatra/flash'
-require 'bcrypt'
-require 'email_address'
-require 'dotenv'
 Dir['./app/models/*.rb'].each { |file| require file }
 Dir['./app/helpers/*.rb'].each { |file| require file }
-Dotenv.load
 class Controller < Sinatra::Base
+  set views: proc { File.join(root, '../views/') }
+
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
-
   include UserHelper
   include CommentHelper
   include MessagesHelper
   include RestaurantHelper
-
-  configure do
-    enable :sessions
-    set :session_secret, ENV['key']
-  end
 
   get '/' do
     @restaurants = Restaurant.all

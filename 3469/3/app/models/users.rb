@@ -2,7 +2,6 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   has_many :comments
   include BCrypt
-
   def password
     @password ||= Password.new(password_hash)
   end

@@ -1,3 +1,6 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="/pages.css">
+</head>
 <div class="card">
   <div class="card-header">
     <h2><%= @rest.name %></h2>
@@ -15,53 +18,7 @@
 <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
 <link rel="stylesheet" href="http://bootstraptema.ru/plugins/font-awesome/4-4-0/font-awesome.min.css" />
 <style>
-  .panel {
-    box-shadow: 0 2px 0 rgba(0,0,0,0.075);
-    border-radius: 0;
-    border: 0;
-    margin-bottom: 15px;
-  }
-  .panel .panel-footer, .panel>:last-child {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .panel .panel-heading, .panel>:first-child {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  .panel-body {
-    padding: 25px 20px;
-  }
-  .media-block .media-left {
-    display: block;
-    float: left
-  }
-  .media-block .media-right {
-    float: right
-  }
-  .media-block .media-body {
-    display: block;
-    overflow: hidden;
-    width: auto
-  }
-  .middle .media-left,
-  .middle .media-right,
-  .middle .media-body {
-    vertical-align: middle
-  }
 
-  .btn-sm, .btn-group-sm>.btn, .btn-icon.btn-sm {
-    padding: 5px 10px !important;
-  }
-  .mar-top {
-    margin-top: 15px;
-  }
-    .abcd {
-      border-color: #cacd58 #5faf8a #b9cea5 #aab238;
-      border-width: 5px;
-      box-sizing: border-box !important;
-      width: 500px;
-    }
 </style>
 
 <% Comment.all.where(place_id: session[:rest_id]).each do |comment| %>

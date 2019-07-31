@@ -3,4 +3,4 @@
 .idea
 db/*.sqlite
 .env
-
+/restaurant_descriptions

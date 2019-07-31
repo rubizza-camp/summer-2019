@@ -1,0 +1,141 @@
+body {
+    color: #fff;
+    background: #3598dc;
+    font-family: 'Roboto', sans-serif;
+}
+.form-control {
+    min-height: 41px;
+    box-shadow: none;
+    border-color: #ddd;
+}
+.form-control, .btn {
+    border-radius: 3px;
+}
+.signup-form {
+    width: 390px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+.signup-form form {
+    color: #999;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    background: #fff;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.signup-form h2 {
+    color: #333;
+    font-weight: bold;
+    margin-top: 0;
+}
+.signup-form hr {
+    margin: 0 -30px 20px;
+}
+.signup-form .form-group {
+    margin-bottom: 20px;
+}
+.signup-form label {
+    font-weight: normal;
+    font-size: 13px;
+}
+.signup-form input[type="checkbox"] {
+    margin-top: 2px;
+}
+.signup-form .btn {
+    font-size: 16px;
+    font-weight: bold;
+    background: #3598dc;
+    border: none;
+    min-width: 140px;
+}
+.signup-form .btn:hover, .signup-form .btn:active {
+    background: #2389cd;
+    outline: none !important;
+}
+.signup-form a {
+    color: #fff;
+    text-decoration: underline;
+}
+.signup-form a:hover {
+    text-decoration: none;
+}
+.signup-form form a {
+    color: #3598dc;
+    text-decoration: none;
+}
+.signup-form form a:hover {
+    text-decoration: underline;
+}
+.carousel {
+    color: blue;
+    border-radius: 1em;
+    padding: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+.panel {
+    box-shadow: 0 2px 0 rgba(0,0,0,0.075);
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 15px;
+}
+.panel .panel-footer, .panel>:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.panel .panel-heading, .panel>:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.panel-body {
+    padding: 25px 20px;
+}
+.media-block .media-left {
+    display: block;
+    float: left
+}
+.media-block .media-right {
+    float: right
+}
+.media-block .media-body {
+    display: block;
+    overflow: hidden;
+    width: auto
+}
+.middle .media-left,
+.middle .media-right,
+.middle .media-body {
+    vertical-align: middle
+}
+
+.btn-sm, .btn-group-sm>.btn, .btn-icon.btn-sm {
+    padding: 5px 10px !important;
+}
+.mar-top {
+    margin-top: 15px;
+}
+.abcd {
+    border-color: #cacd58 #5faf8a #b9cea5 #aab238;
+    border-width: 5px;
+    box-sizing: border-box !important;
+    width: 500px;
+}
+body { background: #f5f6fa }
+@media (min-width: 700px) {
+    .container{
+        margin-top: 10%;
+        width: 600px;
+    }
+}
+.alert {   z-index: 99999;
+}
+.card {
+    color: #333333;
+}
+.h3{
+    color: #333333;
+
+}
