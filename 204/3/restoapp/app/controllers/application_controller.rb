@@ -59,7 +59,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/account/new' do
-    erb :register, layout: :login_layout
+    erb :account, layout: :login_layout
   end
 
   post '/account' do
