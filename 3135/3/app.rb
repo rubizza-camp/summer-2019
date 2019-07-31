@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
-require 'pry'
+#require 'pry'
 
 set :database, 'sqlite3:db/database.sqlite3'
 
