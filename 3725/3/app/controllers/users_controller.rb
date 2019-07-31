@@ -1,19 +1,23 @@
+
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  set :views, File.expand_path('../../views', __FILE__)
+
+  register Sinatra::Flash
+  # before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   get '/users' do
     @users = User.all
-    erb :index
+    erb :'/users/index'
   end
 
-  get '/users/:id' do
-    erb :user_path
-  end
+  # get '/users/:id' do
+  #   erb :user_path
+  # end
 
   get '/users/new' do
-      @user = User.new
-      erb :create_user
+    @user = User.new
+    erb :'users/new'
   end
 
   def edit

@@ -1,4 +1,6 @@
-class SessionsController < ApplicationController
+require_relative 'application_controller'
+
+class SessionsController < Sinatra::Base
 
   get '/auth/sign_in' do
     erb :sign_in
@@ -14,6 +16,8 @@ class SessionsController < ApplicationController
       render "new"
     end
   end
+
+
 
   post '/auth/log_out' do
     session[:user_id] = nil
