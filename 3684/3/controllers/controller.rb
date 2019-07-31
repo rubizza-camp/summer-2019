@@ -15,50 +15,6 @@ class Controller < ApplicationController
     erb :show
   end
 
-  post '/registrate' do
-    if User.find_by(email: params['email'])
-      flash[:message] = 'Пользователь с данным email уже существует'
-      redirect '/registration'
-    else
-      password = BCrypt::Password.create(params['password'])
-      hash = { name: params['name'], email: params['email'], password: password }
-      User.create(hash)
-      session[:user_id] = User.last.id
-      redirect '/'
-    end
-  end
-
-  post '/log_in' do
-    @user = User.find_by(email: params['email'])
-    if @user
-      if BCrypt::Password.new(@user[:password]) == params['password']
-        session[:user_id] = @user.id
-        redirect '/'
-      else
-        login_fail_redirect
-      end
-    else
-      login_fail_redirect
-    end
-  end
-
-  post '/leave_comment' do
-    if params['text'] == '' && params['score'].to_i < 3
-      flash[:message] = 'Пожалуйста, опишите почему балл столь низкий'
-    elsif params['text'] != '' && params['score'] == ''
-      flash[:message] = 'Поставьте пожалуйста оценку'
-    else
-      hash = {
-        text: params['text'],
-        score: params['score'],
-        user_id: session[:user_id],
-        restaurant_id: session['rest_id']
-      }
-      Comment.create(hash)
-    end
-    redirect "/#{@env['HTTP_REFERER'].slice(PREV_ROUT_FIRST_SYMBOL..@env['HTTP_REFERER'].length)}"
-  end
-
   get '/logout' do
     session[:user_id] = false
     redirect '/'
@@ -72,18 +28,50 @@ class Controller < ApplicationController
     erb :registration_page
   end
 
-  private
-
-  def login_fail_redirect
-    flash[:message] = 'Ошибка входа в аккаунт'
-    redirect '/login'
+  post '/registrate' do
+    password = BCrypt::Password.create(params['password'])
+    hash = { name: params['name'], email: params['email'], password: password }
+    new_user = User.new(hash)
+    if new_user.valid?
+      new_user.save
+      session[:user_id] = User.last.id
+      redirect '/'
+    else
+      flash[:message] = new_user.errors.messages.values.first[0]
+      redirect '/registration'
+    end
   end
 
-  def count_score(comments)
-    if comments.empty?
-      0
+  post '/log_in' do
+    @user = User.find_by(email: params['email'])
+    if @user && BCrypt::Password.new(@user[:password]) == params['password']
+      session[:user_id] = @user.id
+      redirect '/'
     else
-      comments.inject(0) { |total, temp| total + temp.score }.to_f / comments.size
+      flash[:message] = 'Ошибка входа в аккаунт'
+      redirect '/login'
     end
+  end
+
+  post '/leave_comment' do
+    hash = {
+      text: params['text'],
+      score: params['score'],
+      user_id: session[:user_id],
+      restaurant_id: session['rest_id']
+    }
+    new_comment = Comment.new(hash)
+    if new_comment.valid?
+      new_comment.save
+    else
+      flash[:message] = new_comment.errors.messages.values.first[0]
+    end
+    redirect "/#{@env['HTTP_REFERER'].slice(PREV_ROUT_FIRST_SYMBOL..@env['HTTP_REFERER'].length)}"
+  end
+
+  private
+
+  def count_score(comm)
+    comm.empty? ? 0 : comm.inject(0) { |total, temp| total + temp.score }.to_f / comm.size
   end
 end

@@ -20,8 +20,8 @@
     <div>
       <% @comments.each do |comment| %>
         <%= comment.user.name %><br>
-        <%= comment.text %><br>
-        <%= comment.score %><br><br>
+        <%= comment.score %><br>
+        <%= comment.text %><br><br>
       <% end %>
     </div>
     <% if session[:user_id] %>
