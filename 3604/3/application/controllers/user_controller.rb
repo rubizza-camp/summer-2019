@@ -2,11 +2,8 @@ class UserController < Sinatra::Base
   use Rack::Flash
 
   get '/sign_in' do
-    if session?
-      redirect '/main'
-    else
-      erb :sign_in
-    end
+    return redirect '/' if session?
+    erb :sign_in
   end
 
   post '/sign_in' do
@@ -14,33 +11,30 @@ class UserController < Sinatra::Base
     if @user && @user.password == params[:password]
       session_start!
       session[:user_id] = @user.id
-      redirect '/main'
+      redirect '/'
     else
       flash[:error] = I18n.t(:incorrect_sign_in)
       redirect '/sign_in'
     end
   end
 
-  get '/sign_out' do
+  post '/sign_out' do
     session_end!
-    redirect '/main'
+    redirect '/'
   end
 
   get '/sign_up' do
-    if session?
-      redirect '/main'
-    else
-      erb :sign_up
-    end
+    return redirect '/main' if session?
+    erb :sign_up
   end
 
   post '/sign_up' do
-    @user = User.new(name: params[:name], email: params[:email], password: params[:password])
-    if @user.valid?
+    @user = User.new(params.slice(:name, :email, :password))
+    if @user.valid? && Truemail.valid?(params[:email])
       @user.save
       session_start!
       session[:user_id] = @user.id
-      redirect '/main'
+      redirect '/'
     else
       flash[:error] = I18n.t(:incorrect_sign_up)
       redirect '/sign_up'

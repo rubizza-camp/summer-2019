@@ -9,7 +9,9 @@
     <header>
       <a class = 'header-menu-item' href = '/' >Main</a>
       <% if session[:user_id] %>
-        <a class = 'header-menu-item' href = '/sign_out' >Sign out</a>
+        <form method = 'POST' action = '/sign_out'>
+          <button type = 'submit' class = 'header-menu-item'>Sign out</button>
+        </form>
       <% else %>
         <a class = 'header-menu-item' href = '/sign_in' >Sign in</a>
         <a class = 'header-menu-item' href = '/sign_up' >Sign up</a>

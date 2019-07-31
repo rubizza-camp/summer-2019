@@ -1,5 +1,5 @@
 body {
-  background: rgb(206, 192, 192);
+  background: #cec0c0;
 }
 
 header {
@@ -15,21 +15,26 @@ header {
   font-size: 20px;
 }   
 
+button.header-menu-item {
+  border: none;
+  background: none;
+}
+
 .alert_box {
   margin: 15px;
   padding: 20px;
-  background: rgb(204, 110, 110);
+  background: #cc6e6e;
   color: white;
   font-size: 20px;
 }
 
 .sign_in, .sign_up, .place {
-  background: rgb(204, 110, 110);
+  background: #cc6e6e;
   box-shadow:  
-  0 1px 4px rgba(0, 0, 0, .3),
-  -23px 0 20px -23px rgba(0, 0, 0, .8),
-  23px 0 20px -23px rgba(0, 0, 0, .8),
-  0 0 40px rgba(0, 0, 0, .1) inset;
+  0 1px 4px #0000004d,
+  -23px 0 20px -23px #000000cc,
+  23px 0 20px -23px #000000cc,
+  0 0 40px #0000001a inset;
   margin-left: auto;
   margin-right: auto;
   width: 25%;
@@ -62,7 +67,7 @@ label {
   margin-right: auto;
   width: 30%;
   border: none;
-  color: rgb(204, 110, 110);
+  color: #cc6e6e;
   padding: 5px 15px;
   text-align: center;
   text-decoration: none;
@@ -74,7 +79,7 @@ label {
   font-size: 20px;
 }
 
-.place .name{
+.place .name {
   color: white;
   font-size: 30px;
 }
@@ -83,7 +88,7 @@ p.stars {
   padding: 20px;
   font-size: 20px;
   background: white;
-  color: rgb(204, 110, 110);
+  color: #cc6e6e;
   border-radius: 50px;
   width: 5%;
 }
@@ -93,25 +98,25 @@ p.stars {
   margin: 20px auto;
   width: 63%;
   box-shadow:  
-  0 1px 4px rgba(0, 0, 0, .3),
-  -23px 0 20px -23px rgba(0, 0, 0, .8),
-  23px 0 20px -23px rgba(0, 0, 0, .8),
-  0 0 40px rgba(0, 0, 0, .1) inset;
+  0 1px 4px #0000004d,
+  -23px 0 20px -23px #000000cc,
+  23px 0 20px -23px #000000cc,
+  0 0 40px #0000001a inset;
 }
 
 .review {
   padding: 10px 10px 0px 10px;
   margin-bottom: 20px;
-  color: rgb(204, 110, 110);
+  color: #cc6e6e;
   font-size: 15px;
 }
 
-.reviews .review_form form div{
+.reviews .review_form form div {
   list-style: none;    
   display: flex;
 }
 
-.reviews .review_form form div{
+.reviews .review_form form div {
   padding: 10px;
 }
 
@@ -119,7 +124,7 @@ p.stars {
   border-radius: 50px;
   padding: 10px;
   font-size: 15px;
-  background: rgb(204, 110, 110);
+  background: #cc6e6e;
   color: white;
 }
 
@@ -128,8 +133,8 @@ p.stars {
   height: 250px;
 }
 
-.btn_add_review{
-  background: rgb(204, 110, 110);
+.btn_add_review {
+  background: #cc6e6e;
   color: white;
   font-size: 15px;
   margin: 10px;

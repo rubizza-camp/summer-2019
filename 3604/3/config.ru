@@ -12,6 +12,10 @@ Sinatra::Base.set public_folder: proc { File.join(root, '../public/') }
 I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
 I18n.default_locale = :en
 
+Truemail.configure do |config|
+  config.verifier_email = 'verifier@example.com'
+end
+
 use UserController
 use PlacesController
 run(MainController)
