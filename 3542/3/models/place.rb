@@ -4,6 +4,6 @@ class Place < ActiveRecord::Base
   has_many :comments
 
   def average_mark
-    comments.empty? ? 0.0 : comments.map(&:mark).sum.to_f / comments.count
+    comments.average(:mark)
   end
 end
