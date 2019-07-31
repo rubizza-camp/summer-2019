@@ -1,17 +1,15 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
-#require 'pry'
+# require 'pry'
 
 set :database, 'sqlite3:db/database.sqlite3'
 
 enable :sessions
 
-before do
-  @active_user = User.find_by(id: session[:id])
-
-  pass if ['/login', '/logout', '/registration', '/add_review'].include? request.path_info
-  session[:return_to_page] = request.path_info
+# authorization
+def current_user
+  @current_user ||= User.find(session[:user_id]) if session[:user_id]
 end
 
 # main page
@@ -28,8 +26,8 @@ end
 post '/registration' do
   user = User.new(params)
   if user.save
-    session[:id] = user.id
-    redirect session[:return_to_page]
+    session[:user_id] = user.id
+    redirect '/'
   else
     flash[:error] = user.errors.full_messages.join('; ')
     redirect '/registration'
@@ -44,8 +42,8 @@ end
 post '/login' do
   user = User.find_by(email: params[:email]).try(:authenticate, params[:password])
   if user
-    session[:id] = user.id
-    redirect session[:return_to_page]
+    session[:user_id] = user.id
+    redirect '/'
   else
     flash[:error] = 'Invalid email/password combo!'
     redirect '/login'
@@ -53,21 +51,26 @@ post '/login' do
 end
 
 get '/logout' do
-  session[:id] = nil
-  redirect session[:return_to_page]
+  session[:user_id] = nil
+  redirect back
 end
 
 # add_review
-post '/add_review' do
-  review = Review.new(params)
+post '/restaurant/:id/review' do
+  review = Review.new({
+                       user_id: @current_user.id, 
+                       restaurant_id: params[:id], 
+                       rating: params[:rating],
+                       description: params[:description]
+                      })
   flash[:error] = review.errors.full_messages.join('; ') unless review.save
 
-  redirect session[:return_to_page]
+  redirect back
 end
 
 # restaurants_in_detail
-get '/:name' do
-  @restaurant = Restaurant.find_by(name: params[:name])
+get '/restaurants/:id' do
+  @restaurant = Restaurant.find(params[:id])
   @average_rating = @restaurant.reviews.average(:rating)
   erb :restaurant_in_detail
 end
