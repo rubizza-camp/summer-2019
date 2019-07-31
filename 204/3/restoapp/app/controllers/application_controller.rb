@@ -41,11 +41,6 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  get '/logout' do
-    session_end!
-    redirect '/'
-  end
-
   post '/login' do
     subscribe = Login.new.call(session, params)
     if subscribe[:success]
@@ -56,6 +51,11 @@ class ApplicationController < Sinatra::Base
     else
       erb :login
     end
+  end
+
+  get '/logout' do
+    session_end!
+    redirect '/'
   end
 
   get '/account/new' do
