@@ -1,14 +1,15 @@
-class SessionController < ApplicationController
+class SessionsController < ApplicationController
   get '/register' do
     return redirect '/' if session?
     erb :register
   end
 
   post '/register' do
-    @user = User.create(name: params[:name], email: params[:email], password: params[:password])
-    if @user.valid?
+    if password? && @user.valid?
       @user.save!
       redirect '/login'
+    else
+      flash[:error] = I18n.t(:incorrect_password_or_email)
     end
     erb :register
   end
@@ -19,10 +20,11 @@ class SessionController < ApplicationController
   end
 
   post '/login' do
-    start_session if account_exist?
+    start_session if account_exists?
+    redirect '/login'
   end
 
-  get '/logout' do
+  post '/logout' do
     session.clear
     redirect '/'
   end

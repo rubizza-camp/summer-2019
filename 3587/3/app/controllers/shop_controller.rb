@@ -1,18 +1,13 @@
-class ShopController < ApplicationController
-  attr_reader :reviews
+class ShopsController < ApplicationController
   get '/' do
-    @shops = Shop.all
+    @shop = Shop.all
     erb :index
   end
 
   get '/shop/:id' do
-    @shops = Shop.find(params[:id])
-    @reviews = Review.where(place_id: params[:id])
-    stars if @reviews.count.positive?
+    @shop = Shop.find(params[:id])
+    @shop.reviews = Review.where(shop_id: params[:id])
+    stars unless @shop.reviews.empty?
     erb :shop
-  end
-
-  def stars
-    @stars = reviews.pluck(:grade).inject(&:+) / reviews.count
   end
 end

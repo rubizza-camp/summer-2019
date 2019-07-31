@@ -21,4 +21,6 @@ class ApplicationController < Sinatra::Base
   Truemail.configure do |config|
     config.verifier_email = 'verifier@example.com'
   end
+
+  I18n.load_path << Dir[File.expand_path('config') + '/*.yml']
 end
