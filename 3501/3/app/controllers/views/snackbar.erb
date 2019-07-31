@@ -12,10 +12,10 @@
         defer></script>
     <!---->
     <link rel="stylesheet" href="/css/main/main.css">
-    <script defer src="/js/stars_raiting_controller.js"></script>
+    <script defer src="/js/stars_rating_controller.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title><%= @current_snack_bar.name%></title>
+    <title><%= @current_snack_bar.name %></title>
 </head>
 <body>
     <%= erb :user_top_right_button%>
@@ -26,7 +26,7 @@
                     <div class="mdl-card__title" style = "background: url('../picture/test_back.jpg') center / cover;">
                         <div class="content">
                             <div class="text">
-                                <h1 class="display-4" style="font-size: 2rem;"><%= @current_snack_bar.name%></h1>
+                                <h1 class="display-4" style="font-size: 2rem;"><%= @current_snack_bar.name %></h1>
                             </div>
 
                             <div class="blur" style = "background: url('../picture/test_back.jpg') center / cover;"></div>
@@ -34,26 +34,26 @@
                     </div>
 
                     <div class="mdl-card__supporting-text" style="min-width: 330px; max-width: 380px;">
-                        <%= @current_snack_bar.description%>
+                        <%= @current_snack_bar.description %>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <ul class="demo-list-icon mdl-list">
                             <li class="mdl-list__item">
                                 <span class="mdl-list__item-primary-content">
                                     <i class="material-icons-outlined mdl-list__item-icon">local_phone</i>
-                                    <%= @current_snack_bar.telephone%>
+                                    <%= @current_snack_bar.telephone %>
                                 </span>
                             </li>
                             <li class="mdl-list__item">
                                 <span class="mdl-list__item-primary-content">
                                     <i class="material-icons-outlined mdl-list__item-icon">account_circle</i>
-                                    <%= @current_snack_bar.user.first_name%> <%= @current_snack_bar.user.last_name%>
+                                    <%= @current_snack_bar.user.first_name %> <%= @current_snack_bar.user.last_name %>
                                 </span>
                             </li>
                             <li class="mdl-list__item">
                                 <span class="mdl-list__item-primary-content">
                                     <i class="material-icons-outlined mdl-list__item-icon">access_time</i>
-                                    <%= @current_snack_bar.working_time_opening%> - <%= @current_snack_bar.working_time_closing%>
+                                    <%= @current_snack_bar.working_time_opening %> - <%= @current_snack_bar.working_time_closing %>
                                 </span>
                             </li>
                         </ul>
@@ -62,7 +62,7 @@
             </div>
             <div class="col p-3" style = "display: flex; align-items: center; flex-direction: column;">
                 <div class="demo-card-wide mdl-card mdl-shadow--2dp" style = "width: 100%; height: 100%;">
-                    <div style = "height: 100%;" id = "map" snack_name = "<%= @current_snack_bar.name%>" lat = "<%= @current_snack_bar.latitude%>" lng = "<%= @current_snack_bar.longitude%>">
+                    <div style = "height: 100%;" id = "map" snack_name = "<%= @current_snack_bar.name %>" lat = "<%= @current_snack_bar.latitude %>" lng = "<%= @current_snack_bar.longitude %>">
                     </div>
                 <div>
             <div>
@@ -72,7 +72,7 @@
         <div class="row justify-content-md-center">
             <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column; width: 100%;">
                 <div class="demo-card-wide mdl-card mdl-shadow--2dp" style = "min-height: unset; width: 100%;">
-                    <%= erb :user_comment_field%>
+                    <%= erb :user_comment_field %>
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
         <div class="row justify-content-md-center">
             <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column; width: 100%;">
                 <div class="demo-card-wide mdl-card mdl-shadow--2dp pb-1" style = "min-height: unset; width: 100%;">
-                    <%= erb :users_comments_field%>
+                    <%= erb :users_comments_field %>
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@
                 <div class="mdl-card__title" style = "background: url('../picture/test_back.jpg') center / cover;">
                     <div class="content">
                         <div class="text">
-                            <h1 class="display-4" style="font-size: 2rem;"><%= snackbar.name%></h1>
+                            <h1 class="display-4" style="font-size: 2rem;"><%= snackbar.name %></h1>
                         </div>
 
                         <div class="blur" style = "background: url('../picture/test_back.jpg') center / cover;"></div>
@@ -27,11 +27,11 @@
                 </div>
 
                 <div class="mdl-card__supporting-text">
-                    <%= snackbar.description%>
+                    <%= snackbar.description %>
                 </div>
                 <div class="mdl-card__actions mdl-card--border d-flex justify-content-between">
                     <a  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                        onclick="location.href=location.origin+'/snackbars/<%= snackbar.id%>'">
+                        onclick="location.href=location.origin+'/snackbars/<%= snackbar.id %>'">
                         Подробнее
                     </a>
                     <span class="mdl-chip tooltip_menu_item mdl-chip--contact">
@@ -41,10 +41,10 @@
                             </i>
                         </span>
                         <span class="mdl-chip__text">
-                            <p class="font-weight-normal p-0 m-0"><%= snackbar.comments_count%></p>
+                            <p class="font-weight-normal p-0 m-0"><%= snackbar.comments_count %></p>
                         </span>
                     </span>
-                    <div class="snack_bar_raiting stars_raiting" value="<%= snackbar.modular_raiting%>">
+                    <div class="snack_bar_rating stars_rating" value="<%= snackbar.modular_rating %>">
                         <i class="material-icons">star</i>
                         <i class="material-icons">star</i>
                         <i class="material-icons">star</i>
@@ -55,7 +55,7 @@
             </div>
         </div>
 <%
-                if index == (@snackbars.length - 1) || ((index+1) % 2.0).zero?
+                if index == (@snackbars.length - 1) || (index+1).even?
 %>
     </div>  
 <%
@@ -67,7 +67,7 @@
                 <div class="mdl-card__title" style = "background: url('../picture/test_back.jpg') center / cover;">
                     <div class="content">
                         <div class="text">
-                            <h1 class="display-4" style="font-size: 2rem;"><%= snackbar.name%></h1>
+                            <h1 class="display-4" style="font-size: 2rem;"><%= snackbar.name %></h1>
                         </div>
 
                         <div class="blur" style = "background: url('../picture/test_back.jpg') center / cover;"></div>
@@ -76,11 +76,11 @@
                 </div>
 
                 <div class="mdl-card__supporting-text">
-                    <%= snackbar.description%>
+                    <%= snackbar.description %>
                 </div>
                 <div class="mdl-card__actions mdl-card--border d-flex justify-content-between">
                     <a  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                        onclick="location.href=location.origin+'/snackbars/<%= snackbar.id%>'">
+                        onclick="location.href=location.origin+'/snackbars/<%= snackbar.id %>'">
                         Подробнее
                     </a>
                     <span class="mdl-chip tooltip_menu_item mdl-chip--contact">
@@ -90,10 +90,10 @@
                             </i>
                         </span>
                         <span class="mdl-chip__text">
-                            <p class="font-weight-normal p-0 m-0"><%= snackbar.comments_count%></p>
+                            <p class="font-weight-normal p-0 m-0"><%= snackbar.comments_count %></p>
                         </span>
                     </span>
-                    <div class="snack_bar_raiting stars_raiting" value="<%= snackbar.modular_raiting%>">
+                    <div class="snack_bar_rating stars_rating" value="<%= snackbar.modular_rating %>">
                         <i class="material-icons">star</i>
                         <i class="material-icons">star</i>
                         <i class="material-icons">star</i>
@@ -104,7 +104,7 @@
             </div>
         </div>
 <%
-                if index == (@snackbars.length - 1) || ((index+1) % 2.0).zero?
+                if index == (@snackbars.length - 1) || (index+1).even?
 %>
     </div>  
 <%

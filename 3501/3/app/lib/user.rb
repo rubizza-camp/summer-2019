@@ -3,6 +3,7 @@ require 'active_record'
 require 'securerandom'
 require 'date'
 require 'time'
+require 'bcrypt'
 
 class User < ActiveRecord::Base
   has_many :feed_backs
@@ -23,14 +24,14 @@ class User < ActiveRecord::Base
   def calculate_comments_count_and_rait(current_snack_bar, post)
     current_comments_count = current_snack_bar.comments_count
     next_comments_count = current_comments_count ? current_comments_count + 1 : 1
-    calculate_snackbar_modular_raiting(current_snack_bar, next_comments_count, post)
+    calculate_snackbar_modular_rating(current_snack_bar, next_comments_count, post)
   end
 
-  def calculate_snackbar_modular_raiting(current_snack_bar, next_comments_count, post)
-    olt_raiting = current_snack_bar.modular_raiting ? current_snack_bar.modular_raiting.to_f : 0.0
-    new_raiting = (post.params[:raiting].to_f + olt_raiting *
+  def calculate_snackbar_modular_rating(current_snack_bar, next_comments_count, post)
+    olt_rating = current_snack_bar.modular_rating ? current_snack_bar.modular_rating.to_f : 0.0
+    new_rating = (post.params[:rating].to_f + olt_rating *
       (next_comments_count - 1)) / next_comments_count
-    current_snack_bar.update_attribute(:modular_raiting, new_raiting)
+    current_snack_bar.update_attribute(:modular_rating, new_rating)
     current_snack_bar.update_attribute(:comments_count, next_comments_count)
   end
 end

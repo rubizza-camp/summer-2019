@@ -9,6 +9,7 @@ class ApplicationController < Sinatra::Base
   helpers Sinatra::Cookies
   get('/') do
     @snackbars = SnackBar.all
+    @current_user = User.find_by_id(session[:user_id])
     erb(:main)
   end
 end

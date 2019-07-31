@@ -16,7 +16,7 @@ ActiveRecord::Schema.define do # rubocop:disable Metrics/BlockLength
     table.column :latitude, :string
     table.column :longitude, :string
     table.column :user_id, :integer
-    table.column :modular_raiting, :float
+    table.column :modular_rating, :float
     table.column :comments_count, :integer
     table.column :description, :string
     table.column :name, :string
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define do # rubocop:disable Metrics/BlockLength
     table.column :user_id, :integer
     table.column :snack_bar_id, :integer
     table.column :content, :string
-    table.column :raiting, :float
+    table.column :rating, :float
     table.column :date, :datetime
   end
 

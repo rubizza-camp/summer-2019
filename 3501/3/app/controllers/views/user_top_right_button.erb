@@ -1,5 +1,5 @@
 <div class="top_right_user_button">
-    <%if session[:current_user].nil?%>
+    <% if @current_user.nil? %>
         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" id="demo-menu-lower-right">
             <i class="material-icons">
                 account_circle
@@ -21,7 +21,7 @@
                 </span>
             </li>
         </ul>
-    <%else%>
+    <% else %>
         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" id="demo-menu-lower-right"
             style="background-image: url('../picture/test_user_pic.jpg'); background-size: cover;">
         </button>
@@ -30,8 +30,8 @@
             for="demo-menu-lower-right">
             <li>
                 <div class="alert alert-light" role="alert">
-                    <p class="font-weight-light"><%= session[:current_user].first_name%> <%= session[:current_user].last_name%></p>
-                    <p class="font-weight-light"><%= session[:current_user].email%></p>
+                    <p class="font-weight-light"><%= @current_user.first_name %> <%= @current_user.last_name %></p>
+                    <p class="font-weight-light"><%= @current_user.email %></p>
                 </div>
             </li>
             <li href="new snack" onclick="location.href=location.origin+'/snackbars/new'" class="mdl-list__item mdl-menu__item">
@@ -53,6 +53,6 @@
                 </span>
             </li>
         </ul>
-    <%end%>
+    <% end %>
     
 </div>

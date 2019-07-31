@@ -12,8 +12,8 @@ class SignController < Sinatra::Base
     erb(:signin)
   end
 
-  post('/signin', needs: %i[email password]) do
-    session[:current_user] = User.where(email: params[:email], password: params[:password]).first
+  post('/signin', allows: %i[email password], needs: %i[email password]) do
+    session[:user_id] = User.sign_in_user(self).id
     redirect('/')
   end
 
@@ -21,13 +21,19 @@ class SignController < Sinatra::Base
     erb(:signup)
   end
 
-  post('/signup', needs: %i[first_name last_name email password password_confirmation]) do
-    session[:current_user] = User.create(params)
+  post('/signup', allows: %i[first_name last_name email password password_confirmation],
+                  needs: %i[first_name last_name email password password_confirmation]) do
+    session[:user_id] = User.create(
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      email: params[:email],
+      password: BCrypt::Password.create(params[:password]).to_s
+    ).id
     redirect('/')
   end
 
   get('/signout') do
-    session.delete(:current_user)
+    session.delete(:user_id)
     redirect('/')
   end
 end

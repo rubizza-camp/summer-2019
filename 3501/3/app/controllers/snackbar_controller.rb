@@ -10,29 +10,34 @@ class SnackBarController < Sinatra::Base
   helpers Sinatra::Cookies
 
   get('/snackbars/new') do
+    @current_user = User.find_by_id(session[:user_id])
     erb(:snackbars_new)
   end
 
-  post('/snackbars/new', needs: %i[description name photo telephone working_time_opening
+  post('/snackbars/new', allows: %i[description name photo telephone working_time_opening
+                                    working_time_closing latitude longitude],
+                         needs: %i[description name photo telephone working_time_opening
                                    working_time_closing latitude longitude]) do
-    session[:current_user].snack_bars.create(params)
+    User.find_by_id(session[:user_id]).snack_bars.create(params)
     redirect('/')
   end
 
   get('/snackbars/:id') do
-    @current_snack_bar = SnackBar.find_by_id(params['id'].to_i)
+    @current_user = User.find_by_id(session[:user_id])
+    return redirect('/') unless (@current_snack_bar = SnackBar.find_by_id(params['id']))
+
     erb(:snackbar)
   end
 
-  post('/snackbars/:id/new_comment') do
-    session[:current_user].feed_backs.create(
+  post('/snackbars/:id/new_comment', allows: %i[id content rating],
+                                     needs: %i[id content rating]) do
+    User.find_by_id(session[:user_id]).feed_backs.create(
       snack_bar_id: params[:id],
       content: params[:content],
-      raiting: params[:raiting],
+      rating: params[:rating],
       date: Time.now
     )
-
-    session[:current_user].update_snackbar_commnets_count_and_rait(self)
+    User.find_by_id(session[:user_id]).update_snackbar_commnets_count_and_rait(self)
     redirect("/snackbars/#{params[:id]}")
   end
 end

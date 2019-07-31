@@ -1,17 +1,17 @@
-var user_self_CommentRaiting;
-var current_string_raiting;
+var user_self_Commentrating;
+var current_string_rating;
 var active_star_icon;
 var disable_star_icon;
 var half_star_icon;
 var current_state;
 var stars;
 
-function initialize_stars_raitings()
+function initialize_stars_ratings()
 {
-    user_self_CommentRaiting = document.getElementById('user_self_CommentRaiting');
-    if (user_self_CommentRaiting != undefined)
+    user_self_Commentrating = document.getElementById('user_self_Commentrating');
+    if (user_self_Commentrating != undefined)
     {
-        current_string_raiting = '5';
+        current_string_rating = '5';
         active_star_icon = 'star';
         disable_star_icon = 'star_border';
         half_star_icon = 'star_half';
@@ -23,7 +23,7 @@ function initialize_stars_raitings()
         stars.push(document.getElementById('star4'));
         stars.push(document.getElementById('star5'));
         save_current_state();
-        user_self_CommentRaiting.value = current_string_raiting;
+        user_self_Commentrating.value = current_string_rating;
         
         for(var i = 0; i < stars.length; i++)
         {
@@ -59,7 +59,7 @@ function set_listeners_on_mouse_over(index)
     };
 }
 
-function compute_current_raiting()
+function compute_current_rating()
 {
     var new_sum = 0;
     for (var i = 0 ; i < current_state.length; i++)
@@ -77,7 +77,7 @@ function compute_current_raiting()
             break;
         }
     }
-    current_string_raiting = new_sum.toString();
+    current_string_rating = new_sum.toString();
 }
 
 function save_current_state()
@@ -124,8 +124,8 @@ function save_temp_stars_state_onclick(current_star_index)
         break;
     }
     save_current_state();
-    compute_current_raiting();
-    user_self_CommentRaiting.value = current_string_raiting;
+    compute_current_rating();
+    user_self_Commentrating.value = current_string_rating;
 }
 
 function update_temp_stars_state_onclick(current_star_index, template_star_icon)
@@ -152,10 +152,10 @@ function update_temp_stars_state_onclick(current_star_index, template_star_icon)
 
 function update_all_users_reiting()
 {
-    var raitings = document.getElementsByClassName("users_comment_raiting");
-    for(var i = 0 ; i < raitings.length; i++)
+    var ratings = document.getElementsByClassName("users_comment_rating");
+    for(var i = 0 ; i < ratings.length; i++)
     {
-        var cuurent_element = raitings[i];
+        var cuurent_element = ratings[i];
         var target_sum = parseInt(cuurent_element.getAttribute("value"));
         for (var j = 0; j < cuurent_element.children.length; j++)
         {
@@ -179,5 +179,5 @@ function update_all_users_reiting()
     }
 }
 
-initialize_stars_raitings();
+initialize_stars_ratings();
 update_all_users_reiting();

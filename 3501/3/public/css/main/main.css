@@ -24,13 +24,13 @@ h1.display-4
     background-color:rgba(206, 163, 84, 0.65);
     height: 140px;
 }
-.snack_bar_raiting
+.snack_bar_rating
 {
   user-select: none;
   display: flex;
   align-items: center;
 }
-.snack_bar_raiting .material-icons
+.snack_bar_rating .material-icons
 {
   padding: 0px;
   margin: -1.5px;
@@ -89,7 +89,7 @@ a button, a:hover, a:visited, a:active{
   color:inherit !important;
   text-decoration: none !important;
 }
-.user_self_raiting
+.user_self_rating
 {
   margin-left: 20px;
 }
@@ -99,17 +99,17 @@ a button, a:hover, a:visited, a:active{
   align-items: center !important;
   max-height: 60px;
 }
-.raiting_button
+.rating_button
 {
   margin-left: -5px;
   margin-right: -5px;
 }
-.raiting_button:first-child
+.rating_button:first-child
 {
   margin-left: 3px;
   margin-right: -5px;
 }
-.raiting_button:last-child
+.rating_button:last-child
 {
   margin-left: -5px;
   margin-right: 3px;
@@ -144,11 +144,11 @@ button:focus,.btn:active
   background-color: rgb(255, 255, 255);
 }
 .material-icons-outlined.md-dark { color: rgba(0, 0, 0, 0.54); }
-.users_comment_raiting
+.users_comment_rating
 {
   user-select: none;
 }
-.users_comment_raiting .material-icons
+.users_comment_rating .material-icons
 {
   font-size: 17px !important;
 }

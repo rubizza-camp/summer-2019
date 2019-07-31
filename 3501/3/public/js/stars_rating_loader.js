@@ -1,9 +1,9 @@
 function update_all_users_reiting()
 {
-    var raitings = document.getElementsByClassName("stars_raiting");
-    for(var i = 0 ; i < raitings.length; i++)
+    var ratings = document.getElementsByClassName("stars_rating");
+    for(var i = 0 ; i < ratings.length; i++)
     {
-        var cuurent_element = raitings[i];
+        var cuurent_element = ratings[i];
         var target_sum = parseInt(cuurent_element.getAttribute("value"));
         for (var j = 0; j < cuurent_element.children.length; j++)
         {

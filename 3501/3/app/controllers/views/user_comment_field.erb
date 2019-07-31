@@ -1,7 +1,7 @@
 <%
-    if session[:current_user]
+    if @current_user
 %>
-    <form class="was-validated" method="POST" action="/snackbars/<%=@current_snack_bar.id%>/new_comment">
+    <form class="was-validated" method="POST" action="/snackbars/<%= @current_snack_bar.id %>/new_comment">
         <div class="row justify-content-between">
             <div class="col mb-3 user_comment_create" style = "margin-bottom: 0px !important;">
                 <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab lrm10" id="demo-menu-lower-right"
@@ -13,21 +13,21 @@
                 </div>
             </div>
             <div class="col-md-auto mb-3 user_comment_create" style = "margin-bottom: 0px !important;">
-                <div class="user_self_raiting">
-                    <input type="hidden" type="text" name="raiting" id="user_self_CommentRaiting" />
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon raiting_button" id="star1">
+                <div class="user_self_rating">
+                    <input type="hidden" type="text" name="rating" id="user_self_Commentrating" />
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star1">
                         <i class="material-icons">star</i>
                     </button>
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon raiting_button" id="star2">
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star2">
                         <i class="material-icons">star</i>
                     </button>
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon raiting_button" id="star3">
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star3">
                         <i class="material-icons">star_half</i>
                     </button>
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon raiting_button" id="star4">
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star4">
                         <i class="material-icons">star_border</i>
                     </button>
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon raiting_button" id="star5">
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star5">
                         <i class="material-icons">star_border</i>
                     </button>
                 </div>
