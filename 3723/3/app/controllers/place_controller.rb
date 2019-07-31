@@ -1,18 +1,19 @@
 class PlaceController < ApplicationController
   post '/places/:id' do
-    if params[:title] == '' || params[:contet] == '' || params[:rating] == ''
-      flash[:notice] = 'You must fill all forms'
-      redirect to '/places/:id'
-    else
-      @comment = Comment.create(
-        title: params[:title],
-        rating: params[:rating],
-        place_id: params[:id],
-        user_id: current_user.id
-      )
-      @place = Place.find_by_id(params[:id])
-      rating_count(@place, @comment)
+    @comment = Comment.new(
+      title: params[:title],
+      rating: params[:rating],
+      place_id: params[:id],
+      user_id: current_user.id
+    )
+    @place = Place.find_by_id(params[:id])
+    if @comment.valid?
+      @comment.save
+      @place.update(rating: @place.comments.average(:rating))
       redirect to "places/#{params[:id]}"
+    else
+      flash[:notice] = 'You must fill all forms'
+      redirect to "/places/#{params[:id]}"
     end
   end
 
@@ -24,16 +25,5 @@ class PlaceController < ApplicationController
   get '/places/:id' do
     @place = Place.find(params[:id])
     erb :'places/show'
-  end
-
-  private
-
-  def rating_count(place, comment)
-    if place.comments.count.positive?
-      place.rating += comment.rating
-      place.update(rating: place.rating / place.comments.count)
-    else
-      place.update(rating: comment.rating)
-    end
   end
 end

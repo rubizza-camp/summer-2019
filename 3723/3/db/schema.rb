@@ -12,22 +12,22 @@
 
 ActiveRecord::Schema.define(version: 20_190_726_094_219) do
   create_table 'comments', force: :cascade do |t|
-    t.string 'title'
-    t.integer 'rating'
+    t.string 'title', null: false
+    t.integer 'rating', null: false
     t.integer 'user_id'
     t.integer 'place_id'
   end
 
   create_table 'places', force: :cascade do |t|
-    t.string 'name'
-    t.string 'location'
-    t.string 'description'
-    t.integer 'rating'
+    t.string 'name', null: false
+    t.string 'location', null: false
+    t.string 'description', null: false
+    t.integer 'rating', null: false
   end
 
   create_table 'users', force: :cascade do |t|
-    t.string 'username'
-    t.string 'email'
-    t.string 'password_digest'
+    t.string 'username', null: false
+    t.string 'email', null: false
+    t.string 'password_digest', null: false
   end
 end

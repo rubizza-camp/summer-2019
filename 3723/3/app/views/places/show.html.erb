@@ -19,6 +19,7 @@
 <br />
 <br />
 
+<% if logged_in? %>
 <form action="/places/<%= @place.id %>" method="POST">
   <p><b>Message:</b><input type='text' name="title"></p>
   <p>
@@ -35,6 +36,9 @@
 </form>
 <br />
 <br />
+<% else %>
+  <p>You need to LogIn if you want to left your review</p>
+<% end %>
 
 <% if logged_in? %>
   <p>Logged as <%= current_user.email %></p>
