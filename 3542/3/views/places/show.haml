@@ -2,7 +2,7 @@
 %p= @place.address
 %p= @place.description
 %p- Rate:
-= @place.average_mark.nil? ? 0.0.to_s : @place.average_mark.round(2).to_s
+= (@place.average_mark.nil? ? 0.0 : @place.average_mark.round(2)).to_s
 %h2 Share your opinion
 %form{ method: 'post', action: '/comments' }
   .form-group
