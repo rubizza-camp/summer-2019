@@ -1,0 +1,21 @@
+<form method="POST" action="/sign_up" class="was-validated">
+  <div class="container mt-3" style="width:50%;">
+    <div class="mb-3">
+      <label for="validationName">Username</label>
+      <input type="text" class="form-control" name="name" id="validationName" placeholder="Name" required>
+      <div class="invalid-feedback">Fill in this field</div>
+    </div> 
+    <div class="mb-3">
+      <label for="validationEmail">Email</label>
+      <input type="text" class="form-control" name="email" id="validationEmail" placeholder="Email" required>
+      <div class="invalid-feedback">Fill in this field</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="validationPassword">Password</label>
+      <input type="password" class="form-control" name="password" id="validationPassword" placeholder="Password" required>
+      <div class="invalid-feedback">Fill in this field</div>
+    </div>
+    <button type="submit" class="btn btn-outline-dark justify-content-center">Sign up</button>
+  </div>
+</form>
