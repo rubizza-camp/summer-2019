@@ -23,7 +23,7 @@ CERT_PATH = ENV['SSH_PATH']
 webrick_options = {
   # '192.168.43.176' /BANDR
   # '192.168.0.105'
-  Host: '192.168.43.176',
+  Host: '192.168.0.105',
   Port: 443,
   Logger: WEBrick::Log.new($stderr, WEBrick::Log::DEBUG),
   DocumentRoot: '/ruby/htdocs',
