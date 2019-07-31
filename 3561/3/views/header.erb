@@ -1,15 +1,17 @@
 <div>
   <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:20%;min-width:300px" id="mySidebar">
-    <a href="javascript:void(0)" onclick="w3_close('mySidebar')" class="w3-bar-item w3-button w3-padding"><i class="fa fa-times fa-fw w3-margin-right"></i>Close
+    <a id="closeSidebar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-times fa-fw w3-margin-right"></i>Close
       Menu</a> <br>
     <div class="w3-bar-block">
-      <a onclick="w3_close('mySidebar')" href="/places" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>MAIN
+      <a id="closeSidebar" href="/places" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>MAIN
         PAGE</a> <br>
       <% if session[:user_id] %>
-        <a href="/delete_user_from_session" class="w3-bar-item w3-button w3-text-red w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>SING OUT</a>
+        <a href="/delete_user_from_session" class="w3-bar-item w3-button w3-text-red w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>SING
+          OUT</a>
       <% else %>
-        <a onclick="w3_open_registration() " class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>REGISTRATION</a>
-        <a onclick="w3_open_sing_in()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-user fa-fw w3-margin-right"></i>SING UP</a>
+        <a id="openRegistration" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>REGISTRATION</a>
+        <a id="openLogin" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-user fa-fw w3-margin-right"></i>SING
+          UP</a>
       <% end %>
     </div>
   </nav>
@@ -17,7 +19,7 @@
   <!-- Top menu -->
   <div class="w3-top">
     <div class="w3-white w3-xlarge" style="margin:auto">
-      <div class="w3-button w3-padding-16 w3-left" onclick="w3_open('mySidebar')"><i class="fa fa-bars"></i></div>
+      <div id="openSidebar" class="w3-button w3-padding-16 w3-left"><i class="fa fa-bars"></i></div>
       <div class="w3-center w3-padding-16">Places With Food</div>
       <div class="w3-right w3-padding-16"><%= session[:user_id] %></div>
     </div>
@@ -27,7 +29,7 @@
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
       <div class="w3-center"><br>
-        <span onclick="w3_close('registration')" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+        <span id="closeRegistration" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
       </div>
 
       <form class="w3-container" action="/users" method="post">
@@ -38,7 +40,7 @@
           <input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Enter Email" name="email" required>
           <label><b>Password</b></label>
           <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-          <button onclick="w3_close('registration')"
+          <button id="closeRegistration"
                   class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Registration
           </button>
         </div>
@@ -51,7 +53,7 @@
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
       <div class="w3-center"><br>
-        <span onclick="w3_close('login')" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+        <span id="closeLogin" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
       </div>
 
       <form class="w3-container" action="/login" method="post">
@@ -60,8 +62,7 @@
           <input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Enter Email" name="email" required>
           <label><b>Password</b></label>
           <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-          <button onclick="w3_close('login')"
-                  class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Sing Up
+          <button id="closeLogin" class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Sing Up
           </button>
         </div>
       </form>

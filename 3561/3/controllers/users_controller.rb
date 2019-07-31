@@ -1,7 +1,8 @@
+require_relative '../controllers/application_controller'
+
 class UsersController < ApplicationController
   post '/users' do
-    new_user = User.new(name: params[:usrname], email: params[:email])
-    new_user.password = params[:password]
+    new_user = User.new(name: params[:usrname], email: params[:email], password: params[:password])
     if new_user.save
       session[:user_id] = user[:id].to_s
     else
