@@ -4,7 +4,6 @@ require 'sinatra/flash'
 Dir['./helpers/*.rb'].each { |file| require file }
 Dir['./models/*.rb'].each { |file| require file }
 Dir['./controllers/*.rb'].each { |file| require file }
-require 'pry'
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3',
                                         database: 'db/development.sqlite3',
