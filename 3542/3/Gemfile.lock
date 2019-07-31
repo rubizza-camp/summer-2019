@@ -95,7 +95,7 @@ DEPENDENCIES
   pry
   sinatra (~> 2.0, >= 2.0.5)
   sinatra-flash (~> 0.3.0)
-  sqlite3 (= 1.4.1)
+  sqlite3 (~> 1.4, >= 1.4.1)
   standalone_migrations (~> 5.2, >= 5.2.7)
 
 BUNDLED WITH
