@@ -9,26 +9,28 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-# rubocop: disable Style/NumericLiterals
+#:reek:all
+# rubocop:disable all
 ActiveRecord::Schema.define(version: 2019_07_30_110334) do
-  # rubocop: enable Style/NumericLiterals
-  create_table 'comments', force: :cascade do |tab|
-    tab.string 'text'
-    tab.integer 'star'
-    tab.integer 'user_id'
-    tab.integer 'restaraunt_id'
+
+  create_table "comments", force: :cascade do |t|
+    t.string "text"
+    t.integer "star"
+    t.integer "user_id"
+    t.integer "restaraunt_id"
   end
 
-  create_table 'restaraunts', force: :cascade do |tab|
-    tab.string 'name'
-    tab.text 'description'
-    tab.string 'coordinate'
-    tab.float 'average_star'
+  create_table "restaraunts", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "coordinate"
+    t.float "average_star"
   end
 
-  create_table 'users', force: :cascade do |tab|
-    tab.string 'username'
-    tab.string 'email'
-    tab.string 'password_hash'
+  create_table "users", force: :cascade do |t|
+    t.string "username", null: false
+    t.string "email", null: false
+    t.string "password_hash", null: false
   end
 end
+# rubocop:enable all

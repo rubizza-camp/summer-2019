@@ -1,11 +1,9 @@
 require 'bcrypt'
 require 'truemail'
 
-#:reek:RepeatedConditional
 class UsersController < ApplicationController
   get '/signup' do
     if current_user
-      @user = current_user
       redirect '/'
     else
       erb :registration
@@ -34,11 +32,7 @@ class UsersController < ApplicationController
   end
 
   get '/login' do
-    if current_user
-      redirect '/'
-    else
-      erb :login
-    end
+    erb :login
   end
 
   get '/logout' do

@@ -34,7 +34,7 @@ class ApplicationController < Sinatra::Base
       if @comment.valid?
         @comment.save
       else
-        redirect "/restaraunt/#{@restaraunt.name}"
+        redirect "/restaraunts/#{@restaraunt.name}"
       end
     end
 

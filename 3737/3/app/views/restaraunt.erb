@@ -28,10 +28,10 @@
     </div>
     <div class="card-body">
       <div class="form-group">
-        <form action="/restaraunt/<%= @restaraunt.name%>/new" method="POST">
-          <textarea name="text" class="form-control" id="textarea" rows="5" placeholder="Enter comment..."></textarea>
+        <form action="/restaraunts/<%= @restaraunt.name%>/new" method="POST">
+          <textarea name="text" class="form-control" id="textarea" rows="5" placeholder="Enter comment..." required></textarea>
           <p style="color: white">Star:</p>
-          <select name="star">
+          <select name="star" required>
             <option disabled>Stars</option>
             <option value=1>
               1
