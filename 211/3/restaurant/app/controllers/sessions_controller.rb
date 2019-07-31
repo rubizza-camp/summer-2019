@@ -33,8 +33,8 @@ class SessionsController < BaseController
     end
 
     post '/login' do
-      @user = User.find_by(email: params[:email])
-      if @user == @user.try(:authenticate, params[:password])
+      @user = User.find_by(email: params[:email]).try(:authenticate, params[:password])
+      if @user
         session[:user_id] = @user.id
         flash[:notice] = 'You logged in sucessfuly'
         redirect '/'

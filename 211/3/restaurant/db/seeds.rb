@@ -1,21 +1,17 @@
-Restaurant.destroy_all
+require 'faker'
 
-# rubocop:disable Metrics/LineLength
+Restaurant.destroy_all
 restaurants = [
   { name: 'Buloshnaya',
     location: '59.9, 30.3',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat id, dignissimos ea accusantium accusamus ex omnis officia, non at aspernatur, impedit porro. Dignissimos numquam ratione maiores quod totam commodi vero!
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates sed eveniet, qui, magni maiores earum voluptate fugit veritatis fuga repellendus minima, sit odit. Similique numquam veritatis, eaque voluptatem, rerum quaerat.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam quas minus ea odit, sequi explicabo quasi quos doloribus ipsum architecto hic reiciendis id voluptas! Ad, nulla, fuga. Tenetur, nostrum, similique?',
+    description: Faker::Books::Lovecraft.paragraph,
     photo: 'images/Buloshnaya.jpg' },
   { name: 'AntiBuloshnaya',
     location: '60, 20',
-    description: 'Lorem ipsum dolor sit amet. Repellat id, dignissimos ea accusantium accusamus ex omnis officia, non at aspernatur, impedit porro. Dignissimos numquam ratione maiores quod totam commodi vero!
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates sed eveniet, qui, magni maiores earum voluptate fugit veritatis fuga repellendus minima, sit odit. Similique numquam veritatis, eaque voluptatem, rerum quaerat.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam quas minus ea odit, sequi explicabo quasi quos doloribus ipsum architecto hic reiciendis id voluptas! Ad, nulla, fuga. Tenetur, nostrum, similique?',
+    description: Faker::Books::Lovecraft.paragraph,
     photo: 'images/AntiBuloshnaya.jpg' }
 ]
-# rubocop:enable Metrics/LineLength
+
 restaurants.each do |r|
   Restaurant.create(r)
 end

@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/stympy/faker.git
+  revision: 020effa0d37e344a60819a4f9dd78a9b01b1c56a
+  branch: master
+  specs:
+    faker (1.9.6)
+      i18n (>= 0.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -55,6 +63,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   bcrypt (~> 3.1.7)
+  faker!
   rake
   sinatra-activerecord
   sinatra-contrib

@@ -14,16 +14,13 @@ ActiveRecord::Schema.define(version: 20_190_728_082_529) do
   create_table 'restaurants', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'location', null: false
-    t.text 'description', null: false
+    t.text 'description'
     t.string 'photo'
-    t.index ['description'], name: 'index_restaurants_on_description', unique: true
-    t.index ['location'], name: 'index_restaurants_on_location', unique: true
-    t.index ['name'], name: 'index_restaurants_on_name', unique: true
   end
 
   create_table 'reviews', force: :cascade do |t|
     t.text 'description'
-    t.integer 'mark'
+    t.integer 'mark', null: false
     t.integer 'user_id'
     t.integer 'restaurant_id'
     t.index ['restaurant_id'], name: 'index_reviews_on_restaurant_id'
@@ -35,6 +32,5 @@ ActiveRecord::Schema.define(version: 20_190_728_082_529) do
     t.string 'email', null: false
     t.string 'password_digest'
     t.index ['email'], name: 'index_users_on_email', unique: true
-    t.index ['login'], name: 'index_users_on_login', unique: true
   end
 end

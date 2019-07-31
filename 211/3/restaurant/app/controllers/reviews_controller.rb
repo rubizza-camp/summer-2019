@@ -1,5 +1,5 @@
 class ReviewsController < BaseController
-  post '/reviews/create' do
+  post '/restaurants/:id/reviews' do
     @user = User.find(session[:user_id])
     @review = @user.reviews.new(mark: params[:mark],
                                 description: params[:description],

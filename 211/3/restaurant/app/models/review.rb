@@ -1,6 +1,7 @@
 class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :restaurant
+  validates_presence_of :mark
   validates :mark, inclusion: { in: 1..5 }
   validates :description, presence: { message: 'should exists if grade so low' }, if: :low_grade?
 

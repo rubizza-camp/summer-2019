@@ -1,20 +1,18 @@
-<div class="text-center" style="margin:30px">
+<div class="text-center" >
   <div class="media">
     <div class="media-left">
-      <%= image("../#{@restaurant.photo}", options={width: 500}) %>
+      <%= image("../#{@restaurant.photo}", {width: 500}) %>
     </div>
     <div class="media-body">
       <h2 class="media-heading"><%= @restaurant.name %></h2>
       <p> <%= @restaurant.description.gsub(/\n/, '<br>') %></p>
       <h3>RATING: <%= @restaurant.rating %></h3>
-
-      <iframe width="400" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=<%= @restaurant.lat %>%2C%20<%= @restaurant.long %>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-
+      <iframe width="400" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=<%= @restaurant.latitude %>%2C%20<%= @restaurant.longtitude%>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     </div>
   </div>
 </div>
 
-<div style="margin:30px">
+<div >
   <h3>Reviews:</h3>
   <% @restaurant.reviews.each do |review|%>
     <p><strong> <%= review.user.login %></strong> gives us  <strong><%=  review.mark %></strong> points and wrote:
@@ -22,9 +20,9 @@
   <% end %>
 </div>
 
-<div class="text-center" style="margin:30px">
+<div class="text-center">
 <% if session[:user_id] %>
-  <form action="/reviews/create" method="POST">
+  <form action="/restaurants/<%= @restaurant.id %>/reviews" method="POST">
     <p>Hi, <%= User.find(session[:user_id]).login %>! Rate us </p>
     <% (1..5).each do |num| %>
       <input type="radio" id="mark_<%=num%>" name="mark" value=<%=num%>>
@@ -33,9 +31,10 @@
     <p> Describe your expirience </p>
     <textarea name="description" cols="40" rows="5"></textarea>
     <input type="hidden" name="restaurant_id" value=<%= @restaurant.id %>>
-      <br/>
-      <input type="submit">
+    <br/>
+    <input type="submit">
   </form>
+ 
 <% else  %>
   <p>
     <a href="/sessions/signup">Sign Up</a> or 
