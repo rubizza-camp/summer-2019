@@ -9,6 +9,7 @@ require './app/controllers/sign_controller'
 require './app/controllers/snackbar_controller'
 require 'sinatra/base'
 require 'sinatra/cookies'
+require 'sinatra/strong-params'
 require 'time'
 require 'date'
 require 'active_record'
@@ -29,7 +30,8 @@ webrick_options = {
   DocumentRoot: '/ruby/htdocs',
   SSLEnable: true,
   SSLVerifyClient: OpenSSL::SSL::VERIFY_NONE,
-  SSLCertificate: OpenSSL::X509::Certificate.new(File.open(File.join('cert/', 'cert.crt')).read),
+  SSLCertificate: OpenSSL::X509::Certificate.new(File.open(File.join(CERT_PATH + '/', 'cert.crt'))
+    .read),
   SSLPrivateKey: OpenSSL::PKey::RSA.new(File.open(File.join(CERT_PATH + '/', 'private.key')).read),
   SSLCertName: [['CN', WEBrick::Utils.getservername]]
 }

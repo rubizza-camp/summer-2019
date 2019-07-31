@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
-require 'sinatra/cookies'
 require 'sinatra/base'
+require 'sinatra/cookies'
+require 'sinatra/strong-params'
 require './app/lib/user'
 
 class SignController < Sinatra::Base
+  register Sinatra::StrongParams
   helpers Sinatra::Cookies
   get('/signin') do
     erb(:signin)
   end
 
-  post('/signin') do
-    session[:current_user] = User.where(mail: params[:mail], password: params[:password]).first
+  post('/signin', needs: %i[email password]) do
+    session[:current_user] = User.where(email: params[:email], password: params[:password]).first
     redirect('/')
   end
 
@@ -19,13 +21,8 @@ class SignController < Sinatra::Base
     erb(:signup)
   end
 
-  post('/signup') do
-    session[:current_user] = User.create(
-      first_name: params[:first_name],
-      last_name: params[:last_name],
-      mail: params[:mail],
-      password: params[:password]
-    )
+  post('/signup', needs: %i[first_name last_name email password password_confirmation]) do
+    session[:current_user] = User.create(params)
     redirect('/')
   end
 

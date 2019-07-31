@@ -1,5 +1,5 @@
-<%  snackbars = SnackBar.all
-    if snackbars.length == 0
+<%
+    if @snackbars.length == 0
 %>
     <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
         <div class="alert alert-info" role="alert">
@@ -7,9 +7,9 @@
             Create new one!
         </div>
     </div>
-<% 
+<%
     else
-        snackbars.each_with_index  do |snackbar, index|
+        @snackbars.each_with_index  do |snackbar, index|
             if (index % 2.0).zero?
 %>
     <div class="row justify-content-md-center">
@@ -55,7 +55,7 @@
             </div>
         </div>
 <%
-                if index == (snackbars.length - 1) || ((index+1) % 2.0).zero?
+                if index == (@snackbars.length - 1) || ((index+1) % 2.0).zero?
 %>
     </div>  
 <%
@@ -104,7 +104,7 @@
             </div>
         </div>
 <%
-                if index == (snackbars.length - 1) || ((index+1) % 2.0).zero?
+                if index == (@snackbars.length - 1) || ((index+1) % 2.0).zero?
 %>
     </div>  
 <%

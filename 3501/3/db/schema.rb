@@ -34,7 +34,7 @@ ActiveRecord::Schema.define do # rubocop:disable Metrics/BlockLength
   create_table :users do |table|
     table.column :first_name, :string
     table.column :last_name, :string
-    table.column :mail, :string
+    table.column :email, :string
     table.column :password, :string
     table.column :session, :string
   end

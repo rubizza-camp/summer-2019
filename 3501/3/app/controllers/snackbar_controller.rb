@@ -1,26 +1,21 @@
 # frozen_string_literal: true
 
-require 'sinatra/cookies'
 require 'sinatra/base'
+require 'sinatra/cookies'
+require 'sinatra/strong-params'
 require './app/lib/user'
 
 class SnackBarController < Sinatra::Base
+  register Sinatra::StrongParams
   helpers Sinatra::Cookies
+
   get('/snackbars/new') do
     erb(:snackbars_new)
   end
 
-  post('/snackbars/new') do
-    session[:current_user].snack_bars.create(
-      description: params[:description],
-      name: params[:name],
-      photo: params[:photo],
-      telephone: params[:telephone],
-      working_time_opening: params[:working_time_opening],
-      working_time_closing: params[:working_time_closing],
-      latitude: params[:latitude],
-      longitude: params[:longitude]
-    )
+  post('/snackbars/new', needs: %i[description name photo telephone working_time_opening
+                                   working_time_closing latitude longitude]) do
+    session[:current_user].snack_bars.create(params)
     redirect('/')
   end
 

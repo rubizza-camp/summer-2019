@@ -8,10 +8,10 @@ class User < ActiveRecord::Base
   has_many :feed_backs
   has_many :snack_bars
 
-  validates :mail, uniqueness: true
-  validates :password, confirmation: true, length: { in: 8..64 }, presence: true, on: :create
+  validates :email, uniqueness: true
+  validates_confirmation_of :password
 
-  extend UserHelper
+  extend UserAdditionalHelper
 
   def update_snackbar_commnets_count_and_rait(post)
     current_snack_bar = SnackBar.find_by_id(post.params[:id])

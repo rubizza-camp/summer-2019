@@ -1,4 +1,4 @@
-module UserHelper
+module UserAdditionalHelper
   private
 
   def update_snackbar_commnets_count_and_rait(current_snack_bar, current_comments_count, post)
