@@ -2,12 +2,12 @@
 # :reek:TooManyStatements
 class CreateReviewsTable < ActiveRecord::Migration[5.2]
   def change
-    create_table :reviews do |ttt|
-      ttt.integer :grade
-      ttt.text :text
-      ttt.integer :place_id
-      ttt.integer :user_id
-      ttt.timestamps
+    create_table :reviews do |column|
+      column.integer :grade
+      column.text :text
+      column.integer :shop_id
+      column.integer :user_id
+      column.timestamps
     end
   end
 end
