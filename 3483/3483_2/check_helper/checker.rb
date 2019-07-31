@@ -4,6 +4,8 @@ require_relative '../registration/student'
 class Checker
   attr_reader :number
 
+  STUDENT_LIST = 'humans.yaml'.freeze
+
   def initialize(number)
     @number = number
   end
@@ -15,7 +17,7 @@ class Checker
   private
 
   def user_exists?
-    Student.all.any? { |student| student.number.include?(number) }
+    Student.find(number: number).any?
   end
 
   def user_not_exists?
@@ -23,6 +25,6 @@ class Checker
   end
 
   def check_number
-    @check_number ||= YAML.load_file('humans.yaml').include?(number)
+    @check_number ||= YAML.load_file(STUDENT_LIST).include?(number)
   end
 end

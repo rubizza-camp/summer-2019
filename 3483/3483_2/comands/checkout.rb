@@ -5,9 +5,9 @@ module Checkout
   include PhotoLocation
   include StudentHelper
   def checkout!(*)
-    if student_registered(from['id']) && in_camp_now
+    if student_registered(from['id']) && Student[from['id']].in_camp?
       check_data
-      left_camp
+      Student[from['id']].left_camp
     else
       respond_with :message, text: t(:not_in_camp)
     end

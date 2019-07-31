@@ -5,9 +5,9 @@ module Checkin
   include PhotoLocation
   include StudentHelper
   def checkin!(*)
-    if student_registered(from['id']) && not_in_camp_now
+    if student_registered(from['id']) && Student[from['id']].not_in_camp?
       check_data
-      came_to_camp
+      Student[from['id']].into_camp
     else
       respond_with :message, text: t(:in_camp)
     end

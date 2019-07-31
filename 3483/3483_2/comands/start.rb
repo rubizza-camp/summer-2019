@@ -12,8 +12,8 @@ module Start
   end
 
   def check_user(number = nil, *)
-    if student_entered_number_correctly(number)
-      create_user(number)
+    if student_entered_number_correctly?(number)
+      Student.create(id: from['id'], number: number, status: 'checkin')
       respond_with :message, text: t(:done)
     else
       respond_with :message, text: t(:start_error)
