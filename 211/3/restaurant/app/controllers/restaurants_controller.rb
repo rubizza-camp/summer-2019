@@ -7,7 +7,7 @@ class RestaurantsController < BaseController
 
   get '/restaurants/:id' do
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.extend(Restaurant::RestaurantDecorator)
+    @restaurant.extend(RestaurantDecorator)
     erb :'restaurants/show'
   end
 end

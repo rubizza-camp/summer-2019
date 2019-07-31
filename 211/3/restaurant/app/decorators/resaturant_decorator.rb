@@ -1,6 +1,4 @@
-require_relative '../models/restaurant.rb'
-# rubocop:disable Style/ClassAndModuleChildren
-module Restaurant::RestaurantDecorator
+module RestaurantDecorator
   def rating
     if reviews.average(:mark).nil?
       'nobody marks us yet'
@@ -21,4 +19,3 @@ module Restaurant::RestaurantDecorator
     location.split(',')[1]
   end
 end
-# rubocop:enable Style/ClassAndModuleChildren

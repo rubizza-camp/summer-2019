@@ -1,6 +1,6 @@
 <div class="row">
   <% @restaurants.each do |rest| %>
-  <% rest.extend(Restaurant::RestaurantDecorator) %>
+  <% rest.extend(RestaurantDecorator) %>
     <div class="col-md-4">
       <div class="thumbnail">
           <h3> <%= link(rest.name, "restaurants/#{rest.id}") %></h3>
