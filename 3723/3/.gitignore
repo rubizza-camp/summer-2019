@@ -1,3 +1,2 @@
-# Ignore the default SQLite database.
 db/development.sqlite
 .env

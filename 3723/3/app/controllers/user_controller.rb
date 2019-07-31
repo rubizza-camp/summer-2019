@@ -1,8 +1,10 @@
-# :reek:RepeatedConditional
+#:reek:RepeatedConditional
 class UserController < ApplicationController
+  Tilt.register Tilt::ERBTemplate, 'html.erb'
+
   get '/signup' do
     if logged_in?
-      flash[:message] = 'Already logged in'
+      flash[:notice] = 'Already logged in'
       redirect to '/'
     else
       erb :'users/create_user'
@@ -10,27 +12,19 @@ class UserController < ApplicationController
   end
 
   post '/signup' do
-    if logged_in?
-      flash[:message] = 'Already logged in'
-      redirect to '/'
-    elsif params[:username] == '' || params[:password] == '' || params[:email] == ''
-      flash[:message] = 'You must fill all forms'
-      redirect to '/signup'
-    else
-      @user = User.create(
-        username: params[:username],
-        password: params[:password],
-        email: params[:email]
-      )
-      @user.save
-      session[:user_id] = @user.id
-      redirect to '/'
-    end
+    @user = User.new(
+      username: params[:username],
+      password: params[:password],
+      email: params[:email]
+    )
+    @user.save
+    session[:user_id] = @user.id
+    redirect to '/'
   end
 
   get '/login' do
     if logged_in?
-      flash[:mesage] = 'Already logged in'
+      flash[:notice] = 'Already logged in'
       redirect to '/'
     else
       erb :'users/login'
@@ -42,7 +36,7 @@ class UserController < ApplicationController
     if @user&.authenticate(params[:password])
       session[:user_id] = @user.id
     else
-      flash[:message] = 'Incorrect password'
+      flash[:notice] = 'Incorrect password'
     end
     redirect to '/'
   end
@@ -50,7 +44,7 @@ class UserController < ApplicationController
   get '/logout' do
     if logged_in?
       session.clear
-      flash[:message] = 'You have been logged out'
+      flash[:notice] = 'You have been logged out'
       redirect to '/login'
     else
       redirect to '/'

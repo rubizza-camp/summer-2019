@@ -1,4 +1,6 @@
 class ApplicationController < Sinatra::Base
+  Tilt.register Tilt::ERBTemplate, 'html.erb'
+
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
@@ -12,6 +14,6 @@ class ApplicationController < Sinatra::Base
   end
 
   def current_user
-    @user = User.find(session[:user_id])
+    User.find(session[:user_id])
   end
 end

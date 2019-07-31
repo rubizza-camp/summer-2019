@@ -1,23 +1,19 @@
 class PlaceController < ApplicationController
-  post '/places/:id/new_comment' do
+  Tilt.register Tilt::ERBTemplate, 'html.erb'
+
+  post '/places/:id' do
     if params[:title] == '' || params[:contet] == '' || params[:rating] == ''
       flash[:message] = 'You must fill all forms'
-      redirect to '/places/:id/new_comment'
+      redirect to '/places/:id'
     else
-      user = current_user
       @comment = Comment.create(
         title: params[:title],
         rating: params[:rating],
         place_id: params[:id],
-        user_id: user.id
+        user_id: current_user.id
       )
       @place = Place.find_by_id(params[:id])
-      if @place.comments.count.positive?
-        @place.rating += @comment.rating
-        @place.update(rating: @place.rating / @place.comments.count)
-      else
-        @place.update(rating: @comment.rating)
-      end
+      rating_count(@place, @comment)
       redirect to "places/#{params[:id]}"
     end
   end
@@ -28,7 +24,18 @@ class PlaceController < ApplicationController
   end
 
   get '/places/:id' do
-    @place = Place.find_by_id(params[:id])
+    @place = Place.find(params[:id])
     erb :'places/show'
+  end
+
+  private
+
+  def rating_count(place, comment)
+    if place.comments.count.positive?
+      place.rating += comment.rating
+      place.update(rating: place.rating / place.comments.count)
+    else
+      place.update(rating: comment.rating)
+    end
   end
 end

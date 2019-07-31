@@ -3,23 +3,23 @@
 <p>Location: <%= @place.location %></p>
 <p>Description: <%= @place.description %></p>
 <p>Rating: <%= @place.rating %></p>
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 
 <% @place.comments.each do |comment| %>
   <div>
       <p>User: <%=User.find(comment.user_id).username%></p>
       <p>Message: <%= comment.title %></p>
       <p>Rating: <%= comment.rating %></p>
-      <br>
+      <br />
   </div>
 <% end %>
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 
-<form action="/places/<%= @place.id %>/new_comment" method="POST">
+<form action="/places/<%= @place.id %>" method="POST">
   <p><b>Message:</b><input type='text' name="title"></p>
   <p>
     Rating:
@@ -33,8 +33,8 @@
   </p>
   <p><input type='submit' value='Save this comment'></p>
 </form>
-<br>
-<br>
+<br />
+<br />
 
 <% if logged_in? %>
   <p>Logged as <%= current_user.email %></p>
@@ -42,4 +42,4 @@
 <% else %>
   <p><a href='/login'>Login</a></p>
 <% end %>
-<p><a href='/'>Back to index</a></p>
+<p><a href='/'>Back To Homepage</a></p>
