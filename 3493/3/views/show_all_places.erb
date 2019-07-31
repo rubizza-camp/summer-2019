@@ -2,7 +2,7 @@
 <body>
   <div class="container my-5">
     <div class="card-deck row">
-    <% @places.each do |place| %>
+    <% @places.find_each do |place| %>
       <div class="col-md-6">
         <div class="card mb-4 " style="height: 500px">
           <div class="view overlay flex-auto">

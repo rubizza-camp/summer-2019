@@ -49,7 +49,7 @@
               </div>
           </form>
           <%end%>
-          <% @place.first.reviews.each do |review| %>
+          <% @place.first.reviews.find_each do |review| %>
             <div class="row mb-4">
                 <div class="col-sm-10 col-12">
                         <h4> <%=review.user.name%></h4>
