@@ -1,33 +1,28 @@
-require_relative 'application_controller'
-
 class PostsController < ApplicationController
 
   attr_reader :post
 
-  set :views, File.expand_path('../../views', __FILE__)
-
-  get '/posts' do
+  get '/' do
     @posts = Post.all
-    erb :'post/index'
+    erb :'posts/posts.html'
   end
 
-  # get '/posts/:id' do
-  #   @post = Post.find(params[:id])
-  # end
-
-  get '/posts/create' do
-    erb :'post/new'
+  get '/post_path/:id' do
+    @post = Post.find_by(id: params[:id])
+    erb :'posts/show.html'
   end
 
-  post '/posts/create' do
+  get '/new' do
+    erb :'posts/new.html'
+  end
+
+  post '/' do
     post = Post.new(params[:post])
     if post.save
-      redirect'/posts'
+      redirect 'posts/'
     else
-      redirect '/posts/create'
+      redirect 'posts/new'
     end
   end
-
-  private
 
 end

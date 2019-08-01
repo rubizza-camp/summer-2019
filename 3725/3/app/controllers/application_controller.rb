@@ -1,16 +1,12 @@
-require 'sinatra'
-require 'sinatra/base'
-require 'sinatra/activerecord'
-require 'sinatra/flash'
-require 'pry'
-
-['posts_controller', 'users_controller'].each {|file| require_relative file }
-
 class ApplicationController < Sinatra::Base
 
-  register Sinatra::Flash
+  set :views, File.expand_path('../../views', __FILE__)
 
-  use ::PostsController
-  use ::UsersController
+  configure do
+    set :views, 'app/views/'
+    set :root, File.expand_path('../../../', __FILE__)
+  end
+
+  register Sinatra::Flash
 
 end

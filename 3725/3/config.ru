@@ -1,13 +1,10 @@
-require 'rubygems'
-require 'sinatra'
-require 'sinatra/activerecord'
-require 'sinatra/base'
-require 'active_record'
-require 'sinatra/flash'
+require 'bundler/setup'
 
-Dir.glob('./app/models/*.rb').each { |file| require file }
-Dir.glob('./app/controllers/*.rb').each { |file| require file }
+Bundler.require
 
-set :database, adapter: 'sqlite3', database: 'development.sqlite3'
+Dir.glob('./app/{models,helpers,controllers}/*.rb').each { |file| require file }
 
-map('/') { run ApplicationController }
+map('/posts') { run PostsController }
+map('/reviews') { run ReviewsController }
+map('/users') { run UsersController }
+run ApplicationController

@@ -1,68 +1,60 @@
+require_relative '../helpers/auth'
 
 class UsersController < ApplicationController
 
-  set :views, File.expand_path('../../views', __FILE__)
+  attr_reader :user
 
-  register Sinatra::Flash
-  # before_action :set_user, only: [:show, :edit, :update, :destroy]
+  include BCrypt
 
-  get '/users' do
-    @users = User.all
-    erb :'/users/index'
+  def password
+    @password ||= Password.new(password_hash)
   end
 
-  # get '/users/:id' do
-  #   erb :user_path
-  # end
-
-  get '/users/new' do
-    @user = User.new
-    erb :'users/new'
+  def password=(new_password)
+    @password = Password.create(new_password)
+    self.password_hash = @password
   end
 
-  def edit
+  get '/login' do
+    erb :'users/login'
   end
 
-  def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+  post '/login' do
+    @user = User.find_by_email(params[:email])
+    if @user.password == params[:password]
+      
+    else
+      redirect_to home_url
     end
   end
 
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+  get '/auth/sign_in' do
+    haml :sign_in
+  end
+
+  post '/auth/sign_in' do
+    user_params = params[:user]
+    user = User.find_by email: user_params[:email]
+    if user.password == user_params[:password]
+      generate_token
+      write_token_to_session
+
+      redirect to('/')
+    else
+      haml :sign_in
     end
   end
 
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+  get '/signup' do
+    erb :'users/signup'
   end
 
-  private
-    def set_user
-      @user = User.find(params[:id])
-    end
+  post '/signup' do
+    @user = User.new(params[:user])
+    @user.password = params[:password]
+    @user.save!
+    authorization
+  end
 
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
-    end
+
 end
