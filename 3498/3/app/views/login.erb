@@ -33,7 +33,7 @@
 
       <div id="main" class="eight columns">
 
-        <form class="form-horizontal" action='' method="POST">
+        <form class="form-horizontal" action='/login' method="POST">
           <fieldset>
             <h1>Sign in</h1>
              <br />
@@ -42,7 +42,7 @@
                 <!-- E-mail -->
                 <label class="control-label" for="email">E-mail</label>
                 <div class="controls">
-                  <input type="text" id="email" name="user[email]" placeholder="Enter your E-mail" class="input-xlarge" value="<%= @user.email %>">
+                  <input type="text" id="email" name="email" placeholder="Enter your E-mail" class="input-xlarge" >
                 </div>
               </div>
           

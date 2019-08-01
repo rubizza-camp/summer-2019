@@ -5,62 +5,55 @@ require 'sinatra/activerecord'
 require 'bcrypt'
 require_relative '../models/user.rb'
 require_relative '../models/place.rb'
+require_relative '../models/comment.rb'
+require_relative '../helpers/place_helper.rb'
+require_relative 'place_controller.rb'
 
-set :database, "sqlite3:food-rating.sqlite3"
+set :database, 'sqlite3:food-rating.sqlite3'
 
 class ApplicationController < Sinatra::Base
+  set :database, 'sqlite3:food-rating.sqlite3'
+  set :views, 'app/views'
 
-  set :database, "sqlite3:food-rating.sqlite3"
-  set :views, "app/views"
+  use PlaceController
+  include PlaceHelper
 
   configure do
     enable :sessions
   end
 
   get '/' do
-  	#@user = User.find(session[:user_id])
     @places = Place.all
     erb :home
   end
 
   get '/signup' do
-  	#@user = User.new
     erb :'/signup'
   end
 
   post '/registrations' do
-    @user = User.new(name: params[:name], email: params[:email], password: params[:password])
-    if params[:password].empty?
-      @error = 'Enter password!'
-      if @user.save
-      	session[:user_id] = @user.id
-      else
-        @error = 'Error'
-      end
-    end
+    @user = User.new(name: params[:username], email: params[:email], password: params[:password])
+    params[:password] ? @user.save : @error = 'Enter password!'
+    session[:user_id] = @user.id
     redirect '/'
-    #erb :home
   end
 
   get '/login' do
-    #@anon = User.new
     erb :login
   end
 
   post '/login' do
-    @user ||= User.find_by(email: params[:email])
-    #@anon = User.new(params[:user])
+    @user = User.find_by(email: params[:email])
     if @user
       if @user.password == params[:password]
-        session['user_id'] = @user.id
-        redirect '/'
+        session[:user_id] = @user.id
       else
         @error = 'Wrong password'
       end
     else
       @error = 'Wrong e-mail'
     end
-    erb :login
+    redirect '/'
   end
 
   get '/logout' do

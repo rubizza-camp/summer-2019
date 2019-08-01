@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<head>
+
+   <!--- Basic Page Needs
+   ================================================== -->
+    <meta charset="utf-8">
+	<title>Choose wisely.</title>
+
+   <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/default.css">
+	<link rel="stylesheet" href="css/layout.css">  
+	<link rel="stylesheet" href="css/media-queries.css"> 
+
+</head>
+
+<body>
+
+   <header id="top">
+
+   		<div class="row">
+
+   			<div class="header-content twelve columns">
+
+		      <h1 id="logo-text"><a href="index.html" title="">Choose wisely.</a></h1>
+
+		        <a href="/signup">Sign Up •</a>
+                <a href="/login"> Log In •</a>
+                <a href="/logout"> Log Out</a>
+                
+			</div>			
+		</div>
+	</header>
+
+  <div id="content-wrap">
+
+    <div class="row">
+
+      <div id="main" class="eight columns">
+
+        <article class="entry">
+
+          <header class="entry-header">
+
+            <h2 class="entry-title">
+              <%= @place.name %>
+            </h2>
+         
+          </header> 
+
+          <div class="entry-content">
+            <p class="lead"><%= @place.description %></p>
+            <p><%= @place.address %></p>
+            <p>Rating: <%= @average_rating %></p>
+          </div>
+
+        </article>
+
+        <!-- Comments
+            ================================================== -->
+            <div id="comments">
+
+               <h3>Comments</h3>
+
+               <!-- commentlist -->
+               <ol class="commentlist">
+
+                <% Comment.all.where(place_id: session[:place_id]).each do |comment| %>
+
+                  <li class="depth-1">
+
+
+                     <div class="comment-content">
+
+                       <div class="comment-info">
+                          <cite><%= User.find_by(id: comment.user_id).name %></cite>
+                       </div>
+
+                       <div class="comment-text">
+                          <p><%= comment.text%></p>
+                          <p>Rating: <%= comment.rating%></p>
+                       </div>
+
+                    </div>
+
+                  </li>
+
+                <% end %>
+
+               </ol> <!-- Commentlist End -->
+
+
+               <!-- respond -->
+               <div class="respond">
+
+                  <h3>Leave a Comment</h3>
+
+                  <!-- form -->
+                  <form name="contactForm" id="contactForm" method="post" action="/rate">
+               <fieldset>
+
+                     <div class="message group">
+                        <label  for="cMessage">Message <span class="required">*</span></label>
+                        <textarea name="cMessage"  id="cMessage" rows="10" cols="50" ></textarea>
+                     </div>
+
+                     <button type="submit" class="submit">Submit</button>
+
+               </fieldset>
+                </form> <!-- Form End -->
+
+               </div> <!-- Respond End -->
+
+            </div>  <!-- Comments End -->
+
+  </body>
+</html>

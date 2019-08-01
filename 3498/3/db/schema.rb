@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_31_065507) do
+ActiveRecord::Schema.define(version: 2019_08_01_065148) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "rating"
+    t.text "text"
+    t.integer "user_id"
+    t.integer "place_id"
+  end
 
   create_table "places", force: :cascade do |t|
     t.string "name"
