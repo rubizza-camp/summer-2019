@@ -46,7 +46,7 @@
       <form action="/comments" method="post">
         <div class="w3-center h4">
           <label>Leave your comment</label>
-          <textarea class="w3-input w3-border" type="text" required name="comment" required></textarea>
+          <textarea class="w3-input w3-border" type="text" name="comment" <% if @comment.star %>required></textarea>
         </div>
         <div id="reviewStars-input">
           <input id="star-4" type="radio" name="star" value="5" />

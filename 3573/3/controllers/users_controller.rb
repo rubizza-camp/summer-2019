@@ -56,6 +56,7 @@ class UsersController < ApplicationController
       redirect '/'
     else
       session[:message] = 'Invalid credentials'
+      redirect '/register'
     end
   end
 
