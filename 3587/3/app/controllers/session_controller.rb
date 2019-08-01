@@ -5,8 +5,7 @@ class SessionsController < ApplicationController
   end
 
   post '/register' do
-    if password? && @user.valid?
-      @user.save!
+    if password? && @user.valid? && @user.save
       redirect '/login'
     else
       flash[:error] = I18n.t(:incorrect_password_or_email)
