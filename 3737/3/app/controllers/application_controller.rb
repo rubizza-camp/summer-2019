@@ -1,4 +1,6 @@
 require 'bcrypt'
+require 'rack-flash'
+require 'sinatra/flash'
 require 'truemail'
 
 #:reek:InstanceVariableAssumption and :reek:UtilityFunction
@@ -12,6 +14,8 @@ class ApplicationController < Sinatra::Base
   Truemail.configure do |config|
     config.verifier_email = 'hajiwidec@freetmail.net'
   end
+
+  use Rack::Flash
 
   get '/' do
     @restaraunts = Restaraunt.all

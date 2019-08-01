@@ -17,7 +17,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect '/'
     else
-      erb :registration
+      flash[:error] = 'Wrong input'
+      redirect '/signup'
     end
   end
 
@@ -27,7 +28,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect '/'
     else
-      erb :login
+      flash[:error] = 'Wrong input'
+      redirect '/login'
     end
   end
 

@@ -32,6 +32,11 @@
       <% end %>
     </ul>
   </nav>
+  <% flash.keys.each do |type| %>
+    <div class="alert alert-danger box" role="alert">
+      <%= flash[type] %> 
+    </div>
+  <% end %>
   <br>
   <br>
 
