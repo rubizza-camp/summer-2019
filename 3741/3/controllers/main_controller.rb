@@ -2,10 +2,10 @@
 
 require 'helpers/view_helper'
 require 'helpers/user_helper'
+require 'helpers/review_helper'
 
 # main class
 class MainController < Sinatra::Base
-  Dotenv.load
   configure do
     enable :sessions
     set :session_secret, ENV['SECRET']
@@ -21,6 +21,7 @@ class MainController < Sinatra::Base
   register Sinatra::Namespace
   helpers ViewHelper
   helpers UserHelper
+  helpers ReviewHelper
 
   get '/' do
     @places = Place.all

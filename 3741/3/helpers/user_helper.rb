@@ -33,4 +33,8 @@ module UserHelper
     @user = User.find_by(email: params[:email])
     @user && @user.password == params[:password]
   end
+
+  def find_user_by_session_id
+    @user = User.find(session[:user_id])
+  end
 end
