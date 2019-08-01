@@ -1,10 +1,13 @@
-<h3>Minsk restaraunts</h3>  
-<% Restaraunt.all.each do |restaraunt| %>
-  <hr>
-  <div>
-      <p><a href="/restaraunts/<%= restaraunt.id %>">Name: <%= restaraunt.name %></a></p>
-      <p>Description: <%= restaraunt.description %></p>
-      <p>Location: <%= restaraunt.location %></p>
-      <br>
-  </div>
-<% end %>
+<div class='row' style='margin: 6px 32px'>
+  <% Restaurant.all.each do |restaurant| %>
+    <div class='col-sm-6'>
+      <div class="card m-3" style='background-color: #D2B48C'>
+        <div class="card-body">
+          <h5 class="card-title"><b><%= restaurant.name %></b></h5>
+          <p class="card-text"><%= restaurant.description %></p>
+          <a href="/restaurants/<%= restaurant.id %>" class="btn btn-primary" style='background-color: #696969'>About Restaurant</a>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -2,7 +2,7 @@ require './config/environment'
 
 use Rack::MethodOverride
 
-use RestarauntController
-use CommentController
-use UserController
+use RestaurantsController
+use CommentsController
+use UsersController
 run ApplicationController

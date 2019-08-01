@@ -5,7 +5,8 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, 'best_restaraunts'
+    set :session_secret, 'best_restaurants'
+    I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
     register Sinatra::Flash
   end
 

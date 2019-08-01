@@ -16,11 +16,11 @@ ActiveRecord::Schema.define(version: 2019_07_29_172149) do
   create_table "comments", force: :cascade do |t|
     t.string "content"
     t.integer "rating"
-    t.integer "restaraunt_id"
+    t.integer "restaurant_id"
     t.integer "user_id"
   end
 
-  create_table "restaraunts", force: :cascade do |t|
+  create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.string "location"
     t.string "description"

@@ -1,0 +1,53 @@
+
+<div class='row m-3'>
+  <div class='col-sm-12'> 
+    <div class='card' style='background-color: #D2B48C'>
+      <div class='card-body text-center'>
+        <h3 class='card-title'>Hi, this is <%= @restaurant.name %></h3>
+        <div>
+          <p>Location: <%= @restaurant.location %></p>
+          <p>Rating: <%= @rating %></p>
+          <p class='card-text'>Description: <%= @restaurant.description %></p>
+        </div>
+      </div>  
+    </div>  
+  </div>
+</div> 
+
+
+<div ml-10px><b><i> <%= @restaurant.name %>'s comments</i></b></div>
+<% @comments.all.each do |comment| %>
+  <div class='row m-4'>
+    <div class='card w-100'  style='background-color: #D2B48C'>
+      <div class='card card-body m-1'  style='background-color: #FFEBCD'>
+        <h6 class='card-subtitle mb-2 text-muted'><%= User.all.find(comment.user_id).name %></h6>
+        <h6 class='card-subtitle mb-2 text-muted'><%= User.all.find(comment.user_id).email %></h6>
+        <p class='card-text'><%= comment.content %></p>
+        <p class='card-text'><%= comment.rating %> stars</p>
+      </div>
+    </div>
+  </div>
+<% end %>
+  
+
+
+<% if logged_in?%>
+  <div class='container m-2'>
+    <h4>Add comment</h4>
+    <form action='/comments' method='post'>
+      <b>Your opinion:</b><br>
+      <textarea rows='4' cols='50' name='content'></textarea>
+      <p>
+        <select class= 'form-control' style='width: 120px;' name='rating' value=5>
+          <option value=1>1 star</option>
+          <option value=2>2 stars</option>
+          <option value=3>3 stars</option>
+          <option value=4>4 stars</option>
+          <option value=5>5 stars</option>
+        </select>
+      </p>  
+      <input type='hidden' name='restaurant_id' value='<%= @restaurant.id %>' >
+      <button type ='submit'>Send</button>
+    </form>
+  </div>  
+<% end %>
