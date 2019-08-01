@@ -1,16 +1,18 @@
-require 'sinatra/flash'
-require 'sinatra/namespace'
+require 'sinatra/reloader'
+require 'sinatra/session'
 require './config/environment'
 require_relative 'users_controller'
 
 class ApplicationController < Sinatra::Base
+
+
   configure do
-    enable :sessions
     set :views, 'app/views'
+    enable :sessions
   end
 
+  register Sinatra::Session
   register Sinatra::ActiveRecordExtension
-  register Sinatra::Flash
 
   get '/' do
     @places = Place.all

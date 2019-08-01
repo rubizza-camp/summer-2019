@@ -10,28 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# rubocop:disable Style/NumericLiterals
 ActiveRecord::Schema.define(version: 2019_07_28_203754) do
-  create_table 'places', force: :cascade do |t|
-    t.text 'name'
-    t.text 'description'
-    t.text 'locations'
+
+  create_table "places", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "locations"
+    t.integer "reviews_count"
   end
 
-  create_table 'reviews', force: :cascade do |t|
-    t.text 'text'
-    t.integer 'rating'
-    t.integer 'author'
-    t.integer 'place_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['place_id'], name: 'index_reviews_on_place_id'
+  create_table "reviews", force: :cascade do |t|
+    t.text "text"
+    t.integer "rating"
+    t.integer "author"
+    t.integer "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_reviews_on_place_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.text 'name'
-    t.text 'email'
-    t.text 'password'
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "hashed_password"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
+
 end
-# rubocop:enable Style/NumericLiterals

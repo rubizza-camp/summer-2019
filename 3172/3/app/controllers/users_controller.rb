@@ -7,29 +7,24 @@ class UsersController < ApplicationController
   end
 
   post '/login/new' do
-    hh = { user_name: 'Enter user name',
-           email:     'Enter email',
-           password:  'Enter password' }
-
-    @error = hh.select { |key| params[key] == '' }.values.join(', ')
-    return erb :login_sign_up if @error != ''
-
-    user = User.find_by name: params[:user_name]
-    @error = 'Username is busy' if user
-    return erb :login_sign_up if @error != ''
-
-    email = User.find_by email: params[:email]
-    @error = 'E-mail is busy' if email
-    return erb :login_sign_up if @error != ''
-
-    new_user = User.new
-    new_user.name = params[:user_name]
-    new_user.email = params[:email]
-    new_user.password = Digest::SHA1.hexdigest(params[:password])
-    new_user.save
-
-    session[:identity] = new_user.name
-    redirect '/'
+    new_user = User.new(
+      name: params[:user_name],
+      email: params[:email],
+      password: params[:password],
+      password_confirmation: params[:confirm_password]
+    )
+    result = new_user.save
+    case result
+    when true
+      session[:identity] = params[:user_name]
+      redirect '/'
+    when false
+      @error = new_user.errors.full_messages.first
+      erb :login_sign_up
+    else
+      @error = result
+      erb :login_sign_up
+    end
   end
 
   get '/login/sign_in' do
@@ -37,19 +32,16 @@ class UsersController < ApplicationController
   end
 
   post '/login/auth' do
-    hh = { email: 'Enter e-mail',
-           password:  'Enter password' }
+    @error = 'Enter e-mail' if params[:email] == ''
+    @error = 'Enter password' if params[:password] == ''
+    return erb :login_sign_in if @error
 
-    @error = hh.select { |key| params[key] == '' }.values.join(', ')
-    return erb :login_sign_in if @error != ''
-
-    user = User.find_by email: params[:email]
+    user = User.find_by(email: params[:email])
     @error = 'E-mail not found' unless user
-    return erb :login_sign_in if @error != ''
+    return erb :login_sign_in if @error
 
-    entered_password = Digest::SHA1.hexdigest(params[:password])
-    @error = 'Password wrong' if user.password != entered_password
-    return erb :login_sign_in if @error != ''
+    @error = 'Password wrong' if user.try(:authenticate, params[:password]) == false
+    return erb :login_sign_in if @error
 
     session[:identity] = user.name
     redirect '/'

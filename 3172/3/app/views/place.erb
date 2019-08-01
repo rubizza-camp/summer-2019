@@ -4,8 +4,7 @@
 <p><%= "locations: #{@place.locations}" %></p>
 <p><%= "rating: #{@average_rating}" %></p>
 <hr>
-
-<% if @place.reviews.count > 0 %>
+<% if @place.reviews_count %>
     <h3>Reviews:</h3>
     <% @place.reviews.each do |review| %>
       <p><%= "#{review.text} #{review.rating}"%></p>
