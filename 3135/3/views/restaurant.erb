@@ -22,7 +22,7 @@
 <% end %>
 
 <% if current_user %>
-  <form method="POST" action="/restaurant/<%= @restaurant.id %>/review">
+  <form method="POST" action="/restaurants/<%= @restaurant.id %>/review">
     <hr>
     <h3>Add your review:</h3>
     <p>rating:

@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
-# require 'pry'
+require 'pry'
 
 set :database, 'sqlite3:db/database.sqlite3'
 
@@ -57,18 +57,21 @@ end
 
 # add_review
 post '/restaurants/:id/review' do
-  review = Review.new({
-                       user_id: @current_user.id, 
-                       restaurant_id: params[:id], 
-                       rating: params[:rating],
-                       description: params[:description]
-                      })
-  flash[:error] = review.errors.full_messages.join('; ') unless review.save
-
+  if current_user
+    review = Review.new({
+                         user_id: current_user.id, 
+                         restaurant_id: params[:id], 
+                         rating: params[:rating],
+                         description: params[:description]
+                        })
+    flash[:error] = review.errors.full_messages.join('; ') unless review.save
+  else
+    flash[:error] = 'Review post requested with no user currently logged in!'
+  end
   redirect back
 end
 
-# restaurants_in_detail
+# restaurant
 get '/restaurants/:id' do
   @restaurant = Restaurant.find(params[:id])
   @average_rating = @restaurant.reviews.average(:rating)
