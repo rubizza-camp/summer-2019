@@ -1,0 +1,44 @@
+<div class="text-center" >
+  <div class="media">
+    <div class="media-left">
+      <%= image("../#{@restaurant.photo}", {width: 500}) %>
+    </div>
+    <div class="media-body">
+      <h2 class="media-heading"><%= @restaurant.name %></h2>
+      <p> <%= @restaurant.description.gsub(/\n/, '<br>') %></p>
+      <h3>RATING: <%= @restaurant.rating %></h3>
+      <iframe width="400" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=<%= @restaurant.latitude %>%2C%20<%= @restaurant.longtitude%>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
+  </div>
+</div>
+
+<div >
+  <h3>Reviews:</h3>
+  <% @reviews.each do |review|%>
+    <p><strong> <%= review.user.name %></strong> gives us  <strong><%=  review.mark %></strong> points and wrote:
+    <%= review.description %></p>
+  <% end %>
+</div>
+
+<div class="text-center">
+<% if session[:user_id] %>
+  <form action="/restaurants/<%= @restaurant.id %>/reviews" method="POST">
+    <p>Hi, <%= @current_user.name %>! Rate us </p>
+    <% (1..5).each do |num| %>
+      <input type="radio" id="mark_<%=num%>" name="mark" value=<%=num%>>
+      <label for="mark_<%=num%>"><%=num%></label>
+    <% end %>  
+    <p> Describe your expirience </p>
+    <textarea name="description" cols="40" rows="5"></textarea>
+    <br/>
+    <input type="submit">
+  </form>
+ 
+<% else  %>
+  <p>
+    <a href="/sessions/signup">Sign Up</a> or 
+    <a href="/sessions/login">Log In</a>
+  to leave comment
+  </p>
+<% end  %>
+</div>

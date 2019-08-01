@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+gem 'activerecord'
+gem 'bcrypt', '~> 3.1.7'
+gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
+gem 'rake'
+gem 'sinatra-activerecord'
+gem 'sinatra-contrib'
+gem 'sinatra-flash'
+gem 'sinatra-formhelpers-ng'
+gem 'sqlite3'

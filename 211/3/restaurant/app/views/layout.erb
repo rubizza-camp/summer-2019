@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FoodAdvisor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">FoodAdvisor</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li ><a href="/">All restaurants</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <% if session[:user_id] %>
+        <li>
+          <a href='/sessions/logout'>Log Out</a>
+        </li>
+      <% else %>
+        <li>
+          <a href='/sessions/login'>Log In</a></li>
+        <li>
+          <a href='/sessions/signup'>Sign Up</a>
+        </li>
+      <% end %>      
+    </ul>
+  </div>
+  </nav>
+  
+  <%= flash_notice(flash) if flash.keys.any?(:notice)%> 
+  <%= flash_error(flash) if flash.keys.any?(:error)%> 
+
+  <div class="container">
+    <%= yield %>
+  </div>
+
+</body>
+</html>
