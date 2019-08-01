@@ -1,0 +1,15 @@
+source 'https://rubygems.org' do
+  gem 'bcrypt', '~>3.1.13'
+  gem 'bootstrap', '~> 4.3', '>= 4.3.1'
+  gem 'rake', '~>12.3.3'
+  gem 'require_all', '~>2.0.0'
+  gem 'sinatra', '~>2.0.5'
+  gem 'sinatra-activerecord', '~>2.0.13'
+  gem 'sinatra-flash', '~>0.3.0'
+  gem 'sqlite3', '~>1.4.1'
+end
+
+group :development do
+  gem 'pry'
+  gem 'tux'
+end

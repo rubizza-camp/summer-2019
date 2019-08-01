@@ -1,0 +1,13 @@
+en:
+  already_logged_in: "You were already logged in"
+  success_registration: "Congratulations, you successfully registered"
+  success_login: "Successfully logged in"
+  bad_credentials: "Your email or password were not correct. Please try again."
+  logged_out: "You have been logged out of your account."
+  empty_comment_content: "You have to write what's wrong"
+  null_rating: "Has no rating yet"
+  incorrect_email: "Email isn't correct"
+  already_taken_email: "This email already taken"
+  already_taken_name: "This name already taken"
+  empty_name: "Name can't be empty"
+  empty_password: "Password can't be empty"
