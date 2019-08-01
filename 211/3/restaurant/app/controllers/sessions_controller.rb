@@ -11,14 +11,14 @@ class SessionsController < BaseController
     end
 
     post '/signup' do
-      user = User.new(login: params[:login], email: params[:email],
+      user = User.new(name: params[:name], email: params[:email],
                       password: params[:password])
       if user.save
         session[:user_id] = user.id
         flash[:notice] = 'You signed in sucessfuly'
         redirect '/'
       else
-        flash[:error] = user.errors.full_messages
+        flash[:error] = user.errors
         redirect :'/sessions/signup'
       end
     end
@@ -39,7 +39,7 @@ class SessionsController < BaseController
         flash[:notice] = 'You logged in sucessfuly'
         redirect '/'
       else
-        flash[:error] = ['Something went wrong']
+        flash[:notice] = 'Something went wrong'
         redirect '/sessions/login'
       end
     end

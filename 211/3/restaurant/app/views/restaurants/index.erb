@@ -1,15 +1,14 @@
 <div class="row">
   <% @restaurants.each do |rest| %>
-  <% rest.extend(RestaurantDecorator) %>
     <div class="col-md-4">
       <div class="thumbnail">
-          <h3> <%= link(rest.name, "restaurants/#{rest.id}") %></h3>
-          <%= image(rest.photo) %>
-          <div class="caption">
-          	<h4>RATING: <%= rest.rating %></h4>
-            <p><%= rest.location %></p>
-            <p><%= rest.short_description %></p>
-          </div>
+        <h3> <%= link(rest.name, "restaurants/#{rest.id}") %></h3>
+        <%= image(rest.photo) %>
+        <div class="caption">
+        	<h4>RATING: <%= rest.rating %></h4>
+          <p><%= rest.location %></p>
+          <p><%= rest.short_description %></p>
+        </div>
       </div>
     </div>
   <% end %>

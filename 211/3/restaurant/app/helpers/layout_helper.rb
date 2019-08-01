@@ -1,14 +1,11 @@
 module LayoutHelper
-  def flash_messages(hash)
-    type = hash.keys.first
-    message = hash[type]
-    case type
-    when :notice
-      role = 'info'
-    when :error
-      role = 'danger'
-      message = message.join(', ')
-    end
-    "<div class='alert alert-#{role}'> #{message} </div>"
+  def flash_notice(hash)
+    message = hash.values.first
+    "<div class='alert alert-info'> #{message} </div>"
+  end
+
+  def flash_error(hash)
+    message = hash.values.first.full_messages
+    "<div class='alert alert-danger'> #{message.join(', ')} </div>"
   end
 end

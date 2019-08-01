@@ -14,8 +14,8 @@
 
 <div >
   <h3>Reviews:</h3>
-  <% @restaurant.reviews.each do |review|%>
-    <p><strong> <%= review.user.login %></strong> gives us  <strong><%=  review.mark %></strong> points and wrote:
+  <% @reviews.each do |review|%>
+    <p><strong> <%= review.user.name %></strong> gives us  <strong><%=  review.mark %></strong> points and wrote:
     <%= review.description %></p>
   <% end %>
 </div>
@@ -23,7 +23,7 @@
 <div class="text-center">
 <% if session[:user_id] %>
   <form action="/restaurants/<%= @restaurant.id %>/reviews" method="POST">
-    <p>Hi, <%= User.find(session[:user_id]).login %>! Rate us </p>
+    <p>Hi, <%= @current_user.name %>! Rate us </p>
     <% (1..5).each do |num| %>
       <input type="radio" id="mark_<%=num%>" name="mark" value=<%=num%>>
       <label for="mark_<%=num%>"><%=num%></label>

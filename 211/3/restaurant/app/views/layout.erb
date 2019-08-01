@@ -29,7 +29,8 @@
   </div>
   </nav>
   
-  <%= flash_messages(flash) unless flash.empty?%> 
+  <%= flash_notice(flash) if flash.keys.any?(:notice)%> 
+  <%= flash_error(flash) if flash.keys.any?(:error)%> 
 
   <div class="container">
     <%= yield %>
