@@ -1,0 +1,23 @@
+<h1 style="text-align:center">Welcome to the restaurant rating page!</h1>
+
+<div style="text-align:center">
+  <a href ='/singup'><button style="width: 110px; height: 40px;">Sing Up</button></a>
+  <a href ='/login'><button style="width: 110px; height: 40px;">Log In</button></a>
+</div>
+
+<% @a = []
+Restaurant.all.each do |res|
+  @a << res.name
+  @a << res.description
+  @a << res.location
+end 
+
+@a.each_slice(3) do |a, b, c| %>
+  <div style='text-align:center;display:block;'>
+    <a href ='#'><h3>"<%= "#{a}"%>" (click to see more)</h3></a>
+    <ul style='list-style:none;'>
+      <li><p><b>Short description:</b> <%= "#{b}" %></p></li>
+      <li><p><b>Location:</b> <%= "#{c}" %></p></li>
+    </ul>
+  </div>
+<% end %>
