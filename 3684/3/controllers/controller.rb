@@ -1,6 +1,5 @@
 require_relative 'application_controller'
 require 'bcrypt'
-PREV_ROUT_FIRST_SYMBOL = 22
 
 class Controller < ApplicationController
   get '/' do
@@ -9,7 +8,7 @@ class Controller < ApplicationController
   end
 
   get '/restaurant/:id' do
-    @restaurant = Restaurant.find_by(params[:id])
+    @restaurant = Restaurant.find(params[:id])
     @comments = Comment.includes(:user).where(restaurant_id: @restaurant.id)
     @restaurant.update(score: count_score(@comments))
     erb :show
@@ -54,19 +53,17 @@ class Controller < ApplicationController
   end
 
   post '/leave_comment' do
-    hash = {
-      text: params['text'],
-      score: params['score'],
-      user_id: session[:user_id],
-      restaurant_id: session['rest_id']
-    }
+    hash = { text: params['text'],
+             score: params['score'],
+             user_id: session[:user_id],
+             restaurant_id: session['rest_id'] }
     new_comment = Comment.new(hash)
     if new_comment.valid?
       new_comment.save
     else
       flash[:message] = new_comment.errors.messages.values.first[0]
     end
-    redirect "/#{@env['HTTP_REFERER'].slice(PREV_ROUT_FIRST_SYMBOL..@env['HTTP_REFERER'].length)}"
+    redirect back
   end
 
   private
