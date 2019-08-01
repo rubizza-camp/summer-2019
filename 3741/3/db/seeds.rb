@@ -8,7 +8,7 @@ users.each do |u|
   User.create(u)
 end
 
-cafes = [{ name: 'Stepantsminda', lat: 42.652220, lon: 44.645830,
+place = [{ name: 'Stepantsminda', lat: 42.652220, lon: 44.645830,
            short_info: ' is a townlet in Georgia',
            description: 'Town is located along the banks of the Terek River'\
 ', 157 kilometers (98 mi) to the north of Tbilisi at an elevation of 1,740'\
@@ -33,6 +33,6 @@ cafes = [{ name: 'Stepantsminda', lat: 42.652220, lon: 44.645830,
      ' and Kobe. '\
      ' As of 2018, the city has a population of 1.47 million.' }]
 
-cafes.each do |cafe|
-  Place.create(cafe)
+place.each do |place|
+  Place.create(place)
 end
