@@ -3,4 +3,4 @@ If you run application first:
 ```rake db:migrate```
 ```rake db:seed```
 Then in project folder:
-```ruby db/seeds.rb```
+```shotgun```
