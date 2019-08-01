@@ -8,25 +8,21 @@ class UsersController < ApplicationController
                           password: params[:password])
       save_user_in_session new_user
     else
-      session[:message] = 'Password not equals'
+      'Password not equals'
     end
   end
 
   post '/login' do
     if user && user.password == params[:password]
       session[:user_id] = user[:id].to_s
+      'Done'
     else
-      session[:message] = 'Password or email is incorrect'
+      'Password or email is incorrect'
     end
-    redirect_back
   end
 
   get '/delete_user_from_session' do
     delete_from_session :user_id
-  end
-
-  get '/delete_message_from_session' do
-    delete_from_session :message
   end
 
   private
@@ -39,8 +35,9 @@ class UsersController < ApplicationController
   def save_user_in_session(new_user)
     if new_user.save
       session[:user_id] = user[:id].to_s
+      'Done'
     else
-      session[:message] = 'Invalid credentials'
+      'Invalid credentials'
     end
   end
 

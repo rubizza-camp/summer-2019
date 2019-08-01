@@ -13,8 +13,13 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("registration").style.display = "block";
     });
 
-    document.getElementById("closeRegistration").addEventListener("click", function() {
+
+    document.getElementById("exitRegistration").addEventListener("click", function() {
         document.getElementById("registration").style.display = "none";
+    });
+
+    document.getElementById("exitLogin").addEventListener("click", function() {
+        document.getElementById("login").style.display = "none";
     });
 
     document.getElementById("openLogin").addEventListener("click", function() {
@@ -26,13 +31,5 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("openRegistrationFromLogin").addEventListener("click", function() {
         document.getElementById("login").style.display = "none";
         document.getElementById("registration").style.display = "block";
-    });
-
-    document.getElementById("closeLogin").addEventListener("click", function() {
-        document.getElementById("login").style.display = "none";
-    });
-
-    document.getElementById("closeError").addEventListener("click", function() {
-        document.getElementById("error").style.display = "none";
     });
 });

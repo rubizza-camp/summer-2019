@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :password_hash, presence: true
   validates_format_of :email, with: /@/
+  validates :email, uniqueness: { case_sensitive: false, message: I18n.t(:already_taken_email) }
 
   def password
     Password.new(password_hash)

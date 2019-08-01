@@ -3,6 +3,7 @@
 require 'bundler/setup'
 
 Bundler.require
+require 'sinatra/json'
 
 set :database, adapter: 'sqlite3', database: 'places.sqlite3'
 
