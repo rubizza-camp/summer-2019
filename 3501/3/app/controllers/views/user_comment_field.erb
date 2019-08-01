@@ -1,6 +1,4 @@
-<%
-    if @current_user
-%>
+<% if @current_user %>
     <form class="was-validated" method="POST" action="/snackbars/<%= @current_snack_bar.id %>/new_comment">
         <div class="row justify-content-between">
             <div class="col mb-3 user_comment_create" style = "margin-bottom: 0px !important;">
@@ -37,9 +35,7 @@
             </div>
         </div>
     </form>
-<%
-    else
-%>
+<% else %>
     <div class="row justify-content-between d-flex justify-content-between" style="min-height: 50px;">
         <div class="col mb-3 user_comment_create p-2 pl-5 pr-5" style = "margin-bottom: 0px !important; max-height: unset;">
             <i class="material-icons p-1">
@@ -60,6 +56,4 @@
             </button>
         </div>
     </div>
-<%
-    end
-%>
+<% end %>

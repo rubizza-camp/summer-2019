@@ -7,7 +7,7 @@ require 'time'
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  extend UserAdditionalHelper
+  extend Helper::UsersAdditionalHelper
 
   has_many :feed_backs
   has_many :snack_bars

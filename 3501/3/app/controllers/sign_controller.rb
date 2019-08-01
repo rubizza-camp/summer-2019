@@ -18,7 +18,7 @@ class SignController < Sinatra::Base
   post('/signin', needs: %i[email password]) do
     session[:user_id] = User.sign_in_user(self).id
     redirect('/')
-  rescue UserWrongPasswordOrEmailError => error
+  rescue UserWrongCredentialsError => error
     flash.now[:error] = error.message
     erb(:signin)
   end
@@ -27,8 +27,7 @@ class SignController < Sinatra::Base
     erb(:signup)
   end
 
-  post('/signup', allows: %i[first_name last_name email password password_confirmation],
-                  needs: %i[first_name last_name email password password_confirmation]) do
+  post('/signup', needs: %i[first_name last_name email password password_confirmation]) do
     User.sign_up_user(self)
     redirect('/')
   rescue UserEmailOccupiedError, UserPasswordNotMatchError => error

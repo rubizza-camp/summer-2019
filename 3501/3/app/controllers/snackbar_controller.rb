@@ -14,9 +14,7 @@ class SnackBarController < Sinatra::Base
     erb(:snackbars_new)
   end
 
-  post('/snackbars/new', allows: %i[description name photo telephone working_time_opening
-                                    working_time_closing latitude longitude],
-                         needs: %i[description name photo telephone working_time_opening
+  post('/snackbars/new', needs: %i[description name photo telephone working_time_opening
                                    working_time_closing latitude longitude]) do
     User.find_by_id(session[:user_id]).snack_bars.create(params)
     redirect('/')
@@ -26,11 +24,11 @@ class SnackBarController < Sinatra::Base
     @current_user = User.find_by_id(session[:user_id])
     return redirect('/') unless (@current_snack_bar = SnackBar.find_by_id(params['id']))
 
+    @snack_bar_feed_backs = @current_snack_bar.feed_backs
     erb(:snackbar)
   end
 
-  post('/snackbars/:id/new_comment', allows: %i[id content rating],
-                                     needs: %i[id content rating]) do
+  post('/snackbars/:id/new_comment', needs: %i[id content rating]) do
     User.find_by_id(session[:user_id]).feed_backs.create(
       snack_bar_id: params[:id],
       content: params[:content],

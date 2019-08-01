@@ -1,6 +1,4 @@
-<%
-    if @snackbars.length == 0
-%>
+<% if @snackbars.length == 0 %>
     <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
         <div class="alert alert-info" role="alert">
             No one snack bars exists.
@@ -54,12 +52,10 @@
                 </div>
             </div>
         </div>
-<%
-                if index == (@snackbars.length - 1) || index.odd?
-%>
+            <% if index == (@snackbars.length - 1) || index.odd? %>
     </div>  
 <%
-                end
+               end
             else
 %>
         <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
@@ -103,12 +99,11 @@
                 </div>
             </div>
         </div>
-<%
-                if index == (@snackbars.length - 1) || index.odd?
-%>
+
+            <% if index == (@snackbars.length - 1) || index.odd? %>
     </div>  
 <%
-                end
+               end
             end
         end
     end

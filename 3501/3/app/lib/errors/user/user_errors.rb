@@ -1,4 +1,4 @@
-class UserWrongPasswordOrEmailError < RuntimeError
+class UserWrongCredentialsError < RuntimeError
 end
 
 class UserEmailOccupiedError < RuntimeError
