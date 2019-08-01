@@ -1,5 +1,5 @@
 require_relative 'helper/user_module_helper'
-require_relative 'helper/user_default_error'
+require './app/lib/errors/user/user_errors'
 require 'active_record'
 require 'securerandom'
 require 'date'
@@ -7,13 +7,13 @@ require 'time'
 require 'bcrypt'
 
 class User < ActiveRecord::Base
+  extend UserAdditionalHelper
+
   has_many :feed_backs
   has_many :snack_bars
 
   validates :email, uniqueness: true
   validates_confirmation_of :password
-
-  extend UserAdditionalHelper
 
   def update_snackbar_commnets_count_and_rait(post)
     current_snack_bar = SnackBar.find_by_id(post.params[:id])

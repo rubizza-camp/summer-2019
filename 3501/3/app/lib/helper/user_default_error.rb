@@ -1,2 +1,0 @@
-class UserDefaultError < RuntimeError
-end

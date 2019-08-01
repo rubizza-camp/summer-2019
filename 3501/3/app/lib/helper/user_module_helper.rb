@@ -6,21 +6,23 @@ module UserAdditionalHelper
 
   def sign_up_user(post)
     post.session[:user_id] = try_create_user(post).id
-    raise(UserDefaultError, 'Почтовый адрес уже привязан!') unless post.session[:user_id]
+    raise(UserEmailOccupiedError, 'Почтовый адрес уже привязан!') unless post.session[:user_id]
   end
 
   private
 
-  # :reek:FeatureEnvy
   def check_password_confirmation(post)
-    raise(UserDefaultError, 'Пароль не совпадает!') if post.params[:password] !=
-                                                       post.params[:password_confirmation]
+    raise(UserPasswordNotMatchError, 'Пароль не совпадает!') unless password_same?(post.params)
+  end
+
+  def password_same?(params)
+    params[:password] == params[:password_confirmation]
   end
 
   def check_bcrypt_password(post, user)
     return user if user && BCrypt::Password.new(user[:password]) == post.params[:password]
 
-    raise(UserDefaultError, 'Неверная почта либо пароль!')
+    raise(UserWrongPasswordOrEmailError, 'Неверная почта либо пароль!')
   end
 
   # :reek:FeatureEnvy

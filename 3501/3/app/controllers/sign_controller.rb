@@ -4,7 +4,7 @@ require 'sinatra/flash'
 require 'sinatra/base'
 require 'sinatra/cookies'
 require 'sinatra/strong-params'
-require './app/lib/helper/user_default_error'
+require './app/lib/errors/user/user_errors'
 require './app/lib/user'
 
 class SignController < Sinatra::Base
@@ -15,10 +15,10 @@ class SignController < Sinatra::Base
     erb(:signin)
   end
 
-  post('/signin', allows: %i[email password], needs: %i[email password]) do
+  post('/signin', needs: %i[email password]) do
     session[:user_id] = User.sign_in_user(self).id
     redirect('/')
-  rescue UserDefaultError => error
+  rescue UserWrongPasswordOrEmailError => error
     flash.now[:error] = error.message
     erb(:signin)
   end
@@ -31,7 +31,7 @@ class SignController < Sinatra::Base
                   needs: %i[first_name last_name email password password_confirmation]) do
     User.sign_up_user(self)
     redirect('/')
-  rescue UserDefaultError => error
+  rescue UserEmailOccupiedError, UserPasswordNotMatchError => error
     flash.now[:error] = error.message
     erb(:signup)
   end
