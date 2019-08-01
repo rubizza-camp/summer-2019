@@ -1,4 +1,4 @@
-require_relative '../decorators/resaturant_decorator.rb'
+require_relative '../decorators/restaurant_decorator.rb'
 class RestaurantsController < BaseController
   get '/' do
     @restaurants = Restaurant.all
