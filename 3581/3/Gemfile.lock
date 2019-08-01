@@ -34,6 +34,7 @@ GEM
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
     builder (3.2.3)
+    coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     dotenv (2.7.4)
@@ -52,6 +53,9 @@ GEM
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     popper_js (1.14.5)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     rack (2.0.7)
     rack-flash3 (1.0.5)
       rack
@@ -117,6 +121,7 @@ DEPENDENCIES
   bootstrap (= 4.3.1)
   dotenv
   i18n (= 1.6.0)
+  pry
   rack-flash3 (= 1.0.5)
   rake (= 12.3.3)
   require_all (= 2.0.0)

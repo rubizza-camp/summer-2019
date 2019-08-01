@@ -4,19 +4,11 @@ class PlaceController < ApplicationController
     erb :index
   end
 
-  get '/place/:id' do
+  get '/places/:id' do
     @place = Place.find(params[:id])
-    @review = Review.where(place_id: params[:id]).reverse
-    average_score if @review.count.positive?
+    @reviews = @place.reviews.reverse
+    @average_score = @place.reviews.average(:grade).to_f.truncate(1)
     flash[:error] = I18n.t(:unregistered_user) unless session?
     erb :place
-  end
-
-  attr_reader :review
-
-  private
-
-  def average_score
-    @average_score = review.pluck(:grade).inject(&:+) / review.count
   end
 end

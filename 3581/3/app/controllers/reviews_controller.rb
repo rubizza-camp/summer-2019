@@ -4,6 +4,6 @@ class ReviewController < ApplicationController
     @review = Review.create(text: params['text'], grade: params['grade'].to_i,
                             place_id: params[:id], user_id: session[:user_id])
     @review.save
-    redirect "/place/#{params[:id]}"
+    redirect "/places/#{params[:id]}"
   end
 end
