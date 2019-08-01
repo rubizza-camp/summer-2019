@@ -1,3 +1,4 @@
+# rubocop:disable all
 places = [
   [ name: 'Wood & Fire',
     short_description: 'Wood&Fire – место для отдыха, в котором есть все.',

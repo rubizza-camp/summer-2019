@@ -9,6 +9,7 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
+# rubocop:disable all
 
 ActiveRecord::Schema.define(version: 2019_07_30_130537) do
 

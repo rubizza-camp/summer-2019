@@ -1,13 +1,15 @@
 class CreatePlacesTable < ActiveRecord::Migration[5.2]
-  def up
-    create_table :places do |p|
-      p.string :name
-      p.string :rating
-      p.string :address
-      p.string :image_url
-      p.string :description
-      p.string :short_description
-      p.string :timestamps
+  #:reek:FeatureEnvy
+  #:reek:TooManyStatements
+  def change
+    create_table :places do |place|
+      place.string :name
+      place.string :rating
+      place.string :address
+      place.string :image_url
+      place.string :description
+      place.string :short_description
+      place.string :timestamps
     end
   end
 end
