@@ -1,0 +1,2 @@
+class UserDefaultError < RuntimeError
+end

@@ -1,4 +1,5 @@
 require_relative 'helper/user_module_helper'
+require_relative 'helper/user_default_error'
 require 'active_record'
 require 'securerandom'
 require 'date'

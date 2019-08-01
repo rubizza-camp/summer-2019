@@ -4,12 +4,34 @@ module UserAdditionalHelper
     check_bcrypt_password(post, user)
   end
 
+  def sign_up_user(post)
+    post.session[:user_id] = try_create_user(post).id
+    raise(UserDefaultError, 'Почтовый адрес уже привязан!') unless post.session[:user_id]
+  end
+
   private
 
+  # :reek:FeatureEnvy
+  def check_password_confirmation(post)
+    raise(UserDefaultError, 'Пароль не совпадает!') if post.params[:password] !=
+                                                       post.params[:password_confirmation]
+  end
+
   def check_bcrypt_password(post, user)
-    return user if user && BCrypt::Password.new(
-      user[:password]
-    ) == post.params[:password]
+    return user if user && BCrypt::Password.new(user[:password]) == post.params[:password]
+
+    raise(UserDefaultError, 'Неверная почта либо пароль!')
+  end
+
+  # :reek:FeatureEnvy
+  def try_create_user(post)
+    check_password_confirmation(post)
+    User.create(
+      first_name: post.params[:first_name],
+      last_name: post.params[:last_name],
+      email: post.params[:email],
+      password: BCrypt::Password.create(post.params[:password]).to_s
+    )
   end
 
   def update_snackbar_commnets_count_and_rait(current_snack_bar, current_comments_count, post)
