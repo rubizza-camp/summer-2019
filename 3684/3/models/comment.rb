@@ -9,7 +9,6 @@ class Comment < ActiveRecord::Base
                                     less_than_or_equal_to: 5,
                                     message: 'Введите целое число не меньше 1 и не больше 5' }
   validates :text, presence: { message: 'Поясните, почему балл такой низкий' }, if: :to_low_score?
-
   belongs_to :user
   belongs_to :restaurant
 

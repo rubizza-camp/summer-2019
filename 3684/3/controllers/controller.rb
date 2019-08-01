@@ -14,11 +14,6 @@ class Controller < ApplicationController
     erb :show
   end
 
-  post '/logout' do
-    session[:user_id] = false
-    redirect '/'
-  end
-
   get '/login' do
     erb :login_page
   end
@@ -28,11 +23,14 @@ class Controller < ApplicationController
   end
 
   post '/registrate' do
-    password = BCrypt::Password.create(params['password'])
-    hash = { name: params['name'], email: params['email'].downcase, password: password }
+    hash = { name: params['name'],
+             email: params['email'].downcase,
+             password: params['password'],
+             password_confirmation: params['password_confirmation'] }
     new_user = User.new(hash)
     if new_user.valid?
-      new_user.save
+      new_user.password = BCrypt::Password.create(params['password'])
+      new_user.save(validate: false)
       session[:user_id] = User.last.id
       redirect '/'
     else
@@ -64,6 +62,11 @@ class Controller < ApplicationController
       flash[:message] = new_comment.errors.messages.values.first[0]
     end
     redirect back
+  end
+
+  post '/logout' do
+    session[:user_id] = false
+    redirect '/'
   end
 
   private
