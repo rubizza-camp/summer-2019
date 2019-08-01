@@ -1,5 +1,3 @@
-require 'pry'
-
 class RestaurantsController < ApplicationController
   get '/' do
     @restaurants = Restaurant.all
@@ -12,11 +10,7 @@ class RestaurantsController < ApplicationController
 
   get '/restaurants/:id' do
     @restaurant = Restaurant.find(params[:id])
-    unless @restaurant
-      flash[:message] = 'This restautant is out of our scope'
-      redirect '/'
-    end
-    @comments = Comment.where(restaurant_id: params[:id])
+    @raiting = @restaurant.comments.average(:mark).round
     if logged_in?
       slim :'restaurant/for_logged_in_users', layout: :'layouts/restaurant'
     else

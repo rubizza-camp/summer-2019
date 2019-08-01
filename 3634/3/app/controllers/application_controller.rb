@@ -12,12 +12,10 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
+    # rubocop:disable Style/DoubleNegation
     def logged_in?
-      session[:user_id]
+      !!session[:user_id]
     end
-
-    def current_user
-      User.find(session[:user_id])
-    end
+    # rubocop:enable Style/DoubleNegation
   end
 end

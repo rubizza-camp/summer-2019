@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2019_07_25_084101) do
   # rubocop:enable Style/NumericLiterals
   create_table 'comments', force: :cascade do |t|
     t.integer 'mark', null: false
-    t.text 'annotation', null: false
+    t.text 'annotation'
     t.integer 'user_id', null: false
     t.integer 'restaurant_id', null: false
     t.datetime 'created_at', null: false

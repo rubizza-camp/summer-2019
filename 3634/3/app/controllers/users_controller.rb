@@ -29,21 +29,22 @@ class UsersController < ApplicationController
   end
 
   post '/register' do
-    if params[:name].empty? || params[:email].empty? || params[:password].empty?
-      flash[:message] = "Please don't leave blank content"
-    else
-      @user = User.create(
-        name: params[:name],
-        email: params[:email],
-        password: params[:password]
-      )
+    @user = User.new(
+      name: params[:name],
+      email: params[:email],
+      password: params[:password]
+    )
+    if @user.valid?
+      @user.save!
       session[:user_id] = @user.id
       flash[:message] = 'Yay! Registration is successful!'
       redirect '/'
+    else
+      flash[:message] = 'Please, fill in the fields correctly'
     end
   end
 
-  get '/logout' do
+  delete '/logout' do
     session.clear
     flash[:message] = 'You have been logged out'
     redirect '/'

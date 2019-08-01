@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title Restaurants annotations
+    meta content="text/html" charset="UTF-8" http-equiv="Content-Type"
+    link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+  body.bg-dark
+    .container.w-25.p-4.text-light
+      p.text-right
+          a{href="/" class="text-light"} CLOSE
+      h1.m-4.text-center Register
+      .border.m-4
+        <form action="/register" method="POST">
+          <p class="text-center m-3">Name: <input type='text' id='name' name="name"></p>
+          <p class="text-center m-3">Email: <input type='text' id='email' name="email"></p>
+          <p class="text-center m-3">Password: <input type='password' id='password' name="password"></p>
+          <div class="text-center m-3"><button type='Submit' class='btn btn-primary'>Register</button></div>
+        </form>
+        p.m-3.text-center Back to
+        p.text-center
+          a{href="/login" class="text-light"} Login

@@ -16,10 +16,11 @@ html
           | #{@restaurant.latitude} &nbsp;&nbsp;
           | Longitude:&nbsp;&nbsp;
           | #{@restaurant.longitude}
+        p.m-3.text-center Average mark: #{@raiting}
         .text-center
           == yield
         h3.m-3.text-center Commentary:
-        - @comments.each do |comment|
+        - @restaurant.comments.each do |comment|
           .container.w-50
             .border.m-4
               h3.m-2.text-center = comment.user_id
