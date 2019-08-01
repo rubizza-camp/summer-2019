@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>MUNCH BUNCH</title>
+  </head>
+
+  <body> 
+    <div>
+      <% if current_user %>
+        <%= current_user.username %>
+        <a href="/logout">log out</a>
+      <% else %>
+        <a href="/login">login</a>
+        <a href="/registration">register</a>
+      <% end %>
+      <hr>
+    </div>
+
+    <div align="center">
+      <h1><a href="/" style="text-decoration: none">MUNCH BUNCH</a></h1>
+    </div>
+
+    <div>
+      <%= yield %>
+
+      <% flash.keys.each do |type| %>
+        <% if type == :notice %>
+        <%= flash[:notice] %>
+        <% end %>
+
+        <% if type == :error %>
+        <%= flash[:error].full_messages.join('; ') %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div align="right">
+      <hr>
+      rubizza MMXIX
+    </div>
+  </body>
+</html>

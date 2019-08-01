@@ -1,0 +1,44 @@
+<div>
+  <hr>
+  <h4><%= @restaurant.name %></h4>
+  <p><%= @restaurant.location %></p>
+  <p><%= @restaurant.description %></p>
+
+  <% if @average_rating %>
+    <h4>Average rating: <%= @average_rating.round(1) %></h4>
+    <h4>Reviews:</h4>
+  <% else %>
+    <h4>No reviews!</h4>
+  <% end %>
+</div>
+
+<% @reviews.each do |review| %>
+  <div>
+    <hr>
+    <%= review.description %> |
+    by user: <b><%= review.user.username %></b> |
+    rating: <b><%= review.rating %></b>
+  </div>
+<% end %>
+
+<% if current_user %>
+  <form method="POST" action="/restaurants/<%= @restaurant.id %>/review">
+    <hr>
+    <h3>Add your review:</h3>
+    <p>rating:
+      <select name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </p>
+    <p>review:</p>
+    <textarea name="description" rows="5" cols="60"></textarea>
+    <p><input type="submit"></p>
+  </form>
+<% else %>
+  <hr>
+  <h3>Login to leave a review!</h3>
+<% end %>

@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'activerecord'
+gem 'bcrypt', '~> 3.1.7'
+gem 'puma'
+gem 'rake'
+gem 'shotgun'
+gem 'sinatra-activerecord'
+gem 'sinatra-flash'
+gem 'sqlite3'

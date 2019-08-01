@@ -1,0 +1,9 @@
+<% @restaurants.each do |restaurant| %>
+  <div>
+    <hr>
+    <h4><%= restaurant.name %></h4>
+    <%= restaurant.location %></p>
+    <%= restaurant.description.truncate(150) %>
+    <a href="/restaurants/<%= restaurant.id %>">more</a>
+  </div>
+<% end %>
