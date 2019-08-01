@@ -27,8 +27,6 @@ class PlacesController < Sinatra::Base
   private
 
   def place_rating
-    reviews.pluck(:grade) do |grade|
-      grade
-    end.sum / reviews.count
+    reviews.pluck(:grade).sum.div(reviews.count)
   end
 end
