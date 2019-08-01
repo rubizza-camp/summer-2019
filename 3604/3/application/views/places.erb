@@ -1,7 +1,7 @@
 <div class = 'places'>
   <% @places.each do |place| %>
     <div class = 'place'>
-       <a class = 'name' href = '/place/<%= place.id%>' ><%= place.name %></a>
+       <a class = 'name' href = '/places/<%= place.id%>' ><%= place.name %></a>
        <p class = 'location'>Adress: <%= place.location %></p>
        <p class = 'main_description'>Description: <%= place.main_description %></p>
     </div>

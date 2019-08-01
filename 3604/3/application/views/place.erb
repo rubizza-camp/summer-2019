@@ -22,7 +22,7 @@
 
   <% if session[:user_id] %>
     <div class = 'review_form'>
-      <form method = 'POST' action = '/review/<%= @place.id%>'>
+      <form method = 'POST' action = '/reviews/<%= @place.id%>'>
         <div class = 'col'>
           <select class = 'grade' name = 'grade' required>
             <option value = ''>&#9733</option>

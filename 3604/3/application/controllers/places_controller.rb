@@ -4,14 +4,14 @@ class PlacesController < Sinatra::Base
     erb :places
   end
 
-  get '/place/:id' do
+  get '/places/:id' do
     @place = Place.find_by(params[:id])
     @reviews = Review.where(place_id: params[:id])
     @stars = place_rating unless @reviews.empty?
     erb :place
   end
 
-  post '/review/:id' do
+  post '/reviews/:id' do
     review = Review.new(grade: params[:grade], text: params[:text],
                         place_id: params[:id], user_id: session[:user_id])
     if review.valid?
@@ -19,7 +19,7 @@ class PlacesController < Sinatra::Base
     else
       flash[:error] = I18n.t(:incorrect_review)
     end
-    redirect "/place/#{params[:id]}"
+    redirect "/places/#{params[:id]}"
   end
 
   attr_reader :reviews
