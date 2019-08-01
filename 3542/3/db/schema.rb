@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 # rubocop:disable all
 
-ActiveRecord::Schema.define(version: 2019_07_25_162012) do
+ActiveRecord::Schema.define(version: 2019_08_01_122048) do
 
   create_table "comments", force: :cascade do |t|
     t.text "description", default: ""
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_07_25_162012) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
-    t.string "password", null: false
+    t.string "password_digest", null: false
   end
 
 end

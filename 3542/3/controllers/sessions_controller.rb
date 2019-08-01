@@ -4,15 +4,12 @@ require_relative 'application_controller'
 class SessionsController < ApplicationController
   set :views, File.realpath('./views/sessions')
 
-  bcrypt = BCrypt::Password
-
   get '/signup' do
     haml :signup, layout: false
   end
 
   post '/signup' do
-    password = bcrypt.create(params[:password])
-    User.create email: params[:email], password: password
+    User.create email: params[:email], password: params[:password]
     redirect '/'
   end
 
@@ -23,7 +20,7 @@ class SessionsController < ApplicationController
   post '/login' do
     user = User.find_by(email: params[:email])
 
-    if user && (bcrypt.new(user.password) == params[:password])
+    if user && user.authenticate(params[:password])
       session[:email] = params[:email]
     else
       flash[:message] = 'Wrong credentials.'
