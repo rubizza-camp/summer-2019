@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :comments
 
   validates :name, :email, :password_hash, presence: true
+  validates_uniqueness_of :email
   validates_format_of :email, with: /@/
 
   def password
