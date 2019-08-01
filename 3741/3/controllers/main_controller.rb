@@ -21,8 +21,6 @@ class MainController < Sinatra::Base
     config.verifier_email = 'verifier@example.com'
   end
 
-  set views: proc { File.join(root, '../views/') }
-
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
   helpers ViewHelper
