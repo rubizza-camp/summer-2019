@@ -1,6 +1,6 @@
-require_relative 'base_controller'
+require_relative 'application_controller'
 
-class SessionsController < BaseController
+class SessionsController < ApplicationController
   get '/sessions/login' do
     erb :'/sessions/login'
   end

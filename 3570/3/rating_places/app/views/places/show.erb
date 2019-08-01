@@ -15,7 +15,7 @@
 </div>
 </br>
 <% if current_user %>
-<form class="form" action="/places/<%= @place.id %>/comments/new" method="post">
+<form class="form" action="/places/<%= @place.id %>/comments" method="post">
   <div class="form-group">
     <label>Оценка</label>
     <select class="form-control" name="rating">

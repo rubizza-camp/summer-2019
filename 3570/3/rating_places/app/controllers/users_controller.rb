@@ -1,11 +1,11 @@
-require_relative 'base_controller'
+require_relative 'application_controller'
 
-class UsersController < BaseController
-  get '/users/new' do
-    erb :'/users/new'
+class UsersController < ApplicationController
+  get '/signup' do
+    erb :'/signup'
   end
 
-  post '/users/new' do
+  post '/signup' do
     @user = User.new(name: params['name'], email: params['email'],
                      password: params['password'])
     @user.save

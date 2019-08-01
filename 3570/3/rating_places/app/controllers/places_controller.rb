@@ -1,6 +1,12 @@
-require_relative 'base_controller'
+require_relative 'application_controller'
 
-class PlacesController < BaseController
+class PlacesController < ApplicationController
+
+  get '/' do
+    @places = Place.all
+    erb :home
+  end
+
   get '/places/:id' do
     @place = Place.find(params[:id])
     erb :'places/show'

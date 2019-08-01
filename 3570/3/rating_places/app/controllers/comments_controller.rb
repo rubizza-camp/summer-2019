@@ -1,13 +1,11 @@
-require_relative 'base_controller'
+require_relative 'application_controller'
 
-class CommentsController < BaseController
-  post '/places/:id/comments/new' do
-    if params[:rating].to_i < 3 && params[:text].blank?
-      flash[:notice] = 'Оценка очень низкая. Оставьте свой отзыв'
-    else
-      @user = User.find(session[:user_id])
-      @comment = @user.comments.create(rating: params[:rating].to_i,
-                                       text: params[:text], place_id: params[:id])
+class CommentsController < ApplicationController
+  post '/places/:id/comments' do
+    @comment = current_user.comments.create(rating: params[:rating].to_i,
+                                   text: params[:text], place_id: params[:id])
+    unless @comment.save
+        flash[:notice] = 'Оценка очень низкая. Оставьте свой отзыв'
     end
     redirect "/places/#{params[:id]}"
   end
