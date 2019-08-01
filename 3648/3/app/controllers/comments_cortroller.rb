@@ -10,10 +10,9 @@ class CommentsContoller < ApplicationController
     if @comment.valid?
       @comment.save
       @place.update(place_rating: @place.comments.average(:rating))
-      redirect to "/place/#{params[:id]}"
     else
       flash[:message] = 'Error! Fill all forms'
-      redirect to "/place/#{params[:id]}"
     end
+    redirect to "/place/#{params[:id]}"
   end
 end

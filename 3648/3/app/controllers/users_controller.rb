@@ -1,3 +1,4 @@
+#:reek:RepeatedConditional
 class UserController < ApplicationController
   get '/singup' do
     if logged?
