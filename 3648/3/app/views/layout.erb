@@ -1,5 +1,33 @@
 <html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Place Rating</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/pricing/">
+    <%# <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/"> %>
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <%# <link href="styles/login.css" rel="stylesheet"> %>
+    <link href="styles/app.css" rel="stylesheet">
+</head>
   </body>
+   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal">Place Rating</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/">Home</a>
+        <% if logged? %>
+        <a class="p-2 text-dark">Logged as: <%= current_user.username %></a>
+        <a class="btn btn-outline-primary" href="/logout">Log out</a>
+        <% else %>
+        <a class="btn btn-outline-primary" href="/login">Sing in</a>
+        <a class="btn btn-outline-primary" href="/singup">Sign up</a>
+        <% end %>
+      </nav>
+    </div>
     <% if flash[:message] %>
       <b><i><p class="message"><%= flash[:message] %></p></i></b>
     <% end %>

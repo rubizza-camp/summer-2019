@@ -7,5 +7,6 @@ end
 use Rack::MethodOverride
 use ApplicationController
 use UserController
-# use OtherController3
+use PlacesContoller
+use CommentsContoller
 run ApplicationController

@@ -1,0 +1,17 @@
+<div class="container">
+      <div class="card-deck mb-3 text-center">
+      <% @places.each do |place| %>
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <a class="my-0 font-weight-normal" href="/place/<%= place.id %>"><%=place.place_name%></a>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title"><%= place.place_rating %><small class="text-muted">/ 5</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li><%= place.location %></li>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+</div>
+</div>

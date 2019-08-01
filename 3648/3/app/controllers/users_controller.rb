@@ -22,7 +22,7 @@ class UserController < ApplicationController
         password: params[:password]
       )
       @user.save
-      sesion[:user_id] = @user.id
+      session[:user_id] = @user.id
       redirect to '/'
     end
   end
@@ -39,11 +39,11 @@ class UserController < ApplicationController
   post '/login' do
     @user = User.find_by(username: params[:username])
     if @user&.authenticate(params[:password])
-      sesion[:user_id] = @user.id
+      session[:user_id] = @user.id
     else
       flash[:message] = 'Wrong password'
     end
-    redirect to '/'
+    redirect to '/login'
   end
 
   get '/logout' do
