@@ -3,3 +3,4 @@ en:
   invalid_email: Invalid email.
   unregistered_user: Need to sign in.
   existing_email: Email has already been taken.
+  review_error: error with review
