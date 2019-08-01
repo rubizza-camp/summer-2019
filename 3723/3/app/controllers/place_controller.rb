@@ -1,15 +1,13 @@
 class PlaceController < ApplicationController
   post '/places/:id' do
-    @comment = Comment.new(
+    @comment = Comment.create(
       title: params[:title],
       rating: params[:rating],
       place_id: params[:id],
       user_id: current_user.id
     )
-    @place = Place.find_by_id(params[:id])
     if @comment.valid?
-      @comment.save
-      @place.update(rating: @place.comments.average(:rating))
+      Place.update_rating(place)
       redirect to "places/#{params[:id]}"
     else
       flash[:notice] = 'You must fill all forms'
@@ -25,5 +23,9 @@ class PlaceController < ApplicationController
   get '/places/:id' do
     @place = Place.find(params[:id])
     erb :'places/show'
+  end
+
+  def place
+    @place ||= Place.find_by_id(params[:id])
   end
 end

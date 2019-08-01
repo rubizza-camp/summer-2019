@@ -1,21 +1,14 @@
-#:reek:RepeatedConditional
 class UserController < ApplicationController
   get '/signup' do
-    if logged_in?
-      flash[:notice] = 'Already logged in'
-      redirect to '/'
-    else
-      erb :'users/create_user'
-    end
+    erb :'users/create_user'
   end
 
   post '/signup' do
-    @user = User.new(
+    @user = User.create(
       username: params[:username],
       password: params[:password],
       email: params[:email]
     )
-    @user.save
     session[:user_id] = @user.id
     redirect to '/'
   end
