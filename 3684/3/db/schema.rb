@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20_190_728_183_502) do
     t.integer 'user_id'
     t.integer 'restaurant_id'
     t.integer 'score'
+    t.datetime 'created_at'
   end
 
   create_table 'restaurants', force: :cascade do |t|

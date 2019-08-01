@@ -7,7 +7,9 @@
 </head>
   <body>
     <% if session[:user_id] %>
-      <h4><a href="/logout">Выйти</a></h4>
+      <form method="post" action="/logout">
+        <button class='logout'>Выйти</button>
+      </form>
     <% else %>
       <h4 align='left'><a href="/login">Войти</a> / <a href="/registration">Зарегистрироваться</a></h4>
     <% end %>
@@ -19,7 +21,9 @@
     </div>
     <div>
       <% @comments.each do |comment| %>
-        <%= comment.user.name %><br>
+        <hr>
+        <%= comment.user.name %>
+        <%= comment.created_at.to_date %><br>
         <%= comment.score %><br>
         <%= comment.text %><br><br>
       <% end %>
@@ -30,8 +34,9 @@
         <b><i><p class="message"><%= flash[:message] %></p></i></b>
       <% end %>
       <div>
-        <input title="Ваш комментарий" type="text" name="text"><br>
-        <input title="Ваша оценка заведению" name="score" type="number" min="1" max="5" step="1"><br><br>
+        <p><textarea name="text" cols="50" rows="10" placeholder="Ваш комментарий"></textarea></p>
+        <input title="Ваша оценка заведению" name="score" type="number" min="1" max="5" step="1">
+        <label>Ваша оценка заведению</label><br><br>
         <% session['rest_id'] = @restaurant.id %>
       </div>
       <button>Оставить комментарий</button><br>

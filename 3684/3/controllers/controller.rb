@@ -9,13 +9,13 @@ class Controller < ApplicationController
   end
 
   get '/restaurant/:id' do
-    @restaurant = Restaurant.find(params[:id])
-    @comments = @restaurant.comments
+    @restaurant = Restaurant.find_by(params[:id])
+    @comments = Comment.includes(:user).where(restaurant_id: @restaurant.id)
     @restaurant.update(score: count_score(@comments))
     erb :show
   end
 
-  get '/logout' do
+  post '/logout' do
     session[:user_id] = false
     redirect '/'
   end

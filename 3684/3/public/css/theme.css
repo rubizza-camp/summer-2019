@@ -9,9 +9,23 @@ button {
   font-size: 16px;
 }
 
+button[class=logout] {
+  width: 50;
+  height: 20;
+  font-size: 12px;
+}
+
 button:hover {
   box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 8px 25px 0 rgba(0,0,0,0.19);
   background-color: black;
+}
+
+textarea {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 2px solid green;
 }
 
 input {
@@ -20,7 +34,7 @@ input {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 3px;
   border: 2px solid green;
 }
 
@@ -30,7 +44,7 @@ input[type=number] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 3px;
   border: 2px solid green;
 }
 
