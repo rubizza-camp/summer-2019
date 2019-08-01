@@ -15,16 +15,18 @@ class UsersController < ApplicationController
       save_user(new_user)
     else
       session[:message] = 'Password not equals'
+      redirect '/register'
     end
   end
 
   post '/login' do
     if user && user.password == params[:password]
       session[:user_id] = user[:id].to_s
+      redirect '/'
     else
       session[:message] = 'Password or email is incorrect'
+      redirect '/login'
     end
-    redirect '/'
   end
 
   get '/logout' do
@@ -32,15 +34,20 @@ class UsersController < ApplicationController
     redirect '/'
   end
 
-  get '/delete_session_message' do
-    delete_session_message :message
+  get '/delete_session_message_login' do
+    delete_session_message(:message)
+    redirect '/login'
+  end
+
+  get '/delete_session_message_register' do
+    delete_session_message(:message)
+    redirect '/register'
   end
 
   private
 
   def delete_session_message(symbol)
-    session.delete symbol
-    redirect '/'
+    session.delete(symbol)
   end
 
   def save_user(new_user)

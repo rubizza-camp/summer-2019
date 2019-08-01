@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
                    place_id: params[:id],
                    user_id: params[:user_id])
     Place.find(params[:id]).update(rating: calculate_average_rating)
-    redirect "/place//#{params[:id]}"
+    redirect "/place/#{params[:id]}"
   end
 
   private
