@@ -5,9 +5,11 @@ class CafeController < ApplicationController
   end
 
   post '/login', needs: %i[email password] do
-    if EmailUserService.chek_user_email(params[:email])
+    if User.find_by(['email = ? ', email])
       if PasswordService.valid_user_password?(params[:password], params[:email])
-        SetCookiesService.add_user_info_to_cookies(params[:email])
+        user = User.where(['email = ?', params[:email]]).first
+        cookies[:users_id] = user[:id]
+        cookies[:user_name] = user[:name]
         redirect @env['HTTP_REFERER']
       end
       cookies[:info] = 'Wrong email or password!!'
@@ -18,7 +20,9 @@ class CafeController < ApplicationController
   end
 
   post '/logout' do
-    DeleteCookiesService.delete_cookies(:info, :user_name, :users_id)
+    cookies.delete(:info)
+    cookies.delete(:user_name)
+    cookies.delete(:users_id)
     redirect @env['HTTP_REFERER']
   end
 
@@ -30,14 +34,15 @@ class CafeController < ApplicationController
 
   get '/place/:id' do
     @place = Place.where(id: params[:id])
-    if @place.empty?
-      redirect '/'
-    else
-      erb :show_place
-    end
+    erb :show_place
   end
 
-  post '/place/:id' do
+  get '/place/:id/review' do
+    @reviews = Place.where(id: params[:id]).first.reviews
+    erb :reviews
+  end
+
+  post '/place/:id/review', needs: %i[title description rating] do
     Review.create_review(
       title: params[:title],
       description: params[:description],
@@ -45,8 +50,8 @@ class CafeController < ApplicationController
       user_id: cookies[:users_id],
       rating: params[:rating]
     )
-    Place.find(params[:id]).update(average_rating:
-                                    RatingService.calculate_average_rating(params[:id]))
-    redirect "/place/#{params[:id]}"
+    Place.update_place_by_id(params[:id])
+    @reviews = Place.where(id: params[:id]).first.reviews
+    erb :reviews
   end
 end
