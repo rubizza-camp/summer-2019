@@ -30,7 +30,7 @@ class UserController < Sinatra::Base
 
   post '/sign_up' do
     @user = User.new(params.slice(:name, :email, :password))
-    if @user.valid? && Truemail.valid?(params[:email])
+    if @user.valid? && Truemail.valid?(params[:email]) && params[:password] == params[:password2]
       @user.save
       session_start!
       session[:user_id] = @user.id
