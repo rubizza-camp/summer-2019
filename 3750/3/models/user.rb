@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
     self.password_hash = Password.create(new_password)
   end
 
+  def validate_login(password)
+    email && password_hash == password
+  end
+
   def email_valid?
     Truemail.valid?(email)
   end

@@ -9,4 +9,13 @@ class Review < ActiveRecord::Base
   def bad_review?
     grade <= BAD_GRADE
   end
+
+  def review_approved(restaurant)
+    save
+    restaurant.update_average_grade
+  end
+
+  def review_owner?(user)
+    user_id == user.id
+  end
 end

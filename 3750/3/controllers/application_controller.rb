@@ -2,6 +2,7 @@
 
 require 'sinatra/flash'
 require 'truemail'
+require 'will_paginate'
 require_relative 'base_controller'
 require_relative 'session_controller'
 require_relative 'restaurant_controller'

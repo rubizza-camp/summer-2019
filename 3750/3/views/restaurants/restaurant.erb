@@ -13,34 +13,7 @@
   </div>
 
   <div class="col">
-    <% @restaurant.reviews.each do |review| %>
-      <div class="card ">
-        <div class="card-header">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="h5"><%= review.user.login %></div>
-            <div class="h6"><%= review.grade %> &#11088</div>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <p class="card-text">
-            <%= review.text %>
-          </p>
-        </div>
-
-        <% if session[:user_id] == review.user_id %>
-          <form action='/reviews/<%= review.id %>' method="post">
-            <input type="hidden" name="_method" value="DELETE">
-            <div class="btn-toolbar justify-content-between">
-              <div class="btn-group">
-                <button type="submit" class="btn btn-danger">Delete review</button>
-              </div>
-            </div>
-          </form>
-        <% end %>
-      </div>
-    <% end %>
-
+    <%= erb :"shared/reviews" %>
     <div class="card">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">

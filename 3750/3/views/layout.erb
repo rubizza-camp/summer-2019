@@ -26,7 +26,7 @@
       <span class="text-muted">
         <% if session[:user_id] %>
           <ul class="list-group list-group-horizontal ">
-            <a class="text-info list-group-item bg-warning text-dark border-0"> Logged in as "<%= username %>"</a>
+            <a class="text-info list-group-item bg-warning text-dark border-0"> Logged in as "<%= current_user.login %>"</a>
             <a href="/logout" class="text-danger list-group-item bg-warning text-dark border-0">Logout</a>
           </ul>
         <% else %>

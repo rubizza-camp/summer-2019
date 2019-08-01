@@ -10,6 +10,7 @@ class CreateRestaurantTable < ActiveRecord::Migration[5.2]
       t.float :longitude, null: false
       t.text :short_description
       t.text :description
+      t.float :average_grade
       t.timestamps
     end
   end

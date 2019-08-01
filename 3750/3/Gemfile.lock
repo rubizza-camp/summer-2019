@@ -84,7 +84,7 @@ DEPENDENCIES
   sqlite3
   thin
   truemail
-  will_paginate (~> 3.1.1)
+  will_paginate
 
 BUNDLED WITH
    2.0.2

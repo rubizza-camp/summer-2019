@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20_190_731_114_542) do
     t.float 'longitude', null: false
     t.text 'short_description'
     t.text 'description'
+    t.float 'average_grade'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end

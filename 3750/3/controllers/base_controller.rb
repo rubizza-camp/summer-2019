@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 class BaseController < Sinatra::Base
-  set views: proc { File.join(root, '../views/') }
-  set :method_override, true
+  include WillPaginate::Sinatra::Helpers
 
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
+  register Sinatra::Partial
 
-  def username
-    User.find_by(id: session[:user_id]).login
+  set views: proc { File.join(root, '../views/') }
+  set :method_override, true
+  set :partial_template_engine, :erb
+
+  error 403 do
+    '403 Access forbidden'
+  end
+
+  def current_user
+    User.find_by(id: session[:user_id])
   end
 
   def error_message(message)
