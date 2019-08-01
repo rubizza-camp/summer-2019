@@ -10,6 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+# rubocop:disable all
+
 ActiveRecord::Schema.define(version: 2019_08_01_065148) do
 
   create_table "comments", force: :cascade do |t|
@@ -34,3 +36,4 @@ ActiveRecord::Schema.define(version: 2019_08_01_065148) do
   end
 
 end
+# rubocop:enable all
