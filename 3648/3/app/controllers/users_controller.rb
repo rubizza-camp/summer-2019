@@ -1,31 +1,16 @@
-#:reek:RepeatedConditional
 class UserController < ApplicationController
   get '/singup' do
-    if logged?
-      flash[:message] = 'You already logged'
-      redirect to '/'
-    else
-      erb :singup
-    end
+    erb :singup
   end
 
   post '/singup' do
-    if logged?
-      flash[:message] = 'You already logged'
-      redirect to '/'
-    elsif params[:username].empty? || params[:email].empty? || params[:password].empty?
-      flash[:message] = 'You must fill all'
-      redirect to '/singup'
-    else
-      @user = User.create(
-        username: params[:username],
-        email: params[:email],
-        password: params[:password]
-      )
-      @user.save
-      session[:user_id] = @user.id
-      redirect to '/'
-    end
+    @user = User.create(
+      username: params[:username],
+      email: params[:email],
+      password: params[:password]
+    )
+    session[:user_id] = @user.id
+    redirect to '/'
   end
 
   get '/login' do
