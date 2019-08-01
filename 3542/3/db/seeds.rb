@@ -11,7 +11,7 @@ NAME = 0
 ADDRESS = 1
 DESCRIPTION = 2
 
-CSV.foreach(File.realpath("db/data/data.csv")) do |row|
+CSV.foreach(File.realpath('db/data/data.csv')) do |row|
   Place.find_or_create_by(name: row[NAME],
                           address: row[ADDRESS],
                           description: row[DESCRIPTION])
