@@ -23,13 +23,12 @@
       <%= yield %>
 
       <% flash.keys.each do |type| %>
-        <% case type %>
-        <% when :user_err %>
-          <%= flash[type].full_messages.join('; ') %>
-        <% when :review_err %>
-          <%= flash[type].full_messages.join('; ') %>
-        <% when :text_err %>   
-          <%= flash[type] %>
+        <% if type == :notice %>
+        <%= flash[:notice] %>
+        <% end %>
+
+        <% if type == :error %>
+        <%= flash[:error].full_messages.join('; ') %>
         <% end %>
       <% end %>
     </div>

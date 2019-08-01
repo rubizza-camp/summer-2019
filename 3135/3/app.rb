@@ -30,7 +30,7 @@ post '/registration' do
     session[:user_id] = user.id
     redirect '/'
   else
-    flash[:user_err] = user.errors
+    flash[:error] = user.errors
     redirect '/registration'
   end
 end
@@ -46,7 +46,7 @@ post '/login' do
     session[:user_id] = user.id
     redirect '/'
   else
-    flash[:text_err] = 'Invalid email/password combo!'
+    flash[:notice] = 'Invalid email/password combo!'
     redirect '/login'
   end
 end
@@ -65,9 +65,9 @@ post '/restaurants/:id/review' do
       rating: params[:rating],
       description: params[:description]
     )
-    flash[:review_err] = review.errors unless review.save
+    flash[:error] = review.errors unless review.save
   else
-    flash[:text_err] = 'Review post requested with no user currently logged in!'
+    flash[:notice] = 'Review post requested with no user currently logged in!'
   end
   redirect back
 end
@@ -75,6 +75,7 @@ end
 # restaurant
 get '/restaurants/:id' do
   @restaurant = Restaurant.find(params[:id])
+  @reviews = @restaurant.reviews.includes(:user)
   @average_rating = @restaurant.reviews.average(:rating)
   erb :restaurant
 end
