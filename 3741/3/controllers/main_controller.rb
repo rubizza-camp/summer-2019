@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'sessions_controller'
-require_relative 'places_controller'
-require_relative 'reviews_controller'
-require 'sinatra/flash'
-require 'sinatra/namespace'
-require 'truemail'
-require_relative '../helpers/view_helper'
-require 'dotenv'
+require 'helpers/view_helper'
+require 'helpers/user_helper'
+
 # main class
 class MainController < Sinatra::Base
   Dotenv.load
@@ -23,14 +18,12 @@ class MainController < Sinatra::Base
 
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
+  register Sinatra::Namespace
   helpers ViewHelper
+  helpers UserHelper
 
   get '/' do
     @places = Place.all
     erb :home
   end
-
-  use SessionsController
-  use PlacesController
-  use ReviewsController
 end

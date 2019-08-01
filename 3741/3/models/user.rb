@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'bcrypt'
 # User data base model
 class User < ActiveRecord::Base
   validates_presence_of :username, :email, :password_hash
@@ -9,5 +8,9 @@ class User < ActiveRecord::Base
 
   def password=(new_password)
     self.password_hash = BCrypt::Password.create(new_password)
+  end
+
+  def password
+    BCrypt::Password.new(password_hash)
   end
 end

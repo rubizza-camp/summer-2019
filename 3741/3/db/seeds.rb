@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../models/user'
-require_relative '../models/place'
-
 users = [
   { username: 'ex@ex.ex', password: 'ex', email: 'ex@ex.ex' }
 ]

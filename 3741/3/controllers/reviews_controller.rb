@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'sinatra/namespace'
-require_relative 'base_controller'
+require_relative 'main_controller'
 # :reek:InstanceVariableAssumption
-class ReviewsController < BaseController
+class ReviewsController < MainController
   namespace '/reviews' do
     helpers do
       def create_review
