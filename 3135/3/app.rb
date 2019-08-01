@@ -29,7 +29,7 @@ post '/registration' do
     session[:user_id] = user.id
     redirect '/'
   else
-    flash[:error] = user.errors.full_messages.join('; ')
+    flash[:user_err] = user.errors
     redirect '/registration'
   end
 end
@@ -45,7 +45,7 @@ post '/login' do
     session[:user_id] = user.id
     redirect '/'
   else
-    flash[:error] = 'Invalid email/password combo!'
+    flash[:text_err] = 'Invalid email/password combo!'
     redirect '/login'
   end
 end
@@ -64,9 +64,9 @@ post '/restaurants/:id/review' do
                          rating: params[:rating],
                          description: params[:description]
                         })
-    flash[:error] = review.errors.full_messages.join('; ') unless review.save
+    flash[:review_err] = review.errors unless review.save
   else
-    flash[:error] = 'Review post requested with no user currently logged in!'
+    flash[:text_err] = 'Review post requested with no user currently logged in!'
   end
   redirect back
 end
