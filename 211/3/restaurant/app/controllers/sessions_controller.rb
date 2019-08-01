@@ -39,7 +39,7 @@ class SessionsController < BaseController
         flash[:notice] = 'You logged in sucessfuly'
         redirect '/'
       else
-        flash[:error] = 'Something went wrong'
+        flash[:error] = ['Something went wrong']
         redirect '/sessions/login'
       end
     end

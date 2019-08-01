@@ -29,15 +29,8 @@
   </div>
   </nav>
   
-  <% flash.keys.each do |type| %>
-    <% if flash.keys.include?(:notice)  %>
-      <div class="alert alert-info" role="alert">
-    <% elsif flash.keys.include?(:error) %>
-      <div class="alert alert-danger" role="alert">
-    <% end  %>
-      <%= flash[type] %>
-    </div>
-  <% end %>
+  <%= flash_messages(flash) unless flash.empty?%> 
+
   <div class="container">
     <%= yield %>
   </div>

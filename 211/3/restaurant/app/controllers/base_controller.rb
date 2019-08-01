@@ -2,7 +2,7 @@ require 'sinatra/activerecord'
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/form_helpers'
-
+require_relative '../helpers/layout_helper.rb'
 class BaseController < Sinatra::Base
   set views: proc { File.join(root, '../views/') }
   enable :sessions
@@ -15,4 +15,5 @@ class BaseController < Sinatra::Base
   register Sinatra::Namespace
 
   helpers Sinatra::FormHelpers
+  include LayoutHelper
 end
