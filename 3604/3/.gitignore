@@ -1,2 +1,2 @@
 .env
-places_minsk_development.sqlite3
+*.sqlite3

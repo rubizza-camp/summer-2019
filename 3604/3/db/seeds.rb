@@ -12,7 +12,7 @@ places = [
   },
 
   {
-    name: 'Lido',
+    name: 'Lido2',
     location: 'ul.Kulman, 5A',
     main_description: 'The restaurant operates on the principle of self-service and an open kitchen,
     so you do not need to wait long for the waiter to accept the order and prepare your dish.',

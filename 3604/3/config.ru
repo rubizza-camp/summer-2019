@@ -16,6 +16,6 @@ Truemail.configure do |config|
   config.verifier_email = 'verifier@example.com'
 end
 
-use UserController
+use UsersController
 use PlacesController
 run(MainController)

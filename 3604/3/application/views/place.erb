@@ -9,7 +9,6 @@
 </div>
 
 <div class = 'reviews'>
-  <% if @reviews %>
     <% @reviews.each do |review| %>
         <div class='review'>
           <p>Author: <%= review.user.name %></p>
@@ -17,7 +16,6 @@
           <p><%= review.text %></p>
           <p><%= review.grade%> &#9733</p><hr>
         </div>
-    <% end %>
   <% end %>
 
   <% if session[:user_id] %>

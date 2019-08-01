@@ -1,4 +1,4 @@
-class UserController < Sinatra::Base
+class UsersController < Sinatra::Base
   use Rack::Flash
 
   get '/sign_in' do
@@ -30,7 +30,7 @@ class UserController < Sinatra::Base
 
   post '/sign_up' do
     @user = User.new(params.slice(:name, :email, :password))
-    if @user.valid? && Truemail.valid?(params[:email]) && params[:password] == params[:password2]
+    if @user.valid? && params[:password] == params[:password_confirmation]
       @user.save
       session_start!
       session[:user_id] = @user.id

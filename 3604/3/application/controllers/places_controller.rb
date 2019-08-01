@@ -1,11 +1,13 @@
 class PlacesController < Sinatra::Base
+  attr_reader :reviews
+
   get '/places' do
     @places = Place.all
     erb :places
   end
 
   get '/places/:id' do
-    @place = Place.find_by(params[:id])
+    @place = Place.find(params[:id])
     @reviews = Review.where(place_id: params[:id])
     @stars = place_rating unless @reviews.empty?
     erb :place
@@ -21,8 +23,6 @@ class PlacesController < Sinatra::Base
     end
     redirect "/places/#{params[:id]}"
   end
-
-  attr_reader :reviews
 
   private
 
