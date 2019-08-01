@@ -6,21 +6,26 @@
 <hr>
 <% if @place.reviews_count %>
     <h3>Reviews:</h3>
-    <% @place.reviews.each do |review| %>
-      <p><%= "#{review.text} #{review.rating}"%></p>
+    <% reviews = @place.reviews.includes(:user) %>
+    <% reviews.each do |review| %>
+      <p><%= "#{review.user.name}: #{review.text} #{review.rating}"%></p>
     <% end %>
 <% end %>
-
 <% if session[:identity]%>
     <form action=<%= "/places/#{@place.id}/reviews" %> method='post'>
         <h3>New review:</h3>
         <p>
             <textarea row=5 name='review_text' placeholder="text"></textarea>
         </p>
-        <p>Rating:</p>
-        <p>
-            <input type="text" name='rating' placeholder="1-5">
-        </p>
+        <label for="rating">Rating:</label>
+        <select name="rating">
+          <option value="none" selected>none</option>
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+        </select>
         <p>
             <input class="btn primary" type='submit' value='Publish'>
         </p>

@@ -10,30 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_203754) do
-
-  create_table "places", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "locations"
-    t.integer "reviews_count"
+ActiveRecord::Schema.define(version: 20_190_728_203_754) do
+  create_table 'places', force: :cascade do |t|
+    t.string 'name', null: false
+    t.text 'description', null: false
+    t.string 'locations', null: false
+    t.integer 'reviews_count'
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.text "text"
-    t.integer "rating"
-    t.integer "author"
-    t.integer "place_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["place_id"], name: "index_reviews_on_place_id"
+  create_table 'reviews', force: :cascade do |t|
+    t.text 'text', null: false
+    t.integer 'rating', null: false
+    t.integer 'user_id', null: false
+    t.integer 'place_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['place_id'], name: 'index_reviews_on_place_id'
+    t.index ['user_id'], name: 'index_reviews_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "hashed_password"
-    t.index ["email"], name: "index_users_on_email", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'name', null: false
+    t.string 'email', null: false
+    t.string 'password_digest', null: false
+    t.index ['email'], name: 'index_users_on_email', unique: true
   end
-
 end

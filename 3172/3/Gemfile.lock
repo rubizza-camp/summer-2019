@@ -21,6 +21,7 @@ GEM
     concurrent-ruby (1.1.5)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    interactor (3.1.1)
     method_source (0.9.2)
     minitest (5.11.3)
     multi_json (1.13.1)
@@ -80,6 +81,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   bcrypt
+  interactor
   pry-byebug
   shotgun
   sinatra

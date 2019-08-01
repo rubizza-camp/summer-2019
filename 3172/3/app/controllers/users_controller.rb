@@ -14,15 +14,11 @@ class UsersController < ApplicationController
       password_confirmation: params[:confirm_password]
     )
     result = new_user.save
-    case result
-    when true
-      session[:identity] = params[:user_name]
+    if result
+      session[:identity] = new_user.id
       redirect '/'
-    when false
-      @error = new_user.errors.full_messages.first
-      erb :login_sign_up
     else
-      @error = result
+      @error = new_user.errors.full_messages.first
       erb :login_sign_up
     end
   end
@@ -43,7 +39,7 @@ class UsersController < ApplicationController
     @error = 'Password wrong' if user.try(:authenticate, params[:password]) == false
     return erb :login_sign_in if @error
 
-    session[:identity] = user.name
+    session[:identity] = user.id
     redirect '/'
   end
 

@@ -3,4 +3,5 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates_uniqueness_of :email
   has_secure_password
+  has_many :reviews
 end

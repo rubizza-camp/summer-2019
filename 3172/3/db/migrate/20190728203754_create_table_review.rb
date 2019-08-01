@@ -6,8 +6,8 @@ class CreateTableReview < ActiveRecord::Migration[5.2]
     create_table :reviews do |t|
       t.text       :text, null: false
       t.integer    :rating, null: false
-      t.integer    :user_id, null: false
-      t.references :place, foreign_key: true
+      t.references :user, foreign_key: true, index: true, null: false
+      t.references :place, foreign_key: true, index: true, null: false
       t.timestamps
     end
   end

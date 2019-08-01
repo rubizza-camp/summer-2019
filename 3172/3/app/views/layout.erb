@@ -25,7 +25,7 @@
                         </li>
                         <li>
                             <% if session[:identity] %>
-                                Hello, <%= session[:identity] %> |
+                                Hello, <%= User.find(session[:identity]).name %> |
                                 <a href='/logout'>Sign out</a> |
                             <% else %>
                                 Hello, guest |

@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 gem 'activerecord'
 gem 'bcrypt'
+gem 'shotgun'
 gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'sinatra-contrib'
 gem 'sinatra-session'
-gem 'shotgun'
 gem 'sqlite3'
 
 group :development do

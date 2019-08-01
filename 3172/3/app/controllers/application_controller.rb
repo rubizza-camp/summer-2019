@@ -4,8 +4,6 @@ require './config/environment'
 require_relative 'users_controller'
 
 class ApplicationController < Sinatra::Base
-
-
   configure do
     set :views, 'app/views'
     enable :sessions
