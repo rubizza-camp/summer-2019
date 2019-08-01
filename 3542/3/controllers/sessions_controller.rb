@@ -18,9 +18,7 @@ class SessionsController < ApplicationController
   end
 
   post '/login' do
-    user = User.find_by(email: params[:email])
-
-    if user&.authenticate(params[:password])
+    if User.find_by(email: params[:email]).try(:authenticate, params[:password])
       session[:email] = params[:email]
     else
       flash[:message] = 'Wrong credentials.'
