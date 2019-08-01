@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+
+  <body>
+    <header>
+      <a class = 'header-menu-item' href = '/' >Main</a>
+      <% if session[:user_id] %>
+        <form method = 'POST' action = '/sign_out'>
+          <button type = 'submit' class = 'header-menu-item'>Sign out</button>
+        </form>
+      <% else %>
+        <a class = 'header-menu-item' href = '/sign_in' >Sign in</a>
+        <a class = 'header-menu-item' href = '/sign_up' >Sign up</a>
+      <% end %>
+    </header>
+
+    <% if flash.has?(:error) %>
+      <div class = 'alert_box'>
+        <%= flash[:error] %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= yield %>
+    </div>
+  </body>
+</html>
