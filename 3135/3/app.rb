@@ -8,6 +8,7 @@ set :database, 'sqlite3:db/database.sqlite3'
 enable :sessions
 
 # authorization
+# :reek:DuplicateMethodCall:
 def current_user
   @current_user ||= User.find(session[:user_id]) if session[:user_id]
 end
@@ -58,12 +59,12 @@ end
 # add_review
 post '/restaurants/:id/review' do
   if current_user
-    review = Review.new({
-                         user_id: current_user.id, 
-                         restaurant_id: params[:id], 
-                         rating: params[:rating],
-                         description: params[:description]
-                        })
+    review = Review.new(
+      user_id: current_user.id,
+      restaurant_id: params[:id],
+      rating: params[:rating],
+      description: params[:description]
+    )
     flash[:review_err] = review.errors unless review.save
   else
     flash[:text_err] = 'Review post requested with no user currently logged in!'
