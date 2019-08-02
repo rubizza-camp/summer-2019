@@ -1,6 +1,7 @@
 class SessionController < ApplicationController
   get '/register' do
     return redirect '/' if session?
+
     erb :register
   end
 
@@ -14,6 +15,7 @@ class SessionController < ApplicationController
 
   get '/login' do
     return redirect '/' if session?
+
     erb :login
   end
 

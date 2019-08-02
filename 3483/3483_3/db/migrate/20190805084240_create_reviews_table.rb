@@ -1,3 +1,4 @@
+#:reek:FeatureEnvy and :reek:TooManyStatements
 class CreateReviewsTable < ActiveRecord::Migration[5.2]
   def change
     create_table :reviews do |ttt|
