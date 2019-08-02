@@ -1,0 +1,68 @@
+<div class="w3-content w3-padding-large w3-margin-top">
+  <!-- Contact -->
+
+  <img class="w3-center" src="<%= @place.image_url %>" alt="Jeans" style="width:500px; height: 500px">
+
+  <div class="w3-row">
+    <div class="w3-light-grey w3-padding-16 w3-margin-top w3-twothird" id="address">
+      <h3 class="w3-center"><%= @place.address %></h3>
+    </div>
+
+    <div class="w3-light-grey w3-padding-16 w3-margin-top w3-third" id="star">
+      <h3 class="w3-center"><%= @place.rating.round(2) if @place.rating %></h3>
+    </div>
+  </div>
+
+
+  <div class="w3-light-grey w3-padding-16 w3-margin-top " id="description">
+    <h3 class="w3-center"><%= @place.description %></h3>
+  </div>
+
+  <div class="w3-light-grey w3-padding-16 w3-margin-top" id="comments">
+    <% if @users.empty? %>
+      <h3 class="w3-center">No comments</h3>
+    <% else %>
+      <% @comments.zip(@users) do |comment, user| %>
+        <h3 class="w3-center w3-half"><%= user.name %></h3>
+        <h5 class="w3-center w3-half"><%= comment.star %></h5>
+        <h5 class="w3-center"><%= comment.text %></h5>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if session[:user_id] %>
+    <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top" id="contact">
+      <h3 class="w3-center">Write your comment</h3>
+
+      <form action="/comments" method="post">
+        <div class="w3-section">
+          <label>Comment</label>
+          <textarea class="w3-input w3-border" type="text" required name="comment" required></textarea>
+        </div>
+        <div class="w3-section">
+          <p>
+            <input class="w3-radio" type="radio" name="star" value="0">
+            <label>0</label>
+            <input class="w3-radio" type="radio" name="star" value="1">
+            <label>1</label>
+            <input class="w3-radio" type="radio" name="star" value="2">
+            <label>2</label>
+            <input class="w3-radio" type="radio" name="star" value="3">
+            <label>3</label>
+            <input class="w3-radio" type="radio" name="star" value="4">
+            <label>4</label>
+            <input class="w3-radio" type="radio" name="star" value="5">
+            <label>5</label></p>
+        </div>
+        <input value="<%= session[:user_id] %>" type="hidden" name="user_id">
+        <input value="<%= @place.id %>" type="hidden" name="id">
+        <button type="submit" class="w3-button w3-block w3-dark-grey">Send</button>
+      </form>
+      <br>
+    </div>
+  <% else %>
+    <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top" id="contact">
+      <h3 class="w3-center">If wou want to create comment - register</h3>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,71 @@
+<div>
+  <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:20%;min-width:300px" id="mySidebar">
+    <a id="closeSidebar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-times fa-fw w3-margin-right"></i>Close
+      Menu</a> <br>
+    <div class="w3-bar-block">
+      <a id="closeSidebar" href="/places" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>MAIN
+        PAGE</a> <br>
+      <% if session[:user_id] %>
+        <a href="/delete_user_from_session" class="w3-bar-item w3-button w3-text-red w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>SING
+          OUT</a>
+      <% else %>
+        <a id="openRegistration" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-o fa-fw w3-margin-right"></i>SIGN
+          UP</a>
+        <a id="openLogin" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-user fa-fw w3-margin-right"></i>SIGN
+          IN</a>
+      <% end %>
+    </div>
+  </nav>
+
+  <!-- Top menu -->
+  <div class="w3-top">
+    <div class="w3-white w3-xlarge" style="margin:auto">
+      <div id="openSidebar" class="w3-button w3-padding-16 w3-left"><i class="fa fa-bars"></i></div>
+      <div class="w3-center w3-padding-16">Places With Food</div>
+    </div>
+  </div>
+
+  <div id="registration" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+      <div class="w3-center"><br>
+        <a id="exitRegistration" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</a>
+      </div>
+
+      <form class="w3-container">
+        <div class="w3-section">
+          <label><b>Username</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" id="usrname" placeholder="Enter Username" name="usrname" required>
+          <label><b>Email</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="email" id="email_registration" placeholder="Enter Email" name="email" required>
+          <label><b>Password</b></label>
+          <input class="w3-input w3-border" type="password" id="password_registration" placeholder="Enter Password" name="password" required>
+          <label><b>Write Password Again</b></label>
+          <input class="w3-input w3-border" type="password" id="confirm_password" placeholder="Enter Password Again" name="password_again" required>
+          <button id="signOn" class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Sign Up</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div id="login" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+      <div class="w3-center"><br>
+        <a id="exitLogin" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</a>
+      </div>
+
+      <form class="w3-container">
+        <div class="w3-section">
+          <label><b>Email</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" id="email_login" type="email" placeholder="Enter Email" name="email" required>
+          <label><b>Password</b></label>
+          <input class="w3-input w3-border" type="password" id="password_login" placeholder="Enter Password" name="password" required>
+          <a id="openRegistrationFromLogin" class="w3-right w3-button">sign up?</a>
+          <button id="singIn" class="w3-button w3-block w3-teal w3-section w3-padding">Sign In
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
