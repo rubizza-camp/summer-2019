@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
   post '/new_comment' do
     review = Comment.create(text: params[:comment],
-                   star: params[:star],
-                   place_id: params[:id],
-                   user_id: params[:user_id])
+                            star: params[:star],
+                            place_id: params[:id],
+                            user_id: params[:user_id])
     valid_comment(review)
 
     Place.find(params[:id]).update(rating: calculate_average_rating)
