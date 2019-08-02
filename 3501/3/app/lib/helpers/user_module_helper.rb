@@ -1,4 +1,4 @@
-module Helper
+module Helpers
   module UsersAdditionalHelper
     def sign_in_user(post)
       user = find_by_email(post.params[:email])

@@ -1,4 +1,4 @@
-require_relative 'helper/user_module_helper'
+require_relative 'helpers/user_module_helper'
 require './app/lib/errors/user/user_errors'
 require 'active_record'
 require 'securerandom'
@@ -7,7 +7,7 @@ require 'time'
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  extend Helper::UsersAdditionalHelper
+  extend Helpers::UsersAdditionalHelper
 
   has_many :feed_backs
   has_many :snack_bars

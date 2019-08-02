@@ -16,6 +16,7 @@ class SnackBarController < Sinatra::Base
 
   post('/snackbars/new', needs: %i[description name photo telephone working_time_opening
                                    working_time_closing latitude longitude]) do
+    puts 'creating'
     User.find_by_id(session[:user_id]).snack_bars.create(params)
     redirect('/')
   end

@@ -50,6 +50,7 @@ h1.display-4
 
 .mdl-card__title .text {
   padding: 3px;
+  padding-top: 90px;
   padding-left: 10px;
   padding-right: 10px;
   background: rgba(2, 18, 37, 0.301);
