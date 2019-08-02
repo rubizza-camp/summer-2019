@@ -1,0 +1,17 @@
+.container.w-25.p-4.text-light
+  p.text-right
+    a{href="/" class="text-light"} BACK
+  h1.m-4.text-center Login
+  .border.m-4
+    form action="/login" method="POST"
+      p.text-center.m-3 Name:
+      input.ml-3 type='text' id='name' name="name"
+      p.text-center.m-3 Email:
+      input.ml-3 type='text' id='email' name="email"
+      p.text-center.m-3 Password:
+      input.ml-3 type='password' id='password' name="password"
+      .text-center.m-3
+        button.btn.btn-primary type='Submit' Login
+    p.m-3.text-center Have not account yet?
+    p.text-center
+      a{href="/register" class="text-light"} Register!

@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 # rubocop:disable Style/NumericLiterals
-ActiveRecord::Schema.define(version: 2019_07_25_084101) do
+ActiveRecord::Schema.define(version: 2019_08_06_142936) do
   # rubocop:enable Style/NumericLiterals
   create_table 'comments', force: :cascade do |t|
     t.integer 'mark', null: false
-    t.text 'annotation'
-    t.integer 'user_id', null: false
-    t.integer 'restaurant_id', null: false
+    t.text 'body'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.integer 'restaurant_id'
+    t.integer 'user_id'
+    t.index ['restaurant_id'], name: 'index_comments_on_restaurant_id'
+    t.index ['user_id'], name: 'index_comments_on_user_id'
   end
 
   create_table 'restaurants', force: :cascade do |t|

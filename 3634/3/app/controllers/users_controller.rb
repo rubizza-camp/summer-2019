@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
-  get '/login' do
-    if logged_in?
+  before '/(login|register)' do
+    if current_user
       flash[:message] = 'Already logged in'
       redirect to '/'
-    else
-      slim :'forms/login'
     end
+  end
+
+  get '/login' do
+    slim :'users/login.html', layout: :'layouts/application.html'
   end
 
   post '/login' do
@@ -20,12 +22,7 @@ class UsersController < ApplicationController
   end
 
   get '/register' do
-    if logged_in?
-      flash[:message] = 'Already logged in'
-      redirect to '/'
-    else
-      slim :'forms/register'
-    end
+    slim :'users/register.html', layout: :'layouts/application.html'
   end
 
   post '/register' do
@@ -34,8 +31,7 @@ class UsersController < ApplicationController
       email: params[:email],
       password: params[:password]
     )
-    if @user.valid?
-      @user.save!
+    if @user.save
       session[:user_id] = @user.id
       flash[:message] = 'Yay! Registration is successful!'
       redirect '/'

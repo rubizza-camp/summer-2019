@@ -1,5 +1,8 @@
 class Comment < ActiveRecord::Base
-  validates :mark, inclusion: { in: 1..5 }
+  VALID_RATING = (1..5).freeze
+
+  validates :mark, inclusion: { in: VALID_RATING }
+  validate :relevance
 
   belongs_to :user
   belongs_to :restaurant
@@ -9,6 +12,10 @@ class Comment < ActiveRecord::Base
   end
 
   def empty?
-    annotation.empty?
+    body.empty?
+  end
+
+  def relevance
+    errors.add(:low_mark, 'Please, tell us why this mark is so low?') if bad_mark? && empty?
   end
 end

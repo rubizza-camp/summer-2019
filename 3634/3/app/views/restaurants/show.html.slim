@@ -1,0 +1,32 @@
+.container.w-75.p-4.text-light
+  p.text-right
+    a{href="/" class="text-light"} BACK
+  h1.m-4.text-center = @restaurant.name
+  .border.m-4
+    p.m-3.text-justify = @restaurant.description
+    p.m-3.text-center
+      | Latitude:&nbsp;&nbsp;
+      | #{@restaurant.latitude} &nbsp;&nbsp;
+      | Longitude:&nbsp;&nbsp;
+      | #{@restaurant.longitude}
+    p.m-3.text-center
+      - if @raiting
+          | Average mark: #{@raiting.round}
+      - else
+          | Average mark: #{0}
+    .text-center
+      - if current_user
+        form action="/restaurants/#{@restaurant.id}/comments" method="GET"
+          button.btn.btn-success type='Submit'
+            | Leave commentary
+      - else
+        form action="/login" method="GET"
+          button.btn.btn-primary type='Submit'
+            | Login/Register
+    h3.m-3.text-center Commentary:
+    - @comments.each do |comment|
+      .container.w-50
+        .border.m-4
+          h5.m-2.text-center = comment.user.name
+          p.m-2.text-center &ldquo;#{comment.body}&rdquo;
+          p.m-2.text-center Mark:&nbsp; #{comment.mark}

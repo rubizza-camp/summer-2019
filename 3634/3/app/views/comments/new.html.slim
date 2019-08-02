@@ -1,0 +1,15 @@
+.container.w-50.p-4.text-light
+  p.text-right
+    a{href="/restaurants/#{@id}" class="text-light"} BACK
+  h1.m-4.text-center Leave Commentary
+  .border.text-center.m-4
+    form action="/restaurants/#{@id}/post" method="POST"
+      p.m-3 Your mark:
+      select name="mark"
+        - Comment::VALID_RATING.each do |raiting|
+          option value="#{raiting}" #{raiting}&nbsp;star
+      p.m-3 Your Сommentary:
+      div
+        label for="body"
+        textarea id="body" rows="5" cols="50" name="body"
+      button.btn.btn-primary.m-3 type='Submit' Leave commentay
