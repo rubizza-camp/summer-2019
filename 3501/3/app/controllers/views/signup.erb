@@ -1,0 +1,76 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!--Google api-->
+    <link rel="stylesheet" href="/mdn/material.min.css">
+    <script src="/mdn/material.min.js"></script>
+    <link rel="stylesheet" href="/css/signin/signin.css">
+    <!---->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <title>Welcome new!</title>
+</head>
+    <body>
+        <div class="container shadow-lg p-3 mb-5 bg-white" style="margin-top: 50px; max-width: 480px; border-radius: 14px;">
+            <form method="POST" action="/signup" class="was-validated" style="padding: 20px">
+                <h1 class="display-4">Добро пожаловать!</h1>
+                <div class="form-row">
+                    <%= erb :default_error %>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-3" style="margin-top: 10px;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample1" name="first_name" required>
+                            <label class="mdl-textfield__label" for="sample1">Ваше имя...</label>
+                        </div>
+                    </div>
+                    <div class="col-md-7 mb-3" style="margin-top: 10px;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample2" name="last_name" required>
+                            <label class="mdl-textfield__label" for="sample2">Ваша фамилия...</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-12 mb-3" style="margin-top: -20px;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%;">
+                            <input class="mdl-textfield__input" type="text" id="sample3" name="email" pattern="(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)" required>
+                            <label class="mdl-textfield__label" for="sample3">Электронный адрес...</label>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="form-row">
+                    <div class="col-md-12 mb-3" style="margin-top: -20px;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="password" id="sample4" name="password" required>
+                            <label class="mdl-textfield__label" for="sample4">Придумайте надёжный пароль...</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3" style="margin-top: -20px;">
+                    <small id="passwordHelpInline" class="text-muted">
+                        Пароль должен быть больше 8 символов!
+                    </small>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-12 mb-3" style="margin-top: -10px;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="password" id="sample5" name="password_confirmation" required>
+                            <label class="mdl-textfield__label" for="sample5">Подтвердите пароль...</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="signup" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                    Продолжить
+                </button>
+                <a href="/" type="exit" class="mdl-button mdl-js-button mdl-js-ripple-effect ">
+                    Отмена
+                </a>
+            </form>
+        </div>
+    </body>
+</html>

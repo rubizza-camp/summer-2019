@@ -1,0 +1,115 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!--Google api-->
+    <link rel="stylesheet" href="/mdn/material.min.css">
+    <script src="/mdn/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <script defer src="/js/snack_bar_loadmap_setcoordinates.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJttCulxdGFwOSjLQ6be4dJCIhMaDN0Ws&callback=initMap"
+        defer></script>
+    <!---->
+    <link rel="stylesheet" href="/css/main/main.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <title>Snak</title>
+</head>
+<body>
+    <%= erb :user_top_right_button %>
+    <div class="container" style="margin-top: 50px;">
+        <form class="was-validated" method="POST" action="/snackbars/new">
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style = "min-height: unset; padding: 10px;">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <h5>Придумайте хорошее имя и описание вашего заведения</h5>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="sample3" name="name" required>
+                                    <label class="mdl-textfield__label" for="sample3">Название вашего заведения...</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <h6 style="margin-top: -25px;">Описание заведения</h6>
+                                <div class="mdl-textfield mdl-js-textfield" style="margin-top: -25px;">
+                                    <textarea class="mdl-textfield__input" type="text" id="sample5" name="description" required></textarea>
+                                    <label class="mdl-textfield__label" for="sample5">Опишите в кратце ваше заведение...</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <h6 style="margin-top: -25px;">Добавьте заглавное фото заведения</h6>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="validatedCustomFile" name="photo" required>
+                                    <label class="custom-file-label" for="validatedCustomFile">Выберите файл...</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <h6>Введите либо укажите на карте координаты заведения</h6>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" value="0.0" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="validationServerLatitude" name="latitude" required>
+                                    <label class="mdl-textfield__label" for="validationServerLatitude">Широта...</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-top: -25px;">
+                                    <input class="mdl-textfield__input" value="0.0" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="validationServerLongitude" name="longitude" required>
+                                    <label class="mdl-textfield__label" for="validationServerLongitude">Долгота...</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3" style="margin-top: -25px; margin-bottom: 0px !important;">
+                                <button type="create" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                    Создать
+                                </button>
+                                <a href="/" type="create" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                    Отмена
+                                </a>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="col-md-auto p-3" style = "display: flex; align-items: center; flex-direction: column;">
+                    <div class="row justify-content-md-center" style="height: fit-content; margin-bottom: 14px;">
+                        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style = "min-height: unset; padding: 10px;">
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="telephone" name="telephone" required>
+                                        <label class="mdl-textfield__label" for="telephone">Рабочий номер телефона...</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6  style="margin-top: -25px;">Рабочее время</h6>
+                            <div style="margin-top: -5px; margin-bottom: -30px;" class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="time_opening" name="working_time_opening" required>
+                                        <label class="mdl-textfield__label" for="time_opening">Открытие...</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="time_closing" name="working_time_closing" required>
+                                        <label class="mdl-textfield__label" for="time_closing">Закрытие...</label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center" style="height: 100%;">
+                        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="height: 100%;" id = "map">
+                        <div>
+                    </div>
+                <div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

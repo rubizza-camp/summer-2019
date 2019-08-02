@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!--Google api-->
+    <link rel="stylesheet" href="/mdn/material.min.css">
+    <script src="/mdn/material.min.js"></script>
+    <link rel="stylesheet" href="/css/signin/signin.css">
+    <!---->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <title>Welcome back!</title>
+</head>
+    <body>
+        <div class="container shadow-lg p-3 mb-5 bg-white" style="margin-top: 50px; max-width: max-content; border-radius: 14px;">
+            <form method="POST" action="/signin" style="padding: 15px">
+                <h1 class="display-4">Добро пожаловать!</h1>
+                <div class="form-group">
+                    <%= erb :default_error %>
+                </div>
+                <div class="form-group">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="login" name="email">
+                        <label class="mdl-textfield__label" for="login">Ваша почта</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-top: -25px">
+                        <input class="mdl-textfield__input" type="password" id="password" name="password">
+                        <label class="mdl-textfield__label" for="password">Пароль</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2" style="margin-top: -25px">
+                        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" name="save_user" checked>
+                        <span class="mdl-checkbox__label">Сохранить мои данные</span>
+                    </label>
+                </div>
+                <button type="signin" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                    Продолжить
+                </button>
+                <a href="signup" type="signup" class="mdl-button mdl-js-button mdl-js-ripple-effect ">
+                    Создать аккаунт
+                </a>
+            </form>
+        </div>
+    </body>
+</html>

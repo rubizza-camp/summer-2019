@@ -1,0 +1,41 @@
+<% @snack_bar_feed_backs.each do |feed_back| %>
+    <div class="row">
+        <div class="col-md-auto mt-1 d-flex" style = "margin-bottom: 0px !important;">
+            <button class="mt-1 mt-1 mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab lrm10"
+                id="comment_<%= feed_back.id %>_button"
+                style="background-image: url('../picture/test_user_pic.jpg'); background-size: cover;">
+            </button>
+            <div class="mdl-tooltip tooltip_menu mdl-tooltip--right mdl-tooltip--large d-flex justify-content-center tooltip_test"
+                for="comment_<%= feed_back.id %>_button">
+                <span class="mdl-chip tooltip_menu_item mdl-chip--contact">
+                    <span class="mdl-chip__contact mdl-color-text--white">
+                        <i class="material-icons-outlined md-dark" style="font-size: 32px;">
+                            account_circle
+                        </i>
+                    </span>
+                    <span class="mdl-chip__text"><%= feed_back.user.first_name %></span>
+                </span>
+                <span class="mdl-chip tooltip_menu_item mdl-chip--contact">
+                    <span class="mdl-chip__contact mdl-color-text--white">
+                        <i class="material-icons-outlined md-dark" style="font-size: 32px;">
+                            timelapse
+                        </i>
+                    </span>
+                    <span class="mdl-chip__text"><%= feed_back.date.strftime('%Y-%m-%d') %></span>
+                </span>
+            </div>
+            <p class="m-0 font-weight-light" style="font-size: 16px;"><%= feed_back.content %>
+            <br>
+                <span class="users_comment_rating" value="<%= feed_back.rating %>" id="comment_<%= feed_back.id %>">
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                </span>
+            </p>
+        </div>
+    </div>
+<%
+    end
+%>

@@ -1,0 +1,59 @@
+<% if @current_user %>
+    <form class="was-validated" method="POST" action="/snackbars/<%= @current_snack_bar.id %>/new_comment">
+        <div class="row justify-content-between">
+            <div class="col mb-3 user_comment_create" style = "margin-bottom: 0px !important;">
+                <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab lrm10" id="demo-menu-lower-right"
+                style="background-image: url('../picture/test_user_pic.jpg'); background-size: cover;">
+                </button>
+                <div class="mdl-textfield mdl-js-textfield" style="margin-bottom: -6px !important; width: 100%; margin-right: 10px;">
+                    <input class="mdl-textfield__input" type="text" id="sample1" name="content" required>
+                    <label class="mdl-textfield__label" for="sample1">Были? Расскажите о ваших впечатлениях...</label>
+                </div>
+            </div>
+            <div class="col-md-auto mb-3 user_comment_create" style = "margin-bottom: 0px !important;">
+                <div class="user_self_rating">
+                    <input type="hidden" type="text" name="rating" id="user_self_Commentrating" />
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star1">
+                        <i class="material-icons">star</i>
+                    </button>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star2">
+                        <i class="material-icons">star</i>
+                    </button>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star3">
+                        <i class="material-icons">star_half</i>
+                    </button>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star4">
+                        <i class="material-icons">star_border</i>
+                    </button>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon rating_button" id="star5">
+                        <i class="material-icons">star_border</i>
+                    </button>
+                </div>
+                <button type="add_new" class="mdl-button mdl-js-button mdl-js-ripple-effect" style="margin-right: 10px;">
+                    Отправить
+                </button>
+            </div>
+        </div>
+    </form>
+<% else %>
+    <div class="row justify-content-between d-flex justify-content-between" style="min-height: 50px;">
+        <div class="col mb-3 user_comment_create p-2 pl-5 pr-5" style = "margin-bottom: 0px !important; max-height: unset;">
+            <i class="material-icons p-1">
+                info
+            </i>
+            <p class="font-weight-normal m-0 p-0 ml-3" style="font-size: 17px;">
+                Чтобы оставить комментарий, необходимо войти
+            </p>
+        </div>
+        <div class="col-md-auto mb-3 user_comment_create p-2 pl-5 pr-5 align-self-center" style = "margin-bottom: 0px !important;">
+            <button href="signin" class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                onclick="location.href=location.origin+'/signin'">
+                Войти
+            </button>
+            <button href="signup" class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                onclick="location.href=location.origin+'/signup'">
+                Создать аккаунт
+            </button>
+        </div>
+    </div>
+<% end %>
