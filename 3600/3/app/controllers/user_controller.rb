@@ -3,10 +3,7 @@
 require_relative '../../helpers/user_helper'
 require 'digest'
 
-class UserController < Sinatra::Base
-  set views: proc { File.join(root, '../views/') }
-  register Sinatra::ActiveRecordExtension
-  register Sinatra::Flash
+class UserController < AppController
 
   include UserHelper
 
@@ -20,7 +17,12 @@ class UserController < Sinatra::Base
 
   post '/sign_up' do
     @user = User.new(name: params['username'], email: params['email'], password: params['password'])
-    add_user if valid_password? && unregistered_email? && valid_email?
+    if @user.valid?
+      add_user
+    else
+      flash[:danger] = @user.errors.messages.values.join(' ')
+    end
+
   end
 
   post '/sign_in' do

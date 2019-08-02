@@ -2,10 +2,8 @@
 
 require_relative '../../helpers/comment_helper.rb'
 
-class RestaurantController < Sinatra::Base
-  set views: proc { File.join(root, '../views/') }
-  register Sinatra::ActiveRecordExtension
-  register Sinatra::Flash
+
+class RestaurantController < AppController
 
   include CommentsHelper
 

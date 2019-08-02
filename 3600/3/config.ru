@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'app/controllers/app_controller.rb'
+require './config/environment'
 # use Rack::Static, urls: ['/css'], root: 'public' # Rack fix allows seeing the css folder.
+use UserController
+use RestaurantController
 run AppController
