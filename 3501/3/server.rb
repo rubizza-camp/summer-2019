@@ -22,10 +22,8 @@ require 'openssl'
 CERT_PATH = ENV['SSH_PATH']
 
 webrick_options = {
-  # '192.168.43.176' /BANDR
-  # '192.168.0.105'
-  Host: '192.168.43.176',
-  Port: 443,
+  Host: ENV['SINATRA_SERVER_IP'],
+  Port: ENV['SINATRA_SERVER_PORT'],
   Logger: WEBrick::Log.new($stderr, WEBrick::Log::DEBUG),
   DocumentRoot: '/ruby/htdocs',
   SSLEnable: true,
