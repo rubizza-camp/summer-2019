@@ -18,10 +18,10 @@ class CommentsController < ApplicationController
   private
 
   def valid_comment(review)
-    if review && review.valid?
+    if review.valid?
       Place.find(params[:id]).update(rating: calculate_average_rating)
     else
-      session[:message] = "You’re having trouble. Try again"
+      session[:message] = 'You are having trouble. Try again'
       redirect "/place/#{params[:id]}"
     end
   end
