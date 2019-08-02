@@ -3,7 +3,7 @@ class Place < ActiveRecord::Base
 
   has_many :comments
 
-  def self.update_rating(place)
-    place.update(rating: place.comments.average(:rating))
+  def comments_rating
+    comments.average(:rating)
   end
 end

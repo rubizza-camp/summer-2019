@@ -7,7 +7,7 @@ class PlaceController < ApplicationController
       user_id: current_user.id
     )
     if @comment.valid?
-      Place.update_rating(place)
+      place.update(rating: place.comments_rating)
       redirect to "places/#{params[:id]}"
     else
       flash[:notice] = 'You must fill all forms'
@@ -24,6 +24,8 @@ class PlaceController < ApplicationController
     @place = Place.find(params[:id])
     erb :'places/show'
   end
+
+  private
 
   def place
     @place ||= Place.find_by_id(params[:id])
