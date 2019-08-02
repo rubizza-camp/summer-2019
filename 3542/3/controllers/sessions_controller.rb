@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
       flash[:message] = 'Wrong credentials.'
     end
 
-    redirect '/'
+    redirect '/places'
   end
 
   get '/logout' do
