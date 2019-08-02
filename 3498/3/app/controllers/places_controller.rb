@@ -1,5 +1,4 @@
 class PlacesController < Sinatra::Base
-  include PlacesHelper
 
   get '/' do
     @places = Place.all

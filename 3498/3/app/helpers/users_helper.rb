@@ -12,14 +12,14 @@ module UsersHelper
 
   def login_user
     @user = User.find_by(email: params[:email])
-    if @user
-      if @user.password == params[:password]
-        session[:user_id] = @user.id.to_s
-      else
-        session[:error] = 'Wrong password'
-      end
+    @user ? validate_password : session[:error] = 'You need to sign up'
+  end
+
+  def validate_password
+    if @user.password == params[:password]
+      session[:user_id] = @user.id.to_s
     else
-      session[:error] = 'You need to sign up'
+      session[:error] = 'Wrong password'
     end
   end
 

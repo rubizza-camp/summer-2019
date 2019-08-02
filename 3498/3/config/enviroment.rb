@@ -8,4 +8,4 @@ ActiveRecord::Base.establish_connection(
   database: ENV['DB_PATH']
 )
 
-Dir.glob('./app/{models,helpers,controllers}/*.rb').each { |file| require file }
+require_all 'app'

@@ -1,6 +1,5 @@
 class UsersController < Sinatra::Base
   include BCrypt
-  include UsersHelper
 
   get '/signup' do
     erb :signup
