@@ -2,9 +2,7 @@
 
 require_relative '../../helpers/comment_helper.rb'
 
-
 class RestaurantController < AppController
-
   include CommentsHelper
 
   get '/' do

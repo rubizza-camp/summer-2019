@@ -4,7 +4,6 @@ require_relative '../../helpers/user_helper'
 require 'digest'
 
 class UserController < AppController
-
   include UserHelper
 
   get '/sign_up' do
@@ -22,7 +21,6 @@ class UserController < AppController
     else
       flash[:danger] = @user.errors.messages.values.join(' ')
     end
-
   end
 
   post '/sign_in' do
