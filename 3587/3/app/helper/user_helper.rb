@@ -8,6 +8,16 @@ module UserHelper
     end
   end
 
+  def logout
+    session[:user_id] = nil
+  end
+
+  def login
+    logout if login?
+    session['user_id'] = @user.id if account_exists?
+    redirect '/'
+  end
+
   def find_in_db
     @user = User.find_by(email: params[:email])
   end
@@ -30,5 +40,9 @@ module UserHelper
 
   def stars
     @stars = @shop.reviews.average(:grade).round(2)
+  end
+
+  def login?
+    session[:user_id]
   end
 end

@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   post '/login' do
-    start_session if account_exists?
+    login
     redirect '/login'
   end
 
