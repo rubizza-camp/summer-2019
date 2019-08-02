@@ -1,10 +1,6 @@
 require_relative 'application_controller'
 
 class CommentsController < ApplicationController
-  before do
-    redirect '/' unless login?
-  end
-
   post '/comments' do
     @comment = Comment.new(comment_params.merge(user: current_user))
 
