@@ -1,11 +1,5 @@
-require_relative './config/environment'
+# frozen_string_literal: true
 
-if ActiveRecord::Migrator.needs_migration?
-  raise 'Migrations are pending. Run `rake db:migrate` to resolve the issue.'
-end
-
-use Rack::MethodOverride
-use UsersController
-use CategoriesController
-use ExpensesController
-run ApplicationController
+require_relative 'app/controllers/app_controller.rb'
+# use Rack::Static, urls: ['/css'], root: 'public' # Rack fix allows seeing the css folder.
+run AppController

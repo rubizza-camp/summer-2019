@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Restaurants</title>
+  <style>
+    body {
+      background: #efdca4;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container mt-3">
+
+  <div class="header clearfix">
+    <nav>
+      <ul class="nav nav-pills float-right">
+        <% if session[:user_id] %>
+          <li class="nav-item">
+            <a class="nav-link active" href="/logout">Log out</a>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <a class="nav-link active" href="/sign_in">Log in <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sign_up">Register</a>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+    <h3 class="text-muted">Restaurants</h3>
+  </div>
+
+  <br>
+  <div class="row marketing">
+    <% @all_restaurants.each do |restaurant| %>
+      <div class="card mt-2 ml-2" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"> <%= restaurant.name %> </h5>
+          <p class="card-text"> <%= restaurant.short_description %> </p>
+          <a href="/restaurant/<%= restaurant.name %>" class="btn btn-outline-secondary">More info</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+</body>
+</html>
