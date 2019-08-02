@@ -44,11 +44,11 @@ class UsersController < ApplicationController
     redirect '/register'
   end
 
-  private
-
   def delete_session_message(symbol)
     session.delete(symbol)
   end
+
+  private
 
   def save_user(new_user)
     if new_user.save

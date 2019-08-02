@@ -42,11 +42,10 @@
 
   <% if session[:user_id] %>
     <div class="w3-light-grey w3-padding-large w3-padding-16 w3-margin-top w3-margin-bottom" id="contact">
-
-      <form action="/comments" method="post">
+      <form action="/new_comment" method="post">
         <div class="w3-center h4">
           <label>Leave your comment</label>
-          <textarea class="w3-input w3-border" type="text" name="comment" <% if @comment.star %>required></textarea>
+          <textarea class="w3-input w3-border" type="text" name="comment" required></textarea>
         </div>
         <div id="reviewStars-input">
           <input id="star-4" type="radio" name="star" value="5" />
@@ -79,5 +78,14 @@
     </div>
   <% end %>
 </div>
-</div>
 <div class="col-sm-2"></div>
+<% if session[:message] %>
+  <div id="error" class="w3-modal" style="display: block;">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="width: 400px;">
+      <div class="w3-section w3-center">
+        <div><label class="w3-padding-36 w3-center w3-panel"><%= session[:message] %></label></div>
+        <a href="/delete_session_message_show" id="closeError" class="w3-button w3-block w3-red w3-section w3-padding" type="submit">Cancel</a>
+      </div>
+    </div>
+  </div>
+<% end %>
