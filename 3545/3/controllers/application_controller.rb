@@ -1,8 +1,7 @@
 class ApplicationController < Sinatra::Base
-
   enable :sessions
   set :session_secret, 'secret'
-  set :views, "./views"
+  set :views, './views'
 
   get '/' do
     if session[:user_id]
@@ -14,6 +13,4 @@ class ApplicationController < Sinatra::Base
       redirect '/login'
     end
   end
-
-
 end
