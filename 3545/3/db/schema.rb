@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_730_181_928) do
+ActiveRecord::Schema.define(version: 20_190_802_110_015) do
+  create_table 'commentaries', force: :cascade do |t|
+    t.integer 'location_id'
+    t.integer 'user_id'
+    t.string 'text'
+    t.integer 'points'
+  end
+
   create_table 'locations', force: :cascade do |t|
     t.string 'name'
     t.integer 'attitude'
