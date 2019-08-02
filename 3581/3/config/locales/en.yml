@@ -1,5 +1,5 @@
 en:
   account_already_exist: User with this name or email already exist
-  incorrect_password: Incorrect password or email. Try again.
+  invalid_credentials: Incorrect password or email. Try again.
   invalid_email: Invalid email. Try again.
   unregistered_user: You can't leave a feedback. Need to sign in.

@@ -1,0 +1,15 @@
+default: &default
+  adapter: sqlite3
+  database: db/task3.sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default
+

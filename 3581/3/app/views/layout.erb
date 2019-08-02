@@ -16,7 +16,7 @@
       </button>
       <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav">
-        <% if  session[:user_id] %>
+        <% if current_user? %>
           <li class="nav-item">
             <a class="nav-link" href="/logout" style="color: #696969;">Sign out</a>          
           </li>

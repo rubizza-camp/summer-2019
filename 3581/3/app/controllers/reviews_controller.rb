@@ -1,9 +1,9 @@
 class ReviewController < ApplicationController
-  post '/new_review/:id' do
+  post '/reviews/new' do
     session!
-    @review = Review.create(text: params['text'], grade: params['grade'].to_i,
-                            place_id: params[:id], user_id: session[:user_id])
+    @review = Review.new(text: params['text'], grade: params['grade'].to_i,
+                         place_id: params[:place_id], user_id: session[:user_id])
     @review.save
-    redirect "/places/#{params[:id]}"
+    redirect "/places/#{params[:place_id]}"
   end
 end

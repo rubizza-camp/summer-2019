@@ -1,5 +1,6 @@
 class PlaceController < ApplicationController
   get '/' do
+    # require 'pry'; binding.pry
     @places = Place.all
     erb :index
   end

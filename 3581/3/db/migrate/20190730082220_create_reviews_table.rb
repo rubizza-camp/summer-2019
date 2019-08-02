@@ -1,11 +1,9 @@
-#:reek:all
+# :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeVariableName
 class CreateReviewsTable < ActiveRecord::Migration[5.2]
   def change
     create_table :reviews do |column|
       column.integer :grade
       column.text :text
-      column.integer :place_id
-      column.integer :user_id
       column.timestamps
     end
   end
