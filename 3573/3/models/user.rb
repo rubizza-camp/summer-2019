@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :password_hash, presence: true
   validates_uniqueness_of :email
-  validates_format_of :email, with: /@/
+  validates_format_of :email, with: /.+@.+\..+/
 
   def password
     Password.new(password_hash)
