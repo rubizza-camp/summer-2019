@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :password_hash, presence: true
   validates_format_of :email, with: /@/
+  has_many :comments
 
   def password
     @password ||= Password.new(password_hash)

@@ -17,9 +17,11 @@ class ApplicationController < Sinatra::Base
 
   use PlaceController
   include PlaceHelper
+  include BCrypt
 
   configure do
     enable :sessions
+    set :session_secret, ENV['SECRET']
   end
 
   get '/' do
@@ -28,13 +30,13 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/signup' do
-    erb :'/signup'
+    erb :signup
   end
 
   post '/registrations' do
     @user = User.new(name: params[:username], email: params[:email], password: params[:password])
     params[:password] ? @user.save : @error = 'Enter password!'
-    session[:user_id] = @user.id
+    session[:user_id] = @user.id.to_s
     redirect '/'
   end
 
@@ -43,15 +45,12 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/login' do
+    session.clear if login?
     @user = User.find_by(email: params[:email])
-    if @user
-      if @user.password == params[:password]
-        session[:user_id] = @user.id
-      else
-        @error = 'Wrong password'
-      end
+    if @user.password == params[:password]
+      session[:user_id] = @user.id.to_s
     else
-      @error = 'Wrong e-mail'
+      @error = 'Wrong password'
     end
     redirect '/'
   end
@@ -59,5 +58,9 @@ class ApplicationController < Sinatra::Base
   get '/logout' do
     session.clear
     redirect '/'
+  end
+
+  def login?
+    session[:user_id]
   end
 end
