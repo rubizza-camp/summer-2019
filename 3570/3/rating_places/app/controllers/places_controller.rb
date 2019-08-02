@@ -1,8 +1,7 @@
 require_relative 'application_controller'
 
 class PlacesController < ApplicationController
-
-  get '/' do
+  get '/places' do
     @places = Place.all
     erb :home
   end

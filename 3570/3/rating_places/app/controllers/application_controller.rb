@@ -11,5 +11,4 @@ class ApplicationController < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   helpers SessionHelper
   register Sinatra::Flash
-
 end

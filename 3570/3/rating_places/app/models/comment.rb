@@ -13,7 +13,6 @@ class Comment < ActiveRecord::Base
     place.update_attribute(:rating, new_rating)
   end
 
-
   def invalid_rating?
     rating <= INVALID_RATING_VALUE
   end
