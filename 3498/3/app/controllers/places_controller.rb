@@ -1,5 +1,4 @@
 class PlacesController < Sinatra::Base
-
   get '/' do
     @places = Place.all
     erb :home
