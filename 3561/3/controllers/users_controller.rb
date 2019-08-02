@@ -2,22 +2,22 @@ require_relative '../controllers/application_controller'
 
 class UsersController < ApplicationController
   post '/users' do
-    if params[:password] == params[:password_again]
+    if params[:password] == params[:confirm_password]
       new_user = User.new(name: params[:usrname],
                           email: params[:email],
                           password: params[:password])
       save_user_in_session new_user
     else
-      'Password not equals'
+      { message: 'Password not equals' }.to_json
     end
   end
 
   post '/login' do
     if user && user.password == params[:password]
       session[:user_id] = user[:id].to_s
-      'Done'
+      { status: 'ok' }.to_json
     else
-      'Password or email is incorrect'
+      { message: 'Password or email is incorrect' }.to_json
     end
   end
 
@@ -35,9 +35,9 @@ class UsersController < ApplicationController
   def save_user_in_session(new_user)
     if new_user.save
       session[:user_id] = user[:id].to_s
-      'Done'
+      { status: 'ok' }.to_json
     else
-      'Invalid credentials'
+      { message: 'Invalid credentials' }.to_json
     end
   end
 

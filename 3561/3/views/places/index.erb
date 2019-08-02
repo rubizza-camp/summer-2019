@@ -2,7 +2,7 @@
   <!-- Second Photo Grid-->
   <div class="w3-row-padding">
     <% @places.each do |place| %>
-      <div class="w3-quarter w3-container w3-margin-bottom" onclick="location.href = '/place/<%= place.id%>'" >
+      <div class="w3-quarter w3-container w3-margin-bottom" onclick="location.href = '/places/<%= place.id%>'" >
           <img src="<%= place.image_url %>" alt="Norway" class="w3-hover-opacity" width="100%" height="400">
           <div class="w3-container w3-white" style="width:100%; min-height: 300px">
             <p><b><%= place.name %></b></p>

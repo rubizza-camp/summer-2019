@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bcrypt', '~> 3.1.13'
+gem 'json'
 gem 'pagy', '~> 0.6.0'
 gem 'pry', '~> 0.12.2'
 gem 'rake', '~> 12.3.3'

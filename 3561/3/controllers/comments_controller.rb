@@ -6,11 +6,7 @@ class CommentsController < ApplicationController
                    star: params[:star],
                    place_id: params[:id],
                    user_id: params[:user_id])
-    place_update
+    Place.find(params[:id]).update_rating
     redirect_back
-  end
-
-  def place_update
-    Place.find(params[:id]).update(rating: Place.find(params[:id]).comments.average(:star).to_f)
   end
 end

@@ -10,7 +10,7 @@ class PlacesController < ApplicationController
     erb :'places/index'
   end
 
-  get '/place/:id' do
+  get '/places/:id' do
     @place = Place.find(params['id'])
     @comments = @place.comments
     @users = @comments.map(&:user)
