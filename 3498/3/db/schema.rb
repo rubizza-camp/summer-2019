@@ -12,28 +12,27 @@
 
 # rubocop:disable all
 
-ActiveRecord::Schema.define(version: 2019_08_01_065148) do
+ActiveRecord::Schema.define(version: 2019_08_02_093448) do
 
   create_table "comments", force: :cascade do |t|
-    t.integer "rating"
-    t.text "text"
-    t.integer "user_id"
-    t.integer "place_id"
+    t.integer "rating", null: false
+    t.text "text", null: false
+    t.integer "user_id", null: false
+    t.integer "place_id", null: false
   end
 
   create_table "places", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "address"
     t.string "location"
     t.string "description"
-    t.float "rating"
+    t.float "rating", default: 0.0
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_hash"
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_hash", null: false
   end
-
 end
 # rubocop:enable all

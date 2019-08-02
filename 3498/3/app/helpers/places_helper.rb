@@ -1,4 +1,4 @@
-module PlaceHelper
+module PlacesHelper
   def load_place_info
     session[:place_name] = params[:place_name].to_s
     @place = Place.find_by(name: params[:place_name].to_s)

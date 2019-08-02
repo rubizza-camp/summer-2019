@@ -1,7 +1,10 @@
-class PlaceController < Sinatra::Base
-  include PlaceHelper
+class PlacesController < Sinatra::Base
+  include PlacesHelper
 
-  set :views, 'app/views'
+  get '/' do
+    @places = Place.all
+    erb :home
+  end
 
   get '/place/:place_name' do
     load_place_info

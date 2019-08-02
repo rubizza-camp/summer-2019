@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+
   include BCrypt
 
-  validates :name, :email, :password_hash, presence: true
-  validates_format_of :email, with: /@/
+  validates_format_of :email, with: VALID_EMAIL_REGEX
   has_many :comments
 
   def password

@@ -1,42 +1,4 @@
-<!DOCTYPE html>
-<head>
-
-   <!--- Basic Page Needs
-   ================================================== -->
-  <meta charset="utf-8">
-	<title>Choose wisely.</title>
-
-   <!-- CSS
-    ================================================== -->
-  <link rel="stylesheet" href="./css/default.css">
-	<link rel="stylesheet" href="./css/layout.css">  
-	<link rel="stylesheet" href="./css/media-queries.css"> 
-
-</head>
-
-<body>
-
-   <header id="top">
-
-   		<div class="row">
-
-   			<div class="header-content twelve columns">
-
-		      <h1 id="logo-text"><a href="/home" title="">Choose wisely.</a></h1>
-
-                  <% if session[:user_id] %>
-                    <a href="/logout"> Log Out</a>
-                  <% else %>
-                    <a href="/signup">Sign Up •</a>
-                    <a href="/login"> Log In</a>  
-                  <% end %> 
-                
-			</div>			
-		</div>
-	</header>
-
-  <div id="content-wrap">
-
+<div id="content-wrap">
     <div class="row">
 
       <div id="main" class="eight columns">
@@ -116,6 +78,3 @@
                </div> <!-- Respond End -->
 
             </div>  <!-- Comments End -->
-
-  </body>
-</html>
