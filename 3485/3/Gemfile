@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gem 'activerecord'
 gem 'bcrypt'
-gem 'pry'
+gem 'bundler'
 gem 'rake'
 gem 'shotgun'
+gem 'sinatra'
 gem 'sinatra-activerecord'
+gem 'sinatra-flash'
 gem 'sqlite3'

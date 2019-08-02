@@ -1,4 +1,4 @@
-places = [
+restaurants = [
   {
     name: 'KFC',
     location: 'ул. Романовская Слобода 13',
@@ -27,7 +27,6 @@ places = [
      территории округа Майами-Дейд (штат Флорида, США)'
   }
 ]
-
-places.each do |p|
-  Places.create(p)
+restaurants.each do |r|
+  Restaurant.create(r)
 end

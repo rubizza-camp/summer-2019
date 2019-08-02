@@ -5,20 +5,24 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="reviews.css" rel="stylesheet">
 <body>
 
 <div class="w3-sidebar w3-collapse w3-white w3-animate-left w3-large" style="z-index:3;width:300px;" id="mySidebar">
 
 <div id="nav01" class="w3-bar-block">
-  <a class="w3-button w3-hover-teal w3-hide-large w3-large w3-right" href="javascript:void(0)" onclick="w3_close()">×</a>
-  <% if session[:users_id] %>
-      <button class="w3-button w3-green w3-large"><a href="/logout">Выйти</a></button>
+  <% if flash[:message] %>
+<b><i><p class="message"><%= flash[:message] %></p></i></b>
+<% end %>
+
+  <% if session[:user_id] %>
+  <form method="post" action="/logout">
+    <button class="w3-button w3-green w3-large" >Выйти</button>
+  </form>
   <% else %>
-  <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-green w3-large">Войти</button>
+  <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-green w3-large" ><a>Войти</a></button>
   <button class="w3-button w3-green w3-large"><a href="/registration">Регистрация</a></button>
   <% end %>
-  <a class="w3-bar-item w3-button" href="/places">Рестораны быстрого питания</a>
+  <a class="w3-bar-item w3-button" href="/">Рестораны быстрого питания</a>
   <div id="id01" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
@@ -26,12 +30,12 @@
         <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
       </div>
 
-      <form class="w3-container" method="post" action="/login">
+      <form class="w3-container" method="post" action="/log_in">
         <div class="w3-section">
           <label><b>Email</b></label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Email" name="email" required>
+          <input class="w3-input w3-border w3-margin-bottom" title="Введите сюда свой email" type="email" name="email"  required>
           <label><b>Password</b></label>
-          <input class="w3-input w3-border" type="text" placeholder="Enter Password" name="psw" required>
+          <input class="w3-input w3-border" title="Введите сюда свой пароль" type="password" name="password"  required>
           <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
         </div>
       </form>
@@ -65,7 +69,7 @@
 </div>
 
 <header class="w3-container w3-theme w3-padding-64 w3-center">
-  <h1 class="w3-xxxlarge w3-padding-16">Рыгаловки</h1>
+  <h1 class="w3-xxxlarge w3-padding-16">Рестораны быстрого питания Минска</h1>
 </header>
 <div class="w3-content">
 
@@ -75,7 +79,7 @@
   <img src="https://pbs.twimg.com/profile_images/1034554469697167361/CzZ-IrSa_400x400.jpg" style="width:100%;min-height:200px">
 </div>
 <div class="w3-twothird w3-container">
-  <h2><a href="/place/1">KFC</a></h2>
+  <h2><a href="/restaurant/1">KFC</a></h2>
   <p>
   ммм ОБОЖАЮ КУРОЧКУ
   </p>
@@ -89,7 +93,7 @@
   <img src="https://pbs.twimg.com/profile_images/972044325210263552/pJyPMPcX_400x400.jpg" style="width:100%;min-height:200px">
 </div>
 <div class="w3-twothird w3-container">
-  <h2><a href="/place/3">Burger King</a></h2>
+  <h2><a href="/restaurant/3">Burger King</a></h2>
   <p>
   Там продают пивас
   </p>
@@ -103,7 +107,7 @@
   <img src="https://www.rd.com/wp-content/uploads/2017/12/the-true-story-behind-the-mysterious-mcdonalds-gold-card-673955074-Vytautas-Kielaitis-1024x683.jpg" style="width:100%;min-height:200px">
 </div>
 <div class="w3-twothird w3-container">
-  <h2><a href="/place/2">McDonald’s</a></h2>
+  <h2><a href="/restaurant/2">McDonald’s</a></h2>
   <p>
   «Макдо́налдс» — американская корпорация, до 2010 года крупнейшая в мире сеть ресторанов быстрого питания.
   </p>
