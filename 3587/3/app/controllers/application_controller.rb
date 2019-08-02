@@ -6,7 +6,6 @@ require_relative '../helper/session_helper'
 class ApplicationController < Sinatra::Base
   register Sinatra::Session
   helpers UserHelper
-  helpers SessionHelper
 
   MAX_RATING = 5
   use Rack::Flash
