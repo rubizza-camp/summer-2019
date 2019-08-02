@@ -1,0 +1,8 @@
+- @places.each do |place|
+  .card
+    .card-body
+      %h5.card-title
+        = place.name
+      %p.card-text
+        = place.description
+      %a.btn.btn-primary{ :href => "/places/#{place.id}" } View

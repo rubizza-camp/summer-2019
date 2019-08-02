@@ -1,0 +1,14 @@
+body {
+  padding-top: 5rem;
+}
+
+.center-card {
+  width: -moz-available
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center
+}
+.white-text {
+  color: white
+}

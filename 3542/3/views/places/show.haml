@@ -1,0 +1,36 @@
+%h1= @place.name
+%p= @place.address
+%p= @place.description
+%p- Rate:
+= (@place.average_mark.nil? ? 0.0 : @place.average_mark.round(2)).to_s
+%h2 Share your opinion
+%form{ method: 'post', action: '/comments' }
+  .form-group
+    %label.sr-only{ for: 'description' }
+    %textarea.form-control{ name: 'description', placeholder: 'Enter text...' }
+  .form-group
+    %label.sr-only{ for: 'mark' }
+    %input.form-control{ type: 'number',
+                         name: 'mark',
+                         min: '1',
+                         max: '5',
+                         placeholder: 'Mark' }
+  %div
+    %input{ type: 'hidden',
+            name: 'place_id',
+            readonly: 'readonly',
+            value: @place.id }
+  .form-group
+    %button.btn.btn-lg.btn-primary{ :type => "submit" } Comment
+%h2 Comments
+- @place.comments.each do |comment|
+  .d-flex.p-2.bd-highlight
+    .card.center-card
+      .card-header
+        = comment.user.email
+        - comment.mark.times do
+          &#9733;
+      - unless comment.description.empty?
+        .card-body
+          = comment.description
+
