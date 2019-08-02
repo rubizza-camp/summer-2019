@@ -8,7 +8,7 @@ class UsersController < Sinatra::Base
 
   post '/registrations' do
     @user = User.new(name: params[:username], email: params[:email], password: params[:password])
-    params[:password] ? @user.save : @error = 'Enter password!'
+    params[:password] ? @user.save : session[:error] = 'Enter password'
     session[:user_id] = @user.id.to_s
     redirect '/'
   end
@@ -23,7 +23,7 @@ class UsersController < Sinatra::Base
     if @user.password == params[:password]
       session[:user_id] = @user.id.to_s
     else
-      @error = 'Wrong password'
+      session[:error] = 'Wrong password'
     end
     redirect '/'
   end

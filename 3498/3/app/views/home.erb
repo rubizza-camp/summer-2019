@@ -3,7 +3,8 @@
    		<div class="row">
 
    			<div id="main" class="eight columns">
-
+   				
+                <p><%= session[:error] %></p>
    				<% @places.each do |place| %>
 
 	   		<article class="entry">
