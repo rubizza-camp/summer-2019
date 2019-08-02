@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'sinatra/base'
+require 'sinatra/flash'
 require 'sinatra/activerecord'
+require 'pry-remote'
 require './models.rb'
 require 'bcrypt'
 

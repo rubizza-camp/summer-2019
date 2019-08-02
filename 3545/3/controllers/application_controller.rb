@@ -2,6 +2,9 @@ class ApplicationController < Sinatra::Base
   enable :sessions
   set :session_secret, 'secret'
   set :views, './views'
+  configure do
+    register Sinatra::Flash
+  end
 
   get '/' do
     if session[:user_id]

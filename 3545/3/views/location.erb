@@ -1,3 +1,36 @@
 <h1><%= @location.name %></h1>
 <img src="https://picsum.photos/200/300">
 <p><%= @location.description %></p>
+<form action="/location/<%= @location.id %>/post" method="post">
+  <p>Please rate us:</p>
+<select style="" name="points" size="4" required => true >
+  <option value= 1>1</option>
+  <option value= 2>2</option>
+  <option value= 3>3</option>
+  <option value= 4>4</option>
+  <option value= 5>5</option>
+</select>
+  <p>Add commentary:</p>
+  <% if flash[:message] %>
+    <b>
+      <i>
+        <h1 class="message"><%= flash[:message] %></h1>
+      </i>
+    </b>
+  <% end %>
+  <input type="text" name="review", placeholder="Your review" />
+  <input type="submit" name="button" value="Send" />
+</form>
+
+<h1>Our reviews:</h1>
+<% for commentary in @commentaries %>
+  <p>Оценка пользователя <%= (@users.find_by id: commentary.user_id).username %>: <%= commentary.points %>/5</p>
+  <p><%= commentary.text %></p>
+<% end %>
+
+<style>
+  select {
+    width:100px;
+
+  }
+</style>
