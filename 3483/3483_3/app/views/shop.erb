@@ -1,0 +1,50 @@
+<h3>Описание заведения</h3>
+<br />
+Название: <%= @shops.name %>
+<pre class="break-word">Описание: <%= @shops.description %></pre>
+Адрес: <%= @shops.adress %>
+<br />
+<h4>Рейтинг: <%= @stars %></h4>
+  <hr />
+
+  <form action="/new_review/<%= @shops.id %>" method="post" role="form">
+    <div class="form-group">
+      <span>Оцените заведение:</span>
+      <div class="col">
+        <select class="form-control mb-3" style='width: 80px;' name='grade'>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </div>
+      <span>Комментарий:</span>
+    <div class="row">
+      <div class="col mb-3 form-group">
+        <textarea style="height: 250px;" type="text" name="text" class="form-control" placeholder="Text" required></textarea>
+        <div class="invalid-feedback">Fill in this field</div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </br>
+    <button type="submit" class="btn btn-primary">Добавить отзыв</button>
+  </form>
+
+  <hr />
+  <h4>Отзывы</h4>
+  <hr />
+
+<% @reviews.each do |review| %>
+  <div class="card card-body m-1">
+    <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
+    <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
+    <p class="card-text"><%= review.text %>
+      <button class="btn btn-<%if review.grade >2 %>success<%else%>danger<%end%> btn-sm float-right"  disabled>
+        <span class="fa fa-star"></span>   <%= review.grade%>
+      </button>
+    </p>
+  </div>
+<% end %>
