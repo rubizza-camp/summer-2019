@@ -1,0 +1,8 @@
+<html>
+  </body>
+    <% if flash[:notice] %>
+      <b><i><p class="message"><%= flash[:notice] %></p></i></b>
+    <% end %>
+  <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<h2> <%= @place.name %> </h2>
+
+<p>Location: <%= @place.location %></p>
+<p>Description: <%= @place.description %></p>
+<p>Rating: <%= @place.rating %></p>
+<br />
+<br />
+<br />
+
+<% @place.comments.each do |comment| %>
+  <div>
+      <p>User: <%=User.find(comment.user_id).username%></p>
+      <p>Message: <%= comment.title %></p>
+      <p>Rating: <%= comment.rating %></p>
+      <br />
+  </div>
+<% end %>
+<br />
+<br />
+<br />
+
+<% if logged_in? %>
+<form action="/places/<%= @place.id %>" method="POST">
+  <p><b>Message:</b><input type='text' name="title"></p>
+  <p>
+    Rating:
+    <select name="rating" value="1">
+      <option value="1">1 star</option>
+      <option value="2">2 stars</option>
+      <option value="3">3 stars</option>
+      <option value="4">4 stars</option>
+      <option value="5">5 stars</option>
+    </select>
+  </p>
+  <p><input type='submit' value='Save this comment'></p>
+</form>
+<br />
+<br />
+<% else %>
+  <p>You need to LogIn if you want to left your review</p>
+<% end %>
+
+<% if logged_in? %>
+  <p>Logged as <%= current_user.email %></p>
+  <p><a href='/logout'>Logout</a></p>
+<% else %>
+  <p><a href='/login'>Login</a></p>
+<% end %>
+<p><a href='/'>Back To Homepage</a></p>

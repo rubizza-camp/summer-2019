@@ -1,0 +1,20 @@
+<h3>Here list of all places:</h3>
+<br />
+
+<% @places.each do |place| %>
+  <div>
+    <p><a href="/places/<%= place.id %>"><%= place.name %></a></p>
+    <p>Location: <%= place.location %></p>
+    <p>Description: <%= place.description %></p>
+    <p>Rating: <%= place.rating %></p>
+    <br>
+  </div>
+<% end %>
+
+<% if logged_in? %>
+  <p>Logged as <%= current_user.email %></p>
+  <p><a href='/logout'>Logout</a></p>
+<% else %>
+  <p><a href='/login'>Login</a></p>
+  <p><a href='/signup'>Or sign up here</a></p>
+<% end %>
