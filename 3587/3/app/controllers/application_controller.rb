@@ -1,7 +1,6 @@
 require 'dotenv'
 require 'rack-flash'
 require_relative '../helper/user_helper'
-require_relative '../helper/session_helper'
 
 class ApplicationController < Sinatra::Base
   register Sinatra::Session

@@ -7,7 +7,7 @@ Address: <%= @shop.address %>
 <h4>Rating: <%= @stars %></h4>
   <hr />
 
-  <form action="/new_review/<%= @shop.id %>" method="put" role="form">
+  <form action="/new_review" method="post" role="form">
     <div class="form-group">
       <span>Rate the place:</span>
       <div class="col">
