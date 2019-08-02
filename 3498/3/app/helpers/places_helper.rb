@@ -22,10 +22,6 @@ module PlacesHelper
     @comment.save
   end
 
-  def count_rating
-    @place.rating = Comment.where(place_id: session[:place_id]).average(:rating)
-  end
-
   def login?
     session[:user_id]
   end
