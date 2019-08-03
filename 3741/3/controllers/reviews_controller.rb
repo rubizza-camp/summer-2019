@@ -4,14 +4,6 @@ require_relative 'main_controller'
 
 class ReviewsController < MainController
   namespace '/reviews' do
-    helpers do
-      def review_validation
-        find_user_by_session_id
-        create_review
-        'need more text' unless review_valid?
-      end
-    end
-
     post '/:place_id/new' do
       @place = Place.find(params[:place_id])
       if user_logged?
@@ -21,5 +13,13 @@ class ReviewsController < MainController
       end
       redirect "/places/#{@place.id}"
     end
+  end
+
+  private
+
+  def review_validation
+    actual_user
+    create_review
+    'need more text' unless review_valid?
   end
 end

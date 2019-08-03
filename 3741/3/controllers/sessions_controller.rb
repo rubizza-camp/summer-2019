@@ -3,22 +3,6 @@
 require_relative 'main_controller'
 
 class SessionsController < MainController
-  helpers do
-    def redirect_if_logged_in
-      return unless user_logged?
-
-      show_message 'login in already'
-      redirect '/'
-    end
-
-    def redirect_if_logged_out
-      return if user_logged?
-
-      show_message 'Logout already'
-      redirect '/'
-    end
-  end
-
   namespace '/session' do
     before do
       redirect_if_logged_in if request.path_info == '/session/login' ||
@@ -46,5 +30,21 @@ class SessionsController < MainController
     post '/login' do
       sign_in_redirect
     end
+  end
+
+  private
+
+  def redirect_if_logged_in
+    return unless user_logged?
+
+    show_message 'login in already'
+    redirect '/'
+  end
+
+  def redirect_if_logged_out
+    return if user_logged?
+
+    show_message 'Logout already'
+    redirect '/'
   end
 end

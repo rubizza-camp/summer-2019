@@ -8,4 +8,4 @@ ActiveRecord::Base.establish_connection(
   database: 'place_ranker.sqlite3'
 )
 
-Dir[File.join(__dir__, '..', '{controllers,helpers,models}', '**', '*.rb')].each { |f| require f }
+Dir[File.join(__dir__, '..', '{controllers,models}', '**', '*.rb')].each { |f| require f }

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # User data base model
 class User < ActiveRecord::Base
   validates_presence_of :username, :email, :password_hash

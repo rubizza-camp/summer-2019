@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'sinatra/base'
-
 module UserHelper
   def sign_up_redirect
     if register_data_valid?
@@ -9,12 +7,13 @@ module UserHelper
       show_message 'user create, login in please'
       redirect '/'
     else
-      show_message 'email or login already exist'
+      show_message 'bad email or login already exist'
       redirect '/session/signup'
     end
   end
 
   def sign_in_redirect
+    find_user_by_mail
     if user_data_valid?
       session[:user_id] = @user.id
       redirect '/'
@@ -25,16 +24,19 @@ module UserHelper
   end
 
   def register_data_valid?
-    @user = User.new(params.slice('username', 'email', 'password'))
+    create_user
     @user.valid? && Truemail.valid?(params['email'])
   end
 
   def user_data_valid?
-    @user = User.find_by(email: params[:email])
     @user && @user.password == params[:password]
   end
 
-  def find_user_by_session_id
-    @user = User.find(session[:user_id])
+  def find_user_by_mail
+    @user = User.find_by(email: params[:email])
+  end
+
+  def create_user
+    @user = User.new(params.slice('username', 'email', 'password'))
   end
 end
