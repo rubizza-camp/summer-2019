@@ -9,9 +9,9 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
+# rubocop:disable Style/NumericLiterals
 ActiveRecord::Schema.define(version: 2019_08_03_115800) do
-
+# rubocop:enable Style/NumericLiterals
   create_table 'comments', force: :cascade do |t|
     t.integer 'grade', null: false
     t.text 'text', null: false
