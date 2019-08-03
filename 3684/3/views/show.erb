@@ -30,8 +30,9 @@
     </div>
     <% if session[:user_id] %>
     <form class="comment" method="post" action="/leave_comment">
-      <% if flash[:message] %>
-        <b><i><p class="message"><%= flash[:message] %></p></i></b>
+      <% if session[:message] %>
+        <b><i><p class="message"><%= session[:message] %></p></i></b>
+        <% session[:message] = false %>
       <% end %>
       <div>
         <p><textarea name="text" cols="50" rows="10" placeholder="Ваш комментарий"></textarea></p>

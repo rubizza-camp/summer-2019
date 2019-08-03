@@ -22,6 +22,11 @@ class Controller < ApplicationController
     erb :registration_page
   end
 
+  post '/logout' do
+    session[:user_id] = false
+    redirect '/'
+  end
+
   post '/registrate' do
     hash = { name: params['name'],
              email: params['email'].downcase,
@@ -51,6 +56,7 @@ class Controller < ApplicationController
   end
 
   post '/leave_comment' do
+    session[:message] = false
     hash = { text: params['text'],
              score: params['score'],
              user_id: session[:user_id],
@@ -58,15 +64,13 @@ class Controller < ApplicationController
     new_comment = Comment.new(hash)
     if new_comment.valid?
       new_comment.save
+      redirect "restaurant/#{session['rest_id']}"
     else
-      flash[:message] = new_comment.errors.messages.values.first[0]
+      session[:message] = new_comment.errors.messages.values.first[0]
+      output = ''
+      output << partial(:comment_form)
+      # output
     end
-    redirect back
-  end
-
-  post '/logout' do
-    session[:user_id] = false
-    redirect '/'
   end
 
   private
