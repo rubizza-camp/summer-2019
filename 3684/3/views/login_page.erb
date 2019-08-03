@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Войти в аккаунт</title>
+  <link rel="stylesheet" type="text/css" href="/css/theme.css">
+</head>
+  <body align='center'>
+  <form class="form-singing" method="post" action="/log_in">
+    <% if flash[:message] %>
+      <b><i><p class="message"><%= flash[:message] %></p></i></b>
+    <% end %>
+    <p>Введите email и пароль, чтобы войти в аккаунт</p>
+    <input title="Введите сюда свой email" type="email" name="email" placeholder="kavoo@email.com" required><br><br>
+    <input title="Введите сюда свой пароль" type="password" name="password" placeholder="qwerty123" required><br><br>
+    <button>Войди в меня</button>
+  </form>
+  <p><a href='/registration'>Регистрация</a></a>
+  <p><a href='/' />На главную</p>
+  </body>
+</html>

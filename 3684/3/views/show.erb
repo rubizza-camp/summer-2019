@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @restaurant.name %></title>
+  <link rel="stylesheet" type="text/css" href="/css/theme.css">
+</head>
+  <body>
+    <% if session[:user_id] %>
+      <form method="post" action="/logout">
+        <button class='logout'>Выйти</button>
+      </form>
+    <% else %>
+      <h4 align='left'><a href="/login">Войти</a> / <a href="/registration">Зарегистрироваться</a></h4>
+    <% end %>
+    <h1 align='center'><%= @restaurant.name %></h1>
+    <div>
+      <p><%= @restaurant.full_description %></p>
+      <p><label>Адрес: </label><%= @restaurant.location %></p>
+      <p><label>Средняя оценка пользователей: </label><%= @restaurant.score.truncate(2) %></p><br>
+    </div>
+    <div>
+      <% @comments.each do |comment| %>
+        <hr>
+        <%= comment.user.name %>
+        <%= comment.created_at.to_date %><br>
+        <%= comment.score %><br>
+        <%= comment.text %><br><br>
+      <% end %>
+    </div>
+    <% if session[:user_id] %>
+    <form class="comment" method="post" action="/leave_comment">
+      <% if session[:message] %>
+        <b><i><p class="message"><%= session[:message] %></p></i></b>
+      <% end %>
+      <div>
+        <p><textarea name="text" cols="50" rows="10" placeholder="Ваш комментарий"></textarea></p>
+        <input title="Ваша оценка заведению" name="score" type="number" min="1" max="5" step="1">
+        <label>Ваша оценка заведению</label><br><br>
+        <% session[:restaurant_id] = @restaurant.id %>
+      </div>
+      <button>Оставить комментарий</button><br>
+    </form>
+    <% end %>
+    <p><a href='/' />На главную</p>
+  </body>
+</html>
