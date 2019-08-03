@@ -2,13 +2,14 @@ class PostsController < ApplicationController
 
   attr_reader :post
 
-  get '/' do
+  get '/all' do
     @posts = Post.all
     erb :'posts/posts.html'
   end
 
-  get '/post_path/:id' do
+  get '/all/:id' do
     @post = Post.find_by(id: params[:id])
+    session[:id] = @post.id
     erb :'posts/show.html'
   end
 
@@ -19,7 +20,7 @@ class PostsController < ApplicationController
   post '/' do
     post = Post.new(params[:post])
     if post.save
-      redirect 'posts/'
+      redirect 'posts/all'
     else
       redirect 'posts/new'
     end

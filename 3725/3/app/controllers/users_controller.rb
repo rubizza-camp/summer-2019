@@ -1,59 +1,39 @@
-require_relative '../helpers/auth'
+require 'pry'
 
 class UsersController < ApplicationController
 
   attr_reader :user
 
-  include BCrypt
-
-  def password
-    @password ||= Password.new(password_hash)
-  end
-
-  def password=(new_password)
-    @password = Password.create(new_password)
-    self.password_hash = @password
-  end
-
   get '/login' do
-    erb :'users/login'
+    erb :'users/log_in.html'
   end
 
   post '/login' do
-    @user = User.find_by_email(params[:email])
+    binding.pry
+    @user = User.find_by(params[:email])
     if @user.password == params[:password]
-      
+      session[:user_id] = user.id
+      redirect '/posts/all'
     else
-      redirect_to home_url
+      redirect '/users/login'
     end
   end
 
-  get '/auth/sign_in' do
-    haml :sign_in
+  get '/signin' do
+    erb :'users/sign_in.html'
   end
 
-  post '/auth/sign_in' do
-    user_params = params[:user]
-    user = User.find_by email: user_params[:email]
-    if user.password == user_params[:password]
-      generate_token
-      write_token_to_session
-
-      redirect to('/')
-    else
-      haml :sign_in
-    end
-  end
-
-  get '/signup' do
-    erb :'users/signup'
-  end
-
-  post '/signup' do
+  post '/signin' do
+    binding.pry
     @user = User.new(params[:user])
-    @user.password = params[:password]
     @user.save!
-    authorization
+    session[:user_id] = user.id
+    redirect '/posts/all'
+  end
+
+  post '/logout' do
+    session.clear
+    redirect '/posts/all'
   end
 
 

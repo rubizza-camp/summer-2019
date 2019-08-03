@@ -38,8 +38,6 @@ GEM
     sinatra-activerecord (2.0.13)
       activerecord (>= 3.2)
       sinatra (>= 1.0)
-    sinatra-auth (0.0.9)
-      sinatra (>= 0.9.4)
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
     sqlite3 (1.4.1)
@@ -62,7 +60,6 @@ DEPENDENCIES
   require_all (= 2.0.0)
   sinatra (~> 2.0, >= 2.0.5)
   sinatra-activerecord (~> 2.0, >= 2.0.13)
-  sinatra-auth (~> 0.0.9)
   sinatra-flash (~> 0.3.0)
   sqlite3
 

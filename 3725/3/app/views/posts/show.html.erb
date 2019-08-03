@@ -1,5 +1,19 @@
-<%= @post.title %></p>
-<%= @post.summary %></p>
-<%= @post.body %></p>
-
-<%= erb :'posts/form_review.html' %>
+<div class="post_item">
+  <div class="post_item_title">
+    <a href="/posts/all/<%= post.id %>"><%= post.title %></a>
+  </div>
+  <div class="post_item_summary">
+    <p><%= post.summary %></p>
+  </div>
+  <div class="post_item_body">
+    <p><%= post.body %></p>
+  </div>
+</div>
+<div class="reviews">
+  <div class="reviws_title">
+    <p>You can leave your review</p>
+  </div>
+  <div class="reviews_form">
+    <%= erb :'posts/form_review.html' %>
+  </div>
+</div>

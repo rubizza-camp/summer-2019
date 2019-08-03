@@ -1,7 +1,12 @@
-<h1>Hello</h1>
+<h1>Full places list </h1>
 
-<p>Posts</p>
 <% @posts.each do |post| %>
-   <%= post.title %></p>
-   <%= post.summary %></p>
+<div class="post_item">
+  <div class="post_item_title">
+   <a href="/posts/all/<%= post.id %>"><%= post.title %></a>
+  </div>
+  <div class="post_item_summary">
+   <p><%= post.summary %></p>
+  </div>
+ </div>
 <% end %>
