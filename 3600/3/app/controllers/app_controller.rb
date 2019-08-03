@@ -10,4 +10,8 @@ class AppController < Sinatra::Base
     set :public_folder, File.dirname(__FILE__) + '/public'
     set :session_secret, ENV['key']
   end
+
+  get '/' do
+    erb :index, layout: :layout
+  end
 end
