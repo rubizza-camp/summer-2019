@@ -6,6 +6,7 @@ gem 'shotgun'
 gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'sinatra-contrib'
+gem 'sinatra-flash'
 gem 'sinatra-session'
 gem 'sqlite3'
 
