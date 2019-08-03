@@ -9,8 +9,8 @@ class Controller < ApplicationController
 
   get '/restaurant/:id' do
     @restaurant = Restaurant.find(params[:id])
-    @comments = Comment.includes(:user).where(restaurant_id: @restaurant.id)
     @restaurant.update(score: count_score(@comments))
+    @comments = Comment.includes(:user).where(restaurant_id: @restaurant.id)
     erb :show
   end
 
@@ -23,11 +23,11 @@ class Controller < ApplicationController
   end
 
   post '/logout' do
-    session[:user_id] = false
+    session.clear
     redirect '/'
   end
 
-  post '/registrate' do
+  post '/register' do
     hash = { name: params['name'],
              email: params['email'].downcase,
              password: params['password'],
@@ -56,20 +56,14 @@ class Controller < ApplicationController
   end
 
   post '/leave_comment' do
-    session[:message] = false
-    hash = { text: params['text'],
-             score: params['score'],
-             user_id: session[:user_id],
-             restaurant_id: session['rest_id'] }
-    new_comment = Comment.new(hash)
+    session.delete(:message)
+    new_comment = Comment.new(params.merge!(session.to_hash.slice('user_id', 'restaurant_id')))
     if new_comment.valid?
       new_comment.save
-      redirect "restaurant/#{session['rest_id']}"
+      redirect "restaurant/#{params[:restaurant_id]}"
     else
       session[:message] = new_comment.errors.messages.values.first[0]
-      output = ''
-      output << partial(:comment_form)
-      # output
+      partial(:comment_form)
     end
   end
 
