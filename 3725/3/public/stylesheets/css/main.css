@@ -121,3 +121,36 @@ h1{
     width: 100px;
     height:35px;
   }
+
+  .stars-review{
+    margin: 10px 0 20px 0;
+  }
+
+  .review_image{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #588278;
+  }
+
+  .review_item{
+    display: flex;
+    margin: 0 0 20px 0;
+  }
+
+  .review_user_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .review_text_info{
+      padding: 10px 10px 10px 50px;
+      display: flex;
+      flex-direction: column;
+    }
+
+  .reviews_form{
+    margin: 0 0 50px 0;
+  }

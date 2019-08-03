@@ -9,6 +9,7 @@
     <p><%= post.body %></p>
   </div>
 </div>
+<% if session[:user_id] %>
 <div class="reviews">
   <div class="reviws_title">
     <p>You can leave your review</p>
@@ -17,3 +18,21 @@
     <%= erb :'posts/form_review.html' %>
   </div>
 </div>
+<% else %>
+<div class="reviws_title">
+  <p><a href ="../../users/login">log in</a> to leave comment</p>
+</div>
+<% end %>
+<% Review.all.where(post_id: session[:id]).each do |review| %>
+<div class="review_item">
+  <div class="review_user_info">
+     <div class="review_image">
+     </div>
+     <p><%= User.find_by(id: review.user_id).email %></p>
+  </div>
+    <div class="review_text_info">
+      <a>Оценка пользователя: <%= review.star %></a>
+      <a><%= review.comment %></a>
+    </div>
+</div>
+<% end %>

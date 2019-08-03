@@ -1,7 +1,4 @@
-require 'pry'
-
 class UsersController < ApplicationController
-
   attr_reader :user
 
   get '/login' do
@@ -9,12 +6,12 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    binding.pry
     @user = User.find_by(params[:email])
     if @user.password == params[:password]
-      session[:user_id] = user.id
+      session[:user_id] = @user.id
       redirect '/posts/all'
     else
+      session[:error] = 'Log in failed!'
       redirect '/users/login'
     end
   end
@@ -24,17 +21,17 @@ class UsersController < ApplicationController
   end
 
   post '/signin' do
-    binding.pry
     @user = User.new(params[:user])
-    @user.save!
-    session[:user_id] = user.id
-    redirect '/posts/all'
+    if @user.save!
+      session[:user_id] = @user.id
+      redirect '/posts/all'
+    else
+      session[:error] = 'Sign up failed!'
+    end
   end
 
-  post '/logout' do
+  get '/logout' do
     session.clear
     redirect '/posts/all'
   end
-
-
 end

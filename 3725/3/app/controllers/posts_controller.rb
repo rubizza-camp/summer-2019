@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-
   attr_reader :post
 
   get '/all' do
@@ -25,5 +24,4 @@ class PostsController < ApplicationController
       redirect 'posts/new'
     end
   end
-
 end

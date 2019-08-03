@@ -8,5 +8,6 @@
   <div class="post_item_summary">
    <p><%= post.summary %></p>
   </div>
+  <p><%= post.reviews.average(:star) %></p>
  </div>
 <% end %>
