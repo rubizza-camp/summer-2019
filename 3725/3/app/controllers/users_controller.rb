@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   attr_reader :user
 
   get '/login' do
-    erb :'users/log_in.html'
+    erb :'users/log_in'
   end
 
   post '/login' do
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   get '/signin' do
-    erb :'users/sign_in.html'
+    erb :'users/sign_in'
   end
 
   post '/signin' do

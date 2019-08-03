@@ -1,6 +1,8 @@
 class ApplicationController < Sinatra::Base
   set :views, File.expand_path('../views', __dir__)
 
+  Tilt.register Tilt::ERBTemplate, 'html.erb'
+
   configure do
     set :views, 'app/views/'
     # rubocop:disable Style/StringLiterals

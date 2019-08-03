@@ -3,17 +3,17 @@ class PostsController < ApplicationController
 
   get '/all' do
     @posts = Post.all
-    erb :'posts/posts.html'
+    erb :'posts/posts'
   end
 
   get '/all/:id' do
     @post = Post.find_by(id: params[:id])
     session[:id] = @post.id
-    erb :'posts/show.html'
+    erb :'posts/show'
   end
 
   get '/new' do
-    erb :'posts/new.html'
+    erb :'posts/new'
   end
 
   post '/' do
