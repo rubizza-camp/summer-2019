@@ -3,6 +3,7 @@ require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/activerecord'
 require 'pry-remote'
+require 'csv'
 require './models.rb'
 require 'bcrypt'
 

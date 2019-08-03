@@ -1,6 +1,7 @@
 <h1><%= @location.name %></h1>
-<img src="https://picsum.photos/200/300">
+<img src=<%=@location.photo_url %>>
 <p><%= @location.description %></p>
+<p><%= @location.full_description %></p>
 <form action="/location/<%= @location.id %>/post" method="post">
   <p>Please rate us:</p>
 <select style="" name="points" size="4" required => true >

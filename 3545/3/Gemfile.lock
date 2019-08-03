@@ -16,6 +16,7 @@ GEM
     bcrypt (3.1.13)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
+    csv (3.1.1)
     ffi (1.11.1)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
@@ -67,6 +68,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   bcrypt
+  csv
   pry
   pry-remote
   rack-flash3

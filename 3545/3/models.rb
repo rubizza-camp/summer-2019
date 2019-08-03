@@ -13,7 +13,7 @@ end
 class Commentary < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
-  validates :text, presence: { message: 'Explain low grade' }, if: :low_points
+  validates :text, presence: { message: 'Please explain your low grade' }, if: :low_points
   validates :points, presence: true
 
   def low_points

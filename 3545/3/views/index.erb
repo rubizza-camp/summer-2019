@@ -1,6 +1,9 @@
+<link rel=”stylesheet” type=”text/css” href=”./public/styles.css” />
+
 <% for location in @locations %>
   <h1>
     <a href="/location/<%= location.id %>"> <%= location.name %></a>
+    <img src=<%=location.photo_url %>>
   </h1>
   <p><%= location.description %></p>
 <% end %>

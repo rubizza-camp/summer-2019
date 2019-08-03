@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   get '/failure' do
-    erb :failure
+    erb :failure, layout: false
   end
 
   get '/wrong' do

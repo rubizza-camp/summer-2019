@@ -1,7 +1,11 @@
+require 'csv'
+
+doc = CSV.read('./info.csv')
+
 locations = [
-  { name: 'Good place', description: 'Good place for good people, it is very nice.' },
-  { name: 'Middle class place', description: 'Not so good as the first one, but still OK' },
-  { name: 'Bad place', description: 'Name speaks books here. No good reviews expected' }
+  { name: 'Good place', description: doc[0][1], full_description: doc[1][1], photo_url: doc[8][1] },
+  { name: 'OK place', description: doc[2][1], full_description: doc[3][1], photo_url: doc[7][1] },
+  { name: 'Bad place', description: doc[4][1], full_description: doc[5][1], photo_url: doc[6][1] }
 ]
 
 locations.each do |location|
@@ -11,7 +15,7 @@ end
 users = [
   { username: 'Loyal_user', email: 'loyal@nice.com', password: 'secure' },
   { username: 'Normal_user', email: 'normal@ok.com', password: 'secure' },
-  { username: 'Angry_user', email: 'angryl@hate.com', password: 'secure' }
+  { username: 'Angry_user', email: 'angry@hate.com', password: 'secure' }
 ]
 
 users.each do |user|
