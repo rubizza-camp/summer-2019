@@ -12,30 +12,29 @@
 
 ActiveRecord::Schema.define(version: 2019_08_03_115800) do
 
-  create_table "comments", force: :cascade do |t|
-    t.integer "grade", null: false
-    t.text "text", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "restaurant_id"
+  create_table 'comments', force: :cascade do |t|
+    t.integer 'grade', null: false
+    t.text 'text', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'user_id'
+    t.integer 'restaurant_id'
   end
 
-  create_table "restaurants", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.text "short_description"
-    t.text "full_description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'restaurants', force: :cascade do |t|
+    t.string 'name'
+    t.string 'address'
+    t.text 'short_description'
+    t.text 'full_description'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "password", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'name', null: false
+    t.string 'email', null: false
+    t.string 'password', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
-
 end

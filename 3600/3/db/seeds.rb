@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 descriptions = [
-  { name: "The Spaniards Inn.",
+  { name: 'The Spaniards Inn.',
     address: 'Spaniards Road, Hampstead, London, Greater London, NW3 7JJ',
     short_description: 'Gastropub, British, European, $$',
     full_description: 'It has the feeling of a country pub (and is especially cosy in win'\
