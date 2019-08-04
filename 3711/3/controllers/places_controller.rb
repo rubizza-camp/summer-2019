@@ -24,8 +24,14 @@ class PlacesController < Sinatra::Base
   end
 
   post '/places/new' do
-    Place.create(name: params['name'], note: params['note'], description: params['descr'],
-                 longitude: params['longit'], latitude: params['latit'])
-    redirect '/places'
+    Place.create(place_params)
+    redirect '/places/'
+  end
+
+  private
+
+  def place_params
+    param_arr = %i[name note description longitude latitude]
+    Hash[param_arr.collect { |name| [name, params[name.to_s]] }]
   end
 end

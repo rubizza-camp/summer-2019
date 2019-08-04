@@ -10,9 +10,21 @@ class ReviewsController < Sinatra::Base
   post '/reviews/new' do
     return if validate_review
 
-    Review.create(user_id: session[:user].id, place_id: params['place_id'],
-                  rating: params['rating'], text: params['note'])
-    flash_info('Thanks for yor review!')
-    redirect "/places/#{params['place_id']}"
+    review = Review.new(review_params)
+    if review.save
+      flash_info('Thanks for yor review!')
+      redirect "/places/#{params['place_id']}"
+    else
+      redirect back
+    end
+  end
+
+  private
+
+  def review_params
+    param_arr = %i[place_id rating text]
+    param_hash = Hash[param_arr.collect { |name| [name, params[name.to_s]] }]
+    param_hash[:user_id] = session[:user].id
+    param_hash
   end
 end

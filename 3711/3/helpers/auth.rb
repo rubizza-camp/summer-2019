@@ -44,7 +44,7 @@ module AuthHelper
     redirect '/'
   end
 
-  def logoff
+  def logout
     session.delete(:user)
     redirect back
   end

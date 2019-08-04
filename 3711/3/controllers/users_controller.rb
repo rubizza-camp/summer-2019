@@ -34,14 +34,24 @@ class UsersController < Sinatra::Base
   post '/signup' do
     return if signup_mail_check(params['mail'])
 
-    @user = User.create(mail: params['mail'], username: params['u_name'],
-                        pass_hash: Digest::MD5.hexdigest(params['password']),
-                        first_name: params['f_name'], last_name: params['l_name'])
-    @user.save
-    authorization
+    @user = User.new(review_params)
+    if @user.save
+      authorization
+    else
+      retry_action('Error while user creating: validation error', '/signup')
+    end
   end
 
-  get '/logoff' do
-    logoff
+  get '/logout' do
+    logout
+  end
+
+  private
+
+  def review_params
+    param_arr = %i[mail username first_name last_name]
+    param_hash = Hash[param_arr.collect { |name| [name, params[name.to_s]] }]
+    param_hash[:pass_hash] = Digest::MD5.hexdigest(params['password'])
+    param_hash
   end
 end

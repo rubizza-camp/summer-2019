@@ -11,7 +11,7 @@ require_relative './models/review'
 require_relative './models/user'
 
 set :database, adapter: 'sqlite3', database: 'places.sqlite3'
-set views: proc { File.join(root, '../views/') }
+# set views: proc { File.join(root, '../views/') }
 
 class App < Sinatra::Base
   configure do

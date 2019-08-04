@@ -1,0 +1,47 @@
+* {
+    font-family: 'Fix Sans';
+}
+
+.header {
+    background-color: #333;
+    min-height: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 99;
+    display: flex;
+    color: white;
+    padding: 14px 16px 11px 12px;
+}
+
+.title {
+    width: 243px;
+    height: 30px;
+}
+
+.post_header {
+    margin-top: 103px;
+    height: 80%;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.post_header {
+    color: #000000;
+}
+
+.header_button {
+    padding: 10px 14px;
+    background: #007bff;
+    color: white;
+    border: none;
+    font-weight: 600;
+    float: right;
+    margin-left: 10px;
+}
