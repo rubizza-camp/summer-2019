@@ -47,4 +47,37 @@ class SessionsController < MainController
     show_message 'Logout already'
     redirect '/'
   end
+
+  def sign_up_redirect
+    if register_data_valid?
+      show_message 'user create, login in please'
+      redirect '/'
+    else
+      show_message 'bad email or login already exist'
+      redirect '/session/signup'
+    end
+  end
+
+  def sign_in_redirect
+    user = User.find_by(email: params[:email])
+    if user_data_valid?(user)
+      session[:user_id] = user.id
+      redirect '/'
+    else
+      show_message 'wrong email'
+      redirect '/session/login'
+    end
+  end
+
+  def register_data_valid?
+    create_user.save if create_user.valid?
+  end
+
+  def user_data_valid?(user)
+    user && user.password == params[:password]
+  end
+
+  def create_user
+    User.new(params.slice('username', 'email', 'password'))
+  end
 end

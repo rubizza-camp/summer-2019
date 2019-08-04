@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../helpers/review_helper'
-require_relative '../helpers/user_helper'
-require_relative '../helpers/view_helper'
 # main class
 class MainController < Sinatra::Base
   configure do
@@ -12,8 +9,6 @@ class MainController < Sinatra::Base
     register Sinatra::ActiveRecordExtension
     register Sinatra::Flash
     register Sinatra::Namespace
-    helpers ReviewHelper
-    helpers UserHelper
     helpers ViewHelper
   end
 
