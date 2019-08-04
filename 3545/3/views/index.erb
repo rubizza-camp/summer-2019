@@ -1,10 +1,9 @@
-<link rel=”stylesheet” type=”text/css” href=”./public/styles.css” />
-
-<% for location in @locations %>
-  <h1>
-    <a href="/location/<%= location.id %>"> <%= location.name %></a>
-    <img src=<%=location.photo_url %>>
-  </h1>
-  <p><%= location.description %></p>
-<% end %>
-
+<div class="list">
+  <% for location in @locations %>
+    <a class="list-item" href="/location/<%= location.id %>">
+      <img class="list-image" src=<%=location.photo_url %>>
+      <p class="list-name"><%= location.name %></p>
+      <p class="list-description"><%= location.description %></p>
+    </a>
+  <% end %>
+</div>

@@ -2,7 +2,7 @@ require_relative 'application_controller'
 
 class UsersController < ApplicationController
   get '/signup' do
-    erb :signup, layout: false
+    erb :signup
   end
 
   post '/signup' do
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   get '/login' do
-    erb :login, layout: false
+    erb :login
   end
 
   post '/login' do

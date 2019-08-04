@@ -1,17 +1,20 @@
-<h1>Sign Up</h1>
 
-<% if @error %>
-  <div class="error">Login failed.</div>
-<% end %>
+<div class="form">
+  <h1 class="form-title">Sign Up</h1>
 
-<form action="/signup" method="post">
+  <% if @error %>
+    <div class="error">Login failed.</div>
+  <% end %>
 
-  <input type="text" name="username", placeholder="Username" />
-  <input type="text" name="email", placeholder="Email" />
-  <input type="password" name="password", placeholder="Password"/>
+  <form class="form-content" action="/signup" method="post">
 
-  <input type="submit" name="button" value="Login"  />
+    <input class="form-input" type="text" name="username", placeholder="Username" />
+    <input class="form-input" type="text" name="email", placeholder="Email" />
+    <input class="form-input" type="password" name="password", placeholder="Password"/>
 
-</form>
+    <button class="button">Sign up</button>
 
-<a href="/login">Log in</a>
+  </form>
+
+  <a href="/login">Log in</a>
+</div>
