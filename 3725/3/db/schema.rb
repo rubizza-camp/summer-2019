@@ -1,3 +1,4 @@
+# rubocop:disable Style/NumericLiterals
 ActiveRecord::Schema.define(version: 2019_08_01_194853) do
   create_table 'posts', force: :cascade do |t|
     t.string 'title'
@@ -23,3 +24,4 @@ ActiveRecord::Schema.define(version: 2019_08_01_194853) do
     t.datetime 'updated_at', null: false
   end
 end
+# rubocop:enable Style/NumericLiterals
