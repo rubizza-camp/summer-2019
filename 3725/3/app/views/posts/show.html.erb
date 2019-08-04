@@ -31,7 +31,9 @@
      <p><%= User.find_by(id: review.user_id).email %></p>
   </div>
     <div class="review_text_info">
-      <a>Оценка пользователя: <%= review.star %></a>
+      <div class="review_star">
+        <a>Оценка пользователя: <%= review.star %></a>
+      </div>
       <a><%= review.comment %></a>
     </div>
 </div>

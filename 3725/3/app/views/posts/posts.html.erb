@@ -1,5 +1,9 @@
 <h1>Full places list </h1>
-
+<% if session[:user_id] %>
+  <div class="add_post">
+    <a href="/posts/new">+ add restaurant</a>
+  </div>
+<% end %>
 <% @posts.each do |post| %>
 <div class="post_item">
   <div class="post_item_title">
@@ -8,6 +12,8 @@
   <div class="post_item_summary">
    <p><%= post.summary %></p>
   </div>
-  <p><%= post.reviews.average(:star) %></p>
+  <div class="review_star">
+    <a>Средняя оценка: <%= post.reviews.average(:star) %></a>
+  </div>
  </div>
 <% end %>
