@@ -12,12 +12,12 @@ require_relative './models/review'
 require_relative './models/user'
 
 set :database, adapter: 'sqlite3', database: 'places.sqlite3'
-# set views: proc { File.join(root, '../views/') }
 
 class App < Sinatra::Base
   configure do
     enable :sessions
     set :session_secret, 'secret'
+    set :public_folder, File.dirname(__FILE__) + '/static'
   end
 
   register Sinatra::ActiveRecordExtension
