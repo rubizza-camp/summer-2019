@@ -5,9 +5,7 @@ class ApplicationController < Sinatra::Base
 
   configure do
     set :views, 'app/views/'
-    # rubocop:disable Lint/AmbiguousBlockAssociation
-    set :public_folder, Proc.new { File.join(root, 'public') }
-    # rubocop:enable Lint/AmbiguousBlockAssociation
+    set :public_folder, proc { File.join(root, 'public') }
     set :root, File.expand_path('../..', __dir__)
     enable :sessions
     set :session_secret, 'secret'
