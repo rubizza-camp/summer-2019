@@ -6,6 +6,7 @@ require 'sinatra/flash'
 require_relative './controllers/places_controller'
 require_relative './controllers/reviews_controller'
 require_relative './controllers/users_controller'
+require_relative './controllers/welcome_controller'
 require_relative './models/place'
 require_relative './models/review'
 require_relative './models/user'
@@ -25,8 +26,5 @@ class App < Sinatra::Base
   use UsersController
   use ReviewsController
   use PlacesController
-
-  get '/' do
-    redirect '/places/'
-  end
+  use WelcomeController
 end
