@@ -24,25 +24,25 @@
     <div align='center'>
       <p><%= @restaurant.description %></p>
       <p><label>Адрес: </label><%= @restaurant.location %></p>
-      <p><label>Средняя оценка: </label><%= @restaurant.score %></p><br>
+      <p><label>Средняя оценка: </label><%= @restaurant.raiting %></p><br>
     </div>
     <div align='center'>
       <% @comments.each do |comment| %>
         <hr>
         <%= comment.user.name %>
         <%= comment.created_at.to_date %><br>
-        <%= comment.score %>-&#9733<br>
+        <%= comment.raiting %>-&#9733<br>
         <%= comment.text %><br><br>
       <% end %>
     </div>
     <% if session[:user_id] %>
-    <form class="comment" method="post" action="/leave_comment">
+    <form class="comment" method="post" action="/restaurants/:id/comments">
       <% if flash[:message] %>
         <b><i><p class="message"><%= flash[:message] %></p></i></b>
       <% end %>
-      <div align='center'>
+      <div>
         <p><textarea name="text" cols="50" rows="10" placeholder="Ваш комментарий"></textarea></p>
-        <input title="Ваша оценка заведению" name="score" type="number" min="1" max="5" step="1">
+        <input title="Ваша оценка заведению" name="raiting" type="number" min="1" max="5" step="1">
         <label>Ваша оценка</label><br><br>
        <% session['rest_id'] = @restaurant.id %>
      </div>

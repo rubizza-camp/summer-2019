@@ -1,4 +1,4 @@
-class Registrationcontroller < ApplicationController
+class RegistrationController < ApplicationController
   get '/registration' do
     erb :registration
   end

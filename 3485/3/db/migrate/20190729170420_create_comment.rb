@@ -6,7 +6,7 @@ class CreateComment < ActiveRecord::Migration[5.2]
       table.text :text
       table.integer :user_id
       table.integer :restaurant_id
-      table.integer :score
+      table.integer :raiting
       table.timestamp :created_at
     end
   end
