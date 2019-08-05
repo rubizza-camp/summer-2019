@@ -1,14 +1,16 @@
 <div class="row m-4">
   <div class="card">
-    <div class="card-body" style="background-color: #FFE4B5">
-      <h3 class="card-title text-center"><%= @place.name %>
-        <button class="btn btn-<%if @average_score && @average_score > 2 %>success<%else%>danger<%end%> btn-lg" disabled>
-          <span class="fas fa-thumbs-up"></span>   <%= @average_score%>
-        </button>
-      </h3>
-      <h6 class="card-subtitle mb-2 text-muted text-center"><%= @place.location%></h6>
-      <img class="rounded mx-auto d-block" style="width: 60%; height: 50%;" src=<%= @place.image_url %>>
-      <p class="card-text m-4">  <%= @place.full_description %></p>
+    <div class="place-background">
+      <div class="card-body">
+        <h3 class="card-title text-center"><%= @place.name %>
+          <button class="btn btn-<%if @average_score && @average_score > 2 %>success<%else%>danger<%end%> btn-lg" disabled>
+            <span class="fas fa-thumbs-up"></span>   <%= @average_score%>
+          </button>
+        </h3>
+        <h6 class="card-subtitle mb-2 text-muted text-center"><%= @place.location%></h6>
+        <img class="rounded mx-auto d-block" src=<%= @place.image_url %>>
+        <p class="card-text m-4">  <%= @place.full_description %></p>
+      </div>
     </div>
   </div>
 </div>
@@ -17,7 +19,7 @@
   <form action='/reviews/new' id='addForm' method='POST' class="mb-3 mt-3 was-validated">
     <% if current_user? %>
       <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#comment" 
-      style="background-color: #808080">Send feedback</button>
+      class="button-background">Send feedback</button>
     <% end %>
     <%= erb :comment_modal_form%>
   </form>

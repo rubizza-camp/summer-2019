@@ -1,0 +1,45 @@
+@import url("all.css");
+@import url("bootstrap.css");
+
+.modal-content, .place-background {
+  background-color: #FFE4B5 !important;
+}
+
+.form-grade {
+  width: 80px !important;
+}
+
+.form-comment {
+  height: 250px !important;
+}
+
+.place-card {
+  margin: 5px 30px;
+}
+
+.rounded {
+  width: 70%; 
+  height: 350%;
+}
+
+.button-background .btn {
+  background-color: #808080;
+}
+
+.navbar.navbar-expand-lg {
+  background-color: #FFA500;
+}
+
+.navbar-brand.nav-title, .nav-link {
+  color: #696969;
+}
+
+.rounded.mx-auto.d-block {
+  width: 60%;
+  height: 50%;
+}
+
+.was-validated .container {
+  background-color: #DCDCDC; 
+  width: 35%;
+}

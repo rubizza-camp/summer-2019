@@ -1,14 +1,21 @@
-<div class="row" style="margin: 5px 30px">
-  <% @places.each do |place| %>
-    <div class="col-sm-6">
-      <div class="card m-4">
-        <div class="card-body text-center" style="background-color: #FFE4B5">
-          <img src= '<%=place.image_url%>' class="rounded" style="width: 70%; height: 350%;">
-          <h5 class="card-title m-3"><%=place.id%>. <%= place.name %></h5>
-          <p class="card-text"><%= place.short_description %></p>
-          <a href='places/<%=place.id%>' class="btn btn-primary" style="background-color: #808080">Detail </a>
+<div class="place-card">
+  <div class="row">
+    <% @places.each do |place| %>
+      <div class="col-sm-6">
+        <div class="card m-4">
+          <div class="place-background">
+            <div class="card-body text-center">
+              <img src= '<%=place.image_url%>' class="rounded">
+              <h5 class="card-title m-3"><%=place.id%>. <%= place.name %></h5>
+              <p class="card-text"><%= place.short_description %></p>
+              <div class="button-background">
+                <a href='places/<%=place.id%>' class="btn btn-primary">Detail </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
+
