@@ -6,7 +6,7 @@ module RatingHelper
   end
 
   def bad_review_without_comment
-    params['rating'].to_i <= BAD_RATING && params['note'].empty?
+    params['rating'].to_i <= BAD_RATING && params['text'].empty?
   end
 
   def need_for_comment
