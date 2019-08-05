@@ -1,0 +1,68 @@
+<main role="main" class="container">
+  <div class="place">
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+      <% place = Place.find(@place_id) %>
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <div class="px-0">
+          <h1 class="display-4 font-italic"><b><%= place.name%></b></h1>
+          <% avg_rating = place.reviews.average(:rating) || 0 %>
+          <small class="">Rating: <%= '⭐' * avg_rating.round + "(#{'%.1f' % avg_rating})" %></small>
+          
+          <p class="lead my-3"><%= place.note%></p>
+          <p class="lead my-3"><%= place.description%></p>
+          <p class="lead my-3">
+            <a href="https://www.google.com/maps/@<%= place.longitude%>,<%= place.latitude%>,15z">
+              <small class="text-muted"><%= place.longitude %> <%= place.latitude %></small>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded box-shadow review">
+    <% if session[:error]%>
+      <p class="error"><%= session[:error] %></p>
+      <% session.delete(:error) %>
+    <% elsif session[:notification] %>
+      <p class="notification"><%= session[:notification] %></p>
+      <% session.delete(:notification) %>
+    <% end %>
+    
+    <% if loged_in? %>
+      <form action="/reviews/new" method="POST">
+        <div class="container">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Select rating</label>
+            <select name="rating" class="form-control" id="exampleFormControlSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" type="text" placeholder="Enter comment" name="text"></textarea>
+          </div>
+          <input type="hidden" name="place_id" value="<%=@place_id%>">
+          <button type="submit" class="registerbtn">Make review</button>
+        </div>
+      </form>
+    <% else %>
+      <h4><a href="/signup">Sign Up</a> or <a href="/login">Log In</a> to make review.</h4>
+    <% end %>
+    
+    <% place.reviews.reverse.each do |review| %>
+    <div class="media text-muted pt-3">
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark"><%= review.user.username %></strong>
+          <strong class="text-gray-dark"><%= '⭐' * review.rating %></strong>
+        </div>
+        <span class="d-block"><%= review.text %></span>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</main>

@@ -1,0 +1,22 @@
+<form action="/login" method="POST">
+  <div class="container">
+    <h1>Input your login data</h1>
+    <p>Please fill in this form to login.</p>
+    
+    <% if session[:error]%>
+      <p class="error"><%= session[:error] %></p>
+      <% session.delete(:error) %>
+    <% elsif session[:notification] %>
+      <p class="notification"><%= session[:notification] %></p>
+      <% session.delete(:notification) %>
+    <% end %>
+
+    <label for="mail"><b>Place your e-mail</b></label>
+    <input type="text" placeholder="Enter your e-mail" name="mail" required>
+
+    <label for="password"><b>Place password</b></label>
+    <input type="password" placeholder="Enter password" name="password" required>
+
+    <button type="submit" class="registerbtn">Log in!</button>
+  </div>
+</form>
