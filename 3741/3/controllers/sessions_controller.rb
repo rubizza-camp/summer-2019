@@ -70,7 +70,6 @@ class SessionsController < MainController
   end
 
   def register_data_valid?
-    new_user = create_user
     new_user.save if new_user.valid?
   end
 
@@ -78,7 +77,7 @@ class SessionsController < MainController
     user && user.password == params[:password]
   end
 
-  def create_user
+  def new_user
     User.new(params.slice('username', 'email', 'password'))
   end
 end
