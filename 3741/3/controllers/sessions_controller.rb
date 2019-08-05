@@ -70,7 +70,8 @@ class SessionsController < MainController
   end
 
   def register_data_valid?
-    create_user.save if create_user.valid?
+    new_user = create_user
+    new_user.save if new_user.valid?
   end
 
   def user_data_valid?(user)
