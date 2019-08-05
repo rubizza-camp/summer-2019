@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FoodShopsReview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">На главную</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Список заведений<span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+
+          <span class="text-muted">
+            <% if session['user_id'] %>
+              <ul class="list-group list-group-horizontal ">
+                <a href="/logout" class="list-group-item">Выйти</a>
+              </ul>
+            <% else %>
+              <ul class="list-group list-group-horizontal ">
+                <a href="/login" class="list-group-item">Войти</a>
+                <a href="/register" class="list-group-item">Зарегистрироваться</a>
+              </ul>
+            <% end %>
+          </span>
+        </div>
+      </nav>
+
+      <div>
+        <% if @error %>
+          <div class="alert alert-danger"><%= @error %></div>
+        <% end %>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<h2>Список заведений <%= 'пуст' if @shops.empty? %></h2>
+<br />
+
+<% @shops.each do |shop| %>
+  <p>
+    <a href="/shops/<%= shop['id'] %>">Название: <%= shop.name %></a>
+    <br />
+    <span class="d-inline-block text-truncate" style="max-width: 300px;">
+      Описание: <%= shop.description %>
+    </span>
+    <br />
+    Адрес: <%= shop.address %>
+  </p>
+  <hr />
+<% end %>

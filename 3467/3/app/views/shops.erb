@@ -1,0 +1,24 @@
+<h3>Описание заведения</h3>
+<br />
+Название: <%= @shop.name %>
+<pre class="break-word">Описание: <%= @shop.description %></pre>
+Адрес: <%= @shop.address %>
+<br />
+<h4>Рейтинг: <%= @shop.rating %><h4>
+<hr />
+
+<%= erb :'partials/review_form' if session[:user_id]%>
+
+<h4>Отзывы <%= 'отсутствуют' if @reviews.empty? %></h4>
+<hr />
+
+<% @reviews.each do |review| %>
+  <span><%= review.user.name %> оценил:</span>
+  <br />
+  <span>Оценка заведения: <%= review.rating %></span>
+  <br />
+  <pre class="break-word"><%= review.comment %></pre>
+  <span>Отзыв оставлен: <%= review.created_at.localtime %></span>
+  <br />
+  <hr />
+<% end %>
