@@ -2,7 +2,6 @@ require 'rack-flash'
 require 'dotenv'
 
 class ApplicationController < Sinatra::Base
-
   Dotenv.load
   SESSION_SECRET = ENV['SESSION_SECRET']
   register Sinatra::Session
