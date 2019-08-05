@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20_190_729_170_520) do
   create_table 'comments', force: :cascade do |t|
-    t.string 'text'
+    t.text 'text'
     t.integer 'user_id'
     t.integer 'restaurant_id'
     t.integer 'score'
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20_190_729_170_520) do
   create_table 'restaurants', force: :cascade do |t|
     t.string 'location'
     t.string 'name'
-    t.string 'description'
+    t.text 'description'
     t.float 'score'
   end
 

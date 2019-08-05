@@ -27,6 +27,5 @@ restaurants = [
      территории округа Майами-Дейд (штат Флорида, США)'
   }
 ]
-restaurants.each do |r|
-  Restaurant.create(r)
-end
+
+Restaurant.create(restaurants)

@@ -5,4 +5,4 @@ require_relative 'models/comment'
 
 Bundler.require
 
-set :database, adapter: 'sqlite3', database: '3.sqlite3'
+set :database, adapter: 'sqlite3', database: 'restaurants.sqlite3'

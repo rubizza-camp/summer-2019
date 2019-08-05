@@ -15,7 +15,7 @@
     <b><i><p class="message"><%= flash[:message] %></p></i></b>
   <% end %>
   <div class="w3-container w3-half w3-margin-top">
-      <form class="w3-container w3-card-4" method="post" action="/registrate">
+      <form class="w3-container w3-card-4" method="post" action="/registration">
         <div>
           <p>
           <input class="w3-input" type="text" name="name" style="width:90%" required>
@@ -26,10 +26,13 @@
           <p>
           <input class="w3-input" type="password" name="password" style="width:90%" required>
           <label>Password</label></p>
+          <p>
+          <input class="w3-input" type="password" name="password_confirmation" required>
+          <label>Подтвердите пароль</label></p><br><br>
         </div>
         <button class="w3-button w3-green w3-large">Регистрация</button><br>
       </form>
-      <p><a href="/home">
+      <p><a href="/">
       <label class="w3-button w3-green w3-large" style="width:20%">На главную</label></a></p>
     </div>
       </body>

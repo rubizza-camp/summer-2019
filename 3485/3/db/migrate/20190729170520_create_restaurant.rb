@@ -5,7 +5,7 @@ class CreateRestaurant < ActiveRecord::Migration[5.2]
     create_table :restaurants do |table|
       table.string :location
       table.string :name
-      table.string :description
+      table.text :description
       table.float :score
     end
   end
