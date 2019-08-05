@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../helpers/comment_helper.rb'
-
 class RestaurantController < AppController
   include CommentsHelper
 

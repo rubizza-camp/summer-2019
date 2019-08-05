@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../helpers/user_helper'
 require 'digest'
 
 class UserController < AppController
