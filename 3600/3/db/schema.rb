@@ -12,6 +12,7 @@
 # rubocop:disable Style/NumericLiterals
 ActiveRecord::Schema.define(version: 2019_08_03_115800) do
   # rubocop:enable Style/NumericLiterals
+  # rubocop:disabe Lint/Syntax
   create_table 'comments', force: :cascade do |t|
     t.integer 'grade', null: false
     t.text 'text', null: false
@@ -25,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_08_03_115800) do
     t.string 'name'
     t.string 'address'
     t.text 'short_description'
-    t.text full_description'
+    t.text 'full_description'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
