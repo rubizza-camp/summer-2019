@@ -10,9 +10,9 @@ class AppController < Sinatra::Base
     set :session_secret, ENV['key']
   end
 
-def current_user
+  def current_user
     @current_user ||= User.find(session[:user_id])
-end
+  end
 
   get '/' do
     erb layout: :layout

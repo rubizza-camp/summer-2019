@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/LineLength
 
 module CommentsHelper
   def add_new_comment
@@ -7,3 +8,4 @@ module CommentsHelper
     @comment.save
   end
 end
+# rubocop:disable Metrics/LineLength

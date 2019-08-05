@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/LineLength
 
 module UserHelper
   def add_user
@@ -39,5 +40,5 @@ module UserHelper
     session[:user_id] = @current_user.id
     redirect '/'
   end
-
 end
+# rubocop:enable Metrics/LineLength
