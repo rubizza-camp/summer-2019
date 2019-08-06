@@ -22,8 +22,4 @@ module UsersHelper
       session[:error] = 'Wrong password'
     end
   end
-
-  def login?
-    session[:user_id]
-  end
 end
