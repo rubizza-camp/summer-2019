@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
     set :session_fail, '/sign_up'
     set :session_secret, SESSION_SECRET
     set views: proc { File.join(root, '../views/') }
-    set :public_folder, 'app/assets'
+    set assets: proc { File.join(root, '../app/assets/') }
   end
 
   I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
