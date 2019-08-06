@@ -5,6 +5,4 @@ shops = [
  франшизе. Додо пицца входит в топ пиццерий Минска.', address: 'проспект Дзержинского 126' }
 ]
 
-shops.each do |shop|
-  Shop.create shop
-end
+Shop.create(shops)
