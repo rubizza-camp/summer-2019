@@ -11,7 +11,9 @@ module PlacesHelper
   end
 
   def add_comment
-    @comment = Comment.new(rating: params[:rate].to_i, text: params[:text], user_id: session[:user_id])
+    @comment = Comment.new(rating: params[:rate].to_i,
+                           text: params[:text],
+                           user_id: session[:user_id])
     if @comment.save
       @comment.place_id = session[:place_id].to_s
     else
