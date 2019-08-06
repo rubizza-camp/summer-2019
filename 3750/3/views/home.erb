@@ -1,0 +1,16 @@
+<div class="w3-card">
+  <% @restaurants.each do |restaurant| %>
+    <div class="card">
+      <div class="card-body">
+        <a href="<%= restaurant.name %>" ><h5 class="card-title text-warning"><%= restaurant.name %></h5> </a>
+        <h6 class="card-subtitle mb-2 text-muted"> <%= restaurant.average_grade %></h6>
+        <p class="card-text"><%= restaurant.short_description %></p>
+        <p class="card-text"><small class="text-muted"><%= restaurant.latitude %> <%= restaurant.longitude %></small></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="pagination">
+  <%= will_paginate @restaurants %>
+</div>

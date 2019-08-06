@@ -1,0 +1,18 @@
+source 'https://rubygems.org'
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+gem 'activerecord'
+gem 'bcrypt'
+gem 'rake'
+gem 'require_all'
+gem 'shotgun'
+gem 'sinatra', require: 'sinatra/base'
+gem 'sinatra-activerecord'
+gem 'sinatra-contrib', require: false
+gem 'sinatra-flash'
+gem 'sinatra-partial', require: 'sinatra/partial'
+gem 'sqlite3'
+gem 'thin'
+gem 'truemail'
+gem 'will_paginate', require: 'will_paginate/active_record'
