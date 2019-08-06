@@ -1,0 +1,80 @@
+<div id="content-wrap">
+    <div class="row">
+
+      <div id="main" class="eight columns">
+
+        <article class="entry">
+
+          <header class="entry-header">
+
+            <h2 class="entry-title">
+              <%= @place.name %>
+            </h2>
+         
+          </header> 
+
+          <div class="entry-content">
+            <p class="lead"><%= @place.description %></p>
+            <p class="lead"><%= @place.address %></p>
+            <p class="lead">Rating: <%= @place.average.round(1) %></p>
+          </div>
+
+        </article>
+
+        <!-- Comments
+            ================================================== -->
+            <div id="comments">
+
+               <h3>Comments</h3>
+
+               <!-- commentlist -->
+               <ol class="commentlist">
+
+                <% Comment.all.where(place_id: session[:place_id]).each do |comment| %>
+
+                  <li class="depth-1">
+
+
+                     <div class="comment-content">
+
+                       <div class="comment-info">
+                          <cite><%= User.find_by(id: comment.user_id).name %></cite>
+                       </div>
+
+                       <div class="comment-text">
+                          <p><%= comment.text%></p>
+                          <p>Rating: <%= comment.rating%></p>
+                       </div>
+
+                    </div>
+
+                  </li>
+
+                <% end %>
+
+               </ol> <!-- Commentlist End -->
+
+
+               <!-- respond -->
+               <div class="respond">
+
+                  <h3>Leave a Comment</h3>
+
+                  <!-- form -->
+                  <form name="contactForm" id="contactForm" method="post" action="/rate">
+               <fieldset>
+
+                     <div class="message group">
+                      <p><input type="number" name="rate" value="1" min="1" max="5" step="0.5"></p>
+                        <label  for="text">Message <span class="required">*</span></label>
+                        <textarea name="text"  id="text" rows="10" cols="50" ></textarea>
+                     </div>
+
+                     <button type="submit" class="submit">Submit</button>
+
+               </fieldset>
+                </form> <!-- Form End -->
+
+               </div> <!-- Respond End -->
+
+            </div>  <!-- Comments End -->

@@ -1,0 +1,34 @@
+<div id="content-wrap">
+
+   		<div class="row">
+
+   			<div id="main" class="eight columns">
+   				
+                <p><%= session[:error] %></p>
+   				<% @places.each do |place| %>
+
+	   		<article class="entry">
+
+					<header class="entry-header">
+
+						<h2 class="entry-title">
+							<a href="/place/<%= place.name %>" title=""><%= place.name %></a>
+						</h2> 				 
+					
+						<div class="entry-meta">
+							<ul>
+								<li><%= place.location %></li>
+								<span class="meta-sep">&bull;</span>					
+								<li><%= place.address %></li>
+							</ul>
+						</div> 
+					 
+					</header> 
+					
+					<div class="entry-content">
+						<p><%= place.description %></p>
+					</div> 
+
+				<% end %>
+
+			</article> 
