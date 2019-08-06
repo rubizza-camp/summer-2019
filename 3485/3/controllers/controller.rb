@@ -3,7 +3,7 @@ require_relative '../helpers/user_helper.rb'
 require 'bcrypt'
 
 class Controller < ApplicationController
-include UserHelper
+  include UserHelper
   get '/login' do
     erb :login
   end

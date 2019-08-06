@@ -7,4 +7,4 @@ use RestaurantsController
 use Controller
 set :database, adapter: 'sqlite3', database: 'restaurants.sqlite3'
 
-map('/') { run ApplicationController}
+map('/') { run ApplicationController }
