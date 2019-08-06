@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>Place ranker</title>
+</head>
+<body>
+    <% flash.keys.each do |type| %>
+  <div>
+    <h4><%= flash[type] %></h4>
+  </div>
+    <% end %>
+    <span>
+      <% if user_logged? %>
+        <a href="/session/logout">Logout</a>
+      <% else %>
+        <ul>
+          <hr>
+            <a href="/session/signup">Signup</a>
+          <hr>
+            <a href="/session/login">Login</a>
+          <hr>
+           </ul>
+      <% end %>
+    </span>
+<div>
+  <h1><a href="/"> Place Ranker</a></h1>
+  <%= yield %>
+</div>
+</body>
+</html>
