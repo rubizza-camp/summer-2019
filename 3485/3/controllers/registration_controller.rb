@@ -12,7 +12,7 @@ class RegistrationController < ApplicationController
     if user.valid?
       user.password = BCrypt::Password.create(params['password'])
       user.save(validate: false)
-      session[:user_id] = User.last.id
+      session[:user_id] = user.id
       redirect '/'
     else
       flash[:message] = user.errors.messages.values.first[0]
