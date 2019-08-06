@@ -6,9 +6,7 @@ class ShopsController < ApplicationController
 
   get '/shops/:id' do
     @shop = Shop.find(params[:id])
-    @shop.reviews = Review.where(shop_id: params[:id])
-    stars unless @shop.reviews.empty?
-    session[:shop_id] = @shop.id
+    @reviews = @shop.reviews.includes(:user).where(shop_id: params[:id])
     erb :shop
   end
 end
