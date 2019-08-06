@@ -4,17 +4,17 @@ Name: <%= @shop.name %>
 <pre class="break-word">Description: <%= @shop.description %></pre>
 Address: <%= @shop.address %>
 <br />
-<h4>Rating: <%= @stars %></h4>
+<h4>Rating: <%= Shop.rating(@shop) unless @reviews.empty? %></h4>
   <hr />
 
-  <form action="/new_review" method="post" role="form">
+  <form action="<%= @shop.id %>/review" method="post" role="form">
     <div class="form-group">
       <span>Rate the place:</span>
       <div class="col">
         <select class="rate" name='grade'>
           <% 1.upto(MAX_RATING) do |iterator| %>
-          <option><%= iterator %></option>
-            <% end %>
+            <option><%= iterator %></option>
+          <% end %>
         </select>
       </div>
     </div>
@@ -33,8 +33,7 @@ Address: <%= @shop.address %>
   <hr />
   <h4>Reviews</h4>
   <hr />
-<% reviews = @shop.reviews.includes(:user) %>
-<% reviews.each do |review| %>
+<% @reviews.each do |review| %>
   <div class="card card-body m-1">
     <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
     <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
@@ -45,3 +44,4 @@ Address: <%= @shop.address %>
     </p>
   </div>
 <% end %>
+<%= render partial: 'shop' %>
