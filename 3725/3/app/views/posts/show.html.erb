@@ -1,0 +1,40 @@
+<div class="post_item">
+  <div class="post_item_title">
+    <a href="/posts/all/<%= post.id %>"><%= post.title %></a>
+  </div>
+  <div class="post_item_summary">
+    <p><%= post.summary %></p>
+  </div>
+  <div class="post_item_body">
+    <p><%= post.body %></p>
+  </div>
+</div>
+<% if session[:user_id] %>
+<div class="reviews">
+  <div class="reviws_title">
+    <p>You can leave your review</p>
+  </div>
+  <div class="reviews_form">
+    <%= erb :'posts/form_review.html' %>
+  </div>
+</div>
+<% else %>
+<div class="reviws_title">
+  <p><a href ="../../users/login">log in</a> to leave comment</p>
+</div>
+<% end %>
+<% @post.reviews.each do |review| %>
+<div class="review_item">
+  <div class="review_user_info">
+     <div class="review_image">
+     </div>
+     <p><%= review.user_email %></p>
+  </div>
+    <div class="review_text_info">
+      <div class="review_star">
+        <a>Оценка пользователя: <%= review.star %></a>
+      </div>
+      <a><%= review.comment %></a>
+    </div>
+</div>
+<% end %>

@@ -1,0 +1,28 @@
+<form action='/reviews', method='post' class="form_review">
+
+  <div class="stars-review">
+    <div class="stars-review-text">
+      <p>Поставьте свою оценку:</p>
+    </div>
+    <div id="reviewStars-input">
+      <input id="star-4" type="radio" name='review[star]' value="5" />
+      <label title="gorgeous" for="star-4"></label>
+
+      <input id="star-3" type="radio" name='review[star]' value="4" />
+      <label title="good" for="star-3"></label>
+
+      <input id="star-2" type="radio" name='review[star]' value="3"/>
+      <label title="regular" for="star-2"></label>
+
+      <input id="star-1" type="radio" name='review[star]' value="2"/>
+      <label title="poor" for="star-1"></label>
+
+      <input id="star-0" type="radio" name='review[star]' value="1"/>
+      <label title="bad" for="star-0"></label>
+    </div>
+  </div>
+
+  <div class="form_review_text"><textarea type="text" name='comment'></textarea></div>
+  <div class="form_review_button"><button type="submit">Submit</button></div>
+
+</form>

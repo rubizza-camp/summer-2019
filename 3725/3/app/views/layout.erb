@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type='text/css' href='/stylesheets/css/main.css' />
+    <link href="https://fonts.googleapis.com/css?family=Red+Hat+Display&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="header_items">
+        <div class="logo">
+          <a href="/posts/all">Reviewer</a>
+        </div>
+        <div class="autorization">
+          <% if session[:user_id] %>
+            <a href ="../../users/logout">Log out</a>
+          <% else %>
+            <a href ="../../users/login">Log in / </a>
+            <a href ="../../users/signup">Sign up</a>
+          <% end %>
+        </div>
+      </end>
+    </div>
+  </div>
+  </div>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
