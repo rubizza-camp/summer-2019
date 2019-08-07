@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :reviews
+  validates :password, presence: true
+  validates :email, presence: true
 
   include BCrypt
 
@@ -10,4 +12,5 @@ class User < ActiveRecord::Base
   def password=(new_password)
     self.password_hash = Password.create(new_password)
   end
+
 end

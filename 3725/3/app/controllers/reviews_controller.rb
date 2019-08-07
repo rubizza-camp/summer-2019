@@ -1,9 +1,8 @@
+require 'pry'
 class ReviewsController < ApplicationController
   post '/' do
-    @review = Review.new(params[:review])
-    @review.post_id = session[:id]
-    @review.user_id = session[:user_id]
-    @review.save
+    binding.pry
+    Review.create(comment: params[:comment], post_id: params[:id], user_id: session[:user_id])
     redirect 'posts/all'
   end
 end

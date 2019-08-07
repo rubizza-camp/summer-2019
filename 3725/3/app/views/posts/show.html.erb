@@ -23,12 +23,12 @@
   <p><a href ="../../users/login">log in</a> to leave comment</p>
 </div>
 <% end %>
-<% Review.all.where(post_id: session[:id]).each do |review| %>
+<% @post.reviews.each do |review| %>
 <div class="review_item">
   <div class="review_user_info">
      <div class="review_image">
      </div>
-     <p><%= User.find_by(id: review.user_id).email %></p>
+     <p><%= review.user_email %></p>
   </div>
     <div class="review_text_info">
       <div class="review_star">

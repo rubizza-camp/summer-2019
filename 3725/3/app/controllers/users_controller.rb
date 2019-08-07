@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    @user = User.find_by(params[:email])
+    @user = User.find_by(email: parsms[:email])
     if @user.password == params[:password]
       session[:user_id] = @user.id
       redirect '/posts/all'
@@ -16,13 +16,13 @@ class UsersController < ApplicationController
     end
   end
 
-  get '/signin' do
+  get '/signup' do
     erb :'users/sign_in'
   end
 
-  post '/signin' do
+  post '/signup' do
     @user = User.new(params[:user])
-    if @user.save!
+    if @user.valid?
       session[:user_id] = @user.id
       redirect '/posts/all'
     else
@@ -34,4 +34,5 @@ class UsersController < ApplicationController
     session.clear
     redirect '/posts/all'
   end
+
 end

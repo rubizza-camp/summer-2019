@@ -8,7 +8,6 @@ class PostsController < ApplicationController
 
   get '/all/:id' do
     @post = Post.find_by(id: params[:id])
-    session[:id] = @post.id
     erb :'posts/show'
   end
 
@@ -17,8 +16,8 @@ class PostsController < ApplicationController
   end
 
   post '/' do
-    post = Post.new(params[:post])
-    if post.save
+    post = Post.create(params[:post])
+    if post.create
       redirect 'posts/all'
     else
       redirect 'posts/new'
