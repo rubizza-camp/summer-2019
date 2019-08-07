@@ -34,5 +34,4 @@ class UsersController < ApplicationController
     session.clear
     redirect '/posts/all'
   end
-
 end
