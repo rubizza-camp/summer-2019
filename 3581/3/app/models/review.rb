@@ -1,7 +1,11 @@
 class Review < ActiveRecord::Base
   belongs_to :place
   belongs_to :user
-  validates_presence_of :text, :grade
   validates :grade, numericality: { only_integer: true }
-  validates :grade, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
+  validates :grade, numericality: { equal_to_numbers: 1..5 }
+  validates :text, presence: true, if: :negative_grade
+
+  def negative_grade
+    grade <= 2
+  end
 end

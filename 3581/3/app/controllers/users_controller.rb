@@ -1,18 +1,12 @@
 class UserController < ApplicationController
   get '/sign_in' do
-    if session?
-      redirect '/'
-    else
-      erb :sign_in
-    end
+    redirect '/' if session?
+    erb :sign_in
   end
 
   get '/sign_up' do
-    if session?
-      redirect '/'
-    else
-      erb :sign_up
-    end
+    redirect '/' if session?
+    erb :sign_up
   end
 
   get '/logout' do
@@ -35,8 +29,7 @@ class UserController < ApplicationController
   post '/sign_up' do
     @user = User.new(name: params['name'], email: params['email'])
     @user.password = params[:password]
-    if @user.valid?
-      @user.save
+    if @user.save
       session_start!
       session[:user_id] = @user.id
       redirect '/'

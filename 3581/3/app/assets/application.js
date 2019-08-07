@@ -1,7 +1,6 @@
-$( ".close" ).click(function() {
-  var myButton = document.getElementById('addForm').reset();
-  });
-
-$( ".modal-footer.btn" ).click(function() {
-  var myButton = document.getElementById('addForm').reset();
-  });
+function buttonReviewForm(){
+  var sendButton = document.getElementById('addForm');
+  sendButton.onclick = function send(){
+    sendButton.reset();
+  };
+}

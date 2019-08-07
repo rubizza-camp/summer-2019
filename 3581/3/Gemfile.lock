@@ -137,7 +137,7 @@ DEPENDENCIES
   bootstrap (= 4.3.1)
   dotenv
   i18n (= 1.6.0)
-  pry
+  pry (= 0.12.2)
   rack-flash3 (= 1.0.5)
   rake (= 12.3.3)
   require_all (= 2.0.0)
@@ -149,6 +149,9 @@ DEPENDENCIES
   sqlite3 (= 1.4.1)
   truemail (= 1.2.1)
   tux
+
+RUBY VERSION
+   ruby 2.6.3p62
 
 BUNDLED WITH
    1.17.2

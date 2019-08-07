@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Review</h5>
-        <button type="button" class="close" id="myButton" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" onclick="buttonReviewForm" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -17,30 +17,29 @@
           <div class="col">
             <div class="form-grade">
               <select class="form-control mb-3" name='grade'>
-                <option>1 ⭐️</option>
-                <option>2 ⭐️</option>
-                <option>3 ⭐️</option>
-                <option>4 ⭐️</option>
-                <option>5 ⭐️</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
               </select>
             </div>
-            <input type="hidden" value=<%=@place.id%> name="place_id">
+            <input type="hidden" name="place_id" value=<%=@place.id%>>
           </div>
         </div>
         <div class="row">
           <div class="col mb-3 form-group">
             <div class="form-comment">
-              <textarea type="text" name="text" class="form-control" placeholder="Text" required></textarea>
+              <textarea type="text" name="text" class="form-control" placeholder="Text"></textarea>
             </div>
             <div class="invalid-feedback">Fill in this field</div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="myButton">Cancel</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="buttonReviewForm">Cancel</button>
         <button type="submit" class="btn btn-dark">Send</button>
       </div>
     </div>
   </div>
 </div>
-

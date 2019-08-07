@@ -16,9 +16,9 @@
 </div>
 
 <div class="row m-4">
-  <form action='/reviews/new' id='addForm' method='POST' class="mb-3 mt-3 was-validated">
+  <form action='/reviews/' id='addForm' method='POST' class="mb-3 mt-3 was-validated">
     <% if current_user? %>
-      <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#comment" 
+      <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#comment" 
       class="button-background">Send feedback</button>
     <% end %>
     <%= erb :comment_modal_form%>
@@ -32,7 +32,7 @@
       <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
       <p class="card-text"><%= review.text %>
         <button class="btn btn-<%if review.grade >2 %>success<%else%>danger<%end%> btn-sm float-right"  disabled>
-        <span class="fas fa-thumbs-up"></span>   <%= review.grade%>
+        <span class="fas fa-thumbs-up"></span> <%= review.grade%>
         </button>
       </p>
     </div>

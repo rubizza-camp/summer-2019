@@ -1,8 +1,8 @@
 require 'uri'
 class User < ActiveRecord::Base
   has_many :reviews
-  validates_presence_of :name, :email, :password_hash
-  validates_uniqueness_of :name, :email
+  validates :name, :email, :password_hash, presence: true
+  validates :name,  :email, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email) }
 
   include BCrypt
