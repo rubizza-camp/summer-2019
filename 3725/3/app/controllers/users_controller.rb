@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    @user = User.find_by(email: parsms[:email])
+    @user = User.find_by(email: params[:email])
     if @user.password == params[:password]
       session[:user_id] = @user.id
       redirect '/posts/all'
