@@ -4,5 +4,4 @@ class Post < ActiveRecord::Base
   def calculate
     reviews.average(:star)
   end
-
 end
