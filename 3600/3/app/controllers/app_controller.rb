@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/LineLength
+
 class AppController < Sinatra::Base
   set views: proc { File.join(root, '../views/') }
   configure do
@@ -18,7 +20,8 @@ class AppController < Sinatra::Base
     erb layout: :layout
   end
 
-    def add_new_comment
-    current_user.comments.create(grade: params[:grade].to_i, text: params[:text], restaurant_id: @restaurant.id)
+  def add_new_comment(restaurant)
+    current_user.comments.create(grade: params[:grade].to_i, text: params[:text], restaurant_id: restaurant.id)
   end
 end
+# rubocop:enable Metrics/LineLength

@@ -9,9 +9,9 @@ class RestaurantController < AppController
   end
 
   get '/restaurant/:id' do
-    @restaurant = Restaurant.find_by(:id params[:id])
+    restaurant = Restaurant.find_by(id: params[:id])
     @all_comments = Comment.all
-    if @restaurant
+    if restaurant
       erb :restaurant
     else
       flash[:danger] = 'No such cafe!'
@@ -20,9 +20,9 @@ class RestaurantController < AppController
   end
 
   post '/restaurant/:id/comment/' do
-    @restaurant = Restaurant.find_by(:id params[:ip])
+    restaurant = Restaurant.find_by(id: params[:id])
 
-    add_new_comment
-    redirect "/restaurant/#{@restaurant.name}"
+    add_new_comment(restaurant)
+    redirect "/restaurant/#{restaurant.name}"
   end
 end

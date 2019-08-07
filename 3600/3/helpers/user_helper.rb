@@ -3,7 +3,6 @@
 # rubocop:disable Metrics/LineLength
 
 module UserHelper
-
   def valid_password?
     return true if params['password'] == params['password_confirmation']
 

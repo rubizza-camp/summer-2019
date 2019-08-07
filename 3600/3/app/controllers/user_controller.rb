@@ -34,6 +34,7 @@ class UserController < AppController
   end
 
   private
+
   def encrypted_password
     Digest::SHA1.hexdigest(params[:password])
   end
