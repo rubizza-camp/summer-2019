@@ -11,5 +11,4 @@ class CommentsController < ApplicationController
     end
     redirect "/places/#{params[:id]}"
   end
-
 end
