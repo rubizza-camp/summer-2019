@@ -2,6 +2,7 @@ require_relative './config/environment'
 
 use CommentsController
 use PlacesController
-use UsersController
 use SessionsController
+use UsersController
+use HomePageController
 run ApplicationController

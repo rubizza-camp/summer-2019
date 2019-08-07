@@ -5,6 +5,7 @@ require_relative '../helpers/session_helper'
 class ApplicationController < Sinatra::Base
   configure do
     set :views, 'app/views'
+    set :root, 'places/'
     enable :sessions
   end
 

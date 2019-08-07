@@ -1,11 +1,11 @@
 require_relative 'application_controller'
 
 class UsersController < ApplicationController
-  get '/signup' do
-    erb :'/signup'
+  get '/users/new' do
+    erb :'/users/new'
   end
 
-  post '/signup' do
+  post '/users' do
     @user = User.new(name: params['name'], email: params['email'],
                      password: params['password'])
     @user.save

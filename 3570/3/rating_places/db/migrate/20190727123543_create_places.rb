@@ -7,8 +7,10 @@ class CreatePlaces < ActiveRecord::Migration
       t.string :name
       t.float :latitude
       t.float :longitude
+      t.text :short_description
       t.text :description
-      t.integer :rating
+      t.float :rating, default: 0.0
+      t.integer :comments_count, default: 0
     end
   end
 

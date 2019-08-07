@@ -1,0 +1,17 @@
+<form class="form" action="/places/<%= @place.id %>/comments" method="post">
+  <div class="form-group">
+    <label>Оценка</label>
+    <select class="form-control" name="rating">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Отзыв</label>
+    <textarea class="form-control" name="text" rows="3"></textarea>
+  </div>
+  <input type="submit" class="btn btn-success" value="Опубликовать"/>
+</form>

@@ -1,0 +1,11 @@
+<% @place.comments.each do |comment| %>
+<div class="card bg-light mb-3">
+<div class="card-header"><%= comment.user.name %></div>
+<div class="card-body">
+  <h5 class="card-title"><%= comment.rating %></h5>
+  <p class="card-text"><%= comment.text %></p>
+  <h5 class="card-title">Оценка:
+    <%= comment.rating %></h5>
+</div>
+</div>
+<% end %>
