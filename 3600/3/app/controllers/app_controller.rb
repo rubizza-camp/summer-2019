@@ -17,4 +17,8 @@ class AppController < Sinatra::Base
   get '/' do
     erb layout: :layout
   end
+
+    def add_new_comment
+    current_user.comments.create(grade: params[:grade].to_i, text: params[:text], restaurant_id: @restaurant.id)
+  end
 end

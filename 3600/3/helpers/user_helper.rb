@@ -3,11 +3,6 @@
 # rubocop:disable Metrics/LineLength
 
 module UserHelper
-  def add_user
-    @current_user[:password] = Digest::SHA1.hexdigest(params[:password])
-    @current_user.save
-    sign_in_user
-  end
 
   def valid_password?
     return true if params['password'] == params['password_confirmation']

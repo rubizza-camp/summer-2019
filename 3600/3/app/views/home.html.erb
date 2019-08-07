@@ -12,28 +12,6 @@
 
 <body>
 
-<div class="container mt-3">
-
-  <div class="header clearfix">
-    <nav>
-      <ul class="nav nav-pills float-right">
-        <% if session[:user_id] %>
-          <li class="nav-item">
-            <a class="nav-link active" href="/logout">Log out</a>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <a class="nav-link active" href="/sign_in">Log in <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/sign_up">Register</a>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
-    <h3 class="text-muted">Restaurants</h3>
-  </div>
-
   <br>
   <div class="row marketing">
     <% @all_restaurants.each do |restaurant| %>

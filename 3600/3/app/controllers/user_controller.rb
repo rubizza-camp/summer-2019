@@ -14,9 +14,9 @@ class UserController < AppController
   end
 
   post '/sign_up' do
-    @user = User.new(name: params['username'], email: params['email'], password: params['password'])
+    @user = User.create(name: name, email: email, password: encrypted_password)
     if @user.valid?
-      add_user
+      sign_in_user
     else
       flash[:danger] = @user.errors.messages.values.join(' ')
     end
@@ -31,5 +31,10 @@ class UserController < AppController
   get '/logout' do
     session[:user_id] = nil
     redirect '/'
+  end
+
+  private
+  def encrypted_password
+    Digest::SHA1.hexdigest(params[:password])
   end
 end
