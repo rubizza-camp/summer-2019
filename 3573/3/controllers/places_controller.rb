@@ -6,8 +6,7 @@ class PlacesController < ApplicationController
 
   get '/place/:id' do
     @place = Place.find(params['id'])
-    @comments = @place.comments
-    @users = @comments.map(&:user)
+    @comments = @place.comments.includes(:user)
     erb :'/show'
   end
 end
