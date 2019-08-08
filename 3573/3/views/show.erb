@@ -26,13 +26,13 @@
 </div>
 <div class="col-sm-2"></div>
 <div class="col-sm-8">
-  <% if @users.empty? %>
+  <% if @comments.empty? %>
         <h3 class="text-center">No comments</h3>
   <% else %>
-    <% @comments.zip(@users) do |comment, user| %>
+    <% @comments.each do |comment| %>
       <div class="card card-body m-1">
         <h4 class="card-subtitle mb-2 text-muted">
-          <%= user.name %>
+          <%= comment.user.name %>
           <span class="fa fa-star"></span><%= comment.star %>
         </h4>
         <p class="card-text"><%= comment.text %></p>
