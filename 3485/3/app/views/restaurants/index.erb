@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <title>Restaurants</title>
+</head>
+<body>
+  <div id="nav01" class="w3-bar-block">
+    <% if current_user %>
+      <form method="post" action="/logout">
+        <button class="w3-button w3-green w3-large" >Выйти</button>
+      </form>
+    <% else %>
+      <button class="w3-button w3-green w3-large" ><a href='/login'>Войти</a></button>
+      <button class="w3-button w3-green w3-large"><a href="/registration">Регистрация</a></button>
+    <% end %>
+  </div>
+  <hr>
+  <div align='center'>
+    <% @restaurants.each do |restaurant| %>
+      <a href="<%= "/restaurants/#{restaurant.id}" %>"><%= restaurant.name %></a><br>
+    <%= restaurant.description[0..50] + '...' %><br>
+      <em><%= restaurant.location %></em><br><br>
+    <% end %>
+  </div>
+</body>
+</html>

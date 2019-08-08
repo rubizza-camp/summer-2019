@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @restaurant.name %></title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+  <body>
+    <div id="nav01" class="w3-bar-block">
+      <% if current_user %>
+        <form method="post" action="/logout">
+          <button class="w3-button w3-green w3-large" >Выйти</button>
+        </form>
+      <% else %>
+        <button class="w3-button w3-green w3-large" ><a href='/login'>Войти</a></button>
+        <button class="w3-button w3-green w3-large"><a href="/registration">Регистрация</a></button>
+      <% end %>
+    </div>
+    <h1 align='center'><%= @restaurant.name %></h1>
+    <div align='center'>
+      <p><%= @restaurant.description %></p>
+      <p><label>Адрес: </label><%= @restaurant.location %></p>
+      <p><label>Средняя оценка: </label><%= @restaurant.raiting %></p><br>
+    </div>
+    <div align='center'>
+        <% @comments.each do |comment| %>
+          <hr>
+        <%= comment.user.name %>
+        <%= comment.created_at.to_date %><br>
+        <%= comment.raiting %>-&#9733<br>
+        <%= comment.text %><br><br>
+        <% end %>
+    </div>
+    <% if session[:user_id] %>
+      <form class="comment" method="post" action="/restaurants/:id/comments">
+          <% if flash[:message] %>
+              <b><i><p class="message"><%= flash[:message] %></p></i></b>
+          <% end %>
+          <div>
+            <p><textarea name="text" cols="50" rows="10" placeholder="Ваш комментарий"></textarea></p>
+            <input title="Ваша оценка заведению" name="raiting" type="number" min="1" max="5" step="1">
+            <label>Ваша оценка</label><br><br>
+            <% session['rest_id'] = @restaurant.id %>
+         </div>
+         <button class="w3-button w3-green w3-large">Оставить комментарий</button><br>
+      </form>
+   <% end %>
+   <p><a href="/">
+   <label class="w3-button w3-green w3-large" style="width:20%">На главную</label></a></p>
+ </body>
+</html>

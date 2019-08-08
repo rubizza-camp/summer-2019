@@ -1,7 +1,7 @@
 require 'bundler'
-require_relative 'models/restaurant'
-require_relative 'models/user'
-require_relative 'models/comment'
+require_relative 'app/models/restaurant'
+require_relative 'app/models/user'
+require_relative 'app/models/comment'
 
 Bundler.require
 
