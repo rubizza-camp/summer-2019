@@ -6,7 +6,7 @@ class ShopsController < ApplicationController
 
   get '/shops/:id' do
     @shop = Shop.find(params[:id])
-    @reviews = @shop.reviews.includes(:user).where(shop_id: params[:id])
+    @reviews = @shop.reviews.includes(:user)
     erb :shop
   end
 end

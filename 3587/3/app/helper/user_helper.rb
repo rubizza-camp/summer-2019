@@ -1,10 +1,5 @@
 module UserHelper
-  def logout
-    session[:user_id] = nil
-  end
-
   def login
-    logout if login?
     session['user_id'] = @user.id if find_in_db && right_password?
     redirect '/'
   end
@@ -17,15 +12,7 @@ module UserHelper
     @user.password == params[:password]
   end
 
-  def stars
-    @stars = @shop.reviews.average(:grade).round(2)
-  end
-
-  def login?
-    session[:user_id]
-  end
-
   def current_user
-    @current_user ||= User.find(session[:user_id])
+    @current_user ||= session[:user_id] && User.find_by(id: session[:user_id])
   end
 end

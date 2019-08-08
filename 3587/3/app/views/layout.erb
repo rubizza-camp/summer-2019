@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
 
       <span class="text-muted">
-            <% if session[:user_id] && current_user %>
+            <% if current_user %>
           <form action="/logout" method="post">
                 <input type = 'submit' value="Log out">
           </form>

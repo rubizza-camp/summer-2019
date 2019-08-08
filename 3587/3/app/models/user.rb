@@ -3,8 +3,9 @@ class User < ActiveRecord::Base
 
   has_many :reviews, dependent: :destroy
   validates :name, presence: true
-  validates_uniqueness_of :email
+  validates :email, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email) }
+  validates :password, confirmation: true
 
   def password
     @password ||= Password.new(password_hash)

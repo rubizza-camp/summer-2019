@@ -4,7 +4,7 @@ Name: <%= @shop.name %>
 <pre class="break-word">Description: <%= @shop.description %></pre>
 Address: <%= @shop.address %>
 <br />
-<h4>Rating: <%= Shop.rating(@shop) unless @reviews.empty? %></h4>
+<h4>Rating: <%= @shop.rating if @reviews.exists? %></h4>
   <hr />
 
   <form action="<%= @shop.id %>/review" method="post" role="form">
@@ -38,10 +38,11 @@ Address: <%= @shop.address %>
     <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
     <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
     <p class="card-text"><%= review.text %>
-      <button class="btn btn-<%if review.grade >2 %>success<%else%>danger<%end%> btn-sm float-right"  disabled>
+      <button class="btn btn-<%if review.grade >2 %>success
+                             <%else%>danger
+                             <%end%> btn-sm float-right"  disabled>
         <span class="fa fa-star"></span>   <%= review.grade%>
       </button>
     </p>
   </div>
 <% end %>
-<%= render partial: 'shop' %>
