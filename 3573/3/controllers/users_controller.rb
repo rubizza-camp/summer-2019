@@ -34,14 +34,9 @@ class UsersController < ApplicationController
     redirect '/'
   end
 
-  get '/delete_session_message_login' do
+  get '/delete_session_message' do
     delete_session_message(:message)
-    redirect '/login'
-  end
-
-  get '/delete_session_message_register' do
-    delete_session_message(:message)
-    redirect '/register'
+    redirect back
   end
 
   def delete_session_message(symbol)

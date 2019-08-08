@@ -11,8 +11,8 @@ class CommentsController < ApplicationController
   end
 
   get '/delete_session_message_show' do
-    delete_session_message(:message)
-    redirect "/place/#{params[:id]}"
+    session.delete(:message)
+    redirect back
   end
 
   private
