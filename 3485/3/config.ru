@@ -1,4 +1,9 @@
-require_relative './config/environment'
+ENV['SINATRA_ENV'] ||= 'development'
+ENV['RACK_ENV'] ||= 'development'
+
+require 'bundler/setup'
+Bundler.require(:default, ENV['SINATRA_ENV'])
+require_all 'app'
 
 Dir.glob('./{models,controllers,services}/**/*.rb').each { |file| require file }
 

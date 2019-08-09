@@ -1,6 +1,14 @@
 class SessionController < ApplicationController
+  before '/login' do
+    redirect '/' if current_user
+  end
+
   get '/login' do
-    erb :login
+    if current_user
+      redirect '/'
+    else
+      erb :login
+    end
   end
 
   post '/login' do
@@ -12,7 +20,6 @@ class SessionController < ApplicationController
       flash[:message] = 'Invalid email or password.'
       redirect back
     end
-    redirect '/'
   end
 
   post '/logout' do

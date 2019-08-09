@@ -1,4 +1,8 @@
 class RegistrationController < ApplicationController
+  before '/registration' do
+    redirect '/' if current_user
+  end
+
   get '/registration' do
     erb :registration
   end
@@ -16,7 +20,7 @@ class RegistrationController < ApplicationController
       redirect '/'
     else
       flash[:message] = user.errors.messages.values.first[0]
-      erb :registration
+      redirect back
     end
   end
 end

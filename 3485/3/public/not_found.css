@@ -1,9 +1,8 @@
+@import 'https://fonts.googleapis.com/css?family=Inconsolata';
 
 html {
   min-height: 100%;
 }
-
-@import 'https://fonts.googleapis.com/css?family=Inconsolata';
 
 body {
   box-sizing: border-box;
