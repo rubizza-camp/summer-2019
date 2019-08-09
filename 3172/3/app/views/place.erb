@@ -1,0 +1,33 @@
+
+<h2><%= "#{@place.name}"%></h2>
+<p><%= "#{@place.description}"%></p>
+<p><%= "locations: #{@place.locations}" %></p>
+<p><%= "rating: #{@average_rating}" %></p>
+<hr>
+<% if @place.reviews_count %>
+  <h3>Reviews:</h3>
+  <% reviews = @place.reviews.includes(:user) %>
+  <% reviews.each do |review| %>
+    <p><%= "#{review.user.name}: #{review.text} #{review.rating}"%></p>
+  <% end %>
+<% end %>
+<% if current_user%>
+  <form action=<%= "/places/#{@place.id}/reviews" %> method='post'>
+    <h3>New review:</h3>
+    <p>
+      <textarea row=5 name='review_text' placeholder="text"></textarea>
+    </p>
+    <label for="rating">Rating:</label>
+    <select name="rating">
+      <option value="none" selected>none</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+      <option value=5>5</option>
+    </select>
+    <p>
+      <input class="btn primary" type='submit' value='Publish'>
+    </p>
+  </form>
+<% end %>
