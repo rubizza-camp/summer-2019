@@ -24,7 +24,7 @@
                 <option>5</option>
               </select>
             </div>
-            <input type="hidden" name="place_id" value=<%=@place.id%>>
+            <input type="hidden" name="id" value=<%=@place.id%>>
           </div>
         </div>
         <div class="row">
@@ -43,3 +43,11 @@
     </div>
   </div>
 </div>
+
+<% if @errors %>
+  <script type="text/javascript">
+    $(window).on('load',function(){
+        $('#comment').modal('show');
+    });
+  </script>
+<%end %>

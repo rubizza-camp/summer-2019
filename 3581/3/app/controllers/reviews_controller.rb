@@ -1,14 +1,21 @@
 class ReviewController < ApplicationController
+  before '/reviews/' do
+    redirect '/' unless Place.exists?(params[:id])
+  end
+
   post '/reviews/' do
     session!
     @review = Review.new(text: params['text'], grade: params['grade'].to_i,
-                         place_id: params[:place_id], user_id: session[:user_id])
-    @reviews = Review.joins(:user).last(10)
-    if @review.valid?
-      @review.save
+                         place_id: params[:id], user_id: session[:user_id])
+    if @review.save
+      redirect "/places/#{params[:id]}"
     else
+      @place = Place.find(params[:id])
+      @reviews = @place.reviews.order(params[:id])
+      @average_score = @place.reviews.average(:grade).to_f.round
+      @errors = true
       flash[:error] = I18n.t(:blank_review)
+      erb :place
     end
-    redirect back
   end
 end

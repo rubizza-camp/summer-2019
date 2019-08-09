@@ -1,11 +1,13 @@
 class UserController < ApplicationController
-  get '/sign_in' do
+  before '/sign_*' do 
     redirect '/' if session?
+  end
+
+  get '/sign_in' do
     erb :sign_in
   end
 
   get '/sign_up' do
-    redirect '/' if session?
     erb :sign_up
   end
 
@@ -16,13 +18,13 @@ class UserController < ApplicationController
 
   post '/sign_in' do
     @user = User.find_by(email: params['email'])
-    if @user && @user.password == params[:password]
+    if @user && (@user.password == params[:password])
       session_start!
       session[:user_id] = @user.id
       redirect '/'
     else
       flash[:error] = I18n.t(:invalid_credentials)
-      redirect '/sign_in'
+      erb :sign_in
     end
   end
 
@@ -35,7 +37,7 @@ class UserController < ApplicationController
       redirect '/'
     else
       flash[:error] = @user.errors.messages.values.join(' ')
-      redirect '/sign_up'
+      erb :sign_up
     end
   end
 end

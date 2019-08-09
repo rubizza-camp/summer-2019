@@ -13,7 +13,7 @@ class ApplicationController < Sinatra::Base
     set :session_fail, '/sign_up'
     set :session_secret, SESSION_SECRET
     set views: proc { File.join(root, '../views/') }
-    # set assets:  proc { File.join(root, '../assets/') }
+    set :show_exceptions, :after_handler
     set :public_folder, 'app/assets'
   end
 
@@ -23,7 +23,7 @@ class ApplicationController < Sinatra::Base
     User.exists?(id: session[:user_id])
   end
 
-  not_found do
+  error ActiveRecord::RecordNotFound do
     erb :'404'
   end
 end
