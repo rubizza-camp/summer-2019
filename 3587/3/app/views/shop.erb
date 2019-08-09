@@ -38,9 +38,7 @@ Address: <%= @shop.address %>
     <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
     <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
     <p class="card-text"><%= review.text %>
-      <button class="btn btn-<%if review.grade >2 %>success
-                             <%else%>danger
-                             <%end%> btn-sm float-right"  disabled>
+      <button class="btn btn-<% review.grade >2 ?'success':'danger' %> btn-sm float-right"  disabled>
         <span class="fa fa-star"></span>   <%= review.grade%>
       </button>
     </p>
