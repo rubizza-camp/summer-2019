@@ -20,7 +20,8 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    if set_user
+    set_user
+    if @user
       flash[:success] = 'Login complete!'
       session[:user_id] = @user.id
       redirect '/'
