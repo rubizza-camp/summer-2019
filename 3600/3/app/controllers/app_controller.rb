@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
-
 class AppController < Sinatra::Base
   set views: proc { File.join(root, '../views/') }
   configure do
@@ -13,15 +11,10 @@ class AppController < Sinatra::Base
   end
 
   def current_user
-    @current_user ||= User.find(session[:user_id])
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 
   get '/' do
     erb layout: :layout
   end
-
-  def add_new_comment(restaurant)
-    current_user.comments.create(grade: params[:grade].to_i, text: params[:text], restaurant_id: restaurant.id)
-  end
 end
-# rubocop:enable Metrics/LineLength

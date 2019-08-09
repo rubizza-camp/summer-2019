@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/LineLength
+
 class RestaurantController < AppController
   include CommentsHelper
 
@@ -9,7 +11,7 @@ class RestaurantController < AppController
   end
 
   get '/restaurant/:id' do
-    restaurant = Restaurant.find_by(id: params[:id])
+    @restaurant = Restaurant.find_by(id: params[:id])
     @all_comments = Comment.all
     if restaurant
       erb :restaurant
@@ -25,4 +27,9 @@ class RestaurantController < AppController
     add_new_comment(restaurant)
     redirect "/restaurant/#{restaurant.name}"
   end
+
+  def add_new_comment(restaurant)
+    current_user.comments.create(grade: params[:grade].to_i, text: params[:text], restaurant_id: restaurant.id)
+  end
 end
+# rubocop:enable Metrics/LineLength
