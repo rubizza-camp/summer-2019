@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeVariableName
 
 class Users < ActiveRecord::Migration[5.2]

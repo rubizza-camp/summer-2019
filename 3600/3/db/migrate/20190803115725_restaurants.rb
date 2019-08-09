@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-# :reek:FeatureEnvy and :reek:TooManyStatements :reek:UncommunicativeVariableName
+# :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeVariableName
 
 class Restaurants < ActiveRecord::Migration[5.2]
   def change

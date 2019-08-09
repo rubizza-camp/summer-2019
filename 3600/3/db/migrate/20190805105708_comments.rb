@@ -1,3 +1,5 @@
+# :reek:FeatureEnvy and :reek:TooManyStatements and :reek:UncommunicativeVariableName
+
 class Comments < ActiveRecord::Migration[5.2]
   def change
     create_table :comments do |t|
