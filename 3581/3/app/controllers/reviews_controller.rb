@@ -11,8 +11,7 @@ class ReviewController < ApplicationController
       redirect "/places/#{params[:id]}"
     else
       @place = Place.find(params[:id])
-      @reviews = @place.reviews.order(params[:id])
-      @average_score = @place.reviews.average(:grade).to_f.round
+      @reviews = @place.reviews.order(:desc)
       @errors = true
       flash[:error] = I18n.t(:blank_review)
       erb :place

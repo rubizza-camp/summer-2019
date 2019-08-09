@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  before '/sign_*' do 
+  before '/sign_*' do
     redirect '/' if session?
   end
 
