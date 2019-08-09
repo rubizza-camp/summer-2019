@@ -5,7 +5,7 @@
       <form class="form-horizontal" action="/login" method="post">
         <span class="heading">AUTHORIZATION</span>
         <div class="form-group">
-          <input type="text" class="form-control" id="email" name = "email" placeholder="email" required>
+          <input type="text" class="form-control" id="email" name = "email" placeholder="email" value="<%= @user.email unless @user.nil? %>" required>
           <div class="invalid-feedback">Fill in this field</div>
           <i class="fa fa-user"></i>
         </div>

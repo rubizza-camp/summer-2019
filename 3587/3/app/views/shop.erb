@@ -12,8 +12,12 @@ Address: <%= @shop.address %>
       <span>Rate the place:</span>
       <div class="col">
         <select class="rate" name='grade'>
-          <% 1.upto(MAX_RATING) do |iterator| %>
-            <option><%= iterator %></option>
+          <% if @review.nil? %>
+            <% 1.upto(MAX_RATING) do |iterator| %>
+              <option><%= iterator %></option>
+            <% end %>
+          <% else %>
+            <%= @review.grade %>
           <% end %>
         </select>
       </div>
@@ -21,7 +25,7 @@ Address: <%= @shop.address %>
       <span>Comment:</span>
     <div class="row">
       <div class="col mb-3 form-group">
-        <textarea  type="text" name="text" class="form-control" placeholder="Text" required></textarea>
+        <textarea  type="text" name="text" class="form-control" placeholder="Text" required><%= @review.text unless @review.nil? %></textarea>
         <div class="invalid-feedback">Fill in this field</div>
       </div>
     </div>

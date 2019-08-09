@@ -9,7 +9,13 @@ class ReviewsController < ApplicationController
   post '/shops/:id/review' do
     @review = Review.new(text: params['text'], grade: params['grade'].to_i,
                          shop_id: params[:id], user_id: current_user.id)
-    flash[:error] = I18n.t(:review_error) unless @review.save
-    redirect "/shops/#{params[:id]}"
+    if @review.save
+      redirect "/shops/#{params[:id]}"
+    else
+      flash[:error] = I18n.t(:review_error)
+      @shop = Shop.find(params[:id])
+      @reviews = @shop.reviews.includes(:user)
+      erb :shop
+    end
   end
 end

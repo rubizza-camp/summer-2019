@@ -25,7 +25,8 @@ class SessionsController < ApplicationController
       set_session_id
       redirect '/'
     else
-      redirect '/login'
+      flash[:error] = I18n.t(:incorrect_password_or_email)
+      erb :login
     end
   end
 
