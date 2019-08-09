@@ -17,7 +17,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def add_comment
-      @user ||= User.find_by(id: session[:user_id])
+      current_user
       @comment ||= @user.comments.new(text: params[:text], rating: params[:rating])
       if @comment.save
         @comment.restaurant_id = params[:id]

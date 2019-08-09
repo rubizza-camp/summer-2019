@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    if user?
+    if set_user
       flash[:success] = 'Login complete!'
       session[:user_id] = @user.id
       redirect '/'
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     params.slice('username', 'email', 'password')
   end
 
-  def user?
+  def set_user
     @user = User.find_by(email: params[:email], password: params[:password])
   end
 end
