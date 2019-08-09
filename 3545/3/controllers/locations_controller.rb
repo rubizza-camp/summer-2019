@@ -19,8 +19,7 @@ class LocationsController < ApplicationController
       user_id: @current_user.id,
       location_id: params[:id]
     )
-    if commentary.valid?
-      commentary.save
+    if commentary.save
     else
       flash[:message] = commentary.errors.messages.values.join
     end

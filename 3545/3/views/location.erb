@@ -31,7 +31,7 @@
   </form>
 
   <p class="location-subtitle">Our reviews:</p>
-    <% for commentary in @commentaries %>
+    <% @commentaries.each do |commentary| %>
       <div class="location-commentary">
         <p class="location-commentary_points">Оценка пользователя <%= (@users.find_by id: commentary.user_id).username %>: <%= commentary.points %>/5</p>
         <p><%= commentary.text %></p>

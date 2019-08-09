@@ -1,5 +1,5 @@
 <div class="list">
-  <% for location in @locations %>
+  <% @locations.each do |location| %>
     <a class="list-item" href="/location/<%= location.id %>">
       <img class="list-image" src=<%=location.photo_url %>>
       <p class="list-name"><%= location.name %></p>
