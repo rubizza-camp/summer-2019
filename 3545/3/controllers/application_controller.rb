@@ -5,6 +5,7 @@ class ApplicationController < Sinatra::Base
   enable :sessions
   set :session_secret, ENV['SECRET_KEY']
   set :views, './views'
+  set :public_folder, './public'
   configure do
     register Sinatra::Flash
   end

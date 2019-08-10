@@ -1,0 +1,141 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: #000;
+}
+
+.content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    margin-bottom: 40px;
+}
+
+.header-link {
+    margin-left: 25px;
+}
+
+.button {
+    height: 40px;
+    padding: 0 50px;
+    font-size: 16px;
+}
+
+.form, .form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.form-content {
+    margin-bottom: 40px;
+}
+
+.form-title {
+    margin-bottom: 35px;
+}
+
+.form-input {
+    height: 50px;
+    width: 250px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-description {
+    margin-bottom: 15px;
+}
+
+.form-textarea {
+
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list-item {
+    width: 33.333%;
+    display: block;
+    padding: 0 25px;
+    text-decoration: none;
+    margin-bottom: 50px;
+}
+
+.list-image {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.list-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.location-image {
+    margin-bottom: 25px;
+    width: 500px;
+}
+
+.location-title {
+    margin-bottom: 15px;
+}
+
+.location-description {
+    margin-bottom: 25px;
+}
+
+.location-form {
+    margin-top: 40px;
+    background: #e8e8e8;
+    border: #ccc;
+    padding: 25px;
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.location-rate {
+    margin-right: 40px;
+}
+
+.location-textarea {
+    display: block;
+    width: 400px;
+    height: 150px;
+    margin-bottom: 15px;
+}
+
+.location-rate_select {
+    font-size: 24px;
+    width: 50px;
+    text-align: center;
+}
+
+.location-subtitle {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.location-commentary {
+    background: #e8e8e8;
+    border: #ccc;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.location-commentary_points {
+    margin-bottom: 10px;
+}
