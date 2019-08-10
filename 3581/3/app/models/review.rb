@@ -9,8 +9,6 @@ class Review < ActiveRecord::Base
     grade <= 2
   end
 
-  after_save :update_rating
-
   def update_rating
     place.reviews.average(:grade).to_f.round(2)
   end

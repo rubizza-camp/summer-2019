@@ -1,6 +1,6 @@
 class ReviewController < ApplicationController
   before '/reviews/' do
-    redirect '/' unless Place.exists?(params[:id])
+    @place = Place.find(params[:id])
   end
 
   post '/reviews/' do
@@ -10,8 +10,8 @@ class ReviewController < ApplicationController
     if @review.save
       redirect "/places/#{params[:id]}"
     else
-      @place = Place.find(params[:id])
       @reviews = @place.reviews.order(:desc)
+      update_rating
       @errors = true
       flash[:error] = I18n.t(:blank_review)
       erb :place
