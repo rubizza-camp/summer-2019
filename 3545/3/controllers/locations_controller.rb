@@ -8,7 +8,6 @@ class LocationsController < ApplicationController
   get '/location/:id' do
     @location = Location.find(params[:id])
     @commentaries = @location.commentaries.order('id DESC')
-    @users = User.all
     erb :location
   end
 
