@@ -9,27 +9,34 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema.define(version: 20_190_729_133_843) do
-  create_table 'reviews', force: :cascade do |t|
-    t.integer 'grade'
-    t.text 'text'
-    t.integer 'place_id'
-    t.integer 'user_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+# rubocop:disable Style/StringLiterals, Style/NumericLiterals
+
+ActiveRecord::Schema.define(version: 2019_08_06_163750) do
+  create_table "reviews", force: :cascade do |t|
+    t.integer "grade"
+    t.text "text"
+    t.integer "shop_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "shops_id"
+    t.integer "users_id"
+    t.index ["shops_id"], name: "index_reviews_on_shops_id"
+    t.index ["users_id"], name: "index_reviews_on_users_id"
   end
 
-  create_table 'shops', force: :cascade do |t|
-    t.text 'name'
-    t.text 'description'
-    t.text 'adress'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "shops", force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.text "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.text 'name'
-    t.text 'email'
-    t.text 'password_hash'
+  create_table "users", force: :cascade do |t|
+    t.text "name"
+    t.text "email"
+    t.text "password_hash"
   end
 end
+# rubocop:enable Style/StringLiterals, Style/NumericLiterals

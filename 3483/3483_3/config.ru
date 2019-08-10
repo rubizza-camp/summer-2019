@@ -1,6 +1,6 @@
-require_relative 'config/environment'
+require_relative './config/environment'
 
-use SessionController
-use ShopController
-use ReviewController
+use SessionsController
+use ShopsController
+use ReviewsController
 run ApplicationController

@@ -37,7 +37,7 @@
   <h4>Отзывы</h4>
   <hr />
 
-<% @reviews.each do |review| %>
+<% @review.each do |review| %>
   <div class="card card-body m-1">
     <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
     <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
