@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+gem 'dotenv-rails', require: 'dotenv/load'
+gem 'email_address'
+gem 'pry'
+gem 'rake'
+gem 'require_all'
+gem 'sinatra-activerecord'
+gem 'sinatra-flash', '~> 0.3.0'
+gem 'sqlite3'
+gem 'truemail'
