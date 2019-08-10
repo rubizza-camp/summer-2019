@@ -1,15 +1,15 @@
-<h2>Список заведений</h2>
+<h2>List of establishments</h2>
 <br />
 
 <% @shops.each do |shop| %>
   <p>
-    <a href="/shop/<%= shop['id'] %>">Название: <%= shop.name %></a>
+    <a href="/shop/<%= shop['id'] %>">Name: <%= shop.name %></a>
     <br />
     <span class="d-inline-block text-truncate">
-      Описание: <%= shop.description %>
+      Description: <%= shop.description %>
     </span>
     <br />
-    Адрес: <%= shop.adress %>
+    Address: <%= shop.adress %>
   </p>
   <hr />
 <% end %>

@@ -1,15 +1,15 @@
-<h3>Описание заведения</h3>
+<h3>Description of the institution</h3>
 <br />
-Название: <%= @shops.name %>
+Name: <%= @shops.name %>
 <pre class="break-word">Описание: <%= @shops.description %></pre>
-Адрес: <%= @shops.adress %>
+Address: <%= @shops.adress %>
 <br />
-<h4>Рейтинг: <%= @stars %></h4>
+<h4>Rating: <%= @stars %></h4>
   <hr />
 
   <form action="/new_review/<%= @shops.id %>" method="post" role="form">
     <div class="form-group">
-      <span>Оцените заведение:</span>
+      <span>Rate the institution:</span>
       <div class="col">
         <select class="form-control mb-3" style='width: 80px;' name='grade'>
           <option>1</option>
@@ -20,7 +20,7 @@
         </select>
       </div>
     </div>
-      <span>Комментарий:</span>
+      <span>Comment:</span>
     <div class="row">
       <div class="col mb-3 form-group">
         <textarea style="height: 250px;" type="text" name="text" class="form-control" placeholder="Text" required></textarea>
@@ -30,11 +30,11 @@
     </div>
     </div>
     </br>
-    <button type="submit" class="btn btn-primary">Добавить отзыв</button>
+    <button type="submit" class="btn btn-primary">Add a review</button>
   </form>
 
   <hr />
-  <h4>Отзывы</h4>
+  <h4>Reviews</h4>
   <hr />
 
 <% @review.each do |review| %>
