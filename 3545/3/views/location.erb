@@ -1,0 +1,40 @@
+<div class="location">
+  <img class="location-image" src=<%=@location.photo_url %>>
+  <h1 class="location-title"><%= @location.name %></h1>
+  <p class="location-description"><%= @location.description %></p>
+  <p class="location-full_description"><%= @location.full_description %></p>
+
+  <form class="location-form" action="/location/<%= @location.id %>/post" method="post">
+    <div class="location-rate">
+      <p class="location-subtitle">Please rate us:</p>
+      <select class="location-rate_select" name="points" size="5" required => true >
+        <option value= 1>1</option>
+        <option value= 2>2</option>
+        <option value= 3>3</option>
+        <option value= 4>4</option>
+        <option value= 5>5</option>
+      </select>
+    </div>
+    <div class="location-comment_add">
+      <p class="location-subtitle">Add commentary:</p>
+      <% if flash[:message] %>
+        <b>
+          <i>
+            <h1 class="message" ><%= flash[:message] %></h1>
+          </i>
+        </b>
+      <% end %>
+
+      <textarea class="location-textarea" name="review", placeholder="Your review"></textarea>
+      <button class="button">Send</button>
+    </div>
+  </form>
+
+  <p class="location-subtitle">Our reviews:</p>
+    <% @commentaries.each do |commentary| %>
+      <div class="location-commentary">
+        <p class="location-commentary_points">Оценка пользователя <%= commentary.user.username %>: <%= commentary.points %>/5</p>
+        <p><%= commentary.text %></p>
+      </div>
+    <% end %>
+</div>

@@ -1,0 +1,17 @@
+source 'https://rubygems.org'
+
+gem 'activerecord', '~> 5.2.3'
+gem 'bcrypt', '~>3.1.13 '
+gem 'csv', '~> 3.1.1'
+gem 'dotenv', '~> 2.7.5'
+gem 'pagy', '~> 3.4.1'
+gem 'rack-flash3', '~>1.0.5 '
+gem 'rake', '~>12.3.3 '
+gem 'rerun', '~>0.13.0'
+gem 'sinatra-activerecord', '~> 2.0.13'
+gem 'sinatra-flash', '~>0.3.0 '
+gem 'sqlite3', '~> 1.4.1'
+
+group :test, :development do
+  gem 'pry'
+end
