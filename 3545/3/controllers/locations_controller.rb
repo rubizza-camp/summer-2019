@@ -18,10 +18,7 @@ class LocationsController < ApplicationController
       user_id: @current_user.id,
       location_id: params[:id]
     )
-    if commentary.save
-    else
-      flash[:message] = commentary.errors.messages.values.join
-    end
+    flash[:message] = commentary.errors.messages.values.join unless commentary.save
     redirect "/location/#{params[:id]}"
   end
 end

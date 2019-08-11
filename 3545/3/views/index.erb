@@ -1,9 +1,12 @@
-<div class="list">
-  <% @locations.each do |location| %>
-    <a class="list-item" href="/location/<%= location.id %>">
+<div class="row">
+  <div class="col-lg-12">
+    <% @locations.each do |location| %>
+      <h2 class="list-name">
+        <%= location.name %>
+      </h2>
       <img class="list-image" src=<%=location.photo_url %>>
-      <p class="list-name"><%= location.name %></p>
       <p class="list-description"><%= location.description %></p>
-    </a>
-  <% end %>
+    <% end %>
+    <%= pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+  </div>
 </div>
