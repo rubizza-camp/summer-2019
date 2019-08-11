@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  show_signup = lambda do
+  get '/sign_up' do
     erb :'auth/sign_up'
   end
 
-  do_signup = lambda do
+  post '/sign_up' do
     params.delete 'submit'
     params[:email].downcase!
     @user = User.create(params)
@@ -15,6 +15,4 @@ class UsersController < ApplicationController
       redirect '/sign_up'
     end
   end
-  get '/sign_up', &show_signup
-  post '/sign_up', &do_signup
 end

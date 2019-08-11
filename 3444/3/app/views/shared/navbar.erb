@@ -14,11 +14,13 @@
         <div class="my-2 my-lg-0">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-            <% if useremail %>
-              <a class="nav-link active" href="/auth/logout"> Log out </a>
+            <% if EmailShower.call(session) %>
+              <form action="/auth/logout" method="post">
+                <input type="submit"  value="Log out" />
+              </form>
             </li>
             <li>
-              <span class="nav-link active">| <%= useremail %> </span>
+              <span class="nav-link active">| <%= EmailShower.call(session) %> </span>
             </li>
                 <% else %>
             <li>

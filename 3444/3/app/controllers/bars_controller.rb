@@ -1,23 +1,19 @@
 class BarsController < ApplicationController
-  show_new_bar = lambda do
+  get '/new' do
     env['warden'].authenticate!
     erb :'bars/new'
   end
 
-  create_new_bar = lambda do
+  post '/new' do
     params.delete 'submit'
     @bar = Bar.create(params)
     redirect '/'
   end
 
-  show_some_bar = lambda do
+  get '/:id/show' do
     @bar = Bar.find(params[:id])
-    @bar_rate = calculate_rate(params[:id])
+    @bar_rate = RateCalculator.call(params[:id])
     @reviews = Review.where(bar_id: params[:id])
     erb :'bars/show'
   end
-
-  get '/new', &show_new_bar
-  post '/new', &create_new_bar
-  get '/:id/show', &show_some_bar
 end

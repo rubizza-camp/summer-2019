@@ -19,15 +19,14 @@ class ApplicationController < Sinatra::Base
 
   Warden::Strategies.add(:password) do
     def valid?
-      params['user'] && params['user']['email'] && params['user']['password']
+      params['user'] && params.dig('user', 'email') && params.dig('user', 'password')
     end
 
     def authenticate!
-      user = User.find_by(email: params['user']['email'])
+      user = User.find_by(email: params.dig('user', 'email'))
+      throw(:warden, message: 'The email you entered does not exist.') unless user
 
-      if user.nil?
-        throw(:warden, message: 'The email you entered does not exist.')
-      elsif user.authenticate(params['user']['password'])
+      if user.authenticate(params['user']['password'])
         success!(user)
       else
         throw(:warden, message: 'The email and password combination ')
