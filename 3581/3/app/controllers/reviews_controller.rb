@@ -11,6 +11,6 @@ class ReviewController < ApplicationController
       @error = true
       flash[:error] = I18n.t(:blank_review)
     end
-      redirect "/places/#{params[:id]}"
+    redirect "/places/#{params[:id]}"
   end
 end
