@@ -1,7 +1,4 @@
 class RestaurantsController < ApplicationController
-  before '/restaurants/:id' do
-    redirect '404' unless Restaurant.exists?(params[:id])
-  end
   get '/' do
     @restaurants = Restaurant.all
     erb :'restaurants/index'

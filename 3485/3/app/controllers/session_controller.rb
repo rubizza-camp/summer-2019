@@ -3,6 +3,11 @@ class SessionController < ApplicationController
     redirect '/' if current_user
   end
 
+  before '/restaurants/:id' do
+    @restaurant = Restaurant.find(params[:id])
+    redirect '404' unless Restaurant.exists?(params[:id])
+  end
+
   get '/login' do
     if current_user
       redirect '/'
