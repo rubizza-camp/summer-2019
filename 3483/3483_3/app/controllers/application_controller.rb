@@ -6,7 +6,6 @@ class ApplicationController < Sinatra::Base
   register Sinatra::Session
   helpers UserHelper
 
-  MAX_RATING = 5
   use Rack::Flash
   Dotenv.load
 
