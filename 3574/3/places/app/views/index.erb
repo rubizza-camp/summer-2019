@@ -1,0 +1,5 @@
+<% @restaurants.each do |restaurant| %>
+  <h3><a href='/restaurants/<%= restaurant.id %>'><%= restaurant.name %></a></h3>
+  <p><%= restaurant.description.truncate(100, separator: ' ') %></p>
+  <p><%= restaurant.coordinate %></p>
+<% end %>

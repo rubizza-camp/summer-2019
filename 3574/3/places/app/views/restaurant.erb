@@ -1,0 +1,28 @@
+<h4><%=@restaurant.name%></h4>
+<ul>
+  <li><%= @average_rating %></li>
+  <li><%= @restaurant.coordinate %></li>
+  <li><%= @restaurant.description %></li>
+</ul>
+<form action="/restaurants/<%= @restaurant.id %>" method="post">
+  <% if current_user %>
+    <button type="submit">Send comment</button>
+  <% else %>
+    <button type="submit" disabled>Pls, login</button>
+  <% end %>
+  <input type="text" id="inputEmail" placeholder="Comment" required autofocus name="text">
+  Rating:
+  <select name="rating" value="1">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</form>
+<% @restaurant.comments.each do |comment| %>
+  <hr>
+  <p><b>User: </b><%= comment.user.username %></p>
+  <p><b>Comment: </b><%= comment.text %></p>
+  <p><i><%= comment.rating %><b> Stars</b></i></p>
+<% end %>
