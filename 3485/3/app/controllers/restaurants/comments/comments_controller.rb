@@ -4,13 +4,11 @@ class CommentsController < ApplicationController
                           raiting: params['raiting'],
                           user_id: current_user.id,
                           restaurant_id: @restaurant.id)
-    if comment.save
-      redirect back
-    else
+    unless comment.save
       @restaurant = Restaurant.find(params[:id])
       @error = comment.errors.messages.values.first[0]
       @comments = @restaurant.comments.includes(:user)
-      erb :'restaurants/restaurant'
     end
+    erb :'restaurants/restaurant'
   end
 end
