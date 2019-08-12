@@ -12,7 +12,7 @@ class ReviewController < ApplicationController
       @reviews = @place.reviews.order(id: :desc)
       @error = true
       flash[:error] = I18n.t(:blank_review)
-      erb :place
+      redirect "/places/#{params[:id]}"
     end
   end
 end

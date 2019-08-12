@@ -5,13 +5,7 @@ class Review < ActiveRecord::Base
   validates :grade, numericality: { equal_to_numbers: 1..5 }
   validates :text, presence: true, if: :negative_grade?
 
-  after_save :update_rating
-
   def negative_grade?
     grade <= 2
-  end
-
-  def update_rating
-    place.reviews.average(:grade).to_f.round(2)
   end
 end
