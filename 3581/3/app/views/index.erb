@@ -1,0 +1,20 @@
+<div class="place-card">
+  <div class="row">
+    <% @places.each do |place| %>
+      <div class="col-sm-6">
+        <div class="card m-4">
+          <div class="place-background">
+            <div class="card-body text-center">
+              <img src= '<%=place.image_url%>' class="rounded">
+              <h5 class="card-title m-3"><%=place.id%>. <%= place.name %></h5>
+              <p class="card-text"><%= place.short_description %></p>
+              <div class="button-background">
+                <a href='places/<%=place.id%>' class="btn btn-primary">Detail </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

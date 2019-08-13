@@ -1,0 +1,53 @@
+<div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Review</h5>
+        <button type="button" class="close" onclick="buttonReviewForm" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">                
+        <div class='row'>
+          <div class='col-md-1'>
+            <button class="btn btn-success btn-sm" disabled>
+              <span class="fas fa-thumbs-up" ></span>
+            </button>
+          </div>
+          <div class="col">
+            <div class="form-grade">
+              <select class="form-control mb-3" name='grade'>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <input type="hidden" name="id" value=<%=@place.id%>>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mb-3 form-group">
+            <div class="form-comment">
+              <textarea type="text" name="text" class="form-control" placeholder="Text"></textarea>
+            </div>
+            <div class="invalid-feedback">Fill in this field</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="buttonReviewForm">Cancel</button>
+        <button type="submit" class="btn btn-dark">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @errors %>
+  <script type="text/javascript">
+    $(window).on('load',function(){
+        $('#comment').modal('show');
+    });
+  </script>
+<%end %>
