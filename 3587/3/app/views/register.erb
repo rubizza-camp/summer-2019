@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row main-form">
+    <form class="" method="post" action="/register">
+
+      <div class="form-group">
+        <label for="name" class="cols-sm-2 control-label">Your Name</label>
+        <div class="cols-sm-10">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name" value="<%= params[:name] %>" required/>
+            <div class="invalid-feedback">Fill in this field</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="cols-sm-2 control-label">Your Email</label>
+        <div class="cols-sm-10">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+            <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" value="<%= params[:email] %>" required/>
+            <div class="invalid-feedback">Fill in this field</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="cols-sm-2 control-label">Password</label>
+        <div class="cols-sm-10">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password" required/>
+            <div class="invalid-feedback">Fill in this field</div>
+            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" required/>
+            <div class="invalid-feedback">Fill in this field</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group ">
+        <button type="submit" class="button15">Register</button>
+      </div>
+
+    </form>
+  </div>
+</div>

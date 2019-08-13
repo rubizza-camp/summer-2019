@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shops</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Main</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+
+      <span class="text-muted">
+            <% if current_user %>
+          <form action="/logout" method="post">
+                <input type = 'submit' value="Log out">
+          </form>
+              </ul>
+            <% else %>
+              <ul class="list-group list-group-horizontal ">
+                <a href="/login" class="list-group-item">Sign in</a>
+                <a href="/register" class="list-group-item">Sign up</a>
+              </ul>
+            <% end %>
+          </span>
+    </div>
+  </nav>
+  <% if flash.has?(:error) %>
+    <div class="alert alert-danger box" role="alert">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= yield %>
+  </div>
+</div>
+
+</body>
+</html>

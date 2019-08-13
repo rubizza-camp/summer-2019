@@ -1,0 +1,15 @@
+<h2>Places</h2>
+<br />
+
+<% @shop.each do |shop| %>
+  <p>
+    <a href="/shops/<%= shop['id'] %>">Name: <%= shop.name %></a>
+    <br />
+    <span class="d-inline-block text-truncate">
+      Description: <%= shop.description %>
+    </span>
+    <br />
+    Address: <%= shop.address %>
+  </p>
+  <hr />
+<% end %>

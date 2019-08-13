@@ -1,0 +1,50 @@
+<h3>Description</h3>
+<br />
+Name: <%= @shop.name %>
+<pre class="break-word">Description: <%= @shop.description %></pre>
+Address: <%= @shop.address %>
+<br />
+<h4>Rating: <%= @shop.rating if @reviews.exists? %></h4>
+  <hr />
+
+  <form action="<%= @shop.id %>/review" method="post" role="form">
+    <div class="form-group">
+      <span>Rate the place:</span>
+      <div class="col">
+        <select class="rate" name='grade'>
+          <% if @review.nil? %>
+            <% 1.upto(MAX_RATING) do |iterator| %>
+              <option><%= iterator %></option>
+            <% end %>
+          <% else %>
+            <%= params[:grade] %>
+          <% end %>
+        </select>
+      </div>
+    </div>
+      <span>Comment:</span>
+    <div class="row">
+      <div class="col mb-3 form-group">
+        <textarea  type="text" name="text" class="form-control" placeholder="Text" required><%= params[:text] %></textarea>
+        <div class="invalid-feedback">Fill in this field</div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add review</button>
+    </div>
+    </div>
+  </form>
+
+  <hr />
+  <h4>Reviews</h4>
+  <hr />
+<% @reviews.each do |review| %>
+  <div class="card card-body m-1">
+    <h6 class="card-subtitle mb-2 text-muted">Author: <%= review.user.name %></h6>
+    <h6 class="card-subtitle mb-2 text-muted">Date: <%= review.created_at %></h6>
+    <p class="card-text"><%= review.text %>
+      <button class="btn btn-<% review.grade >2 ?'success':'danger' %> btn-sm float-right"  disabled>
+        <span class="fa fa-star"></span>   <%= review.grade%>
+      </button>
+    </p>
+  </div>
+<% end %>
