@@ -21,7 +21,8 @@ class SessionsController < ApplicationController
   end
 
   post '/login' do
-    if find_in_db && right_password?
+    @user = User.find_by(email: params[:email])
+    if @user && @user.password == params[:password]
       set_session_id
       redirect '/'
     else
@@ -33,14 +34,6 @@ class SessionsController < ApplicationController
   post '/logout' do
     session.clear
     redirect '/'
-  end
-
-  def find_in_db
-    @user = User.find_by(email: params[:email])
-  end
-
-  def right_password?
-    @user.password == params[:password]
   end
 
   def set_session_id
