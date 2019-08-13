@@ -1,0 +1,16 @@
+<h3>Create new bar</h3>
+<form method="post" action="/bars/new">
+  <label for="title"><strong>Name:</strong></label><br>
+  <input id="title" type="text" name="title" value="" style="width: 250px;">
+  <br>
+  <label for="short_description"><strong>Short description:</strong></label><br>
+  <textarea id="short_description" name="short_description" style="height: 150px; width: 250px;"></textarea>
+  <br>
+  <label for="full_description"><strong>Full description:</strong></label><br>
+  <textarea id="full_description" name="full_description" style="height: 250px; width: 250px;"></textarea>
+  <br>
+  <label for="coordinates"><strong>Coordinates:</strong></label><br>
+  <textarea id="coordinates" name="coordinates" style="height: 50px; width: 250px;"></textarea>
+  <br>
+  <input type="submit" name="submit" value="Create">
+</form>

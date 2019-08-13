@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-10">
+    <h2>List of all bars</h2>
+  </div>
+
+  <div class="col-md-2">
+    <strong><a href="/bars/new">
+    <button type="button" class="btn btn-success">Add another one bar</button>
+    </a></strong>
+  </div>
+<%= will_paginate @bars %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Coordinates</th>
+      <th scope="col">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bars.each do |bar| %>
+    <tr>
+      <th scope="row"><%= bar.id %></th>
+      <td><%= bar.title %></td>
+      <td><%= bar.short_description %></td>
+      <td><%= bar.coordinates %></td>
+      <td><a href="/bars/<%= bar.id %>/show">Show</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,36 @@
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <div class="navbar-brand">Rubizza Task #3</div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/"> Home page <span class="sr-only">(current)</span></a>
+          </li>
+          
+        </ul>
+        <div class="my-2 my-lg-0">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            <% if EmailShower.call(session) %>
+              <form action="/auth/logout" method="post">
+                <input type="submit"  value="Log out" />
+              </form>
+            </li>
+            <li>
+              <span class="nav-link active">| <%= EmailShower.call(session) %> </span>
+            </li>
+                <% else %>
+            <li>
+              <a class="nav-link active" href="/auth/login"> Log in</a>
+            </li>
+            <li>
+              <a class="nav-link active" href="/sign_up">| Sign up </a>
+            </li>
+                <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
