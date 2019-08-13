@@ -17,7 +17,7 @@ Address: <%= @shop.address %>
               <option><%= iterator %></option>
             <% end %>
           <% else %>
-            <%= @review.grade %>
+            <%= params[:grade] %>
           <% end %>
         </select>
       </div>
@@ -25,7 +25,7 @@ Address: <%= @shop.address %>
       <span>Comment:</span>
     <div class="row">
       <div class="col mb-3 form-group">
-        <textarea  type="text" name="text" class="form-control" placeholder="Text" required><%= @review.text unless @review.nil? %></textarea>
+        <textarea  type="text" name="text" class="form-control" placeholder="Text" required><%= params[:text] %></textarea>
         <div class="invalid-feedback">Fill in this field</div>
       </div>
     </div>
