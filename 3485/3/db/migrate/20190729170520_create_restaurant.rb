@@ -6,7 +6,7 @@ class CreateRestaurant < ActiveRecord::Migration[5.2]
       table.string :location
       table.string :name
       table.text :description
-      table.references :raiting, foreign_key: true
+      table.float :raiting
     end
   end
 end

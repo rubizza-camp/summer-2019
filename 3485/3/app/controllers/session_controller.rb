@@ -4,11 +4,7 @@ class SessionController < ApplicationController
   end
 
   get '/login' do
-    if current_user
-      redirect '/'
-    else
-      erb :login
-    end
+    erb :login
   end
 
   post '/login' do
