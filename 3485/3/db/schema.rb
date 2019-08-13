@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 20_190_729_170_520) do
   create_table 'comments', force: :cascade do |t|
     t.text 'text'
-    t.integer 'user_id'
-    t.integer 'restaurant_id'
+    t.references 'user_id'
+    t.references 'restaurant_id'
     t.integer 'raiting'
     t.datetime 'created_at'
   end
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20_190_729_170_520) do
     t.string 'location'
     t.string 'name'
     t.text 'description'
-    t.float 'raiting'
+    t.references 'raiting'
   end
 
   create_table 'users', force: :cascade do |t|
