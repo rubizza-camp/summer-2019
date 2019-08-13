@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <header class="w3-container w3-teal">
+    <h1>Sign up</h1>
+  </header>
+  <body align='center'>
+    <div class="w3-container w3-half w3-margin-top">
+      <form class="w3-container w3-card-4" method="post" action="/registration">
+        <div>
+          <p>
+            <input class="w3-input" type="text" name="name" style="width:90%" required>
+            <label>Username</label>
+          </p>
+          <p>
+            <input class="w3-input" type="email" name="email" style="width:90%" required>
+            <label>Email</label>
+          </p>
+          <p>
+            <input class="w3-input" type="password" name="password" style="width:90%" required>
+            <label>Password</label>
+          </p>
+          <p>
+            <input class="w3-input" type="password" name="password_confirmation" required>
+            <label>Confirm the password</label>
+          </p><br><br>
+        </div>
+          <button class="w3-button w3-green w3-large">Sign up</button><br>
+      </form>
+        <p><a href="/">
+          <label class="w3-button w3-green w3-large" style="width:20%">Homepage</label>
+        </a></p>
+    </div>
+      <% if flash[:message] %>
+        <b><i><p class="message"><%= flash[:message] %></p></i></b>
+      <% end %>
+  </body>
+</html>

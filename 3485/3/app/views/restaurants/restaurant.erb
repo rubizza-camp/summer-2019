@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @restaurant.name %></title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+  <body>
+
+
+    <div id="nav01" class="w3-bar-block">
+      <% if current_user %>
+        <form method="post" action="/logout">
+          <button class="w3-button w3-green w3-large" >Log out</button>
+        </form>
+      <% else %>
+        <button class="w3-button w3-green w3-large" ><a href='/login'>Log in</a></button>
+        <button class="w3-button w3-green w3-large"><a href="/registration">Sign up</a></button>
+      <% end %>
+    </div>
+    <h1 align='center'><%= @restaurant.name %></h1>
+    <div align='center'>
+      <p><%= @restaurant.description %></p>
+      <p><label>Address: </label><%= @restaurant.location %></p>
+      <p><label>Average rating: </label><%= @restaurant.raiting %></p><br>
+    </div>
+    <div align='center'>
+        <% @comments.each do |comment| %>
+          <hr>
+        <%= comment.user.name %>
+        <%= comment.created_at.to_date %><br>
+        <%= comment.raiting %>-&#9733<br>
+        <%= comment.text %><br><br>
+        <% end %>
+    </div>
+    <% if current_user %>
+      <form class="comment" method="post" action="/restaurants/<%= params['id']%>/comments">
+
+          <% if @error %>
+              <b><i><p class="message"><%= @error %></p></i></b>
+          <% end %>
+          <div>
+            <p><textarea name="text" cols="50" rows="10" placeholder="Your comment"></textarea></p>
+            <input title="Your rating institution" name="raiting" type="number" min="1" max="5" step="1">
+            <label>Your mark</label><br><br>
+         </div>
+         <button class="w3-button w3-green w3-large">Leave a comment</button><br>
+      </form>
+   <% end %>
+   <p><a href="/">
+   <label class="w3-button w3-green w3-large" style="width:20%">Homepage</label></a></p>
+ </body>
+</html>
