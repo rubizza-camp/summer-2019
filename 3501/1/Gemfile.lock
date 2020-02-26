@@ -9,9 +9,9 @@ GEM
     mime-types-data (3.2019.0331)
     mini_portile2 (2.4.0)
     multi_xml (0.6.0)
-    nokogiri (1.10.3)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
-    nokogiri (1.10.3-x64-mingw32)
+    nokogiri (1.10.8-x64-mingw32)
       mini_portile2 (~> 2.4.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
@@ -23,7 +23,7 @@ PLATFORMS
 
 DEPENDENCIES
   httparty (~> 0.17.0)
-  nokogiri (~> 1.10.3)
+  nokogiri (~> 1.10.8)
   terminal-table (~> 1.8.0)
 
 BUNDLED WITH
