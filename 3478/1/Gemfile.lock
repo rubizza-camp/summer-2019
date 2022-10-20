@@ -1,4 +1,7 @@
 GEM
+  specs:
+
+GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.6.0)
@@ -6,13 +9,15 @@ GEM
     dotenv (2.7.4)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.8.0)
     multipart-post (2.1.1)
-    nokogiri (1.10.0)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.13.9)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     octokit (4.14.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     public_suffix (3.1.1)
+    racc (1.6.0)
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
@@ -25,7 +30,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv (= 2.7.4)!
-  nokogiri (= 1.10.0)!
+  nokogiri (= 1.13.9)!
   octokit (= 4.14.0)!
   terminal-table (= 1.8.0)!
 
